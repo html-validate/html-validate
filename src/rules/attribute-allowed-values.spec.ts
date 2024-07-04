@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { MetaDataTable } from "../meta";
+import { type MetaDataTable } from "../meta";
 import { processAttribute } from "../transform/mocks/attribute";
 
 const metadata: MetaDataTable = {

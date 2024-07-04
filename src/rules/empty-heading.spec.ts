@@ -1,5 +1,5 @@
-import { Location } from "../context";
-import { DynamicValue, HtmlElement } from "../dom";
+import { type Location } from "../context";
+import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 

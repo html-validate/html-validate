@@ -1,13 +1,13 @@
 import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
-import { Location, Source } from "../context";
+import { type Location, type Source } from "../context";
 import { HtmlElement, NodeClosed } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
-import { Transformer, TRANSFORMER_API } from "../transform";
-import { Plugin } from "./plugin";
+import { type Transformer, TRANSFORMER_API } from "../transform";
+import { type Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
 let config: Config;

@@ -1,7 +1,7 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
-import { Style, matchList, AllowList } from "./allowed-links";
+import { type AllowList, Style, matchList } from "./allowed-links";
 
 describe("matchList", () => {
 	it("should match if no lists are present", () => {

@@ -1,6 +1,6 @@
-import { Location } from "../../context";
+import { type Location } from "../../context";
 import { HtmlElement, NodeClosed } from "../htmlelement";
-import { SelectorContext } from "../selector-context";
+import { type SelectorContext } from "../selector-context";
 import { scope } from "./scope";
 
 const location: Location = {

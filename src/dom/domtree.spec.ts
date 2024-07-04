@@ -1,4 +1,4 @@
-import { Location } from "../context";
+import { type Location } from "../context";
 import { MetaTable } from "../meta";
 import { DOMTree } from "./domtree";
 import { HtmlElement, NodeClosed } from "./htmlelement";

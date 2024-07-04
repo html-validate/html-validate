@@ -1,6 +1,6 @@
 import { Config } from "../config";
-import { Source } from "../context";
-import { HtmlElement } from "../dom";
+import { type Source } from "../context";
+import { type HtmlElement } from "../dom";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import {

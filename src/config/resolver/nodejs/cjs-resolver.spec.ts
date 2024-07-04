@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Source } from "../../../context";
+import { type Source } from "../../../context";
 import * as resolve from "../../../resolve";
 import { type RequireError, cjsResolver } from "./cjs-resolver";
 import { determineRootDir } from "./determine-root-dir";

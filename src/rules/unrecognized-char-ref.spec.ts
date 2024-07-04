@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { RuleContext } from "./unrecognized-char-ref";
+import { type RuleContext } from "./unrecognized-char-ref";
 
 describe("rule unrecognized-char-ref", () => {
 	let htmlvalidate: HtmlValidate;

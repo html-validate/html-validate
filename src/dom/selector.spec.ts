@@ -1,9 +1,9 @@
 import { Config } from "../config";
 import { Parser } from "../parser";
 import { reset as resetDOMCounter } from "./domnode";
-import { HtmlElement } from "./htmlelement";
+import { type HtmlElement } from "./htmlelement";
 import { escapeSelectorComponent, generateIdSelector, Selector, splitPattern } from "./selector";
-import { NodeType } from "./nodetype";
+import { type NodeType } from "./nodetype";
 
 interface StrippedHtmlElement {
 	id: string | null;

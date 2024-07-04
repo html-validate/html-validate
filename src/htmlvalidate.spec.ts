@@ -1,7 +1,7 @@
 import { StaticConfigLoader } from "./browser";
-import { Config, ConfigData, ConfigLoader, ResolvedConfig, Severity } from "./config";
+import { type ConfigData, type ResolvedConfig, Config, ConfigLoader, Severity } from "./config";
 import { cjsResolver } from "./config/resolver/nodejs";
-import { Source, SourceHooks } from "./context";
+import { type Source, type SourceHooks } from "./context";
 import { HtmlValidate } from "./htmlvalidate";
 import { type Message } from "./message";
 import { Parser } from "./parser";

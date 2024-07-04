@@ -1,8 +1,8 @@
-import { codeFrameColumns, SourceLocation } from "@babel/code-frame";
+import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
 import { Config } from "../config";
-import { Location, ProcessElementContext, Source } from "../context";
+import { type Location, type ProcessElementContext, type Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
-import { EventCallback } from "../event";
+import { type EventCallback } from "../event";
 import { HtmlValidate } from "../htmlvalidate";
 import {
 	type AttrNameToken,
@@ -16,7 +16,7 @@ import {
 	TokenType,
 } from "../lexer";
 import "../jest";
-import { AttributeData } from "./attribute-data";
+import { type AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 import { ParserError } from "./parser-error";
 

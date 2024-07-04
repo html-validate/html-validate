@@ -1,4 +1,4 @@
-import { DynamicValue, HtmlElement } from "../dom";
+import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { TextContent } from "../meta";

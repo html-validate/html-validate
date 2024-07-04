@@ -1,4 +1,4 @@
-import { Location } from "../context";
+import { type Location } from "../context";
 import { parseConditionalComment } from "./conditional-comment";
 
 function mockLocation(text: string): Location {

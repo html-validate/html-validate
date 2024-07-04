@@ -1,5 +1,5 @@
 import { Config } from "../../config";
-import { Location } from "../../context";
+import { type Location } from "../../context";
 import { DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
 import { classifyNodeText, getCachekey, TextClassification } from "./text";

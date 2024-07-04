@@ -1,7 +1,7 @@
-import { HtmlElement } from "../dom";
+import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { RuleContext } from "./attribute-misuse";
+import { type RuleContext } from "./attribute-misuse";
 
 describe("rule attribute-misuse", () => {
 	let htmlvalidate: HtmlValidate;

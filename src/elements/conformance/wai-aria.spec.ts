@@ -7,8 +7,8 @@ import path from "node:path";
 import { globSync } from "glob";
 import "../../jest";
 import { ariaNaming } from "../../rules/helper";
-import { Source } from "../../context";
-import { HtmlElement } from "../../dom";
+import { type Source } from "../../context";
+import { type HtmlElement } from "../../dom";
 import { HtmlValidate } from "../../htmlvalidate";
 import waiAria from "./wai-aria";
 

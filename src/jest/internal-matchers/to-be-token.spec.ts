@@ -1,4 +1,4 @@
-import { Token, TokenType } from "../../lexer";
+import { type Token, TokenType } from "../../lexer";
 import { stripAnsi } from "../utils";
 import "../jest-internal";
 

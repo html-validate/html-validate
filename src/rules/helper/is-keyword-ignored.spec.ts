@@ -1,5 +1,5 @@
 import {
-	IncludeExcludeOptions,
+	type IncludeExcludeOptions,
 	isKeywordIgnored,
 	keywordPatternMatcher,
 } from "./is-keyword-ignored";

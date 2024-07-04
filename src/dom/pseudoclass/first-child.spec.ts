@@ -1,4 +1,4 @@
-import { Location } from "../../context";
+import { type Location } from "../../context";
 import { HtmlElement, NodeClosed } from "../htmlelement";
 import { firstChild } from "./first-child";
 

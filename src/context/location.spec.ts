@@ -1,4 +1,4 @@
-import { Location, sliceLocation } from "./location";
+import { type Location, sliceLocation } from "./location";
 
 describe("sliceLocation()", () => {
 	let location: Location;

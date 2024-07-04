@@ -1,7 +1,7 @@
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import "../jest";
-import { RuleContext } from "./form-dup-name";
+import { type RuleContext } from "./form-dup-name";
 
 describe("rule form-dup-name", () => {
 	let htmlvalidate: HtmlValidate;

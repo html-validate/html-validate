@@ -1,5 +1,5 @@
 import { Config } from "../../config";
-import { HtmlElement } from "../../dom";
+import { type HtmlElement } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { isFocusable } from "./is-focusable";

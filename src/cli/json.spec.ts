@@ -1,5 +1,5 @@
 import { type Location } from "../context";
-import { EventDump } from "../engine";
+import { type EventDump } from "../engine";
 import { eventFormatter, eventReplacer } from "./json";
 
 const location: Location = {

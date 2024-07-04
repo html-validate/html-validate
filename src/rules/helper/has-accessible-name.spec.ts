@@ -1,6 +1,6 @@
 import { Config } from "../../config";
-import { Source } from "../../context";
-import { DynamicValue, HtmlElement } from "../../dom";
+import { type Source } from "../../context";
+import { type HtmlElement, DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { hasAccessibleName } from "./has-accessible-name";

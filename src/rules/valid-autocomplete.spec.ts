@@ -1,7 +1,7 @@
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import "../jest";
-import { MessageID, RuleContext } from "./valid-autocomplete";
+import { type RuleContext, MessageID } from "./valid-autocomplete";
 
 describe("rule autocomplete", () => {
 	let htmlvalidate: HtmlValidate;

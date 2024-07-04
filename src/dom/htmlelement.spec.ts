@@ -1,7 +1,7 @@
 import { Config } from "../config";
-import { Location, Source } from "../context";
+import { type Location, type Source } from "../context";
 import { type TagCloseToken, type TagOpenToken, type Token, TokenType } from "../lexer";
-import { MetaData, MetaElement, MetaTable } from "../meta";
+import { type MetaData, type MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";

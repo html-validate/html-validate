@@ -1,7 +1,7 @@
 import "../jest";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import { RuleContext } from "./no-redundant-role";
+import { type RuleContext } from "./no-redundant-role";
 
 describe("rule no-redundant-role", () => {
 	let htmlvalidate: HtmlValidate;

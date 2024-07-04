@@ -1,4 +1,4 @@
-import { Source } from "../context";
+import { type Source } from "../context";
 import "../jest";
 import { Lexer } from "./lexer";
 import { TokenType } from "./token";

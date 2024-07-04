@@ -1,7 +1,7 @@
 import fs from "fs";
-import { Source } from "../context";
+import { type Source } from "../context";
 import { MetaTable } from "../meta";
-import { ResolvedConfig, ResolvedConfigData } from "./resolved-config";
+import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
 
 function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {
 	const metaTable = new MetaTable();

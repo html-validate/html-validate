@@ -1,8 +1,8 @@
-import { Source } from "../context";
-import { HtmlElement } from "../dom";
+import { type Source } from "../context";
+import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { Parser } from "../parser";
+import { type Parser } from "../parser";
 import metadata from "./html5";
 
 const fileDirectory = "test-files/elements";

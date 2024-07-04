@@ -1,4 +1,4 @@
-import { Source } from "../../context";
+import { type Source } from "../../context";
 import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
 import { type Transformer } from "../../transform";

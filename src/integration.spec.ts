@@ -2,12 +2,12 @@ import { globSync } from "glob";
 import { HtmlValidate } from "./htmlvalidate";
 import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
 import { FileSystemConfigLoader } from "./config/loaders/file-system";
-import { Source } from "./context";
+import { type Source } from "./context";
 import { TRANSFORMER_API } from "./transform";
-import { Plugin } from "./plugin";
+import { type Plugin } from "./plugin";
 import "./jest";
 import { Rule } from "./rule";
-import { DOMReadyEvent } from "./event";
+import { type DOMReadyEvent } from "./event";
 import { StaticConfigLoader } from "./browser";
 
 expect.addSnapshotSerializer({

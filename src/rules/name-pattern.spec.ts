@@ -1,7 +1,7 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
-import { BasePatternRuleContext } from "./base-pattern-rule";
+import { type BasePatternRuleContext } from "./base-pattern-rule";
 
 describe("rule name-pattern", () => {
 	let htmlvalidate: HtmlValidate;

@@ -1,5 +1,5 @@
 import { Config } from "../config";
-import { Location } from "../context";
+import { type Location } from "../context";
 import { Parser } from "../parser";
 import { DOMNode } from "./domnode";
 import { HtmlElement, NodeClosed } from "./htmlelement";

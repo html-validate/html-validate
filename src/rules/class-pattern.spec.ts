@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { BasePatternRuleContext } from "./base-pattern-rule";
+import { type BasePatternRuleContext } from "./base-pattern-rule";
 
 describe("rule class-pattern", () => {
 	let htmlvalidate: HtmlValidate;

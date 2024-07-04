@@ -1,9 +1,9 @@
 import { Config, ResolvedConfig } from "../config";
-import { Location } from "../context";
-import { Attribute, DynamicValue, HtmlElement } from "../dom";
+import { type Location } from "../context";
+import { type HtmlElement, Attribute, DynamicValue } from "../dom";
 import { Parser } from "../parser";
-import { MetaAttribute, PermittedEntry } from "./element";
-import { MetaData, MetaTable, Validator } from ".";
+import { type MetaAttribute, type PermittedEntry } from "./element";
+import { type MetaData, MetaTable, Validator } from ".";
 
 const location: Location = {
 	filename: "inline",

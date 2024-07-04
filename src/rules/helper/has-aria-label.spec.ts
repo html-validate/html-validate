@@ -1,4 +1,4 @@
-import { Location } from "../../context";
+import { type Location } from "../../context";
 import { DynamicValue, HtmlElement, NodeClosed } from "../../dom";
 import { hasAriaLabel } from "./has-aria-label";
 

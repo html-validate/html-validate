@@ -1,8 +1,8 @@
 import { globSync } from "glob";
-import { Source } from "./context";
+import { type Source } from "./context";
 import { DynamicValue } from "./dom";
 import { HtmlValidate } from "./htmlvalidate";
-import { AttributeData } from "./parser";
+import { type AttributeData } from "./parser";
 import { TRANSFORMER_API } from "./transform";
 import { StaticConfigLoader, staticResolver } from "./browser";
 

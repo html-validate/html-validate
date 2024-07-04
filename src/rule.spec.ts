@@ -1,9 +1,9 @@
 import path from "node:path";
-import { Config, ConfigData, Severity } from "./config";
-import { Location } from "./context";
+import { type ConfigData, Config, Severity } from "./config";
+import { type Location } from "./context";
 import { HtmlElement, NodeClosed } from "./dom";
 import { createBlocker } from "./engine";
-import { Event, EventCallback, TagEndEvent, TagStartEvent } from "./event";
+import { type Event, type EventCallback, type TagEndEvent, type TagStartEvent } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl, type SchemaObject } from "./rule";

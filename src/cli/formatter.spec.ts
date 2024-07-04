@@ -1,6 +1,6 @@
 import fs from "fs";
 import { vol } from "memfs";
-import { Report } from "../reporter";
+import { type Report } from "../reporter";
 import { CLI } from "./cli";
 
 jest.mock("fs");

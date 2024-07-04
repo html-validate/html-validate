@@ -1,7 +1,7 @@
 import fs from "fs";
-import { Source } from "../context";
+import { type Source } from "../context";
 import { transformFile, transformSource, transformString } from "./test-utils";
-import { TransformContext } from ".";
+import { type TransformContext } from ".";
 
 jest.mock("fs");
 

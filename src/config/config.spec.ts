@@ -1,8 +1,8 @@
-import { Source } from "../context";
+import { type Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
 import { TRANSFORMER_API } from "../transform";
-import { Plugin } from "../plugin";
+import { type Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
 import { staticResolver } from "./resolver";

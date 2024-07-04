@@ -1,4 +1,4 @@
-import { Location } from "../context";
+import { type Location } from "../context";
 import { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
 import { DynamicValue } from "./dynamic-value";
 

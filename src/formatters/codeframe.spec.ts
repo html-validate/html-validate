@@ -13,7 +13,7 @@ import {
 const defaultColor = process.env.FORCE_COLOR;
 process.env.FORCE_COLOR = "1";
 
-import { codeframe, CodeframeOptions } from "./codeframe";
+import { type CodeframeOptions, codeframe } from "./codeframe";
 
 /* restore color, need only to be set when importing library */
 process.env.FORCE_COLOR = defaultColor;

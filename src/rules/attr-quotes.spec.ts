@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
-import { RuleStyleContext, RuleUnquotedContext } from "./attr-quotes";
+import { type RuleStyleContext, type RuleUnquotedContext } from "./attr-quotes";
 
 describe("rule attr-quotes", () => {
 	let htmlvalidate: HtmlValidate;
