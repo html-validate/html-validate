@@ -240,7 +240,7 @@
     "marked": "12.0.2",
     "memfs": "4.9.3",
     "npm-pkg-lint": "3.6.4",
-    "npm-run-all2": "6.2.1",
+    "npm-run-all2": "6.2.2",
     "rollup": "4.18.0",
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.3",
