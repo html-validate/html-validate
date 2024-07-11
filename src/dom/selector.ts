@@ -144,7 +144,6 @@ export function* splitPattern(pattern: string): Generator<string> {
 	yield tail;
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- https://github.com/typescript-eslint/typescript-eslint/issues/9359 */
 abstract class Matcher {
 	/**
 	 * Returns `true` if given node matches.
