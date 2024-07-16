@@ -4,6 +4,7 @@ import { type CategoryOrTag, Validator } from "../meta";
 import { type Permitted, type PermittedEntry } from "../meta/element";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { naturalJoin } from "../utils/natural-join";
+import { walk } from "../utils";
 
 export interface RuleContext {
 	parent: string;
@@ -65,7 +66,7 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
 				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()

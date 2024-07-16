@@ -1,5 +1,6 @@
 import { type Location } from "../context";
 import { MetaTable } from "../meta";
+import { walk } from "../utils";
 import { DOMTree } from "./domtree";
 import { HtmlElement, NodeClosed } from "./htmlelement";
 
@@ -54,12 +55,12 @@ describe("DOMTree", () => {
 		expect(spy).toHaveBeenCalledWith(tagName);
 	});
 
-	it("visitDepthFirst() should delegate call to root element", () => {
+	it("deprecated visitDepthFirst() should delegate to helper function", () => {
 		expect.assertions(1);
-		const spy = jest.spyOn(tree.root, "visitDepthFirst");
+		const spy = jest.spyOn(walk, "depthFirst");
 		const cb = jest.fn();
 		tree.visitDepthFirst(cb);
-		expect(spy).toHaveBeenCalledWith(cb);
+		expect(spy).toHaveBeenCalledWith(tree, cb);
 	});
 
 	it("find() should delegate call to root element", () => {

@@ -1,5 +1,6 @@
 import { type Location } from "../context";
 import { type MetaTable } from "../meta";
+import { walk } from "../utils";
 import { HtmlElement } from "./htmlelement";
 
 /**
@@ -62,18 +63,21 @@ export class DOMTree {
 	 * @internal
 	 */
 	public resolveMeta(table: MetaTable): void {
-		this.visitDepthFirst((node: HtmlElement) => {
+		this._readyState = "complete";
+		walk.depthFirst(this, (node: HtmlElement) => {
 			table.resolve(node);
 		});
-		this._readyState = "complete";
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.root.getElementsByTagName(tagName);
 	}
 
+	/**
+	 * @deprecated use utility function `walk.depthFirst(..)` instead (since %version%).
+	 */
 	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
-		this.root.visitDepthFirst(callback);
+		walk.depthFirst(this, callback);
 	}
 
 	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {

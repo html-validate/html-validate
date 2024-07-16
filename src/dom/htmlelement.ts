@@ -604,22 +604,6 @@ export class HtmlElement extends DOMNode {
 	}
 
 	/**
-	 * Visit all nodes from this node and down. Depth first.
-	 *
-	 * @internal
-	 */
-	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
-		function visit(node: HtmlElement): void {
-			node.childElements.forEach(visit);
-			if (!node.isRootElement()) {
-				callback(node);
-			}
-		}
-
-		visit(this);
-	}
-
-	/**
 	 * Evaluates callbackk on all descendants, returning true if any are true.
 	 *
 	 * @internal

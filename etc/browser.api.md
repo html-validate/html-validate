@@ -382,7 +382,7 @@ export class DOMTree {
     resolveMeta(table: MetaTable): void;
     // (undocumented)
     readonly root: HtmlElement;
-    // (undocumented)
+    // @deprecated (undocumented)
     visitDepthFirst(callback: (node: HtmlElement) => void): void;
 }
 
@@ -517,8 +517,6 @@ export class HtmlElement extends DOMNode {
     get tabIndex(): number | null;
     // (undocumented)
     readonly tagName: string;
-    // @internal
-    visitDepthFirst(callback: (node: HtmlElement) => void): void;
     // (undocumented)
     readonly voidElement: boolean;
 }
@@ -1492,6 +1490,14 @@ export class Validator {
 
 // @public (undocumented)
 export const version: string;
+
+// @public (undocumented)
+export interface Walk {
+    depthFirst(this: void, root: HtmlElement | DOMTree, callback: (node: HtmlElement) => void): void;
+}
+
+// @public
+export const walk: Walk;
 
 // @public
 export interface WhitespaceEvent extends Event_2 {

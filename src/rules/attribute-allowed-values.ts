@@ -3,6 +3,7 @@ import { type HtmlElement, type Attribute } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { walk } from "../utils";
 
 interface Context {
 	element: string;
@@ -58,7 +59,7 @@ export default class AttributeAllowedValues extends Rule<Context> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				const meta = node.meta;
 
 				/* ignore rule if element has no meta or meta does not specify attribute

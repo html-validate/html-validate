@@ -1027,25 +1027,6 @@ describe("HtmlElement", () => {
 		});
 	});
 
-	describe("visitDepthFirst()", () => {
-		it("should visit all nodes in correct order", () => {
-			expect.assertions(1);
-			const root = HtmlElement.rootNode({
-				filename: "inline",
-				offset: 0,
-				line: 1,
-				column: 1,
-				size: 1,
-			});
-			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
-			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
-			const c = new HtmlElement("c", b, NodeClosed.EndTag, null, location);
-			const order: string[] = [];
-			root.visitDepthFirst((node: HtmlElement) => order.push(node.tagName));
-			expect(order).toEqual([a.tagName, c.tagName, b.tagName]);
-		});
-	});
-
 	describe("someChildren()", () => {
 		it("should return true if any child node evaluates to true", () => {
 			expect.assertions(1);

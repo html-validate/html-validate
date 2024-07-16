@@ -2,6 +2,7 @@ import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute } from "../meta/element";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { walk } from "../utils";
 
 interface RuleOptions {
 	style: "omit" | "empty";
@@ -40,7 +41,7 @@ export default class AttributeEmptyStyle extends Rule<void, RuleOptions> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				const meta = node.meta;
 
 				/* ignore rule if element has no meta or meta does not specify attribute

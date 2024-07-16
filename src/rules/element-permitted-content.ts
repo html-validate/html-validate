@@ -3,6 +3,7 @@ import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { type Permitted } from "../meta/element";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { walk } from "../utils";
 
 export enum ErrorKind {
 	CONTENT = "content",
@@ -60,7 +61,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
 				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
