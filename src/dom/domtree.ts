@@ -10,16 +10,25 @@ export class DOMTree {
 	private active: HtmlElement;
 	public doctype: string | null;
 
+	/**
+	 * @internal
+	 */
 	public constructor(location: Location) {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
 	}
 
+	/**
+	 * @internal
+	 */
 	public pushActive(node: HtmlElement): void {
 		this.active = node;
 	}
 
+	/**
+	 * @internal
+	 */
 	public popActive(): void {
 		if (this.active.isRootElement()) {
 			/* root element should never be popped, continue as if nothing happened */
@@ -28,12 +37,17 @@ export class DOMTree {
 		this.active = this.active.parent ?? this.root;
 	}
 
+	/**
+	 * @internal
+	 */
 	public getActive(): HtmlElement {
 		return this.active;
 	}
 
 	/**
 	 * Resolve dynamic meta expressions.
+	 *
+	 * @internal
 	 */
 	public resolveMeta(table: MetaTable): void {
 		this.visitDepthFirst((node: HtmlElement) => {
