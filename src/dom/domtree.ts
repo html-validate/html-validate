@@ -80,6 +80,9 @@ export class DOMTree {
 		walk.depthFirst(this, callback);
 	}
 
+	/**
+	 * @deprecated use `querySelector(..)` instead (since %version%)
+	 */
 	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
 		return this.root.find(callback);
 	}
