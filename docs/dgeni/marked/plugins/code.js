@@ -1,4 +1,11 @@
-const prettier = require("prettier");
+const { createSyncFn } = require("synckit");
+
+const prettier = {
+	/** @type {import("prettier").resolveConfig} */
+	resolveConfig: createSyncFn(require.resolve("./prettier-resolve-config.mjs")),
+	/** @type {import("prettier").format} */
+	format: createSyncFn(require.resolve("./prettier-format.mjs")),
+};
 
 /**
  * @typedef {import("../../example/services/example").Example} Example
@@ -15,7 +22,7 @@ function stripEslintComments(code) {
 }
 
 const isEmpty = RegExp.prototype.test.bind(/^\s*$/);
-const prettierConfig = prettier.resolveConfig.sync("docs/stub.js", {
+const prettierConfig = prettier.resolveConfig("docs/stub.js", {
 	editorconfig: true,
 });
 
