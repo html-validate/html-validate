@@ -377,6 +377,7 @@ export class DOMTree {
     querySelector(selector: string): HtmlElement | null;
     // (undocumented)
     querySelectorAll(selector: string): HtmlElement[];
+    get readyState(): "loading" | "complete";
     // @internal
     resolveMeta(table: MetaTable): void;
     // (undocumented)

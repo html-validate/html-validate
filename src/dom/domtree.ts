@@ -8,6 +8,7 @@ import { HtmlElement } from "./htmlelement";
 export class DOMTree {
 	public readonly root: HtmlElement;
 	private active: HtmlElement;
+	private _readyState: "loading" | "complete";
 	public doctype: string | null;
 
 	/**
@@ -17,6 +18,7 @@ export class DOMTree {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
+		this._readyState = "loading";
 	}
 
 	/**
@@ -45,6 +47,16 @@ export class DOMTree {
 	}
 
 	/**
+	 * Describes the loading state of the document.
+	 *
+	 * When `"loading"` it is still not safe to use functions such as
+	 * `querySelector` or presence of attributes, child nodes, etc.
+	 */
+	public get readyState(): "loading" | "complete" {
+		return this._readyState;
+	}
+
+	/**
 	 * Resolve dynamic meta expressions.
 	 *
 	 * @internal
@@ -53,6 +65,7 @@ export class DOMTree {
 		this.visitDepthFirst((node: HtmlElement) => {
 			table.resolve(node);
 		});
+		this._readyState = "complete";
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
