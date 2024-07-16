@@ -1,10 +1,10 @@
 {
   "name": "tests-vitest",
   "private": true,
+  "files": [],
   "scripts": {
     "test": "vitest run --no-coverage"
   },
-  "files": [],
   "devDependencies": {
     "vite": "4.5.3",
     "vitest": "0.34.6"
