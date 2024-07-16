@@ -2,6 +2,7 @@ import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { walk } from "../utils";
 
 export default class ElementPermittedOccurrences extends Rule {
 	public documentation(): RuleDocumentation {
@@ -14,7 +15,7 @@ export default class ElementPermittedOccurrences extends Rule {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				if (!node.meta) {
 					return;
 				}

@@ -409,7 +409,7 @@ export class DOMTree {
     constructor(location: Location_2);
     // (undocumented)
     doctype: string | null;
-    // (undocumented)
+    // @deprecated (undocumented)
     find(callback: (node: HtmlElement) => boolean): HtmlElement | null;
     // @internal (undocumented)
     getActive(): HtmlElement;
@@ -423,11 +423,12 @@ export class DOMTree {
     querySelector(selector: string): HtmlElement | null;
     // (undocumented)
     querySelectorAll(selector: string): HtmlElement[];
+    get readyState(): "loading" | "complete";
     // @internal
     resolveMeta(table: MetaTable): void;
     // (undocumented)
     readonly root: HtmlElement;
-    // (undocumented)
+    // @deprecated (undocumented)
     visitDepthFirst(callback: (node: HtmlElement) => void): void;
 }
 
@@ -603,8 +604,6 @@ export class HtmlElement extends DOMNode {
     get tabIndex(): number | null;
     // (undocumented)
     readonly tagName: string;
-    // @internal
-    visitDepthFirst(callback: (node: HtmlElement) => void): void;
     // (undocumented)
     readonly voidElement: boolean;
 }
@@ -1592,6 +1591,14 @@ export class Validator {
 
 // @public (undocumented)
 export const version: string;
+
+// @public (undocumented)
+export interface Walk {
+    depthFirst(this: void, root: HtmlElement | DOMTree, callback: (node: HtmlElement) => void): void;
+}
+
+// @public
+export const walk: Walk;
 
 // @public
 export interface WhitespaceEvent extends Event_2 {

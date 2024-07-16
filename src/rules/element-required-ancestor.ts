@@ -3,6 +3,7 @@ import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { naturalJoin } from "../utils/natural-join";
+import { walk } from "../utils";
 
 export interface RuleContext {
 	ancestor: string[];
@@ -29,7 +30,7 @@ export default class ElementRequiredAncestor extends Rule<RuleContext> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const doc = event.document;
-			doc.visitDepthFirst((node: HtmlElement) => {
+			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
 				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()

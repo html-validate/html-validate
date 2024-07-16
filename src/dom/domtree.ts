@@ -1,5 +1,6 @@
 import { type Location } from "../context";
 import { type MetaTable } from "../meta";
+import { walk } from "../utils";
 import { HtmlElement } from "./htmlelement";
 
 /**
@@ -8,6 +9,7 @@ import { HtmlElement } from "./htmlelement";
 export class DOMTree {
 	public readonly root: HtmlElement;
 	private active: HtmlElement;
+	private _readyState: "loading" | "complete";
 	public doctype: string | null;
 
 	/**
@@ -17,6 +19,7 @@ export class DOMTree {
 		this.root = HtmlElement.rootNode(location);
 		this.active = this.root;
 		this.doctype = null;
+		this._readyState = "loading";
 	}
 
 	/**
@@ -45,12 +48,23 @@ export class DOMTree {
 	}
 
 	/**
+	 * Describes the loading state of the document.
+	 *
+	 * When `"loading"` it is still not safe to use functions such as
+	 * `querySelector` or presence of attributes, child nodes, etc.
+	 */
+	public get readyState(): "loading" | "complete" {
+		return this._readyState;
+	}
+
+	/**
 	 * Resolve dynamic meta expressions.
 	 *
 	 * @internal
 	 */
 	public resolveMeta(table: MetaTable): void {
-		this.visitDepthFirst((node: HtmlElement) => {
+		this._readyState = "complete";
+		walk.depthFirst(this, (node: HtmlElement) => {
 			table.resolve(node);
 		});
 	}
@@ -59,10 +73,16 @@ export class DOMTree {
 		return this.root.getElementsByTagName(tagName);
 	}
 
+	/**
+	 * @deprecated use utility function `walk.depthFirst(..)` instead (since %version%).
+	 */
 	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
-		this.root.visitDepthFirst(callback);
+		walk.depthFirst(this, callback);
 	}
 
+	/**
+	 * @deprecated use `querySelector(..)` instead (since %version%)
+	 */
 	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
 		return this.root.find(callback);
 	}
