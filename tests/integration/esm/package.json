@@ -1,6 +1,6 @@
 {
-  "type": "module",
   "private": true,
+  "type": "module",
   "dependencies": {
     "html-validate": "file:../../.."
   }
