@@ -405,23 +405,25 @@ export { DOMTokenList_2 as DOMTokenList }
 
 // @public (undocumented)
 export class DOMTree {
+    // @internal
     constructor(location: Location_2);
     // (undocumented)
     doctype: string | null;
     // (undocumented)
     find(callback: (node: HtmlElement) => boolean): HtmlElement | null;
-    // (undocumented)
+    // @internal (undocumented)
     getActive(): HtmlElement;
     // (undocumented)
     getElementsByTagName(tagName: string): HtmlElement[];
-    // (undocumented)
+    // @internal (undocumented)
     popActive(): void;
-    // (undocumented)
+    // @internal (undocumented)
     pushActive(node: HtmlElement): void;
     // (undocumented)
     querySelector(selector: string): HtmlElement | null;
     // (undocumented)
     querySelectorAll(selector: string): HtmlElement[];
+    // @internal
     resolveMeta(table: MetaTable): void;
     // (undocumented)
     readonly root: HtmlElement;
