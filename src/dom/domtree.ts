@@ -74,14 +74,14 @@ export class DOMTree {
 	}
 
 	/**
-	 * @deprecated use utility function `walk.depthFirst(..)` instead (since %version%).
+	 * @deprecated use utility function `walk.depthFirst(..)` instead (since 8.21.0).
 	 */
 	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
 		walk.depthFirst(this, callback);
 	}
 
 	/**
-	 * @deprecated use `querySelector(..)` instead (since %version%)
+	 * @deprecated use `querySelector(..)` instead (since 8.21.0)
 	 */
 	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
 		return this.root.find(callback);

@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 8.21.0 (2024-07-20)
+
+### Features
+
+- **api:** add `DOMTree.readyState` ([1f6f69b](https://gitlab.com/html-validate/html-validate/commit/1f6f69b7fdb0e70c874d649b5d5dd5382838c068))
+- **api:** deprecate `DOMTree.find(..)` in favour of `querySelector(..)` ([ac0bb77](https://gitlab.com/html-validate/html-validate/commit/ac0bb77a3eef19d82bf2e6aaced76dd90eef42a5))
+- **api:** internal methods of `DOMTree` removed from public API ([79a03be](https://gitlab.com/html-validate/html-validate/commit/79a03be60459ac01728e33017da7829bad323b13))
+- **api:** new `walk.depthFirst(..)` API to replace now deprecated `DOMTree.visitDepthFirst(..)` method ([f9dbda0](https://gitlab.com/html-validate/html-validate/commit/f9dbda0a3c7e189d72d2f7870dc7c7074db7f7a2))
+
+### Bug Fixes
+
+- **html5:** `spellcheck` is a global attribute ([46594a1](https://gitlab.com/html-validate/html-validate/commit/46594a18fa3db2b85c496026bf1e9bd4eaa45b78))
+
 ## 8.20.1 (2024-06-11)
 
 ### Bug Fixes

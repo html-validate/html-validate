@@ -2,7 +2,7 @@ import { type HtmlElement, DOMTree } from "../dom";
 
 /**
  * @public
- * @since %version%
+ * @since 8.21.0
  */
 export interface Walk {
 	/**
@@ -10,7 +10,7 @@ export interface Walk {
 	 * (in-order) manner, i.e. any children will be visited before its parent.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.21.0
 	 * @param root - Element or document to visit nodes from.
 	 * @param callback - Callback executed for each node.
 	 */
@@ -43,7 +43,7 @@ function depthFirst(
  * Helper functions to walk the DOM tree.
  *
  * @public
- * @since %version%
+ * @since 8.21.0
  */
 export const walk: Walk = {
 	depthFirst,
