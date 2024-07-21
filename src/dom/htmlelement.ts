@@ -22,6 +22,20 @@ declare module "./cache" {
 	}
 }
 
+interface HtmlElementDetails {
+	nodeType: typeof NodeType.ELEMENT_NODE;
+	tagName: string;
+	parent: HtmlElement | null;
+	closed: NodeClosed;
+	meta: MetaElement | null;
+	location: Location;
+}
+
+interface HtmlElementRootDetails {
+	nodeType: typeof NodeType.DOCUMENT_NODE;
+	location: Location;
+}
+
 /**
  * @public
  */
@@ -76,14 +90,23 @@ export class HtmlElement extends DOMNode {
 	/** @internal */
 	public readonly _adapter: HtmlElementLike;
 
-	private constructor(
-		nodeType: NodeType,
-		tagName: string | undefined,
-		parent: HtmlElement | null,
-		closed: NodeClosed,
-		meta: MetaElement | null,
-		location: Location,
-	) {
+	private constructor(details: HtmlElementDetails | HtmlElementRootDetails);
+	private constructor(details: {
+		nodeType: NodeType;
+		tagName?: string;
+		parent?: HtmlElement | null;
+		closed?: NodeClosed;
+		meta?: MetaElement | null;
+		location: Location;
+	}) {
+		const {
+			nodeType,
+			tagName,
+			parent = null,
+			closed = NodeClosed.EndTag,
+			meta = null,
+			location,
+		} = details;
 		super(nodeType, tagName, location);
 
 		if (isInvalidTagName(tagName)) {
@@ -132,21 +155,24 @@ export class HtmlElement extends DOMNode {
 		details: { closed?: NodeClosed; meta?: MetaElement | null; parent?: HtmlElement } = {},
 	): HtmlElement {
 		const { closed = NodeClosed.EndTag, meta = null, parent = null } = details;
-		return new HtmlElement(NodeType.ELEMENT_NODE, tagName, parent, closed, meta, location);
+		return new HtmlElement({
+			nodeType: NodeType.ELEMENT_NODE,
+			tagName,
+			parent,
+			closed,
+			meta,
+			location,
+		});
 	}
 
 	/**
 	 * @internal
 	 */
 	public static rootNode(location: Location): HtmlElement {
-		const root = new HtmlElement(
-			NodeType.DOCUMENT_NODE,
-			undefined,
-			null,
-			NodeClosed.EndTag,
-			null,
+		const root = new HtmlElement({
+			nodeType: NodeType.DOCUMENT_NODE,
 			location,
-		);
+		});
 		root.setAnnotation("#document");
 		return root;
 	}
@@ -176,14 +202,14 @@ export class HtmlElement extends DOMNode {
 		/* location contains position of '<' so strip it out */
 		const location = sliceLocation(startToken.location, 1);
 
-		return new HtmlElement(
-			NodeType.ELEMENT_NODE,
+		return new HtmlElement({
+			nodeType: NodeType.ELEMENT_NODE,
 			tagName,
-			open ? parent : null,
+			parent: open ? parent : null,
 			closed,
 			meta,
 			location,
-		);
+		});
 	}
 
 	/**
