@@ -1,5 +1,5 @@
 import { type Location } from "../../context";
-import { HtmlElement, NodeClosed } from "../htmlelement";
+import { HtmlElement } from "../htmlelement";
 import { type SelectorContext } from "../selector-context";
 import { scope } from "./scope";
 
@@ -13,9 +13,9 @@ const location: Location = {
 
 it("should return true if matching itself", () => {
 	expect.assertions(2);
-	const parent = new HtmlElement("parent", null, NodeClosed.EndTag, null, location);
-	const a = new HtmlElement("a", parent, NodeClosed.EndTag, null, location);
-	const b = new HtmlElement("b", parent, NodeClosed.EndTag, null, location);
+	const parent = HtmlElement.createElement("parent", location);
+	const a = HtmlElement.createElement("a", location, { parent });
+	const b = HtmlElement.createElement("b", location, { parent });
 	const context: SelectorContext = {
 		scope: a,
 	};

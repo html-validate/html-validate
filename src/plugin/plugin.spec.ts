@@ -1,7 +1,7 @@
 import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
 import { type Location, type Source } from "../context";
-import { HtmlElement, NodeClosed } from "../dom";
+import { HtmlElement } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
@@ -316,7 +316,7 @@ describe("Plugin", () => {
 			const metaTable = config.getMetaTable();
 			const a = metaTable.getMetaFor("my-element");
 			const b = metaTable.getMetaFor("my-element:real");
-			const node = new HtmlElement("my-element", null, NodeClosed.EndTag, a, location);
+			const node = HtmlElement.createElement("my-element", location, { meta: a });
 			node.loadMeta(b!);
 			expect(node.meta).toEqual({
 				tagName: "my-element",

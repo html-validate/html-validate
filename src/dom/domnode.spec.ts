@@ -2,7 +2,7 @@ import { Config } from "../config";
 import { type Location } from "../context";
 import { Parser } from "../parser";
 import { DOMNode } from "./domnode";
-import { HtmlElement, NodeClosed } from "./htmlelement";
+import { HtmlElement } from "./htmlelement";
 import { NodeType } from "./nodetype";
 import { TextNode } from "./text";
 
@@ -113,9 +113,9 @@ describe("DOMNode", () => {
 	describe("textContent", () => {
 		it("should get text from children", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
-			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
-			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
+			const root = HtmlElement.createElement("root", location);
+			const a = HtmlElement.createElement("a", location, { parent: root });
+			const b = HtmlElement.createElement("b", location, { parent: root });
 			a.appendText("foo", location);
 			b.appendText("bar", location);
 			expect(root.textContent).toBe("foobar");
@@ -123,10 +123,10 @@ describe("DOMNode", () => {
 
 		it("should get text from children (recursive)", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
-			const a = new HtmlElement("a", root, NodeClosed.EndTag, null, location);
-			const b = new HtmlElement("b", root, NodeClosed.EndTag, null, location);
-			const c = new HtmlElement("b", b, NodeClosed.EndTag, null, location);
+			const root = HtmlElement.createElement("root", location);
+			const a = HtmlElement.createElement("a", location, { parent: root });
+			const b = HtmlElement.createElement("b", location, { parent: root });
+			const c = HtmlElement.createElement("b", location, { parent: b });
 			a.appendText("foo", location);
 			c.appendText("bar", location);
 			expect(root.textContent).toBe("foobar");
@@ -134,10 +134,10 @@ describe("DOMNode", () => {
 
 		it("should get text from children intermixed with text", () => {
 			expect.assertions(1);
-			const root = new HtmlElement("root", null, NodeClosed.EndTag, null, location);
-			const a = new HtmlElement("a", null, NodeClosed.EndTag, null, location);
+			const root = HtmlElement.createElement("root", location);
+			const a = HtmlElement.createElement("a", location);
 			const b = new TextNode(" bar ", location);
-			const c = new HtmlElement("c", null, NodeClosed.EndTag, null, location);
+			const c = HtmlElement.createElement("c", location);
 			a.appendText("foo", location);
 			c.appendText("baz", location);
 			root.append(a);

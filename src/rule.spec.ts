@@ -1,7 +1,7 @@
 import path from "node:path";
 import { type ConfigData, Config, Severity } from "./config";
 import { type Location } from "./context";
-import { HtmlElement, NodeClosed } from "./dom";
+import { HtmlElement } from "./dom";
 import { createBlocker } from "./engine";
 import { type Event, type EventCallback, type TagEndEvent, type TagStartEvent } from "./event";
 import { Parser } from "./parser";
@@ -70,7 +70,7 @@ describe("rule base class", () => {
 
 		it('should add message with severity "warn"', () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -87,7 +87,7 @@ describe("rule base class", () => {
 
 		it('should add message with severity "error"', () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -127,7 +127,7 @@ describe("rule base class", () => {
 
 		it("should use explicit location if provided", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo", mockLocation);
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -143,7 +143,7 @@ describe("rule base class", () => {
 
 		it("should use event location if no explicit location", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.on("*", () => null);
 			const callback = parserOn.mock.calls[0][1];
 			callback("event", mockEvent);
@@ -162,7 +162,7 @@ describe("rule base class", () => {
 
 		it("should use node location if no node location", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, mockLocation);
+			const node = HtmlElement.createElement("foo", mockLocation);
 			rule.report(node, "foo");
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -179,7 +179,7 @@ describe("rule base class", () => {
 		it("should set context if provided", () => {
 			expect.assertions(1);
 			const context = { foo: "bar" };
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo", null, context);
 			expect(reporter.add).toHaveBeenCalledWith(
 				rule,
@@ -195,7 +195,7 @@ describe("rule base class", () => {
 
 		it("should not add message if node has disabled rule", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			node.disableRule("mock-rule");
 			rule.setServerity(Severity.ERROR);
 			rule.report(node, "foo");
@@ -204,7 +204,7 @@ describe("rule base class", () => {
 
 		it("should interpolate string", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			const context: RuleContext = { foo: "bar" };
 			rule.report(node, "foo {{ foo }}", mockLocation, context);
 			expect(reporter.add).toHaveBeenCalledWith(
@@ -221,7 +221,7 @@ describe("rule base class", () => {
 
 		it("should trigger rule:error event", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			const trigger = jest.spyOn(parser, "trigger");
 			rule.report(node, "foo");
 			expect(trigger).toHaveBeenCalledWith("rule:error", {
@@ -234,7 +234,7 @@ describe("rule base class", () => {
 
 		it("should add error from descriptor object", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+			const node = HtmlElement.createElement("foo", location);
 			rule.report({
 				node,
 				message: "foo",
@@ -406,7 +406,7 @@ describe("isBlocked()", () => {
 	it("should return false if rule or node isn't blocked", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		expect(rule.isBlocked(node)).toBeFalsy();
 	});
 
@@ -419,7 +419,7 @@ describe("isBlocked()", () => {
 	it("should return true if rule is blocked", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		const blocker = createBlocker();
 		rule.block(blocker);
 		expect(rule.isBlocked(node)).toBeTruthy();
@@ -436,7 +436,7 @@ describe("isBlocked()", () => {
 	it("should return true if node is blocked", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		const blocker = createBlocker();
 		node.blockRule(rule.name, blocker);
 		expect(rule.isBlocked(node)).toBeTruthy();
@@ -453,14 +453,14 @@ describe("getBlockers()", () => {
 	it("should return empty list if rule and node isn't blocked", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		expect(rule.getBlockers(node)).toEqual([]);
 	});
 
 	it("should return rule blocker if present", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		const blocker = createBlocker();
 		rule.block(blocker);
 		expect(rule.getBlockers(node)).toEqual([blocker]);
@@ -469,7 +469,7 @@ describe("getBlockers()", () => {
 	it("should return node blocker if present", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		const blocker = createBlocker();
 		node.blockRule(rule.name, blocker);
 		expect(rule.getBlockers(node)).toEqual([blocker]);
@@ -478,7 +478,7 @@ describe("getBlockers()", () => {
 	it("should return merged list if both rule and node is blocked", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
-		const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		const node = HtmlElement.createElement("foo", location);
 		const blocker1 = createBlocker();
 		const blocker2 = createBlocker();
 		const blocker3 = createBlocker();

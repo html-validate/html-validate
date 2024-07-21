@@ -468,6 +468,11 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     closed: NodeClosed;
     closest(selectors: string): HtmlElement | null;
+    static createElement(tagName: string, location: Location_2, details?: {
+        closed?: NodeClosed;
+        meta?: MetaElement | null;
+        parent?: HtmlElement;
+    }): HtmlElement;
     // (undocumented)
     readonly depth: number;
     // @internal
