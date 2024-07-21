@@ -76,7 +76,7 @@ export class HtmlElement extends DOMNode {
 	/** @internal */
 	public readonly _adapter: HtmlElementLike;
 
-	public constructor(
+	private constructor(
 		tagName: string | undefined,
 		parent: HtmlElement | null,
 		closed: NodeClosed,
@@ -110,6 +110,29 @@ export class HtmlElement extends DOMNode {
 				cur = cur.parent;
 			}
 		}
+	}
+
+	/**
+	 * Manually create a new element. This is primary useful for test-cases. While
+	 * the API is public it is not meant for general consumption and is not
+	 * guaranteed to be stable across versions.
+	 *
+	 * Use at your own risk. Prefer to use [[Parser]] to parse a string of markup
+	 * instead.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param tagName - Element tagname.
+	 * @param location - Element location.
+	 * @param details - Additional element details.
+	 */
+	public static createElement(
+		tagName: string,
+		location: Location,
+		details: { closed?: NodeClosed; meta?: MetaElement | null; parent?: HtmlElement } = {},
+	): HtmlElement {
+		const { closed = NodeClosed.EndTag, meta = null, parent = null } = details;
+		return new HtmlElement(tagName, parent, closed, meta, location);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 import { Config } from "../../config";
-import { HtmlElement, NodeClosed } from "../../dom";
+import { type Location } from "../../context";
+import { HtmlElement } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import {
@@ -10,6 +11,14 @@ import {
 	isPresentation,
 	isStyleHidden,
 } from "./a11y";
+
+const location: Location = {
+	filename: "inline",
+	line: 1,
+	column: 1,
+	offset: 0,
+	size: 1,
+};
 
 describe("a11y helpers", () => {
 	let parser: Parser;
@@ -125,13 +134,7 @@ describe("a11y helpers", () => {
 
 		it("should handle missing parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			});
+			const node = HtmlElement.createElement("foo", location);
 			expect(inAccessibilityTree(node)).toBeTruthy();
 		});
 	});
@@ -205,13 +208,7 @@ describe("a11y helpers", () => {
 
 		it("should handle missing parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			});
+			const node = HtmlElement.createElement("foo", location);
 			expect(isAriaHidden(node)).toBeFalsy();
 		});
 
@@ -300,13 +297,7 @@ describe("a11y helpers", () => {
 
 		it("should handle missing parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			});
+			const node = HtmlElement.createElement("foo", location);
 			expect(isHTMLHidden(node)).toBeFalsy();
 		});
 
@@ -396,13 +387,7 @@ describe("a11y helpers", () => {
 
 		it("should handle missing parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			});
+			const node = HtmlElement.createElement("foo", location);
 			expect(isInert(node)).toBeFalsy();
 		});
 
@@ -595,13 +580,7 @@ describe("a11y helpers", () => {
 
 		it("should handle missing parent", () => {
 			expect.assertions(1);
-			const node = new HtmlElement("foo", null, NodeClosed.EndTag, null, {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			});
+			const node = HtmlElement.createElement("foo", location);
 			expect(isPresentation(node)).toBeFalsy();
 		});
 	});

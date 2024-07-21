@@ -321,6 +321,7 @@ export interface DOMLoadEvent extends Event_2 {
 
 // @public (undocumented)
 export class DOMNode {
+    // @internal
     constructor(nodeType: NodeType, nodeName: string | undefined, location: Location_2);
     // (undocumented)
     append(node: DOMNode): void;
@@ -541,7 +542,6 @@ export interface FSLike {
 
 // @public (undocumented)
 export class HtmlElement extends DOMNode {
-    constructor(tagName: string | undefined, parent: HtmlElement | null, closed: NodeClosed, meta: MetaElement | null, location: Location_2);
     // @internal (undocumented)
     readonly _adapter: HtmlElementLike;
     get annotatedName(): string;
@@ -555,6 +555,11 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     closed: NodeClosed;
     closest(selectors: string): HtmlElement | null;
+    static createElement(tagName: string, location: Location_2, details?: {
+        closed?: NodeClosed;
+        meta?: MetaElement | null;
+        parent?: HtmlElement;
+    }): HtmlElement;
     // (undocumented)
     readonly depth: number;
     // @internal

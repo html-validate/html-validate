@@ -2,7 +2,7 @@ import { type Location } from "../context";
 import { MetaTable } from "../meta";
 import { walk } from "../utils";
 import { DOMTree } from "./domtree";
-import { HtmlElement, NodeClosed } from "./htmlelement";
+import { HtmlElement } from "./htmlelement";
 
 const location: Location = {
 	filename: "inline",
@@ -18,7 +18,7 @@ describe("DOMTree", () => {
 
 	beforeAll(() => {
 		tree = new DOMTree(location);
-		node = new HtmlElement("foo", null, NodeClosed.EndTag, null, location);
+		node = HtmlElement.createElement("foo", location);
 		tree.root.append(node);
 	});
 

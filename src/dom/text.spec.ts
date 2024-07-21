@@ -1,5 +1,5 @@
 import { type Location } from "../context";
-import { DOMNode } from "./domnode";
+import { HtmlElement } from "./htmlelement";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
 import { isTextNode, TextNode } from "./text";
@@ -57,9 +57,11 @@ describe("isTextNode()", () => {
 		expect(isTextNode(node)).toBeTruthy();
 	});
 	it("should return false for other nodes", () => {
-		expect.assertions(1);
-		const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document", location);
-		expect(isTextNode(node)).toBeFalsy();
+		expect.assertions(2);
+		const element = HtmlElement.createElement("div", location);
+		const document = HtmlElement.rootNode(location);
+		expect(isTextNode(element)).toBeFalsy();
+		expect(isTextNode(document)).toBeFalsy();
 	});
 	it("should handle null", () => {
 		expect.assertions(1);
