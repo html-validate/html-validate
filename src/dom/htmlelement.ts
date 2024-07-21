@@ -77,13 +77,13 @@ export class HtmlElement extends DOMNode {
 	public readonly _adapter: HtmlElementLike;
 
 	private constructor(
+		nodeType: NodeType,
 		tagName: string | undefined,
 		parent: HtmlElement | null,
 		closed: NodeClosed,
 		meta: MetaElement | null,
 		location: Location,
 	) {
-		const nodeType = tagName ? NodeType.ELEMENT_NODE : NodeType.DOCUMENT_NODE;
 		super(nodeType, tagName, location);
 
 		if (isInvalidTagName(tagName)) {
@@ -132,14 +132,21 @@ export class HtmlElement extends DOMNode {
 		details: { closed?: NodeClosed; meta?: MetaElement | null; parent?: HtmlElement } = {},
 	): HtmlElement {
 		const { closed = NodeClosed.EndTag, meta = null, parent = null } = details;
-		return new HtmlElement(tagName, parent, closed, meta, location);
+		return new HtmlElement(NodeType.ELEMENT_NODE, tagName, parent, closed, meta, location);
 	}
 
 	/**
 	 * @internal
 	 */
 	public static rootNode(location: Location): HtmlElement {
-		const root = new HtmlElement(undefined, null, NodeClosed.EndTag, null, location);
+		const root = new HtmlElement(
+			NodeType.DOCUMENT_NODE,
+			undefined,
+			null,
+			NodeClosed.EndTag,
+			null,
+			location,
+		);
 		root.setAnnotation("#document");
 		return root;
 	}
@@ -169,7 +176,14 @@ export class HtmlElement extends DOMNode {
 		/* location contains position of '<' so strip it out */
 		const location = sliceLocation(startToken.location, 1);
 
-		return new HtmlElement(tagName, open ? parent : null, closed, meta, location);
+		return new HtmlElement(
+			NodeType.ELEMENT_NODE,
+			tagName,
+			open ? parent : null,
+			closed,
+			meta,
+			location,
+		);
 	}
 
 	/**
