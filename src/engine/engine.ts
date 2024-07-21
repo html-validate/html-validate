@@ -1,6 +1,5 @@
 import { type ResolvedConfig, type RuleOptions, Severity } from "../config";
 import { type Location, type Source } from "../context";
-import { type HtmlElement } from "../dom";
 import { type DOMInternalID } from "../dom/domnode";
 import {
 	type ConfigReadyEvent,
@@ -17,6 +16,7 @@ import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import type NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
+import { dumpTree } from "../utils";
 import { createBlocker } from "./rule-blocker";
 
 /**
@@ -179,37 +179,8 @@ export class Engine<T extends Parser = Parser> {
 	public dumpTree(source: Source[]): string[] {
 		/* @todo handle dumping each tree */
 		const parser = this.instantiateParser();
-		const document = parser.parseHtml(source[0]);
-		const lines: string[] = [];
-
-		function decoration(node: HtmlElement): string {
-			let output = "";
-			if (node.id) {
-				output += `#${node.id}`;
-			}
-			if (node.hasAttribute("class")) {
-				output += `.${node.classList.join(".")}`;
-			}
-			return output;
-		}
-
-		function writeNode(node: HtmlElement, level: number, sibling: number): void {
-			if (node.parent) {
-				const indent = "  ".repeat(level - 1);
-				const l = node.childElements.length > 0 ? "┬" : "─";
-				const b = sibling < node.parent.childElements.length - 1 ? "├" : "└";
-				lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
-			} else {
-				lines.push("(root)");
-			}
-
-			node.childElements.forEach((child, index) => {
-				writeNode(child, level + 1, index);
-			});
-		}
-
-		writeNode(document, 0, 0);
-		return lines;
+		const root = parser.parseHtml(source[0]);
+		return dumpTree(root);
 	}
 
 	/**
