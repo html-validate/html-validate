@@ -213,7 +213,7 @@
     "@html-validate/eslint-config-typescript": "5.21.4",
     "@html-validate/eslint-config-typescript-typeinfo": "5.21.4",
     "@html-validate/jest-config": "3.10.0",
-    "@html-validate/prettier-config": "2.5.0",
+    "@html-validate/prettier-config": "2.5.1",
     "@html-validate/release-scripts": "6.5.3",
     "@microsoft/api-extractor": "7.47.2",
     "@rollup/plugin-commonjs": "26.0.1",
