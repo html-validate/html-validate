@@ -58,6 +58,7 @@ export class DOMNode {
 	/**
 	 * Create a new DOMNode.
 	 *
+	 * @internal
 	 * @param nodeType - What node type to create.
 	 * @param nodeName - What node name to use. For `HtmlElement` this corresponds
 	 * to the tagName but other node types have specific predefined values.

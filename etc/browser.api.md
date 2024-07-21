@@ -275,6 +275,7 @@ export interface DOMLoadEvent extends Event_2 {
 
 // @public (undocumented)
 export class DOMNode {
+    // @internal
     constructor(nodeType: NodeType, nodeName: string | undefined, location: Location_2);
     // (undocumented)
     append(node: DOMNode): void;
