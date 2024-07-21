@@ -76,7 +76,7 @@ export class HtmlElement extends DOMNode {
 	/** @internal */
 	public readonly _adapter: HtmlElementLike;
 
-	public constructor(
+	private constructor(
 		tagName: string | undefined,
 		parent: HtmlElement | null,
 		closed: NodeClosed,

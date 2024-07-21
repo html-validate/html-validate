@@ -541,7 +541,6 @@ export interface FSLike {
 
 // @public (undocumented)
 export class HtmlElement extends DOMNode {
-    constructor(tagName: string | undefined, parent: HtmlElement | null, closed: NodeClosed, meta: MetaElement | null, location: Location_2);
     // @internal (undocumented)
     readonly _adapter: HtmlElementLike;
     get annotatedName(): string;
