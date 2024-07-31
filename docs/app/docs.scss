@@ -25,7 +25,6 @@ $fa-font-path: "fonts";
 @import "bootstrap/navbar";
 @import "bootstrap/jumbotron";
 @import "bootstrap/alerts";
-@import "bootstrap/panels";
 @import "bootstrap/responsive-utilities";
 
 // Highlight.js
@@ -35,6 +34,7 @@ $fa-font-path: "fonts";
 @import "anchorlink";
 @import "config-tabs";
 @import "jumbotron";
+@import "error-panel";
 @import "frontpage";
 @import "alert";
 @import "rule-info";
