@@ -1,3 +1,5 @@
+@use "bootstrap/variables" as bootstrap;
+
 #sidenav {
 	--sidenav-text-color: #555;
 	--sidenav-heading-color: #555;
@@ -13,7 +15,7 @@
 		"sidenav--label"
 		"sidenav--content";
 
-	@media (width > $screen-sm-min) {
+	@media (width > bootstrap.$screen-sm-min) {
 		grid-template-areas:
 			"sidenav--heading"
 			"sidenav--content";
@@ -30,7 +32,7 @@
 		display: none;
 		color: var(--sidenav-heading-color);
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			display: block;
 		}
 	}
@@ -51,7 +53,7 @@
 			background-color: #ddd;
 		}
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			display: none;
 		}
 	}
@@ -89,7 +91,7 @@
 		padding: 0;
 		display: none;
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			display: block;
 		}
 
@@ -160,7 +162,7 @@
 			margin: 0 1.5rem 0 calc(var(--sidenav-chevron-size) + var(--sidenav-gap) + 0.5rem);
 			padding: 0;
 
-			@media (width > $screen-sm-min) {
+			@media (width > bootstrap.$screen-sm-min) {
 				margin-right: 0;
 			}
 		}

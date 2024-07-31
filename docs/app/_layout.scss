@@ -1,3 +1,5 @@
+@use "bootstrap/variables" as bootstrap;
+
 @import "layout/sidenav";
 
 :root {
@@ -36,19 +38,19 @@ main {
 				"sidenav"
 				"content";
 
-			@media (width > $screen-sm-min) {
+			@media (width > bootstrap.$screen-sm-min) {
 				gap: calc(var(--column-gap-small) / 2);
 				grid-template-areas: "sidenav border content";
 				grid-template-columns: minmax(var(--sidenav-width-small), 1fr) min-content 4fr;
 			}
 
-			@media (width > $screen-md-min) {
+			@media (width > bootstrap.$screen-md-min) {
 				gap: calc(var(--column-gap-large) / 2);
 			}
 		}
 	}
 
-	@media (width > $screen-sm-min) {
+	@media (width > bootstrap.$screen-sm-min) {
 		&::after {
 			grid-area: border;
 			content: "";

@@ -1,3 +1,5 @@
+@use "bootstrap/variables" as bootstrap;
+
 dl.rule-info {
 	font-size: 0;
 	border-top: 1px solid #f06529;
@@ -8,7 +10,7 @@ dl.rule-info {
 	flex-wrap: wrap;
 	flex-direction: column;
 
-	@media (width > $screen-sm-min) {
+	@media (width > bootstrap.$screen-sm-min) {
 		flex-direction: row;
 	}
 
@@ -17,7 +19,7 @@ dl.rule-info {
 		display: block;
 		font-size: 14px;
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			display: inline-block;
 		}
 	}
@@ -39,7 +41,7 @@ dl.rule-info {
 		list-style: none;
 		display: block;
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			display: inline-block;
 
 			&:not(:last-child)::after {
@@ -57,7 +59,7 @@ dl.rule-info {
 		flex-direction: column;
 		margin-bottom: 0.5rem;
 
-		@media (width > $screen-sm-min) {
+		@media (width > bootstrap.$screen-sm-min) {
 			flex-direction: row;
 			margin-bottom: 0;
 			margin-right: 2rem;
@@ -66,6 +68,6 @@ dl.rule-info {
 
 	.rule-info-id {
 		white-space: no-wrap;
-		font-family: $font-family-monospace;
+		font-family: bootstrap.$font-family-monospace;
 	}
 }

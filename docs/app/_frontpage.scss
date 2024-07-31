@@ -1,15 +1,17 @@
+@use "bootstrap/variables" as bootstrap;
+
 .frontpage {
 	h2 {
-		border-bottom: 1px solid $hr-border;
+		border-bottom: 1px solid bootstrap.$hr-border;
 	}
 
 	.features {
-		@media (min-width: $screen-sm-min) {
+		@media (min-width: bootstrap.$screen-sm-min) {
 			columns: 2;
 			column-gap: 8rem;
 		}
 
-		margin-top: $line-height-computed; /* same as default h3 */
+		margin-top: bootstrap.$line-height-computed; /* same as default h3 */
 
 		h3:first-child {
 			margin-top: 0; /* moved to container element */
