@@ -15,6 +15,7 @@ module.exports = new Package("html-validate-docs", [
 	require("./schema"),
 ])
 
+	.processor(require("./processors/file-manifest"))
 	.processor(require("./processors/rules"))
 
 	.config(function (renderDocsProcessor) {
@@ -47,34 +48,41 @@ module.exports = new Package("html-validate-docs", [
 		getLinkInfo.relativeLinks = true;
 	})
 
-	.config(function (log, readFilesProcessor, writeFilesProcessor, copySchema) {
-		log.level = "info";
+	.config(
+		function (log, fileManifestProcessor, readFilesProcessor, writeFilesProcessor, copySchema) {
+			log.level = "info";
 
-		readFilesProcessor.basePath = path.resolve(packagePath, "../..");
-		readFilesProcessor.sourceFiles = [
-			{
-				include: "docs/**/*.md",
-				exclude: ["docs/dgeni/**/*.md", "docs/examples/**.md", "docs/node_modules/**/*.md"],
-				basePath: "docs",
-				fileReader: "frontMatterFileReader",
-			},
-			{
-				include: "CHANGELOG.md",
-				basePath: ".",
-				fileReader: "changelogFileReader",
-			},
-			{
-				include: "MIGRATION.md",
-				basePath: ".",
-				fileReader: "migrationFileReader",
-			},
-		];
+			readFilesProcessor.basePath = path.resolve(packagePath, "../..");
+			readFilesProcessor.sourceFiles = [
+				{
+					include: "docs/**/*.md",
+					exclude: ["docs/dgeni/**/*.md", "docs/examples/**.md", "docs/node_modules/**/*.md"],
+					basePath: "docs",
+					fileReader: "frontMatterFileReader",
+				},
+				{
+					include: "CHANGELOG.md",
+					basePath: ".",
+					fileReader: "changelogFileReader",
+				},
+				{
+					include: "MIGRATION.md",
+					basePath: ".",
+					fileReader: "migrationFileReader",
+				},
+			];
 
-		copySchema.outputFolder = "schemas";
-		copySchema.files = ["src/schema/elements.json", "src/schema/config.json"];
+			copySchema.outputFolder = "schemas";
+			copySchema.files = ["src/schema/elements.json", "src/schema/config.json"];
 
-		writeFilesProcessor.outputFolder = "public";
-	})
+			fileManifestProcessor.manifestLocation = path.resolve(
+				__dirname,
+				"../../etc/docs-manifest.md",
+			);
+
+			writeFilesProcessor.outputFolder = "public";
+		},
+	)
 
 	.config(function (parseTagsProcessor, getInjectables) {
 		parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat(
