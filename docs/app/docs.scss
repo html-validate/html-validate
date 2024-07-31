@@ -8,7 +8,27 @@ $fa-font-path: "fonts";
 @import "fontawesome";
 @import "solid";
 
-@import "bootstrap";
+// Bootstrap
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/normalize";
+@import "bootstrap/print";
+@import "bootstrap/scaffolding";
+@import "bootstrap/type";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/component-animations";
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/jumbotron";
+@import "bootstrap/alerts";
+@import "bootstrap/panels";
+@import "bootstrap/responsive-utilities";
+
+// Highlight.js
 @import "github";
 
 @import "layout";

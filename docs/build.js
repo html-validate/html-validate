@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string -- for simplicity */
-
 const fs = require("node:fs/promises");
 const browserify = require("browserify");
 const Dgeni = require("dgeni");
@@ -13,7 +11,6 @@ async function assets() {
 		await fs.cp(src, dst, { recursive: true });
 	};
 	await copy("docs/app/favicon.ico", "public/favicon.ico");
-	await copy("node_modules/bootstrap-sass/assets/fonts/bootstrap", "public/assets/fonts");
 	await copy("node_modules/@fortawesome/fontawesome-free/webfonts", "public/assets/fonts");
 	console.groupEnd();
 	console.log();
