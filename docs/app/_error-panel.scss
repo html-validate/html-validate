@@ -1,0 +1,29 @@
+@use "bootstrap/variables" as bootstrap;
+
+.error-panel {
+	margin-bottom: bootstrap.$line-height-computed;
+	background-color: bootstrap.$panel-bg;
+	border: 1px solid bootstrap.$panel-danger-border;
+	border-radius: bootstrap.$panel-border-radius;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+	&__heading {
+		color: bootstrap.$panel-danger-text;
+		background-color: bootstrap.$panel-danger-heading-bg;
+		border-bottom: 1px solid bootstrap.$panel-danger-border;
+		border-top-left-radius: bootstrap.$panel-border-radius - 1;
+		border-top-right-radius: bootstrap.$panel-border-radius - 1;
+		padding: bootstrap.$panel-heading-padding;
+	}
+
+	&__title {
+		margin-top: 0;
+		margin-bottom: 0;
+		font-size: ceil((bootstrap.$font-size-base * 1.125));
+		color: inherit;
+	}
+
+	&__body {
+		padding: bootstrap.$panel-body-padding;
+	}
+}
