@@ -1,0 +1,97 @@
+@use "bootstrap/variables" as bootstrap;
+
+.button {
+	display: inline-block;
+	font-weight: bootstrap.$btn-font-weight;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	border: 1px solid transparent;
+	user-select: none;
+
+	&:hover,
+	&:focus {
+		color: bootstrap.$btn-default-color;
+		text-decoration: none;
+	}
+
+	&:active {
+		background-image: none;
+		outline: 0;
+		box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	}
+
+	&--footer {
+		background-color: bootstrap.$btn-default-bg;
+		border-color: bootstrap.$btn-default-border;
+		border-radius: bootstrap.$btn-border-radius-base;
+		color: bootstrap.$btn-default-color;
+		font-size: bootstrap.$font-size-base;
+		line-height: bootstrap.$line-height-base;
+		padding: bootstrap.$padding-base-vertical bootstrap.$padding-base-horizontal;
+
+		&:focus {
+			color: bootstrap.$btn-default-color;
+			background-color: darken(bootstrap.$btn-default-bg, 10%);
+			border-color: darken(bootstrap.$btn-default-border, 25%);
+		}
+
+		&:hover {
+			color: bootstrap.$btn-default-color;
+			background-color: darken(bootstrap.$btn-default-bg, 10%);
+			border-color: darken(bootstrap.$btn-default-border, 12%);
+		}
+
+		&:active {
+			color: bootstrap.$btn-default-color;
+			background-color: darken(bootstrap.$btn-default-bg, 10%);
+			background-image: none;
+			border-color: darken(bootstrap.$btn-default-border, 12%);
+
+			&:hover,
+			&:focus {
+				color: bootstrap.$btn-default-color;
+				background-color: darken(bootstrap.$btn-default-bg, 17%);
+				border-color: darken(bootstrap.$btn-default-border, 25%);
+			}
+		}
+	}
+
+	&--jumbo {
+		background-color: bootstrap.$btn-primary-bg;
+		border-color: bootstrap.$btn-primary-border;
+		border-radius: bootstrap.$btn-border-radius-large;
+		color: bootstrap.$btn-primary-color;
+		font-size: bootstrap.$font-size-large;
+		line-height: bootstrap.$line-height-large;
+		padding: bootstrap.$padding-large-vertical bootstrap.$padding-large-horizontal;
+
+		&:focus {
+			color: bootstrap.$btn-primary-color;
+			background-color: darken(bootstrap.$btn-primary-bg, 10%);
+			border-color: darken(bootstrap.$btn-primary-border, 25%);
+		}
+
+		&:hover {
+			color: bootstrap.$btn-primary-color;
+			background-color: darken(bootstrap.$btn-primary-bg, 10%);
+			border-color: darken(bootstrap.$btn-primary-border, 12%);
+		}
+
+		&:active {
+			color: bootstrap.$btn-primary-color;
+			background-color: darken(bootstrap.$btn-primary-bg, 10%);
+			background-image: none;
+			border-color: darken(bootstrap.$btn-primary-border, 12%);
+
+			&:hover,
+			&:focus {
+				color: bootstrap.$btn-primary-color;
+				background-color: darken(bootstrap.$btn-primary-bg, 17%);
+				border-color: darken(bootstrap.$btn-primary-border, 25%);
+			}
+		}
+	}
+}

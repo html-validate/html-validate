@@ -19,7 +19,6 @@ $fa-font-path: "fonts";
 @import "bootstrap/grid";
 @import "bootstrap/tables";
 @import "bootstrap/forms";
-@import "bootstrap/buttons";
 @import "bootstrap/component-animations";
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
@@ -32,6 +31,7 @@ $fa-font-path: "fonts";
 
 @import "layout";
 @import "anchorlink";
+@import "button";
 @import "config-tabs";
 @import "jumbotron";
 @import "error-panel";
@@ -56,7 +56,7 @@ a {
 		color: bootstrap.$code-color;
 	}
 
-	&.btn {
+	&.button {
 		text-decoration: none;
 	}
 }
