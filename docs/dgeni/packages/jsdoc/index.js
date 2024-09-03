@@ -6,7 +6,7 @@ const Package = require("dgeni").Package;
  * @dgPackage jsdoc
  * @description Tag parsing and extracting for JSDoc-based documentation
  */
-module.exports = new Package("jsdoc", [require("dgeni-packages/base")])
+module.exports = new Package("jsdoc", [require("../base")])
 
 	// Add in extra pseudo marker processors
 	.processor({ name: "parsing-tags", $runAfter: ["files-read"], $runBefore: ["processing-docs"] })
