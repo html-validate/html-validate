@@ -4,13 +4,14 @@ const Package = require("dgeni").Package;
 const packagePath = __dirname;
 
 module.exports = new Package("html-validate-docs", [
-	require("dgeni-packages/links"),
+	require("dgeni-packages/base"),
 	require("dgeni-front-matter"),
 	require("./example"),
 	require("./highlight"),
 	require("./inline-validate"),
 	require("./marked"),
 	require("./navigation"),
+	require("./packages/links"),
 	require("./schema"),
 ])
 
