@@ -3,7 +3,7 @@ const Package = require("dgeni").Package;
 /**
  * @dgPackage links
  */
-module.exports = new Package("links", [require("dgeni-packages/jsdoc")])
+module.exports = new Package("links", [require("../jsdoc")])
 
 	.factory(require("./inline-tag-defs/link"))
 	.factory(require("./services/getDocFromAlias"))

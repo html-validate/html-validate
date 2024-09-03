@@ -13,6 +13,6 @@ module.exports = function blockTag() {
 		name: "block",
 		multi: true,
 		docProperty: "blocks",
-		transforms: [extractBlock],
+		transforms: extractBlock,
 	};
 };
