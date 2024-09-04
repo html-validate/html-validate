@@ -26,21 +26,29 @@ module.exports = new Package("inline-validate", [])
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-config", "validate-markup"],
 			getPath() {},
-			outputPathTemplate: "inline-validations/${id}",
+			getOutputPath(doc) {
+				return `inline-validations/${doc.id}`;
+			},
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-spec"],
 			getPath() {},
-			outputPathTemplate: "../${fileInfo.path}/__tests__/${fileInfo.file}.spec.ts",
+			getOutputPath(doc) {
+				return `../${doc.fileInfo.path}/__tests__/${doc.fileInfo.file}.spec.ts`;
+			},
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["validate-public"],
 			getPath() {},
-			outputPathTemplate: "examples/${validate.fingerprint}.json",
+			getOutputPath(doc) {
+				return `examples/${doc.validate.fingerprint}.json`;
+			},
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["inlineValidation"],
-			pathTemplate: "inline-validations/${validate.id}",
+			getPath(doc) {
+				return `inline-validations/${doc.validate.id}`;
+			},
 			getOutputPath() {},
 		});
 		computeIdsProcessor.idTemplates.push({

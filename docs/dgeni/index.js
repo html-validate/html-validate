@@ -105,6 +105,16 @@ module.exports = new Package("html-validate-docs", [
 	 * dgeni-packages bundled templates */
 	.config(function (templateFinder) {
 		templateFinder.templateFolders.unshift(path.resolve(packagePath, "templates"));
+
+		/* normally this is a list of lodash templates (set in dgeni-packages) but
+		 * lodash templates are not supported here and replaced with arrow
+		 * functions */
+		templateFinder.templatePatterns = [
+			(doc) => `${doc.template}`,
+			(doc) => `${doc.id}.${doc.docType}.template.html`,
+			(doc) => `${doc.id}.template.html`,
+			(doc) => `${doc.docType}.template.html`,
+		];
 	})
 
 	.config(function (computePathsProcessor, computeIdsProcessor) {
@@ -142,7 +152,9 @@ module.exports = new Package("html-validate-docs", [
 				const p = path.join(dirname, doc.fileInfo.baseName);
 				return `${p}.html`;
 			},
-			outputPathTemplate: "${path}",
+			getOutputPath(doc) {
+				return doc.path;
+			},
 		});
 
 		computeIdsProcessor.idTemplates.push({
@@ -161,7 +173,9 @@ module.exports = new Package("html-validate-docs", [
 				const dirname = path.dirname(doc.fileInfo.relativePath);
 				return path.join(dirname, doc.fileInfo.baseName.toLowerCase(), "index.html");
 			},
-			outputPathTemplate: "${path.toLowerCase()}",
+			getOutputPath(doc) {
+				return doc.path.toLowerCase();
+			},
 		});
 
 		computePathsProcessor.pathTemplates.push({
@@ -170,7 +184,9 @@ module.exports = new Package("html-validate-docs", [
 				/* should go directly under output directory, no subdirectory */
 				return doc.fileInfo.baseName;
 			},
-			outputPathTemplate: "${path}.html",
+			getOutputPath(doc) {
+				return `${doc.path}.html`;
+			},
 		});
 	})
 

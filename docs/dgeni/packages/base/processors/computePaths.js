@@ -1,5 +1,3 @@
-const templateFn = require("lodash.template");
-
 /**
  * @dgProcessor computePathsProcessor
  * @description Compute the path and outputPath for docs that do not already have them from a set of templates
@@ -15,13 +13,13 @@ module.exports = function computePathsProcessor(log, createDocMessage) {
 					if (template.getPath) {
 						pathTemplateMap[docType] = template.getPath;
 					} else if (template.pathTemplate) {
-						pathTemplateMap[docType] = templateFn(template.pathTemplate);
+						throw new Error(`pathTemplate not supported, use getPath() instead`);
 					}
 
 					if (template.getOutputPath) {
 						outputPathTemplateMap[docType] = template.getOutputPath;
 					} else if (template.outputPathTemplate) {
-						outputPathTemplateMap[docType] = templateFn(template.outputPathTemplate);
+						throw new Error(`outputPathTemplate not supported, use getOutputPath() instead`);
 					}
 				});
 			}

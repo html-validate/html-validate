@@ -17,6 +17,8 @@ module.exports = new Package("schema", [])
 		});
 		computePathsProcessor.pathTemplates.push({
 			docTypes: ["schema"],
-			outputPathTemplate: "${path}",
+			getOutputPath(doc) {
+				return doc.path;
+			},
 		});
 	});

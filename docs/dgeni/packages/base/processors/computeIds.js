@@ -1,5 +1,3 @@
-const templateFn = require("lodash.template");
-
 /**
  * @dgProcessor computeIdsProcessor
  * @description
@@ -16,7 +14,7 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
 					if (template.getId) {
 						getIdMap.set(docType, template.getId);
 					} else if (template.idTemplate) {
-						getIdMap.set(docType, templateFn(template.idTemplate));
+						throw new Error(`idTemplate not supported, use getId() instead`);
 					}
 
 					if (template.getAliases) {
