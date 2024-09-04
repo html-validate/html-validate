@@ -1,6 +1,5 @@
 const path = require("canonical-path");
 const glob = require("glob");
-const templateFn = require("lodash.template");
 
 /**
  * @dgService templateFinder
@@ -31,10 +30,9 @@ module.exports = function templateFinder(log, createDocMessage) {
 				return { templateFolder, templates };
 			});
 
-			// Compile each of the patterns and store them for later
-			const patternMatchers = this.templatePatterns.map((pattern) =>
-				templateFn(pattern, { variable: "doc" }),
-			);
+			/* In the upstream version this is a list of lodash templates but here
+			 * replaced with direct functions so no need to compile each pattern. */
+			const patternMatchers = this.templatePatterns;
 
 			/**
 			 * Find the path to a template for the specified documents
