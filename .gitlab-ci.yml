@@ -128,11 +128,15 @@ Prettier:
 
 Docs:
   stage: test
+  dependencies: []
+  needs: []
   artifacts:
     reports:
       junit: temp/jest.xml
   script:
+    - npm ci
     - npm run codegen
+    - npm run build
     - npm run docs
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
     - npm test -- docs
