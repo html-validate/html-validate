@@ -88,7 +88,6 @@ function heading(text, level, raw) {
 /* istanbul ignore next -- not to be tested */
 function plugin() {
 	return {
-		useNewRenderer: true,
 		renderer: {
 			heading({ depth, tokens }) {
 				const raw = unescape(this.parser.parseInline(tokens, this.parser.textRenderer))

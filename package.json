@@ -237,7 +237,6 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-snapshot": "29.7.0",
     "jsdom": "22.1.0",
-    "marked": "13.0.3",
     "memfs": "4.11.1",
     "npm-pkg-lint": "3.7.1",
     "npm-run-all2": "6.2.2",
@@ -281,8 +280,5 @@
     "minimist",
     "prompts",
     "semver"
-  ],
-  "overrides": {
-    "marked": "13.0.3"
-  }
+  ]
 }
