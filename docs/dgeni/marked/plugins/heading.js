@@ -51,7 +51,7 @@ function getHeadingId(text, raw) {
 function heading(text, level, raw, _slugger) {
 	const [value, id] = getHeadingId(text, raw);
 	if (level > 1) {
-		return `<h${level} id="${id}"><a href="#${id}">${value}</a></h${level}> `;
+		return `<h${level} id="${id}"><a href="#${id}">${value}</a></h${level}>`;
 	} else {
 		return `<h${level} id="${id}">${value}</h${level}>`;
 	}
