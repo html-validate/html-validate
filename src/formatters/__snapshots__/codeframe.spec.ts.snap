@@ -114,6 +114,43 @@ exports[`codeframe formatter should handle multiline error 1`] = `
 "
 `;
 
+exports[`codeframe formatter should handle out of bounds errors 1`] = `
+"<red>error</color>: <bold>This errors is on line 0 (before first line)</intensity> <dim>(foo)</intensity> at <green>line-bounds.html</color>:
+  1 | 123
+  2 | 56
+  3 | 8
+<bold>Details:</intensity> https://example.net/rule/foo.html
+
+
+<yellow>warning</color>: <bold>This errors is on line 4 (after last line)</intensity> <dim>(foo)</intensity> at <green>line-bounds.html:4:1</color>:
+  2 | 56
+  3 | 8
+<bold>Details:</intensity> https://example.net/rule/foo.html
+
+
+<red>error</color>: <bold>This errors is after EOF</intensity> <dim>(foo)</intensity> at <green>file-bounds.html:3:2</color>:
+  1 | 123
+  2 | 56
+> 3 | 8
+    |  ^
+<bold>Details:</intensity> https://example.net/rule/foo.html
+
+
+<red><bold>2 errors and 1 warning found.</color></intensity>
+"
+`;
+
+exports[`codeframe formatter should handle single character source 1`] = `
+"<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>single-char.html:1:1</color>:
+> 1 | x
+    | ^
+<bold>Details:</intensity> https://example.net/rule/foo.html
+
+
+<red><bold>1 error and 1 warning found.</color></intensity>
+"
+`;
+
 exports[`codeframe formatter should support disabling links 1`] = `
 "<red>error</color>: <bold>An error</intensity> <dim>(foo)</intensity> at <green>first.html:1:6</color>:
 > 1 | <div id="foo"

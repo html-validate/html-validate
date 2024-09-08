@@ -1,11 +1,15 @@
-import { codeFrameColumns } from "@babel/code-frame";
 import kleur from "kleur";
 import { type Message } from "../message";
 import { type Result } from "../reporter";
 
-interface SourcePoint {
+interface Location {
 	line: number;
 	column: number;
+}
+
+interface NodeLocation {
+	end?: Location;
+	start: Location;
 }
 
 export interface CodeframeOptions {
@@ -19,6 +23,113 @@ const defaults: CodeframeOptions = {
 	showSummary: true,
 	showSelector: false,
 };
+
+/**
+ * RegExp to test for newlines in terminal.
+ */
+
+const NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
+
+/**
+ * Extract what lines should be marked and highlighted.
+ */
+
+type MarkerLines = Record<number, true | [number, number] | undefined>;
+
+function getMarkerLines(
+	loc: NodeLocation,
+	source: string[],
+): {
+	start: number;
+	end: number;
+	markerLines: MarkerLines;
+} {
+	const startLoc: Location = {
+		...loc.start,
+	};
+	const endLoc: Location = {
+		...startLoc,
+		...loc.end,
+	};
+	const linesAbove = 2;
+	const linesBelow = 3;
+	const startLine = startLoc.line;
+	const startColumn = startLoc.column;
+	const endLine = endLoc.line;
+	const endColumn = endLoc.column;
+
+	const start = Math.max(startLine - (linesAbove + 1), 0);
+	const end = Math.min(source.length, endLine + linesBelow);
+	const lineDiff = endLine - startLine;
+	const markerLines: MarkerLines = {};
+
+	if (lineDiff) {
+		for (let i = 0; i <= lineDiff; i++) {
+			const lineNumber = i + startLine;
+
+			if (!startColumn) {
+				markerLines[lineNumber] = true;
+			} else if (i === 0) {
+				const sourceLength = source[lineNumber - 1].length;
+
+				markerLines[lineNumber] = [startColumn, sourceLength - startColumn + 1];
+			} else if (i === lineDiff) {
+				markerLines[lineNumber] = [0, endColumn];
+			} else {
+				const sourceLength = source[lineNumber - i].length;
+
+				markerLines[lineNumber] = [0, sourceLength];
+			}
+		}
+	} else {
+		if (startColumn === endColumn) {
+			if (startColumn) {
+				markerLines[startLine] = [startColumn, 0];
+			} else {
+				markerLines[startLine] = true;
+			}
+		} else {
+			markerLines[startLine] = [startColumn, endColumn - startColumn];
+		}
+	}
+
+	return { start, end, markerLines };
+}
+
+export function codeFrameColumns(rawLines: string, loc: NodeLocation): string {
+	const lines = rawLines.split(NEWLINE);
+	const { start, end, markerLines } = getMarkerLines(loc, lines);
+	const numberMaxWidth = String(end).length;
+
+	return rawLines
+		.split(NEWLINE, end)
+		.slice(start, end)
+		.map((line, index) => {
+			const number = start + 1 + index;
+			const paddedNumber = ` ${String(number)}`.slice(-numberMaxWidth);
+			const gutter = ` ${paddedNumber} |`;
+			const hasMarker = markerLines[number];
+			if (hasMarker) {
+				let markerLine = "";
+				if (Array.isArray(hasMarker)) {
+					const markerSpacing = line.slice(0, Math.max(hasMarker[0] - 1, 0)).replace(/[^\t]/g, " ");
+					const numberOfMarkers = hasMarker[1] || 1;
+
+					markerLine = [
+						"\n ",
+						gutter.replace(/\d/g, " "),
+						" ",
+						markerSpacing,
+						"^".repeat(numberOfMarkers),
+					].join("");
+				}
+				return [">", gutter, line.length > 0 ? ` ${line}` : "", markerLine].join("");
+			} else {
+				return [" ", gutter, line.length > 0 ? ` ${line}` : ""].join("");
+			}
+		})
+		.join("\n");
+}
 
 /**
  * Codeframe formatter based on ESLint codeframe.
@@ -50,14 +161,14 @@ function formatFilePath(filePath: string, line: number, column: number): string 
 	return kleur.green(filePath);
 }
 
-function getStartLocation(message: Message): SourcePoint {
+function getStartLocation(message: Message): Location {
 	return {
 		line: message.line,
 		column: message.column,
 	};
 }
 
-function getEndLocation(message: Message, source: string): SourcePoint {
+function getEndLocation(message: Message, source: string): Location {
 	let line = message.line;
 	let column = message.column;
 	for (let i = 0; i < message.size; i++) {
@@ -98,16 +209,11 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 
 	/* istanbul ignore next: safety check from original implementation */
 	if (sourceCode) {
-		result.push(
-			codeFrameColumns(
-				sourceCode,
-				{
-					start: getStartLocation(message),
-					end: getEndLocation(message, sourceCode),
-				},
-				{ highlightCode: false },
-			),
-		);
+		const output = codeFrameColumns(sourceCode, {
+			start: getStartLocation(message),
+			end: getEndLocation(message, sourceCode),
+		});
+		result.push(output);
 	}
 
 	if (options.showSelector) {
