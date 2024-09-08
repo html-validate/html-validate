@@ -166,12 +166,14 @@ function code(context, text, infostring, _escaped) {
 
 /**
  * @param {Context} context
+ * @returns {import("marked").MarkedExtension} context
  */
 function plugin(context) {
 	return {
+		useNewRenderer: true,
 		renderer: {
-			code(text, infostring, escaped) {
-				return code(context, text, infostring, escaped);
+			code({ text, lang, escaped }) {
+				return code(context, text, lang, escaped);
 			},
 		},
 	};
