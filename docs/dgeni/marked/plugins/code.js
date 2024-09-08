@@ -170,7 +170,6 @@ function code(context, text, infostring, _escaped) {
  */
 function plugin(context) {
 	return {
-		useNewRenderer: true,
 		renderer: {
 			code({ text, lang, escaped }) {
 				return code(context, text, lang, escaped);
