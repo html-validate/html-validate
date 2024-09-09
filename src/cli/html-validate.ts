@@ -234,34 +234,35 @@ if (typeof argv.config !== "undefined") {
 	}
 }
 
-const cli = new CLI({
-	configFile: argv.config,
-	preset: argv.preset,
-	rules: argv.rule,
-});
-const mode = getMode(argv);
-const formatter = cli.getFormatter(argv.formatter);
-const maxWarnings = parseInt(argv["max-warnings"] ?? "-1", 10);
-const htmlvalidate = cli.getValidator();
-
-/* sanity check: ensure maxWarnings has a valid value */
-if (isNaN(maxWarnings)) {
-	console.log(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
-	process.exit(1);
-}
-
-/* parse extensions (used when expanding directories) */
-const extensions = argv.ext.split(",").map((cur: string) => {
-	return cur.startsWith(".") ? cur.slice(1) : cur;
-});
-
-const files = cli.expandFiles(argv._, { extensions });
-if (files.length === 0 && mode !== Mode.INIT) {
-	console.error("No files matching patterns", argv._);
-	process.exit(1);
-}
-
+/* eslint-disable-next-line complexity -- for now */
 async function run(): Promise<void> {
+	const cli = new CLI({
+		configFile: argv.config,
+		preset: argv.preset,
+		rules: argv.rule,
+	});
+	const mode = getMode(argv);
+	const formatter = await cli.getFormatter(argv.formatter);
+	const maxWarnings = parseInt(argv["max-warnings"] ?? "-1", 10);
+	const htmlvalidate = await cli.getValidator();
+
+	/* sanity check: ensure maxWarnings has a valid value */
+	if (isNaN(maxWarnings)) {
+		console.log(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
+		process.exit(1);
+	}
+
+	/* parse extensions (used when expanding directories) */
+	const extensions = argv.ext.split(",").map((cur: string) => {
+		return cur.startsWith(".") ? cur.slice(1) : cur;
+	});
+
+	const files = await cli.expandFiles(argv._, { extensions });
+	if (files.length === 0 && mode !== Mode.INIT) {
+		console.error("No files matching patterns", argv._);
+		process.exit(1);
+	}
+
 	try {
 		let success: boolean;
 		if (mode === Mode.LINT) {

@@ -16,19 +16,20 @@ beforeEach(() => {
 
 describe("CLI", () => {
 	describe("getValidator()", () => {
-		it("should create new HtmlValidate instance", () => {
+		it("should create new HtmlValidate instance", async () => {
 			expect.assertions(1);
 			const cli = new CLI();
-			const htmlvalidate = cli.getValidator();
+			const htmlvalidate = await cli.getValidator();
 			expect(htmlvalidate).toBeDefined();
 		});
 	});
 
 	describe("getConfig()", () => {
-		it("should use default configuration", () => {
+		it("should use default configuration", async () => {
 			expect.assertions(1);
 			const cli = new CLI();
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [
 				    "html-validate:recommended",
@@ -37,12 +38,13 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should set custom preset", () => {
+		it("should set custom preset", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				preset: "standard",
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [
 				    "html-validate:standard",
@@ -51,12 +53,13 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should set multiple custom preset", () => {
+		it("should set multiple custom preset", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				preset: "standard,a11y",
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [
 				    "html-validate:standard",
@@ -66,13 +69,14 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should set both preset and rules", () => {
+		it("should set both preset and rules", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				preset: "standard",
 				rules: ["foo:error", "bar:warn"],
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [
 				    "html-validate:standard",
@@ -85,36 +89,39 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should use custom json configuration file", () => {
+		it("should use custom json configuration file", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				configFile: path.join(__dirname, "__fixtures__/config.json"),
 			});
-			expect(cli.getConfig()).toEqual({
+			const config = await cli.getConfig();
+			expect(config).toEqual({
 				rules: {
 					foo: "error",
 				},
 			});
 		});
 
-		it("should use custom js configuration file", () => {
+		it("should use custom js configuration file", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				configFile: path.join(__dirname, "__fixtures__/config.js"),
 			});
-			expect(cli.getConfig()).toEqual({
+			const config = await cli.getConfig();
+			expect(config).toEqual({
 				rules: {
 					foo: "error",
 				},
 			});
 		});
 
-		it("should configure single rule", () => {
+		it("should configure single rule", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: "foo:1",
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
@@ -124,12 +131,13 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should configure single rule with severity string", () => {
+		it("should configure single rule with severity string", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: "foo:warn",
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
@@ -139,12 +147,13 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should handle numeric severity", () => {
+		it("should handle numeric severity", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:2", "bar:1", "baz:0"],
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
@@ -156,12 +165,13 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should configure multiple rules", () => {
+		it("should configure multiple rules", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:warn", "bar:off"],
 			});
-			expect(cli.getConfig()).toMatchInlineSnapshot(`
+			const config = await cli.getConfig();
+			expect(config).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
@@ -172,7 +182,7 @@ describe("CLI", () => {
 			`);
 		});
 
-		it("should throw helpful error message if file cant be loaded", () => {
+		it("should throw helpful error message if file cant be loaded", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				configFile: "missing-file.js",

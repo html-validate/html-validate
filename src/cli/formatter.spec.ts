@@ -49,9 +49,9 @@ beforeEach(() => {
 });
 
 describe("cli/formatters", () => {
-	it("should call formatter", () => {
+	it("should call formatter", async () => {
 		expect.assertions(1);
-		const wrapped = cli.getFormatter("text");
+		const wrapped = await cli.getFormatter("text");
 		const output = wrapped(report);
 		expect(output).toMatchInlineSnapshot(`
 			"mock-file.html:1:2: error [foo] lorem ipsum
@@ -59,9 +59,9 @@ describe("cli/formatters", () => {
 		`);
 	});
 
-	it("should call multiple formatters", () => {
+	it("should call multiple formatters", async () => {
 		expect.assertions(1);
-		const wrapped = cli.getFormatter("text,json");
+		const wrapped = await cli.getFormatter("text,json");
 		const output = wrapped(report);
 		expect(output).toMatchInlineSnapshot(`
 			"mock-file.html:1:2: error [foo] lorem ipsum
@@ -70,16 +70,16 @@ describe("cli/formatters", () => {
 		`);
 	});
 
-	it("should call custom formatter", () => {
+	it("should call custom formatter", async () => {
 		expect.assertions(1);
-		const wrapped = cli.getFormatter("custom-formatter");
+		const wrapped = await cli.getFormatter("custom-formatter");
 		const output = wrapped(report);
 		expect(output).toMatchInlineSnapshot(`"custom formater"`);
 	});
 
-	it("should redirect output to file", () => {
+	it("should redirect output to file", async () => {
 		expect.assertions(2);
-		const wrapped = cli.getFormatter("text=foo.txt");
+		const wrapped = await cli.getFormatter("text=foo.txt");
 		const output = wrapped(report);
 		expect(output).toMatchInlineSnapshot(`""`);
 		expect(fs.readFileSync("foo.txt", "utf-8")).toMatchInlineSnapshot(`
@@ -88,9 +88,9 @@ describe("cli/formatters", () => {
 		`);
 	});
 
-	it("should create directory if missing", () => {
+	it("should create directory if missing", async () => {
 		expect.assertions(1);
-		const wrapped = cli.getFormatter("text=mydir/foo.txt");
+		const wrapped = await cli.getFormatter("text=mydir/foo.txt");
 		wrapped(report);
 		expect(fs.readFileSync("mydir/foo.txt", "utf-8")).toMatchInlineSnapshot(`
 			"mock-file.html:1:2: error [foo] lorem ipsum

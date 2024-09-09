@@ -174,8 +174,8 @@ Using the CLI API there is a factory function to retrieve formatters (see `html-
 import { CLI } from "html-validate";
 
 const cli = new CLI();
-const htmlvalidate = cli.getValidator();
-const formatter = cli.getFormatter("stylish,checkstyle=html-validate.xml");
+const htmlvalidate = await cli.getValidator();
+const formatter = await cli.getFormatter("stylish,checkstyle=html-validate.xml");
 const report = await htmlvalidate.validateFile("myfile.html");
 console.log(formatter(report));
 ```
@@ -445,9 +445,9 @@ const cli = new CLI({
   configFile: argv.configFile,
 });
 
-const htmlvalidate = cli.getValidator();
-const formatter = cli.getFormatter(argv.formatter);
-const files = cli.expandFiles(["**/*.html"]);
+const htmlvalidate = await cli.getValidator();
+const formatter = await cli.getFormatter(argv.formatter);
+const files = await cli.expandFiles(["**/*.html"]);
 const report = await htmlvalidate.validateMultipleFiles(files);
 console.log(formatter(report));
 ```

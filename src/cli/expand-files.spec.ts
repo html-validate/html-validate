@@ -25,9 +25,10 @@ beforeEach(() => {
 });
 
 describe("expandFiles()", () => {
-	it("should expand globs", () => {
+	it("should expand globs", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["foo.html", "bar/**/*.html"], { cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["foo.html", "bar/**/*.html"], { cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/foo.html",
 			  "/folder/bar/barney.html",
@@ -36,9 +37,10 @@ describe("expandFiles()", () => {
 		`);
 	});
 
-	it("should expand directories (default extensions)", () => {
+	it("should expand directories (default extensions)", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["bar"], { cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/bar/barney.html",
 			  "/folder/bar/fred.html",
@@ -46,9 +48,10 @@ describe("expandFiles()", () => {
 		`);
 	});
 
-	it("should expand directories (explicit extensions)", () => {
+	it("should expand directories (explicit extensions)", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { extensions: ["js", "json"], cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["bar"], { extensions: ["js", "json"], cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/bar/barney.js",
 			  "/folder/bar/fred.json",
@@ -56,9 +59,10 @@ describe("expandFiles()", () => {
 		`);
 	});
 
-	it("should expand directories (no extensions => all files)", () => {
+	it("should expand directories (no extensions => all files)", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["bar"], { extensions: [], cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["bar"], { extensions: [], cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/bar/barney.html",
 			  "/folder/bar/barney.js",
@@ -68,10 +72,11 @@ describe("expandFiles()", () => {
 		`);
 	});
 
-	it("should handle absolute paths", () => {
+	it("should handle absolute paths", async () => {
 		expect.assertions(1);
 		const patterns = [`${cwd}/foo.html`, `${cwd}/bar`];
-		expect(cli.expandFiles(patterns, { cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(patterns, { cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/foo.html",
 			  "/folder/bar/barney.html",
@@ -80,27 +85,29 @@ describe("expandFiles()", () => {
 		`);
 	});
 
-	it("should remove duplicates", () => {
+	it("should remove duplicates", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["foo.html", "foo.html", "*.html"], { cwd })).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["foo.html", "foo.html", "*.html"], { cwd });
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/foo.html",
 			]
 		`);
 	});
 
-	it("should fallback on process.cwd()", () => {
+	it("should fallback on process.cwd()", async () => {
 		expect.assertions(1);
 		jest.spyOn(process, "cwd").mockReturnValue(cwd);
-		expect(cli.expandFiles(["foo.html"])).toMatchInlineSnapshot(`
+		const result = await cli.expandFiles(["foo.html"]);
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  "/folder/foo.html",
 			]
 		`);
 	});
 
-	it("should replace - placeholder", () => {
+	it("should replace - placeholder", async () => {
 		expect.assertions(1);
-		expect(cli.expandFiles(["-"], { cwd })).toEqual(["/dev/stdin"]);
+		expect(await cli.expandFiles(["-"], { cwd })).toEqual(["/dev/stdin"]);
 	});
 });

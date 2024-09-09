@@ -72,12 +72,15 @@ export class CLI {
 	 *
 	 * @public
 	 */
-	public expandFiles(patterns: string[], options: ExpandOptions = {}): string[] {
-		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
+	public async expandFiles(patterns: string[], options: ExpandOptions = {}): Promise<string[]> {
+		/* technical debt: expandFiles(..) should actually be async as well */
+		const files = expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
+		return Promise.resolve(files);
 	}
 
-	public getFormatter(formatters: string): (report: Report) => string {
-		return getFormatter(formatters);
+	public getFormatter(formatters: string): Promise<(report: Report) => string> {
+		/* while not actually async the API boundary returns a Promise in case it needs to in the future, i.e a ESM-based formatter */
+		return Promise.resolve(getFormatter(formatters));
 	}
 
 	/**
@@ -105,11 +108,12 @@ export class CLI {
 	 * or call [[HtmlValidate.flushConfigCache]].
 	 */
 	/* istanbul ignore next: each method is tested separately */
-	public clearCache(): void {
+	public clearCache(): Promise<void> {
 		if (this.loader) {
 			this.loader.flushCache();
 		}
 		this.ignored.clearCache();
+		return Promise.resolve();
 	}
 
 	/**
@@ -118,9 +122,10 @@ export class CLI {
 	 *
 	 * @internal
 	 */
-	public getLoader(): ConfigLoader {
+	public async getLoader(): Promise<ConfigLoader> {
 		if (!this.loader) {
-			this.loader = new FileSystemConfigLoader(this.getConfig());
+			const config = await this.getConfig();
+			this.loader = new FileSystemConfigLoader(config);
 		}
 		return this.loader;
 	}
@@ -131,19 +136,19 @@ export class CLI {
 	 *
 	 * @public
 	 */
-	public getValidator(): HtmlValidate {
-		const loader = this.getLoader();
+	public async getValidator(): Promise<HtmlValidate> {
+		const loader = await this.getLoader();
 		return new HtmlValidate(loader);
 	}
 
 	/**
 	 * @internal
 	 */
-	public getConfig(): ConfigData {
+	public getConfig(): Promise<ConfigData> {
 		if (!this.config) {
 			this.config = this.resolveConfig();
 		}
-		return this.config;
+		return Promise.resolve(this.config);
 	}
 
 	private resolveConfig(): ConfigData {
