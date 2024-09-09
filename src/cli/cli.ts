@@ -94,14 +94,6 @@ export class CLI {
 	}
 
 	/**
-	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
-	 * one of them contains a pattern matching given filename.
-	 */
-	public isIgnored(filename: string): boolean {
-		return this.ignored.isIgnored(filename);
-	}
-
-	/**
 	 * Clear cache.
 	 *
 	 * Previously fetched [[HtmlValidate]] instances must either be fetched again
@@ -149,6 +141,14 @@ export class CLI {
 			this.config = this.resolveConfig();
 		}
 		return Promise.resolve(this.config);
+	}
+
+	/**
+	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
+	 * one of them contains a pattern matching given filename.
+	 */
+	private isIgnored(filename: string): boolean {
+		return this.ignored.isIgnored(filename);
 	}
 
 	private resolveConfig(): ConfigData {
