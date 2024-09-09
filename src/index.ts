@@ -1,7 +1,6 @@
 /* entrypoint for nodejs build */
 
 export * from "./common";
-export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";
 export {
 	type FileSystemConfigLoaderOptions,
 	FileSystemConfigLoader,
@@ -21,3 +20,6 @@ export {
 	getFormatter as formatterFactory,
 } from "./formatters";
 export { compatibilityCheck } from "./utils/compatibility-check.nodejs";
+
+/* this should be last to break import recursion from src/cli/cli.ts -> src/config/resolvers */
+export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";
