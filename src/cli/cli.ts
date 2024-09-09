@@ -6,13 +6,15 @@ import {
 	FileSystemConfigLoader,
 	UserError,
 	HtmlValidate,
-	cjsResolver,
+	esmResolver,
 } from "..";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
 import { type InitResult, init } from "./init";
 import { getRuleConfig } from "./get-rule-config";
+
+const resolver = esmResolver();
 
 function defaultConfig(preset: string): ConfigData {
 	const presets = preset.split(",").map((it) => `html-validate:${it}`);
@@ -33,7 +35,6 @@ export interface CLIOptions {
 
 async function getBaseConfig(preset?: string, filename?: string): Promise<ConfigData> {
 	if (filename) {
-		const resolver = cjsResolver();
 		const configData = await resolver.resolveConfig(path.resolve(filename), { cache: false });
 		if (!configData) {
 			throw new UserError(`Failed to read configuration from "${filename}"`);
@@ -117,7 +118,7 @@ export class CLI {
 	public async getLoader(): Promise<ConfigLoader> {
 		if (!this.loader) {
 			const config = await this.getConfig();
-			this.loader = new FileSystemConfigLoader(config);
+			this.loader = new FileSystemConfigLoader([resolver], config);
 		}
 		return this.loader;
 	}
