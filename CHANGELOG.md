@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## 9.0.0-rc.1 (2024-09-09)
+
+### ⚠ BREAKING CHANGES
+
+- **api:** This change only affects API users. The
+  `ConfigLoader.getConfigFor()` method may now optionally return and asynchronous
+  `Promise`. For most use-cases this will not require any changes.
+
+### Features
+
+- **api:** `ConfigLoader.getConfigFor()` may return Promise-based async results ([eb05356](https://gitlab.com/html-validate/html-validate/commit/eb05356c624533ae4ff629a5e25a5a4084b802de))
+
 ## 8.22.0 (2024-09-09)
 
 ### Features
