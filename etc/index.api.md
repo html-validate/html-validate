@@ -110,7 +110,6 @@ export class CLI {
     getLoader(): Promise<ConfigLoader>;
     getValidator(): Promise<HtmlValidate>;
     init(cwd: string): Promise<InitResult>;
-    isIgnored(filename: string): boolean;
 }
 
 // @public (undocumented)
