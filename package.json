@@ -1,6 +1,6 @@
 {
   "name": "html-validate",
-  "version": "8.27.0",
+  "version": "9.0.0-rc.1",
   "description": "Offline html5 validator",
   "keywords": [
     "html",
