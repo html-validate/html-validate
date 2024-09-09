@@ -560,6 +560,23 @@ exports[`configuration smoketest test-files/config/missing-transformer/test.html
 
 exports[`configuration smoketest test-files/config/missing-transformer/test.html: results 1`] = `[]`;
 
+exports[`configuration smoketest test-files/config/mjs-config/file.html: config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "deprecated": "error",
+    "element-permitted-content": "error",
+    "no-self-closing": "error",
+    "void-content": "off",
+  },
+  "transform": {},
+}
+`;
+
+exports[`configuration smoketest test-files/config/mjs-config/file.html: results 1`] = `[]`;
+
 exports[`configuration smoketest test-files/config/off/error/file.html: config 1`] = `
 {
   "extends": [],

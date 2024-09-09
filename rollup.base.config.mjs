@@ -159,10 +159,17 @@ function generateResolved(format) {
 		return `
 			import { createRequire } from "node:module";
 			export const legacyRequire = createRequire(import.meta.url);
+			export const importResolve = (specifier) => {
+				return new URL(import.meta.resolve(specifier));
+			};
 		`;
 	} else {
 		return `
+			import { pathToFileURL } from "node:url";
 			export const legacyRequire = require;
+			export const importResolve = (specifier) => {
+				return pathToFileURL(require.resolve(specifier));
+			};
 		`;
 	}
 }

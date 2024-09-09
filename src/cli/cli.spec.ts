@@ -115,6 +115,32 @@ describe("CLI", () => {
 			});
 		});
 
+		it("should use custom cjs configuration file", async () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				configFile: path.join(__dirname, "__fixtures__/config.cjs"),
+			});
+			const config = await cli.getConfig();
+			expect(config).toEqual({
+				rules: {
+					foo: "error",
+				},
+			});
+		});
+
+		it("should use custom mjs configuration file", async () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				configFile: path.join(__dirname, "__fixtures__/config.mjs"),
+			});
+			const config = await cli.getConfig();
+			expect(config).toEqual({
+				rules: {
+					foo: "error",
+				},
+			});
+		});
+
 		it("should configure single rule", async () => {
 			expect.assertions(1);
 			const cli = new CLI({
