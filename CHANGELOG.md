@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 8.22.0 (2024-09-09)
+
+### Features
+
+- **api:** make `DOMNode` constructor internal ([13377ac](https://gitlab.com/html-validate/html-validate/commit/13377ac2eb93b1d03557108015295d0e9d229ac2))
+- **api:** make `HtmlElement` constructor private ([fbf4303](https://gitlab.com/html-validate/html-validate/commit/fbf4303fd44541c072be44ce3cafec1ddb848436))
+- **deps:** drop `@babel/code-frame` dependency ([0003ffd](https://gitlab.com/html-validate/html-validate/commit/0003ffdb9f4e912f729e436312c727fa94d5a40a))
+- **deps:** update @sidvind/better-ajv-errors to v3 ([3112289](https://gitlab.com/html-validate/html-validate/commit/3112289525b119ff0bb0b4ab47bb2d59a2993d30))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v5.3.2 ([9d86e68](https://gitlab.com/html-validate/html-validate/commit/9d86e685640b1f24412f85d8a4513a7ea1f01725))
+
 ## 8.21.0 (2024-07-20)
 
 ### Features

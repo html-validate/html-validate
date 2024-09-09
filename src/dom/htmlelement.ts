@@ -144,7 +144,7 @@ export class HtmlElement extends DOMNode {
 	 * instead.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 8.22.0
 	 * @param tagName - Element tagname.
 	 * @param location - Element location.
 	 * @param details - Additional element details.
