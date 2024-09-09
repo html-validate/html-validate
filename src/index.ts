@@ -9,8 +9,10 @@ export {
 export {
 	type FSLike,
 	type CommonJSResolver,
+	type ESMResolver,
 	type NodeJSResolver,
 	cjsResolver,
+	esmResolver,
 	nodejsResolver,
 } from "./config/resolver/nodejs";
 export {

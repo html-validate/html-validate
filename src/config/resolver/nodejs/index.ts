@@ -5,3 +5,4 @@ export {
 	cjsResolver,
 	nodejsResolver,
 } from "./cjs-resolver";
+export { type ESMResolver, esmResolver } from "./esm-resolver";
