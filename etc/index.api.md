@@ -100,15 +100,15 @@ export function classifyNodeText(node: HtmlElement, options?: TextClassification
 // @public (undocumented)
 export class CLI {
     constructor(options?: CLIOptions);
-    clearCache(): void;
-    expandFiles(patterns: string[], options?: ExpandOptions): string[];
+    clearCache(): Promise<void>;
+    expandFiles(patterns: string[], options?: ExpandOptions): Promise<string[]>;
     // @internal (undocumented)
-    getConfig(): ConfigData;
+    getConfig(): Promise<ConfigData>;
     // (undocumented)
-    getFormatter(formatters: string): (report: Report_2) => string;
+    getFormatter(formatters: string): Promise<(report: Report_2) => string>;
     // @internal
-    getLoader(): ConfigLoader;
-    getValidator(): HtmlValidate;
+    getLoader(): Promise<ConfigLoader>;
+    getValidator(): Promise<HtmlValidate>;
     init(cwd: string): Promise<InitResult>;
     isIgnored(filename: string): boolean;
 }

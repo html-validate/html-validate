@@ -17,8 +17,8 @@ function filter(config: ConfigData): ConfigData {
 
 it("should match results", async () => {
 	expect.hasAssertions();
-	const htmlvalidate = cli.getValidator();
-	const files = cli.expandFiles(["test-files/config"]);
+	const htmlvalidate = await cli.getValidator();
+	const files = await cli.expandFiles(["test-files/config"]);
 	for (const filename of files) {
 		const projectRelative = path.relative(root, filename);
 		const config = await htmlvalidate.getConfigFor(projectRelative);

@@ -58,11 +58,14 @@ describe("integration tests", () => {
 		expect(readFileSync).toHaveBeenCalledTimes(2);
 	});
 
-	it("expandFiles() should only return files not ignored", () => {
+	it("expandFiles() should only return files not ignored", async () => {
 		expect.assertions(1);
 		const cwd = path.join(__dirname, "../..");
 		const cli = new CLI();
-		const files = cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"], cwd });
+		const files = await cli.expandFiles(["test-files/ignored"], {
+			extensions: ["html", "vue"],
+			cwd,
+		});
 		expect(files).toEqual([
 			path.join(cwd, "test-files/ignored/bar.html"),
 			path.join(cwd, "test-files/ignored/included/file.html"),
@@ -73,8 +76,8 @@ describe("integration tests", () => {
 	it("validate", async () => {
 		expect.assertions(1);
 		const cli = new CLI();
-		const htmlvalidate = cli.getValidator();
-		const files = cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"] });
+		const htmlvalidate = await cli.getValidator();
+		const files = await cli.expandFiles(["test-files/ignored"], { extensions: ["html", "vue"] });
 		const report = await htmlvalidate.validateMultipleFiles(files);
 		expect(report).toBeValid();
 	});

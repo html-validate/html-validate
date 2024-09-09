@@ -21,9 +21,9 @@ expect.addSnapshotSerializer({
 	},
 });
 
-beforeAll(() => {
+beforeAll(async () => {
 	const cli = new CLI();
-	htmlvalidate = cli.getValidator();
+	htmlvalidate = await cli.getValidator();
 });
 
 it("should validate ok", async () => {
