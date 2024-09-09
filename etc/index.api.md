@@ -206,7 +206,7 @@ export abstract class ConfigLoader {
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
     // @internal
     _getGlobalConfig(): ConfigData;
     // (undocumented)

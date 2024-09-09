@@ -1,5 +1,39 @@
 # Migration guide
 
+## Upgrading to v9
+
+### API changes {#v9-api-changes}
+
+#### ConfigLoader async {#v9-configloader-async}
+
+The `ConfigLoader.getConfigFor()` method may now optionally return an asynchronous `Promise`.
+For most use-cases this will not require any changes.
+
+If you are simply passing in the configuration to the `HtmlValidate` constructor no action needs to be taken.
+
+```ts
+import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
+
+/* --- */
+
+const loader = new FileSystemConfigLoader();
+const htmlvalidate = new HtmlValidate(loader); // no changes needed!
+htmlvalidate.validateString("..");
+```
+
+Custom loaders will continue to work but can be rewritten to return a promise:
+
+```diff
+ class MyCustomLoader extends ConfigLoader {
+-  public getConfigFor(filePath: string): ResolvedConfig {
++  public async getConfigFor(filePath: string): Promise<ResolvedConfig> {
+     /* ... */
+   }
+ }
+```
+
+Using an asynchronous loader with any synchronous API such as `HtmlValidate.validateStringSync()` or `HtmlValidate.getConfigForSync()` results in an error.
+
 ## Upgrading to v8
 
 ### Dependency changes {#v8-dependency-changes}

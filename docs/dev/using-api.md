@@ -242,7 +242,7 @@ export class MyCustomLoader extends ConfigLoader {
 <div class="alert alert-info">
 	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
-	<p><code>getConfigFor(..)</code> can for backwards compatibility return a <code>Config</code> instance. This is deprecated and will be removed in the next major version.</p>
+	<p><code>ConfigLoader.getConfigFor(..)</code> may return a <code>Promise</code> but an asynchronous loader cannot be used with synchronous API's such as <code>HtmlValidate.validateStringSync(..)</code>. CLI usage supports asynchronous loaders.</p>
 </div>
 
 The custom loader is used the same as builtin loaders:

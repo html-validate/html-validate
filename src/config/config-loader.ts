@@ -35,7 +35,10 @@ export abstract class ConfigLoader {
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+	public abstract getConfigFor(
+		handle: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig>;
 
 	/**
 	 * Flush configuration cache.
