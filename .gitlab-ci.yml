@@ -278,6 +278,7 @@ Dry run:
   dependencies: []
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: '$CI_COMMIT_REF_NAME == "next"'
     - if: '$CI_COMMIT_REF_NAME =~ /^release\//'
   script:
     - npm exec semantic-release -- --dry-run
@@ -291,6 +292,8 @@ Release:
       aud: sigstore
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME == "next" && $CI_PIPELINE_SOURCE == "web"'
       when: manual
     - if: '$CI_COMMIT_REF_NAME =~ /^release\// && $CI_PIPELINE_SOURCE == "web"'
       when: manual
