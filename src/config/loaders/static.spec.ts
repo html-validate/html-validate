@@ -1,4 +1,5 @@
 import recommended from "../presets/recommended";
+import { Severity } from "../severity";
 import { StaticConfigLoader } from "./static";
 
 describe("StaticConfigLoader", () => {
@@ -89,6 +90,30 @@ describe("StaticConfigLoader", () => {
 			expect(() => {
 				loader.flushCache();
 			}).not.toThrow();
+		});
+	});
+
+	describe("setConfig()", () => {
+		it("should set new configuration", async () => {
+			expect.assertions(2);
+			const loader = new StaticConfigLoader({
+				rules: {
+					foo: "error",
+				},
+			});
+			const config1 = loader.getConfigFor("-");
+			expect(Object.fromEntries(config1.getRules().entries())).toEqual({
+				foo: [Severity.ERROR, {}],
+			});
+			loader.setConfig({
+				rules: {
+					bar: "error",
+				},
+			});
+			const config2 = loader.getConfigFor("-");
+			expect(Object.fromEntries(config2.getRules().entries())).toEqual({
+				bar: [Severity.ERROR, {}],
+			});
 		});
 	});
 });

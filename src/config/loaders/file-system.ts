@@ -125,15 +125,16 @@ export class FileSystemConfigLoader extends ConfigLoader {
 
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
-		if (this.globalConfig.isRootFound()) {
-			const merged = this.globalConfig.merge(this.resolvers, override);
+		const globalConfig = this.getGlobalConfigSync();
+		if (globalConfig.isRootFound()) {
+			const merged = globalConfig.merge(this.resolvers, override);
 			return merged.resolve();
 		}
 
 		const config = this.fromFilename(filename);
 		const merged = config
 			? config.merge(this.resolvers, override)
-			: this.globalConfig.merge(this.resolvers, override);
+			: globalConfig.merge(this.resolvers, override);
 		return merged.resolve();
 	}
 

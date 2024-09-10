@@ -4,6 +4,48 @@
 
 ### API changes {#v9-api-changes}
 
+#### Configuration errors {v9-config-deferred}
+
+In previous versions the `HtmlValidate` constructor would load the configuration directly and thus triggering configuration errors to occur.
+In V9 the configuration loading is deferred until validation occurs.
+
+Previous:
+
+```ts
+import { HtmlValidate } from "html-validate";
+
+/* --- */
+
+let htmlvalidate;
+try {
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  htmlvalidate = new HtmlValidate({
+    /* invalid configuration */
+  });
+} catch (err) {
+  /* ... */
+}
+```
+
+In V9 the above will not throw an exception but rather when later using the configuration it will, e.g. using any of the following will throw an exception:
+
+- `validateString(..)`
+- `validateFilename(..)`
+- `validateSource(..)`
+- `getConfigFor(..)`
+
+etc.
+
+#### ConfigLoader `globalConfig` property removed {#v9-configloader-globalconfig}
+
+The `ConfigLoader.globalConfig` property has been removed and replaced with `getGlobalConfig()` and `getGlobalConfigSync()`.
+
+```diff
+-const merged = this.globalConfig.merge(this.resolvers, override);
++const globalConfig = await this.getGlobalConfig();
++const merged = globalConfig.merge(this.resolvers, override);
+```
+
 #### `Config.init()` method removed {#v9-config-init}
 
 The redundant and deprecated `Config.init()` method has been removed.

@@ -216,10 +216,14 @@ A fully custom loader can be impemented by inheriting from `ConfigLoader`:
 import { Config, ConfigData, ConfigLoader, ResolvedConfig } from "html-validate";
 
 export class MyCustomLoader extends ConfigLoader {
-  public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
+  public override async getConfigFor(
+    handle: string,
+    configOverride?: ConfigData,
+  ): Promise<ResolvedConfig> {
     /* return config for given handle (e.g. filename passed to validateFile) */
     const override = this.loadFromObject(configOverride || {});
-    const merged = this.globalConfig.merge(this.resolvers, override);
+    const globalConfig = await this.getGlobalConfig();
+    const merged = globalConfig.merge(this.resolvers, override);
     return merged.resolve();
   }
 
