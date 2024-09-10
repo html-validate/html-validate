@@ -12,8 +12,10 @@ import { type Resolver } from "./resolver";
  * @public
  */
 export abstract class ConfigLoader {
+	private _globalConfig: Config | null;
+	private _configData: ConfigData | undefined;
+
 	protected readonly resolvers: Resolver[];
-	protected globalConfig: Config;
 
 	/**
 	 * Create a new ConfigLoader.
@@ -22,12 +24,47 @@ export abstract class ConfigLoader {
 	 * @param configData - Default configuration (which all configurations will inherit from).
 	 */
 	public constructor(resolvers: Resolver[], configData?: ConfigData) {
-		const defaults = Config.empty();
 		this.resolvers = resolvers;
-		this.globalConfig = defaults.merge(
-			this.resolvers,
-			configData ? this.loadFromObject(configData) : this.defaultConfig(),
-		);
+		this._configData = configData;
+		this._globalConfig = null;
+	}
+
+	/**
+	 * Set a new default configuration on this loader. Resets cached global
+	 * configuration.
+	 *
+	 * @internal
+	 */
+	protected setConfigData(configData: ConfigData): void {
+		this._configData = configData;
+		this._globalConfig = null;
+	}
+
+	/**
+	 * Get the global configuration.
+	 *
+	 * @returns A promise resolving to the global configuration.
+	 */
+	protected getGlobalConfig(): Promise<Config> {
+		/* until resolvers properly supports async operations */
+		return Promise.resolve(this.getGlobalConfigSync());
+	}
+
+	/**
+	 * Get the global configuration.
+	 *
+	 * The synchronous version does not support async resolvers.
+	 *
+	 * @returns The global configuration.
+	 */
+	protected getGlobalConfigSync(): Config {
+		if (this._globalConfig) {
+			return this._globalConfig;
+		}
+		const defaults = Config.empty();
+		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
+		this._globalConfig = defaults.merge(this.resolvers, config);
+		return this._globalConfig;
 	}
 
 	/**
@@ -62,8 +99,9 @@ export abstract class ConfigLoader {
 	/**
 	 * @internal For testing only
 	 */
-	public _getGlobalConfig(): ConfigData {
-		return this.globalConfig.get();
+	public async _getGlobalConfig(): Promise<ConfigData> {
+		const config = await this.getGlobalConfig();
+		return config.get();
 	}
 
 	/**

@@ -329,12 +329,11 @@ describe("rule attribute-boolean-style", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		expect(() => {
-			return new HtmlValidate({
-				root: true,
-				rules: { "attribute-boolean-style": ["error", { style: "foobar" }] },
-			});
-		}).toThrowErrorMatchingInlineSnapshot(
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "attribute-boolean-style": ["error", { style: "foobar" }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foobar")).toThrowErrorMatchingInlineSnapshot(
 			`"Rule configuration error: /rules/attribute-boolean-style/1/style must be equal to one of the allowed values: empty, name, omit"`,
 		);
 	});

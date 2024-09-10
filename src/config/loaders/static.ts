@@ -1,4 +1,4 @@
-import { Config } from "../config";
+import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
@@ -58,10 +58,8 @@ export class StaticConfigLoader extends ConfigLoader {
 	 * @since 8.20.0
 	 * @param config - New configuration to use.
 	 */
-	/* istanbul ignore next -- not testing setters/getters */
 	public setConfig(config: ConfigData): void {
-		const defaults = Config.empty();
-		this.globalConfig = defaults.merge(this.resolvers, this.loadFromObject(config));
+		this.setConfigData(config);
 	}
 
 	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
@@ -70,7 +68,7 @@ export class StaticConfigLoader extends ConfigLoader {
 			return override.resolve();
 		}
 
-		const merged = this.globalConfig.merge(this.resolvers, override);
+		const merged = this.getGlobalConfigSync().merge(this.resolvers, override);
 		return merged.resolve();
 	}
 

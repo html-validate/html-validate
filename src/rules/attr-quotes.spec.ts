@@ -216,11 +216,10 @@ describe("rule attr-quotes", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		expect(() => {
-			return new HtmlValidate({
-				rules: { "attr-quotes": ["error", { style: "foobar" }] },
-			});
-		}).toThrowErrorMatchingInlineSnapshot(
+		const htmlvalidate = new HtmlValidate({
+			rules: { "attr-quotes": ["error", { style: "foobar" }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foo")).toThrowErrorMatchingInlineSnapshot(
 			`"Rule configuration error: /rules/attr-quotes/1/style must be equal to one of the allowed values: auto, double, single, any"`,
 		);
 	});
