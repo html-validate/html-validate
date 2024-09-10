@@ -31,11 +31,11 @@ beforeEach(() => {
 });
 
 describe("FileSystemConfigLoader", () => {
-	it("should load default config if no configuration was passed", () => {
+	it("should load default config if no configuration was passed", async () => {
 		expect.assertions(1);
 		volume = Volume.fromJSON({});
 		const loader = new FileSystemConfigLoader(undefined, { fs: volume });
-		expect(loader._getGlobalConfig()).toEqual({
+		expect(await loader._getGlobalConfig()).toEqual({
 			extends: [],
 			plugins: [],
 			rules: {},
@@ -43,11 +43,11 @@ describe("FileSystemConfigLoader", () => {
 		});
 	});
 
-	it("should not load default config if configuration was passed", () => {
+	it("should not load default config if configuration was passed", async () => {
 		expect.assertions(1);
 		volume = Volume.fromJSON({});
 		const loader = new FileSystemConfigLoader({ rules: { foo: "error" } }, { fs: volume });
-		expect(loader._getGlobalConfig()).toEqual({
+		expect(await loader._getGlobalConfig()).toEqual({
 			extends: [],
 			plugins: [],
 			rules: {

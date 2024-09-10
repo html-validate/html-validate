@@ -185,12 +185,11 @@ describe("rule attr-pattern", () => {
 
 	it("should throw error if configured with no patterns", () => {
 		expect.assertions(1);
-		expect(() => {
-			return new HtmlValidate({
-				root: true,
-				rules: { "attr-pattern": ["error", { pattern: [] }] },
-			});
-		}).toThrowErrorMatchingInlineSnapshot(
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "attr-pattern": ["error", { pattern: [] }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foo")).toThrowErrorMatchingInlineSnapshot(
 			`"Rule configuration error: /rules/attr-pattern/1/pattern: minItems must NOT have fewer than 1 items"`,
 		);
 	});

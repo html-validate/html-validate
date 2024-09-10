@@ -207,16 +207,18 @@ export abstract class ConfigLoader {
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
     abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    protected getGlobalConfig(): Promise<Config>;
     // @internal
-    _getGlobalConfig(): ConfigData;
-    // (undocumented)
-    protected globalConfig: Config;
+    _getGlobalConfig(): Promise<ConfigData>;
+    protected getGlobalConfigSync(): Config;
     // (undocumented)
     protected loadFromFile(filename: string): Config;
     // (undocumented)
     protected loadFromObject(options: ConfigData, filename?: string | null): Config;
     // (undocumented)
     protected readonly resolvers: Resolver[];
+    // @internal
+    protected setConfigData(configData: ConfigData): void;
 }
 
 // @internal (undocumented)
