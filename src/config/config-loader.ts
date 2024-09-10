@@ -15,12 +15,18 @@ export abstract class ConfigLoader {
 	protected readonly resolvers: Resolver[];
 	protected globalConfig: Config;
 
-	public constructor(resolvers: Resolver[], config?: ConfigData) {
+	/**
+	 * Create a new ConfigLoader.
+	 *
+	 * @param resolvers - Sorted list of resolvers to use (in order).
+	 * @param configData - Default configuration (which all configurations will inherit from).
+	 */
+	public constructor(resolvers: Resolver[], configData?: ConfigData) {
 		const defaults = Config.empty();
 		this.resolvers = resolvers;
 		this.globalConfig = defaults.merge(
 			this.resolvers,
-			config ? this.loadFromObject(config) : this.defaultConfig(),
+			configData ? this.loadFromObject(configData) : this.defaultConfig(),
 		);
 	}
 

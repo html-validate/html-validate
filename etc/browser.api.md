@@ -155,7 +155,7 @@ export class ConfigError extends UserError {
 
 // @public
 export abstract class ConfigLoader {
-    constructor(resolvers: Resolver[], config?: ConfigData);
+    constructor(resolvers: Resolver[], configData?: ConfigData);
     protected abstract defaultConfig(): Config;
     // (undocumented)
     protected empty(): Config;
