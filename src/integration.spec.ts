@@ -63,6 +63,7 @@ it("should compute correct line, column and offset when using transformed source
 			plugins: { plugin },
 		}),
 	];
+
 	const loader = new StaticConfigLoader(resolvers, {
 		root: true,
 		plugins: ["plugin"],
