@@ -6,7 +6,7 @@
     "test": "vitest run --no-coverage"
   },
   "devDependencies": {
-    "vite": "4.5.3",
+    "vite": "4.5.5",
     "vitest": "0.34.6"
   }
 }
