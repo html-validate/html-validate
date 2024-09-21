@@ -6,6 +6,8 @@ import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
 import { type FSLike, cjsResolver } from "../resolver/nodejs";
+import { isThenable } from "../../utils";
+import { UserError } from "../../error";
 
 /**
  * Options for [[FileSystemConfigLoader]].
@@ -115,30 +117,18 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to merge final result with.
 	 */
-	public override getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
-		/* special case when the overridden configuration is marked as root, should
-		 * not try to load any more configuration files */
+	public override getConfigFor(
+		filename: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig> {
 		const override = this.loadFromObject(configOverride ?? {});
-		if (override.isRootFound()) {
-			override.init();
-			return override.resolve();
+		if (isThenable(override)) {
+			return override.then((override) => {
+				return this._resolveAsync(filename, override);
+			});
+		} else {
+			return this._resolveSync(filename, override);
 		}
-
-		/* special case when the global configuration is marked as root, should not
-		 * try to load and more configuration files */
-		const globalConfig = this.getGlobalConfigSync();
-		if (globalConfig.isRootFound()) {
-			const merged = globalConfig.merge(this.resolvers, override);
-			merged.init();
-			return merged.resolve();
-		}
-
-		const config = this.fromFilename(filename);
-		const merged = config
-			? config.merge(this.resolvers, override)
-			: globalConfig.merge(this.resolvers, override);
-		merged.init();
-		return merged.resolve();
 	}
 
 	/**
@@ -160,7 +150,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * This configuration is not merged with global configuration and may return
 	 * `null` if no configuration files are found.
 	 */
-	public fromFilename(filename: string): Config | null {
+	public fromFilename(filename: string): Config | Promise<Config | null> | null {
 		if (filename === "inline") {
 			return null;
 		}
@@ -179,6 +169,14 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = this.loadFromFile(configFile);
+
+				/* if the loader returns an async config we exit out of the synchronous
+				 * processing and enter the async method so we can resolve any promises
+				 * as we go */
+				if (isThenable(local)) {
+					return this.fromFilenameAsync(filename);
+				}
+
 				found = true;
 				config = local.merge(this.resolvers, config);
 			}
@@ -206,6 +204,115 @@ export class FileSystemConfigLoader extends ConfigLoader {
 
 		this.cache.set(filename, config);
 		return config;
+	}
+
+	/**
+	 * Async version of [[fromFilename]].
+	 *
+	 * @internal
+	 */
+	public async fromFilenameAsync(filename: string): Promise<Config | null> {
+		if (filename === "inline") {
+			return null;
+		}
+
+		const cache = this.cache.get(filename);
+		if (cache) {
+			return cache;
+		}
+
+		let found = false;
+		let current = path.resolve(path.dirname(filename));
+		let config = this.empty();
+
+		// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- it will break out when filesystem is traversed
+		while (true) {
+			/* search configuration files in current directory */
+			for (const configFile of findConfigurationFiles(this.fs, current)) {
+				const local = await this.loadFromFile(configFile);
+				found = true;
+				config = local.merge(this.resolvers, config);
+			}
+
+			/* stop if a configuration with "root" is set to true */
+			if (config.isRootFound()) {
+				break;
+			}
+
+			/* get the parent directory */
+			const child = current;
+			current = path.dirname(current);
+
+			/* stop if this is the root directory */
+			if (current === child) {
+				break;
+			}
+		}
+
+		/* no config was found by loader, return null and let caller decide what to do */
+		if (!found) {
+			this.cache.set(filename, null);
+			return null;
+		}
+
+		this.cache.set(filename, config);
+		return config;
+	}
+
+	private _mergeSync(
+		globalConfig: Config,
+		override: Config,
+		config: Config | null,
+	): ResolvedConfig {
+		const merged = config
+			? config.merge(this.resolvers, override)
+			: globalConfig.merge(this.resolvers, override);
+		merged.init();
+		return merged.resolve();
+	}
+
+	private _resolveSync(filename: string, override: Config): ResolvedConfig {
+		if (override.isRootFound()) {
+			override.init();
+			return override.resolve();
+		}
+
+		const globalConfig = this.getGlobalConfigSync();
+
+		/* special case when the global configuration is marked as root, should not
+		 * try to load and more configuration files */
+		if (globalConfig.isRootFound()) {
+			const merged = globalConfig.merge(this.resolvers, override);
+			merged.init();
+			return merged.resolve();
+		}
+
+		const config = this.fromFilename(filename);
+		if (isThenable(config)) {
+			throw new UserError("Cannot load async config from sync function");
+		}
+
+		return this._mergeSync(globalConfig, override, config);
+	}
+
+	private async _resolveAsync(filename: string, override: Config): Promise<ResolvedConfig> {
+		if (override.isRootFound()) {
+			override.init();
+			return override.resolve();
+		}
+
+		const globalConfig = await this.getGlobalConfig();
+
+		/* special case when the global configuration is marked as root, should not
+		 * try to load and more configuration files */
+		if (globalConfig.isRootFound()) {
+			const merged = globalConfig.merge(this.resolvers, override);
+			merged.init();
+			return merged.resolve();
+		}
+
+		const config = await this.fromFilenameAsync(filename);
+		return this._mergeSync(globalConfig, override, config);
 	}
 
 	/**
