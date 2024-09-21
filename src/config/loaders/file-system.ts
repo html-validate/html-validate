@@ -322,7 +322,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		return this.cache;
 	}
 
-	protected defaultConfig(): Config {
+	protected defaultConfig(): Config | Promise<Config> {
 		return Config.defaultConfig();
 	}
 }

@@ -40,7 +40,7 @@ export interface StaticResolver extends Required<Resolver> {
 export function staticResolver(map: StaticResolverMap = {}): StaticResolver {
 	const { elements = {}, configs = {}, plugins = {}, transformers = {} } = map;
 	return {
-		name: "static-qresolver",
+		name: "static-resolver",
 		addElements(id: string, value: MetaDataTable): void {
 			elements[id] = value;
 		},

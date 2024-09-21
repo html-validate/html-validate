@@ -36,6 +36,22 @@ In V9 the above will not throw an exception but rather when later using the conf
 
 etc.
 
+#### Config `fromFile(..)` and `fromObject(..)` async {#v9-config-async}
+
+The `Config.fromFile(..)` and `Config.fromObject(..)` will return a `Promise` when used with an async `ConfigLoader` or `Resolver`.
+
+To future-proof your code if using the `Config` class directly it is recommended to always `await` the result.
+
+```diff
+ const resolvers = [staticResolver()];
+-const config = Config.fromObject(resolvers, {
++const config = await Config.fromObject(resolvers, {
+   /* configuration */
+ });
+```
+
+If you must use synchronous code only it is up to you to ensure everything the configuration requires (plugins, loaders, resolvers) works in a synchronous manner.
+
 #### ConfigLoader async {#v9-configloader-async}
 
 All methods of `ConfigLoader` can optionally return a `Promise` for asynchronous operation.

@@ -104,10 +104,10 @@ describe("config", () => {
 	});
 
 	describe("merge()", () => {
-		it("should merge two configs", () => {
+		it("should merge two configs", async () => {
 			expect.assertions(1);
-			const a = Config.fromObject(resolvers, { rules: { foo: 1 } });
-			const b = Config.fromObject(resolvers, { rules: { bar: 1 } });
+			const a = await Config.fromObject(resolvers, { rules: { foo: 1 } });
+			const b = await Config.fromObject(resolvers, { rules: { bar: 1 } });
 			const merged = a.merge(resolvers, b);
 			expect(merged.get()).toEqual(
 				expect.objectContaining({
@@ -121,23 +121,23 @@ describe("config", () => {
 	});
 
 	describe("getRules()", () => {
-		it("should handle when config is missing rules", () => {
+		it("should handle when config is missing rules", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, { rules: undefined });
+			const config = await Config.fromObject(resolvers, { rules: undefined });
 			expect(config.get().rules).toEqual({});
 			expect(config.getRules()).toEqual(new Map());
 		});
 
-		it("should return parsed rules", () => {
+		it("should return parsed rules", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, { rules: { foo: "error" } });
+			const config = await Config.fromObject(resolvers, { rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(Array.from(config.getRules().entries())).toEqual([["foo", [Severity.ERROR, {}]]]);
 		});
 
-		it("should parse severity from string", () => {
+		it("should parse severity from string", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: "error",
 					bar: "warn",
@@ -151,9 +151,9 @@ describe("config", () => {
 			]);
 		});
 
-		it("should retain severity from integer", () => {
+		it("should retain severity from integer", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: 2,
 					bar: 1,
@@ -167,9 +167,9 @@ describe("config", () => {
 			]);
 		});
 
-		it("should retain options", () => {
+		it("should retain options", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: [2, { foo: true }],
 					bar: ["error", { bar: false }],
@@ -185,10 +185,10 @@ describe("config", () => {
 	});
 
 	describe("fromFile()", () => {
-		it("should support JSON file", () => {
+		it("should support JSON file", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.json");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.json");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -196,10 +196,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support js file", () => {
+		it("should support js file", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.js");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.js");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -207,10 +207,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support js file without extension", () => {
+		it("should support js file without extension", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -220,10 +220,10 @@ describe("config", () => {
 	});
 
 	describe("extend", () => {
-		it("should extend base configuration", () => {
+		it("should extend base configuration", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config.json"],
 				rules: {
 					foo: 1,
@@ -236,10 +236,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support deep extending", () => {
+		it("should support deep extending", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config-extending.json"],
 			});
 			expect(config.getRules()).toEqual(
@@ -251,57 +251,57 @@ describe("config", () => {
 			);
 		});
 
-		it("should support html-validate:recommended", () => {
+		it("should support html-validate:recommended", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:recommended (deprecated alias)", () => {
+		it("should support htmlvalidate:recommended (deprecated alias)", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["htmlvalidate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support html-validate:document", () => {
+		it("should support html-validate:document", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:document (deprecated alias)", () => {
+		it("should support htmlvalidate:document (deprecated alias)", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["htmlvalidate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:a11y", () => {
+		it("should support htmlvalidate:a11y", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:a11y"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:a17y (deprecated alias)", () => {
+		it("should support htmlvalidate:a17y (deprecated alias)", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:a17y"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("passed config should have precedence over extended", () => {
+		it("passed config should have precedence over extended", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base"],
 				plugins: ["mock-plugin-presets"],
 				rules: {
@@ -318,9 +318,9 @@ describe("config", () => {
 			);
 		});
 
-		it("should be resolved in correct order", () => {
+		it("should be resolved in correct order", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
 				plugins: ["mock-plugin-presets"],
 			});
@@ -333,7 +333,7 @@ describe("config", () => {
 			);
 		});
 
-		it("should resolve elements in correct order", () => {
+		it("should resolve elements in correct order", async () => {
 			expect.assertions(3);
 			const resolver = staticResolver({
 				elements: {
@@ -366,7 +366,7 @@ describe("config", () => {
 					},
 				},
 			});
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["mock-plugin:order-a", "mock-plugin:order-b"],
 				plugins: ["mock-plugin"],
 				elements: ["order-c"],
@@ -397,9 +397,9 @@ describe("config", () => {
 			});
 		});
 
-		it("should handle extends being explicitly set to undefined", () => {
+		it("should handle extends being explicitly set to undefined", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: undefined,
 				rules: undefined,
 			});
@@ -415,9 +415,9 @@ describe("config", () => {
 			expect(metatable.getMetaFor("div")).toBeDefined();
 		});
 
-		it("should load inline metadata", () => {
+		it("should load inline metadata", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				elements: [
 					{
 						foo: {},
@@ -437,7 +437,7 @@ describe("config", () => {
 			expect(a).toBe(b);
 		});
 
-		it("should load metadata from resolver", () => {
+		it("should load metadata from resolver", async () => {
 			expect.assertions(2);
 			const resolver = staticResolver({
 				elements: {
@@ -446,7 +446,7 @@ describe("config", () => {
 					},
 				},
 			});
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				elements: ["mock-elements"],
 			});
 			const metatable = config.getMetaTable();
@@ -454,9 +454,9 @@ describe("config", () => {
 			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
 
-		it("should throw ConfigError when module doesn't exist", () => {
+		it("should throw ConfigError when module doesn't exist", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				elements: ["missing-module"],
 			});
 			expect(() => config.getMetaTable()).toThrow(ConfigError);
@@ -466,18 +466,18 @@ describe("config", () => {
 		});
 	});
 
-	it("should load plugin from name", () => {
+	it("should load plugin from name", async () => {
 		expect.assertions(1);
-		const config = Config.fromObject(resolvers, {
+		const config = await Config.fromObject(resolvers, {
 			plugins: ["mock-plugin"],
 		});
 		config.init();
 		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 	});
 
-	it("should load plugin inline", () => {
+	it("should load plugin inline", async () => {
 		expect.assertions(1);
-		const config = Config.fromObject([], {
+		const config = await Config.fromObject([], {
 			plugins: [
 				{
 					name: "inline-plugin",
@@ -495,10 +495,10 @@ describe("config", () => {
 	});
 
 	describe("transformers", () => {
-		it("should load transformer from package", () => {
+		it("should load transformer from package", async () => {
 			expect.assertions(1);
 			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "mock-transform",
 				},
@@ -509,10 +509,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should load transformer from path with <rootDir>", () => {
+		it("should load transformer from path with <rootDir>", async () => {
 			expect.assertions(1);
 			const resolvers = [cjsResolver()];
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				transform: {
 					"\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
 				},
@@ -546,9 +546,9 @@ describe("config", () => {
 			};
 			const resolvers = [staticResolver({ plugins })];
 
-			it("unnamed", () => {
+			it("unnamed", async () => {
 				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
+				const config = await Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-unnamed"],
 					transform: {
 						"\\.unnamed$": "mock-plugin-unnamed",
@@ -564,9 +564,9 @@ describe("config", () => {
 				]);
 			});
 
-			it("named", () => {
+			it("named", async () => {
 				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
+				const config = await Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-named"],
 					transform: {
 						"\\.named$": "mock-plugin-named:foobar",
@@ -582,9 +582,9 @@ describe("config", () => {
 				]);
 			});
 
-			it("named default", () => {
+			it("named default", async () => {
 				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
+				const config = await Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-named"],
 					transform: {
 						"\\.default$": "mock-plugin-named",
@@ -600,10 +600,10 @@ describe("config", () => {
 				]);
 			});
 
-			it("non-plugin (regression test issue 54)", () => {
+			it("non-plugin (regression test issue 54)", async () => {
 				expect.assertions(1);
 				const resolvers = [staticResolver({ plugins }), cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-				const config = Config.fromObject(resolvers, {
+				const config = await Config.fromObject(resolvers, {
 					plugins: ["mock-plugin-unnamed"],
 					transform: {
 						"\\.unnamed$": "mock-plugin-unnamed",
@@ -626,10 +626,10 @@ describe("config", () => {
 			});
 		});
 
-		it("should throw error if transformer uses obsolete API", () => {
+		it("should throw error if transformer uses obsolete API", async () => {
 			expect.assertions(1);
 			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "mock-transform-obsolete",
 				},
@@ -641,10 +641,10 @@ describe("config", () => {
 			);
 		});
 
-		it("should throw error if transformer refers to missing plugin", () => {
+		it("should throw error if transformer refers to missing plugin", async () => {
 			expect.assertions(1);
 			const resolvers = [staticResolver()];
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "missing-plugin:foo",
 				},
@@ -656,10 +656,10 @@ describe("config", () => {
 			);
 		});
 
-		it("should throw sane error when transformer fails to load", () => {
+		it("should throw sane error when transformer fails to load", async () => {
 			expect.assertions(1);
 			const resolvers = [staticResolver()];
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				transform: {
 					"^.*\\.foo$": "missing-transformer" /* mocked transformer, see top of file */,
 				},
@@ -669,7 +669,7 @@ describe("config", () => {
 			}).toThrowErrorMatchingSnapshot();
 		});
 
-		it("should throw error when trying to load unnamed transform from plugin without any", () => {
+		it("should throw error when trying to load unnamed transform from plugin without any", async () => {
 			expect.assertions(1);
 			const resolvers = [
 				staticResolver({
@@ -678,7 +678,7 @@ describe("config", () => {
 					},
 				}),
 			];
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin-notransform"],
 				transform: {
 					"^.*\\.foo$": "mock-plugin-notransform",
@@ -689,7 +689,7 @@ describe("config", () => {
 			}).toThrowErrorMatchingSnapshot();
 		});
 
-		it("should throw error when trying to load named transform from plugin without any", () => {
+		it("should throw error when trying to load named transform from plugin without any", async () => {
 			expect.assertions(1);
 			const resolvers = [
 				staticResolver({
@@ -698,7 +698,7 @@ describe("config", () => {
 					},
 				}),
 			];
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin-notransform"],
 				transform: {
 					"^.*\\.foo$": "mock-plugin-notransform:named",
@@ -711,18 +711,18 @@ describe("config", () => {
 	});
 
 	describe("init()", () => {
-		it("should handle being called multiple times", () => {
+		it("should handle being called multiple times", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {});
+			const config = await Config.fromObject(resolvers, {});
 			const spy = jest.spyOn(config as any, "precompileTransformers").mockReturnValue([]);
 			config.init();
 			config.init();
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
 
-		it("should handle unset fields", () => {
+		it("should handle unset fields", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				plugins: undefined,
 				transform: undefined,
 			});
@@ -731,9 +731,9 @@ describe("config", () => {
 			}).not.toThrow();
 		});
 
-		it("should load plugins", () => {
+		it("should load plugins", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			config.init();
