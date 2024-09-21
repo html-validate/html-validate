@@ -12,8 +12,12 @@ function stripAnsi(text: string): string {
 }
 
 expect.addSnapshotSerializer({
-	serialize(val: string): string {
-		return stripAnsi(val);
+	serialize(val: Error | string): string {
+		if (val instanceof Error) {
+			return stripAnsi(val.message);
+		} else {
+			return stripAnsi(val);
+		}
 	},
 	test(): boolean {
 		return true;
