@@ -164,8 +164,8 @@ export class Config {
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal
-    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config;
-    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config;
+    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config | Promise<Config>;
+    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // @internal
     get(): ConfigData;
     // @internal
@@ -516,7 +516,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
     // (undocumented)
     protected cache: Map<string, Config | null>;
     // (undocumented)
-    protected defaultConfig(): Config;
+    protected defaultConfig(): Config | Promise<Config>;
     flushCache(filename?: string): void;
     fromFilename(filename: string): Config | Promise<Config | null> | null;
     // @internal

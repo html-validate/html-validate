@@ -83,8 +83,8 @@ describe("Engine", () => {
 	let config: Config;
 	let engine: ExposedEngine<Parser>;
 
-	beforeEach(() => {
-		config = Config.fromObject([], {
+	beforeEach(async () => {
+		config = await Config.fromObject([], {
 			extends: ["html-validate:recommended"],
 			rules: {
 				deprecated: "off",

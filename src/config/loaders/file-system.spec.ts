@@ -1,5 +1,6 @@
 import { Volume } from "memfs/lib/volume";
 import * as utils from "../../utils";
+import { isThenable } from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type Resolver } from "../resolver";
@@ -26,7 +27,12 @@ jest.spyOn(utils, "requireUncached").mockImplementation((_: unknown, moduleName:
 
 class ForcedSyncLoader extends FileSystemConfigLoader {
 	protected override loadFromObject(options: ConfigData): Config {
-		return Config.fromObject([], options);
+		const config = Config.fromObject([], options);
+		if (isThenable(config)) {
+			throw new Error("expected non-thenable result");
+		} else {
+			return config;
+		}
 	}
 }
 
@@ -797,7 +803,7 @@ describe("FileSystemConfigLoader", () => {
 					cached: "error",
 				},
 			};
-			cache.set("/path/to/target.html", Config.fromObject([], configData));
+			cache.set("/path/to/target.html", await Config.fromObject([], configData));
 			const config = await loader.fromFilename("/path/to/target.html");
 			expect(config?.get()).toEqual({
 				elements: undefined,
@@ -820,7 +826,7 @@ describe("FileSystemConfigLoader", () => {
 					cached: "error",
 				},
 			};
-			cache.set("/path/to/target.html", Config.fromObject([], configData));
+			cache.set("/path/to/target.html", await Config.fromObject([], configData));
 			const config = await loader.fromFilenameAsync("/path/to/target.html");
 			expect(config?.get()).toEqual({
 				elements: undefined,

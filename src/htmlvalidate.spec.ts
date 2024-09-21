@@ -70,12 +70,13 @@ describe("HtmlValidate", () => {
 	it("should support using a custom config loader", async () => {
 		expect.assertions(2);
 		const loader = new (class extends ConfigLoader {
-			public getConfigFor(): ResolvedConfig {
-				return Config.fromObject([], {
+			public async getConfigFor(): Promise<ResolvedConfig> {
+				const config = await Config.fromObject([], {
 					rules: {
 						foobar: "error",
 					},
-				}).resolve();
+				});
+				return config.resolve();
 			}
 			public flushCache(): void {
 				/* do nothing */
