@@ -9,6 +9,8 @@ import { type Report, Reporter } from "./reporter";
 import { type RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
 import { StaticConfigLoader } from "./config/loaders/static";
+import { isThenable } from "./utils";
+import { UserError } from "./error";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
@@ -618,7 +620,11 @@ export class HtmlValidate {
 	 * @param configOverride - Configuration to apply last.
 	 */
 	public getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig {
-		return this.configLoader.getConfigFor(filename, configOverride);
+		const config = this.configLoader.getConfigFor(filename, configOverride);
+		if (isThenable(config)) {
+			throw new UserError("Cannot use asynchronous config loader with synchronous api");
+		}
+		return config;
 	}
 
 	/**

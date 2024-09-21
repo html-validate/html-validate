@@ -1,3 +1,4 @@
+import { isThenable } from "../../utils";
 import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
@@ -62,24 +63,44 @@ export class StaticConfigLoader extends ConfigLoader {
 		this.setConfigData(config);
 	}
 
-	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
+	public override getConfigFor(
+		_handle: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig> {
 		const override = this.loadFromObject(configOverride ?? {});
-		if (override.isRootFound()) {
-			return override.resolve();
-		}
 
-		const merged = this.getGlobalConfigSync().merge(this.resolvers, override);
-		return merged.resolve();
+		if (isThenable(override)) {
+			return override.then((override) => this._resolveConfig(override));
+		} else {
+			return this._resolveConfig(override);
+		}
 	}
 
 	public override flushCache(): void {
 		/* do nothing */
 	}
 
-	protected defaultConfig(): Config {
+	protected defaultConfig(): Config | Promise<Config> {
 		return this.loadFromObject({
 			extends: ["html-validate:recommended"],
 			elements: ["html5"],
 		});
+	}
+
+	private _resolveConfig(override: Config): ResolvedConfig | Promise<ResolvedConfig> {
+		if (override.isRootFound()) {
+			return override.resolve();
+		}
+
+		const globalConfig = this.getGlobalConfig();
+		if (isThenable(globalConfig)) {
+			return globalConfig.then((globalConfig) => {
+				const merged = globalConfig.merge(this.resolvers, override);
+				return merged.resolve();
+			});
+		} else {
+			const merged = globalConfig.merge(this.resolvers, override);
+			return merged.resolve();
+		}
 	}
 }

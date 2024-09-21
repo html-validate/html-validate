@@ -221,7 +221,7 @@ export class MyCustomLoader extends ConfigLoader {
     configOverride?: ConfigData,
   ): Promise<ResolvedConfig> {
     /* return config for given handle (e.g. filename passed to validateFile) */
-    const override = this.loadFromObject(configOverride || {});
+    const override = await this.loadFromObject(configOverride || {});
     const globalConfig = await this.getGlobalConfig();
     const merged = globalConfig.merge(this.resolvers, override);
     return merged.resolve();
@@ -232,9 +232,9 @@ export class MyCustomLoader extends ConfigLoader {
     /* do nothing for this example */
   }
 
-  protected defaultConfig(): Config {
+  protected async defaultConfig(): Promise<Config> {
     /* return default configuration, used when no config is passed to constructor */
-    return this.loadFromObject({
+    return await this.loadFromObject({
       extends: ["html-validate:recommended"],
       elements: ["html5"],
     });
@@ -245,7 +245,7 @@ export class MyCustomLoader extends ConfigLoader {
 <div class="alert alert-info">
 	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
-	<p><code>getConfigFor(..)</code> can for backwards compatibility return a <code>Config</code> instance. This is deprecated and will be removed in the next major version.</p>
+	<p><code>ConfigLoader.getConfigFor(..)</code> may return a <code>Promise</code> but an asynchronous loader cannot be used with synchronous API's such as <code>HtmlValidate.validateStringSync(..)</code>. CLI usage supports asynchronous loaders.</p>
 </div>
 
 The custom loader is used the same as builtin loaders:

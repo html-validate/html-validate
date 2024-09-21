@@ -1,7 +1,8 @@
-import { StaticConfigLoader } from "./browser";
 import { type ConfigData, type ResolvedConfig, Config, ConfigLoader, Severity } from "./config";
+import { StaticConfigLoader } from "./config/loaders/static";
 import { cjsResolver } from "./config/resolver/nodejs";
 import { type Source, type SourceHooks } from "./context";
+import { UserError } from "./error";
 import { HtmlValidate } from "./htmlvalidate";
 import { type Message } from "./message";
 import { Parser } from "./parser";
@@ -989,6 +990,29 @@ describe("HtmlValidate", () => {
 		const htmlvalidate = new HtmlValidate();
 		const schema = htmlvalidate.getElementsSchemaSync();
 		expect(schema).toBeDefined();
+	});
+
+	describe("getConfigForSync()", () => {
+		it("should throw an error if combined with an async loader", () => {
+			expect.assertions(2);
+			class MockLoader extends ConfigLoader {
+				public defaultConfig(): Config {
+					return Config.empty();
+				}
+				public flushCache(): void {
+					/* do nothing */
+				}
+				public getConfigFor(): Promise<ResolvedConfig> {
+					return Promise.resolve(Config.empty().resolve());
+				}
+			}
+			const loader = new MockLoader([]);
+			const htmlvalidate = new HtmlValidate(loader);
+			expect(() => htmlvalidate.getConfigForSync("..")).toThrow(UserError);
+			expect(() => htmlvalidate.getConfigForSync("..")).toThrow(
+				"Cannot use asynchronous config loader with synchronous api",
+			);
+		});
 	});
 
 	describe("getContextualDocumentation()", () => {
