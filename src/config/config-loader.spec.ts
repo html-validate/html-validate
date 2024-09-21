@@ -21,7 +21,7 @@ class AsyncMockLoader extends ConfigLoader {
 	public override flushCache(): void {
 		/* do nothing */
 	}
-	public override defaultConfig(): Config {
+	public override defaultConfig(): Config | Promise<Config> {
 		return Config.fromObject(this.resolvers, defaultConfig);
 	}
 }
@@ -37,7 +37,7 @@ class SyncMockLoader extends ConfigLoader {
 	public override flushCache(): void {
 		/* do nothing */
 	}
-	public override defaultConfig(): Config {
+	public override defaultConfig(): Config | Promise<Config> {
 		return Config.fromObject(this.resolvers, defaultConfig);
 	}
 }

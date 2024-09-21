@@ -117,8 +117,8 @@ export class Config {
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal
-    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config;
-    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config;
+    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config | Promise<Config>;
+    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // @internal
     get(): ConfigData;
     // @internal

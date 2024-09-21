@@ -10,6 +10,7 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
+import { isThenable } from "../utils";
 import {
 	type ConfigData,
 	type RuleConfig,
@@ -102,7 +103,7 @@ export class Config {
 	 * Create a new blank configuration. See also `Config.defaultConfig()`.
 	 */
 	public static empty(): Config {
-		return Config.create([], {
+		return new Config([], {
 			extends: [],
 			rules: {},
 			plugins: [],
@@ -117,7 +118,7 @@ export class Config {
 		resolvers: Resolver | Resolver[],
 		options: ConfigData,
 		filename: string | null = null,
-	): Config {
+	): Config | Promise<Config> {
 		Config.validate(options, filename);
 		return Config.create(resolvers, options);
 	}
@@ -131,7 +132,10 @@ export class Config {
 	 * @internal
 	 * @param filename - The file to read from
 	 */
-	public static fromFile(resolvers: Resolver | Resolver[], filename: string): Config {
+	public static fromFile(
+		resolvers: Resolver | Resolver[],
+		filename: string,
+	): Config | Promise<Config> {
 		const configData = resolveConfig(toArray(resolvers), filename, { cache: false });
 		return Config.fromObject(resolvers, configData, filename);
 	}
@@ -170,13 +174,16 @@ export class Config {
 	 * Load a default configuration object.
 	 */
 	public static defaultConfig(): Config {
-		return Config.create([], defaultConfig);
+		return new Config([], defaultConfig);
 	}
 
 	/**
 	 * @internal
 	 */
-	private static create(resolvers: Resolver | Resolver[], options: ConfigData): Config {
+	private static create(
+		resolvers: Resolver | Resolver[],
+		options: ConfigData,
+	): Config | Promise<Config> {
 		const instance = new Config(resolvers, options);
 
 		/* load plugins */
@@ -184,21 +191,30 @@ export class Config {
 		instance.configurations = instance.loadConfigurations(instance.plugins);
 		instance.extendMeta(instance.plugins);
 
+		const update = (extendedConfig: ConfigData): Config => {
+			instance.config = extendedConfig;
+
+			/* reset extends as we already processed them, this prevents the next config
+			 * from reapplying config from extended config as well as duplicate entries
+			 * when merging arrays */
+			instance.config.extends = [];
+
+			/* rules explicitly set by passed options should have precedence over any
+			 * extended rules, not the other way around. */
+			if (options.rules) {
+				instance.config = mergeInternal(instance.config, { rules: options.rules });
+			}
+
+			return instance;
+		};
+
 		/* process extended configs */
-		instance.config = instance.extendConfig(instance.config.extends ?? []);
-
-		/* reset extends as we already processed them, this prevents the next config
-		 * from reapplying config from extended config as well as duplicate entries
-		 * when merging arrays */
-		instance.config.extends = [];
-
-		/* rules explicitly set by passed options should have precedence over any
-		 * extended rules, not the other way around. */
-		if (options.rules) {
-			instance.config = mergeInternal(instance.config, { rules: options.rules });
+		const extendedConfig = instance.extendConfig(instance.config.extends ?? []);
+		if (isThenable(extendedConfig)) {
+			return extendedConfig.then((extended) => update(extended));
+		} else {
+			return update(extendedConfig);
 		}
-
-		return instance;
 	}
 
 	/**
@@ -234,10 +250,17 @@ export class Config {
 	 * @param rhs - Configuration to merge with this one.
 	 */
 	public merge(resolvers: Resolver[], rhs: Config): Config {
-		return Config.create(resolvers, mergeInternal(this.config, rhs.config));
+		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
+
+		/* load plugins */
+		instance.plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		instance.configurations = instance.loadConfigurations(instance.plugins);
+		instance.extendMeta(instance.plugins);
+
+		return instance;
 	}
 
-	private extendConfig(entries: string[]): ConfigData {
+	private extendConfig(entries: string[]): ConfigData | Promise<ConfigData> {
 		if (entries.length === 0) {
 			return this.config;
 		}
@@ -248,7 +271,30 @@ export class Config {
 			if (this.configurations.has(entry)) {
 				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
 			} else {
-				extended = Config.fromFile(this.resolvers, entry).config;
+				const loadedConfig = Config.fromFile(this.resolvers, entry);
+				if (isThenable(loadedConfig)) {
+					return this.extendConfigAsync(entries);
+				}
+				extended = loadedConfig.config;
+			}
+			base = mergeInternal(base, extended);
+		}
+		return mergeInternal(base, this.config);
+	}
+
+	private async extendConfigAsync(entries: string[]): Promise<ConfigData> {
+		if (entries.length === 0) {
+			return this.config;
+		}
+
+		let base: ConfigData = {};
+		for (const entry of entries) {
+			let extended: ConfigData;
+			if (this.configurations.has(entry)) {
+				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
+			} else {
+				const loadedConfig = await Config.fromFile(this.resolvers, entry);
+				extended = loadedConfig.config;
 			}
 			base = mergeInternal(base, extended);
 		}

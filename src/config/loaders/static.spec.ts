@@ -1,3 +1,4 @@
+import { isThenable } from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import recommended from "../presets/recommended";
@@ -6,7 +7,12 @@ import { StaticConfigLoader } from "./static";
 
 class ForcedSyncLoader extends StaticConfigLoader {
 	protected override loadFromObject(options: ConfigData): Config {
-		return Config.fromObject([], options);
+		const config = Config.fromObject([], options);
+		if (isThenable(config)) {
+			throw new Error("expected non-thenable result");
+		} else {
+			return config;
+		}
 	}
 }
 
@@ -15,7 +21,6 @@ class ForcedAsyncLoader extends StaticConfigLoader {
 		return Promise.resolve(Config.fromObject([], options));
 	}
 }
-
 describe("StaticConfigLoader", () => {
 	describe("getConfigFor()", () => {
 		it("should use default configuration (sync)", async () => {
