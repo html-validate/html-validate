@@ -1,5 +1,25 @@
 # html-validate changelog
 
+## 9.0.0-rc.2 (2024-09-21)
+
+### ⚠ BREAKING CHANGES
+
+- **api:** This change affects API users only. `Config.fromFile(..)` and
+  `Config.fromObject(..)` will return a Promise when used with an async loader or resolver.
+- **api:** This change affects API users only. `ConfigLoader` methods can
+  optionally return a `Promise` for async operation. For most use-cases this will
+  not require any changes.
+- **api:** This change affects API users only. The
+  `ConfigLoader.globalConfig` property has been replaced with
+  `ConfigLoader.getGlobalConfig()` (async) and
+  `ConfigLoader.getGlobalConfigSync()` (sync).
+
+### Features
+
+- **api:** `Config.fromFile` and `Config.fromObject` can return `Promise` ([2d827f8](https://gitlab.com/html-validate/html-validate/commit/2d827f8ebbcc80b6371e34490cc29a60ccb06f19))
+- **api:** `ConfigLoader`s can optionally return `Promise` for async operation ([ccea523](https://gitlab.com/html-validate/html-validate/commit/ccea523734ec394a7da7f384f269e058af957081))
+- **api:** replace `ConfigLoader.globalConfig` with `ConfigLoader.getGlobalConfig()` ([404d44e](https://gitlab.com/html-validate/html-validate/commit/404d44eb42a182c5b197d6117f967d98fc76f3ae))
+
 ## 9.0.0-rc.1 (2024-09-09)
 
 ### ⚠ BREAKING CHANGES
