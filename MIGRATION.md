@@ -36,6 +36,46 @@ In V9 the above will not throw an exception but rather when later using the conf
 
 etc.
 
+#### ConfigLoader async {#v9-configloader-async}
+
+All methods of `ConfigLoader` can optionally return a `Promise` for asynchronous operation.
+For most use-cases this will not require any changes.
+
+If you are simply passing in the configuration to the `HtmlValidate` constructor no action needs to be taken.
+
+```ts
+import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
+
+/* --- */
+
+const loader = new FileSystemConfigLoader();
+const htmlvalidate = new HtmlValidate(loader); // no changes needed!
+htmlvalidate.validateString("..");
+```
+
+If you use a loader in other ways e.g. reading the resulting configuration, it is recommended to always `await` the result.
+
+```diff
+const loader = new FileSystemConfigLoader();
+-const config = loader.getConfigFor("my-file.html");
++const config = await loader.getConfigFor("my-file.html");
+```
+
+If you must use synchronous code only it is up to you to ensure everything the configuration requires works in a synchronous manner.
+
+Custom loaders will continue to work but can be rewritten to return a promise, for instance:
+
+```diff
+ class MyCustomLoader extends ConfigLoader {
+-  public getConfigFor(filePath: string): ResolvedConfig {
++  public async getConfigFor(filePath: string): Promise<ResolvedConfig> {
+     /* ... */
+   }
+ }
+```
+
+Using an asynchronous loader with any synchronous API such as `HtmlValidate.validateStringSync()` or `HtmlValidate.getConfigForSync()` results in an error.
+
 #### ConfigLoader `globalConfig` property removed {#v9-configloader-globalconfig}
 
 The `ConfigLoader.globalConfig` property has been removed and replaced with `getGlobalConfig()` and `getGlobalConfigSync()`.

@@ -204,21 +204,19 @@ export class ConfigError extends UserError {
 // @public
 export abstract class ConfigLoader {
     constructor(resolvers: Resolver[], configData?: ConfigData);
-    protected abstract defaultConfig(): Config;
+    protected abstract defaultConfig(): Config | Promise<Config>;
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
-    protected getGlobalConfig(): Promise<Config>;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
+    protected getGlobalConfig(): Config | Promise<Config>;
     // @internal
     _getGlobalConfig(): Promise<ConfigData>;
     protected getGlobalConfigSync(): Config;
     // @internal (undocumented)
     getResolvers(): Resolver[];
-    // (undocumented)
-    protected loadFromFile(filename: string): Config;
-    // (undocumented)
-    protected loadFromObject(options: ConfigData, filename?: string | null): Config;
+    protected loadFromFile(filename: string): Config | Promise<Config>;
+    protected loadFromObject(options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // (undocumented)
     protected readonly resolvers: Resolver[];
     // @internal
@@ -520,8 +518,10 @@ export class FileSystemConfigLoader extends ConfigLoader {
     // (undocumented)
     protected defaultConfig(): Config;
     flushCache(filename?: string): void;
-    fromFilename(filename: string): Config | null;
-    getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig;
+    fromFilename(filename: string): Config | Promise<Config | null> | null;
+    // @internal
+    fromFilenameAsync(filename: string): Promise<Config | null>;
+    getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
     // @internal
     _getInternalCache(): Map<string, Config | null>;
 }
@@ -1323,11 +1323,11 @@ export class StaticConfigLoader extends ConfigLoader {
     constructor(config?: ConfigData);
     constructor(resolvers: Resolver[], config?: ConfigData);
     // (undocumented)
-    protected defaultConfig(): Config;
+    protected defaultConfig(): Config | Promise<Config>;
     // (undocumented)
     flushCache(): void;
     // (undocumented)
-    getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
     setConfig(config: ConfigData): void;
 }
 

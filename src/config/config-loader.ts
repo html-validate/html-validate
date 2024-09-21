@@ -1,3 +1,5 @@
+import { UserError } from "../error";
+import { isThenable } from "../utils";
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";
 import { type ResolvedConfig } from "./resolved-config";
@@ -45,9 +47,21 @@ export abstract class ConfigLoader {
 	 *
 	 * @returns A promise resolving to the global configuration.
 	 */
-	protected getGlobalConfig(): Promise<Config> {
-		/* until resolvers properly supports async operations */
-		return Promise.resolve(this.getGlobalConfigSync());
+	protected getGlobalConfig(): Config | Promise<Config> {
+		if (this._globalConfig) {
+			return this._globalConfig;
+		}
+		const defaults = Config.empty();
+		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
+		if (isThenable(config)) {
+			return config.then((config) => {
+				this._globalConfig = defaults.merge(this.resolvers, config);
+				return this._globalConfig;
+			});
+		} else {
+			this._globalConfig = defaults.merge(this.resolvers, config);
+			return this._globalConfig;
+		}
 	}
 
 	/**
@@ -63,6 +77,9 @@ export abstract class ConfigLoader {
 		}
 		const defaults = Config.empty();
 		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
+		if (isThenable(config)) {
+			throw new UserError("Cannot load async config from sync function");
+		}
 		this._globalConfig = defaults.merge(this.resolvers, config);
 		return this._globalConfig;
 	}
@@ -78,7 +95,10 @@ export abstract class ConfigLoader {
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+	public abstract getConfigFor(
+		handle: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig>;
 
 	/**
 	 * @internal
@@ -107,17 +127,26 @@ export abstract class ConfigLoader {
 	/**
 	 * Default configuration used when no explicit configuration is passed to constructor.
 	 */
-	protected abstract defaultConfig(): Config;
+	protected abstract defaultConfig(): Config | Promise<Config>;
 
 	protected empty(): Config {
 		return Config.empty();
 	}
 
-	protected loadFromObject(options: ConfigData, filename?: string | null): Config {
+	/**
+	 * Load configuration from object.
+	 */
+	protected loadFromObject(
+		options: ConfigData,
+		filename?: string | null,
+	): Config | Promise<Config> {
 		return Config.fromObject(this.resolvers, options, filename);
 	}
 
-	protected loadFromFile(filename: string): Config {
+	/**
+	 * Load configuration from filename.
+	 */
+	protected loadFromFile(filename: string): Config | Promise<Config> {
 		return Config.fromFile(this.resolvers, filename);
 	}
 }
