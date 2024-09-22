@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.23.0 (2024-09-22)
+
+### Features
+
+- **deps:** support vitest v2 ([860b0c0](https://gitlab.com/html-validate/html-validate/commit/860b0c02510ef7e40cd2fd54b7f83143643b3718))
+
 ## 9.0.0-rc.2 (2024-09-21)
 
 ### ⚠ BREAKING CHANGES
