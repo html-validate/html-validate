@@ -51,7 +51,7 @@ This preset should be used together with `html-validate:standard` to ensure the 
 
 ### `html-validate:browser`
 
-- Since: %version%
+- Since: 8.24.0
 
 If you are fetching source code from a browser use this this preset to disable rules affected by browser normalization such as {@link rule:attribute-boolean-style}.
 Most of these rules are cosmetic only.

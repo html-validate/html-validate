@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.24.0 (2024-09-24)
+
+### Features
+
+- new `html-validate:browser` configuration preset ([f4e6f5b](https://gitlab.com/html-validate/html-validate/commit/f4e6f5ba3b57a278ef6c59a4e5e65ec602b2f9de)), closes [#261](https://gitlab.com/html-validate/html-validate/issues/261)
+
 ## 8.23.0 (2024-09-22)
 
 ### Features
