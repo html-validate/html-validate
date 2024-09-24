@@ -49,6 +49,15 @@ On its own it will not validate if the document/template itself is valid but onl
 
 This preset should be used together with `html-validate:standard` to ensure the document structure is valid (a requirement of WCAG) and if possible `html-validate:document` (to ensure references are valid, etc).
 
+### `html-validate:browser`
+
+- Since: %version%
+
+If you are fetching source code from a browser use this this preset to disable rules affected by browser normalization such as {@link rule:attribute-boolean-style}.
+Most of these rules are cosmetic only.
+
+This preset if meant to be used in combination with another preset such as `html-validate:recommended` as it only disables rules.
+
 ### `html-validate:document`
 
 Enables rules requiring a full document to validate, i.e. not a partial template.
