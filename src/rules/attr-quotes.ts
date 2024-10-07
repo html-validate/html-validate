@@ -106,6 +106,12 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
+			/* ignore dynamically added attributes (original attribute is still
+			 * validated) */
+			if (event.originalAttribute) {
+				return;
+			}
+
 			/* ignore attributes with no value */
 			if (event.value === null) {
 				return;
