@@ -1,4 +1,5 @@
 import { HtmlValidate } from "../htmlvalidate";
+import { processAttribute } from "../transform/mocks/attribute";
 import "../jest";
 import { type RuleStyleContext, type RuleUnquotedContext } from "./attr-quotes";
 
@@ -184,6 +185,33 @@ describe("rule attr-quotes", () => {
 				Selector: div"
 			`);
 		});
+	});
+
+	it("should not report dynamic values twice", async () => {
+		expect.assertions(1);
+		const markup = `
+			<p dynamic-foo='primary'></p>
+		`;
+		const report = await htmlvalidate.validateString(markup, {
+			processAttribute,
+		});
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "dynamic-foo" used ' instead of expected " (attr-quotes) at inline:2:7:
+			  1 |
+			> 2 | 			<p dynamic-foo='primary'></p>
+			    | 			   ^^^^^^^^^^^^^^^^^^^^^
+			  3 |
+			Selector: p"
+		`);
+	});
+
+	it("should handle when dynamic value is missing value", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <p dynamic-foo></p> `;
+		const report = await htmlvalidate.validateString(markup, {
+			processAttribute,
+		});
+		expect(report).toMatchInlineCodeframe(`""`);
 	});
 
 	it("should throw error if configured with invalid value", () => {
