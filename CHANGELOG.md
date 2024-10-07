@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.24.1 (2024-10-07)
+
+### Bug Fixes
+
+- dont validate quotes in dynamically added attributes ([2125d86](https://gitlab.com/html-validate/html-validate/commit/2125d8640f39bce5627510bfa7cd2597628d9ae5))
+
 ## 8.24.0 (2024-09-24)
 
 ### Features
