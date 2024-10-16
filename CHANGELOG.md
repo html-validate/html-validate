@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.24.2 (2024-10-16)
+
+### Bug Fixes
+
+- add default environment to `package.json` exports ([a21a1ef](https://gitlab.com/html-validate/html-validate/commit/a21a1ef2b900ee7a897abbb71bfb358ea9a84872)), closes [#265](https://gitlab.com/html-validate/html-validate/issues/265)
+
 ## 8.24.1 (2024-10-07)
 
 ### Bug Fixes
