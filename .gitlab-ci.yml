@@ -1,4 +1,4 @@
-image: node:latest
+image: node:22
 
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
