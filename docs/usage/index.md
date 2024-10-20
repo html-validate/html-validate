@@ -1,6 +1,7 @@
 ---
 docType: content
 title: Getting started
+name: getting-started
 nav: userguide
 ---
 
@@ -25,6 +26,13 @@ Create a configuration file:
 Run with:
 
     npm exec html-validate yourfile.html
+
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Tip</strong>
+	<p>If you use <a href="https://prettier.io/" rel="external">Prettier</a> code formatter add the <code>htm-validate:prettier</code> preset as well to avoid style related rules clashing with Prettier.</p>
+	<p>Learn more about {@link presets configuration presets}.</p>
+</div>
 
 ## Configuration
 

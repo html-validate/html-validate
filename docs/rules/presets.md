@@ -1,6 +1,7 @@
 ---
 docType: presets
-name: Configuration presets
+title: Configuration presets
+name: presets
 ---
 
 # Configuration presets
