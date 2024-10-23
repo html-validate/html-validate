@@ -244,7 +244,7 @@
     "jsdom": "25.0.1",
     "memfs": "4.14.0",
     "npm-pkg-lint": "3.9.2",
-    "npm-run-all2": "6.2.6",
+    "npm-run-all2": "7.0.0",
     "rollup": "4.24.0",
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.3",
