@@ -56,6 +56,14 @@ Use `0` to disallow warnings.
 
     html-validate --max-warnings 0 file.html
 
+### `--preset`
+
+Use a {@link presets configuration preset}.
+Preset names are given without the `html-validate:` prefix, e.g. `recommended` instead of `html-validate:recommended`.
+Multiple presets can be set as a comma-separated list.
+
+    html-validate --preset standard,a11y file.html
+
 ### `--rule`
 
 Inline rule configuration. Rule severity can have the following string or numeric value:

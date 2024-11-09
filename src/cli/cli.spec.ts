@@ -37,6 +37,54 @@ describe("CLI", () => {
 			`);
 		});
 
+		it("should set custom preset", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard",
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				  ],
+				}
+			`);
+		});
+
+		it("should set multiple custom preset", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard,a11y",
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				    "html-validate:a11y",
+				  ],
+				}
+			`);
+		});
+
+		it("should set both preset and rules", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard",
+				rules: ["foo:error", "bar:warn"],
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				  ],
+				  "rules": {
+				    "bar": 1,
+				    "foo": 2,
+				  },
+				}
+			`);
+		});
+
 		it("should use custom json configuration file", () => {
 			expect.assertions(1);
 			const cli = new CLI({

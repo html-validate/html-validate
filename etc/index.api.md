@@ -117,6 +117,7 @@ export class CLI {
 export interface CLIOptions {
     // (undocumented)
     configFile?: string;
+    preset?: string;
     // (undocumented)
     rules?: string | string[];
 }

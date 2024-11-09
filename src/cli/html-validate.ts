@@ -24,6 +24,7 @@ interface ParsedArgs {
 	help: boolean;
 	init: boolean;
 	"max-warnings"?: string;
+	preset?: string;
 	"print-config": boolean;
 	rule?: string;
 	stdin: boolean;
@@ -111,7 +112,18 @@ function handleUnknownError(err: unknown): void {
 }
 
 const argv = minimist<ParsedArgs>(process.argv.slice(2), {
-	string: ["c", "config", "ext", "f", "formatter", "max-warnings", "rule", "stdin-filename"],
+	string: [
+		"c",
+		"config",
+		"ext",
+		"f",
+		"formatter",
+		"max-warnings",
+		"p",
+		"preset",
+		"rule",
+		"stdin-filename",
+	],
 	boolean: [
 		"init",
 		"dump-events",
@@ -127,6 +139,7 @@ const argv = minimist<ParsedArgs>(process.argv.slice(2), {
 	alias: {
 		c: "config",
 		f: "formatter",
+		p: "preset",
 		h: "help",
 	},
 	default: {
@@ -150,6 +163,9 @@ Common options:
       --ext=STRING               specify file extensions (commaseparated).
   -f, --formatter=FORMATTER      specify the formatter to use.
       --max-warnings=INT         number of warnings to trigger nonzero exit code
+  -p, --preset=STRING            configuration preset to use, use
+                                 comma-separator for multiple presets. (default:
+                                 "recommended")
       --rule=RULE:SEVERITY       set additional rule, use comma separator for
                                  multiple.
       --stdin                    process markup from stdin.
@@ -220,6 +236,7 @@ if (typeof argv.config !== "undefined") {
 
 const cli = new CLI({
 	configFile: argv.config,
+	preset: argv.preset,
 	rules: argv.rule,
 });
 const mode = getMode(argv);
