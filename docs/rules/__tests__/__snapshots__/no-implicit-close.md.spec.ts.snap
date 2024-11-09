@@ -83,7 +83,7 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
 exports[`docs/rules/no-implicit-close.md inline validation: siblings 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 2,
     "filePath": "inline",
     "messages": [
       {
@@ -94,6 +94,17 @@ exports[`docs/rules/no-implicit-close.md inline validation: siblings 1`] = `
         "ruleId": "no-implicit-close",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
         "selector": "p:nth-child(1)",
+        "severity": 2,
+        "size": 1,
+      },
+      {
+        "column": 2,
+        "line": 2,
+        "message": "Element <p> is implicitly closed by document ending",
+        "offset": 16,
+        "ruleId": "no-implicit-close",
+        "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
+        "selector": "p:nth-child(2)",
         "severity": 2,
         "size": 1,
       },
