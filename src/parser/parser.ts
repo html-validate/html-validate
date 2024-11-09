@@ -795,9 +795,15 @@ export class Parser {
 	 */
 	private closeTree(source: Source, location: Location): void {
 		let active;
+		const documentElement = this.dom.root;
 		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- the condition is not unnecessary, it performs an assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
-			this.closeElement(source, null, active, location);
+			if (active.meta?.implicitClosed) {
+				active.closed = NodeClosed.ImplicitClosed;
+				this.closeElement(source, documentElement, active, location);
+			} else {
+				this.closeElement(source, null, active, location);
+			}
 			this.dom.popActive();
 		}
 	}

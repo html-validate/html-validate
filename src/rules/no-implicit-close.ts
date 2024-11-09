@@ -29,9 +29,16 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 
 			const closedByParent =
 				closed.parent && closed.parent.tagName === by.tagName; /* <ul><li></ul> */
+			const closedByDocument = closedByParent && closed.parent.isRootElement();
 			const sameTag = closed.tagName === by.tagName; /* <p>foo<p>bar */
 
-			if (closedByParent) {
+			if (closedByDocument) {
+				this.report(
+					closed,
+					`Element <${closed.tagName}> is implicitly closed by document ending`,
+					closed.location,
+				);
+			} else if (closedByParent) {
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
