@@ -37,6 +37,54 @@ describe("CLI", () => {
 			`);
 		});
 
+		it("should set custom preset", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard",
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				  ],
+				}
+			`);
+		});
+
+		it("should set multiple custom preset", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard,a11y",
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				    "html-validate:a11y",
+				  ],
+				}
+			`);
+		});
+
+		it("should set both preset and rules", () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				preset: "standard",
+				rules: ["foo:error", "bar:warn"],
+			});
+			expect(cli.getConfig()).toMatchInlineSnapshot(`
+				{
+				  "extends": [
+				    "html-validate:standard",
+				  ],
+				  "rules": {
+				    "bar": "warn",
+				    "foo": "error",
+				  },
+				}
+			`);
+		});
+
 		it("should use custom json configuration file", () => {
 			expect.assertions(1);
 			const cli = new CLI({
@@ -70,7 +118,7 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "foo": 1,
+				    "foo": "warn",
 				  },
 				}
 			`);
@@ -85,29 +133,30 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "foo": 1,
+				    "foo": "warn",
 				  },
 				}
 			`);
 		});
 
-		it("should configure multiple rule", () => {
+		it("should handle numeric severity", () => {
 			expect.assertions(1);
 			const cli = new CLI({
-				rules: ["foo:1", "bar:0"],
+				rules: ["foo:2", "bar:1", "baz:0"],
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
-				    "bar": 0,
-				    "foo": 1,
+				    "bar": "warn",
+				    "baz": "off",
+				    "foo": "error",
 				  },
 				}
 			`);
 		});
 
-		it("should configure multiple rule with severity string", () => {
+		it("should configure multiple rules", () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:warn", "bar:off"],
@@ -116,8 +165,8 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "bar": 0,
-				    "foo": 1,
+				    "bar": "off",
+				    "foo": "warn",
 				  },
 				}
 			`);

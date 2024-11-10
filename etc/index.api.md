@@ -117,6 +117,7 @@ export class CLI {
 export interface CLIOptions {
     // (undocumented)
     configFile?: string;
+    preset?: string;
     // (undocumented)
     rules?: string | string[];
 }
@@ -1228,7 +1229,7 @@ export function ruleExists(ruleId: string): boolean;
 export type RuleOptions = string | number | Record<string, any>;
 
 // @public (undocumented)
-export type RuleSeverity = "off" | "warn" | "error" | number;
+export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;
 
 export { SchemaObject }
 

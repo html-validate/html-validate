@@ -1,13 +1,9 @@
-import { Severity, type RuleConfig } from "..";
+import { type RuleConfig, type RuleSeverity } from "../config";
 import { parseSeverity } from "./parse-severity";
 
-function parseItem(value: string): { ruleId: string; severity: Severity } {
-	if (value.includes(":")) {
-		const [ruleId, severity] = value.split(":", 2);
-		return { ruleId, severity: parseSeverity(ruleId, severity) };
-	} else {
-		return { ruleId: value, severity: Severity.ERROR };
-	}
+function parseItem(value: string): { ruleId: string; severity: RuleSeverity } {
+	const [ruleId, severity = "error"] = value.split(":", 2);
+	return { ruleId, severity: parseSeverity(ruleId, severity) };
 }
 
 /**

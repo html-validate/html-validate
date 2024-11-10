@@ -56,19 +56,38 @@ Use `0` to disallow warnings.
 
     html-validate --max-warnings 0 file.html
 
+### `--preset`
+
+Use a {@link presets configuration preset}.
+Preset names are given without the `html-validate:` prefix, e.g. `recommended` instead of `html-validate:recommended`.
+Multiple presets can be set as a comma-separated list.
+
+    html-validate --preset standard,a11y file.html
+
 ### `--rule`
 
-Inline rule configuration. Rule severity can have the following string or numeric value:
+Enable/disable a rule.
 
-- off or 0
-- warn or 1
-- error or 2
+    html-validate --rule no-dup-id file.html
 
-Configurations can be changed with an array of rules: `--rule [void:2, foo:0]`.
+By default rules are enabled as errors but an optional severity can be specified:
 
-    html-validate --rule void:2 file.html
+    html-validate --rule no-dup-id:warn file.html
 
-Note: rules replaces existing configuration!
+The severity can take the following values:
+
+- `off` - disables a rule.
+- `warn` - yields a warning.
+- `error` - yields an error (process exits with non-zero code).
+
+The `--rule` argument can be given multiple times:
+
+    html-validate --rule no-dup-id:warn --rule heading-level:error file.html
+
+Note: by default rule configuration uses {@link presets `html-validate:recommended`} as preset but if `--rule` is specified at least once only the rules specified are enabled.
+If you still want to use the preset explicitly use `--preset recommended` in addition to `--rule`.
+
+    html-validate --preset recommended --rule no-dup-id:warn
 
 ### `--stdin`
 

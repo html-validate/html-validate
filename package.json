@@ -157,6 +157,7 @@
           "rules",
           "schema",
           "transform",
+          "types",
           "utils"
         ]
       ]

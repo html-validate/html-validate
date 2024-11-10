@@ -14,19 +14,24 @@ import { IsIgnored } from "./is-ignored";
 import { type InitResult, init } from "./init";
 import { getRuleConfig } from "./get-rule-config";
 
-const defaultConfig: ConfigData = {
-	extends: ["html-validate:recommended"],
-};
+function defaultConfig(preset: string): ConfigData {
+	const presets = preset.split(",").map((it) => `html-validate:${it}`);
+	return {
+		extends: presets,
+	};
+}
 
 /**
  * @public
  */
 export interface CLIOptions {
 	configFile?: string;
+	/** Comma-separated list of presets to use */
+	preset?: string;
 	rules?: string | string[];
 }
 
-function getBaseConfig(filename?: string): ConfigData {
+function getBaseConfig(preset?: string, filename?: string): ConfigData {
 	if (filename) {
 		const resolver = cjsResolver();
 		const configData = resolver.resolveConfig(path.resolve(filename), { cache: false });
@@ -35,7 +40,7 @@ function getBaseConfig(filename?: string): ConfigData {
 		}
 		return configData;
 	} else {
-		return defaultConfig;
+		return defaultConfig(preset ?? "recommended");
 	}
 }
 
@@ -143,9 +148,11 @@ export class CLI {
 
 	private resolveConfig(): ConfigData {
 		const { options } = this;
-		const config = getBaseConfig(options.configFile);
+		const config = getBaseConfig(options.preset, options.configFile);
 		if (options.rules) {
-			config.extends = [];
+			if (!options.preset) {
+				config.extends = [];
+			}
 			config.rules = getRuleConfig(options.rules);
 		}
 		return config;
