@@ -1,14 +1,13 @@
-import { Severity } from "../config";
 import { parseSeverity } from "./parse-severity";
 
 it.each`
 	value      | severity
-	${"off"}   | ${Severity.DISABLED}
-	${"warn"}  | ${Severity.WARN}
-	${"error"} | ${Severity.ERROR}
-	${"0"}     | ${Severity.DISABLED}
-	${"1"}     | ${Severity.WARN}
-	${"2"}     | ${Severity.ERROR}
+	${"off"}   | ${"off"}
+	${"warn"}  | ${"warn"}
+	${"error"} | ${"error"}
+	${"0"}     | ${"off"}
+	${"1"}     | ${"warn"}
+	${"2"}     | ${"error"}
 `('should parse "$value" as $severity', ({ value, severity }) => {
 	expect.assertions(1);
 	expect(parseSeverity("mock rule", value)).toBe(severity);

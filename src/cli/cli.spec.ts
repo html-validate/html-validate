@@ -78,8 +78,8 @@ describe("CLI", () => {
 				    "html-validate:standard",
 				  ],
 				  "rules": {
-				    "bar": 1,
-				    "foo": 2,
+				    "bar": "warn",
+				    "foo": "error",
 				  },
 				}
 			`);
@@ -118,7 +118,7 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "foo": 1,
+				    "foo": "warn",
 				  },
 				}
 			`);
@@ -133,29 +133,30 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "foo": 1,
+				    "foo": "warn",
 				  },
 				}
 			`);
 		});
 
-		it("should configure multiple rule", () => {
+		it("should handle numeric severity", () => {
 			expect.assertions(1);
 			const cli = new CLI({
-				rules: ["foo:1", "bar:0"],
+				rules: ["foo:2", "bar:1", "baz:0"],
 			});
 			expect(cli.getConfig()).toMatchInlineSnapshot(`
 				{
 				  "extends": [],
 				  "rules": {
-				    "bar": 0,
-				    "foo": 1,
+				    "bar": "warn",
+				    "baz": "off",
+				    "foo": "error",
 				  },
 				}
 			`);
 		});
 
-		it("should configure multiple rule with severity string", () => {
+		it("should configure multiple rules", () => {
 			expect.assertions(1);
 			const cli = new CLI({
 				rules: ["foo:warn", "bar:off"],
@@ -164,8 +165,8 @@ describe("CLI", () => {
 				{
 				  "extends": [],
 				  "rules": {
-				    "bar": 0,
-				    "foo": 1,
+				    "bar": "off",
+				    "foo": "warn",
 				  },
 				}
 			`);

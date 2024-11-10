@@ -1,19 +1,19 @@
-import { Severity } from "..";
+import { type RuleSeverity } from "../config";
 
 /**
  * @internal
  */
-export function parseSeverity(ruleId: string, severity: string): Severity {
+export function parseSeverity(ruleId: string, severity: string): RuleSeverity {
 	switch (severity) {
 		case "off":
 		case "0":
-			return Severity.DISABLED;
+			return "off";
 		case "warn":
 		case "1":
-			return Severity.WARN;
+			return "warn";
 		case "error":
 		case "2":
-			return Severity.ERROR;
+			return "error";
 		default:
 			throw new Error(`Invalid severity "${severity}" for rule "${ruleId}"`);
 	}
