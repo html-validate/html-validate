@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 8.25.0 (2024-11-11)
+
+### Features
+
+- **cli:** add `--preset` to set preset when using cli ([2ec038f](https://gitlab.com/html-validate/html-validate/commit/2ec038fea2ec7e03b1cc1b5ede73fac37aa70e7e)), closes [#269](https://gitlab.com/html-validate/html-validate/issues/269)
+
+### Bug Fixes
+
+- properly close elements with optional end tag when implicit document element is used ([bbe2a99](https://gitlab.com/html-validate/html-validate/commit/bbe2a994215534214bf3a70a4294c7c8b8279811)), closes [#268](https://gitlab.com/html-validate/html-validate/issues/268)
+- **types:** narrow numeric rule severity to only 0, 1 and 2 ([88cf8a2](https://gitlab.com/html-validate/html-validate/commit/88cf8a2aaac81d86c75804d809b7d15f1632ebb7))
+
 ## 8.24.2 (2024-10-16)
 
 ### Bug Fixes
