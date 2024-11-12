@@ -26,7 +26,7 @@
     "marked": "14.1.4",
     "minimatch": "9.0.5",
     "nunjucks": "3.2.4",
-    "postcss": "8.4.48",
+    "postcss": "8.4.49",
     "prettier": "3.3.3",
     "sass": "1.80.6",
     "serve-static": "1.16.2",
