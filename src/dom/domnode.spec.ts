@@ -38,14 +38,54 @@ describe("DOMNode", () => {
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 	});
 
-	it("append() should add node as child", () => {
-		expect.assertions(3);
-		const parent = new DOMNode(NodeType.ELEMENT_NODE, "parent", location);
-		const child = new DOMNode(NodeType.ELEMENT_NODE, "child", location);
-		expect(parent.childNodes).toHaveLength(0);
-		parent.append(child);
-		expect(parent.childNodes).toHaveLength(1);
-		expect(parent.childNodes[0].unique).toEqual(child.unique);
+	describe("append()", () => {
+		it("should add node as child", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(parent.childNodes).toHaveLength(0);
+			parent.append(child);
+			expect(parent.childNodes).toHaveLength(1);
+			expect(parent.childNodes[0].unique).toEqual(child.unique);
+		});
+
+		it("should set parent", () => {
+			expect.assertions(2);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(child.parent).toBeNull();
+			parent.append(child);
+			expect(child.parent?.tagName).toBe("parent");
+		});
+
+		it("should be idempotent", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(parent.childNodes).toHaveLength(0);
+			parent.append(child);
+			parent.append(child);
+			parent.append(child);
+			expect(parent.childNodes).toHaveLength(1);
+			expect(child.parent?.tagName).toBe("parent");
+		});
+
+		it("should replace existing parent", () => {
+			expect.assertions(8);
+			const oldParent = HtmlElement.createElement("old", location);
+			const newParent = HtmlElement.createElement("new", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(oldParent.childNodes).toHaveLength(0);
+			expect(newParent.childNodes).toHaveLength(0);
+			oldParent.append(child);
+			expect(oldParent.childNodes).toHaveLength(1);
+			expect(newParent.childNodes).toHaveLength(0);
+			expect(child.parent?.tagName).toBe("old");
+			newParent.append(child);
+			expect(oldParent.childNodes).toHaveLength(0);
+			expect(newParent.childNodes).toHaveLength(1);
+			expect(child.parent?.tagName).toBe("new");
+		});
 	});
 
 	describe("insertBefore", () => {

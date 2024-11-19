@@ -157,7 +157,15 @@ export class DOMNode {
 	}
 
 	public append(node: DOMNode): void {
+		const oldParent = node._setParent(this);
+		if (oldParent && this.isSameNode(oldParent)) {
+			return;
+		}
+
 		this.childNodes.push(node);
+		if (oldParent) {
+			oldParent._removeChild(node);
+		}
 	}
 
 	/**

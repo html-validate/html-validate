@@ -114,7 +114,7 @@ export class HtmlElement extends DOMNode {
 		}
 
 		this.tagName = tagName ?? "#document";
-		this._parent = parent ?? null;
+		this._parent = null;
 		this.attr = {};
 		this.metaElement = meta ?? null;
 		this.closed = closed;
@@ -124,7 +124,7 @@ export class HtmlElement extends DOMNode {
 		this._adapter = createAdapter(this);
 
 		if (parent) {
-			parent.childNodes.push(this);
+			parent.append(this);
 
 			/* calculate depth in domtree */
 			let cur: HtmlElement = parent;
