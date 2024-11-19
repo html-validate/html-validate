@@ -157,7 +157,33 @@ export class DOMNode {
 	}
 
 	public append(node: DOMNode): void {
+		const oldParent = node._setParent(this);
+		if (oldParent && this.isSameNode(oldParent)) {
+			return;
+		}
+
 		this.childNodes.push(node);
+		if (oldParent) {
+			oldParent._removeChild(node);
+		}
+	}
+
+	/**
+	 * Insert a node before a reference node.
+	 *
+	 * @internal
+	 */
+	public insertBefore(node: DOMNode, reference: DOMNode | null): void {
+		const index = reference ? this.childNodes.findIndex((it) => it.isSameNode(reference)) : -1;
+		if (index >= 0) {
+			this.childNodes.splice(index, 0, node);
+		} else {
+			this.childNodes.push(node);
+		}
+		const oldParent = node._setParent(this);
+		if (oldParent) {
+			oldParent._removeChild(node);
+		}
 	}
 
 	public isRootElement(): boolean {
@@ -187,6 +213,15 @@ export class DOMNode {
 	 */
 	public get lastChild(): DOMNode {
 		return this.childNodes[this.childNodes.length - 1] || null;
+	}
+
+	/**
+	 * @internal
+	 */
+	public removeChild<T extends DOMNode>(node: T): T {
+		this._removeChild(node);
+		node._setParent(null);
+		return node;
 	}
 
 	/**
@@ -270,5 +305,24 @@ export class DOMNode {
 
 	public generateSelector(): string | null {
 		return null;
+	}
+
+	/**
+	 * @internal
+	 *
+	 * @returns Old parent, if set.
+	 */
+	public _setParent(_node: DOMNode | null): DOMNode | null {
+		/* do nothing (as DOMNodes cannot have parents in this implementation yet) */
+		return null;
+	}
+
+	private _removeChild(node: DOMNode): void {
+		const index = this.childNodes.findIndex((it) => it.isSameNode(node));
+		if (index >= 0) {
+			this.childNodes.splice(index, 1);
+		} else {
+			throw new Error("DOMException: _removeChild(..) could not find child to remove");
+		}
 	}
 }

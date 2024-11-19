@@ -21,7 +21,6 @@ tag:start: {
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
     "attr": {
       "id": [
         {
@@ -42,7 +41,6 @@ attr: {
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
     "attr": {
       "id": [
         {
@@ -69,7 +67,6 @@ tag:ready: {
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
     "attr": {
       "id": [
         {
@@ -90,7 +87,6 @@ tag:end: {
     "location": "<rootDir>/test-files/parser/simple.html:1:25",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": null,
     "attr": {},
     "metaElement": "[truncated]"
   },
@@ -99,7 +95,6 @@ tag:end: {
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
     "attr": {
       "id": [
         {
@@ -120,7 +115,6 @@ element:ready: {
     "location": "<rootDir>/test-files/parser/simple.html:1:2",
     "childNodes": "[truncated]",
     "tagName": "p",
-    "parent": "[truncated]",
     "attr": {
       "id": [
         {
@@ -146,7 +140,6 @@ dom:ready: {
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
-      "parent": null,
       "attr": {},
       "metaElement": null
     },
@@ -155,7 +148,6 @@ dom:ready: {
       "location": "<rootDir>/test-files/parser/simple.html:1:1",
       "childNodes": "[truncated]",
       "tagName": "#document",
-      "parent": null,
       "attr": {},
       "metaElement": null
     },

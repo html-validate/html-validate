@@ -37,6 +37,10 @@ export class DOMTree {
 			/* root element should never be popped, continue as if nothing happened */
 			return;
 		}
+		/* istanbul ignore next: If we reach this the active element is not the root
+		 * element and thus would always have a parent (the document element if
+		 * nothing else). But typescript doesn't know that. Keeping the fallback
+		 * just in case we ever do get in a situation where this isn't true */
 		this.active = this.active.parent ?? this.root;
 	}
 

@@ -355,6 +355,8 @@ export class DOMNode {
     get firstChild(): DOMNode;
     // (undocumented)
     generateSelector(): string | null;
+    // @internal
+    insertBefore(node: DOMNode, reference: DOMNode | null): void;
     // (undocumented)
     isRootElement(): boolean;
     isSameNode(otherNode: DOMNode): boolean;
@@ -365,10 +367,14 @@ export class DOMNode {
     readonly nodeName: string;
     // (undocumented)
     readonly nodeType: NodeType;
+    // @internal (undocumented)
+    removeChild<T extends DOMNode>(node: T): T;
     // @internal
     ruleBlockers(ruleId: string): RuleBlocker[];
     // @internal
     ruleEnabled(ruleId: string): boolean;
+    // @internal (undocumented)
+    _setParent(_node: DOMNode | null): DOMNode | null;
     get textContent(): string;
     // @internal (undocumented)
     readonly unique: DOMInternalID;
@@ -589,7 +595,7 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     get nextSibling(): HtmlElement | null;
     // (undocumented)
-    readonly parent: HtmlElement | null;
+    get parent(): HtmlElement | null;
     // (undocumented)
     get previousSibling(): HtmlElement | null;
     // (undocumented)
@@ -601,6 +607,8 @@ export class HtmlElement extends DOMNode {
     static rootNode(location: Location_2): HtmlElement;
     setAnnotation(text: string): void;
     setAttribute(key: string, value: string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string): void;
+    // @internal (undocumented)
+    _setParent(node: DOMNode | null): DOMNode | null;
     // (undocumented)
     get siblings(): HtmlElement[];
     // @internal

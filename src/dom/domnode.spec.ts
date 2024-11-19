@@ -38,14 +38,108 @@ describe("DOMNode", () => {
 		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
 	});
 
-	it("append() should add node as child", () => {
-		expect.assertions(3);
-		const parent = new DOMNode(NodeType.ELEMENT_NODE, "parent", location);
-		const child = new DOMNode(NodeType.ELEMENT_NODE, "child", location);
-		expect(parent.childNodes).toHaveLength(0);
-		parent.append(child);
-		expect(parent.childNodes).toHaveLength(1);
-		expect(parent.childNodes[0].unique).toEqual(child.unique);
+	describe("append()", () => {
+		it("should add node as child", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(parent.childNodes).toHaveLength(0);
+			parent.append(child);
+			expect(parent.childNodes).toHaveLength(1);
+			expect(parent.childNodes[0].unique).toEqual(child.unique);
+		});
+
+		it("should set parent", () => {
+			expect.assertions(2);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(child.parent).toBeNull();
+			parent.append(child);
+			expect(child.parent?.tagName).toBe("parent");
+		});
+
+		it("should be idempotent", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(parent.childNodes).toHaveLength(0);
+			parent.append(child);
+			parent.append(child);
+			parent.append(child);
+			expect(parent.childNodes).toHaveLength(1);
+			expect(child.parent?.tagName).toBe("parent");
+		});
+
+		it("should replace existing parent", () => {
+			expect.assertions(8);
+			const oldParent = HtmlElement.createElement("old", location);
+			const newParent = HtmlElement.createElement("new", location);
+			const child = HtmlElement.createElement("child", location);
+			expect(oldParent.childNodes).toHaveLength(0);
+			expect(newParent.childNodes).toHaveLength(0);
+			oldParent.append(child);
+			expect(oldParent.childNodes).toHaveLength(1);
+			expect(newParent.childNodes).toHaveLength(0);
+			expect(child.parent?.tagName).toBe("old");
+			newParent.append(child);
+			expect(oldParent.childNodes).toHaveLength(0);
+			expect(newParent.childNodes).toHaveLength(1);
+			expect(child.parent?.tagName).toBe("new");
+		});
+	});
+
+	describe("insertBefore", () => {
+		it("should insert node before reference node", () => {
+			expect.assertions(5);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(a, null);
+			parent.insertBefore(b, a);
+			expect(parent.childElements).toHaveLength(2);
+			expect(parent.childElements[0].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+			expect(parent.childElements[1].tagName).toBe("a");
+			expect(parent.childElements[1].parent?.tagName).toBe("parent");
+		});
+
+		it("should handle null as reference", () => {
+			expect.assertions(5);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(a, null);
+			parent.insertBefore(b, null);
+			expect(parent.childElements).toHaveLength(2);
+			expect(parent.childElements[0].tagName).toBe("a");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+			expect(parent.childElements[1].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+		});
+
+		it("should handle missing reference", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(b, a);
+			expect(parent.childElements).toHaveLength(1);
+			expect(parent.childElements[0].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+		});
+
+		it("should change existing parent", () => {
+			expect.assertions(4);
+			const newParent = HtmlElement.createElement("new", location);
+			const oldParent = HtmlElement.createElement("old", location);
+			const element = HtmlElement.createElement("element", location);
+			oldParent.insertBefore(element, null);
+			newParent.insertBefore(element, null);
+			expect(oldParent.childElements).toHaveLength(0);
+			expect(newParent.childElements).toHaveLength(1);
+			expect(newParent.childElements[0].tagName).toBe("element");
+			expect(newParent.childElements[0].parent?.tagName).toBe("new");
+		});
 	});
 
 	describe("isRootElement()", () => {
@@ -103,10 +197,42 @@ describe("DOMNode", () => {
 			node.append(last);
 			expect(node.lastChild.unique).toEqual(last.unique);
 		});
+
 		it("should return null if no children present", () => {
 			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
 			expect(node.lastChild).toBeNull();
+		});
+	});
+
+	describe("removeChild", () => {
+		it("should remove child node", () => {
+			expect.assertions(4);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location, { parent: root });
+			expect(root.childNodes).toHaveLength(1);
+			expect(element.parent?.tagName).toBe("root");
+			root.removeChild(element);
+			expect(root.childNodes).toHaveLength(0);
+			expect(element.parent).toBeNull();
+		});
+
+		it("should return removed child node", () => {
+			expect.assertions(1);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location);
+			root.append(element);
+			const removed = root.removeChild(element);
+			expect(removed.isSameNode(element)).toBeTruthy();
+		});
+
+		it("should throw error if removing element which is not a child", () => {
+			expect.assertions(1);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location);
+			expect(() => root.removeChild(element)).toThrow(
+				"DOMException: _removeChild(..) could not find child to remove",
+			);
 		});
 	});
 
