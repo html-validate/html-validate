@@ -160,6 +160,24 @@ export class DOMNode {
 		this.childNodes.push(node);
 	}
 
+	/**
+	 * Insert a node before a reference node.
+	 *
+	 * @internal
+	 */
+	public insertBefore(node: DOMNode, reference: DOMNode | null): void {
+		const index = reference ? this.childNodes.findIndex((it) => it.isSameNode(reference)) : -1;
+		if (index >= 0) {
+			this.childNodes.splice(index, 0, node);
+		} else {
+			this.childNodes.push(node);
+		}
+		const oldParent = node._setParent(this);
+		if (oldParent) {
+			oldParent._removeChild(node);
+		}
+	}
+
 	public isRootElement(): boolean {
 		return this.nodeType === NodeType.DOCUMENT_NODE;
 	}

@@ -355,6 +355,8 @@ export class DOMNode {
     get firstChild(): DOMNode;
     // (undocumented)
     generateSelector(): string | null;
+    // @internal
+    insertBefore(node: DOMNode, reference: DOMNode | null): void;
     // (undocumented)
     isRootElement(): boolean;
     isSameNode(otherNode: DOMNode): boolean;

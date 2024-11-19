@@ -48,6 +48,60 @@ describe("DOMNode", () => {
 		expect(parent.childNodes[0].unique).toEqual(child.unique);
 	});
 
+	describe("insertBefore", () => {
+		it("should insert node before reference node", () => {
+			expect.assertions(5);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(a, null);
+			parent.insertBefore(b, a);
+			expect(parent.childElements).toHaveLength(2);
+			expect(parent.childElements[0].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+			expect(parent.childElements[1].tagName).toBe("a");
+			expect(parent.childElements[1].parent?.tagName).toBe("parent");
+		});
+
+		it("should handle null as reference", () => {
+			expect.assertions(5);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(a, null);
+			parent.insertBefore(b, null);
+			expect(parent.childElements).toHaveLength(2);
+			expect(parent.childElements[0].tagName).toBe("a");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+			expect(parent.childElements[1].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+		});
+
+		it("should handle missing reference", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const a = HtmlElement.createElement("a", location);
+			const b = HtmlElement.createElement("b", location);
+			parent.insertBefore(b, a);
+			expect(parent.childElements).toHaveLength(1);
+			expect(parent.childElements[0].tagName).toBe("b");
+			expect(parent.childElements[0].parent?.tagName).toBe("parent");
+		});
+
+		it("should change existing parent", () => {
+			expect.assertions(4);
+			const newParent = HtmlElement.createElement("new", location);
+			const oldParent = HtmlElement.createElement("old", location);
+			const element = HtmlElement.createElement("element", location);
+			oldParent.insertBefore(element, null);
+			newParent.insertBefore(element, null);
+			expect(oldParent.childElements).toHaveLength(0);
+			expect(newParent.childElements).toHaveLength(1);
+			expect(newParent.childElements[0].tagName).toBe("element");
+			expect(newParent.childElements[0].parent?.tagName).toBe("new");
+		});
+	});
+
 	describe("isRootElement()", () => {
 		it("should return true for root element", () => {
 			expect.assertions(1);
@@ -103,6 +157,7 @@ describe("DOMNode", () => {
 			node.append(last);
 			expect(node.lastChild.unique).toEqual(last.unique);
 		});
+
 		it("should return null if no children present", () => {
 			expect.assertions(1);
 			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
