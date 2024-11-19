@@ -365,6 +365,8 @@ export class DOMNode {
     readonly nodeName: string;
     // (undocumented)
     readonly nodeType: NodeType;
+    // @internal (undocumented)
+    removeChild<T extends DOMNode>(node: T): T;
     // @internal
     ruleBlockers(ruleId: string): RuleBlocker[];
     // @internal

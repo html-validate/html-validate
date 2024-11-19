@@ -110,6 +110,37 @@ describe("DOMNode", () => {
 		});
 	});
 
+	describe("removeChild", () => {
+		it("should remove child node", () => {
+			expect.assertions(4);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location, { parent: root });
+			expect(root.childNodes).toHaveLength(1);
+			expect(element.parent?.tagName).toBe("root");
+			root.removeChild(element);
+			expect(root.childNodes).toHaveLength(0);
+			expect(element.parent).toBeNull();
+		});
+
+		it("should return removed child node", () => {
+			expect.assertions(1);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location);
+			root.append(element);
+			const removed = root.removeChild(element);
+			expect(removed.isSameNode(element)).toBeTruthy();
+		});
+
+		it("should throw error if removing element which is not a child", () => {
+			expect.assertions(1);
+			const root = HtmlElement.createElement("root", location);
+			const element = HtmlElement.createElement("element", location);
+			expect(() => root.removeChild(element)).toThrow(
+				"DOMException: _removeChild(..) could not find child to remove",
+			);
+		});
+	});
+
 	describe("textContent", () => {
 		it("should get text from children", () => {
 			expect.assertions(1);

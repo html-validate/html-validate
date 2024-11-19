@@ -190,6 +190,15 @@ export class DOMNode {
 	}
 
 	/**
+	 * @internal
+	 */
+	public removeChild<T extends DOMNode>(node: T): T {
+		this._removeChild(node);
+		node._setParent(null);
+		return node;
+	}
+
+	/**
 	 * Block a rule for this node.
 	 *
 	 * @internal
@@ -280,5 +289,14 @@ export class DOMNode {
 	public _setParent(_node: DOMNode | null): DOMNode | null {
 		/* do nothing (as DOMNodes cannot have parents in this implementation yet) */
 		return null;
+	}
+
+	private _removeChild(node: DOMNode): void {
+		const index = this.childNodes.findIndex((it) => it.isSameNode(node));
+		if (index >= 0) {
+			this.childNodes.splice(index, 1);
+		} else {
+			throw new Error("DOMException: _removeChild(..) could not find child to remove");
+		}
 	}
 }
