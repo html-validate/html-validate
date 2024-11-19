@@ -79,13 +79,13 @@ function createAdapter(node: HtmlElement): HtmlElementLike {
  */
 export class HtmlElement extends DOMNode {
 	public readonly tagName: string;
-	public readonly parent: HtmlElement | null;
 	public readonly voidElement: boolean;
 	public readonly depth: number;
 	public closed: NodeClosed;
 	protected readonly attr: Record<string, Attribute[]>;
 	private metaElement: MetaElement | null;
 	private annotation: string | null;
+	private _parent: HtmlElement | null;
 
 	/** @internal */
 	public readonly _adapter: HtmlElementLike;
@@ -114,7 +114,7 @@ export class HtmlElement extends DOMNode {
 		}
 
 		this.tagName = tagName ?? "#document";
-		this.parent = parent ?? null;
+		this._parent = parent ?? null;
 		this.attr = {};
 		this.metaElement = meta ?? null;
 		this.closed = closed;
@@ -398,6 +398,10 @@ export class HtmlElement extends DOMNode {
 
 	public get meta(): MetaElement | null {
 		return this.metaElement;
+	}
+
+	public get parent(): HtmlElement | null {
+		return this._parent;
 	}
 
 	/**
@@ -721,6 +725,15 @@ export class HtmlElement extends DOMNode {
 		}
 
 		return visit(this);
+	}
+
+	/**
+	 * @internal
+	 */
+	public override _setParent(node: DOMNode | null): DOMNode | null {
+		const oldParent = this._parent;
+		this._parent = node instanceof HtmlElement ? node : null;
+		return oldParent;
 	}
 }
 

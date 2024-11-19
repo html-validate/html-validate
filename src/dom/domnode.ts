@@ -271,4 +271,14 @@ export class DOMNode {
 	public generateSelector(): string | null {
 		return null;
 	}
+
+	/**
+	 * @internal
+	 *
+	 * @returns Old parent, if set.
+	 */
+	public _setParent(_node: DOMNode | null): DOMNode | null {
+		/* do nothing (as DOMNodes cannot have parents in this implementation yet) */
+		return null;
+	}
 }
