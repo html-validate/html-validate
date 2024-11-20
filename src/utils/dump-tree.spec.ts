@@ -4,6 +4,15 @@ import { dumpTree } from "./dump-tree";
 
 const parser = new Parser(Config.empty().resolve());
 
+expect.addSnapshotSerializer({
+	serialize(value) {
+		return String(value);
+	},
+	test() {
+		return true;
+	},
+});
+
 describe("dumpTree()", () => {
 	it("should dump DOM tree", () => {
 		expect.assertions(1);
@@ -18,11 +27,47 @@ describe("dumpTree()", () => {
 			.map((it) => `${it}\n`)
 			.join("");
 		expect(output).toMatchInlineSnapshot(`
-			"(root)
-			└─┬ main
-			  ├── p
-			  └── p
-			"
+			(root)
+			└── main
+			    ├── p
+			    └── p
+
+		`);
+	});
+
+	it("should handle deeper nesting", () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<main>
+				<div>
+					<p>lorem <strong>ipsum</strong></p>
+					<p>dolor <em>sit</em> amet</p>
+				</div>
+				<div>
+					<p>lorem <strong>ipsum</strong></p>
+					<p>dolor <em>sit<em> amet</p>
+				</div>
+			</main>
+		`;
+		const root = parser.parseHtml(markup);
+		const output = dumpTree(root)
+			.map((it) => `${it}\n`)
+			.join("");
+		expect(output).toMatchInlineSnapshot(`
+			(root)
+			└── main
+			    ├── div
+			    │   ├── p
+			    │   │   └── strong
+			    │   └── p
+			    │       └── em
+			    └── div
+			        ├── p
+			        │   └── strong
+			        └── p
+			            └── em
+			                └── em
+
 		`);
 	});
 
@@ -36,16 +81,13 @@ describe("dumpTree()", () => {
 			</body>
 		`;
 		const root = parser.parseHtml(markup);
-		const output = dumpTree(root)
-			.map((it) => `${it}\n`)
-			.join("");
+		const output = dumpTree(root).join("\n");
 		expect(output).toMatchInlineSnapshot(`
-			"(root)
-			└─┬ body
-			  ├── p#foo
-			  ├── p.bar.baz
-			  └── p#fred.flintstone
-			"
+			(root)
+			└── body
+			    ├── p#foo
+			    ├── p.bar.baz
+			    └── p#fred.flintstone
 		`);
 	});
 });

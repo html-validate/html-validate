@@ -3,10 +3,10 @@
 exports[`Engine dumpTree() should dump DOM tree 1`] = `
 [
   "(root)",
-  "└─┬ div#foo",
-  "  ├── p.bar",
-  "  └─┬ ul",
-  "    ├── li",
-  "    └── li",
+  "└── div#foo",
+  "    ├── p.bar",
+  "    └── ul",
+  "        ├── li",
+  "        └── li",
 ]
 `;
