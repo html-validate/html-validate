@@ -21,21 +21,23 @@ export function dumpTree(root: HtmlElement): string[] {
 		return output;
 	}
 
-	function writeNode(node: HtmlElement, level: number, sibling: number): void {
+	function writeNode(node: HtmlElement, level: number, indent: string, sibling: number): void {
+		const numSiblings = node.parent ? node.parent.childElements.length : 0;
+		const lastSibling = sibling === numSiblings - 1;
 		if (node.parent) {
-			const indent = "  ".repeat(level - 1);
-			const l = node.childElements.length > 0 ? "┬" : "─";
-			const b = sibling < node.parent.childElements.length - 1 ? "├" : "└";
-			lines.push(`${indent}${b}─${l} ${node.tagName}${decoration(node)}`);
+			const b = lastSibling ? "└" : "├";
+			lines.push(`${indent}${b}── ${node.tagName}${decoration(node)}`);
 		} else {
 			lines.push("(root)");
 		}
 
 		node.childElements.forEach((child, index) => {
-			writeNode(child, level + 1, index);
+			const s = lastSibling ? " " : "│";
+			const i = level > 0 ? `${indent}${s}   ` : "";
+			writeNode(child, level + 1, i, index);
 		});
 	}
 
-	writeNode(root, 0, 0);
+	writeNode(root, 0, "", 0);
 	return lines;
 }
