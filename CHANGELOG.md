@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.25.1 (2024-11-24)
+
+### Bug Fixes
+
+- fix dump tree output with nested elements ([854c274](https://gitlab.com/html-validate/html-validate/commit/854c2745deb2076514ae7c01a18dbdfbc42648c9))
+
 ## 8.25.0 (2024-11-11)
 
 ### Features
