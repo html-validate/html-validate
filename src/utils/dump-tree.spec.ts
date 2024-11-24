@@ -45,7 +45,7 @@ describe("dumpTree()", () => {
 				</div>
 				<div>
 					<p>lorem <strong>ipsum</strong></p>
-					<p>dolor <em>sit<em> amet</p>
+					<p>dolor <em>sit</em> amet</p>
 				</div>
 			</main>
 		`;
@@ -66,7 +66,6 @@ describe("dumpTree()", () => {
 			        │   └── strong
 			        └── p
 			            └── em
-			                └── em
 
 		`);
 	});
