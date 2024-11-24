@@ -1,29 +1,3 @@
-const unescapeTest = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi;
-
-/*  */
-
-/**
- * Copy of marked helper.
- *
- * https://github.com/markedjs/marked/issues/1650#issuecomment-617429229
- *
- * @param {string} html
- * @returns {string}
- */
-function unescape(html) {
-	// explicitly match decimal, hex, and named HTML entities
-	return html.replace(unescapeTest, (_, n) => {
-		n = n.toLowerCase();
-		if (n === "colon") return ":";
-		if (n.charAt(0) === "#") {
-			return n.charAt(1) === "x"
-				? String.fromCharCode(parseInt(n.substring(2), 16))
-				: String.fromCharCode(+n.substring(1));
-		}
-		return "";
-	});
-}
-
 /**
  * @param {string} value
  * @returns {boolean}
@@ -90,9 +64,8 @@ function plugin() {
 	return {
 		renderer: {
 			heading({ depth, tokens }) {
-				const raw = unescape(this.parser.parseInline(tokens, this.parser.textRenderer))
-					.trim()
-					.replace(/<[!/a-z].*?>/gi, "");
+				const parsed = this.parser.parseInline(tokens, this.parser.textRenderer);
+				const raw = parsed.replace(/<([!/a-z].*?)>/gi, "$1");
 				const text = this.parser.parseInline(tokens);
 				return heading(text, depth, raw);
 			},
