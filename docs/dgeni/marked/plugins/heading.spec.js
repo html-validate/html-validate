@@ -24,6 +24,15 @@ it("should handle prerelease versions", () => {
 	expect(markup).toMatchInlineSnapshot(`"<h1 id="v1-2-3-rc-1">1.2.3-rc.1 (1999-12-31)</h1>"`);
 });
 
+it("should handle link with inline code", () => {
+	expect.assertions(1);
+	const text = "# foo `<bar>` baz\n";
+	const markup = marked(text);
+	expect(markup).toMatchInlineSnapshot(
+		`"<h1 id="foo-bar-baz">foo <code>&lt;bar&gt;</code> baz</h1>"`,
+	);
+});
+
 it("should handle explicit id", () => {
 	expect.assertions(1);
 	const text = "# foo bar {#explicit-id}";
