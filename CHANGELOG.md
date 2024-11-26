@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.26.0 (2024-11-26)
+
+### Features
+
+- better handling of mismatched/unclosed tags ([489ccae](https://gitlab.com/html-validate/html-validate/commit/489ccae62cfc37126ca45025ebf34619b109f257)), closes [#272](https://gitlab.com/html-validate/html-validate/issues/272)
+
 ## 8.25.1 (2024-11-24)
 
 ### Bug Fixes
