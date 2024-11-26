@@ -129,7 +129,7 @@ it("should compute correct line, column and offset when using transformed source
 it("should handle source missing properties", async () => {
 	expect.assertions(2);
 	const source = {
-		data: "<p>lorem ipsum</i>",
+		data: "<div>lorem ipsum",
 	};
 	const htmlvalidate = new HtmlValidate({
 		root: true,
@@ -143,18 +143,18 @@ it("should handle source missing properties", async () => {
 		  "filePath": "",
 		  "messages": [
 		    {
-		      "column": 16,
+		      "column": 2,
 		      "line": 1,
-		      "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
-		      "offset": 15,
+		      "message": "Unclosed element '<div>'",
+		      "offset": 1,
 		      "ruleId": "close-order",
 		      "ruleUrl": "https://html-validate.org/rules/close-order.html",
-		      "selector": null,
+		      "selector": "div",
 		      "severity": 2,
-		      "size": 2,
+		      "size": 3,
 		    },
 		  ],
-		  "source": "<p>lorem ipsum</i>",
+		  "source": "<div>lorem ipsum",
 		  "warningCount": 0,
 		}
 	`);

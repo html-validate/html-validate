@@ -49,11 +49,11 @@ describe("toMatchInlineCodeframe()", () => {
 
 	it("should match invalid string", () => {
 		expect.assertions(1);
-		expect("<p></i>").toMatchInlineCodeframe(`
-			"error: Mismatched close-tag, expected '</p>' but found '</i>' (close-order) at inline:1:5:
-			> 1 | <p></i>
-			    |     ^^
-			Selector: -"
+		expect("<div>").toMatchInlineCodeframe(`
+			"error: Unclosed element '<div>' (close-order) at inline:1:2:
+			> 1 | <div>
+			    |  ^^^
+			Selector: div"
 		`);
 	});
 });

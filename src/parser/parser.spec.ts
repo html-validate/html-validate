@@ -16,6 +16,7 @@ import {
 	TokenType,
 } from "../lexer";
 import "../jest";
+import { dumpTree } from "../utils";
 import { type AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 import { ParserError } from "./parser-error";
@@ -33,6 +34,16 @@ expect.addSnapshotSerializer({
 			.split("\n")
 			.map((it) => it.trimEnd())
 			.join("\n");
+	},
+});
+
+/* serializer to handle HtmlElement in a human readable format */
+expect.addSnapshotSerializer({
+	test(val: unknown): boolean {
+		return val instanceof HtmlElement;
+	},
+	serialize(val: HtmlElement): string {
+		return dumpTree(val).join("\n");
 	},
 });
 
@@ -165,31 +176,134 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("elements closed on wrong order", () => {
-			expect.assertions(9);
-			parser.parseHtml("<div><label></div></label>");
+		it("elements closed on wrong order (case 1: stray end tag)", () => {
+			expect.assertions(7);
+			const markup = `
+					<label></label>
+				</div>
+			`;
+			const document = parser.parseHtml(markup);
+			expect(document).toMatchInlineSnapshot(`
+				(root)
+				└── label
+			`);
+			expect(events.shift()).toEqual({ event: "tag:start", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "label", previous: "label" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "div", previous: "#document" });
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("elements closed on wrong order (case 2: missing end tag)", () => {
+			expect.assertions(10);
+			const markup = `
+				<div>
+					<label></label>
+			`;
+			const document = parser.parseHtml(markup);
+			expect(document).toMatchInlineSnapshot(`
+				(root)
+				└── div
+				    └── label
+			`);
 			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
 			expect(events.shift()).toEqual({ event: "tag:start", target: "label" });
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "label" });
-			expect(events.shift()).toEqual({
-				event: "tag:end",
-				target: "div",
-				previous: "label",
-			});
-			expect(events.shift()).toEqual({
-				event: "element:ready",
-				target: "label",
-			});
-			expect(events.shift()).toEqual({
-				event: "tag:end",
-				target: "label",
-				previous: "div",
-			});
-			expect(events.shift()).toEqual({
-				event: "element:ready",
-				target: "div",
-			});
+			expect(events.shift()).toEqual({ event: "tag:end", target: "label", previous: "label" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: null, previous: "div" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "div" });
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("elements closed on wrong order (case 3: wrong end tag)", () => {
+			expect.assertions(11);
+			const markup = `
+				<div>
+					<label></label>
+				</main>
+			`;
+			const document = parser.parseHtml(markup);
+			expect(document).toMatchInlineSnapshot(`
+				(root)
+				└── div
+				    └── label
+			`);
+			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "label", previous: "label" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "main", previous: "div" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: null, previous: "div" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "div" });
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("elements closed on wrong order (case 4: out of order)", () => {
+			expect.assertions(11);
+			const markup = `
+				<div>
+					<label>
+				</div>
+					</label>
+			`;
+			const document = parser.parseHtml(markup);
+			expect(document).toMatchInlineSnapshot(`
+				(root)
+				└── div
+				    └── label
+			`);
+			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "div", previous: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "label", previous: "label" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "label" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: null, previous: "div" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "div" });
+			expect(events.shift()).toBeUndefined();
+		});
+
+		it("elements closed on wrong order (case 5: unintended implicit closed)", () => {
+			expect.assertions(19);
+			const markup = `
+				<main>
+					<p>
+						<address></address>
+						<address></address>
+					</p>
+				</main>
+			`;
+			const document = parser.parseHtml(markup);
+			expect(document).toMatchInlineSnapshot(`
+				(root)
+				└── main
+				    ├── p
+				    ├── address
+				    └── address
+			`);
+			expect(events.shift()).toEqual({ event: "tag:start", target: "main" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "main" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "address", previous: "p" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "address", previous: "address" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "address", previous: "address" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "address" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "p", previous: "main" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "main", previous: "main" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "main" });
 			expect(events.shift()).toBeUndefined();
 		});
 

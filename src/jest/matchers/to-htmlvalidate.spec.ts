@@ -25,7 +25,7 @@ describe("toHTMLValidate()", () => {
 	it("should fail if markup is invalid", () => {
 		expect.assertions(3);
 		let error: any;
-		const markup = `<a href=""><button></i>`;
+		const markup = `<a href=""><button>`;
 		try {
 			expect(markup).toHTMLValidate();
 		} catch (e: any) {
@@ -35,12 +35,12 @@ describe("toHTMLValidate()", () => {
 		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(`
 			"Expected HTML to be valid but had the following errors:
 
+			  Unclosed element '<a>' [close-order]
 			  Anchor link must have a text describing its purpose [wcag/h30]
+			  Unclosed element '<button>' [close-order]
 			  <button> is missing recommended "type" attribute [no-implicit-button-type]
 			  <button> must have accessible text [text-content]
-			  <button> element is not permitted as a descendant of <a> [element-permitted-content]
-			  Mismatched close-tag, expected '</button>' but found '</i>'. [close-order]
-			  Missing close-tag, expected '</a>' but document ended before it was found. [close-order]"
+			  <button> element is not permitted as a descendant of <a> [element-permitted-content]"
 		`);
 	});
 
@@ -65,7 +65,7 @@ describe("toHTMLValidate()", () => {
 
 	it("should support configuration object", () => {
 		expect.assertions(1);
-		expect("<p></i>").toHTMLValidate({
+		expect("<div>").toHTMLValidate({
 			rules: {
 				"close-order": "off",
 			},
@@ -74,7 +74,7 @@ describe("toHTMLValidate()", () => {
 
 	it("should support configuration object and message", () => {
 		expect.assertions(1);
-		expect("<p></i>").toHTMLValidate(
+		expect("<div>").toHTMLValidate(
 			/* message */ {
 				ruleId: "close-order",
 			},
@@ -88,7 +88,7 @@ describe("toHTMLValidate()", () => {
 
 	it("should support configuration object and filename", () => {
 		expect.assertions(1);
-		expect("<p></i>").toHTMLValidate(
+		expect("<div>").toHTMLValidate(
 			/* config */ {
 				rules: {
 					"close-order": "off",
@@ -100,7 +100,7 @@ describe("toHTMLValidate()", () => {
 
 	it("should support configuration object, message and filename", () => {
 		expect.assertions(1);
-		expect("<p></i>").toHTMLValidate(
+		expect("<div>").toHTMLValidate(
 			/* message */ {
 				ruleId: "close-order",
 			},
@@ -133,9 +133,9 @@ describe("toHTMLValidate()", () => {
 
 	it("should pass if markup has correct error", () => {
 		expect.assertions(1);
-		expect("<u></i>").not.toHTMLValidate({
+		expect("<div>").not.toHTMLValidate({
 			ruleId: "close-order",
-			message: expect.stringContaining("Mismatched close-tag"),
+			message: "Unclosed element '<div>'",
 		});
 	});
 
@@ -143,7 +143,7 @@ describe("toHTMLValidate()", () => {
 		expect.assertions(3);
 		let error: any;
 		try {
-			expect("<u></i>").not.toHTMLValidate({
+			expect("<div>").not.toHTMLValidate({
 				ruleId: "wrong-error",
 				message: expect.stringContaining("Some other error"),
 			});
@@ -166,15 +166,15 @@ describe("toHTMLValidate()", () => {
 			-     "ruleId": "wrong-error",
 			+ Array [
 			+   Object {
-			+     "column": 5,
+			+     "column": 2,
 			+     "line": 1,
-			+     "message": "Mismatched close-tag, expected '</u>' but found '</i>'.",
-			+     "offset": 4,
+			+     "message": "Unclosed element '<div>'",
+			+     "offset": 1,
 			+     "ruleId": "close-order",
 			+     "ruleUrl": "https://html-validate.org/rules/close-order.html",
-			+     "selector": null,
+			+     "selector": "div",
 			+     "severity": 2,
-			+     "size": 2,
+			+     "size": 3,
 			    },
 			  ]"
 		`);

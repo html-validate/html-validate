@@ -29,6 +29,6 @@ describe("toMatchCodeframe()", () => {
 
 	it("should match invalid string", () => {
 		expect.assertions(1);
-		expect("<p></i>").toMatchCodeframe();
+		expect("<div>").toMatchCodeframe();
 	});
 });

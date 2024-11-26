@@ -25,10 +25,10 @@ Selector: #foo > div"
 `;
 
 exports[`toMatchCodeframe() should match invalid string 1`] = `
-"error: Mismatched close-tag, expected '</p>' but found '</i>' (close-order) at inline:1:5:
-> 1 | <p></i>
-    |     ^^
-Selector: -"
+"error: Unclosed element '<div>' (close-order) at inline:1:2:
+> 1 | <div>
+    |  ^^^
+Selector: div"
 `;
 
 exports[`toMatchCodeframe() should match valid async report 1`] = `""`;

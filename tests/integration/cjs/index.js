@@ -7,7 +7,7 @@ async function run() {
 		extends: ["html-validate:recommended"],
 		elements: ["html5"],
 	});
-	const report = await htmlvalidate.validateString("<p>lorem ipsum</i>");
+	const report = await htmlvalidate.validateString("<div>lorem ipsum");
 
 	assert.equal(report.valid, false, "Report should be invalid");
 	assert.equal(report.errorCount, 1, "Report should have 1 error");
@@ -15,12 +15,12 @@ async function run() {
 		ruleId: "close-order",
 		ruleUrl: "https://html-validate.org/rules/close-order.html",
 		severity: 2,
-		message: "Mismatched close-tag, expected '</p>' but found '</i>'.",
-		offset: 15,
+		message: "Unclosed element '<div>'",
+		offset: 1,
 		line: 1,
-		column: 16,
-		size: 2,
-		selector: null,
+		column: 2,
+		size: 3,
+		selector: "div",
 	});
 }
 

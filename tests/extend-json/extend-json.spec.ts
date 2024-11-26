@@ -10,15 +10,15 @@ it("should handle extending json file", async () => {
 	expect(report.results[0].messages).toMatchInlineSnapshot(`
 		[
 		  {
-		    "column": 16,
+		    "column": 2,
 		    "line": 1,
-		    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
-		    "offset": 15,
+		    "message": "Unclosed element '<div>'",
+		    "offset": 1,
 		    "ruleId": "close-order",
 		    "ruleUrl": "https://html-validate.org/rules/close-order.html",
-		    "selector": null,
+		    "selector": "div",
 		    "severity": 2,
-		    "size": 2,
+		    "size": 3,
 		  },
 		]
 	`);
