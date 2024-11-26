@@ -168,7 +168,7 @@ describe("Engine", () => {
 
 		it("should report error for invalid markup", () => {
 			expect.assertions(2);
-			const source: Source[] = [inline("<p></i>")];
+			const source: Source[] = [inline("<div>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveError("close-order", expect.any(String));
@@ -247,7 +247,7 @@ describe("Engine", () => {
 		it('"disable" should disable rule', () => {
 			expect.assertions(1);
 			const source: Source[] = [
-				inline("<!-- [html-validate-disable close-order] --><p></i><p></i>"),
+				inline("<!-- [html-validate-disable close-order] --><div></i><div></i>"),
 			];
 			const report = engine.lint(source);
 			expect(report).toBeValid();
@@ -277,7 +277,7 @@ describe("Engine", () => {
 
 		it('"disable" should only disable selected rule', () => {
 			expect.assertions(2);
-			const source: Source[] = [inline("<!-- [html-validate-disable foobar] --><p></i><p></i>")];
+			const source: Source[] = [inline("<!-- [html-validate-disable foobar] --><div></i>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toHaveErrors([

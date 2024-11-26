@@ -4,68 +4,7 @@ exports[`docs/rules/close-order.md inline validation: correct-1 1`] = `[]`;
 
 exports[`docs/rules/close-order.md inline validation: correct-2 1`] = `[]`;
 
-exports[`docs/rules/close-order.md inline validation: incorrect-1 1`] = `
-[
-  {
-    "errorCount": 2,
-    "filePath": "inline",
-    "messages": [
-      {
-        "column": 13,
-        "line": 2,
-        "message": "Mismatched close-tag, expected '</strong>' but found '</p>'.",
-        "offset": 43,
-        "ruleId": "close-order",
-        "ruleUrl": "https://html-validate.org/rules/close-order.html",
-        "selector": null,
-        "severity": 2,
-        "size": 2,
-      },
-      {
-        "column": 17,
-        "line": 2,
-        "message": "Mismatched close-tag, expected '</p>' but found '</strong>'.",
-        "offset": 47,
-        "ruleId": "close-order",
-        "ruleUrl": "https://html-validate.org/rules/close-order.html",
-        "selector": null,
-        "severity": 2,
-        "size": 7,
-      },
-    ],
-    "source": "<!-- closed in wrong order -->
-<p><strong></p></strong>",
-    "warningCount": 0,
-  },
-]
-`;
-
-exports[`docs/rules/close-order.md inline validation: incorrect-2 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "inline",
-    "messages": [
-      {
-        "column": 6,
-        "line": 2,
-        "message": "Missing close-tag, expected '</div>' but document ended before it was found.",
-        "offset": 36,
-        "ruleId": "close-order",
-        "ruleUrl": "https://html-validate.org/rules/close-order.html",
-        "selector": null,
-        "severity": 2,
-        "size": 0,
-      },
-    ],
-    "source": "<!-- opened but not closed -->
-<div>",
-    "warningCount": 0,
-  },
-]
-`;
-
-exports[`docs/rules/close-order.md inline validation: incorrect-3 1`] = `
+exports[`docs/rules/close-order.md inline validation: incorrect-incorrect-implicit 1`] = `
 [
   {
     "errorCount": 1,
@@ -73,9 +12,114 @@ exports[`docs/rules/close-order.md inline validation: incorrect-3 1`] = `
     "messages": [
       {
         "column": 2,
+        "line": 3,
+        "message": "Stray end tag '</p>'",
+        "offset": 26,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": null,
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<p>
+	<address></address>
+</p> <!-- p is already implicitly closed by address tag -->",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-missing-endtag 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 3,
         "line": 2,
-        "message": "Unexpected close-tag, expected opening tag.",
-        "offset": 32,
+        "message": "Unclosed element '<h1>'",
+        "offset": 9,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": "main > h1",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 2,
+        "line": 4,
+        "message": "End tag '</main>' seen but there were open elements",
+        "offset": 92,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": null,
+        "severity": 2,
+        "size": 5,
+      },
+    ],
+    "source": "<main>
+	<h1> <!-- h1 opened but not closed -->
+		Lorem ipsum <small>dolor sit amet</small>
+</main>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-out-of-order 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "line": 4,
+        "message": "Unclosed element '<strong>'",
+        "offset": 46,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": "div > p > strong",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 3,
+        "line": 5,
+        "message": "End tag '</p>' seen but there were open elements",
+        "offset": 56,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": null,
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<div>
+	<!-- closed in wrong order -->
+	<p>
+		<strong>
+	</p>
+		</strong>
+</div>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-stray-endtag 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 3,
+        "line": 3,
+        "message": "Stray end tag '</div>'",
+        "offset": 38,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -83,8 +127,49 @@ exports[`docs/rules/close-order.md inline validation: incorrect-3 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- closed but not opened -->
-</div>",
+    "source": "<main>
+		<label>Lorem ipsum</label>
+	</div> <!-- div closed but never opened -->
+</main>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/close-order.md inline validation: incorrect-wrong-endtag 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 2,
+        "line": 1,
+        "message": "Unclosed element '<main>'",
+        "offset": 1,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": "main",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 2,
+        "line": 5,
+        "message": "Stray end tag '</div>'",
+        "offset": 65,
+        "ruleId": "close-order",
+        "ruleUrl": "https://html-validate.org/rules/close-order.html",
+        "selector": null,
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<main>
+	<h1>
+		Lorem ipsum <small>dolor sit amet</small>
+	</h1>
+</div> <!-- opened as main but closed as div -->",
     "warningCount": 0,
   },
 ]

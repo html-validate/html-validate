@@ -15,19 +15,42 @@ HTML requires elements to be closed in the correct order.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect-1" rules="close-order">
-    <!-- closed in wrong order -->
-    <p><strong></p></strong>
+<validate name="incorrect-stray-endtag" rules="close-order">
+	<main>
+			<label>Lorem ipsum</label>
+		</div> <!-- div closed but never opened -->
+	</main>
 </validate>
 
-<validate name="incorrect-2" rules="close-order">
-    <!-- opened but not closed -->
-    <div>
+<validate name="incorrect-missing-endtag" rules="close-order">
+	<main>
+		<h1> <!-- h1 opened but not closed -->
+			Lorem ipsum <small>dolor sit amet</small>
+	</main>
 </validate>
 
-<validate name="incorrect-3" rules="close-order">
-    <!-- closed but not opened -->
-    </div>
+<validate name="incorrect-wrong-endtag" rules="close-order">
+	<main>
+		<h1>
+			Lorem ipsum <small>dolor sit amet</small>
+		</h1>
+	</div> <!-- opened as main but closed as div -->
+</validate>
+
+<validate name="incorrect-out-of-order" rules="close-order">
+	<div>
+		<!-- closed in wrong order -->
+		<p>
+			<strong>
+		</p>
+			</strong>
+	</div>
+</validate>
+
+<validate name="incorrect-incorrect-implicit" rules="close-order">
+	<p>
+		<address></address>
+	</p> <!-- p is already implicitly closed by address tag -->
 </validate>
 
 Examples of **correct** code for this rule:

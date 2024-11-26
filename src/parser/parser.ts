@@ -295,12 +295,15 @@ export class Parser {
 
 			this.closeElement(source, node, active, endToken.location);
 
+			const mismatched = node.tagName !== active.tagName;
+
 			/* if this element is closed with an end tag but is would it will not be
 			 * closed again (it is already closed automatically since it is
 			 * void). Closing again will have side-effects as it will close the parent
 			 * and cause a mess later. */
 			const voidClosed = !isStartTag && node.voidElement;
-			if (!voidClosed) {
+
+			if (!voidClosed && !mismatched) {
 				this.dom.popActive();
 			}
 		} else if (isForeign) {
@@ -329,6 +332,10 @@ export class Parser {
 			location,
 		};
 		this.trigger("tag:end", event);
+
+		if (node && node.tagName !== active.tagName && active.closed !== NodeClosed.ImplicitClosed) {
+			return;
+		}
 
 		/* trigger event for for an element being fully constructed. Special care
 		 * for void elements explicit closed <input></input> */

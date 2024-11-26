@@ -3,15 +3,15 @@
 exports[`cli-default-config/test.html 1`] = `
 [
   {
-    "column": 8,
+    "column": 2,
     "line": 1,
-    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
-    "offset": 7,
+    "message": "Unclosed element '<div>'",
+    "offset": 1,
     "ruleId": "close-order",
     "ruleUrl": "https://html-validate.org/rules/close-order.html",
-    "selector": null,
+    "selector": "div",
     "severity": 2,
-    "size": 2,
+    "size": 3,
   },
 ]
 `;
@@ -19,15 +19,15 @@ exports[`cli-default-config/test.html 1`] = `
 exports[`cli-explicit-extend/test.html 1`] = `
 [
   {
-    "column": 8,
+    "column": 2,
     "line": 1,
-    "message": "Mismatched close-tag, expected '</p>' but found '</i>'.",
-    "offset": 7,
+    "message": "Unclosed element '<div>'",
+    "offset": 1,
     "ruleId": "close-order",
     "ruleUrl": "https://html-validate.org/rules/close-order.html",
-    "selector": null,
+    "selector": "div",
     "severity": 2,
-    "size": 2,
+    "size": 3,
   },
 ]
 `;
