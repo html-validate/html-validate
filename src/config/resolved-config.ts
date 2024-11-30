@@ -80,6 +80,7 @@ export class ResolvedConfig {
 	 *
 	 * When transforming zero or more new sources will be generated.
 	 *
+	 * @internal
 	 * @param source - Current source to transform.
 	 * @param filename - If set it is the filename used to match
 	 * transformer. Default is to use filename from source.
@@ -121,6 +122,7 @@ export class ResolvedConfig {
 	 * Wrapper around [[transformSource]] which reads a file before passing it
 	 * as-is to transformSource.
 	 *
+	 * @internal
 	 * @param filename - Filename to transform (according to configured
 	 * transformations)
 	 * @returns A list of transformed sources ready for validation.
@@ -142,6 +144,8 @@ export class ResolvedConfig {
 
 	/**
 	 * Returns true if a transformer matches given filename.
+	 *
+	 * @public
 	 */
 	public canTransform(filename: string): boolean {
 		const entry = this.findTransformer(filename);

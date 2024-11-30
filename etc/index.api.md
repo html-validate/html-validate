@@ -1107,7 +1107,9 @@ export class ResolvedConfig {
     getPlugins(): Plugin_2[];
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
+    // @internal
     transformFilename(filename: string): Source[];
+    // @internal
     transformSource(source: Source, filename?: string): Source[];
 }
 
