@@ -67,12 +67,10 @@ export class StaticConfigLoader extends ConfigLoader {
 	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
 		const override = this.loadFromObject(configOverride ?? {});
 		if (override.isRootFound()) {
-			override.init();
 			return override.resolve();
 		}
 
 		const merged = this.globalConfig.merge(this.resolvers, override);
-		merged.init();
 		return merged.resolve();
 	}
 

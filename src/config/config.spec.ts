@@ -100,6 +100,20 @@ describe("config", () => {
 		);
 	});
 
+	it("should handle missing plugins property", () => {
+		expect.assertions(3);
+		expect(Config.fromObject(resolvers, {}).getPlugins()).toEqual([]);
+		expect(Config.fromObject(resolvers, { plugins: undefined }).getPlugins()).toEqual([]);
+		expect(Config.fromObject(resolvers, { plugins: [] }).getPlugins()).toEqual([]);
+	});
+
+	it("should handle missing transform property", () => {
+		expect.assertions(3);
+		expect(Config.fromObject(resolvers, {}).getTransformers()).toEqual([]);
+		expect(Config.fromObject(resolvers, { transform: undefined }).getTransformers()).toEqual([]);
+		expect(Config.fromObject(resolvers, { transform: {} }).getTransformers()).toEqual([]);
+	});
+
 	describe("merge()", () => {
 		it("should merge two configs", () => {
 			expect.assertions(1);
@@ -468,7 +482,6 @@ describe("config", () => {
 		const config = Config.fromObject(resolvers, {
 			plugins: ["mock-plugin"],
 		});
-		config.init();
 		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 	});
 
@@ -484,43 +497,10 @@ describe("config", () => {
 				},
 			],
 		});
-		config.init();
 		expect(config.getPlugins()).toEqual([
 			expect.objectContaining({ name: "inline-plugin" }),
 			expect.objectContaining({ name: ":unnamedPlugin@2" }),
 		]);
-	});
-
-	describe("init()", () => {
-		it("should handle being called multiple times", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {});
-			config.init();
-			config.init();
-			expect(() => {
-				config.init();
-			}).not.toThrow();
-		});
-
-		it("should handle unset fields", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				plugins: undefined,
-				transform: undefined,
-			});
-			expect(() => {
-				config.init();
-			}).not.toThrow();
-		});
-
-		it("should load plugins", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin"],
-			});
-			config.init();
-			expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
-		});
 	});
 
 	describe("schema validation", () => {

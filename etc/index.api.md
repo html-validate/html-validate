@@ -174,6 +174,9 @@ export class Config {
     getPlugins(): Plugin_2[];
     // @internal
     getRules(): Map<string, [Severity, RuleOptions]>;
+    // @internal
+    getTransformers(): TransformerEntry[];
+    // @deprecated (undocumented)
     init(): void;
     isRootFound(): boolean;
     merge(resolvers: Resolver[], rhs: Config): Config;

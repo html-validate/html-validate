@@ -26,7 +26,6 @@ jest.mock("./parser");
 function mockConfig(): Promise<ResolvedConfig> {
 	const config = Config.empty();
 	const original = config.resolve;
-	config.init();
 	jest.spyOn(config, "resolve").mockImplementation(() => {
 		const resolved = original.call(config);
 		resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [
@@ -46,7 +45,6 @@ function mockConfig(): Promise<ResolvedConfig> {
 function mockConfigSync(): ResolvedConfig {
 	const config = Config.empty();
 	const original = config.resolve;
-	config.init();
 	jest.spyOn(config, "resolve").mockImplementation(() => {
 		const resolved = original.call(config);
 		resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [
@@ -900,7 +898,6 @@ describe("HtmlValidate", () => {
 		const filename = "foo.html";
 		const config = Config.empty();
 		const original = config.resolve;
-		config.init();
 		config.resolve = () => {
 			const resolved = original.call(config);
 			resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [

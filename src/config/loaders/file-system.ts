@@ -120,7 +120,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		 * not try to load any more configuration files */
 		const override = this.loadFromObject(configOverride ?? {});
 		if (override.isRootFound()) {
-			override.init();
 			return override.resolve();
 		}
 
@@ -128,7 +127,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		 * try to load and more configuration files */
 		if (this.globalConfig.isRootFound()) {
 			const merged = this.globalConfig.merge(this.resolvers, override);
-			merged.init();
 			return merged.resolve();
 		}
 
@@ -136,7 +134,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const merged = config
 			? config.merge(this.resolvers, override)
 			: this.globalConfig.merge(this.resolvers, override);
-		merged.init();
 		return merged.resolve();
 	}
 

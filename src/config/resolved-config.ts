@@ -18,7 +18,6 @@ import { type Severity } from "./severity";
 export interface TransformerEntry {
 	pattern: RegExp;
 	name: string;
-	//fn: Transformer;
 }
 
 /**

@@ -87,8 +87,6 @@ function transformerEntries(transform: TransformMap): TransformerEntry[] {
 export class Config {
 	private config: ConfigData;
 	private configurations: Map<string, ConfigData>;
-	private initialized: boolean;
-
 	private resolvers: Resolver[];
 	private metaTable: MetaTable | null;
 	private plugins: LoadedPlugin[];
@@ -209,7 +207,6 @@ export class Config {
 		};
 		this.config = mergeInternal(initial, options);
 		this.configurations = new Map();
-		this.initialized = false;
 		this.resolvers = toArray(resolvers);
 		this.metaTable = null;
 		this.plugins = [];
@@ -217,19 +214,11 @@ export class Config {
 	}
 
 	/**
-	 * Initialize plugins, transforms etc.
-	 *
-	 * Must be called before trying to use config. Can safely be called multiple
-	 * times.
-	 *
 	 * @public
+	 * @deprecated Not needed any longer, this is a dummy noop method.
 	 */
 	public init(): void {
-		if (this.initialized) {
-			return;
-		}
-
-		this.initialized = true;
+		/* dummy noop */
 	}
 
 	/**
@@ -364,6 +353,15 @@ export class Config {
 	 */
 	public getPlugins(): Plugin[] {
 		return this.plugins;
+	}
+
+	/**
+	 * Get all configured transformers.
+	 *
+	 * @internal
+	 */
+	public getTransformers(): TransformerEntry[] {
+		return this.transformers;
 	}
 
 	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {

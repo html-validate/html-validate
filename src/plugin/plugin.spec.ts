@@ -339,7 +339,6 @@ describe("Plugin", () => {
 			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
-			config.init();
 		});
 
 		it("Engine should handle missing plugin callbacks", () => {
@@ -384,7 +383,6 @@ describe("Plugin", () => {
 					"mock-rule": ["error", "mock-options"],
 				},
 			});
-			config.init();
 		});
 
 		it("Engine should call rule init callback", () => {
@@ -428,7 +426,6 @@ describe("Plugin", () => {
 					".*": "mock-plugin",
 				},
 			});
-			config.init();
 			const resolvedConfig = config.resolve();
 			const sources = resolvedConfig.transformSource(resolvers, {
 				data: "original data",
@@ -478,7 +475,6 @@ describe("Plugin", () => {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			config.init();
 			const resolvedConfig = config.resolve();
 			const sources = resolvedConfig.transformSource(resolvers, {
 				data: "original data",
