@@ -220,14 +220,6 @@ export class Config {
 	}
 
 	/**
-	 * @public
-	 * @deprecated Not needed any longer, this is a dummy noop method.
-	 */
-	public init(): void {
-		/* dummy noop */
-	}
-
-	/**
 	 * Returns true if this configuration is marked as "root".
 	 */
 	public isRootFound(): boolean {
