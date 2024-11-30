@@ -7,13 +7,7 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import {
-	getNamedTransformerFromPlugin,
-	getTransformerFromModule,
-	getUnnamedTransformerFromPlugin,
-	type Transformer,
-	TRANSFORMER_API,
-} from "../transform";
+import { getTransformerFunction } from "../transform";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -473,62 +467,10 @@ export class Config {
 
 	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
 		return Object.entries(transform).map(([pattern, name]) => {
-			try {
-				const fn = this.getTransformFunction(name);
-
-				/* istanbul ignore next */
-				const version = fn.api ?? 0;
-
-				/* check if transformer version is supported */
-				if (version !== TRANSFORMER_API.VERSION) {
-					throw new ConfigError(
-						`Transformer uses API version ${String(version)} but only version ${String(TRANSFORMER_API.VERSION)} is supported`,
-					);
-				}
-
-				return {
-					// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
-					pattern: new RegExp(pattern),
-
-					name,
-					fn,
-				};
-			} catch (err: unknown) {
-				if (err instanceof ConfigError) {
-					throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
-				} else {
-					throw new ConfigError(`Failed to load transformer "${name}"`, ensureError(err));
-				}
-			}
+			// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
+			const regex = new RegExp(pattern);
+			const fn = getTransformerFunction(this.resolvers, name, this.plugins);
+			return { pattern: regex, name, fn };
 		});
-	}
-
-	/**
-	 * Get transformation function requested by configuration.
-	 *
-	 * Searches:
-	 *
-	 * - Named transformers from plugins.
-	 * - Unnamed transformer from plugin.
-	 * - Standalone modules (local or node_modules)
-	 *
-	 * @param name - Key from configuration
-	 */
-	private getTransformFunction(name: string): Transformer {
-		/* try to match a named transformer from plugin */
-		const match = name.match(/(.*):(.*)/);
-		if (match) {
-			const [, pluginName, key] = match;
-			return getNamedTransformerFromPlugin(name, this.plugins, pluginName, key);
-		}
-
-		/* try to match an unnamed transformer from plugin */
-		const plugin = this.plugins.find((cur) => cur.name === name);
-		if (plugin) {
-			return getUnnamedTransformerFromPlugin(name, plugin);
-		}
-
-		/* assume transformer refers to a regular module */
-		return getTransformerFromModule(this.resolvers, name);
 	}
 }

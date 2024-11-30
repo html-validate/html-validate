@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`config transformers should throw error when trying to load named transform from plugin without any 1`] = `"Failed to load transformer "mock-plugin-notransform:named": Plugin does not expose any transformer"`;
-
-exports[`config transformers should throw error when trying to load unnamed transform from plugin without any 1`] = `"Failed to load transformer "mock-plugin-notransform": Plugin does not expose any transformer"`;
-
-exports[`config transformers should throw sane error when transformer fails to load 1`] = `"Failed to load transformer "missing-transformer""`;

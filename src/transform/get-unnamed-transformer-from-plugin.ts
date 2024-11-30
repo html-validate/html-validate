@@ -9,7 +9,7 @@ import { type Transformer } from "./transformer";
  */
 export function getUnnamedTransformerFromPlugin(name: string, plugin: Plugin): Transformer {
 	if (!plugin.transformer) {
-		throw new ConfigError(`Plugin does not expose any transformer`);
+		throw new ConfigError(`Plugin does not expose any transformers`);
 	}
 
 	if (typeof plugin.transformer !== "function") {

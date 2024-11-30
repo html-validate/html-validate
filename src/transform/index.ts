@@ -1,12 +1,4 @@
 export { type TransformContext } from "./context";
-export { getTransformerFromModule } from "./get-transformer-from-module";
-export { getNamedTransformerFromPlugin } from "./get-named-transformer-from-plugin";
-export { getUnnamedTransformerFromPlugin } from "./get-unnamed-transformer-from-plugin";
+export { getTransformerFunction } from "./get-transformer-function";
 export { type Transformer } from "./transformer";
-
-/**
- * @internal
- */
-export const TRANSFORMER_API: { readonly VERSION: number } = {
-	VERSION: 1,
-};
+export { TRANSFORMER_API } from "./transformer-api";

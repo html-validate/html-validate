@@ -20,7 +20,7 @@ export function getNamedTransformerFromPlugin(
 	}
 
 	if (!plugin.transformer) {
-		throw new ConfigError(`Plugin does not expose any transformer`);
+		throw new ConfigError(`Plugin does not expose any transformers`);
 	}
 
 	if (typeof plugin.transformer === "function") {
