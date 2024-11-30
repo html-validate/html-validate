@@ -4,8 +4,11 @@ import { type Transformer, type TransformContext, TRANSFORMER_API } from "..";
 /**
  * Mock transformer chaining to a .foo file transformer.
  */
-function* mockTransformChainFoo(this: TransformContext, source: Source): Iterable<Source> {
-	yield* this.chain(
+function mockTransformChainFoo(
+	this: TransformContext,
+	source: Source,
+): Iterable<Source> | Promise<Iterable<Source>> {
+	return this.chain(
 		{
 			data: `data from mock-transform-chain-foo (was: ${source.data})`,
 			filename: source.filename,

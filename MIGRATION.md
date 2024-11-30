@@ -113,6 +113,44 @@ Remove any calls to the method:
 -config.init();
 ```
 
+#### Test utils
+
+All functions from `html-validate/test-utils` now returns a `Promise`:
+
+- `transformFile`
+- `transformSource`
+- `transformString`
+
+If you are them to write unit tests for custom transfomers you need to resolve the returned promise:
+
+```diff
+ import { transformSource } from "html-validate/test-utils";
+
+-const result = transformSource(transformer, source);
++const result = await transformSource(transformer, source);
+```
+
+#### Transformers {#v9-transformers}
+
+Transformers may now return a `Promise` for asynchronous result.
+For most part there is no code changes required but if you use the `this.chain(..)` method to support chains you need to ensure you can handle that the next transformer may have returned a `Promise`.
+
+If you used a generator function and `yield*` replace with a simple return:
+
+```diff
+-yield* this.chain(..);
++return this.chain(..);
+```
+
+If you postprocess the result you must either `await` the result or test if the result is a `Promise`.
+
+When using TypeScript the return signature must change:
+
+```diff
+-function myTransformer(this: TransformContext, source: Source): Iterable<Source> {
++function myTransformer(this: TransformContext, source: Source): Iterable<Source> | Promise<Iterable<Source>> {
+```
+
 ## Upgrading to v8
 
 ### Dependency changes {#v8-dependency-changes}

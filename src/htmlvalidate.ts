@@ -148,7 +148,7 @@ export class HtmlValidate {
 		const source = normalizeSource(input);
 		const config = await this.getConfigFor(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
-		const transformedSource = config.transformSource(resolvers, source);
+		const transformedSource = await config.transformSource(resolvers, source);
 		const engine = new Engine(config, Parser);
 		return engine.lint(transformedSource);
 	}
@@ -164,7 +164,7 @@ export class HtmlValidate {
 		const source = normalizeSource(input);
 		const config = this.getConfigForSync(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
-		const transformedSource = config.transformSource(resolvers, source);
+		const transformedSource = config.transformSourceSync(resolvers, source);
 		const engine = new Engine(config, Parser);
 		return engine.lint(transformedSource);
 	}
@@ -179,7 +179,7 @@ export class HtmlValidate {
 	public async validateFile(filename: string): Promise<Report> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = config.transformFilename(resolvers, filename);
+		const source = await config.transformFilename(resolvers, filename);
 		const engine = new Engine(config, Parser);
 		return Promise.resolve(engine.lint(source));
 	}
@@ -194,7 +194,7 @@ export class HtmlValidate {
 	public validateFileSync(filename: string): Report {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = config.transformFilename(resolvers, filename);
+		const source = config.transformFilenameSync(resolvers, filename);
 		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
@@ -274,7 +274,7 @@ export class HtmlValidate {
 	public dumpTokens(filename: string): TokenDump[] {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = config.transformFilename(resolvers, filename);
+		const source = config.transformFilenameSync(resolvers, filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
@@ -291,7 +291,7 @@ export class HtmlValidate {
 	public dumpEvents(filename: string): EventDump[] {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = config.transformFilename(resolvers, filename);
+		const source = config.transformFilenameSync(resolvers, filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpEvents(source);
 	}
@@ -308,7 +308,7 @@ export class HtmlValidate {
 	public dumpTree(filename: string): string[] {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = config.transformFilename(resolvers, filename);
+		const source = config.transformFilenameSync(resolvers, filename);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
 	}
@@ -325,7 +325,7 @@ export class HtmlValidate {
 	public dumpSource(filename: string): string[] {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const sources = config.transformFilename(resolvers, filename);
+		const sources = config.transformFilenameSync(resolvers, filename);
 		return sources.reduce<string[]>((result: string[], source: Source) => {
 			const line = String(source.line);
 			const column = String(source.column);

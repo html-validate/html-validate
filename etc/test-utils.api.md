@@ -8,17 +8,17 @@ import { Source } from 'html-validate';
 import { TransformContext } from 'html-validate';
 
 // @public (undocumented)
-type Transformer_2 = (this: TransformContext, source: Source) => Iterable<Source>;
+type Transformer_2 = (this: TransformContext, source: Source) => Iterable<Source> | Promise<Iterable<Source>>;
 export { Transformer_2 as Transformer }
 
 // @public
-export function transformFile(fn: Transformer_2, filename: string, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export function transformFile(fn: Transformer_2, filename: string, chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>): Promise<Source[]>;
 
 // @public
-export function transformSource(fn: Transformer_2, source: Source, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export function transformSource(fn: Transformer_2, source: Source, chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>): Promise<Source[]>;
 
 // @public
-export function transformString(fn: Transformer_2, data: string, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export function transformString(fn: Transformer_2, data: string, chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>): Promise<Source[]>;
 
 // (No @packageDocumentation comment for this package)
 

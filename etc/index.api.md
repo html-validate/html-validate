@@ -1115,9 +1115,13 @@ export class ResolvedConfig {
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
     // @internal
-    transformFilename(resolvers: Resolver[], filename: string): Source[];
+    transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]>;
     // @internal
-    transformSource(resolvers: Resolver[], source: Source, filename?: string): Source[];
+    transformFilenameSync(resolvers: Resolver[], filename: string): Source[];
+    // @internal
+    transformSource(resolvers: Resolver[], source: Source, filename?: string): Promise<Source[]>;
+    // @internal
+    transformSourceSync(resolvers: Resolver[], source: Source, filename?: string): Source[];
 }
 
 // @public (undocumented)
@@ -1524,13 +1528,13 @@ export enum TokenType {
 
 // @public (undocumented)
 export interface TransformContext {
-    chain(source: Source, filename: string): Iterable<Source>;
+    chain(source: Source, filename: string): Iterable<Source> | Promise<Iterable<Source>>;
     hasChain(filename: string): boolean;
 }
 
 // @public
 interface Transformer_2 {
-    (this: TransformContext, source: Source): Iterable<Source>;
+    (this: TransformContext, source: Source): Iterable<Source> | Promise<Iterable<Source>>;
     api?: number;
 }
 export { Transformer_2 as Transformer }

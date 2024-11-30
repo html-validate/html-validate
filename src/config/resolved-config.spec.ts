@@ -32,7 +32,7 @@ describe("transformSource()", () => {
 		};
 	});
 
-	it("should match filename against named transformer", () => {
+	it("should match filename against named transformer", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform" }],
@@ -44,7 +44,8 @@ describe("transformSource()", () => {
 				},
 			}),
 		];
-		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
+		const result = await config.transformSource(resolvers, source);
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -61,14 +62,15 @@ describe("transformSource()", () => {
 		`);
 	});
 
-	it("should match filename against function transformer", () => {
+	it("should match filename against function transformer", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [
 				{ kind: "function", pattern: /^.*\.foo$/, function: require("mock-transform") },
 			],
 		});
-		expect(config.transformSource([], source)).toMatchInlineSnapshot(`
+		const result = await config.transformSource([], source);
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -85,7 +87,7 @@ describe("transformSource()", () => {
 		`);
 	});
 
-	it("should use given name when matching transform", () => {
+	it("should use given name when matching transform", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [
@@ -101,7 +103,8 @@ describe("transformSource()", () => {
 				},
 			}),
 		];
-		expect(config.transformSource(resolvers, source, "/path/to/test.bar")).toMatchInlineSnapshot(`
+		const result = await config.transformSource(resolvers, source, "/path/to/test.bar");
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -118,12 +121,13 @@ describe("transformSource()", () => {
 		`);
 	});
 
-	it("should return original source if no transformer is found", () => {
+	it("should return original source if no transformer is found", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [],
 		});
-		expect(config.transformSource([], source)).toMatchInlineSnapshot(`
+		const result = await config.transformSource([], source);
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 3,
@@ -136,7 +140,7 @@ describe("transformSource()", () => {
 		`);
 	});
 
-	it("should support chaining transformer", () => {
+	it("should support chaining transformer", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [
@@ -161,7 +165,8 @@ describe("transformSource()", () => {
 			}),
 		];
 		source.filename = "/path/to/test.bar";
-		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
+		const result = await config.transformSource(resolvers, source);
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -179,7 +184,7 @@ describe("transformSource()", () => {
 		`);
 	});
 
-	it("should support testing if chain is present", () => {
+	it("should support testing if chain is present", async () => {
 		expect.assertions(2);
 		const config = createMockConfig({
 			transformers: [
@@ -204,7 +209,8 @@ describe("transformSource()", () => {
 			}),
 		];
 		source.filename = "/path/to/test.bar.foo";
-		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
+		const result1 = await config.transformSource(resolvers, source);
+		expect(result1).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -221,10 +227,11 @@ describe("transformSource()", () => {
 			]
 		`);
 		source.filename = "/path/to/test.baz.foo";
-		expect(config.transformSource(resolvers, source)).toEqual([]);
+		const result2 = await config.transformSource(resolvers, source);
+		expect(result2).toEqual([]);
 	});
 
-	it("should throw sane error when transformer fails", () => {
+	it("should throw sane error when transformer fails", async () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform-error" }],
@@ -236,17 +243,20 @@ describe("transformSource()", () => {
 				},
 			}),
 		];
-		expect(() => config.transformSource(resolvers, source)).toThrowErrorMatchingInlineSnapshot(
+		return expect(() =>
+			config.transformSource(resolvers, source),
+		).rejects.toThrowErrorMatchingInlineSnapshot(
 			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`,
 		);
 	});
 });
 
 describe("transformFilename()", () => {
-	it("should default to reading full file", () => {
+	it("should default to reading full file", async () => {
 		expect.assertions(1);
 		const config = createMockConfig();
-		expect(config.transformFilename([], "test-files/parser/simple.html")).toMatchInlineSnapshot(`
+		const result = await config.transformFilename([], "test-files/parser/simple.html");
+		expect(result).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -262,11 +272,11 @@ describe("transformFilename()", () => {
 		`);
 	});
 
-	it("should handle stdin", () => {
+	it("should handle stdin", async () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(fs, "readFileSync").mockReturnValue("<div></div>");
 		const config = createMockConfig();
-		const source = config.transformFilename([], "/dev/stdin");
+		const source = await config.transformFilename([], "/dev/stdin");
 		const stdin = 0;
 		expect(spy).toHaveBeenCalledWith(stdin, expect.anything());
 		expect(source).toMatchInlineSnapshot(`
