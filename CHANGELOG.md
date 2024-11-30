@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 8.27.0 (2024-11-30)
+
+### Features
+
+- **api:** deprecate `Config.init()` ([d4b5987](https://gitlab.com/html-validate/html-validate/commit/d4b5987a92da01a2373354373544a3f256996391))
+- **config:** lazy load transformers ([d82bc57](https://gitlab.com/html-validate/html-validate/commit/d82bc57d3d86849151d7b4db286b93deab21c4d9)), closes [#194](https://gitlab.com/html-validate/html-validate/issues/194)
+
 ## 8.26.0 (2024-11-26)
 
 ### Features
