@@ -1,13 +1,12 @@
 import fs from "fs";
 import { type Source } from "../context";
-import { transformFile, transformSource, transformString } from "./test-utils";
-import { type TransformContext } from ".";
+import { type Transformer, transformFile, transformSource, transformString } from "./test-utils";
 
 jest.mock("fs");
 
 it("transformFile() should read file and apply transformer", () => {
 	expect.assertions(2);
-	const transformer = jest.fn((source: Source) => [source]);
+	const transformer: Transformer = (source) => [source];
 	const readFileSync = jest.spyOn(fs, "readFileSync").mockImplementation(() => "mocked file data");
 	const result = transformFile(transformer, "foo.html");
 	expect(readFileSync).toHaveBeenCalledWith("foo.html", "utf-8");
@@ -26,7 +25,7 @@ it("transformFile() should read file and apply transformer", () => {
 
 it("transformString() should apply transformer", () => {
 	expect.assertions(1);
-	const transformer = jest.fn((source: Source) => [source]);
+	const transformer: Transformer = (source) => [source];
 	const result = transformString(transformer, "inline data");
 	expect(result).toMatchInlineSnapshot(`
 		[
@@ -50,7 +49,7 @@ it("transformSource() should apply transformer", () => {
 		offset: 3,
 		data: "source data",
 	};
-	const transformer = jest.fn((source: Source) => [source]);
+	const transformer: Transformer = (source) => [source];
 	const result = transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
 		[
@@ -74,9 +73,9 @@ it("transformSource() should support chaining", () => {
 		offset: 3,
 		data: "source data",
 	};
-	const transformer = jest.fn(function (this: TransformContext, source: Source) {
+	const transformer: Transformer = function mockTransformer(source) {
 		return this.chain(source, "chained.html");
-	});
+	};
 	const result = transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
 		[
@@ -100,10 +99,10 @@ it("transformSource() should support custom chaining", () => {
 		offset: 3,
 		data: "source data",
 	};
-	const chain = jest.fn((source: Source) => [source]);
-	const transformer = jest.fn(function (this: TransformContext, source: Source) {
+	const chain: Transformer = jest.fn((source) => [source]);
+	const transformer: Transformer = function mockTransformer(source) {
 		return this.chain(source, "chained.html");
-	});
+	};
 	const result = transformSource(transformer, source, chain);
 	expect(chain).toHaveBeenCalledWith(source, "chained.html");
 	expect(result).toMatchInlineSnapshot(`
