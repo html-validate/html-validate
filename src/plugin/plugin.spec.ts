@@ -339,7 +339,6 @@ describe("Plugin", () => {
 			config = Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
-			config.init();
 		});
 
 		it("Engine should handle missing plugin callbacks", () => {
@@ -384,7 +383,6 @@ describe("Plugin", () => {
 					"mock-rule": ["error", "mock-options"],
 				},
 			});
-			config.init();
 		});
 
 		it("Engine should call rule init callback", () => {
@@ -428,9 +426,8 @@ describe("Plugin", () => {
 					".*": "mock-plugin",
 				},
 			});
-			config.init();
 			const resolvedConfig = config.resolve();
-			const sources = resolvedConfig.transformSource({
+			const sources = resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
@@ -478,9 +475,8 @@ describe("Plugin", () => {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			config.init();
 			const resolvedConfig = config.resolve();
-			const sources = resolvedConfig.transformSource({
+			const sources = resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
@@ -502,73 +498,6 @@ describe("Plugin", () => {
 				  },
 				]
 			`);
-		});
-
-		it("should throw error when named transform is missing plugin", () => {
-			expect.assertions(1);
-			mockPlugin.transformer = {};
-			config = Config.fromObject(resolvers, {
-				transform: {
-					".*": "missing-plugin:foobar",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				'Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded',
-			);
-		});
-
-		it("should throw error when named transform is missing", () => {
-			expect.assertions(1);
-			mockPlugin.transformer = {};
-			config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin"],
-				transform: {
-					".*": "mock-plugin:foobar",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				'Failed to load transformer "mock-plugin:foobar": Plugin "mock-plugin" does not expose a transformer named "foobar".',
-			);
-		});
-
-		it("should throw error when referencing named transformer without name", () => {
-			expect.assertions(1);
-			mockPlugin.transformer = {
-				foobar: null,
-			};
-			config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin"],
-				transform: {
-					".*": "mock-plugin",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				'Failed to load transformer "mock-plugin": Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.',
-			);
-		});
-
-		it("should throw error when referencing unnamed transformer with name", () => {
-			expect.assertions(1);
-			mockPlugin.transformer = function transform(): Source[] {
-				return [];
-			};
-			config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin"],
-				transform: {
-					".*": "mock-plugin:foobar",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				'Failed to load transformer "mock-plugin:foobar": Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.',
-			);
 		});
 	});
 });

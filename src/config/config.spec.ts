@@ -1,8 +1,5 @@
-import { type Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
-import { TRANSFORMER_API } from "../transform";
-import { type Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
 import { staticResolver } from "./resolver";
@@ -101,6 +98,20 @@ describe("config", () => {
 		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
 			'Failed to load configuration from "invalid-file.json"',
 		);
+	});
+
+	it("should handle missing plugins property", () => {
+		expect.assertions(3);
+		expect(Config.fromObject(resolvers, {}).getPlugins()).toEqual([]);
+		expect(Config.fromObject(resolvers, { plugins: undefined }).getPlugins()).toEqual([]);
+		expect(Config.fromObject(resolvers, { plugins: [] }).getPlugins()).toEqual([]);
+	});
+
+	it("should handle missing transform property", () => {
+		expect.assertions(3);
+		expect(Config.fromObject(resolvers, {}).getTransformers()).toEqual([]);
+		expect(Config.fromObject(resolvers, { transform: undefined }).getTransformers()).toEqual([]);
+		expect(Config.fromObject(resolvers, { transform: {} }).getTransformers()).toEqual([]);
 	});
 
 	describe("merge()", () => {
@@ -471,7 +482,6 @@ describe("config", () => {
 		const config = Config.fromObject(resolvers, {
 			plugins: ["mock-plugin"],
 		});
-		config.init();
 		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 	});
 
@@ -487,258 +497,10 @@ describe("config", () => {
 				},
 			],
 		});
-		config.init();
 		expect(config.getPlugins()).toEqual([
 			expect.objectContaining({ name: "inline-plugin" }),
 			expect.objectContaining({ name: ":unnamedPlugin@2" }),
 		]);
-	});
-
-	describe("transformers", () => {
-		it("should load transformer from package", () => {
-			expect.assertions(1);
-			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-			const config = Config.fromObject(resolvers, {
-				transform: {
-					"\\.foo$": "mock-transform",
-				},
-			});
-			config.init();
-			expect(config.resolveData().transformers).toEqual([
-				{ pattern: /\.foo$/, name: "mock-transform", fn: require("mock-transform") },
-			]);
-		});
-
-		it("should load transformer from path with <rootDir>", () => {
-			expect.assertions(1);
-			const resolvers = [cjsResolver()];
-			const config = Config.fromObject(resolvers, {
-				transform: {
-					"\\.foo$": "<rootDir>/src/transform/__mocks__/mock-transform",
-				},
-			});
-			config.init();
-			expect(config.resolveData().transformers).toEqual([
-				{
-					pattern: /\.foo$/,
-					name: "<rootDir>/src/transform/__mocks__/mock-transform",
-					fn: require("mock-transform"),
-				},
-			]);
-		});
-
-		describe("should load transformers from plugins", () => {
-			function transform(): Source[] {
-				return [];
-			}
-			transform.api = TRANSFORMER_API.VERSION;
-
-			const plugins: Record<string, Plugin> = {
-				"mock-plugin-unnamed": {
-					transformer: transform,
-				},
-				"mock-plugin-named": {
-					transformer: {
-						default: transform,
-						foobar: transform,
-					},
-				},
-			};
-			const resolvers = [staticResolver({ plugins })];
-
-			it("unnamed", () => {
-				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
-					plugins: ["mock-plugin-unnamed"],
-					transform: {
-						"\\.unnamed$": "mock-plugin-unnamed",
-					},
-				});
-				config.init();
-				expect(config.resolveData().transformers).toEqual([
-					{
-						pattern: /\.unnamed$/,
-						name: "mock-plugin-unnamed",
-						fn: transform,
-					},
-				]);
-			});
-
-			it("named", () => {
-				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
-					plugins: ["mock-plugin-named"],
-					transform: {
-						"\\.named$": "mock-plugin-named:foobar",
-					},
-				});
-				config.init();
-				expect(config.resolveData().transformers).toEqual([
-					{
-						pattern: /\.named$/,
-						name: "mock-plugin-named:foobar",
-						fn: transform,
-					},
-				]);
-			});
-
-			it("named default", () => {
-				expect.assertions(1);
-				const config = Config.fromObject(resolvers, {
-					plugins: ["mock-plugin-named"],
-					transform: {
-						"\\.default$": "mock-plugin-named",
-					},
-				});
-				config.init();
-				expect(config.resolveData().transformers).toEqual([
-					{
-						pattern: /\.default$/,
-						name: "mock-plugin-named",
-						fn: transform,
-					},
-				]);
-			});
-
-			it("non-plugin (regression test issue 54)", () => {
-				expect.assertions(1);
-				const resolvers = [staticResolver({ plugins }), cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-				const config = Config.fromObject(resolvers, {
-					plugins: ["mock-plugin-unnamed"],
-					transform: {
-						"\\.unnamed$": "mock-plugin-unnamed",
-						"\\.nonplugin$": "mock-transform",
-					},
-				});
-				config.init();
-				expect(config.resolveData().transformers).toEqual([
-					{
-						pattern: /\.unnamed$/,
-						name: "mock-plugin-unnamed",
-						fn: transform,
-					},
-					{
-						pattern: /\.nonplugin$/,
-						name: "mock-transform",
-						fn: require("mock-transform"),
-					},
-				]);
-			});
-		});
-
-		it("should throw error if transformer uses obsolete API", () => {
-			expect.assertions(1);
-			const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-			const config = Config.fromObject(resolvers, {
-				transform: {
-					"^.*\\.foo$": "mock-transform-obsolete",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				/Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version \d+ is supported/,
-			);
-		});
-
-		it("should throw error if transformer refers to missing plugin", () => {
-			expect.assertions(1);
-			const resolvers = [staticResolver()];
-			const config = Config.fromObject(resolvers, {
-				transform: {
-					"^.*\\.foo$": "missing-plugin:foo",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrow(
-				'Failed to load transformer "missing-plugin:foo": No plugin named "missing-plugin" has been loaded',
-			);
-		});
-
-		it("should throw sane error when transformer fails to load", () => {
-			expect.assertions(1);
-			const resolvers = [staticResolver()];
-			const config = Config.fromObject(resolvers, {
-				transform: {
-					"^.*\\.foo$": "missing-transformer" /* mocked transformer, see top of file */,
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrowErrorMatchingSnapshot();
-		});
-
-		it("should throw error when trying to load unnamed transform from plugin without any", () => {
-			expect.assertions(1);
-			const resolvers = [
-				staticResolver({
-					plugins: {
-						"mock-plugin-notransform": {},
-					},
-				}),
-			];
-			const config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin-notransform"],
-				transform: {
-					"^.*\\.foo$": "mock-plugin-notransform",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrowErrorMatchingSnapshot();
-		});
-
-		it("should throw error when trying to load named transform from plugin without any", () => {
-			expect.assertions(1);
-			const resolvers = [
-				staticResolver({
-					plugins: {
-						"mock-plugin-notransform": {},
-					},
-				}),
-			];
-			const config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin-notransform"],
-				transform: {
-					"^.*\\.foo$": "mock-plugin-notransform:named",
-				},
-			});
-			expect(() => {
-				config.init();
-			}).toThrowErrorMatchingSnapshot();
-		});
-	});
-
-	describe("init()", () => {
-		it("should handle being called multiple times", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {});
-			const spy = jest.spyOn(config as any, "precompileTransformers").mockReturnValue([]);
-			config.init();
-			config.init();
-			expect(spy).toHaveBeenCalledTimes(1);
-		});
-
-		it("should handle unset fields", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				plugins: undefined,
-				transform: undefined,
-			});
-			expect(() => {
-				config.init();
-			}).not.toThrow();
-		});
-
-		it("should load plugins", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				plugins: ["mock-plugin"],
-			});
-			config.init();
-			expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
-		});
 	});
 
 	describe("schema validation", () => {

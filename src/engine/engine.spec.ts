@@ -91,7 +91,6 @@ describe("Engine", () => {
 				"no-unused-disable": "off",
 			},
 		});
-		config.init();
 		engine = new ExposedEngine(config.resolve(), MockParser);
 	});
 

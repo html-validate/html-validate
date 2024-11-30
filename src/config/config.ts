@@ -7,7 +7,6 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { type Transformer, TRANSFORMER_API } from "../transform";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -21,13 +20,7 @@ import { ConfigError } from "./error";
 import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
 import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
-import {
-	type Resolver,
-	resolvePlugin,
-	resolveTransformer,
-	resolveConfig,
-	resolveElements,
-} from "./resolver";
+import { type Resolver, resolvePlugin, resolveConfig, resolveElements } from "./resolver";
 
 /**
  * Internal interface for a loaded plugin.
@@ -76,6 +69,14 @@ function toArray<T>(value: T | T[]): T[] {
 	}
 }
 
+function transformerEntries(transform: TransformMap): TransformerEntry[] {
+	return Object.entries(transform).map(([pattern, name]) => {
+		// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
+		const regex = new RegExp(pattern);
+		return { pattern: regex, name };
+	});
+}
+
 /**
  * Configuration holder.
  *
@@ -86,8 +87,6 @@ function toArray<T>(value: T | T[]): T[] {
 export class Config {
 	private config: ConfigData;
 	private configurations: Map<string, ConfigData>;
-	private initialized: boolean;
-
 	private resolvers: Resolver[];
 	private metaTable: MetaTable | null;
 	private plugins: LoadedPlugin[];
@@ -208,29 +207,18 @@ export class Config {
 		};
 		this.config = mergeInternal(initial, options);
 		this.configurations = new Map();
-		this.initialized = false;
 		this.resolvers = toArray(resolvers);
 		this.metaTable = null;
 		this.plugins = [];
+		this.transformers = transformerEntries(this.config.transform ?? {});
 	}
 
 	/**
-	 * Initialize plugins, transforms etc.
-	 *
-	 * Must be called before trying to use config. Can safely be called multiple
-	 * times.
-	 *
 	 * @public
+	 * @deprecated Not needed any longer, this is a dummy noop method.
 	 */
 	public init(): void {
-		if (this.initialized) {
-			return;
-		}
-
-		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(this.config.transform ?? {});
-
-		this.initialized = true;
+		/* dummy noop */
 	}
 
 	/**
@@ -367,6 +355,15 @@ export class Config {
 		return this.plugins;
 	}
 
+	/**
+	 * Get all configured transformers.
+	 *
+	 * @internal
+	 */
+	public getTransformers(): TransformerEntry[] {
+		return this.transformers;
+	}
+
 	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {
 		return plugins.map((moduleName: string | Plugin, index: number) => {
 			if (typeof moduleName !== "string") {
@@ -469,124 +466,5 @@ export class Config {
 			rules: this.getRules(),
 			transformers: this.transformers,
 		};
-	}
-
-	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
-		return Object.entries(transform).map(([pattern, name]) => {
-			try {
-				const fn = this.getTransformFunction(name);
-
-				/* istanbul ignore next */
-				const version = fn.api ?? 0;
-
-				/* check if transformer version is supported */
-				if (version !== TRANSFORMER_API.VERSION) {
-					throw new ConfigError(
-						`Transformer uses API version ${String(version)} but only version ${String(TRANSFORMER_API.VERSION)} is supported`,
-					);
-				}
-
-				return {
-					// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
-					pattern: new RegExp(pattern),
-
-					name,
-					fn,
-				};
-			} catch (err: unknown) {
-				if (err instanceof ConfigError) {
-					throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
-				} else {
-					throw new ConfigError(`Failed to load transformer "${name}"`, ensureError(err));
-				}
-			}
-		});
-	}
-
-	/**
-	 * Get transformation function requested by configuration.
-	 *
-	 * Searches:
-	 *
-	 * - Named transformers from plugins.
-	 * - Unnamed transformer from plugin.
-	 * - Standalone modules (local or node_modules)
-	 *
-	 * @param name - Key from configuration
-	 */
-	private getTransformFunction(name: string): Transformer {
-		/* try to match a named transformer from plugin */
-		const match = name.match(/(.*):(.*)/);
-		if (match) {
-			const [, pluginName, key] = match;
-			return this.getNamedTransformerFromPlugin(name, pluginName, key);
-		}
-
-		/* try to match an unnamed transformer from plugin */
-		const plugin = this.plugins.find((cur) => cur.name === name);
-		if (plugin) {
-			return this.getUnnamedTransformerFromPlugin(name, plugin);
-		}
-
-		/* assume transformer refers to a regular module */
-		return this.getTransformerFromModule(name);
-	}
-
-	/**
-	 * @param name - Original name from configuration
-	 * @param pluginName - Name of plugin
-	 * @param key - Name of transform (from plugin)
-	 */
-	private getNamedTransformerFromPlugin(
-		name: string,
-		pluginName: string,
-		key: string,
-	): Transformer {
-		const plugin = this.plugins.find((cur) => cur.name === pluginName);
-		if (!plugin) {
-			throw new ConfigError(`No plugin named "${pluginName}" has been loaded`);
-		}
-
-		if (!plugin.transformer) {
-			throw new ConfigError(`Plugin does not expose any transformer`);
-		}
-
-		if (typeof plugin.transformer === "function") {
-			throw new ConfigError(
-				`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`,
-			);
-		}
-
-		const transformer = plugin.transformer[key];
-		if (!transformer) {
-			throw new ConfigError(`Plugin "${pluginName}" does not expose a transformer named "${key}".`);
-		}
-
-		return transformer;
-	}
-
-	/**
-	 * @param name - Original name from configuration
-	 * @param plugin - Plugin instance
-	 */
-	private getUnnamedTransformerFromPlugin(name: string, plugin: Plugin): Transformer {
-		if (!plugin.transformer) {
-			throw new ConfigError(`Plugin does not expose any transformer`);
-		}
-
-		if (typeof plugin.transformer !== "function") {
-			if (plugin.transformer.default) {
-				return plugin.transformer.default;
-			}
-			throw new ConfigError(
-				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`,
-			);
-		}
-
-		return plugin.transformer;
-	}
-
-	private getTransformerFromModule(name: string): Transformer {
-		return resolveTransformer(this.resolvers, name, { cache: true });
 	}
 }

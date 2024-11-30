@@ -127,6 +127,9 @@ export class Config {
     getPlugins(): Plugin_2[];
     // @internal
     getRules(): Map<string, [Severity, RuleOptions]>;
+    // @internal
+    getTransformers(): TransformerEntry[];
+    // @deprecated (undocumented)
     init(): void;
     isRootFound(): boolean;
     merge(resolvers: Resolver[], rhs: Config): Config;
@@ -163,6 +166,8 @@ export abstract class ConfigLoader {
     abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
     // @internal
     _getGlobalConfig(): ConfigData;
+    // @internal (undocumented)
+    getResolvers(): Resolver[];
     // (undocumented)
     protected globalConfig: Config;
     // (undocumented)
@@ -1005,8 +1010,10 @@ export class ResolvedConfig {
     getPlugins(): Plugin_2[];
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
-    transformFilename(filename: string): Source[];
-    transformSource(source: Source, filename?: string): Source[];
+    // @internal
+    transformFilename(resolvers: Resolver[], filename: string): Source[];
+    // @internal
+    transformSource(resolvers: Resolver[], source: Source, filename?: string): Source[];
 }
 
 // @public (undocumented)
@@ -1426,8 +1433,6 @@ export { Transformer_2 as Transformer }
 
 // @public (undocumented)
 export interface TransformerEntry {
-    // (undocumented)
-    fn: Transformer_2;
     // (undocumented)
     name: string;
     // (undocumented)

@@ -1,9 +1,4 @@
 export { type TransformContext } from "./context";
+export { getCachedTransformerFunction, getTransformerFunction } from "./get-transformer-function";
 export { type Transformer } from "./transformer";
-
-/**
- * @internal
- */
-export const TRANSFORMER_API: { readonly VERSION: number } = {
-	VERSION: 1,
-};
+export { TRANSFORMER_API } from "./transformer-api";
