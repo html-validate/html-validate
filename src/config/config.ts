@@ -8,6 +8,7 @@ import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../m
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
 import {
+	getNamedTransformerFromPlugin,
 	getTransformerFromModule,
 	getUnnamedTransformerFromPlugin,
 	type Transformer,
@@ -518,7 +519,7 @@ export class Config {
 		const match = name.match(/(.*):(.*)/);
 		if (match) {
 			const [, pluginName, key] = match;
-			return this.getNamedTransformerFromPlugin(name, pluginName, key);
+			return getNamedTransformerFromPlugin(name, this.plugins, pluginName, key);
 		}
 
 		/* try to match an unnamed transformer from plugin */
@@ -529,38 +530,5 @@ export class Config {
 
 		/* assume transformer refers to a regular module */
 		return getTransformerFromModule(this.resolvers, name);
-	}
-
-	/**
-	 * @param name - Original name from configuration
-	 * @param pluginName - Name of plugin
-	 * @param key - Name of transform (from plugin)
-	 */
-	private getNamedTransformerFromPlugin(
-		name: string,
-		pluginName: string,
-		key: string,
-	): Transformer {
-		const plugin = this.plugins.find((cur) => cur.name === pluginName);
-		if (!plugin) {
-			throw new ConfigError(`No plugin named "${pluginName}" has been loaded`);
-		}
-
-		if (!plugin.transformer) {
-			throw new ConfigError(`Plugin does not expose any transformer`);
-		}
-
-		if (typeof plugin.transformer === "function") {
-			throw new ConfigError(
-				`Transformer "${name}" refers to named transformer but plugin exposes only unnamed, use "${pluginName}" instead.`,
-			);
-		}
-
-		const transformer = plugin.transformer[key];
-		if (!transformer) {
-			throw new ConfigError(`Plugin "${pluginName}" does not expose a transformer named "${key}".`);
-		}
-
-		return transformer;
 	}
 }
