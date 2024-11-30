@@ -4,7 +4,10 @@ import { type Source, type TransformContext } from "html-validate";
 /**
  * @public
  */
-export type Transformer = (this: TransformContext, source: Source) => Iterable<Source>;
+export type Transformer = (
+	this: TransformContext,
+	source: Source,
+) => Iterable<Source> | Promise<Iterable<Source>>;
 
 /**
  * Helper function to call a transformer function in test-cases.
@@ -17,8 +20,8 @@ export type Transformer = (this: TransformContext, source: Source) => Iterable<S
 export function transformFile(
 	fn: Transformer,
 	filename: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+): Promise<Source[]> {
 	const data = fs.readFileSync(filename, "utf-8");
 	const source: Source = {
 		filename,
@@ -41,8 +44,8 @@ export function transformFile(
 export function transformString(
 	fn: Transformer,
 	data: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+): Promise<Source[]> {
 	const source: Source = {
 		filename: "inline",
 		line: 1,
@@ -61,15 +64,16 @@ export function transformString(
  * @param data - Source to transform.
  * @param chain - If set this function is called when chaining transformers. Default is pass-thru.
  */
-export function transformSource(
+export async function transformSource(
 	fn: Transformer,
 	source: Source,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+): Promise<Source[]> {
 	const defaultChain = (source: Source): Iterable<Source> => [source];
 	const context: TransformContext = {
 		hasChain: /* istanbul ignore next */ () => true,
 		chain: chain ?? defaultChain,
 	};
-	return Array.from(fn.call(context, source));
+	const result = await fn.call(context, source);
+	return Array.from(result);
 }

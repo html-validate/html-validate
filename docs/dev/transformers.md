@@ -38,7 +38,7 @@ import { Source } from "html-validate";
 
 export interface TransformContext {
   hasChain(filename: string): boolean;
-  chain(source: Source, filename: string): Iterable<Source>;
+  chain(source: Source, filename: string): Iterable<Source> | Promise<Iterable<Source>>;
 }
 ```
 
@@ -56,11 +56,18 @@ function transformImplementation(_source: Source): Iterable<Source> {
 
 /* --- */
 
-export function* myTransform(this: TransformContext, source: Source): Iterable<Source> {
+export async function myTransform(
+  this: TransformContext,
+  source: Source,
+): Promise<Iterable<Source>> {
+  const sources = [];
   for (const transformedSource of transformImplementation(source)) {
     const next = `${source.filename}.foo`;
-    yield* this.chain(transformedSource, next);
+    for (const chained of await this.chain(transformedSource, next)) {
+      sources.push(chained);
+    }
   }
+  return sources;
 }
 ```
 
@@ -94,11 +101,16 @@ import { Source, TransformContext } from "html-validate";
 
 /* --- */
 
-export function* myTransform(this: TransformContext, source: Source): Iterable<Source> {
+export function myTransform(
+  this: TransformContext,
+  source: Source,
+): Iterable<Source> | Promise<Iterable<Source>> {
   /* create a virtual filename */
   const next = `${source.filename}:virtual`;
   if (this.hasChain(next)) {
-    yield* this.chain(source, next);
+    return this.chain(source, next);
+  } else {
+    return [source];
   }
 }
 ```

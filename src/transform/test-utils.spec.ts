@@ -4,11 +4,11 @@ import { type Transformer, transformFile, transformSource, transformString } fro
 
 jest.mock("fs");
 
-it("transformFile() should read file and apply transformer", () => {
+it("transformFile() should read file and apply transformer", async () => {
 	expect.assertions(2);
 	const transformer: Transformer = (source) => [source];
 	const readFileSync = jest.spyOn(fs, "readFileSync").mockImplementation(() => "mocked file data");
-	const result = transformFile(transformer, "foo.html");
+	const result = await transformFile(transformer, "foo.html");
 	expect(readFileSync).toHaveBeenCalledWith("foo.html", "utf-8");
 	expect(result).toMatchInlineSnapshot(`
 		[
@@ -23,10 +23,10 @@ it("transformFile() should read file and apply transformer", () => {
 	`);
 });
 
-it("transformString() should apply transformer", () => {
+it("transformString() should apply transformer", async () => {
 	expect.assertions(1);
 	const transformer: Transformer = (source) => [source];
-	const result = transformString(transformer, "inline data");
+	const result = await transformString(transformer, "inline data");
 	expect(result).toMatchInlineSnapshot(`
 		[
 		  {
@@ -40,7 +40,7 @@ it("transformString() should apply transformer", () => {
 	`);
 });
 
-it("transformSource() should apply transformer", () => {
+it("transformSource() should apply transformer", async () => {
 	expect.assertions(1);
 	const source: Source = {
 		filename: "bar.html",
@@ -50,7 +50,7 @@ it("transformSource() should apply transformer", () => {
 		data: "source data",
 	};
 	const transformer: Transformer = (source) => [source];
-	const result = transformSource(transformer, source);
+	const result = await transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
 		[
 		  {
@@ -64,7 +64,7 @@ it("transformSource() should apply transformer", () => {
 	`);
 });
 
-it("transformSource() should support chaining", () => {
+it("transformSource() should support chaining", async () => {
 	expect.assertions(1);
 	const source: Source = {
 		filename: "bar.html",
@@ -76,7 +76,7 @@ it("transformSource() should support chaining", () => {
 	const transformer: Transformer = function mockTransformer(source) {
 		return this.chain(source, "chained.html");
 	};
-	const result = transformSource(transformer, source);
+	const result = await transformSource(transformer, source);
 	expect(result).toMatchInlineSnapshot(`
 		[
 		  {
@@ -90,7 +90,7 @@ it("transformSource() should support chaining", () => {
 	`);
 });
 
-it("transformSource() should support custom chaining", () => {
+it("transformSource() should support custom chaining", async () => {
 	expect.assertions(2);
 	const source: Source = {
 		filename: "bar.html",
@@ -103,7 +103,7 @@ it("transformSource() should support custom chaining", () => {
 	const transformer: Transformer = function mockTransformer(source) {
 		return this.chain(source, "chained.html");
 	};
-	const result = transformSource(transformer, source, chain);
+	const result = await transformSource(transformer, source, chain);
 	expect(chain).toHaveBeenCalledWith(source, "chained.html");
 	expect(result).toMatchInlineSnapshot(`
 		[
