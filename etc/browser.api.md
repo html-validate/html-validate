@@ -129,8 +129,6 @@ export class Config {
     getRules(): Map<string, [Severity, RuleOptions]>;
     // @internal
     getTransformers(): TransformerEntry[];
-    // @deprecated (undocumented)
-    init(): void;
     isRootFound(): boolean;
     merge(resolvers: Resolver[], rhs: Config): Config;
     resolve(): ResolvedConfig;

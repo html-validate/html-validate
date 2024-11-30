@@ -1,5 +1,20 @@
 # Migration guide
 
+## Upgrading to v9
+
+### API changes {#v9-api-changes}
+
+#### `Config.init()` method removed {#v9-config-init}
+
+The redundant and deprecated `Config.init()` method has been removed.
+
+Remove any calls to the method:
+
+```diff
+ const config = Config.fromObject({ /* ... */ });
+-config.init();
+```
+
 ## Upgrading to v8
 
 ### Dependency changes {#v8-dependency-changes}
