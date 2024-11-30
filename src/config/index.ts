@@ -16,6 +16,10 @@ export {
 	type ResolverOptions,
 	type StaticResolver,
 	type StaticResolverMap,
+	resolveConfig,
+	resolveElements,
+	resolvePlugin,
+	resolveTransformer,
 	staticResolver,
 } from "./resolver";
 export { Severity } from "./severity";

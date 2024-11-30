@@ -7,7 +7,7 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { type Transformer, TRANSFORMER_API } from "../transform";
+import { getTransformerFromModule, type Transformer, TRANSFORMER_API } from "../transform";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -21,13 +21,7 @@ import { ConfigError } from "./error";
 import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
 import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
-import {
-	type Resolver,
-	resolvePlugin,
-	resolveTransformer,
-	resolveConfig,
-	resolveElements,
-} from "./resolver";
+import { type Resolver, resolvePlugin, resolveConfig, resolveElements } from "./resolver";
 
 /**
  * Internal interface for a loaded plugin.
@@ -529,7 +523,7 @@ export class Config {
 		}
 
 		/* assume transformer refers to a regular module */
-		return this.getTransformerFromModule(name);
+		return getTransformerFromModule(this.resolvers, name);
 	}
 
 	/**
@@ -584,9 +578,5 @@ export class Config {
 		}
 
 		return plugin.transformer;
-	}
-
-	private getTransformerFromModule(name: string): Transformer {
-		return resolveTransformer(this.resolvers, name, { cache: true });
 	}
 }

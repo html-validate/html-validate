@@ -1,4 +1,5 @@
 export { type TransformContext } from "./context";
+export { getTransformerFromModule } from "./get-transformer-from-module";
 export { type Transformer } from "./transformer";
 
 /**
