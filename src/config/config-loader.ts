@@ -44,6 +44,13 @@ export abstract class ConfigLoader {
 	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
 
 	/**
+	 * @internal
+	 */
+	public getResolvers(): Resolver[] {
+		return this.resolvers;
+	}
+
+	/**
 	 * Flush configuration cache.
 	 *
 	 * Flushes all cached entries unless a specific handle is given.

@@ -77,3 +77,24 @@ export function getTransformerFunction(
 		}
 	}
 }
+
+/**
+ * Cached version of [[getTransformerFunction]].
+ *
+ * @internal
+ */
+export function getCachedTransformerFunction(
+	cache: Map<string, Transformer>,
+	resolvers: Resolver[],
+	name: string,
+	plugins: Plugin[],
+): Transformer {
+	const cached = cache.get(name);
+	if (cached) {
+		return cached;
+	} else {
+		const transformer = getTransformerFunction(resolvers, name, plugins);
+		cache.set(name, transformer);
+		return transformer;
+	}
+}

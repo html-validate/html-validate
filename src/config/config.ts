@@ -7,7 +7,6 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { getTransformerFunction } from "../transform";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -68,6 +67,14 @@ function toArray<T>(value: T | T[]): T[] {
 	} else {
 		return [value];
 	}
+}
+
+function transformerEntries(transform: TransformMap): TransformerEntry[] {
+	return Object.entries(transform).map(([pattern, name]) => {
+		// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
+		const regex = new RegExp(pattern);
+		return { pattern: regex, name };
+	});
 }
 
 /**
@@ -206,6 +213,7 @@ export class Config {
 		this.resolvers = toArray(resolvers);
 		this.metaTable = null;
 		this.plugins = [];
+		this.transformers = transformerEntries(this.config.transform ?? {});
 	}
 
 	/**
@@ -220,9 +228,6 @@ export class Config {
 		if (this.initialized) {
 			return;
 		}
-
-		/* precompile transform patterns */
-		this.transformers = this.precompileTransformers(this.config.transform ?? {});
 
 		this.initialized = true;
 	}
@@ -463,14 +468,5 @@ export class Config {
 			rules: this.getRules(),
 			transformers: this.transformers,
 		};
-	}
-
-	private precompileTransformers(transform: TransformMap): TransformerEntry[] {
-		return Object.entries(transform).map(([pattern, name]) => {
-			// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
-			const regex = new RegExp(pattern);
-			const fn = getTransformerFunction(this.resolvers, name, this.plugins);
-			return { pattern: regex, name, fn };
-		});
 	}
 }

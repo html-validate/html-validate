@@ -495,10 +495,11 @@ describe("config", () => {
 		it("should handle being called multiple times", () => {
 			expect.assertions(1);
 			const config = Config.fromObject(resolvers, {});
-			const spy = jest.spyOn(config as any, "precompileTransformers").mockReturnValue([]);
 			config.init();
 			config.init();
-			expect(spy).toHaveBeenCalledTimes(1);
+			expect(() => {
+				config.init();
+			}).not.toThrow();
 		});
 
 		it("should handle unset fields", () => {

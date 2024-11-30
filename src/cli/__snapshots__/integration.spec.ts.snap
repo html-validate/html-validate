@@ -443,6 +443,15 @@ exports[`test-files/config/js-config/file.html 1`] = `
 }
 `;
 
+exports[`test-files/config/missing-transformer/test.html 1`] = `
+{
+  "errorCount": 0,
+  "results": [],
+  "valid": true,
+  "warningCount": 0,
+}
+`;
+
 exports[`test-files/config/off/error/file.html 1`] = `
 {
   "errorCount": 1,

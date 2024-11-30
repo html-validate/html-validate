@@ -210,6 +210,8 @@ export abstract class ConfigLoader {
     abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
     // @internal
     _getGlobalConfig(): ConfigData;
+    // @internal (undocumented)
+    getResolvers(): Resolver[];
     // (undocumented)
     protected globalConfig: Config;
     // (undocumented)
@@ -1108,9 +1110,9 @@ export class ResolvedConfig {
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
     // @internal
-    transformFilename(filename: string): Source[];
+    transformFilename(resolvers: Resolver[], filename: string): Source[];
     // @internal
-    transformSource(source: Source, filename?: string): Source[];
+    transformSource(resolvers: Resolver[], source: Source, filename?: string): Source[];
 }
 
 // @public (undocumented)
@@ -1530,8 +1532,6 @@ export { Transformer_2 as Transformer }
 
 // @public (undocumented)
 export interface TransformerEntry {
-    // (undocumented)
-    fn: Transformer_2;
     // (undocumented)
     name: string;
     // (undocumented)

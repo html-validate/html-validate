@@ -2,6 +2,7 @@ import fs from "fs";
 import { type Source } from "../context";
 import { MetaTable } from "../meta";
 import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
+import { staticResolver } from "./resolver";
 
 function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {
 	const metaTable = new MetaTable();
@@ -34,11 +35,16 @@ describe("transformSource()", () => {
 	it("should match filename against transformer", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
-			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform", fn: require("mock-transform") },
-			],
+			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform" }],
 		});
-		expect(config.transformSource(source)).toMatchInlineSnapshot(`
+		const resolvers = [
+			staticResolver({
+				transformers: {
+					"mock-transform": require("mock-transform"),
+				},
+			}),
+		];
+		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -59,11 +65,19 @@ describe("transformSource()", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform-foo", fn: require("mock-transform") },
-				{ pattern: /^.*\.bar$/, name: "mock-transform-bar", fn: require("mock-transform") },
+				{ pattern: /^.*\.foo$/, name: "mock-transform-foo" },
+				{ pattern: /^.*\.bar$/, name: "mock-transform-bar" },
 			],
 		});
-		expect(config.transformSource(source, "/path/to/test.bar")).toMatchInlineSnapshot(`
+		const resolvers = [
+			staticResolver({
+				transformers: {
+					"mock-transform-foo": require("mock-transform"),
+					"mock-transform-bar": require("mock-transform"),
+				},
+			}),
+		];
+		expect(config.transformSource(resolvers, source, "/path/to/test.bar")).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -85,7 +99,7 @@ describe("transformSource()", () => {
 		const config = createMockConfig({
 			transformers: [],
 		});
-		expect(config.transformSource(source)).toMatchInlineSnapshot(`
+		expect(config.transformSource([], source)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 3,
@@ -105,17 +119,23 @@ describe("transformSource()", () => {
 				{
 					pattern: /^.*\.bar$/,
 					name: "mock-transform-chain-foo",
-					fn: require("mock-transform-chain-foo"),
 				},
 				{
 					pattern: /^.*\.foo$/,
 					name: "mock-transform",
-					fn: require("mock-transform"),
 				},
 			],
 		});
+		const resolvers = [
+			staticResolver({
+				transformers: {
+					"mock-transform": require("mock-transform"),
+					"mock-transform-chain-foo": require("mock-transform-chain-foo"),
+				},
+			}),
+		];
 		source.filename = "/path/to/test.bar";
-		expect(config.transformSource(source)).toMatchInlineSnapshot(`
+		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -140,17 +160,23 @@ describe("transformSource()", () => {
 				{
 					pattern: /^.*\.foo$/,
 					name: "mock-transform-optional-chain",
-					fn: require("mock-transform-optional-chain"),
 				},
 				{
 					pattern: /^.*\.bar$/,
 					name: "mock-transform",
-					fn: require("mock-transform"),
 				},
 			],
 		});
+		const resolvers = [
+			staticResolver({
+				transformers: {
+					"mock-transform": require("mock-transform"),
+					"mock-transform-optional-chain": require("mock-transform-optional-chain"),
+				},
+			}),
+		];
 		source.filename = "/path/to/test.bar.foo";
-		expect(config.transformSource(source)).toMatchInlineSnapshot(`
+		expect(config.transformSource(resolvers, source)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -167,17 +193,22 @@ describe("transformSource()", () => {
 			]
 		`);
 		source.filename = "/path/to/test.baz.foo";
-		expect(config.transformSource(source)).toEqual([]);
+		expect(config.transformSource(resolvers, source)).toEqual([]);
 	});
 
 	it("should throw sane error when transformer fails", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
-			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform-error", fn: require("mock-transform-error") },
-			],
+			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform-error" }],
 		});
-		expect(() => config.transformSource(source)).toThrowErrorMatchingInlineSnapshot(
+		const resolvers = [
+			staticResolver({
+				transformers: {
+					"mock-transform-error": require("mock-transform-error"),
+				},
+			}),
+		];
+		expect(() => config.transformSource(resolvers, source)).toThrowErrorMatchingInlineSnapshot(
 			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`,
 		);
 	});
@@ -187,7 +218,7 @@ describe("transformFilename()", () => {
 	it("should default to reading full file", () => {
 		expect.assertions(1);
 		const config = createMockConfig();
-		expect(config.transformFilename("test-files/parser/simple.html")).toMatchInlineSnapshot(`
+		expect(config.transformFilename([], "test-files/parser/simple.html")).toMatchInlineSnapshot(`
 			[
 			  {
 			    "column": 1,
@@ -207,7 +238,7 @@ describe("transformFilename()", () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(fs, "readFileSync").mockReturnValue("<div></div>");
 		const config = createMockConfig();
-		const source = config.transformFilename("/dev/stdin");
+		const source = config.transformFilename([], "/dev/stdin");
 		const stdin = 0;
 		expect(spy).toHaveBeenCalledWith(stdin, expect.anything());
 		expect(source).toMatchInlineSnapshot(`
@@ -230,9 +261,7 @@ describe("canTransform()", () => {
 
 	beforeEach(() => {
 		config = createMockConfig({
-			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform", fn: require("mock-transform") },
-			],
+			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform" }],
 		});
 	});
 

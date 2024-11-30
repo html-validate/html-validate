@@ -29,7 +29,7 @@ function mockConfig(): Promise<ResolvedConfig> {
 	config.init();
 	jest.spyOn(config, "resolve").mockImplementation(() => {
 		const resolved = original.call(config);
-		resolved.transformFilename = jest.fn((filename: string): Source[] => [
+		resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [
 			{
 				data: `source from ${filename}`,
 				filename,
@@ -49,7 +49,7 @@ function mockConfigSync(): ResolvedConfig {
 	config.init();
 	jest.spyOn(config, "resolve").mockImplementation(() => {
 		const resolved = original.call(config);
-		resolved.transformFilename = jest.fn((filename: string): Source[] => [
+		resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [
 			{
 				data: `source from ${filename}`,
 				filename,
@@ -903,7 +903,7 @@ describe("HtmlValidate", () => {
 		config.init();
 		config.resolve = () => {
 			const resolved = original.call(config);
-			resolved.transformFilename = jest.fn((filename: string): Source[] => [
+			resolved.transformFilename = jest.fn((_resolvers, filename): Source[] => [
 				{
 					data: `first markup`,
 					filename,

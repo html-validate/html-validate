@@ -249,4 +249,14 @@ describe("configuration smoketest", () => {
 		expect(filter(config.getConfigData())).toMatchSnapshot("config");
 		expect(report.results).toMatchSnapshot("results");
 	});
+
+	it("test-files/config/missing-transformer/test.js", async () => {
+		expect.assertions(1);
+		const filename = "test-files/config/missing-transformer/test.js";
+		const loader = new FileSystemConfigLoader();
+		const htmlvalidate = new HtmlValidate(loader);
+		await expect(() => {
+			return htmlvalidate.validateFile(filename);
+		}).rejects.toThrowErrorMatchingInlineSnapshot(`"Failed to load transformer "non-existing""`);
+	});
 });
