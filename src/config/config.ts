@@ -7,7 +7,12 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
-import { getTransformerFromModule, type Transformer, TRANSFORMER_API } from "../transform";
+import {
+	getTransformerFromModule,
+	getUnnamedTransformerFromPlugin,
+	type Transformer,
+	TRANSFORMER_API,
+} from "../transform";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -519,7 +524,7 @@ export class Config {
 		/* try to match an unnamed transformer from plugin */
 		const plugin = this.plugins.find((cur) => cur.name === name);
 		if (plugin) {
-			return this.getUnnamedTransformerFromPlugin(name, plugin);
+			return getUnnamedTransformerFromPlugin(name, plugin);
 		}
 
 		/* assume transformer refers to a regular module */
@@ -557,26 +562,5 @@ export class Config {
 		}
 
 		return transformer;
-	}
-
-	/**
-	 * @param name - Original name from configuration
-	 * @param plugin - Plugin instance
-	 */
-	private getUnnamedTransformerFromPlugin(name: string, plugin: Plugin): Transformer {
-		if (!plugin.transformer) {
-			throw new ConfigError(`Plugin does not expose any transformer`);
-		}
-
-		if (typeof plugin.transformer !== "function") {
-			if (plugin.transformer.default) {
-				return plugin.transformer.default;
-			}
-			throw new ConfigError(
-				`Transformer "${name}" refers to unnamed transformer but plugin exposes only named.`,
-			);
-		}
-
-		return plugin.transformer;
 	}
 }
