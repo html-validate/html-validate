@@ -863,12 +863,12 @@ describe("HtmlValidate", () => {
 		});
 	});
 
-	it("dumpTokens() should dump tokens", () => {
+	it("dumpTokens() should dump tokens", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
-		jest.spyOn(htmlvalidate, "getConfigForSync").mockImplementation(mockConfigSync);
-		htmlvalidate.dumpTokens(filename);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
+		await htmlvalidate.dumpTokens(filename);
 		expect(engine.dumpTokens).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -880,12 +880,12 @@ describe("HtmlValidate", () => {
 		]);
 	});
 
-	it("dumpEvents() should dump events", () => {
+	it("dumpEvents() should dump events", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
-		jest.spyOn(htmlvalidate, "getConfigForSync").mockImplementation(mockConfigSync);
-		htmlvalidate.dumpEvents(filename);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
+		await htmlvalidate.dumpEvents(filename);
 		expect(engine.dumpEvents).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -897,12 +897,12 @@ describe("HtmlValidate", () => {
 		]);
 	});
 
-	it("dumpTree() should dump tree", () => {
+	it("dumpTree() should dump tree", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
-		jest.spyOn(htmlvalidate, "getConfigForSync").mockImplementation(mockConfigSync);
-		htmlvalidate.dumpTree(filename);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
+		await htmlvalidate.dumpTree(filename);
 		expect(engine.dumpTree).toHaveBeenCalledWith([
 			{
 				column: 1,
@@ -922,39 +922,42 @@ describe("HtmlValidate", () => {
 		const original = config.resolve;
 		config.resolve = async () => {
 			const resolved = await original.call(config);
-			resolved.transformFilenameSync = jest.fn((_resolvers, filename): Source[] => [
-				{
-					data: `first markup`,
-					filename,
-					line: 1,
-					column: 1,
-					offset: 0,
-					transformedBy: ["bar", "foo"],
-				},
-				{
-					data: `second markup`,
-					filename,
-					line: 5,
-					column: 3,
-					offset: 29,
-					hooks: {
-						processElement: () => null,
-						processAttribute: null,
-					},
-				},
-				{
-					data: `third markup`,
-					filename,
-					line: 12,
-					column: 1,
-					offset: 69,
-					hooks: {},
-				},
-			]);
+			resolved.transformFilename = jest.fn(
+				(_resolvers, filename): Promise<Source[]> =>
+					Promise.resolve([
+						{
+							data: `first markup`,
+							filename,
+							line: 1,
+							column: 1,
+							offset: 0,
+							transformedBy: ["bar", "foo"],
+						},
+						{
+							data: `second markup`,
+							filename,
+							line: 5,
+							column: 3,
+							offset: 29,
+							hooks: {
+								processElement: () => null,
+								processAttribute: null,
+							},
+						},
+						{
+							data: `third markup`,
+							filename,
+							line: 12,
+							column: 1,
+							offset: 69,
+							hooks: {},
+						},
+					]),
+			);
 			return resolved;
 		};
-		jest.spyOn(htmlvalidate, "getConfigForSync").mockReturnValue(await config.resolve());
-		const output = htmlvalidate.dumpSource(filename);
+		jest.spyOn(htmlvalidate, "getConfigFor").mockResolvedValue(await config.resolve());
+		const output = await htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
 			[
 			  "Source foo.html@1:1 (offset: 0)",

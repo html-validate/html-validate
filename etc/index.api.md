@@ -645,13 +645,13 @@ export class HtmlValidate {
     // (undocumented)
     protected configLoader: ConfigLoader;
     // @internal
-    dumpEvents(filename: string): EventDump[];
+    dumpEvents(filename: string): Promise<EventDump[]>;
     // @internal
-    dumpSource(filename: string): string[];
+    dumpSource(filename: string): Promise<string[]>;
     // @internal
-    dumpTokens(filename: string): TokenDump[];
+    dumpTokens(filename: string): Promise<TokenDump[]>;
     // @internal
-    dumpTree(filename: string): string[];
+    dumpTree(filename: string): Promise<string[]>;
     flushConfigCache(filename?: string): void;
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;

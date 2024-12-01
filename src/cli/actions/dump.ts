@@ -3,26 +3,28 @@ import { eventFormatter } from "../json";
 import { Mode } from "../mode";
 import { type WritableStreamLike } from "../writable-stream-like";
 
-export function dump(
+export async function dump(
 	htmlvalidate: HtmlValidate,
 	output: WritableStreamLike,
 	files: string[],
 	mode: Mode,
 ): Promise<boolean> {
-	let lines: string[][] = [];
+	let lines: Array<Promise<string[]>>;
 	switch (mode) {
 		case Mode.DUMP_EVENTS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpEvents(filename).map(eventFormatter),
-			);
+			lines = files.map(async (filename: string) => {
+				const lines = await htmlvalidate.dumpEvents(filename);
+				return lines.map(eventFormatter);
+			});
 			break;
 		case Mode.DUMP_TOKENS:
-			lines = files.map((filename: string) =>
-				htmlvalidate.dumpTokens(filename).map((entry: TokenDump) => {
+			lines = files.map(async (filename: string) => {
+				const lines = await htmlvalidate.dumpTokens(filename);
+				return lines.map((entry: TokenDump) => {
 					const data = JSON.stringify(entry.data);
 					return `TOKEN: ${entry.token}\n  Data: ${data}\n  Location: ${entry.location}`;
-				}),
-			);
+				});
+			});
 			break;
 		case Mode.DUMP_TREE:
 			lines = files.map((filename: string) => htmlvalidate.dumpTree(filename));
@@ -33,7 +35,7 @@ export function dump(
 		default:
 			throw new Error(`Unknown mode "${String(mode)}"`);
 	}
-	const flat = lines.reduce((s: string[], c: string[]) => s.concat(c), []);
+	const flat = (await Promise.all(lines)).reduce((s: string[], c: string[]) => s.concat(c), []);
 	output.write(flat.join("\n"));
 	output.write("\n");
 	return Promise.resolve(true);
