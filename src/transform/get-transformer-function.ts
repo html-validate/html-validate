@@ -1,4 +1,4 @@
-import { type Resolver } from "../config";
+import { type Resolver } from "../config/resolver";
 import { ConfigError } from "../config/error";
 import { ensureError } from "../error";
 import { type Plugin } from "../plugin";

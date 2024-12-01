@@ -3,7 +3,7 @@ import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { naturalJoin } from "../utils/natural-join";
-import { walk } from "../utils";
+import { walk } from "../utils/walk";
 
 export interface RuleContext {
 	ancestor: string[];

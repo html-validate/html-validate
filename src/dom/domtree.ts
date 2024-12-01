@@ -1,6 +1,6 @@
 import { type Location } from "../context";
 import { type MetaTable } from "../meta";
-import { walk } from "../utils";
+import { walk } from "../utils/walk";
 import { HtmlElement } from "./htmlelement";
 
 /**
