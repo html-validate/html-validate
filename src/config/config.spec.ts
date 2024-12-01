@@ -273,14 +273,6 @@ describe("config", () => {
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:recommended (deprecated alias)", async () => {
-			expect.assertions(1);
-			const config = await Config.fromObject(resolvers, {
-				extends: ["htmlvalidate:recommended"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
 		it("should support html-validate:document", async () => {
 			expect.assertions(1);
 			const config = await Config.fromObject(resolvers, {
@@ -289,26 +281,10 @@ describe("config", () => {
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:document (deprecated alias)", async () => {
-			expect.assertions(1);
-			const config = await Config.fromObject(resolvers, {
-				extends: ["htmlvalidate:document"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
 		it("should support htmlvalidate:a11y", async () => {
 			expect.assertions(1);
 			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:a11y"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
-		it("should support htmlvalidate:a17y (deprecated alias)", async () => {
-			expect.assertions(1);
-			const config = await Config.fromObject(resolvers, {
-				extends: ["html-validate:a17y"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
