@@ -17,11 +17,6 @@ const presets: Record<string, ConfigData> = {
 	"html-validate:prettier": prettier,
 	"html-validate:recommended": recommended,
 	"html-validate:standard": standard,
-
-	/* @deprecated aliases */
-	"htmlvalidate:recommended": recommended,
-	"htmlvalidate:document": document,
-	"html-validate:a17y": a11y,
 };
 
 export default presets;

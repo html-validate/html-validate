@@ -2,6 +2,16 @@
 
 ## Upgrading to v9
 
+### Configuration changes {#v9-configuration-changes}
+
+#### Deprecated preset aliases
+
+The following deprecated aliases has been removed:
+
+- `htmlvalidate:recommended` replace with `html-validate:recommended`.
+- `htmlvalidate:document` - replace with `html-validate:document`.
+- `html-validate:a17y` - replace with `html-validate:a11y`.
+
 ### API changes {#v9-api-changes}
 
 #### Configuration errors {v9-config-deferred}
