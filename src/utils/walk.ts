@@ -1,4 +1,4 @@
-import { type HtmlElement, DOMTree } from "../dom";
+import { type DOMTree, type HtmlElement } from "../dom";
 
 /**
  * @public
@@ -17,12 +17,16 @@ export interface Walk {
 	depthFirst(this: void, root: HtmlElement | DOMTree, callback: (node: HtmlElement) => void): void;
 }
 
+function isDOMTree(value: HtmlElement | DOMTree): value is DOMTree {
+	return "root" in value && "readyState" in value;
+}
+
 function depthFirst(
 	this: void,
 	root: HtmlElement | DOMTree,
 	callback: (node: HtmlElement) => void,
 ): void {
-	if (root instanceof DOMTree) {
+	if (isDOMTree(root)) {
 		if (root.readyState !== "complete") {
 			throw new Error(`Cannot call walk.depthFirst(..) before document is ready`);
 		}
