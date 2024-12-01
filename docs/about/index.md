@@ -1,10 +1,10 @@
 ---
 docType: content
-title: About html-validate
-nav: false
+title: About HTML-validate
+nav: about
 ---
 
-# About
+# About HTML-validate
 
 HTML-validate was created by David Sveningsson in early 2016 with a few goals in mind:
 

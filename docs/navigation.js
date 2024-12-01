@@ -83,4 +83,12 @@ module.exports = {
 			},
 		],
 	},
+
+	about: {
+		title: "About",
+		items: [
+			{ title: "About HTML-validate", target: "about" },
+			{ title: "Sponsoring", target: "about/sponsoring" },
+		],
+	},
 };

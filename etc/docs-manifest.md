@@ -6,6 +6,7 @@
 
 404.html
 about/index.html
+about/sponsoring.html
 api/metadata-helper.html
 api/source.html
 changelog/index.html
