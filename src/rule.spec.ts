@@ -3,7 +3,7 @@ import { type ConfigData, Config, Severity } from "./config";
 import { type Location } from "./context";
 import { HtmlElement } from "./dom";
 import { createBlocker } from "./engine";
-import { type Event, type EventCallback, type TagEndEvent, type TagStartEvent } from "./event";
+import { type Event, type EventCallback } from "./event";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
 import { Rule, ruleDocumentationUrl, type SchemaObject } from "./rule";
@@ -323,31 +323,6 @@ describe("rule base class", () => {
 				callback("event", mockEvent);
 				expect(delivered).toBeFalsy();
 			});
-		});
-
-		it("should support tag:open as alias for tag:start", () => {
-			expect.assertions(1);
-			const spy = jest.fn();
-			const eventData: TagStartEvent = {
-				location,
-				target: null as unknown as HtmlElement,
-			};
-			rule.on("tag:open", spy);
-			parser.trigger("tag:start", eventData);
-			expect(spy).toHaveBeenCalledWith(eventData);
-		});
-
-		it("should support tag:close as alias for tag:end", () => {
-			expect.assertions(1);
-			const spy = jest.fn();
-			const eventData: TagEndEvent = {
-				location,
-				target: null as unknown as HtmlElement,
-				previous: null as unknown as HtmlElement,
-			};
-			rule.on("tag:close", spy);
-			parser.trigger("tag:end", eventData);
-			expect(spy).toHaveBeenCalledWith(eventData);
 		});
 	});
 

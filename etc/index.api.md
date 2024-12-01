@@ -742,11 +742,7 @@ export interface ListenEventMap {
     // (undocumented)
     "source:ready": SourceReadyEvent;
     // (undocumented)
-    "tag:close": TagCloseEvent;
-    // (undocumented)
     "tag:end": TagEndEvent;
-    // (undocumented)
-    "tag:open": TagOpenEvent;
     // (undocumented)
     "tag:ready": TagReadyEvent;
     // (undocumented)
@@ -1366,9 +1362,6 @@ export interface StyleToken extends BaseToken {
     type: TokenType.STYLE;
 }
 
-// @public @deprecated
-export type TagCloseEvent = TagEndEvent;
-
 // @internal (undocumented)
 export interface TagCloseToken extends BaseToken {
     // (undocumented)
@@ -1383,9 +1376,6 @@ export interface TagEndEvent extends Event_2 {
     previous: HtmlElement;
     target: HtmlElement | null;
 }
-
-// @public @deprecated
-export type TagOpenEvent = TagStartEvent;
 
 // @internal (undocumented)
 export interface TagOpenToken extends BaseToken {
