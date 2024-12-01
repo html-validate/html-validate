@@ -16,11 +16,6 @@ import { getRuleUrl } from "./utils/get-rule-url.mjs";
 
 export { type SchemaObject } from "ajv";
 
-const remapEvents: Record<string, string> = {
-	"tag:open": "tag:start",
-	"tag:close": "tag:end",
-};
-
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
 
@@ -371,12 +366,6 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		event: string,
 		...args: [(event: Event) => void] | [(event: Event) => boolean, (event: Event) => void]
 	): () => void {
-		/* handle deprecated aliases */
-		const remap = remapEvents[event];
-		if (remap) {
-			event = remap;
-		}
-
 		const callback = args.pop() as (event: Event) => void;
 		const filter = (args.pop() as ((event: Event) => boolean) | undefined) ?? (() => true);
 
