@@ -1,6 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test-files/config/cjs-config/file.html 1`] = `
+exports[`should match results: test-files/config/cjs-config/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "off",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/cjs-config/file.html result 1`] = `
 {
   "errorCount": 0,
   "results": [],
@@ -9,7 +121,119 @@ exports[`test-files/config/cjs-config/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/directive/disable.html 1`] = `
+exports[`should match results: test-files/config/directive/disable.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "off",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/directive/disable.html result 1`] = `
 {
   "errorCount": 2,
   "results": [
@@ -59,7 +283,119 @@ exports[`test-files/config/directive/disable.html 1`] = `
 }
 `;
 
-exports[`test-files/config/directive/disable-block.html 1`] = `
+exports[`should match results: test-files/config/directive/disable-block.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "off",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/directive/disable-block.html result 1`] = `
 {
   "errorCount": 4,
   "results": [
@@ -144,7 +480,119 @@ Should handle when root element is parent but no children
 }
 `;
 
-exports[`test-files/config/directive/disable-multiple.html 1`] = `
+exports[`should match results: test-files/config/directive/disable-multiple.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "off",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/directive/disable-multiple.html result 1`] = `
 {
   "errorCount": 2,
   "results": [
@@ -196,7 +644,119 @@ exports[`test-files/config/directive/disable-multiple.html 1`] = `
 }
 `;
 
-exports[`test-files/config/directive/disable-next.html 1`] = `
+exports[`should match results: test-files/config/directive/disable-next.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "off",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "off",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/directive/disable-next.html result 1`] = `
 {
   "errorCount": 2,
   "results": [
@@ -243,7 +803,123 @@ exports[`test-files/config/directive/disable-next.html 1`] = `
 }
 `;
 
-exports[`test-files/config/elements/file.html 1`] = `
+exports[`should match results: test-files/config/elements/file.html config 1`] = `
+{
+  "elements": [
+    "html5",
+    "test-files/config/elements/elements.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/elements/file.html result 1`] = `
 {
   "errorCount": 2,
   "results": [
@@ -299,7 +975,23 @@ exports[`test-files/config/elements/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/extend-order/foo.html 1`] = `
+exports[`should match results: test-files/config/extend-order/foo.html config 1`] = `
+{
+  "elements": [
+    "test-files/config/extend-order/first.json",
+    "test-files/config/extend-order/override.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "element-permitted-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/extend-order/foo.html result 1`] = `
 {
   "errorCount": 1,
   "results": [
@@ -342,7 +1034,24 @@ exports[`test-files/config/extend-order/foo.html 1`] = `
 }
 `;
 
-exports[`test-files/config/extend-order/nested/foo.html 1`] = `
+exports[`should match results: test-files/config/extend-order/nested/foo.html config 1`] = `
+{
+  "elements": [
+    "test-files/config/extend-order/first.json",
+    "test-files/config/extend-order/override.json",
+    "test-files/config/extend-order/nested/nested.json",
+  ],
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "element-permitted-content": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/extend-order/nested/foo.html result 1`] = `
 {
   "errorCount": 2,
   "results": [
@@ -402,7 +1111,119 @@ exports[`test-files/config/extend-order/nested/foo.html 1`] = `
 }
 `;
 
-exports[`test-files/config/file.html 1`] = `
+exports[`should match results: test-files/config/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/file.html result 1`] = `
 {
   "errorCount": 1,
   "results": [
@@ -434,7 +1255,119 @@ exports[`test-files/config/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/js-config/file.html 1`] = `
+exports[`should match results: test-files/config/js-config/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "off",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/js-config/file.html result 1`] = `
 {
   "errorCount": 0,
   "results": [],
@@ -443,7 +1376,19 @@ exports[`test-files/config/js-config/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/missing-transformer/test.html 1`] = `
+exports[`should match results: test-files/config/missing-transformer/test.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {},
+  "transform": {
+    "^.*\\.js$": "non-existing",
+  },
+}
+`;
+
+exports[`should match results: test-files/config/missing-transformer/test.html result 1`] = `
 {
   "errorCount": 0,
   "results": [],
@@ -452,7 +1397,119 @@ exports[`test-files/config/missing-transformer/test.html 1`] = `
 }
 `;
 
-exports[`test-files/config/off/error/file.html 1`] = `
+exports[`should match results: test-files/config/off/error/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "error",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/off/error/file.html result 1`] = `
 {
   "errorCount": 1,
   "results": [
@@ -484,7 +1541,119 @@ exports[`test-files/config/off/error/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/off/file.html 1`] = `
+exports[`should match results: test-files/config/off/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "off",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/off/file.html result 1`] = `
 {
   "errorCount": 0,
   "results": [],
@@ -493,7 +1662,119 @@ exports[`test-files/config/off/file.html 1`] = `
 }
 `;
 
-exports[`test-files/config/warn/file.html 1`] = `
+exports[`should match results: test-files/config/warn/file.html config 1`] = `
+{
+  "extends": [],
+  "plugins": [],
+  "root": true,
+  "rules": {
+    "area-alt": [
+      "error",
+      {
+        "accessible": true,
+      },
+    ],
+    "aria-hidden-body": "error",
+    "aria-label-misuse": [
+      "error",
+      {
+        "allowAnyNamable": false,
+      },
+    ],
+    "attr-case": "error",
+    "attr-delimiter": "error",
+    "attr-quotes": "error",
+    "attr-spacing": "error",
+    "attribute-allowed-values": "error",
+    "attribute-boolean-style": "error",
+    "attribute-empty-style": "error",
+    "attribute-misuse": "error",
+    "close-attr": "error",
+    "close-order": "error",
+    "deprecated": "error",
+    "deprecated-rule": "warn",
+    "doctype-html": "error",
+    "doctype-style": "error",
+    "element-case": "error",
+    "element-name": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    "element-required-ancestor": "error",
+    "element-required-attributes": "error",
+    "element-required-content": "error",
+    "empty-heading": "error",
+    "empty-title": "error",
+    "form-dup-name": "error",
+    "hidden-focusable": "error",
+    "input-attributes": "error",
+    "long-title": "error",
+    "map-dup-name": "error",
+    "map-id-name": "error",
+    "meta-refresh": "error",
+    "multiple-labeled-controls": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": [
+      "error",
+      {
+        "include": [
+          "audio",
+          "video",
+        ],
+      },
+    ],
+    "no-conditional-comment": "error",
+    "no-deprecated-attr": "error",
+    "no-dup-attr": "error",
+    "no-dup-class": "error",
+    "no-dup-id": "error",
+    "no-implicit-button-type": "error",
+    "no-implicit-close": "error",
+    "no-implicit-input-type": "error",
+    "no-inline-style": "error",
+    "no-multiple-main": "error",
+    "no-raw-characters": "error",
+    "no-redundant-aria-label": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error",
+    "no-self-closing": "error",
+    "no-trailing-whitespace": "error",
+    "no-unused-disable": "error",
+    "no-utf8-bom": "error",
+    "prefer-button": "error",
+    "prefer-native-element": "error",
+    "prefer-tbody": "error",
+    "script-element": "error",
+    "script-type": "error",
+    "svg-focusable": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unique-landmark": "error",
+    "unrecognized-char-ref": "error",
+    "valid-autocomplete": "error",
+    "valid-id": [
+      "error",
+      {
+        "relaxed": false,
+      },
+    ],
+    "void": "off",
+    "void-content": "warn",
+    "void-style": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h63": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+  },
+  "transform": {},
+}
+`;
+
+exports[`should match results: test-files/config/warn/file.html result 1`] = `
 {
   "errorCount": 0,
   "results": [
