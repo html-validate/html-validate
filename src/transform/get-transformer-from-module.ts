@@ -1,4 +1,4 @@
-import { type Resolver, resolveTransformer } from "../config";
+import { type Resolver, resolveTransformer } from "../config/resolver";
 import { type Transformer } from "./transformer";
 
 /**
