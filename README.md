@@ -6,6 +6,8 @@
 Offline HTML5 validator. Validates either a full document or a smaller
 (incomplete) template, e.g. from an AngularJS or Vue.js component.
 
+Read the full documentation at https://html-validate.org/
+
 ## Features
 
 - Can test fragments of HTML, for instance a component template.
