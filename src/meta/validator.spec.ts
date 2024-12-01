@@ -485,8 +485,8 @@ describe("Meta validator", () => {
 	describe("validateAncestors()", () => {
 		let root: HtmlElement;
 
-		beforeAll(() => {
-			const parser = new Parser(Config.empty().resolve());
+		beforeAll(async () => {
+			const parser = new Parser(await Config.empty().resolve());
 			root = parser.parseHtml(`
 				<dl id="variant-1">
 					<dt></dt>
@@ -533,8 +533,8 @@ describe("Meta validator", () => {
 	describe("validateRequiredContent()", () => {
 		let parser: Parser;
 
-		beforeAll(() => {
-			parser = new Parser(Config.empty().resolve());
+		beforeAll(async () => {
+			parser = new Parser(await Config.empty().resolve());
 		});
 
 		it("should match if no rule is present", () => {

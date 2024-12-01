@@ -2,7 +2,7 @@ import { Config } from "../config";
 import { Parser } from "../parser";
 import { dumpTree } from "./dump-tree";
 
-const parser = new Parser(Config.empty().resolve());
+let parser: Parser;
 
 expect.addSnapshotSerializer({
 	serialize(value) {
@@ -11,6 +11,11 @@ expect.addSnapshotSerializer({
 	test() {
 		return true;
 	},
+});
+
+beforeAll(async () => {
+	const config = await Config.empty().resolve();
+	parser = new Parser(config);
 });
 
 describe("dumpTree()", () => {

@@ -122,7 +122,7 @@ export class Config {
     // @internal
     get(): ConfigData;
     // @internal
-    getMetaTable(): MetaTable;
+    getMetaTable(): MetaTable | Promise<MetaTable>;
     // @internal
     getPlugins(): Plugin_2[];
     // @internal
@@ -131,9 +131,9 @@ export class Config {
     getTransformers(): TransformerEntry[];
     isRootFound(): boolean;
     merge(resolvers: Resolver[], rhs: Config): Config;
-    resolve(): ResolvedConfig;
+    resolve(): ResolvedConfig | Promise<ResolvedConfig>;
     // @internal
-    resolveData(): ResolvedConfigData;
+    resolveData(): ResolvedConfigData | Promise<ResolvedConfigData>;
     // @internal
     static validate(configData: ConfigData, filename?: string | null): void;
 }

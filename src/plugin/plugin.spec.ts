@@ -169,14 +169,14 @@ describe("Plugin", () => {
 		});
 	});
 
-	describe("extedMeta", () => {
+	describe("extendMeta", () => {
 		it("should not throw error when schema isn't extended", async () => {
 			expect.assertions(1);
 			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
-			expect(() => {
-				const metaTable = config.getMetaTable();
+			expect(async () => {
+				const metaTable = await config.getMetaTable();
 				return metaTable.getMetaFor("my-element");
 			}).not.toThrow();
 		});
@@ -217,7 +217,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
@@ -256,7 +256,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
@@ -313,7 +313,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const a = metaTable.getMetaFor("my-element");
 			const b = metaTable.getMetaFor("my-element:real");
 			const node = HtmlElement.createElement("my-element", location, { meta: a });
@@ -341,34 +341,35 @@ describe("Plugin", () => {
 			});
 		});
 
-		it("Engine should handle missing plugin callbacks", () => {
+		it("Engine should handle missing plugin callbacks", async () => {
 			expect.assertions(1);
-			expect(() => new Engine(config.resolve(), Parser)).not.toThrow();
+			const resolvedConfig = await config.resolve();
+			expect(() => new Engine(resolvedConfig, Parser)).not.toThrow();
 		});
 
-		it("Engine should call plugin init callback", () => {
+		it("Engine should call plugin init callback", async () => {
 			expect.assertions(1);
 			mockPlugin.init = jest.fn();
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.init).toHaveBeenCalledWith();
 		});
 
-		it("Engine should call plugin setup callback", () => {
+		it("Engine should call plugin setup callback", async () => {
 			expect.assertions(1);
 			mockPlugin.setup = jest.fn();
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
 
-		it("Parser events should trigger plugin eventhandler", () => {
+		it("Parser events should trigger plugin eventhandler", async () => {
 			expect.assertions(1);
 			const handler = jest.fn();
 			mockPlugin.setup = (source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
 			};
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(handler).toHaveBeenCalledWith("dom:ready", expect.anything());
 		});
@@ -385,7 +386,7 @@ describe("Plugin", () => {
 			});
 		});
 
-		it("Engine should call rule init callback", () => {
+		it("Engine should call rule init callback", async () => {
 			expect.assertions(1);
 			const mockRule: Rule = new (class extends Rule {
 				public setup(): void {
@@ -396,7 +397,7 @@ describe("Plugin", () => {
 				"mock-rule": null /* instantiateRule is mocked, this can be anything */,
 			};
 			const setup = jest.spyOn(mockRule, "setup");
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();
@@ -426,7 +427,7 @@ describe("Plugin", () => {
 					".*": "mock-plugin",
 				},
 			});
-			const resolvedConfig = config.resolve();
+			const resolvedConfig = await config.resolve();
 			const sources = await resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
@@ -475,7 +476,7 @@ describe("Plugin", () => {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			const resolvedConfig = config.resolve();
+			const resolvedConfig = await config.resolve();
 			const sources = await resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",

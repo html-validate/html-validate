@@ -10,8 +10,12 @@ import {
 	allowedIfParentIsPresent,
 } from "./helper";
 
-const config = Config.empty();
-const parser = new Parser(config.resolve());
+let parser: Parser;
+
+beforeAll(async () => {
+	const config = await Config.empty().resolve();
+	parser = new Parser(config);
+});
 
 function parse(markup: string, selector: string = "div"): HtmlElement {
 	const source: Source = {

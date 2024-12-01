@@ -272,10 +272,11 @@ describe("DOMNode", () => {
 			expect(root.textContent).toBe("foo bar baz");
 		});
 
-		it("smoketest", () => {
+		it("smoketest", async () => {
 			expect.assertions(1);
 			const markup = `lorem <i>ipsum</i> <b>dolor <u>sit amet</u></b>`;
-			const parser = new Parser(Config.empty().resolve());
+			const resolvedConfig = await Config.empty().resolve();
+			const parser = new Parser(resolvedConfig);
 			const doc = parser.parseHtml(markup);
 			expect(doc.textContent).toBe("lorem ipsum dolor sit amet");
 		});

@@ -6,6 +6,7 @@ import { UserError } from "./error";
 import { HtmlValidate } from "./htmlvalidate";
 import { type Message } from "./message";
 import { Parser } from "./parser";
+import { isThenable } from "./utils";
 
 const engine = {
 	lint: jest.fn(),
@@ -27,8 +28,8 @@ jest.mock("./parser");
 function mockConfig(): Promise<ResolvedConfig> {
 	const config = Config.empty();
 	const original = config.resolve;
-	jest.spyOn(config, "resolve").mockImplementation(() => {
-		const resolved = original.call(config);
+	jest.spyOn(config, "resolve").mockImplementation(async () => {
+		const resolved = await original.call(config);
 		resolved.transformFilename = jest.fn(
 			(_resolvers, filename): Promise<Source[]> =>
 				Promise.resolve([
@@ -48,7 +49,7 @@ function mockConfig(): Promise<ResolvedConfig> {
 
 function mockConfigSync(): ResolvedConfig {
 	const config = Config.empty();
-	const original = config.resolve;
+	const original = config.resolve as () => ResolvedConfig;
 	jest.spyOn(config, "resolve").mockImplementation(() => {
 		const resolved = original.call(config);
 		resolved.transformFilename = jest.fn(
@@ -74,7 +75,11 @@ function mockConfigSync(): ResolvedConfig {
 		]);
 		return resolved;
 	});
-	return config.resolve();
+	const resolvedConfig = config.resolve();
+	if (isThenable(resolvedConfig)) {
+		throw new Error("Config is thenable when it shouldn't be");
+	}
+	return resolvedConfig;
 }
 
 beforeEach(() => {
@@ -909,14 +914,14 @@ describe("HtmlValidate", () => {
 		]);
 	});
 
-	it("dumpSources() should dump sources", () => {
+	it("dumpSources() should dump sources", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		const config = Config.empty();
 		const original = config.resolve;
-		config.resolve = () => {
-			const resolved = original.call(config);
+		config.resolve = async () => {
+			const resolved = await original.call(config);
 			resolved.transformFilenameSync = jest.fn((_resolvers, filename): Source[] => [
 				{
 					data: `first markup`,
@@ -948,7 +953,7 @@ describe("HtmlValidate", () => {
 			]);
 			return resolved;
 		};
-		jest.spyOn(htmlvalidate, "getConfigForSync").mockImplementation(() => config.resolve());
+		jest.spyOn(htmlvalidate, "getConfigForSync").mockReturnValue(await config.resolve());
 		const output = htmlvalidate.dumpSource(filename);
 		expect(output).toMatchInlineSnapshot(`
 			[
@@ -1110,7 +1115,7 @@ describe("HtmlValidate", () => {
 		it("should use given configuration", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
-			const config = Config.empty().resolve();
+			const config = mockConfigSync();
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
 			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" }, config);
 			expect(getConfigFor).not.toHaveBeenCalled();
@@ -1120,7 +1125,7 @@ describe("HtmlValidate", () => {
 	it("getRuleDocumentation() should delegate call to engine", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
-		const config = Config.empty().resolve();
+		const config = await mockConfig();
 		await htmlvalidate.getRuleDocumentation("foo");
 		await htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });
@@ -1135,7 +1140,7 @@ describe("HtmlValidate", () => {
 	it("getRuleDocumentationSync() should delegate call to engine", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
-		const config = Config.empty().resolve();
+		const config = mockConfigSync();
 		htmlvalidate.getRuleDocumentationSync("foo");
 		htmlvalidate.getRuleDocumentationSync("foo", config, { bar: "baz" });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });

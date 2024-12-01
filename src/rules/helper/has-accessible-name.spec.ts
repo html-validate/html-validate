@@ -5,8 +5,12 @@ import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { hasAccessibleName } from "./has-accessible-name";
 
-const config = Config.empty();
-const parser = new Parser(config.resolve());
+let parser: Parser;
+
+beforeAll(async () => {
+	const config = await Config.empty().resolve();
+	parser = new Parser(config);
+});
 
 function processElement(node: HtmlElement): void {
 	if (node.hasAttribute("bind-text")) {
