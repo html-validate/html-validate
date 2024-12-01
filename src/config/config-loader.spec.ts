@@ -30,7 +30,7 @@ class SyncMockLoader extends ConfigLoader {
 	public override getGlobalConfigSync(): Config {
 		return super.getGlobalConfigSync();
 	}
-	public override getConfigFor(): ResolvedConfig {
+	public override getConfigFor(): ResolvedConfig | Promise<ResolvedConfig> {
 		const config = this.getGlobalConfigSync();
 		return config.resolve();
 	}
@@ -107,7 +107,7 @@ it("getGlobalConfigSync(..) should cache results", () => {
 it("getGlobalConfigSync(..) should throw an error if trying to use async results", () => {
 	expect.assertions(2);
 	class MockLoader extends ConfigLoader {
-		public override getConfigFor(): ResolvedConfig {
+		public override getConfigFor(): ResolvedConfig | Promise<ResolvedConfig> {
 			const config = this.getGlobalConfigSync();
 			return config.resolve();
 		}

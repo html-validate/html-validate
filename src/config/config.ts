@@ -310,14 +310,13 @@ export class Config {
 	 *
 	 * @internal
 	 */
-	public getMetaTable(): MetaTable {
+	public getMetaTable(): MetaTable | Promise<MetaTable> {
 		/* use cached table if it exists */
 		if (this.metaTable) {
 			return this.metaTable;
 		}
 
 		const metaTable = new MetaTable();
-		const source = this.config.elements ?? ["html5"];
 
 		/* extend validation schema from plugins */
 		for (const plugin of this.getPlugins()) {
@@ -327,36 +326,76 @@ export class Config {
 		}
 
 		/* load from all entries */
-		for (const entry of source) {
-			/* load meta directly from entry */
-			if (typeof entry !== "string") {
-				metaTable.loadFromObject(entry as MetaDataTable);
-				continue;
+		const source = Array.from(this.config.elements ?? ["html5"]);
+		const loadEntry = (entry: string | Record<string, unknown>): void | Promise<void> => {
+			const result = this.getElementsFromEntry(entry);
+			if (isThenable(result)) {
+				return result.then((result) => {
+					const [obj, filename] = result;
+					metaTable.loadFromObject(obj, filename);
+					const next = source.shift();
+					if (next) {
+						return loadEntry(next);
+					}
+				});
+			} else {
+				const [obj, filename] = result;
+				metaTable.loadFromObject(obj, filename);
+				const next = source.shift();
+				if (next) {
+					return loadEntry(next);
+				}
 			}
-
-			/* try searching builtin metadata */
-			const bundled = bundledElements[entry] as MetaDataTable | undefined;
-			if (bundled) {
-				metaTable.loadFromObject(bundled);
-				continue;
-			}
-
-			/* load with resolver */
-			try {
-				const data = resolveElements(this.resolvers, entry, { cache: false });
-				metaTable.loadFromObject(data, entry);
-			} catch (err: unknown) {
-				/* istanbul ignore next: only used as a fallback */
-				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(
-					`Failed to load elements from "${entry}": ${message}`,
-					ensureError(err),
-				);
+		};
+		const next = source.shift();
+		if (next) {
+			const result = loadEntry(next);
+			if (isThenable(result)) {
+				return result.then(() => {
+					metaTable.init();
+					return (this.metaTable = metaTable);
+				});
 			}
 		}
 
 		metaTable.init();
 		return (this.metaTable = metaTable);
+	}
+
+	private getElementsFromEntry(
+		entry: string | Record<string, unknown>,
+	):
+		| [obj: MetaDataTable, filename: string | null]
+		| Promise<[obj: MetaDataTable, filename: string | null]> {
+		/* load meta directly from entry */
+		if (typeof entry !== "string") {
+			return [entry as MetaDataTable, null];
+		}
+
+		/* try searching builtin metadata */
+		const bundled = bundledElements[entry] as MetaDataTable | undefined;
+		if (bundled) {
+			return [bundled, null];
+		}
+
+		/* load with resolver */
+		try {
+			const obj = resolveElements(this.resolvers, entry, { cache: false });
+			if (isThenable(obj)) {
+				return obj.then((obj) => {
+					return [obj, entry];
+				});
+			} else {
+				return [obj, entry];
+			}
+		} catch (err: unknown) {
+			/* istanbul ignore next: only used as a fallback */
+			const message = err instanceof Error ? err.message : String(err);
+			throw new ConfigError(
+				`Failed to load elements from "${entry}": ${message}`,
+				ensureError(err),
+			);
+		}
 	}
 
 	/**
@@ -497,8 +536,15 @@ export class Config {
 	 *
 	 * @public
 	 */
-	public resolve(): ResolvedConfig {
-		return new ResolvedConfig(this.resolveData(), this.get());
+	public resolve(): ResolvedConfig | Promise<ResolvedConfig> {
+		const resolveData = this.resolveData();
+		if (isThenable(resolveData)) {
+			return resolveData.then((resolveData) => {
+				return new ResolvedConfig(resolveData, this.get());
+			});
+		} else {
+			return new ResolvedConfig(resolveData, this.get());
+		}
 	}
 
 	/**
@@ -507,12 +553,24 @@ export class Config {
 	 *
 	 * @internal
 	 */
-	public resolveData(): ResolvedConfigData {
-		return {
-			metaTable: this.getMetaTable(),
-			plugins: this.getPlugins(),
-			rules: this.getRules(),
-			transformers: this.transformers,
-		};
+	public resolveData(): ResolvedConfigData | Promise<ResolvedConfigData> {
+		const metaTable = this.getMetaTable();
+		if (isThenable(metaTable)) {
+			return metaTable.then((metaTable) => {
+				return {
+					metaTable,
+					plugins: this.getPlugins(),
+					rules: this.getRules(),
+					transformers: this.transformers,
+				};
+			});
+		} else {
+			return {
+				metaTable,
+				plugins: this.getPlugins(),
+				rules: this.getRules(),
+				transformers: this.transformers,
+			};
+		}
 	}
 }

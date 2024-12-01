@@ -240,8 +240,9 @@ describe("splitPattern()", () => {
 describe("Selector", () => {
 	let doc: HtmlElement;
 
-	beforeEach(() => {
-		const parser = new Parser(Config.empty().resolve());
+	beforeEach(async () => {
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		doc = parser.parseHtml(`
 			<foo id="barney" test-id="foo-1">first foo</foo>
 			<foo CLASS="fred" test-id="foo-2">second foo</foo>
@@ -324,49 +325,55 @@ describe("Selector", () => {
 		]);
 	});
 
-	it("should match id with escaped colon", () => {
+	it("should match id with escaped colon", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo:"></div>`);
 		const selector = new Selector("#foo\\:");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
-	it("should match id with escaped space", () => {
+	it("should match id with escaped space", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo "></div>`);
 		const selector = new Selector("#foo\\ ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
-	it("should match id with escaped tab", () => {
+	it("should match id with escaped tab", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\t"></div>`);
 		const selector = new Selector("#foo\\9 ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
-	it("should match id with escaped newline (\\n)", () => {
+	it("should match id with escaped newline (\\n)", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\n"></div>`);
 		const selector = new Selector("#foo\\a ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
-	it("should match id with escaped newline (\\r)", () => {
+	it("should match id with escaped newline (\\r)", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\r"></div>`);
 		const selector = new Selector("#foo\\d ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
-	it("should match id with escaped bracket", () => {
+	it("should match id with escaped bracket", async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo[bar]"></div>`);
 		const selector = new Selector("#foo\\[bar\\]");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
@@ -405,9 +412,10 @@ describe("Selector", () => {
 		]);
 	});
 
-	it('should match nested : in string ([id=":r1:"])', () => {
+	it('should match nested : in string ([id=":r1:"])', async () => {
 		expect.assertions(1);
-		const parser = new Parser(Config.empty().resolve());
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
 		doc = parser.parseHtml(/* HTML */ ` <label id="#r1:"> lorem ipsum </label> `);
 		const element = doc.querySelector("label")!;
 		const id = element.id;

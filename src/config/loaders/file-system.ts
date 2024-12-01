@@ -258,11 +258,11 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		return config;
 	}
 
-	private _mergeSync(
+	private _merge(
 		globalConfig: Config,
 		override: Config,
 		config: Config | null,
-	): ResolvedConfig {
+	): ResolvedConfig | Promise<ResolvedConfig> {
 		const merged = config
 			? config.merge(this.resolvers, override)
 			: globalConfig.merge(this.resolvers, override);
@@ -302,10 +302,10 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const config = this.fromFilename(filename);
 		if (isThenable(config)) {
 			return config.then((config) => {
-				return this._mergeSync(globalConfig, override, config);
+				return this._merge(globalConfig, override, config);
 			});
 		} else {
-			return this._mergeSync(globalConfig, override, config);
+			return this._merge(globalConfig, override, config);
 		}
 	}
 
@@ -324,7 +324,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		}
 
 		const config = await this.fromFilenameAsync(filename);
-		return this._mergeSync(globalConfig, override, config);
+		return this._merge(globalConfig, override, config);
 	}
 
 	/**

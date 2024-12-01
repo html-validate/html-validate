@@ -386,8 +386,9 @@ describe("config", () => {
 				elements: ["order-c"],
 			});
 			const elements = config.get().elements;
+			const metatable = await config.getMetaTable();
 			expect(elements).toEqual(["order-a", "order-b", "order-c"]);
-			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
+			expect(metatable.getMetaFor("foo")).toEqual({
 				tagName: "foo",
 				aria: {
 					implicitRole: expect.any(Function),
@@ -398,7 +399,7 @@ describe("config", () => {
 				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});
-			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
+			expect(metatable.getMetaFor("bar")).toEqual({
 				tagName: "bar",
 				aria: {
 					implicitRole: expect.any(Function),
@@ -422,10 +423,10 @@ describe("config", () => {
 	});
 
 	describe("getMetaTable()", () => {
-		it("should load metadata", () => {
+		it("should load metadata", async () => {
 			expect.assertions(1);
 			const config = Config.empty();
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeDefined();
 		});
 
@@ -438,7 +439,7 @@ describe("config", () => {
 					},
 				],
 			});
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeNull();
 			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
@@ -463,7 +464,7 @@ describe("config", () => {
 			const config = await Config.fromObject(resolver, {
 				elements: ["mock-elements"],
 			});
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeNull();
 			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});

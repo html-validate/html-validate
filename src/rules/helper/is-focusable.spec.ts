@@ -4,7 +4,12 @@ import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { isFocusable } from "./is-focusable";
 
-const parser = new Parser(Config.defaultConfig().resolve());
+let parser: Parser;
+
+beforeAll(async () => {
+	const config = await Config.defaultConfig().resolve();
+	parser = new Parser(config);
+});
 
 function parse(data: string): HtmlElement {
 	return parser.parseHtml({

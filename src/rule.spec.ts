@@ -37,8 +37,9 @@ describe("rule base class", () => {
 	let mockLocation: Location;
 	let mockEvent: Event;
 
-	beforeEach(() => {
-		parser = new Parser(Config.empty().resolve());
+	beforeEach(async () => {
+		const config = await Config.empty().resolve();
+		parser = new Parser(config);
 		parserOn = jest.spyOn(parser, "on");
 		reporter = new Reporter();
 		reporter.add = jest.fn();

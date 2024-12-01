@@ -24,8 +24,13 @@ function createLocation({ column, size }: LocationSpec): Location {
 
 describe("HtmlElement", () => {
 	let document: HtmlElement;
+	let parser: Parser;
 	const location = createLocation({ column: 1, size: 4 });
-	const parser = new Parser(Config.empty().resolve());
+
+	beforeAll(async () => {
+		const resolvedConfig = await Config.empty().resolve();
+		parser = new Parser(resolvedConfig);
+	});
 
 	beforeEach(() => {
 		const markup = /* HTML */ `
@@ -498,8 +503,9 @@ describe("HtmlElement", () => {
 	describe("closest()", () => {
 		let node: HtmlElement;
 
-		beforeAll(() => {
-			const parser = new Parser(Config.empty().resolve());
+		beforeAll(async () => {
+			const resolvedConfig = await Config.empty().resolve();
+			const parser = new Parser(resolvedConfig);
 			document = parser.parseHtml(`
 				<div id="1" class="x">
 					<div id="2" class="x">
@@ -528,8 +534,9 @@ describe("HtmlElement", () => {
 	describe("generateSelector()", () => {
 		let parser: Parser;
 
-		beforeAll(() => {
-			parser = new Parser(Config.empty().resolve());
+		beforeAll(async () => {
+			const resolvedConfig = await Config.empty().resolve();
+			parser = new Parser(resolvedConfig);
 		});
 
 		it("should generate a unique selector", () => {
@@ -961,7 +968,7 @@ describe("HtmlElement", () => {
 			expect(el.getAttributeValue("class")).toBe("baz");
 		});
 
-		it("should find element with :scope", () => {
+		it("should find element with :scope", async () => {
 			expect.assertions(1);
 			const markup = `
 				<h1 id="first"></h1>
@@ -971,7 +978,8 @@ describe("HtmlElement", () => {
 					<div><h1 id="forth"></h1></div>
 				</section>
 				<h1 id="fifth"></h1>`;
-			const parser = new Parser(Config.empty().resolve());
+			const resolvedConfig = await Config.empty().resolve();
+			const parser = new Parser(resolvedConfig);
 			const document = parser.parseHtml(markup);
 			const section = document.querySelector("section")!;
 			const el = section.querySelectorAll(":scope > h1");
