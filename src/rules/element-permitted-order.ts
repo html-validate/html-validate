@@ -2,7 +2,7 @@ import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { walk } from "../utils";
+import { walk } from "../utils/walk";
 
 export default class ElementPermittedOrder extends Rule {
 	public documentation(): RuleDocumentation {

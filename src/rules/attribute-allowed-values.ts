@@ -3,7 +3,7 @@ import { type HtmlElement, type Attribute } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { walk } from "../utils";
+import { walk } from "../utils/walk";
 
 interface Context {
 	element: string;

@@ -2,7 +2,7 @@ import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute } from "../meta/element";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
-import { walk } from "../utils";
+import { walk } from "../utils/walk";
 
 interface RuleOptions {
 	style: "omit" | "empty" | "name";
