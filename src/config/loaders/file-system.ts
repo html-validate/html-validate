@@ -22,7 +22,7 @@ export interface FileSystemConfigLoaderOptions {
  * @internal
  */
 function findConfigurationFiles(fs: FSLike, directory: string): string[] {
-	return ["json", "cjs", "js"]
+	return ["json", "mjs", "cjs", "js"]
 		.map((extension) => path.join(directory, `.htmlvalidate.${extension}`))
 		.filter((filePath) => fs.existsSync(filePath));
 }
@@ -55,6 +55,7 @@ function hasResolver(value: ConstructorParameters): value is ConstructorParamete
  * - `.htmlvalidate.json`
  * - `.htmlvalidate.js`
  * - `.htmlvalidate.cjs`
+ * - `.htmlvalidate.mjs`
  *
  * Global configuration is used when no configuration file is found. The
  * result is always merged with override if present.

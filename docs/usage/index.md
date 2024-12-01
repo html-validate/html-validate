@@ -40,9 +40,8 @@ Configuration can be added to:
 
 - `.htmlvalidate.js`
 - `.htmlvalidate.cjs`
+- `.htmlvalidate.mjs`
 - `.htmlvalidate.json`
-
-ESM configuration files are not currently supported.
 
 For `json` the JSON schema `https://html-validate.org/schemas/config.json` can optionally be used:
 
@@ -53,12 +52,12 @@ For `json` the JSON schema `https://html-validate.org/schemas/config.json` can o
 }
 ```
 
-For `js` and `cjs` the `defineConfig(..)` helper can optionally be used to assist the IDE with type-checking and documentation:
+For javascript configuration files the `defineConfig(..)` helper can optionally be used to assist the IDE with type-checking and documentation:
 
 ```js
 import { defineConfig } from "html-validate";
 
-module.exports = defineConfig({
+export default defineConfig({
   extends: ["html-validate:recommended"],
 });
 ```
@@ -91,7 +90,7 @@ Configuration can be extended from bundled preset or shareable configurations.
 A list of bundled presets is available at the {@link rules/presets preset list}.
 By default `html-validate:recommended` is used.
 
-When using NPM packages or files each must be resolvable with `require(..)` and export a valid configuration object.
+When using NPM packages or files each must be resolvable with `import(..)` and default export a valid configuration object.
 Plugins may create {@link writing-plugins#configuration-presets configuration presets} by exposing one or more preset in the plugin declaration.
 
 ### `rules`
@@ -139,7 +138,7 @@ Each entry will try to load metadata from (search in following order):
 
 1. Named bundled metadata.
 2. NPM package with the same name.
-3. A local file, json or js, resolvable by `require(..)`. Path is relative to the configuration file.
+3. A local file, json or js, resolvable by `import(..)`. Path is relative to the configuration file.
 
 <div class="alert alert-info">
 	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
@@ -157,7 +156,7 @@ List of extra plugins to load.
 Plugins can contain additional rules, predefined configurations and transformers.
 
 Can be either a NPM package or relative path to a local file, i.e. when writing custom rules inside the repository.
-Must be resolvable by `require(..)`.
+Must be resolvable by `import(..)`.
 
 See {@link writing-plugins writing plugins} for details about creating your own plugins.
 
@@ -166,12 +165,6 @@ See {@link writing-plugins writing plugins} for details about creating your own 
   "plugins": ["my-awesome-plugin", "./local-plugin"]
 }
 ```
-
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
-</div>
 
 Since version 7.17.0, if you are using javascript configuration or API you can also import or define plugins inline:
 
@@ -217,11 +210,11 @@ Can be set to:
 
 By default, configuration is search in the file structure until the root directory (typically `/`) is found:
 
-- `/home/user/project/src/.htmlvalidate.{js,cjs,json}`
-- `/home/user/project/.htmlvalidate.{js,cjs,json}`
-- `/home/user/.htmlvalidate.{js,cjs,json}`
-- `/home/.htmlvalidate.{js,cjs,json}`
-- `/.htmlvalidate.{js,cjs,json}`
+- `/home/user/project/src/.htmlvalidate.{js,cjs,mjs,json}`
+- `/home/user/project/.htmlvalidate.{js,cjs,mjs,json}`
+- `/home/user/.htmlvalidate.{js,cjs,mjs,json}`
+- `/home/.htmlvalidate.{js,cjs,mjs,json}`
+- `/.htmlvalidate.{js,cjs,mjs,json}`
 
 By setting the `root` property to `true` the search is stopped. This can be used
 to prevent searching from outside the project directory or to use a specific
@@ -237,8 +230,8 @@ For instance, if `/home/project/.htmlvalidate.json` contains:
 
 Only the following files would be searched:
 
-- `/home/user/project/src/.htmlvalidate.{js,cjs,json}`
-- `/home/user/project/.htmlvalidate.{js,cjs,json}`
+- `/home/user/project/src/.htmlvalidate.{js,cjs,mjs,json}`
+- `/home/user/project/.htmlvalidate.{js,cjs,mjs,json}`
 
 This also affects CLI `--config` and the API, e.g. when using `--config` with a
 configuration using `"root": true` will prevent any additional files to be
