@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import { UserError } from "../../../error";
 import { type ResolverOptions } from "../resolver";
 
@@ -30,6 +31,14 @@ export async function internalImport<T = unknown>(
 	rootDir: string,
 	{ cache }: ResolverOptions,
 ): Promise<T | null> {
+	/* this is a workaround for rollup which mangles import attributes so we
+	 * cannot use `import(.., { with: { type: "json" } })` to import a json
+	 * file. */
+	if (id.endsWith(".json")) {
+		const content = await fs.readFile(id, "utf-8");
+		return JSON.parse(content) as T;
+	}
+
 	const moduleName = getModuleName(id, { cache, rootDir });
 
 	try {
