@@ -152,6 +152,12 @@
 					transition: none;
 				}
 			}
+
+			&::marker,
+			&::-webkit-details-marker {
+				display: none;
+				content: "";
+			}
 		}
 
 		details[open]:not(.collapsing) > summary:before {
