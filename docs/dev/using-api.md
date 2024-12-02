@@ -223,7 +223,7 @@ export class MyCustomLoader extends ConfigLoader {
     /* return config for given handle (e.g. filename passed to validateFile) */
     const override = await this.loadFromObject(configOverride || {});
     const globalConfig = await this.getGlobalConfig();
-    const merged = globalConfig.merge(this.resolvers, override);
+    const merged = await globalConfig.merge(this.resolvers, override);
     return merged.resolve();
   }
 
