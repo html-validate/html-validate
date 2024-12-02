@@ -62,6 +62,19 @@ To future-proof your code if using the `Config` class directly it is recommended
 
 If you must use synchronous code only it is up to you to ensure everything the configuration requires (plugins, loaders, resolvers) works in a synchronous manner.
 
+#### Config `merge(..)` async {#v9-config-merge}
+
+The `Config.merge(..)` method will return a `Promise` when used with and async `ConfigLoader` or `Resolver`.
+
+To future-proof your code if using the `Config` class directly it is recommended to always `await` the result.
+
+```diff
+ const config1 = await Config.fromObject({ /* ... */ });
+ const config2 = await Config.fromObject({ /* ... */ });
+-const merged = config1.merge(config2);
++const merged = await config1.merge(config2);
+```
+
 #### ConfigLoader async {#v9-configloader-async}
 
 All methods of `ConfigLoader` can optionally return a `Promise` for asynchronous operation.

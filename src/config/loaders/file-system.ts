@@ -178,7 +178,12 @@ export class FileSystemConfigLoader extends ConfigLoader {
 				}
 
 				found = true;
-				config = local.merge(this.resolvers, config);
+
+				const merged = local.merge(this.resolvers, config);
+				if (isThenable(merged)) {
+					throw new Error("internal error: async result ended up in sync path");
+				}
+				config = merged;
 			}
 
 			/* stop if a configuration with "root" is set to true */
@@ -231,7 +236,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = await this.loadFromFile(configFile);
 				found = true;
-				config = local.merge(this.resolvers, config);
+				config = await local.merge(this.resolvers, config);
 			}
 
 			/* stop if a configuration with "root" is set to true */
@@ -267,7 +272,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const merged = config
 			? config.merge(this.resolvers, override)
 			: globalConfig.merge(this.resolvers, override);
-		return merged.resolve();
+		if (isThenable(merged)) {
+			return merged.then((merged) => {
+				return merged.resolve();
+			});
+		} else {
+			return merged.resolve();
+		}
 	}
 
 	private _resolveSync1(
@@ -297,7 +308,13 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		 * try to load and more configuration files */
 		if (globalConfig.isRootFound()) {
 			const merged = globalConfig.merge(this.resolvers, override);
-			return merged.resolve();
+			if (isThenable(merged)) {
+				return merged.then((merged) => {
+					return merged.resolve();
+				});
+			} else {
+				return merged.resolve();
+			}
 		}
 
 		const config = this.fromFilename(filename);
@@ -320,7 +337,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		/* special case when the global configuration is marked as root, should not
 		 * try to load and more configuration files */
 		if (globalConfig.isRootFound()) {
-			const merged = globalConfig.merge(this.resolvers, override);
+			const merged = await globalConfig.merge(this.resolvers, override);
 			return merged.resolve();
 		}
 

@@ -130,7 +130,7 @@ export class Config {
     // @internal
     getTransformers(): TransformerEntry[];
     isRootFound(): boolean;
-    merge(resolvers: Resolver[], rhs: Config): Config;
+    merge(resolvers: Resolver[], rhs: Config): Config | Promise<Config>;
     resolve(): ResolvedConfig | Promise<ResolvedConfig>;
     // @internal
     resolveData(): ResolvedConfigData | Promise<ResolvedConfigData>;

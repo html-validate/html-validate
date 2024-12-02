@@ -121,7 +121,7 @@ describe("config", () => {
 			expect.assertions(1);
 			const a = await Config.fromObject(resolvers, { rules: { foo: 1 } });
 			const b = await Config.fromObject(resolvers, { rules: { bar: 1 } });
-			const merged = a.merge(resolvers, b);
+			const merged = await a.merge(resolvers, b);
 			expect(merged.get()).toEqual(
 				expect.objectContaining({
 					rules: {

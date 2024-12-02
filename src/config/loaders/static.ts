@@ -96,11 +96,23 @@ export class StaticConfigLoader extends ConfigLoader {
 		if (isThenable(globalConfig)) {
 			return globalConfig.then((globalConfig) => {
 				const merged = globalConfig.merge(this.resolvers, override);
-				return merged.resolve();
+				if (isThenable(merged)) {
+					return merged.then((merged) => {
+						return merged.resolve();
+					});
+				} else {
+					return merged.resolve();
+				}
 			});
 		} else {
 			const merged = globalConfig.merge(this.resolvers, override);
-			return merged.resolve();
+			if (isThenable(merged)) {
+				return merged.then((merged) => {
+					return merged.resolve();
+				});
+			} else {
+				return merged.resolve();
+			}
 		}
 	}
 }

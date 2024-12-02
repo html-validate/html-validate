@@ -247,7 +247,7 @@ export class Config {
 	 * @public
 	 * @param rhs - Configuration to merge with this one.
 	 */
-	public merge(resolvers: Resolver[], rhs: Config): Config {
+	public merge(resolvers: Resolver[], rhs: Config): Config | Promise<Config> {
 		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
 
 		/* load plugins */
