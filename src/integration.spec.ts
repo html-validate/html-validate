@@ -257,6 +257,8 @@ describe("configuration smoketest", () => {
 		const htmlvalidate = new HtmlValidate(loader);
 		await expect(() => {
 			return htmlvalidate.validateFile(filename);
-		}).rejects.toThrowErrorMatchingInlineSnapshot(`"Failed to load transformer "non-existing""`);
+		}).rejects.toThrowErrorMatchingInlineSnapshot(
+			`"Failed to load transformer from "non-existing""`,
+		);
 	});
 });

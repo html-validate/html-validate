@@ -1,5 +1,4 @@
 import { Volume } from "memfs/lib/volume";
-import * as utils from "../../utils";
 import { isThenable } from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
@@ -14,16 +13,24 @@ declare module "../config-data" {
 
 let volume: Volume | null;
 
-jest.spyOn(utils, "requireUncached").mockImplementation((_: unknown, moduleName: string) => {
-	if (!volume) {
-		throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
-	}
-	if (moduleName.endsWith(".json")) {
-		return JSON.parse(volume.readFileSync(moduleName, "utf-8") as string);
-	} else {
-		throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
-	}
-});
+jest.mock(
+	"../resolver/nodejs/internal-import",
+	(): typeof import("../resolver/nodejs/internal-import") => {
+		return {
+			internalImport(moduleName) {
+				if (!volume) {
+					throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
+				}
+				if (moduleName.endsWith(".json")) {
+					const content = volume.readFileSync(moduleName, "utf-8") as string;
+					return Promise.resolve(JSON.parse(content));
+				} else {
+					throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
+				}
+			},
+		};
+	},
+);
 
 class ForcedSyncLoader extends FileSystemConfigLoader {
 	protected override loadFromObject(options: ConfigData): Config {
