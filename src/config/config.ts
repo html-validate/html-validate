@@ -191,29 +191,40 @@ export class Config {
 		const instance = new Config(resolvers, options);
 
 		/* load plugins */
-		instance.plugins = instance.loadPlugins(instance.config.plugins ?? []);
-		instance.configurations = instance.loadConfigurations(instance.plugins);
-		instance.extendMeta(instance.plugins);
+		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		if (isThenable(plugins)) {
+			return plugins.then((plugins) => {
+				return instance.init(options, plugins);
+			});
+		} else {
+			return instance.init(options, plugins);
+		}
+	}
+
+	private init(options: ConfigData, plugins: LoadedPlugin[]): Config | Promise<Config> {
+		this.plugins = plugins;
+		this.configurations = this.loadConfigurations(this.plugins);
+		this.extendMeta(this.plugins);
 
 		const update = (extendedConfig: ConfigData): Config => {
-			instance.config = extendedConfig;
+			this.config = extendedConfig;
 
 			/* reset extends as we already processed them, this prevents the next config
 			 * from reapplying config from extended config as well as duplicate entries
 			 * when merging arrays */
-			instance.config.extends = [];
+			this.config.extends = [];
 
 			/* rules explicitly set by passed options should have precedence over any
 			 * extended rules, not the other way around. */
 			if (options.rules) {
-				instance.config = mergeInternal(instance.config, { rules: options.rules });
+				this.config = mergeInternal(this.config, { rules: options.rules });
 			}
 
-			return instance;
+			return this;
 		};
 
 		/* process extended configs */
-		const extendedConfig = instance.extendConfig(instance.config.extends ?? []);
+		const extendedConfig = this.extendConfig(this.config.extends ?? []);
 		if (isThenable(extendedConfig)) {
 			return extendedConfig.then((extended) => update(extended));
 		} else {
@@ -257,11 +268,20 @@ export class Config {
 		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
 
 		/* load plugins */
-		instance.plugins = instance.loadPlugins(instance.config.plugins ?? []);
-		instance.configurations = instance.loadConfigurations(instance.plugins);
-		instance.extendMeta(instance.plugins);
-
-		return instance;
+		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		if (isThenable(plugins)) {
+			return plugins.then((plugins) => {
+				instance.plugins = plugins;
+				instance.configurations = instance.loadConfigurations(instance.plugins);
+				instance.extendMeta(instance.plugins);
+				return instance;
+			});
+		} else {
+			instance.plugins = plugins;
+			instance.configurations = instance.loadConfigurations(instance.plugins);
+			instance.extendMeta(instance.plugins);
+			return instance;
+		}
 	}
 
 	private extendConfig(entries: string[]): ConfigData | Promise<ConfigData> {
@@ -451,29 +471,64 @@ export class Config {
 		return this.transformers;
 	}
 
-	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {
-		return plugins.map((moduleName: string | Plugin, index: number) => {
-			if (typeof moduleName !== "string") {
-				const plugin = moduleName as LoadedPlugin;
+	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] | Promise<LoadedPlugin[]> {
+		const loaded: LoadedPlugin[] = [];
+
+		/* the original should not be mutated */
+		const loading = Array.from(plugins);
+
+		const loadPlugin = (entry: string | Plugin, index: number): void | Promise<void> => {
+			if (typeof entry !== "string") {
+				const plugin = entry as LoadedPlugin;
 				plugin.name = plugin.name || `:unnamedPlugin@${String(index + 1)}`;
 				plugin.originalName = `:unnamedPlugin@${String(index + 1)}`;
-				return plugin;
+				loaded.push(plugin);
+				const next = loading.shift();
+				if (next) {
+					return loadPlugin(next, index + 1);
+				}
+			} else {
+				try {
+					const plugin = resolvePlugin(this.resolvers, entry, { cache: true }) as
+						| LoadedPlugin
+						| Promise<LoadedPlugin>;
+					if (isThenable(plugin)) {
+						return plugin.then((plugin) => {
+							plugin.name = plugin.name || entry;
+							plugin.originalName = entry;
+							loaded.push(plugin);
+							const next = loading.shift();
+							if (next) {
+								return loadPlugin(next, index + 1);
+							}
+						});
+					} else {
+						plugin.name = plugin.name || entry;
+						plugin.originalName = entry;
+						loaded.push(plugin);
+						const next = loading.shift();
+						if (next) {
+							return loadPlugin(next, index + 1);
+						}
+					}
+				} catch (err: unknown) {
+					/* istanbul ignore next: only used as a fallback */
+					const message = err instanceof Error ? err.message : String(err);
+					throw new ConfigError(`Failed to load plugin "${entry}": ${message}`, ensureError(err));
+				}
 			}
+		};
 
-			try {
-				const plugin = resolvePlugin(this.resolvers, moduleName, { cache: true }) as LoadedPlugin;
-				plugin.name = plugin.name || moduleName;
-				plugin.originalName = moduleName;
-				return plugin;
-			} catch (err: unknown) {
-				/* istanbul ignore next: only used as a fallback */
-				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(
-					`Failed to load plugin "${moduleName}": ${message}`,
-					ensureError(err),
-				);
+		const next = loading.shift();
+		if (next) {
+			const result = loadPlugin(next, 0);
+			if (isThenable(result)) {
+				return result.then(() => {
+					return loaded;
+				});
 			}
-		});
+		}
+		return loaded;
 	}
 
 	private loadConfigurations(plugins: LoadedPlugin[]): Map<string, ConfigData> {
