@@ -9,7 +9,7 @@ nav: metadata
 HTML-Validate is fully data-driven and has no hardcoded rules for which elements exists and how they should work.
 This data is called _element metadata_ and the validator bundles metadata for all HTML5 elements but makes no distinction between the bundled and user-provided metadata.
 
-The bundled metadata is available in [html5.json](https://gitlab.com/html-validate/html-validate/blob/master/elements/html5.json).
+The bundled metadata is available in [html5.json](https://gitlab.com/html-validate/html-validate/-/blob/master/src/elements/html5.ts).
 
 See also:
 
