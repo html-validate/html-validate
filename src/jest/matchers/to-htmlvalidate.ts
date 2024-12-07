@@ -11,6 +11,7 @@ import {
 	type MaybeAsyncCallback,
 	diverge,
 } from "../utils";
+import { cjsResolver } from "../../config/resolver/nodejs";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	if (!arg) {
@@ -97,7 +98,7 @@ function toHTMLValidateImpl(
 	const config = deepmerge(defaultConfig, userConfig ?? {});
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const actualFilename = filename ?? this.testPath ?? "inline";
-	const loader = new FileSystemConfigLoader({
+	const loader = new FileSystemConfigLoader([cjsResolver()], {
 		extends: ["html-validate:recommended"],
 	});
 	const htmlvalidate = new HtmlValidate(loader);
