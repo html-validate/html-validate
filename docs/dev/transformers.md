@@ -12,12 +12,12 @@ See also the {@link plugin-utils} package for utility functions.
 
 Each transformer must implement the following API:
 
-```typescript
-import { Source, Transformer, TransformContext } from "html-validate";
+```ts
+import { Source, TransformContext } from "html-validate";
 
 /* implementation */
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-function myTransform(this: TransformContext, source: Source): Iterable<Source> {
+export function myTransform(this: TransformContext, source: Source): Iterable<Source> {
   /* ... */
   return [];
 }
@@ -25,8 +25,8 @@ function myTransform(this: TransformContext, source: Source): Iterable<Source> {
 /* api version declaration */
 myTransform.api = 1;
 
-/* export */
-module.exports = myTransform as Transformer;
+/* export transformer */
+export default myTransform;
 ```
 
 ### `TransformContext`

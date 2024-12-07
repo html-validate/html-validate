@@ -140,12 +140,6 @@ Each entry will try to load metadata from (search in following order):
 2. NPM package with the same name.
 3. A local file, json or js, resolvable by `import(..)`. Path is relative to the configuration file.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>Loading native ESM is not supported yet (see <a href="https://gitlab.com/html-validate/html-validate/-/issues/125">issue #125</a>) and must be transpiled to commonjs before usage.</p>
-</div>
-
 An object can also be passed with inline metadata but it is highly recommended to write it to a separate file.
 
 See [elements metadata](/usage/elements.html) for details about writing your own metadata.
@@ -169,9 +163,9 @@ See {@link writing-plugins writing plugins} for details about creating your own 
 Since version 7.17.0, if you are using javascript configuration or API you can also import or define plugins inline:
 
 ```js
-const { defineConfig } = require("html-validate");
+import { defineConfig } from "html-validate";
 
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [
     {
       name: "my-awesome-plugin",

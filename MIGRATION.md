@@ -4,6 +4,20 @@
 
 ### Configuration changes {#v9-configuration-changes}
 
+#### ESM
+
+ESM is now used by default.
+This shouldn't typically affect anyone but there are a few issues that might arise:
+
+> Error [ERR_UNSUPPORTED_DIR_IMPORT]: Directory import '...' is not supported resolving ES modules
+
+Somewhere in your configuration you are importing a directory (containing an `index.js`) but under ESM this is not allowed, explicitly add `index.js` instead:
+
+```diff
+-"plugins": ["./my-plugin"],
++"plugins": ["./my-plugin/index.js"],
+```
+
 #### Deprecated preset aliases
 
 The following deprecated aliases has been removed:
