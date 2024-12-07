@@ -71,9 +71,9 @@ The first step is creating a new file, e.g. `elements.js` and configure the vali
 `elements.js`:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {},
 });
 ```
@@ -115,9 +115,9 @@ A bit simplified but flow elements can be thought as block-level `<div>` and phr
 For instance, if our `<my-component>` element were to work similar to a `<div>` we can set the `flow` property to `true`.
 
 ```diff
- const { defineMetadata } = require("html-validate");
+ import { defineMetadata } from "html-validate";
 
- module.exports = defineMetadata({
+ export default defineMetadata({
    "my-component": {
 +    flow: true,
    },
@@ -143,9 +143,9 @@ It can not be nested inside a `<span>` as a `<span>` does not accept flow conten
 If we set the `phrasing` property as well the element will be allowed inside a `<span>` too:
 
 ```diff
- const { defineMetadata } = require("html-validate");
+ import { defineMetadata } from "html-validate";
 
- module.exports = defineMetadata({
+ export default defineMetadata({
    "my-component": {
      flow: true,
 +    phrasing: true,
@@ -177,9 +177,9 @@ There are other content categories as well, check the [element metadata referenc
 ## Case study: `<div>`
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   div: {
     flow: true,
     permittedContent: ["@flow"],

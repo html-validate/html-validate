@@ -14,9 +14,9 @@ To define what values attribute accept the `attributes` property is used, to def
 Assuming our `<my-component>` element has a `duck` attribute which can take the value `huey`, `dewey` or `louie` we can use the `attributes` property to define an enumerated list of allowed values:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     attributes: {
@@ -36,9 +36,9 @@ module.exports = defineMetadata({
 We can also specify regular expressions by surrounding the string with `/` (remember to escape special characters properly):
 
 ```diff
- const { defineMetadata } = require("html-validate");
+ import { defineMetadata } from "html-validate";
 
- module.exports = defineMetadata({
+ export default defineMetadata({
    "my-component": {
      flow: true,
      attributes: {
@@ -67,9 +67,9 @@ We can also specify regular expressions by surrounding the string with `/` (reme
 To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     attributes: {
@@ -92,9 +92,9 @@ This is often combined with `enum` but it should have a default value.
 For instance, to allow the `quacks` attribute to be set to either `duck` or `dog` but at the same time not require a value to be set at all `omit` can be used.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     attributes: {
@@ -117,9 +117,9 @@ module.exports = defineMetadata({
 Required attributes (attributes that must be set on an element) can be specified by setting `required` to `true`:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     attributes: {
@@ -141,9 +141,9 @@ module.exports = defineMetadata({
 Similar to required attribute we can set `deprecated` to true or a message to mark an attribute as deprecated:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     attributes: {

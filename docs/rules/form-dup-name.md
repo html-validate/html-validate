@@ -173,9 +173,9 @@ This rule check all elements marked as `formAssociated` with the `listed` proper
 To use with custom elements set the `listed` property to `true`:
 
 ```ts
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     formAssociated: {
       listed: true,

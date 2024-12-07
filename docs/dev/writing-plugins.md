@@ -106,7 +106,7 @@ A plugin with a custom rule (e.g. {@link writing-rules NoButtonsRule}) might loo
 import { definePlugin } from "html-validate";
 import NoButtonsRule from "./rules/no-buttons";
 
-module.exports = definePlugin({
+export default definePlugin({
   name: "my-plugin",
   rules: {
     "my-plugin/no-buttons": NoButtonsRule,
@@ -159,7 +159,7 @@ Plugins can create configuration presets similar to a shared configuration:
 import { definePlugin } from "html-validate";
 import NoButtonsRule from "./rules/no-buttons";
 
-module.exports = definePlugin({
+export default definePlugin({
   name: "my-plugin",
   rules: {
     "my-plugin/no-buttons": NoButtonsRule,
@@ -197,11 +197,10 @@ Each plugin should use a unique prefix for each rule.
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
+import MyRule from "./rules/my-rule.js";
+import AnotherRule from "./rules/another-rule.js";
 
-const MyRule = require("./rules/my-rule.js");
-const AnotherRule = require("./rules/another-rule.js");
-
-module.exports = definePlugin({
+export default definePlugin({
   rules: {
     "my-prefix/my-rule": MyRule,
     "my-prefix/another-rule": AnotherRule,
@@ -229,10 +228,9 @@ suitable for the filetype/framework.
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
+import MyTransformer from "./transformers/my-transformer.js";
 
-const MyTransformer = require("./transformers/my-transformer");
-
-module.exports = definePlugin({
+export default definePlugin({
   transformer: MyTransformer,
 });
 ```
@@ -251,10 +249,9 @@ If you need multiple transformers export an object with named transformers inste
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
+import MyTransformer from "./transformers/my-transformer.js";
 
-const MyTransformer = require("./transformers/my-transformer");
-
-module.exports = definePlugin({
+export default definePlugin({
   transformer: {
     "my-transformer": MyTransformer,
   },
@@ -283,7 +280,7 @@ Patch](https://tools.ietf.org/html/rfc7396).
 ```ts
 import { definePlugin } from "html-validate";
 
-module.exports = definePlugin({
+export default definePlugin({
   elementSchema: {
     // properties are added to elements metadata
     properties: {
@@ -312,7 +309,7 @@ rule similar to regular metadata. Given the schema above any element may contain
 the new property `myProperty`:
 
 ```js
-module.exports = {
+export default {
   myElement: {
     myProperty: "foo",
   },
@@ -337,7 +334,7 @@ Plugins leveraging usage of `loadMeta` for advanced handling of metadata loading
 ```ts
 import { definePlugin } from "html-validate";
 
-module.exports = definePlugin({
+export default definePlugin({
   elementSchema: {
     properties: {
       foo: {
@@ -392,10 +389,9 @@ The resulting metadata will now be:
 
 Plugins can use the `compatibilityCheck` helper to verify the library version is compatible.
 
-```typescript
+```typescript fake-require
 import { compatibilityCheck } from "html-validate";
-
-const pkg = require("./package.json");
+import pkg from "./package.json";
 
 const range = pkg.peerDependencies["html-validate"];
 
