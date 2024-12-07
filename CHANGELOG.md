@@ -1,5 +1,100 @@
 # html-validate changelog
 
+## 9.0.0-rc.3 (2024-12-01)
+
+### ⚠ BREAKING CHANGES
+
+- **config:** This change affects all users. The following deprecated
+  configuration presets has been removed:
+
+* `htmlvalidate:recommended`
+* `htmlvalidate:document`
+* `html-validate:a17y`
+
+- **deps:** Requires NodeJS v18 or later.
+- **api:** The deprecated `tag:open` and `tag:close` events has been
+  removed, use `tag:begin` and `tag:end` instead.
+- **api:** The `Config.resolve()` method can return a `Promise` if any
+  underlying loader or resolver has returned a `Promise`.
+
+It is recommended to assume it returns a `Promise` and always `await` the
+result:
+
+```diff
+-const resolved = config.resolve();
++const resolved = await config.resolve();
+```
+
+If you need synchronous code ensure the configuration, the loader and the
+resolver all returns synchronous results, e.g. the `staticResolver` with
+synchronous code.
+
+- **api:** The `HtmlValidate.getConfigurationSchema()` method is now async
+  and returns a `Promise`. If you use this method you need to await the result:
+
+```diff
+-const schema = htmlvalidate.getConfigurationSchema();
++const schema = await htmlvalidate.getConfigurationSchema();
+```
+
+- **api:** If you are writing your own transformers they may now
+  optionally return a `Promise`. If you are using `test-utils` to write unit tests
+  you must now resolve the promise.
+
+```diff
+ import { transformSource } from "html-validate/test-utils";
+
+-const result = transformSource(transformer, source);
++const result = await transformSource(transformer, source);
+```
+
+This is no matter if your transformer is actually async or not.
+
+- **api:** The `CLI.isIgnored(..)` method has been removed from the public
+  API. There is no replacement. If you need this method open an issue describing
+  the use-case.
+- **api:** If you are using the `CLI` class most methods are now async and
+  returns `Promise`. There is no synchronous version of these API calls.
+- **api:** `Config.fromFile(..)` and `Config.fromObject(..)` will return a
+  Promise when used with an async loader or resolver.
+- **api:** `ConfigLoader` methods can optionally return a `Promise` for
+  async operation. For most use-cases this will not require any changes.
+- **api:** The `ConfigLoader.globalConfig` property has been replaced with
+  `ConfigLoader.getGlobalConfig()` (async) and
+  `ConfigLoader.getGlobalConfigSync()` (sync).
+- **api:** The redundant and deprecated `Config.init()` method has been
+  removed.
+
+Remove any calls to the method:
+
+```diff
+ const config = Config.fromObject({ /* ... */ });
+-config.init();
+```
+
+### Features
+
+- **api:** `CLI.isIgnored()` made private ([1fdcb25](https://gitlab.com/html-validate/html-validate/commit/1fdcb25d277283f9a53ecc981fceaa13ebbd4dde))
+- **api:** `CLI` methods async and return Promise ([282049e](https://gitlab.com/html-validate/html-validate/commit/282049ebd318ed7935afa46f01344e5ecb9636a4))
+- **api:** `Config.fromFile` and `Config.fromObject` can return `Promise` ([5e755d6](https://gitlab.com/html-validate/html-validate/commit/5e755d6c15ff0da3fa108c7a147a4c7fd6375c6c))
+- **api:** `Config.resolve()` can return `Promise` ([1e60c93](https://gitlab.com/html-validate/html-validate/commit/1e60c93527d0254af38cefec0d1fda565ef6670c))
+- **api:** `ConfigLoader`s can optionally return `Promise` for async operation ([17dd44f](https://gitlab.com/html-validate/html-validate/commit/17dd44fc5ca357ea82d01116ddb95c97b55d2488))
+- **api:** `HtmlValidate.getConfigurationSchema()` returns promise ([40f7d54](https://gitlab.com/html-validate/html-validate/commit/40f7d54556c6189923d325f74333f3c696d01e82))
+- **api:** new `esmResolver` using `import(..)` ([ddde616](https://gitlab.com/html-validate/html-validate/commit/ddde616c602bf0710397ec1c140b05fc1ff4b816))
+- **api:** remove deprecated `Config.init()` ([19de98d](https://gitlab.com/html-validate/html-validate/commit/19de98d1e1d71ecce9dd5d60d938c7877ad91ce0))
+- **api:** remove deprecated `tag:open` and `tag:close` events ([5400a7b](https://gitlab.com/html-validate/html-validate/commit/5400a7b45db8a9f7dd535de5c42d6a339d33e800))
+- **api:** replace `ConfigLoader.globalConfig` with `ConfigLoader.getGlobalConfig()` ([7d740d6](https://gitlab.com/html-validate/html-validate/commit/7d740d6ecee636ef516eef6c25e28752a3003769))
+- **api:** resolvers may optionally return `Promise` for async operation ([9bd60b5](https://gitlab.com/html-validate/html-validate/commit/9bd60b582951bdc6ac6fa6007dcb013ccf70a6ba))
+- **api:** transformers may optionally return `Promise` for async operation ([f173c3f](https://gitlab.com/html-validate/html-validate/commit/f173c3fc613c7cb445641a95a847c46e0017d769))
+- **cli:** use `esmResolver` ([db36aa9](https://gitlab.com/html-validate/html-validate/commit/db36aa9b2d02d77837a384fb695afa810ad3df6c))
+- **config:** remove deprecated configuration presets ([bb37eab](https://gitlab.com/html-validate/html-validate/commit/bb37eabdfa08524701362e07b58422bbe5968130))
+- **config:** support `.htmlvalidate.mjs` configuration files ([e148342](https://gitlab.com/html-validate/html-validate/commit/e148342a2a4e8adb7a69ede19711f875b7fc0ace))
+- **deps:** require node 18 or later ([aaf93c9](https://gitlab.com/html-validate/html-validate/commit/aaf93c93518d24de2b2b091e9d1e96e37e58cee4))
+
+### Bug Fixes
+
+- workaround rollup issue with import attributes ([0eee05c](https://gitlab.com/html-validate/html-validate/commit/0eee05c88a9da52ae50d5c15fc9be34d1f33071b))
+
 ## 8.27.0 (2024-11-30)
 
 ### Features
