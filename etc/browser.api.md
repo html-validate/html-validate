@@ -1418,7 +1418,7 @@ export interface TransformContext {
 
 // @public
 interface Transformer_2 {
-    (this: TransformContext, source: Source): Iterable<Source> | Promise<Iterable<Source>>;
+    (this: TransformContext, source: Source): Iterable<Source | Promise<Source>> | Promise<Iterable<Source | Promise<Source>>>;
     api?: number;
 }
 export { Transformer_2 as Transformer }
