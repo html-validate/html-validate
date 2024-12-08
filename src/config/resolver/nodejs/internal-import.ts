@@ -6,6 +6,7 @@ import { type ResolverOptions } from "../resolver";
 
 interface RequireError extends Error {
 	code: string;
+	requireStack?: string[];
 }
 
 async function getModuleName(
@@ -59,7 +60,7 @@ export async function internalImport<T = unknown>(
 		}
 		return defaultImport;
 	} catch (err: unknown) {
-		if (isRequireError(err) && err.code === "MODULE_NOT_FOUND") {
+		if (isRequireError(err) && err.code === "MODULE_NOT_FOUND" && !err.requireStack) {
 			return null;
 		}
 		throw err;
