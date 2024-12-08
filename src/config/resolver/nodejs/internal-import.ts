@@ -12,14 +12,18 @@ interface RequireError extends Error {
 async function getModuleName(
 	id: string,
 	{ cache, rootDir }: { cache: boolean; rootDir: string },
-): Promise<string> {
+): Promise<URL> {
 	const moduleName = id.replace("<rootDir>", rootDir);
 
 	const url = new URL(importResolve(moduleName));
 
+	if (url.protocol !== "file:") {
+		return url;
+	}
+
 	/* istanbul ignore next: the tests only runs the cached versions */
 	if (cache) {
-		return fileURLToPath(url);
+		return url;
 	}
 
 	/* Cachebusting in ESM is tricky, we cannot flush the cache of the old import
@@ -32,7 +36,7 @@ async function getModuleName(
 	 * directly loaded configurations it would reload property. */
 	const stat = await fs.stat(url);
 	url.searchParams.append("mtime", String(stat.mtime.getTime()));
-	return fileURLToPath(url);
+	return url;
 }
 
 function isRequireError(error: unknown): error is RequireError {
@@ -53,7 +57,12 @@ export async function internalImport<T = unknown>(
 	}
 
 	try {
-		const moduleName = await getModuleName(id, { cache, rootDir });
+		const url = await getModuleName(id, { cache, rootDir });
+		if (url.protocol !== "file:") {
+			return null;
+		}
+		const moduleName = fileURLToPath(url);
+
 		const { default: defaultImport } = (await import(moduleName)) as { default: T };
 		if (!defaultImport) {
 			throw new UserError(`"${id}" does not have a default export`);
