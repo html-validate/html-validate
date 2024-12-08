@@ -84,7 +84,7 @@
   "module": "dist/es/index.js",
   "browser": "dist/cjs/browser.js",
   "bin": {
-    "html-validate": "bin/html-validate.js"
+    "html-validate": "bin/html-validate.mjs"
   },
   "files": [
     "bin",
