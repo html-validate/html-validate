@@ -373,6 +373,12 @@ The library comes with two builtin resolvers:
 - `ESMResolver` - resolves items using `import(..)`, use the `esmResolver` function to create one.
 - `CommonJSResolver` - resolves items using `require(..)`, use the `cjsResolver` function to create one.
 
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>When using <code>ESMResolver</code> in a CommonJS project (i.e. not using <code>.mjs</code> or <code>"type": "module"</code>) the imported modules will use the <code>require</code> condition when resolving conditional subpath exports.</p>
+</div>
+
 ## Configuration cache
 
 `HtmlValidate` is mostly stateless, it only acts on the input source and its
