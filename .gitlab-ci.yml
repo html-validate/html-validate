@@ -263,6 +263,7 @@ Module:
   script:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
+    - npm exec html-validate tests/integration/${BUILD}-cli
 
 .release:
   stage: release

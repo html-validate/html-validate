@@ -97,6 +97,8 @@
   ],
   "workspaces": [
     "docs",
+    "tests/integration/cjs-cli",
+    "tests/integration/esm-cli",
     "tests/vitest"
   ],
   "scripts": {
