@@ -116,7 +116,7 @@
     "postdocs": "tsc -b docs/examples",
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
-    "htmlvalidate": "node ./bin/html-validate.js",
+    "htmlvalidate": "node ./bin/html-validate.mjs",
     "prepublishOnly": "release-prepublish --bundle --retain-scripts",
     "postpublish": "release-postpublish",
     "prepare": "husky && npm run codegen",
