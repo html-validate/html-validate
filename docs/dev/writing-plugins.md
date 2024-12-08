@@ -129,6 +129,14 @@ To use this plugin add this configuration:
 
 The [Example plugin](https://gitlab.com/html-validate/example-plugin) repository contains example boilerplate you can use as a base for your plugin.
 
+## Guidelines
+
+For publicly published plugins:
+
+- Prefer to build and publish hybrid ESM/CommonJS package. If that is not possible prefer ESM over CommonJS.
+- Bundle all resources or ensure they are imported with `import`.
+- Avoid using NodeJS modules to ensure browser compatibility.
+
 ## Callbacks
 
 ### `init()`

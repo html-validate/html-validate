@@ -14,6 +14,14 @@ The following deprecated aliases has been removed:
 
 ### API changes {#v9-api-changes}
 
+#### Plugin recommendations {v9-plugin-recommendations}
+
+For publicly published plugins and transformers it is recommended to publish hybrid ESM/CommonJS packages.
+If hybrid is not an option ESM is preferred over CommonJS.
+
+Plugins should also make sure to bundle all resources or ensure they are imported with `import`, i.e. don't use `node:fs` to read files.
+This is to ensure the plugin is usable in a browser context.
+
 #### Configuration errors {v9-config-deferred}
 
 In previous versions the `HtmlValidate` constructor would load the configuration directly and thus triggering configuration errors to occur.
