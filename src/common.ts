@@ -125,7 +125,12 @@ export {
 	sliceLocation,
 } from "./context";
 export { type DeferredMessage, type Report, type Result, Reporter } from "./reporter";
-export { type TransformContext, type Transformer } from "./transform";
+export {
+	type TransformContext,
+	type Transformer,
+	type TransformerChainedResult,
+	type TransformerResult,
+} from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
 export { type CompatibilityOptions, type Walk, ruleExists, walk } from "./utils";

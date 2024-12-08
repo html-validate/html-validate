@@ -1,14 +1,16 @@
 import { type Source } from "../../context";
-import { type Transformer, type TransformContext, TRANSFORMER_API } from "..";
+import {
+	type TransformContext,
+	type Transformer,
+	type TransformerResult,
+	TRANSFORMER_API,
+} from "..";
 
 /**
  * Mock transformer chaining to a new transformer by chopping of the current
  * extension. E.g. "my-file.bar.foo" to "my-file.bar".
  */
-function mockTransformOptionalChain(
-	this: TransformContext,
-	source: Source,
-): Iterable<Source> | Promise<Iterable<Source>> {
+function mockTransformOptionalChain(this: TransformContext, source: Source): TransformerResult {
 	const next = source.filename.replace(/\.[^.]*$/, "");
 	if (this.hasChain(next)) {
 		return this.chain(

@@ -30,6 +30,12 @@ export interface ResolvedConfigData {
 	transformers: TransformerEntry[];
 }
 
+function isNonThenableArray<T>(value: Array<T | Promise<T>>): value is T[] {
+	return !value.some(isThenable);
+}
+
+const asyncInSyncTransformError = "Cannot use async transformer from sync function";
+
 /**
  * A resolved configuration is a normalized configuration with all extends,
  * plugins etc resolved.
@@ -115,15 +121,15 @@ export class ResolvedConfig {
 				: transformer.function;
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 		try {
-			const result = fn.call(context, source);
-			const transformedSources = Array.from(await result);
+			const result = await fn.call(context, source);
+			const transformedSources = await Promise.all(Array.from(result));
 			for (const source of transformedSources) {
 				/* keep track of which transformers that has been run on this source
 				 * by appending this entry to the transformedBy array */
 				source.transformedBy ??= [];
 				source.transformedBy.push(name);
 			}
-			return Promise.resolve(transformedSources);
+			return transformedSources;
 		} catch (err: unknown) {
 			/* istanbul ignore next: only used as a fallback */
 			const message = err instanceof Error ? err.message : String(err);
@@ -164,14 +170,17 @@ export class ResolvedConfig {
 				: transformer.function;
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 		if (isThenable(fn)) {
-			throw new UserError("Cannot use async transformer from sync function");
+			throw new UserError(asyncInSyncTransformError);
 		}
 		try {
 			const result = fn.call(context, source);
 			if (isThenable(result)) {
-				throw new UserError("Cannot use async transformer from sync function");
+				throw new UserError(asyncInSyncTransformError);
 			}
 			const transformedSources = Array.from(result);
+			if (!isNonThenableArray(transformedSources)) {
+				throw new UserError(asyncInSyncTransformError);
+			}
 			for (const source of transformedSources) {
 				/* keep track of which transformers that has been run on this source
 				 * by appending this entry to the transformedBy array */
@@ -207,7 +216,7 @@ export class ResolvedConfig {
 			offset: 0,
 			originalData: data,
 		};
-		return this.transformSource(resolvers, source);
+		return this.transformSource(resolvers, source, filename);
 	}
 
 	/**
@@ -231,7 +240,7 @@ export class ResolvedConfig {
 			offset: 0,
 			originalData: data,
 		};
-		return this.transformSourceSync(resolvers, source);
+		return this.transformSourceSync(resolvers, source, filename);
 	}
 
 	/**

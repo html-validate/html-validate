@@ -48,9 +48,9 @@ Chain transformations. Sometimes multiple transformers must be applied.
 For instance, a Markdown file with JSX in a code-block.
 
 ```ts
-import { Source, TransformContext } from "html-validate";
+import { type Source, type TransformContext } from "html-validate";
 
-function transformImplementation(_source: Source): Iterable<Source> {
+function transformImplementation(_source: Source): Source[] {
   return [];
 }
 
