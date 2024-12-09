@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 9.0.0-rc.5 (2024-12-09)
+
+### Features
+
+- **api:** `esmResolver` browser version ([5b3fc64](https://gitlab.com/html-validate/html-validate/commit/5b3fc64d693be4d30fb444ab4407dc943d309a8c))
+- **api:** allow transformers to return single source ([2f85328](https://gitlab.com/html-validate/html-validate/commit/2f85328c438cb507018677bd5c7360cd73aaedc5))
+
 ## 9.0.0-rc.4 (2024-12-07)
 
 ### ⚠ BREAKING CHANGES

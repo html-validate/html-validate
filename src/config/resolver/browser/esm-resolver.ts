@@ -25,7 +25,7 @@ export type ESMResolver = Required<Resolver>;
  * Create a new resolver for  using `import(..)`.
  *
  * @public
- * @since %version%
+ * @since 9.0.0-rc.5
  */
 export function esmResolver(): ESMResolver {
 	return {
