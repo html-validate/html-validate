@@ -13,7 +13,11 @@ export interface Transformer {
 	(
 		this: TransformContext,
 		source: Source,
-	): Iterable<Source | Promise<Source>> | Promise<Iterable<Source | Promise<Source>>>;
+	):
+		| Source
+		| Iterable<Source | Promise<Source>>
+		| Promise<Source>
+		| Promise<Source | Iterable<Source | Promise<Source>>>;
 
 	/**
 	 * API version. Must be specified, it is deprecated to leave it out as it
