@@ -22,7 +22,7 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
 export type ESMResolver = Required<Resolver>;
 
 /**
- * Create a new resolver for NodeJS packages using `require(..)`.
+ * Create a new resolver for NodeJS packages using `import(..)`.
  *
  * If the module name contains `<rootDir>` (e.g. `<rootDir/foo`) it will be
  * expanded relative to the root directory either explicitly set by the

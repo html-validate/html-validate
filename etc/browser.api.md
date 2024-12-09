@@ -431,6 +431,12 @@ export interface ErrorDescriptor<ContextType> {
     node: DOMNode | null;
 }
 
+// @public
+export type ESMResolver = Required<Resolver>;
+
+// @public
+export function esmResolver(): ESMResolver;
+
 // @public (undocumented)
 interface Event_2 {
     location: Location_2 | null;
