@@ -1552,7 +1552,7 @@ export type TransformerEntry = {
 };
 
 // @public
-export type TransformerResult = Iterable<Source | Promise<Source>> | Promise<Iterable<Source | Promise<Source>>>;
+export type TransformerResult = Source | Iterable<Source | Promise<Source>> | Promise<Source> | Promise<Source | Iterable<Source | Promise<Source>>>;
 
 // @public (undocumented)
 export type TransformMap = Record<string, string | Transformer_2>;

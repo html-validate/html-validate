@@ -2,16 +2,23 @@ import fs from "fs";
 import {
 	type Source,
 	type TransformContext,
+	type Transformer,
 	type TransformerChainedResult,
-	type TransformerResult,
 } from "html-validate";
 
-export { type TransformerResult, type TransformerChainedResult } from "html-validate";
+/* eslint-disable-next-line import/no-extraneous-dependencies -- this is the package itself */
+export {
+	type Source,
+	type Transformer,
+	type TransformerResult,
+	type TransformerChainedResult,
+} from "html-validate";
 
-/**
- * @public
- */
-export type Transformer = (this: TransformContext, source: Source) => TransformerResult;
+function isIterable(
+	value: Source | Iterable<Source | Promise<Source>>,
+): value is Iterable<Source | Promise<Source>> {
+	return Symbol.iterator in value;
+}
 
 /**
  * Helper function to call a transformer function in test-cases.
@@ -79,5 +86,9 @@ export async function transformSource(
 		chain: chain ?? defaultChain,
 	};
 	const result = await fn.call(context, source);
-	return await Promise.all(Array.from(result));
+	if (isIterable(result)) {
+		return await Promise.all(Array.from(result));
+	} else {
+		return [result];
+	}
 }

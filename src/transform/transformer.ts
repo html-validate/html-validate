@@ -10,6 +10,12 @@ import { type TransformerResult } from "./transformer-result";
 export interface Transformer {
 	/**
 	 * Callback function to transform a source to plain HTML sources.
+	 *
+	 * Since %version% the transformer may return:
+	 *
+	 * - A single `Source` object or a `Promise` resolving to one.
+	 * - An array of `Source` objects or a `Promise` resolving to one.
+	 * - An array of `Promise` resolving to `Source` objects.
 	 */
 	(this: TransformContext, source: Source): TransformerResult;
 

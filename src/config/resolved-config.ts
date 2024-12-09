@@ -30,8 +30,16 @@ export interface ResolvedConfigData {
 	transformers: TransformerEntry[];
 }
 
+function isIterable<T>(value: unknown | Iterable<T>): value is Iterable<T> {
+	return Boolean(value && typeof value === "object" && Symbol.iterator in value);
+}
+
 function isNonThenableArray<T>(value: Array<T | Promise<T>>): value is T[] {
 	return !value.some(isThenable);
+}
+
+function toArray<T>(value: T | Iterable<T>): T[] {
+	return isIterable(value) ? Array.from(value) : [value];
 }
 
 const asyncInSyncTransformError = "Cannot use async transformer from sync function";
@@ -122,7 +130,7 @@ export class ResolvedConfig {
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 		try {
 			const result = await fn.call(context, source);
-			const transformedSources = await Promise.all(Array.from(result));
+			const transformedSources = await Promise.all(toArray(result));
 			for (const source of transformedSources) {
 				/* keep track of which transformers that has been run on this source
 				 * by appending this entry to the transformedBy array */
@@ -177,7 +185,7 @@ export class ResolvedConfig {
 			if (isThenable(result)) {
 				throw new UserError(asyncInSyncTransformError);
 			}
-			const transformedSources = Array.from(result);
+			const transformedSources = toArray(result);
 			if (!isNonThenableArray(transformedSources)) {
 				throw new UserError(asyncInSyncTransformError);
 			}

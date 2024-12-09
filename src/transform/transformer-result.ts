@@ -7,8 +7,10 @@ import { type Source } from "../context";
  * @since %version%
  */
 export type TransformerResult =
+	| Source
 	| Iterable<Source | Promise<Source>>
-	| Promise<Iterable<Source | Promise<Source>>>;
+	| Promise<Source>
+	| Promise<Source | Iterable<Source | Promise<Source>>>;
 
 /**
  * The result of a transformer chain.
