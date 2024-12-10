@@ -117,16 +117,17 @@
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
     "htmlvalidate": "node ./bin/html-validate.mjs",
-    "prepublishOnly": "release-prepublish --bundle --retain-scripts",
+    "prepublishOnly": "release-prepublish --bundle",
     "postpublish": "release-postpublish",
     "prepare": "husky && npm run codegen",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
-    "prepack": "npm run build && release-prepack --bundle --retain-scripts",
+    "prepack": "release-prepack --bundle",
     "postpack": "release-postpack",
     "start": "node docs/server.js",
     "test": "jest --ci",
-    "version": "scripts/version"
+    "version": "scripts/version",
+    "postversion": "npm run build"
   },
   "commitlint": {
     "extends": "@html-validate",
