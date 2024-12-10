@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.0.0-rc.6 (2024-12-10)
+
+### Bug Fixes
+
+- new release ([6f1b999](https://gitlab.com/html-validate/html-validate/commit/6f1b9995a136ae75635e782e00dea894a4678fe3))
+
 ## 9.0.0-rc.5 (2024-12-09)
 
 ### Features
