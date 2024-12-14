@@ -247,7 +247,7 @@
     "jest-snapshot": "29.7.0",
     "jsdom": "25.0.1",
     "memfs": "4.15.0",
-    "npm-pkg-lint": "3.10.5",
+    "npm-pkg-lint": "3.10.6",
     "npm-run-all2": "7.0.1",
     "rollup": "4.28.1",
     "rollup-plugin-esbuild": "6.1.1",
