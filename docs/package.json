@@ -20,7 +20,7 @@
     "glob": "10.4.5",
     "highlight.js": "11.10.0",
     "htmlparser2": "9.1.0",
-    "is-ci": "3.0.1",
+    "is-ci": "4.1.0",
     "jquery": "3.7.1",
     "kleur": "4.1.5",
     "marked": "15.0.3",
