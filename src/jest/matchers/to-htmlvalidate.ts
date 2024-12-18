@@ -1,7 +1,5 @@
 import deepmerge from "deepmerge";
 import { type ConfigData } from "../../config";
-import { FileSystemConfigLoader } from "../../config/loaders/file-system";
-import { HtmlValidate } from "../../htmlvalidate";
 import { type Message } from "../../message";
 import {
 	type DiffFunction,
@@ -11,7 +9,7 @@ import {
 	type MaybeAsyncCallback,
 	diverge,
 } from "../utils";
-import { cjsResolver } from "../../config/resolver/nodejs";
+import { type ValidateStringFn, createSyncFn, workerPath } from "../worker";
 
 function isMessage(arg: any): arg is Partial<Message> {
 	if (!arg) {
@@ -98,11 +96,9 @@ function toHTMLValidateImpl(
 	const config = deepmerge(defaultConfig, userConfig ?? {});
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const actualFilename = filename ?? this.testPath ?? "inline";
-	const loader = new FileSystemConfigLoader([cjsResolver()], {
-		extends: ["html-validate:recommended"],
-	});
-	const htmlvalidate = new HtmlValidate(loader);
-	const report = htmlvalidate.validateStringSync(actual, actualFilename, config);
+
+	const syncFn = createSyncFn<ValidateStringFn>(workerPath);
+	const report = syncFn(actual, actualFilename, config);
 	const pass = report.valid;
 	const result = report.results[0];
 	if (pass) {

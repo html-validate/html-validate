@@ -8,6 +8,7 @@ import json from "@rollup/plugin-json"; //native solution coming: https://nodejs
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
 import esbuild from "rollup-plugin-esbuild";
+import MagicString from "magic-string";
 import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
@@ -26,6 +27,7 @@ const entrypoints = [
 	"src/html5.ts",
 	"src/cli/html-validate.ts",
 	"src/jest/jest.ts",
+	"src/jest/worker/worker.ts",
 	"src/vitest/vitest.ts",
 	"src/transform/test-utils.ts",
 ];
@@ -171,6 +173,68 @@ function generateResolved(format) {
 }
 
 /**
+ * @returns {import("rollup").Plugin}
+ */
+function workerPlugin() {
+	const mapping = new Map();
+	return {
+		name: "html-validate:worker-plugin",
+		async resolveId(id, importer) {
+			if (id.endsWith("?worker&url")) {
+				const filePath = id.replace("?worker&url", "");
+				const scopedId = `worker:${filePath}`;
+				const { id: resolvedId } = await this.resolve(filePath, importer);
+				mapping.set(scopedId, resolvedId);
+				return scopedId;
+			}
+			return null;
+		},
+		async load(id) {
+			if (id.startsWith("worker:")) {
+				const resolvedId = mapping.get(id);
+				return await fs.readFileSync(resolvedId, "utf-8");
+			}
+			return null;
+		},
+		transform(_code, id) {
+			if (id.startsWith("worker:")) {
+				const resolvedId = mapping.get(id);
+				const chunkRef = this.emitFile({
+					id: resolvedId,
+					type: "chunk",
+				});
+				return {
+					code: `export default __getWorkerFilename__("${chunkRef}");`,
+					map: { mappings: "" },
+				};
+			}
+			return null;
+		},
+		renderChunk(code) {
+			const regex = /__getWorkerFilename__\("([^"]+)"\)/g;
+			const matches = [];
+			let match;
+			while ((match = regex.exec(code)) !== null) {
+				const chunkRef = match[1];
+				const filename = this.getFileName(chunkRef);
+				matches.push({ filename, begin: match.index, end: regex.lastIndex });
+			}
+			if (matches.length === 0) {
+				return null;
+			}
+			const ms = new MagicString(code);
+			for (const { filename, begin, end } of matches) {
+				ms.overwrite(begin, end, JSON.stringify(`./${filename}`));
+			}
+			return {
+				code: ms.toString(),
+				map: ms.generateMap({ hires: true }),
+			};
+		},
+	};
+}
+
+/**
  * @param {string} format
  * @returns {RollupOptions[]}
  */
@@ -183,6 +247,12 @@ export function build(format) {
 				format,
 				sourcemap: true,
 				manualChunks,
+				entryFileNames(chunkInfo) {
+					if (chunkInfo.name === "worker") {
+						return "jest-worker.js";
+					}
+					return "[name].js";
+				},
 				chunkFileNames: "[name].js",
 				interop: "auto",
 			},
@@ -199,6 +269,7 @@ export function build(format) {
 					target: "node18",
 					platform: "node",
 				}),
+				workerPlugin(),
 				json(jsonConfig),
 				commonjs(),
 				nodeResolve(),

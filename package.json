@@ -182,12 +182,14 @@
       "!src/html5.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",
+      "!src/jest/worker/**",
       "!src/vitest/vitest.ts",
       "!src/utils/compatibility-check.browser.ts",
       "!src/utils/compatibility-check.nodejs.ts",
       "!**/*.d.ts",
       "!**/__fixtures__/**"
     ],
+    "globalSetup": "<rootDir>/jest.global.js",
     "moduleNameMapper": {
       "^html-validate/browser$": "<rootDir>/src/browser.ts"
     },
@@ -198,10 +200,17 @@
       "<rootDir>/src",
       "<rootDir>/tests"
     ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/dist/",
       "<rootDir>/tests/vitest/"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/",
+      "jest.setup.ts"
     ]
   },
   "dependencies": {
@@ -218,19 +227,19 @@
   },
   "devDependencies": {
     "@babel/code-frame": "7.26.2",
-    "@html-validate/commitlint-config": "3.3.0",
+    "@html-validate/commitlint-config": "3.4.0",
     "@html-validate/eslint-config": "5.21.8",
     "@html-validate/eslint-config-jest": "5.21.7",
     "@html-validate/eslint-config-typescript": "5.21.6",
     "@html-validate/eslint-config-typescript-typeinfo": "5.21.6",
     "@html-validate/jest-config": "3.11.1",
-    "@html-validate/prettier-config": "2.5.8",
+    "@html-validate/prettier-config": "2.5.9",
     "@html-validate/release-scripts": "6.7.5",
-    "@microsoft/api-extractor": "7.48.0",
-    "@rollup/plugin-commonjs": "28.0.1",
+    "@microsoft/api-extractor": "7.48.1",
+    "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
-    "@rollup/plugin-node-resolve": "15.3.0",
-    "@rollup/plugin-replace": "6.0.1",
+    "@rollup/plugin-node-resolve": "16.0.0",
+    "@rollup/plugin-replace": "6.0.2",
     "@rollup/plugin-virtual": "3.0.2",
     "@types/babar": "0.2.4",
     "@types/babel__code-frame": "7.0.6",
@@ -241,16 +250,18 @@
     "@types/semver": "7.5.8",
     "@types/stream-buffers": "3.0.7",
     "babar": "0.2.3",
+    "esbuild": "0.24.0",
     "husky": "9.1.7",
-    "is-ci": "3.0.1",
+    "is-ci": "4.1.0",
     "jest": "29.7.0",
     "jest-diff": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-snapshot": "29.7.0",
     "jsdom": "25.0.1",
-    "memfs": "4.14.1",
-    "npm-pkg-lint": "3.10.5",
-    "npm-run-all2": "7.0.1",
+    "magic-string": "0.30.17",
+    "memfs": "4.15.0",
+    "npm-pkg-lint": "3.10.6",
+    "npm-run-all2": "7.0.2",
     "rollup": "4.28.1",
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.3",

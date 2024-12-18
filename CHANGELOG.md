@@ -1,10 +1,14 @@
 # html-validate changelog
 
+## 8.28.0 (2024-12-18)
+
+### Features
+
+- refactor jest and vitest `toHTMLValidate(..)` matcher ([a6a60ab](https://gitlab.com/html-validate/html-validate/commit/a6a60ab7d973d601a19df4ccbe5538790a03f523))
+
 ## 9.0.0-rc.6 (2024-12-10)
 
-### Bug Fixes
-
-- new release ([6f1b999](https://gitlab.com/html-validate/html-validate/commit/6f1b9995a136ae75635e782e00dea894a4678fe3))
+- no changes
 
 ## 9.0.0-rc.5 (2024-12-09)
 
