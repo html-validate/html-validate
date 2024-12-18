@@ -180,12 +180,14 @@
       "!src/html5.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",
+      "!src/jest/worker/**",
       "!src/vitest/vitest.ts",
       "!src/utils/compatibility-check.browser.ts",
       "!src/utils/compatibility-check.nodejs.ts",
       "!**/*.d.ts",
       "!**/__fixtures__/**"
     ],
+    "globalSetup": "<rootDir>/jest.global.js",
     "moduleNameMapper": {
       "^html-validate/browser$": "<rootDir>/src/browser.ts"
     },
@@ -196,10 +198,17 @@
       "<rootDir>/src",
       "<rootDir>/tests"
     ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/dist/",
       "<rootDir>/tests/vitest/"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/",
+      "jest.setup.ts"
     ]
   },
   "dependencies": {
@@ -247,6 +256,7 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-snapshot": "29.7.0",
     "jsdom": "25.0.1",
+    "magic-string": "0.30.17",
     "memfs": "4.15.0",
     "npm-pkg-lint": "3.10.6",
     "npm-run-all2": "7.0.2",

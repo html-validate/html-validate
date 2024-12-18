@@ -171,7 +171,7 @@ describe("toHTMLValidate()", () => {
 			+     "message": "Unclosed element '<div>'",
 			+     "offset": 1,
 			+     "ruleId": "close-order",
-			+     "ruleUrl": "https://html-validate.org/rules/close-order.html",
+			+     "ruleUrl": "https://html-validate.org/rule-mock-url.html",
 			+     "selector": "div",
 			+     "severity": 2,
 			+     "size": 3,
