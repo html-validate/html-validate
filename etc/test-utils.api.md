@@ -5,12 +5,12 @@
 ```ts
 
 import { Source } from 'html-validate';
-import { TransformContext } from 'html-validate';
+import { Transformer as Transformer_2 } from 'html-validate';
 import { TransformerChainedResult } from 'html-validate';
 import { TransformerResult } from 'html-validate';
 
-// @public (undocumented)
-type Transformer_2 = (this: TransformContext, source: Source) => TransformerResult;
+export { Source }
+
 export { Transformer_2 as Transformer }
 
 export { TransformerChainedResult }

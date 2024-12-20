@@ -2,16 +2,17 @@ import fs from "fs";
 import {
 	type Source,
 	type TransformContext,
+	type Transformer,
 	type TransformerChainedResult,
-	type TransformerResult,
 } from "html-validate";
 
-export { type TransformerResult, type TransformerChainedResult } from "html-validate";
-
-/**
- * @public
- */
-export type Transformer = (this: TransformContext, source: Source) => TransformerResult;
+/* eslint-disable-next-line import/no-extraneous-dependencies -- this is the package itself */
+export {
+	type Source,
+	type Transformer,
+	type TransformerResult,
+	type TransformerChainedResult,
+} from "html-validate";
 
 function isIterable(
 	value: Source | Iterable<Source | Promise<Source>>,
