@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.0.0-rc.8 (2024-12-20)
+
+### Bug Fixes
+
+- fixups to transform API ([1ac1b74](https://gitlab.com/html-validate/html-validate/commit/1ac1b74c59be73757a0013ae618de3852abebab4))
+
 ## 9.0.0-rc.7 (2024-12-18)
 
 ### Features

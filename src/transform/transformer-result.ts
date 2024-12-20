@@ -4,7 +4,7 @@ import { type Source } from "../context";
  * The result of a transformer (or its chain).
  *
  * @public
- * @since %version%
+ * @since 9.0.0-rc.8
  */
 export type TransformerResult =
 	| Source
@@ -18,6 +18,6 @@ export type TransformerResult =
  * Similar to the regular `TransformerResult` but flattened for easier usage.
  *
  * @public
- * @since %version%
+ * @since 9.0.0-rc.8
  */
 export type TransformerChainedResult = Iterable<Source> | Promise<Iterable<Source>>;
