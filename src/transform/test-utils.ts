@@ -1,13 +1,17 @@
 import fs from "fs";
-import { type Source, type TransformContext } from "html-validate";
+import {
+	type Source,
+	type TransformContext,
+	type TransformerChainedResult,
+	type TransformerResult,
+} from "html-validate";
+
+export { type TransformerResult, type TransformerChainedResult } from "html-validate";
 
 /**
  * @public
  */
-export type Transformer = (
-	this: TransformContext,
-	source: Source,
-) => Iterable<Source> | Promise<Iterable<Source>>;
+export type Transformer = (this: TransformContext, source: Source) => TransformerResult;
 
 /**
  * Helper function to call a transformer function in test-cases.
@@ -20,7 +24,7 @@ export type Transformer = (
 export function transformFile(
 	fn: Transformer,
 	filename: string,
-	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
 ): Promise<Source[]> {
 	const data = fs.readFileSync(filename, "utf-8");
 	const source: Source = {
@@ -44,7 +48,7 @@ export function transformFile(
 export function transformString(
 	fn: Transformer,
 	data: string,
-	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
 ): Promise<Source[]> {
 	const source: Source = {
 		filename: "inline",
@@ -67,7 +71,7 @@ export function transformString(
 export async function transformSource(
 	fn: Transformer,
 	source: Source,
-	chain?: (source: Source, filename: string) => Iterable<Source> | Promise<Iterable<Source>>,
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
 ): Promise<Source[]> {
 	const defaultChain = (source: Source): Iterable<Source> => [source];
 	const context: TransformContext = {
@@ -75,5 +79,5 @@ export async function transformSource(
 		chain: chain ?? defaultChain,
 	};
 	const result = await fn.call(context, source);
-	return Array.from(result);
+	return await Promise.all(Array.from(result));
 }

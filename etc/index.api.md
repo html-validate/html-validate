@@ -1523,16 +1523,19 @@ export enum TokenType {
 
 // @public (undocumented)
 export interface TransformContext {
-    chain(source: Source, filename: string): Iterable<Source> | Promise<Iterable<Source>>;
+    chain(source: Source, filename: string): TransformerChainedResult;
     hasChain(filename: string): boolean;
 }
 
 // @public
 interface Transformer_2 {
-    (this: TransformContext, source: Source): Source | Iterable<Source | Promise<Source>> | Promise<Source> | Promise<Source | Iterable<Source | Promise<Source>>>;
+    (this: TransformContext, source: Source): TransformerResult;
     api?: number;
 }
 export { Transformer_2 as Transformer }
+
+// @public
+export type TransformerChainedResult = Iterable<Source> | Promise<Iterable<Source>>;
 
 // @public (undocumented)
 export interface TransformerEntry {
@@ -1541,6 +1544,9 @@ export interface TransformerEntry {
     // (undocumented)
     pattern: RegExp;
 }
+
+// @public
+export type TransformerResult = Iterable<Source | Promise<Source>> | Promise<Iterable<Source | Promise<Source>>>;
 
 // @public (undocumented)
 export type TransformMap = Record<string, string>;
