@@ -13,6 +13,12 @@ export { type TransformerResult, type TransformerChainedResult } from "html-vali
  */
 export type Transformer = (this: TransformContext, source: Source) => TransformerResult;
 
+function isIterable(
+	value: Source | Iterable<Source | Promise<Source>>,
+): value is Iterable<Source | Promise<Source>> {
+	return Symbol.iterator in value;
+}
+
 /**
  * Helper function to call a transformer function in test-cases.
  *
@@ -79,5 +85,9 @@ export async function transformSource(
 		chain: chain ?? defaultChain,
 	};
 	const result = await fn.call(context, source);
-	return await Promise.all(Array.from(result));
+	if (isIterable(result)) {
+		return await Promise.all(Array.from(result));
+	} else {
+		return [result];
+	}
 }

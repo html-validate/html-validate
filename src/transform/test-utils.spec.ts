@@ -123,3 +123,123 @@ it("transformSource() should support custom chaining", async () => {
 		]
 	`);
 });
+
+it("should handle transformer returning Source", async () => {
+	expect.assertions(1);
+	const source: Source = {
+		filename: "bar.html",
+		line: 1,
+		column: 2,
+		offset: 3,
+		data: "source data",
+	};
+	const transformer: Transformer = (source) => source;
+	const result = await transformSource(transformer, source);
+	expect(result).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 2,
+		    "data": "source data",
+		    "filename": "bar.html",
+		    "line": 1,
+		    "offset": 3,
+		  },
+		]
+	`);
+});
+
+it("should handle transformer returning Source[]", async () => {
+	expect.assertions(1);
+	const source: Source = {
+		filename: "bar.html",
+		line: 1,
+		column: 2,
+		offset: 3,
+		data: "source data",
+	};
+	const transformer: Transformer = (source) => [source];
+	const result = await transformSource(transformer, source);
+	expect(result).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 2,
+		    "data": "source data",
+		    "filename": "bar.html",
+		    "line": 1,
+		    "offset": 3,
+		  },
+		]
+	`);
+});
+
+it("should handle transformer returning Promise<Source>", async () => {
+	expect.assertions(1);
+	const source: Source = {
+		filename: "bar.html",
+		line: 1,
+		column: 2,
+		offset: 3,
+		data: "source data",
+	};
+	const transformer: Transformer = (source) => Promise.resolve(source);
+	const result = await transformSource(transformer, source);
+	expect(result).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 2,
+		    "data": "source data",
+		    "filename": "bar.html",
+		    "line": 1,
+		    "offset": 3,
+		  },
+		]
+	`);
+});
+
+it("should handle transformer returning Promise<Source>[]", async () => {
+	expect.assertions(1);
+	const source: Source = {
+		filename: "bar.html",
+		line: 1,
+		column: 2,
+		offset: 3,
+		data: "source data",
+	};
+	const transformer: Transformer = (source) => [Promise.resolve(source)];
+	const result = await transformSource(transformer, source);
+	expect(result).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 2,
+		    "data": "source data",
+		    "filename": "bar.html",
+		    "line": 1,
+		    "offset": 3,
+		  },
+		]
+	`);
+});
+
+it("should handle transformer returning Promise<Source[]>", async () => {
+	expect.assertions(1);
+	const source: Source = {
+		filename: "bar.html",
+		line: 1,
+		column: 2,
+		offset: 3,
+		data: "source data",
+	};
+	const transformer: Transformer = (source) => Promise.resolve([source]);
+	const result = await transformSource(transformer, source);
+	expect(result).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 2,
+		    "data": "source data",
+		    "filename": "bar.html",
+		    "line": 1,
+		    "offset": 3,
+		  },
+		]
+	`);
+});
