@@ -45,7 +45,7 @@ function clone<T>(src: T): T {
 	return JSON.parse(JSON.stringify(src)) as T;
 }
 
-function overwriteMerge<T>(a: T[], b: T[]): T[] {
+function overwriteMerge<T>(_a: T[], b: T[]): T[] {
 	return b;
 }
 
