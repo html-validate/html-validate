@@ -260,7 +260,7 @@
     "memfs": "4.15.0",
     "npm-pkg-lint": "3.10.6",
     "npm-run-all2": "7.0.2",
-    "rollup": "4.29.0",
+    "rollup": "4.29.1",
     "rollup-plugin-esbuild": "6.1.1",
     "stream-buffers": "3.0.3",
     "ts-jest": "29.2.5",
