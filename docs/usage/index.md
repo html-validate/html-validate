@@ -190,6 +190,9 @@ module.exports = defineConfig({
 
 ### `transform`
 
+- type: `Record<string, string | function>`
+- default: `{}`
+
 Transform input files to extract HTML chunks, e.g. extract templates from javascript sources.
 See [transformers](/usage/transformers.html) for details.
 
@@ -202,7 +205,13 @@ See [transformers](/usage/transformers.html) for details.
 ```
 
 This will transform `*.vue` with the `html-validate-vue` NPM package.
-Use a relative path to use a local script (use `<rootDir>` to refer to the path to `package.json`, e.g. `<rootDir>/my-transformer.js`).
+
+Can be set to:
+
+- The name of an NPM package with a default exported function.
+- The name of a transformer from a plugin.
+- A relative path to use a local script (use `<rootDir>` to refer to the path to `package.json`, e.g. `<rootDir>/my-transformer.js`)
+- A function (in a javascript-based configuration)
 
 ### `root`
 

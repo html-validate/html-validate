@@ -32,10 +32,10 @@ describe("transformSource()", () => {
 		};
 	});
 
-	it("should match filename against transformer", () => {
+	it("should match filename against named transformer", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
-			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform" }],
+			transformers: [{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform" }],
 		});
 		const resolvers = [
 			staticResolver({
@@ -61,12 +61,36 @@ describe("transformSource()", () => {
 		`);
 	});
 
+	it("should match filename against function transformer", () => {
+		expect.assertions(1);
+		const config = createMockConfig({
+			transformers: [
+				{ kind: "function", pattern: /^.*\.foo$/, function: require("mock-transform") },
+			],
+		});
+		expect(config.transformSource([], source)).toMatchInlineSnapshot(`
+			[
+			  {
+			    "column": 1,
+			    "data": "transformed source (was: original data)",
+			    "filename": "/path/to/test.foo",
+			    "line": 1,
+			    "offset": 0,
+			    "originalData": "original data",
+			    "transformedBy": [
+			      "mockTransform",
+			    ],
+			  },
+			]
+		`);
+	});
+
 	it("should use given name when matching transform", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
 			transformers: [
-				{ pattern: /^.*\.foo$/, name: "mock-transform-foo" },
-				{ pattern: /^.*\.bar$/, name: "mock-transform-bar" },
+				{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform-foo" },
+				{ kind: "import", pattern: /^.*\.bar$/, name: "mock-transform-bar" },
 			],
 		});
 		const resolvers = [
@@ -117,10 +141,12 @@ describe("transformSource()", () => {
 		const config = createMockConfig({
 			transformers: [
 				{
+					kind: "import",
 					pattern: /^.*\.bar$/,
 					name: "mock-transform-chain-foo",
 				},
 				{
+					kind: "import",
 					pattern: /^.*\.foo$/,
 					name: "mock-transform",
 				},
@@ -158,10 +184,12 @@ describe("transformSource()", () => {
 		const config = createMockConfig({
 			transformers: [
 				{
+					kind: "import",
 					pattern: /^.*\.foo$/,
 					name: "mock-transform-optional-chain",
 				},
 				{
+					kind: "import",
 					pattern: /^.*\.bar$/,
 					name: "mock-transform",
 				},
@@ -199,7 +227,7 @@ describe("transformSource()", () => {
 	it("should throw sane error when transformer fails", () => {
 		expect.assertions(1);
 		const config = createMockConfig({
-			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform-error" }],
+			transformers: [{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform-error" }],
 		});
 		const resolvers = [
 			staticResolver({
@@ -261,7 +289,7 @@ describe("canTransform()", () => {
 
 	beforeEach(() => {
 		config = createMockConfig({
-			transformers: [{ pattern: /^.*\.foo$/, name: "mock-transform" }],
+			transformers: [{ kind: "import", pattern: /^.*\.foo$/, name: "mock-transform" }],
 		});
 	});
 

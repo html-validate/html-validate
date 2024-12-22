@@ -7,6 +7,7 @@ import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
 import schema from "../schema/config.json";
+import { ajvFunctionKeyword } from "../schema/keywords";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
 import {
@@ -34,10 +35,11 @@ export interface LoadedPlugin extends Plugin {
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
+ajv.addKeyword(ajvFunctionKeyword);
 
 const validator = ajv.compile(schema);
 
-function overwriteMerge<T>(a: T[], b: T[]): T[] {
+function overwriteMerge<T>(_a: T[], b: T[]): T[] {
 	return b;
 }
 
@@ -70,10 +72,14 @@ function toArray<T>(value: T | T[]): T[] {
 }
 
 function transformerEntries(transform: TransformMap): TransformerEntry[] {
-	return Object.entries(transform).map(([pattern, name]) => {
-		// eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp
+	return Object.entries(transform).map(([pattern, value]): TransformerEntry => {
+		/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be a regexp */
 		const regex = new RegExp(pattern);
-		return { pattern: regex, name };
+		if (typeof value === "string") {
+			return { kind: "import", pattern: regex, name: value };
+		} else {
+			return { kind: "function", pattern: regex, function: value };
+		}
 	});
 }
 

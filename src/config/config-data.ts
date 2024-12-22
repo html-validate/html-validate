@@ -1,4 +1,5 @@
 import { type Plugin } from "../plugin";
+import { type Transformer } from "../transform";
 
 /**
  * @public
@@ -21,7 +22,7 @@ export type RuleConfig = Record<
 /**
  * @public
  */
-export type TransformMap = Record<string, string>;
+export type TransformMap = Record<string, string | Transformer>;
 
 /**
  * @public
