@@ -89,7 +89,7 @@ export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
  * returns whenever the element is labelable or not.
  *
  * @public
- * @since %version%
+ * @since 8.29.0
  * @param node - The node to determine if it is labelable.
  * @returns `true` if the node is labelable.
  */

@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 8.29.0 (2024-12-22)
+
+### Features
+
+- **config:** allow to specify transformer function directly in config ([df2c752](https://gitlab.com/html-validate/html-validate/commit/df2c75274d8233ba157607a72ef66d414eb7244a))
+- **meta:** allow `labelable` property to be a callback ([8204b5b](https://gitlab.com/html-validate/html-validate/commit/8204b5b977d3aadee5ac8d0fdf12950384b4e072))
+
 ## 8.28.0 (2024-12-18)
 
 ### Features
