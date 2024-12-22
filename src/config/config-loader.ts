@@ -51,32 +51,15 @@ export abstract class ConfigLoader {
 		if (this._globalConfig) {
 			return this._globalConfig;
 		}
-		const defaults = Config.empty();
 		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
 		if (isThenable(config)) {
 			return config.then((config) => {
-				const merged = defaults.merge(this.resolvers, config);
-				if (isThenable(merged)) {
-					return merged.then((merged) => {
-						this._globalConfig = merged;
-						return this._globalConfig;
-					});
-				} else {
-					this._globalConfig = merged;
-					return this._globalConfig;
-				}
+				this._globalConfig = config;
+				return this._globalConfig;
 			});
 		} else {
-			const merged = defaults.merge(this.resolvers, config);
-			if (isThenable(merged)) {
-				return merged.then((merged) => {
-					this._globalConfig = merged;
-					return this._globalConfig;
-				});
-			} else {
-				this._globalConfig = merged;
-				return this._globalConfig;
-			}
+			this._globalConfig = config;
+			return this._globalConfig;
 		}
 	}
 
@@ -91,16 +74,11 @@ export abstract class ConfigLoader {
 		if (this._globalConfig) {
 			return this._globalConfig;
 		}
-		const defaults = Config.empty();
 		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
 		if (isThenable(config)) {
 			throw new UserError("Cannot load async config from sync function");
 		}
-		const merged = defaults.merge(this.resolvers, config);
-		if (isThenable(merged)) {
-			throw new UserError("Cannot load async config from sync function");
-		}
-		this._globalConfig = merged;
+		this._globalConfig = config;
 		return this._globalConfig;
 	}
 
