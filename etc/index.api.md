@@ -837,9 +837,9 @@ export interface MetaData {
     // (undocumented)
     deprecatedAttributes?: string[];
     // (undocumented)
-    embedded?: boolean | PropertyExpression | MetaCategoryCallback;
+    embedded?: boolean | MetaCategoryCallback;
     // (undocumented)
-    flow?: boolean | PropertyExpression | MetaCategoryCallback;
+    flow?: boolean | MetaCategoryCallback;
     focusable?: boolean | MetaFocusableCallback;
     // (undocumented)
     foreign?: boolean;
@@ -847,7 +847,7 @@ export interface MetaData {
     form?: boolean;
     formAssociated?: Partial<FormAssociated>;
     // (undocumented)
-    heading?: boolean | PropertyExpression | MetaCategoryCallback;
+    heading?: boolean | MetaCategoryCallback;
     // (undocumented)
     implicitClosed?: string[];
     // @deprecated (undocumented)
@@ -855,11 +855,11 @@ export interface MetaData {
     // (undocumented)
     inherit?: string;
     // (undocumented)
-    interactive?: boolean | PropertyExpression | MetaCategoryCallback;
+    interactive?: boolean | MetaCategoryCallback;
     // (undocumented)
-    labelable?: boolean | PropertyExpression | MetaLabelableCallback;
+    labelable?: boolean | MetaLabelableCallback;
     // (undocumented)
-    metadata?: boolean | PropertyExpression | MetaCategoryCallback;
+    metadata?: boolean | MetaCategoryCallback;
     // (undocumented)
     permittedContent?: Permitted;
     // (undocumented)
@@ -869,7 +869,7 @@ export interface MetaData {
     // (undocumented)
     permittedParent?: Permitted;
     // (undocumented)
-    phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
+    phrasing?: boolean | MetaCategoryCallback;
     // (undocumented)
     requiredAncestors?: RequiredAncestors;
     // (undocumented)
@@ -879,7 +879,7 @@ export interface MetaData {
     // (undocumented)
     scriptSupporting?: boolean;
     // (undocumented)
-    sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
+    sectioning?: boolean | MetaCategoryCallback;
     // (undocumented)
     textContent?: TextContent | `${TextContent}`;
     // (undocumented)
@@ -1070,9 +1070,6 @@ export interface ProcessElementContext {
     // (undocumented)
     getMetaFor(this: void, tagName: string): MetaElement | null;
 }
-
-// @public @deprecated (undocumented)
-export type PropertyExpression = string | [string, any];
 
 // @public
 interface Report_2 {

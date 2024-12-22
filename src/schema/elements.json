@@ -127,11 +127,7 @@
         "labelable": {
           "title": "Mark this element as labelable",
           "description": "This element may contain an associated label element.",
-          "anyOf": [
-            { "type": "boolean" },
-            { "function": true },
-            { "$ref": "#/definitions/expression" }
-          ]
+          "anyOf": [{ "type": "boolean" }, { "function": true }]
         },
 
         "deprecatedAttributes": {
@@ -211,40 +207,7 @@
     },
 
     "contentCategory": {
-      "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }, { "function": true }]
-    },
-
-    "expression": {
-      "type": "array",
-      "minItems": 2,
-      "maxItems": 2,
-      "items": [
-        {
-          "type": "string",
-          "enum": ["isDescendant", "hasAttribute", "matchAttribute"]
-        },
-        {
-          "anyOf": [{ "type": "string" }, { "$ref": "#/definitions/operation" }]
-        }
-      ]
-    },
-
-    "operation": {
-      "type": "array",
-      "minItems": 3,
-      "maxItems": 3,
-      "items": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "string",
-          "enum": ["!=", "="]
-        },
-        {
-          "type": "string"
-        }
-      ]
+      "anyOf": [{ "type": "boolean" }, { "function": true }]
     },
 
     "deprecatedElement": {

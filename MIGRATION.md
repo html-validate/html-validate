@@ -12,6 +12,62 @@ The following deprecated aliases has been removed:
 - `htmlvalidate:document` - replace with `html-validate:document`.
 - `html-validate:a17y` - replace with `html-validate:a11y`.
 
+### Metadata changes {#v9-metadata-changes}
+
+These changes only affects users who write their own element metadata.
+
+#### String-based property expressions removed {#v9-property-expression}
+
+HTML-Validate v8.13 introduced callbacks for metadata properties and deprecated the old string-based expressions:
+
+- `["isDescendant", "tagName"]`
+- `["hasAttribute", "name"]`
+- `["matchAttribute", ["name", "!=", "value"]]`
+
+These have now been removed and can be replaced with callbacks:
+
+```diff
+-property: ["isDescendant", "parent"],
++property(node){
++  return Boolean(node.closest("parent"));
++},
+```
+
+```diff
+-property: ["hasAttribute", "name"],
++property(node){
++  return node.hasAttribute("name"));
++},
+```
+
+`matchAttribute` might require som extra care when it comes to missing value, dynamic attributes and case sensitivity.
+To strictly get the same behaviour as the old `matchAttribute` expression one can use (i.e. coalesce `null` and dynamic values to empty string `""`):
+
+```diff
+-property: ["matchAttribute", ["name", "!=", "value"]],
++property(node){
++  const raw = node.getAttribute("name") ?? "";
++  const value = raw.toString();
++  return value !== "value";
++},
+```
+
+However consider handling `null` and `DynamicValue` for saner behaviour:
+
+```diff
+-property: ["matchAttribute", ["name", "!=", "value"]],
++property(node){
++  const value = node.getAttribute("name");
++  if (value === null) {
++    return true; /* attribute is missing */
++  }
++  if (typeof value !== 'string') {
++    return true; /* attribute is dynamic, e.g. a property binding in a javascript framework */
++  }
++  return value !== "value";
++},
+```
+
 ### API changes {#v9-api-changes}
 
 #### Configuration errors {v9-config-deferred}

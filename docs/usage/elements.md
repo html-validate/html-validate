@@ -103,32 +103,6 @@ module.exports = defineMetadata({
 });
 ```
 
-### Property expressions
-
-Deprecated: Use property callbacks instead.
-
-Property expressions take the form `string | [string, any]` where the string is the name of the evaluator which may take optional data passed as the second argument.
-
-As with the `<video>` element shown above the `<audio>` element is also only interactive if the `controls` attribute is present:
-
-```json
-{
-  "audio": {
-    "interactive": ["hasAttribute", "controls"]
-  }
-}
-```
-
-The available evaluators are:
-
-- `isDescendant` evaluates to `true` if the element is a descendant of the
-  element provided as argument.  
-  `["isDescendant", "map"]`
-- `hasAttribute` evaluates to `true` if the element has the specified attribute.  
-  `["hasAttribute", "usemap"]`
-- `matchAttribute` tests if specified attribute against a value.  
-  `["matchAttribute", ["type", "!=", "hidden"]]`
-
 ## Element properties
 
 ### `deprecated`

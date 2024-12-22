@@ -16,12 +16,6 @@ export type CategoryOrTag = string;
 
 /**
  * @public
- * @deprecated Use callback variant instead.
- */
-export type PropertyExpression = string | [string, any];
-
-/**
- * @public
  */
 export type PermittedEntry = CategoryOrTag | PermittedGroup | Array<CategoryOrTag | PermittedGroup>;
 
@@ -197,13 +191,13 @@ export interface MetaData {
 	inherit?: string;
 
 	/* content categories */
-	metadata?: boolean | PropertyExpression | MetaCategoryCallback;
-	flow?: boolean | PropertyExpression | MetaCategoryCallback;
-	sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
-	heading?: boolean | PropertyExpression | MetaCategoryCallback;
-	phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
-	embedded?: boolean | PropertyExpression | MetaCategoryCallback;
-	interactive?: boolean | PropertyExpression | MetaCategoryCallback;
+	metadata?: boolean | MetaCategoryCallback;
+	flow?: boolean | MetaCategoryCallback;
+	sectioning?: boolean | MetaCategoryCallback;
+	heading?: boolean | MetaCategoryCallback;
+	phrasing?: boolean | MetaCategoryCallback;
+	embedded?: boolean | MetaCategoryCallback;
+	interactive?: boolean | MetaCategoryCallback;
 
 	/* element properties */
 	deprecated?: boolean | string | DeprecatedElement;
@@ -217,7 +211,7 @@ export interface MetaData {
 	form?: boolean;
 	/** Mark element as a form-associated element */
 	formAssociated?: Partial<FormAssociated>;
-	labelable?: boolean | PropertyExpression | MetaLabelableCallback;
+	labelable?: boolean | MetaLabelableCallback;
 
 	/** @deprecated use {@link MetaAria.implicitRole} instead */
 	implicitRole?: MetaImplicitRoleCallback;
