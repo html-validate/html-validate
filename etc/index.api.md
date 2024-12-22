@@ -1537,15 +1537,18 @@ interface Transformer_2 {
 export { Transformer_2 as Transformer }
 
 // @public (undocumented)
-export interface TransformerEntry {
-    // (undocumented)
-    name: string;
-    // (undocumented)
+export type TransformerEntry = {
+    kind: "import";
     pattern: RegExp;
-}
+    name: string;
+} | {
+    kind: "function";
+    pattern: RegExp;
+    function: Transformer_2;
+};
 
 // @public (undocumented)
-export type TransformMap = Record<string, string>;
+export type TransformMap = Record<string, string | Transformer_2>;
 
 // @public (undocumented)
 export interface TriggerEventMap {

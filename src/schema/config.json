@@ -50,10 +50,10 @@
     "transform": {
       "type": "object",
       "additionalProperties": {
-        "type": "string"
+        "anyOf": [{ "type": "string" }, { "function": true }]
       },
       "title": "File transformations to use.",
-      "description": "Object where key is regular expression to match filename and value is name of transformer.",
+      "description": "Object where key is regular expression to match filename and value is name of transformer or a function.",
       "examples": [
         {
           "^.*\\.foo$": "my-transformer",

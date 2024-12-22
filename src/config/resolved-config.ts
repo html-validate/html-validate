@@ -15,10 +15,9 @@ import { type Severity } from "./severity";
 /**
  * @public
  */
-export interface TransformerEntry {
-	pattern: RegExp;
-	name: string;
-}
+export type TransformerEntry =
+	| { kind: "import"; pattern: RegExp; name: string }
+	| { kind: "function"; pattern: RegExp; function: Transformer };
 
 /**
  * @public
@@ -105,14 +104,18 @@ export class ResolvedConfig {
 		if (!transformer) {
 			return [source];
 		}
-		const fn = getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins);
+		const fn =
+			transformer.kind === "import"
+				? getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
+				: transformer.function;
+		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 		try {
 			const transformedSources = Array.from(fn.call(context, source));
 			for (const source of transformedSources) {
 				/* keep track of which transformers that has been run on this source
 				 * by appending this entry to the transformedBy array */
 				source.transformedBy ??= [];
-				source.transformedBy.push(transformer.name);
+				source.transformedBy.push(name);
 			}
 			return transformedSources;
 		} catch (err: unknown) {

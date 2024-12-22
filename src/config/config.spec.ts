@@ -1,3 +1,4 @@
+import { type Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
 import { Config } from "./config";
@@ -517,6 +518,7 @@ describe("config", () => {
 				["plugins string", { plugins: ["foo", "bar", "baz"] }],
 				["transform empty", { transform: {} }],
 				["transform patterns", { transform: { "^foo$": "bar" } }],
+				["transform function", { transform: { "^foo$": () => [] } }],
 				["rules empty", { rules: {} }],
 				["rules with numeric severity", { rules: { foo: 0, bar: 1, baz: 2 } }],
 				["rules with severity", { rules: { a: "off", b: "warn", c: "error" } }],
@@ -552,4 +554,35 @@ describe("config", () => {
 			});
 		});
 	});
+});
+
+it("should load transformer by name", () => {
+	expect.assertions(1);
+	function foo(): Source[] {
+		return [];
+	}
+	const resolver = staticResolver({
+		transformers: {
+			foo,
+		},
+	});
+	const config = Config.fromObject([resolver], {
+		transform: {
+			".*": "foo",
+		},
+	});
+	expect(config.getTransformers()).toEqual([{ kind: "import", name: "foo", pattern: /.*/ }]);
+});
+
+it("should load transformer by function", () => {
+	expect.assertions(1);
+	function foo(): Source[] {
+		return [];
+	}
+	const config = Config.fromObject([], {
+		transform: {
+			".*": foo,
+		},
+	});
+	expect(config.getTransformers()).toEqual([{ kind: "function", function: foo, pattern: /.*/ }]);
 });
