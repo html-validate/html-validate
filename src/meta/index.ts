@@ -13,6 +13,7 @@ export {
 	type MetaDataTable,
 	type MetaElement,
 	type MetaFocusableCallback,
+	type MetaLabelableCallback,
 	type MetaLookupableProperty,
 	type Permitted,
 	type PermittedAttribute,

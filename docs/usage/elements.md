@@ -45,7 +45,7 @@ export interface MetaElement {
   scriptSupporting?: boolean;
   form?: boolean;
   formAssociated?: FormAssociated;
-  labelable?: boolean;
+  labelable?: boolean | MetaLabelableCallback;
 
   /* WAI-ARIA attributes */
   aria?: MetaAria;

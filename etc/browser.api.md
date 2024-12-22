@@ -760,7 +760,7 @@ export interface MetaData {
     // (undocumented)
     interactive?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
-    labelable?: boolean | PropertyExpression;
+    labelable?: boolean | PropertyExpression | MetaLabelableCallback;
     // (undocumented)
     metadata?: boolean | PropertyExpression | MetaCategoryCallback;
     // (undocumented)
@@ -829,6 +829,9 @@ export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
 
 // @public
 export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
+
+// @public
+export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
 
 // @public
 export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "focusable" | "form" | "formAssociated" | "labelable";

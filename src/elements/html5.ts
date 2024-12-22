@@ -1399,7 +1399,9 @@ export default defineMetadata({
 			disablable: true,
 			listed: true,
 		},
-		labelable: ["matchAttribute", ["type", "!=", "hidden"]],
+		labelable(node) {
+			return node.getAttribute("type") !== "hidden";
+		},
 		attributes: {
 			align: {
 				deprecated: true,

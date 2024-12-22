@@ -85,6 +85,17 @@ export type MetaCategoryCallback = (node: HtmlElementLike) => boolean;
 export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
 
 /**
+ * Callback for the `labelable` properties of `MetaData`. It takes a node and
+ * returns whenever the element is labelable or not.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node to determine if it is labelable.
+ * @returns `true` if the node is labelable.
+ */
+export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
+
+/**
  * Callback for the `allowed` property of `MetaAttribute`. It takes a node and
  * should return `null` if there is no errors and a string with an error
  * description if there is an error.
@@ -206,7 +217,7 @@ export interface MetaData {
 	form?: boolean;
 	/** Mark element as a form-associated element */
 	formAssociated?: Partial<FormAssociated>;
-	labelable?: boolean | PropertyExpression;
+	labelable?: boolean | PropertyExpression | MetaLabelableCallback;
 
 	/** @deprecated use {@link MetaAria.implicitRole} instead */
 	implicitRole?: MetaImplicitRoleCallback;
