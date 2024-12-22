@@ -81,6 +81,7 @@ export {
 	type MetaElement,
 	type MetaFocusableCallback,
 	type MetaImplicitRoleCallback,
+	type MetaLabelableCallback,
 	type MetaLookupableProperty,
 	type MetadataHelper,
 	type NormalizedMetaAria,

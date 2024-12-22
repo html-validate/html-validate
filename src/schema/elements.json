@@ -127,7 +127,11 @@
         "labelable": {
           "title": "Mark this element as labelable",
           "description": "This element may contain an associated label element.",
-          "anyOf": [{ "type": "boolean" }, { "$ref": "#/definitions/expression" }]
+          "anyOf": [
+            { "type": "boolean" },
+            { "function": true },
+            { "$ref": "#/definitions/expression" }
+          ]
         },
 
         "deprecatedAttributes": {
