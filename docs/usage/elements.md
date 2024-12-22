@@ -43,6 +43,7 @@ export interface MetaElement {
   void?: boolean;
   transparent?: boolean | string[];
   scriptSupporting?: boolean;
+  focusable?: boolean | MetaFocusableCallback;
   form?: boolean;
   formAssociated?: FormAssociated;
   labelable?: boolean | MetaLabelableCallback;
@@ -205,6 +206,11 @@ In HTML5 both the `<script>` and `<template>` tags are considered script-support
 
 [whatwg-scriptsupporting]: https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements-2
 
+### `focusable`
+
+Focusable elements are elements which can natively receive focus, i.e. without having `tabindex` or another method to explicitly set it to be focusable.
+This is typically elements input elements such as `<input>`.
+
 ### `form`
 
 Elements which are considered to be a form-element should set this flag to `true`.
@@ -226,7 +232,7 @@ If the element is also submittable the `name` attribute defines the name used wh
 
 [whatwg-form-associated]: https://html.spec.whatwg.org/multipage/forms.html#categories
 
-### `disablable`
+#### `disablable`
 
 Disablable elements can be disabled using the disabled attribute.
 
