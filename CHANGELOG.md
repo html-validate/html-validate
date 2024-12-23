@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.0.1 (2024-12-23)
+
+### Bug Fixes
+
+- fix `validateMultipleFiles` incorrectly using sync API ([0c26918](https://gitlab.com/html-validate/html-validate/commit/0c26918e052f9968f2890f2db53b6d2e4b5a95cf))
+
 ## 9.0.0 (2024-12-23)
 
 ESM support has finally landed in HTML-Validate V9!
