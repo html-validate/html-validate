@@ -2,6 +2,18 @@
 
 ## Upgrading to v9
 
+ESM support has finally landed in HTML-Validate V9!
+
+- Configuration files (using `.htmlvalidate.mjs` or when `"type"` is `"module"` in `package.json`).
+- Plugins, element metadata, shared configurations and transformers can be written natively in ESM.
+
+This release is primarly breaking for API uses but some configuration changes might be required (see below).
+For API users the TL;DR version is most functions can return a `Promise` so make sure to `await` it.
+
+### Dependency changes {#v9-dependency-changes}
+
+NodeJS v18 or later is now required.
+
 ### Configuration changes {#v9-configuration-changes}
 
 #### ESM
