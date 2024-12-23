@@ -11,7 +11,7 @@ export interface Transformer {
 	/**
 	 * Callback function to transform a source to plain HTML sources.
 	 *
-	 * Since %version% the transformer may return:
+	 * Since 9.0.0 the transformer may return:
 	 *
 	 * - A single `Source` object or a `Promise` resolving to one.
 	 * - An array of `Source` objects or a `Promise` resolving to one.

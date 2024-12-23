@@ -17,7 +17,7 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
  * ESM resolver.
  *
  * @public
- * @since %version%
+ * @since 9.0.0
  */
 export type ESMResolver = Required<Resolver>;
 
@@ -30,7 +30,7 @@ export type ESMResolver = Required<Resolver>;
  * file (starting at the current working directory).
  *
  * @public
- * @since %version%
+ * @since 9.0.0
  */
 export function esmResolver(options: { rootDir?: string } = {}): ESMResolver {
 	const rootDir = options.rootDir ?? determineRootDir();

@@ -18,7 +18,7 @@ export async function internalImport<T = unknown>(id: string): Promise<T | null>
  * ESM resolver.
  *
  * @public
- * @since %version%
+ * @since 9.0.0
  */
 export type ESMResolver = Required<Resolver>;
 
@@ -26,7 +26,7 @@ export type ESMResolver = Required<Resolver>;
  * Create a new resolver for  using `import(..)`.
  *
  * @public
- * @since %version%
+ * @since 9.0.0
  */
 export function esmResolver(): ESMResolver {
 	return {
