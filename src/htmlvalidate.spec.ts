@@ -590,7 +590,7 @@ describe("HtmlValidate", () => {
 		it("should call validateFile for each file", async () => {
 			expect.assertions(3);
 			const htmlvalidate = new HtmlValidate();
-			const spy = jest.spyOn(htmlvalidate, "validateFileSync").mockReturnValue({
+			const spy = jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue({
 				valid: true,
 				results: [],
 				errorCount: 0,
@@ -606,8 +606,8 @@ describe("HtmlValidate", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
 			jest
-				.spyOn(htmlvalidate, "validateFileSync")
-				.mockReturnValueOnce({
+				.spyOn(htmlvalidate, "validateFile")
+				.mockResolvedValueOnce({
 					valid: true,
 					results: [
 						{
@@ -621,7 +621,7 @@ describe("HtmlValidate", () => {
 					errorCount: 0,
 					warningCount: 1,
 				})
-				.mockReturnValueOnce({
+				.mockResolvedValueOnce({
 					valid: false,
 					results: [
 						{
