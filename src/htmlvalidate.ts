@@ -207,8 +207,7 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public async validateMultipleFiles(filenames: string[]): Promise<Report> {
-		const report = Reporter.merge(filenames.map((filename) => this.validateFileSync(filename)));
-		return Promise.resolve(report);
+		return Reporter.merge(filenames.map((filename) => this.validateFile(filename)));
 	}
 
 	/**
