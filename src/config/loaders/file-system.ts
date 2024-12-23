@@ -180,6 +180,8 @@ export class FileSystemConfigLoader extends ConfigLoader {
 				found = true;
 
 				const merged = local.merge(this.resolvers, config);
+
+				/* istanbul ignore if -- should never happen */
 				if (isThenable(merged)) {
 					throw new Error("internal error: async result ended up in sync path");
 				}
@@ -272,6 +274,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const merged = config
 			? config.merge(this.resolvers, override)
 			: globalConfig.merge(this.resolvers, override);
+		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 		if (isThenable(merged)) {
 			return merged.then((merged) => {
 				return merged.resolve();
@@ -290,6 +293,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		}
 
 		const globalConfig = this.getGlobalConfig();
+		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 		if (isThenable(globalConfig)) {
 			return globalConfig.then((globalConfig) => {
 				return this._resolveSync2(filename, override, globalConfig);
@@ -308,6 +312,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		 * try to load and more configuration files */
 		if (globalConfig.isRootFound()) {
 			const merged = globalConfig.merge(this.resolvers, override);
+			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 			if (isThenable(merged)) {
 				return merged.then((merged) => {
 					return merged.resolve();

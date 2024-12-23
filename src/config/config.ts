@@ -268,6 +268,7 @@ export class Config {
 		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
 
 		/* load plugins */
+		/* istanbul ignore next -- this is initialized to [] but typescript doesn't know that */
 		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
 		if (isThenable(plugins)) {
 			return plugins.then((plugins) => {
@@ -307,13 +308,10 @@ export class Config {
 	}
 
 	private async extendConfigAsync(entries: string[]): Promise<ConfigData> {
-		if (entries.length === 0) {
-			return this.config;
-		}
-
 		let base: ConfigData = {};
 		for (const entry of entries) {
 			let extended: ConfigData;
+			/* istanbul ignore if -- would not typically happen, this is hard to hit even with specific tests */
 			if (this.configurations.has(entry)) {
 				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
 			} else {

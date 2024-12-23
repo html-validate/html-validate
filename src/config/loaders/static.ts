@@ -96,6 +96,7 @@ export class StaticConfigLoader extends ConfigLoader {
 		if (isThenable(globalConfig)) {
 			return globalConfig.then((globalConfig) => {
 				const merged = globalConfig.merge(this.resolvers, override);
+				/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 				if (isThenable(merged)) {
 					return merged.then((merged) => {
 						return merged.resolve();
@@ -106,6 +107,7 @@ export class StaticConfigLoader extends ConfigLoader {
 			});
 		} else {
 			const merged = globalConfig.merge(this.resolvers, override);
+			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 			if (isThenable(merged)) {
 				return merged.then((merged) => {
 					return merged.resolve();

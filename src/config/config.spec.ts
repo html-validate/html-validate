@@ -1,9 +1,10 @@
 import { type Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
+import { type Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
-import { staticResolver } from "./resolver";
+import { type Resolver, staticResolver } from "./resolver";
 import { Severity } from "./severity";
 import { cjsResolver } from "./resolver/nodejs";
 
@@ -108,6 +109,34 @@ describe("config", () => {
 		expect((await Config.fromObject(resolvers, { plugins: [] })).getPlugins()).toEqual([]);
 	});
 
+	it("should return not promise if config is sync", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin() {
+				return { name: "mock-plugin" };
+			},
+		};
+		const config = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
+		expect(config).not.toBeInstanceOf(Promise);
+		expect((config as Config).getPlugins()).toEqual([
+			expect.objectContaining({ name: "mock-plugin" }),
+		]);
+	});
+
+	it("should return promise if config is async", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin() {
+				return Promise.resolve({ name: "mock-plugin" });
+			},
+		};
+		const config = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
+		expect(config).toBeInstanceOf(Promise);
+		expect((await config).getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
+	});
+
 	it("should handle missing transform property", async () => {
 		expect.assertions(3);
 		expect((await Config.fromObject(resolvers, {})).getTransformers()).toEqual([]);
@@ -118,12 +147,38 @@ describe("config", () => {
 	});
 
 	describe("merge()", () => {
-		it("should merge two configs", async () => {
-			expect.assertions(1);
+		it("should merge two sync configs", async () => {
+			expect.assertions(2);
 			const a = await Config.fromObject(resolvers, { rules: { foo: 1 } });
 			const b = await Config.fromObject(resolvers, { rules: { bar: 1 } });
-			const merged = await a.merge(resolvers, b);
-			expect(merged.get()).toEqual(
+			const merged = a.merge(resolvers, b);
+			expect(merged).not.toBeInstanceOf(Promise);
+			expect((merged as Config).get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						foo: 1,
+						bar: 1,
+					},
+				}),
+			);
+		});
+
+		it("should merge two async configs", async () => {
+			expect.assertions(2);
+			const resolver: Resolver = {
+				name: "mock-resolver",
+				resolvePlugin() {
+					return Promise.resolve({ name: "mock-plugin" });
+				},
+			};
+			const a = await Config.fromObject([resolver], { rules: { foo: 1 } });
+			const b = await Config.fromObject([resolver], {
+				rules: { bar: 1 },
+				plugins: ["mock-plugin"],
+			});
+			const merged = a.merge([resolver], b);
+			expect(merged).toBeInstanceOf(Promise);
+			expect((await merged).get()).toEqual(
 				expect.objectContaining({
 					rules: {
 						foo: 1,
@@ -481,6 +536,71 @@ describe("config", () => {
 			expect.objectContaining({ name: "inline-plugin" }),
 			expect.objectContaining({ name: ":unnamedPlugin@2" }),
 		]);
+	});
+
+	it("should load multiple plugins", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin(id): Plugin | null {
+				if (id === "foo") {
+					return { name: "foo", configs: { recommended: { rules: { foo: "error" } } } };
+				} else if (id === "bar") {
+					return { configs: { recommended: { rules: { bar: "error" } } } };
+				} else {
+					return null;
+				}
+			},
+		};
+		const config = await Config.fromObject([resolver], {
+			plugins: ["foo", "bar"],
+			extends: ["foo:recommended", "bar:recommended"],
+		});
+		expect(config.getPlugins()).toEqual([
+			expect.objectContaining({ name: "foo" }),
+			expect.objectContaining({ name: "bar" }),
+		]);
+		expect(config.getRules()).toEqual(
+			new Map([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.ERROR, {}]],
+			]),
+		);
+	});
+
+	it("should load multiple plugins (async)", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin(id): Promise<Plugin | null> {
+				if (id === "foo") {
+					return Promise.resolve({
+						name: "foo",
+						configs: { recommended: { rules: { foo: "error" } } },
+					});
+				} else if (id === "bar") {
+					return Promise.resolve({
+						configs: { recommended: { rules: { bar: "error" } } },
+					});
+				} else {
+					return Promise.resolve(null);
+				}
+			},
+		};
+		const config = await Config.fromObject([resolver], {
+			plugins: ["foo", "bar"],
+			extends: ["foo:recommended", "bar:recommended"],
+		});
+		expect(config.getPlugins()).toEqual([
+			expect.objectContaining({ name: "foo" }),
+			expect.objectContaining({ name: "bar" }),
+		]);
+		expect(config.getRules()).toEqual(
+			new Map([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.ERROR, {}]],
+			]),
+		);
 	});
 
 	describe("schema validation", () => {

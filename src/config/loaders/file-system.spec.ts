@@ -1,8 +1,10 @@
 import { Volume } from "memfs/lib/volume";
+import * as requireUncached from "../../utils/require-uncached";
 import { isThenable } from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type Resolver } from "../resolver";
+import { cjsResolver } from "../resolver/nodejs";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -12,6 +14,21 @@ declare module "../config-data" {
 }
 
 let volume: Volume | null;
+
+jest.mock("../../utils/require-uncached");
+
+jest
+	.spyOn(requireUncached, "requireUncached")
+	.mockImplementation((_: unknown, moduleName: string) => {
+		if (!volume) {
+			throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
+		}
+		if (moduleName.endsWith(".json")) {
+			return JSON.parse(volume.readFileSync(moduleName, "utf-8") as string);
+		} else {
+			throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
+		}
+	});
 
 jest.mock(
 	"../resolver/nodejs/internal-import",
@@ -510,6 +527,29 @@ describe("FileSystemConfigLoader", () => {
 			});
 		});
 
+		it("should load configuration (cjs)", async () => {
+			expect.assertions(1);
+			volume = Volume.fromJSON({
+				"/path/to/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const resolver = cjsResolver();
+			const loader = new FileSystemConfigLoader([resolver], undefined, { fs: volume });
+			const config = await loader.fromFilename("/path/to/target.html");
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					foo: "error",
+				},
+			});
+		});
+
 		it("should load configuration (async)", async () => {
 			expect.assertions(1);
 			volume = Volume.fromJSON({
@@ -542,6 +582,29 @@ describe("FileSystemConfigLoader", () => {
 				} satisfies ConfigData),
 			});
 			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+			const config = await loader.fromFilename("/path/to/target.html");
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					foo: "error",
+				},
+			});
+		});
+
+		it("should load configuration from parent directory (cjs)", async () => {
+			expect.assertions(1);
+			volume = Volume.fromJSON({
+				"/path/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						foo: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const resolver = cjsResolver();
+			const loader = new FileSystemConfigLoader([resolver], undefined, { fs: volume });
 			const config = await loader.fromFilename("/path/to/target.html");
 			expect(config?.get()).toEqual({
 				elements: undefined,
@@ -598,6 +661,43 @@ describe("FileSystemConfigLoader", () => {
 				} satisfies ConfigData),
 			});
 			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+			const config = await loader.fromFilename("/path/to/target.html");
+			expect(config?.get()).toEqual({
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					a: "warn" /* warn should have precedence over topmost directory */,
+					b: "error",
+					c: "error" /* error should have precedence over parent directory */,
+				},
+			});
+		});
+
+		it("should load configuration from multiple files (cjs)", async () => {
+			expect.assertions(1);
+			volume = Volume.fromJSON({
+				"/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						a: "error",
+					},
+				} satisfies ConfigData),
+				"/path/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						a: "warn",
+						b: "error",
+						c: "warn",
+					},
+				} satisfies ConfigData),
+				"/path/to/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						c: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const resolver = cjsResolver();
+			const loader = new FileSystemConfigLoader([resolver], undefined, { fs: volume });
 			const config = await loader.fromFilename("/path/to/target.html");
 			expect(config?.get()).toEqual({
 				elements: undefined,
@@ -670,6 +770,44 @@ describe("FileSystemConfigLoader", () => {
 				} satisfies ConfigData),
 			});
 			const loader = new FileSystemConfigLoader(undefined, { fs: volume });
+			const config = await loader.fromFilename("/project/root/src/target.html");
+			expect(config?.get()).toEqual({
+				root: true,
+				elements: undefined,
+				extends: [],
+				plugins: [],
+				transform: {},
+				rules: {
+					/* a should not be present */
+					b: "error",
+					c: "error",
+				},
+			});
+		});
+
+		it("should stop searching when root is found (cjs)", async () => {
+			expect.assertions(1);
+			volume = Volume.fromJSON({
+				"/project/.htmlvalidate.json": JSON.stringify({
+					root: true,
+					rules: {
+						a: "error",
+					},
+				} satisfies ConfigData),
+				"/project/root/.htmlvalidate.json": JSON.stringify({
+					root: true,
+					rules: {
+						b: "error",
+					},
+				} satisfies ConfigData),
+				"/project/root/src/.htmlvalidate.json": JSON.stringify({
+					rules: {
+						c: "error",
+					},
+				} satisfies ConfigData),
+			});
+			const resolver = cjsResolver();
+			const loader = new FileSystemConfigLoader([resolver], undefined, { fs: volume });
 			const config = await loader.fromFilename("/project/root/src/target.html");
 			expect(config?.get()).toEqual({
 				root: true,
