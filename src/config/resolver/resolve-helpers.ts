@@ -2,6 +2,7 @@ import { UserError } from "../../error";
 import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
 import { type Transformer } from "../../transform";
+import { isThenable } from "../../utils";
 import { type ConfigData } from "../config-data";
 import { type Resolver, type ResolverOptions } from "./resolver";
 
@@ -37,9 +38,29 @@ export function resolveConfig(
 	resolvers: Resolver[],
 	id: string,
 	options: ResolverOptions,
-): ConfigData {
+): ConfigData | Promise<ConfigData> {
 	for (const resolver of resolvers.filter(haveConfigResolver)) {
 		const config = resolver.resolveConfig(id, options);
+		if (isThenable(config)) {
+			return resolveConfigAsync(resolvers, id, options);
+		}
+		if (config) {
+			return config;
+		}
+	}
+	throw new UserError(`Failed to load configuration from "${id}"`);
+}
+
+/**
+ * @internal
+ */
+export async function resolveConfigAsync(
+	resolvers: Resolver[],
+	id: string,
+	options: ResolverOptions,
+): Promise<ConfigData> {
+	for (const resolver of resolvers.filter(haveConfigResolver)) {
+		const config = await resolver.resolveConfig(id, options);
 		if (config) {
 			return config;
 		}
@@ -54,9 +75,12 @@ export function resolveElements(
 	resolvers: Resolver[],
 	id: string,
 	options: ResolverOptions,
-): MetaDataTable {
+): MetaDataTable | Promise<MetaDataTable> {
 	for (const resolver of resolvers.filter(haveElementsResolver)) {
 		const elements = resolver.resolveElements(id, options);
+		if (isThenable(elements)) {
+			return resolveElementsAsync(resolvers, id, options);
+		}
 		if (elements) {
 			return elements;
 		}
@@ -67,9 +91,50 @@ export function resolveElements(
 /**
  * @internal
  */
-export function resolvePlugin(resolvers: Resolver[], id: string, options: ResolverOptions): Plugin {
+export async function resolveElementsAsync(
+	resolvers: Resolver[],
+	id: string,
+	options: ResolverOptions,
+): Promise<MetaDataTable> {
+	for (const resolver of resolvers.filter(haveElementsResolver)) {
+		const elements = await resolver.resolveElements(id, options);
+		if (elements) {
+			return elements;
+		}
+	}
+	throw new UserError(`Failed to load elements from "${id}"`);
+}
+
+/**
+ * @internal
+ */
+export function resolvePlugin(
+	resolvers: Resolver[],
+	id: string,
+	options: ResolverOptions,
+): Plugin | Promise<Plugin> {
 	for (const resolver of resolvers.filter(havePluginResolver)) {
 		const plugin = resolver.resolvePlugin(id, options);
+		if (isThenable(plugin)) {
+			return resolvePluginAsync(resolvers, id, options);
+		}
+		if (plugin) {
+			return plugin;
+		}
+	}
+	throw new UserError(`Failed to load plugin from "${id}"`);
+}
+
+/**
+ * @internal
+ */
+export async function resolvePluginAsync(
+	resolvers: Resolver[],
+	id: string,
+	options: ResolverOptions,
+): Promise<Plugin> {
+	for (const resolver of resolvers.filter(havePluginResolver)) {
+		const plugin = await resolver.resolvePlugin(id, options);
 		if (plugin) {
 			return plugin;
 		}
@@ -84,9 +149,29 @@ export function resolveTransformer(
 	resolvers: Resolver[],
 	id: string,
 	options: ResolverOptions,
-): Transformer {
+): Transformer | Promise<Transformer> {
 	for (const resolver of resolvers.filter(haveTransformerResolver)) {
 		const transformer = resolver.resolveTransformer(id, options);
+		if (isThenable(transformer)) {
+			return resolveTransformerAsync(resolvers, id, options);
+		}
+		if (transformer) {
+			return transformer;
+		}
+	}
+	throw new UserError(`Failed to load transformer from "${id}"`);
+}
+
+/**
+ * @internal
+ */
+export async function resolveTransformerAsync(
+	resolvers: Resolver[],
+	id: string,
+	options: ResolverOptions,
+): Promise<Transformer> {
+	for (const resolver of resolvers.filter(haveTransformerResolver)) {
+		const transformer = await resolver.resolveTransformer(id, options);
 		if (transformer) {
 			return transformer;
 		}

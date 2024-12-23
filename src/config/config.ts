@@ -10,6 +10,7 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
+import { isThenable } from "../utils";
 import {
 	type ConfigData,
 	type RuleConfig,
@@ -102,7 +103,7 @@ export class Config {
 	 * Create a new blank configuration. See also `Config.defaultConfig()`.
 	 */
 	public static empty(): Config {
-		return Config.create([], {
+		return new Config([], {
 			extends: [],
 			rules: {},
 			plugins: [],
@@ -117,7 +118,7 @@ export class Config {
 		resolvers: Resolver | Resolver[],
 		options: ConfigData,
 		filename: string | null = null,
-	): Config {
+	): Config | Promise<Config> {
 		Config.validate(options, filename);
 		return Config.create(resolvers, options);
 	}
@@ -131,9 +132,16 @@ export class Config {
 	 * @internal
 	 * @param filename - The file to read from
 	 */
-	public static fromFile(resolvers: Resolver | Resolver[], filename: string): Config {
+	public static fromFile(
+		resolvers: Resolver | Resolver[],
+		filename: string,
+	): Config | Promise<Config> {
 		const configData = resolveConfig(toArray(resolvers), filename, { cache: false });
-		return Config.fromObject(resolvers, configData, filename);
+		if (isThenable(configData)) {
+			return configData.then((configData) => Config.fromObject(resolvers, configData, filename));
+		} else {
+			return Config.fromObject(resolvers, configData, filename);
+		}
 	}
 
 	/**
@@ -170,35 +178,58 @@ export class Config {
 	 * Load a default configuration object.
 	 */
 	public static defaultConfig(): Config {
-		return Config.create([], defaultConfig);
+		return new Config([], defaultConfig);
 	}
 
 	/**
 	 * @internal
 	 */
-	private static create(resolvers: Resolver | Resolver[], options: ConfigData): Config {
+	private static create(
+		resolvers: Resolver | Resolver[],
+		options: ConfigData,
+	): Config | Promise<Config> {
 		const instance = new Config(resolvers, options);
 
 		/* load plugins */
-		instance.plugins = instance.loadPlugins(instance.config.plugins ?? []);
-		instance.configurations = instance.loadConfigurations(instance.plugins);
-		instance.extendMeta(instance.plugins);
+		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		if (isThenable(plugins)) {
+			return plugins.then((plugins) => {
+				return instance.init(options, plugins);
+			});
+		} else {
+			return instance.init(options, plugins);
+		}
+	}
+
+	private init(options: ConfigData, plugins: LoadedPlugin[]): Config | Promise<Config> {
+		this.plugins = plugins;
+		this.configurations = this.loadConfigurations(this.plugins);
+		this.extendMeta(this.plugins);
+
+		const update = (extendedConfig: ConfigData): Config => {
+			this.config = extendedConfig;
+
+			/* reset extends as we already processed them, this prevents the next config
+			 * from reapplying config from extended config as well as duplicate entries
+			 * when merging arrays */
+			this.config.extends = [];
+
+			/* rules explicitly set by passed options should have precedence over any
+			 * extended rules, not the other way around. */
+			if (options.rules) {
+				this.config = mergeInternal(this.config, { rules: options.rules });
+			}
+
+			return this;
+		};
 
 		/* process extended configs */
-		instance.config = instance.extendConfig(instance.config.extends ?? []);
-
-		/* reset extends as we already processed them, this prevents the next config
-		 * from reapplying config from extended config as well as duplicate entries
-		 * when merging arrays */
-		instance.config.extends = [];
-
-		/* rules explicitly set by passed options should have precedence over any
-		 * extended rules, not the other way around. */
-		if (options.rules) {
-			instance.config = mergeInternal(instance.config, { rules: options.rules });
+		const extendedConfig = this.extendConfig(this.config.extends ?? []);
+		if (isThenable(extendedConfig)) {
+			return extendedConfig.then((extended) => update(extended));
+		} else {
+			return update(extendedConfig);
 		}
-
-		return instance;
 	}
 
 	/**
@@ -220,14 +251,6 @@ export class Config {
 	}
 
 	/**
-	 * @public
-	 * @deprecated Not needed any longer, this is a dummy noop method.
-	 */
-	public init(): void {
-		/* dummy noop */
-	}
-
-	/**
 	 * Returns true if this configuration is marked as "root".
 	 */
 	public isRootFound(): boolean {
@@ -241,11 +264,28 @@ export class Config {
 	 * @public
 	 * @param rhs - Configuration to merge with this one.
 	 */
-	public merge(resolvers: Resolver[], rhs: Config): Config {
-		return Config.create(resolvers, mergeInternal(this.config, rhs.config));
+	public merge(resolvers: Resolver[], rhs: Config): Config | Promise<Config> {
+		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
+
+		/* load plugins */
+		/* istanbul ignore next -- this is initialized to [] but typescript doesn't know that */
+		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
+		if (isThenable(plugins)) {
+			return plugins.then((plugins) => {
+				instance.plugins = plugins;
+				instance.configurations = instance.loadConfigurations(instance.plugins);
+				instance.extendMeta(instance.plugins);
+				return instance;
+			});
+		} else {
+			instance.plugins = plugins;
+			instance.configurations = instance.loadConfigurations(instance.plugins);
+			instance.extendMeta(instance.plugins);
+			return instance;
+		}
 	}
 
-	private extendConfig(entries: string[]): ConfigData {
+	private extendConfig(entries: string[]): ConfigData | Promise<ConfigData> {
 		if (entries.length === 0) {
 			return this.config;
 		}
@@ -256,7 +296,27 @@ export class Config {
 			if (this.configurations.has(entry)) {
 				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
 			} else {
-				extended = Config.fromFile(this.resolvers, entry).config;
+				const loadedConfig = Config.fromFile(this.resolvers, entry);
+				if (isThenable(loadedConfig)) {
+					return this.extendConfigAsync(entries);
+				}
+				extended = loadedConfig.config;
+			}
+			base = mergeInternal(base, extended);
+		}
+		return mergeInternal(base, this.config);
+	}
+
+	private async extendConfigAsync(entries: string[]): Promise<ConfigData> {
+		let base: ConfigData = {};
+		for (const entry of entries) {
+			let extended: ConfigData;
+			/* istanbul ignore if -- would not typically happen, this is hard to hit even with specific tests */
+			if (this.configurations.has(entry)) {
+				extended = this.configurations.get(entry)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- map has/get combo
+			} else {
+				const loadedConfig = await Config.fromFile(this.resolvers, entry);
+				extended = loadedConfig.config;
 			}
 			base = mergeInternal(base, extended);
 		}
@@ -268,14 +328,13 @@ export class Config {
 	 *
 	 * @internal
 	 */
-	public getMetaTable(): MetaTable {
+	public getMetaTable(): MetaTable | Promise<MetaTable> {
 		/* use cached table if it exists */
 		if (this.metaTable) {
 			return this.metaTable;
 		}
 
 		const metaTable = new MetaTable();
-		const source = this.config.elements ?? ["html5"];
 
 		/* extend validation schema from plugins */
 		for (const plugin of this.getPlugins()) {
@@ -285,36 +344,76 @@ export class Config {
 		}
 
 		/* load from all entries */
-		for (const entry of source) {
-			/* load meta directly from entry */
-			if (typeof entry !== "string") {
-				metaTable.loadFromObject(entry as MetaDataTable);
-				continue;
+		const source = Array.from(this.config.elements ?? ["html5"]);
+		const loadEntry = (entry: string | Record<string, unknown>): void | Promise<void> => {
+			const result = this.getElementsFromEntry(entry);
+			if (isThenable(result)) {
+				return result.then((result) => {
+					const [obj, filename] = result;
+					metaTable.loadFromObject(obj, filename);
+					const next = source.shift();
+					if (next) {
+						return loadEntry(next);
+					}
+				});
+			} else {
+				const [obj, filename] = result;
+				metaTable.loadFromObject(obj, filename);
+				const next = source.shift();
+				if (next) {
+					return loadEntry(next);
+				}
 			}
-
-			/* try searching builtin metadata */
-			const bundled = bundledElements[entry] as MetaDataTable | undefined;
-			if (bundled) {
-				metaTable.loadFromObject(bundled);
-				continue;
-			}
-
-			/* load with resolver */
-			try {
-				const data = resolveElements(this.resolvers, entry, { cache: false });
-				metaTable.loadFromObject(data, entry);
-			} catch (err: unknown) {
-				/* istanbul ignore next: only used as a fallback */
-				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(
-					`Failed to load elements from "${entry}": ${message}`,
-					ensureError(err),
-				);
+		};
+		const next = source.shift();
+		if (next) {
+			const result = loadEntry(next);
+			if (isThenable(result)) {
+				return result.then(() => {
+					metaTable.init();
+					return (this.metaTable = metaTable);
+				});
 			}
 		}
 
 		metaTable.init();
 		return (this.metaTable = metaTable);
+	}
+
+	private getElementsFromEntry(
+		entry: string | Record<string, unknown>,
+	):
+		| [obj: MetaDataTable, filename: string | null]
+		| Promise<[obj: MetaDataTable, filename: string | null]> {
+		/* load meta directly from entry */
+		if (typeof entry !== "string") {
+			return [entry as MetaDataTable, null];
+		}
+
+		/* try searching builtin metadata */
+		const bundled = bundledElements[entry] as MetaDataTable | undefined;
+		if (bundled) {
+			return [bundled, null];
+		}
+
+		/* load with resolver */
+		try {
+			const obj = resolveElements(this.resolvers, entry, { cache: false });
+			if (isThenable(obj)) {
+				return obj.then((obj) => {
+					return [obj, entry];
+				});
+			} else {
+				return [obj, entry];
+			}
+		} catch (err: unknown) {
+			/* istanbul ignore next: only used as a fallback */
+			const message = err instanceof Error ? err.message : String(err);
+			throw new ConfigError(
+				`Failed to load elements from "${entry}": ${message}`,
+				ensureError(err),
+			);
+		}
 	}
 
 	/**
@@ -370,29 +469,64 @@ export class Config {
 		return this.transformers;
 	}
 
-	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] {
-		return plugins.map((moduleName: string | Plugin, index: number) => {
-			if (typeof moduleName !== "string") {
-				const plugin = moduleName as LoadedPlugin;
+	private loadPlugins(plugins: Array<string | Plugin>): LoadedPlugin[] | Promise<LoadedPlugin[]> {
+		const loaded: LoadedPlugin[] = [];
+
+		/* the original should not be mutated */
+		const loading = Array.from(plugins);
+
+		const loadPlugin = (entry: string | Plugin, index: number): void | Promise<void> => {
+			if (typeof entry !== "string") {
+				const plugin = entry as LoadedPlugin;
 				plugin.name = plugin.name || `:unnamedPlugin@${String(index + 1)}`;
 				plugin.originalName = `:unnamedPlugin@${String(index + 1)}`;
-				return plugin;
+				loaded.push(plugin);
+				const next = loading.shift();
+				if (next) {
+					return loadPlugin(next, index + 1);
+				}
+			} else {
+				try {
+					const plugin = resolvePlugin(this.resolvers, entry, { cache: true }) as
+						| LoadedPlugin
+						| Promise<LoadedPlugin>;
+					if (isThenable(plugin)) {
+						return plugin.then((plugin) => {
+							plugin.name = plugin.name || entry;
+							plugin.originalName = entry;
+							loaded.push(plugin);
+							const next = loading.shift();
+							if (next) {
+								return loadPlugin(next, index + 1);
+							}
+						});
+					} else {
+						plugin.name = plugin.name || entry;
+						plugin.originalName = entry;
+						loaded.push(plugin);
+						const next = loading.shift();
+						if (next) {
+							return loadPlugin(next, index + 1);
+						}
+					}
+				} catch (err: unknown) {
+					/* istanbul ignore next: only used as a fallback */
+					const message = err instanceof Error ? err.message : String(err);
+					throw new ConfigError(`Failed to load plugin "${entry}": ${message}`, ensureError(err));
+				}
 			}
+		};
 
-			try {
-				const plugin = resolvePlugin(this.resolvers, moduleName, { cache: true }) as LoadedPlugin;
-				plugin.name = plugin.name || moduleName;
-				plugin.originalName = moduleName;
-				return plugin;
-			} catch (err: unknown) {
-				/* istanbul ignore next: only used as a fallback */
-				const message = err instanceof Error ? err.message : String(err);
-				throw new ConfigError(
-					`Failed to load plugin "${moduleName}": ${message}`,
-					ensureError(err),
-				);
+		const next = loading.shift();
+		if (next) {
+			const result = loadPlugin(next, 0);
+			if (isThenable(result)) {
+				return result.then(() => {
+					return loaded;
+				});
 			}
-		});
+		}
+		return loaded;
 	}
 
 	private loadConfigurations(plugins: LoadedPlugin[]): Map<string, ConfigData> {
@@ -455,8 +589,15 @@ export class Config {
 	 *
 	 * @public
 	 */
-	public resolve(): ResolvedConfig {
-		return new ResolvedConfig(this.resolveData(), this.get());
+	public resolve(): ResolvedConfig | Promise<ResolvedConfig> {
+		const resolveData = this.resolveData();
+		if (isThenable(resolveData)) {
+			return resolveData.then((resolveData) => {
+				return new ResolvedConfig(resolveData, this.get());
+			});
+		} else {
+			return new ResolvedConfig(resolveData, this.get());
+		}
 	}
 
 	/**
@@ -465,12 +606,24 @@ export class Config {
 	 *
 	 * @internal
 	 */
-	public resolveData(): ResolvedConfigData {
-		return {
-			metaTable: this.getMetaTable(),
-			plugins: this.getPlugins(),
-			rules: this.getRules(),
-			transformers: this.transformers,
-		};
+	public resolveData(): ResolvedConfigData | Promise<ResolvedConfigData> {
+		const metaTable = this.getMetaTable();
+		if (isThenable(metaTable)) {
+			return metaTable.then((metaTable) => {
+				return {
+					metaTable,
+					plugins: this.getPlugins(),
+					rules: this.getRules(),
+					transformers: this.transformers,
+				};
+			});
+		} else {
+			return {
+				metaTable,
+				plugins: this.getPlugins(),
+				rules: this.getRules(),
+				transformers: this.transformers,
+			};
+		}
 	}
 }

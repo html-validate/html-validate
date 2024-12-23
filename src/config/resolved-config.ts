@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { type Source } from "../context";
-import { ensureError, NestedError } from "../error";
+import { ensureError, NestedError, UserError } from "../error";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
 import {
@@ -8,6 +8,7 @@ import {
 	type TransformContext,
 	type Transformer,
 } from "../transform";
+import { isThenable } from "../utils";
 import { type ConfigData, type RuleOptions } from "./config-data";
 import { type Resolver } from "./resolver";
 import { type Severity } from "./severity";
@@ -28,6 +29,20 @@ export interface ResolvedConfigData {
 	rules: Map<string, [Severity, RuleOptions]>;
 	transformers: TransformerEntry[];
 }
+
+function isIterable<T>(value: unknown | Iterable<T>): value is Iterable<T> {
+	return Boolean(value && typeof value === "object" && Symbol.iterator in value);
+}
+
+function isNonThenableArray<T>(value: Array<T | Promise<T>>): value is T[] {
+	return !value.some(isThenable);
+}
+
+function toArray<T>(value: T | Iterable<T>): T[] {
+	return isIterable(value) ? Array.from(value) : [value];
+}
+
+const asyncInSyncTransformError = "Cannot use async transformer from sync function";
 
 /**
  * A resolved configuration is a normalized configuration with all extends,
@@ -91,7 +106,11 @@ export class ResolvedConfig {
 	 * transformer. Default is to use filename from source.
 	 * @returns A list of transformed sources ready for validation.
 	 */
-	public transformSource(resolvers: Resolver[], source: Source, filename?: string): Source[] {
+	public async transformSource(
+		resolvers: Resolver[],
+		source: Source,
+		filename?: string,
+	): Promise<Source[]> {
 		const transformer = this.findTransformer(filename ?? source.filename);
 		const context: TransformContext = {
 			hasChain: (filename: string): boolean => {
@@ -102,6 +121,55 @@ export class ResolvedConfig {
 			},
 		};
 		if (!transformer) {
+			return Promise.resolve([source]);
+		}
+		const fn =
+			transformer.kind === "import"
+				? await getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
+				: transformer.function;
+		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
+		try {
+			const result = await fn.call(context, source);
+			const transformedSources = await Promise.all(toArray(result));
+			for (const source of transformedSources) {
+				/* keep track of which transformers that has been run on this source
+				 * by appending this entry to the transformedBy array */
+				source.transformedBy ??= [];
+				source.transformedBy.push(name);
+			}
+			return transformedSources;
+		} catch (err: unknown) {
+			/* istanbul ignore next: only used as a fallback */
+			const message = err instanceof Error ? err.message : String(err);
+			throw new NestedError(`When transforming "${source.filename}": ${message}`, ensureError(err));
+		}
+	}
+
+	/**
+	 * Transform a source.
+	 *
+	 * When transforming zero or more new sources will be generated.
+	 *
+	 * @internal
+	 * @param source - Current source to transform.
+	 * @param filename - If set it is the filename used to match
+	 * transformer. Default is to use filename from source.
+	 * @returns A list of transformed sources ready for validation.
+	 */
+	/* eslint-disable-next-line complexity -- there is many ifs'n buts here but
+	 * hard to break this down without loosing the little clarity that is still
+	 * left */
+	public transformSourceSync(resolvers: Resolver[], source: Source, filename?: string): Source[] {
+		const transformer = this.findTransformer(filename ?? source.filename);
+		const context: TransformContext = {
+			hasChain: (filename: string): boolean => {
+				return !!this.findTransformer(filename);
+			},
+			chain: (source: Source, filename: string) => {
+				return this.transformSourceSync(resolvers, source, filename);
+			},
+		};
+		if (!transformer) {
 			return [source];
 		}
 		const fn =
@@ -109,8 +177,18 @@ export class ResolvedConfig {
 				? getCachedTransformerFunction(this.cache, resolvers, transformer.name, this.plugins)
 				: transformer.function;
 		const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
+		if (isThenable(fn)) {
+			throw new UserError(asyncInSyncTransformError);
+		}
 		try {
-			const transformedSources = Array.from(fn.call(context, source));
+			const result = fn.call(context, source);
+			if (isThenable(result)) {
+				throw new UserError(asyncInSyncTransformError);
+			}
+			const transformedSources = toArray(result);
+			if (!isNonThenableArray(transformedSources)) {
+				throw new UserError(asyncInSyncTransformError);
+			}
 			for (const source of transformedSources) {
 				/* keep track of which transformers that has been run on this source
 				 * by appending this entry to the transformedBy array */
@@ -134,7 +212,7 @@ export class ResolvedConfig {
 	 * transformations)
 	 * @returns A list of transformed sources ready for validation.
 	 */
-	public transformFilename(resolvers: Resolver[], filename: string): Source[] {
+	public transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]> {
 		const stdin = 0;
 		const src = filename !== "/dev/stdin" ? filename : stdin;
 		const data = fs.readFileSync(src, { encoding: "utf8" });
@@ -146,7 +224,31 @@ export class ResolvedConfig {
 			offset: 0,
 			originalData: data,
 		};
-		return this.transformSource(resolvers, source);
+		return this.transformSource(resolvers, source, filename);
+	}
+
+	/**
+	 * Wrapper around [[transformSource]] which reads a file before passing it
+	 * as-is to transformSource.
+	 *
+	 * @internal
+	 * @param filename - Filename to transform (according to configured
+	 * transformations)
+	 * @returns A list of transformed sources ready for validation.
+	 */
+	public transformFilenameSync(resolvers: Resolver[], filename: string): Source[] {
+		const stdin = 0;
+		const src = filename !== "/dev/stdin" ? filename : stdin;
+		const data = fs.readFileSync(src, { encoding: "utf8" });
+		const source: Source = {
+			data,
+			filename,
+			line: 1,
+			column: 1,
+			offset: 0,
+			originalData: data,
+		};
+		return this.transformSourceSync(resolvers, source, filename);
 	}
 
 	/**

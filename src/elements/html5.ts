@@ -296,11 +296,15 @@ export default defineMetadata({
 	},
 
 	area: {
-		flow: ["isDescendant", "map"],
+		flow(node) {
+			return Boolean(node.closest("map"));
+		},
 		focusable(node) {
 			return node.hasAttribute("href");
 		},
-		phrasing: ["isDescendant", "map"],
+		phrasing(node) {
+			return Boolean(node.closest("map"));
+		},
 		void: true,
 		attributes: {
 			alt: {},
@@ -459,7 +463,9 @@ export default defineMetadata({
 		},
 		phrasing: true,
 		embedded: true,
-		interactive: ["hasAttribute", "controls"],
+		interactive(node) {
+			return node.hasAttribute("controls");
+		},
 		transparent: ["@flow"],
 		attributes: {
 			crossorigin: {
@@ -1313,7 +1319,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		embedded: true,
-		interactive: ["hasAttribute", "usemap"],
+		interactive(node) {
+			return node.hasAttribute("usemap");
+		},
 		void: true,
 		attributes: {
 			align: {
@@ -1393,7 +1401,9 @@ export default defineMetadata({
 			return node.getAttribute("type") !== "hidden";
 		},
 		phrasing: true,
-		interactive: ["matchAttribute", ["type", "!=", "hidden"]],
+		interactive(node) {
+			return node.getAttribute("type") !== "hidden";
+		},
 		void: true,
 		formAssociated: {
 			disablable: true,
@@ -1875,8 +1885,12 @@ export default defineMetadata({
 	},
 
 	meta: {
-		flow: ["hasAttribute", "itemprop"],
-		phrasing: ["hasAttribute", "itemprop"],
+		flow(node) {
+			return node.hasAttribute("itemprop");
+		},
+		phrasing(node) {
+			return node.hasAttribute("itemprop");
+		},
 		metadata: true,
 		void: true,
 		attributes: {
@@ -1974,7 +1988,9 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		embedded: true,
-		interactive: ["hasAttribute", "usemap"],
+		interactive(node) {
+			return node.hasAttribute("usemap");
+		},
 		transparent: true,
 		formAssociated: {
 			disablable: false,
@@ -2951,7 +2967,9 @@ export default defineMetadata({
 		},
 		phrasing: true,
 		embedded: true,
-		interactive: ["hasAttribute", "controls"],
+		interactive(node) {
+			return node.hasAttribute("controls");
+		},
 		transparent: ["@flow"],
 		attributes: {
 			crossorigin: {

@@ -112,7 +112,7 @@ it("should handle multiple files", async () => {
 
 it("should throw exception on unknown mode", async () => {
 	expect.assertions(1);
-	await expect(() => dump(htmlvalidate, stdout, [simple], -1 as unknown as Mode)).toThrow(
+	await expect(() => dump(htmlvalidate, stdout, [simple], -1 as unknown as Mode)).rejects.toThrow(
 		`Unknown mode "-1"`,
 	);
 });

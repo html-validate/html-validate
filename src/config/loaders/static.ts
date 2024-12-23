@@ -1,4 +1,5 @@
-import { Config } from "../config";
+import { isThenable } from "../../utils";
+import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
@@ -58,30 +59,62 @@ export class StaticConfigLoader extends ConfigLoader {
 	 * @since 8.20.0
 	 * @param config - New configuration to use.
 	 */
-	/* istanbul ignore next -- not testing setters/getters */
 	public setConfig(config: ConfigData): void {
-		const defaults = Config.empty();
-		this.globalConfig = defaults.merge(this.resolvers, this.loadFromObject(config));
+		this.setConfigData(config);
 	}
 
-	public override getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig {
+	public override getConfigFor(
+		_handle: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig> {
 		const override = this.loadFromObject(configOverride ?? {});
-		if (override.isRootFound()) {
-			return override.resolve();
-		}
 
-		const merged = this.globalConfig.merge(this.resolvers, override);
-		return merged.resolve();
+		if (isThenable(override)) {
+			return override.then((override) => this._resolveConfig(override));
+		} else {
+			return this._resolveConfig(override);
+		}
 	}
 
 	public override flushCache(): void {
 		/* do nothing */
 	}
 
-	protected defaultConfig(): Config {
+	protected defaultConfig(): Config | Promise<Config> {
 		return this.loadFromObject({
 			extends: ["html-validate:recommended"],
 			elements: ["html5"],
 		});
+	}
+
+	private _resolveConfig(override: Config): ResolvedConfig | Promise<ResolvedConfig> {
+		if (override.isRootFound()) {
+			return override.resolve();
+		}
+
+		const globalConfig = this.getGlobalConfig();
+		if (isThenable(globalConfig)) {
+			return globalConfig.then((globalConfig) => {
+				const merged = globalConfig.merge(this.resolvers, override);
+				/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+				if (isThenable(merged)) {
+					return merged.then((merged) => {
+						return merged.resolve();
+					});
+				} else {
+					return merged.resolve();
+				}
+			});
+		} else {
+			const merged = globalConfig.merge(this.resolvers, override);
+			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+			if (isThenable(merged)) {
+				return merged.then((merged) => {
+					return merged.resolve();
+				});
+			} else {
+				return merged.resolve();
+			}
+		}
 	}
 }

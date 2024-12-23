@@ -14,9 +14,9 @@ Lets assume our `<my-component>` is actually a wrapper for an input field with a
 Thus by inheriting from `<label>` we automatically get the same rules.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     inherit: "label",
   },

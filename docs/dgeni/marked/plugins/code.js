@@ -7,6 +7,8 @@ const prettier = {
 	format: createSyncFn(require.resolve("./prettier-format.mjs")),
 };
 
+const stubFilename = "docs/stub.js";
+
 /**
  * @typedef {import("../../example/services/example").Example} Example
  * @typedef {(code: string, lang: string | undefined) => string} Highlighter
@@ -22,7 +24,7 @@ function stripEslintComments(code) {
 }
 
 const isEmpty = RegExp.prototype.test.bind(/^\s*$/);
-const prettierConfig = prettier.resolveConfig("docs/stub.js", {
+const prettierConfig = prettier.resolveConfig(stubFilename, {
 	editorconfig: true,
 });
 
@@ -104,13 +106,22 @@ function renderConfig(context, text, lang, infostring) {
 			``,
 			`module.exports = defineConfig(${text});`,
 		].join("\n"),
-		{ ...prettierConfig, tabWidth: 2, useTabs: false, filepath: "docs/stub.js" },
+		{ ...prettierConfig, tabWidth: 2, useTabs: false, filepath: stubFilename },
+	);
+	const mjsText = prettier.format(
+		[
+			`import { defineConfig } from "html-validate";`,
+			``,
+			`export default defineConfig(${text});`,
+		].join("\n"),
+		{ ...prettierConfig, tabWidth: 2, useTabs: false, filepath: stubFilename },
 	);
 
 	example.compile(cjsText, infostring);
 
 	const renderedJson = highlight(jsonText, "jsonc");
 	const renderedCJS = highlight(cjsText, "js");
+	const renderedMJS = highlight(mjsText, "js");
 
 	return /* HTML */ `
 		<div class="config-tabs">
@@ -124,10 +135,16 @@ function renderConfig(context, text, lang, infostring) {
 			><code class="hljs language-jsonc">${renderedJson}</code></pre>
 			<pre
 				data-key="cjs"
-				data-filename=".htmlvalidate.js"
+				data-filename=".htmlvalidate.cjs"
 				data-label="CommonJS"
 				hidden
 			><code class="hljs language-js">${renderedCJS}</code></pre>
+			<pre
+				data-key="mjs"
+				data-filename=".htmlvalidate.mjs"
+				data-label="ESM"
+				hidden
+			><code class="hljs language-js">${renderedMJS}</code></pre>
 		</div>
 	`;
 }

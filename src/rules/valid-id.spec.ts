@@ -255,12 +255,11 @@ describe("rule valid-id", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		expect(() => {
-			return new HtmlValidate({
-				root: true,
-				rules: { "valid-id": ["error", { relaxed: "foobar" }] },
-			});
-		}).toThrowErrorMatchingInlineSnapshot(
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "valid-id": ["error", { relaxed: "foobar" }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foo")).toThrowErrorMatchingInlineSnapshot(
 			`"Rule configuration error: /rules/valid-id/1/relaxed: type must be boolean"`,
 		);
 	});

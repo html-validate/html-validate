@@ -355,12 +355,11 @@ describe("rule attr-case", () => {
 
 	it("should throw error if configured with invalid value", () => {
 		expect.assertions(1);
-		expect(() => {
-			return new HtmlValidate({
-				root: true,
-				rules: { "attr-case": ["error", { style: "foobar" }] },
-			});
-		}).toThrowErrorMatchingInlineSnapshot(
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "attr-case": ["error", { style: "foobar" }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foo")).toThrowErrorMatchingInlineSnapshot(
 			`"Rule configuration error: /rules/attr-case/1/style must be equal to one of the allowed values: lowercase, uppercase, pascalcase, camelcase"`,
 		);
 	});

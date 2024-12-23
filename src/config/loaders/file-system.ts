@@ -5,7 +5,8 @@ import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
-import { type FSLike, cjsResolver } from "../resolver/nodejs";
+import { type FSLike, esmResolver } from "../resolver/nodejs";
+import { isThenable } from "../../utils";
 
 /**
  * Options for [[FileSystemConfigLoader]].
@@ -21,12 +22,12 @@ export interface FileSystemConfigLoaderOptions {
  * @internal
  */
 function findConfigurationFiles(fs: FSLike, directory: string): string[] {
-	return ["json", "cjs", "js"]
+	return ["json", "mjs", "cjs", "js"]
 		.map((extension) => path.join(directory, `.htmlvalidate.${extension}`))
 		.filter((filePath) => fs.existsSync(filePath));
 }
 
-const defaultResolvers: Resolver[] = [cjsResolver()];
+const defaultResolvers: Resolver[] = [esmResolver()];
 
 type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoaderOptions>?];
 type ConstructorParametersResolver = [
@@ -54,6 +55,7 @@ function hasResolver(value: ConstructorParameters): value is ConstructorParamete
  * - `.htmlvalidate.json`
  * - `.htmlvalidate.js`
  * - `.htmlvalidate.cjs`
+ * - `.htmlvalidate.mjs`
  *
  * Global configuration is used when no configuration file is found. The
  * result is always merged with override if present.
@@ -115,26 +117,18 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to merge final result with.
 	 */
-	public override getConfigFor(filename: string, configOverride?: ConfigData): ResolvedConfig {
-		/* special case when the overridden configuration is marked as root, should
-		 * not try to load any more configuration files */
+	public override getConfigFor(
+		filename: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig> {
 		const override = this.loadFromObject(configOverride ?? {});
-		if (override.isRootFound()) {
-			return override.resolve();
+		if (isThenable(override)) {
+			return override.then((override) => {
+				return this._resolveAsync(filename, override);
+			});
+		} else {
+			return this._resolveSync1(filename, override);
 		}
-
-		/* special case when the global configuration is marked as root, should not
-		 * try to load and more configuration files */
-		if (this.globalConfig.isRootFound()) {
-			const merged = this.globalConfig.merge(this.resolvers, override);
-			return merged.resolve();
-		}
-
-		const config = this.fromFilename(filename);
-		const merged = config
-			? config.merge(this.resolvers, override)
-			: this.globalConfig.merge(this.resolvers, override);
-		return merged.resolve();
 	}
 
 	/**
@@ -156,7 +150,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * This configuration is not merged with global configuration and may return
 	 * `null` if no configuration files are found.
 	 */
-	public fromFilename(filename: string): Config | null {
+	public fromFilename(filename: string): Config | Promise<Config | null> | null {
 		if (filename === "inline") {
 			return null;
 		}
@@ -175,8 +169,23 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = this.loadFromFile(configFile);
+
+				/* if the loader returns an async config we exit out of the synchronous
+				 * processing and enter the async method so we can resolve any promises
+				 * as we go */
+				if (isThenable(local)) {
+					return this.fromFilenameAsync(filename);
+				}
+
 				found = true;
-				config = local.merge(this.resolvers, config);
+
+				const merged = local.merge(this.resolvers, config);
+
+				/* istanbul ignore if -- should never happen */
+				if (isThenable(merged)) {
+					throw new Error("internal error: async result ended up in sync path");
+				}
+				config = merged;
 			}
 
 			/* stop if a configuration with "root" is set to true */
@@ -205,13 +214,150 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	}
 
 	/**
+	 * Async version of [[fromFilename]].
+	 *
+	 * @internal
+	 */
+	public async fromFilenameAsync(filename: string): Promise<Config | null> {
+		if (filename === "inline") {
+			return null;
+		}
+
+		const cache = this.cache.get(filename);
+		if (cache) {
+			return cache;
+		}
+
+		let found = false;
+		let current = path.resolve(path.dirname(filename));
+		let config = this.empty();
+
+		// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- it will break out when filesystem is traversed
+		while (true) {
+			/* search configuration files in current directory */
+			for (const configFile of findConfigurationFiles(this.fs, current)) {
+				const local = await this.loadFromFile(configFile);
+				found = true;
+				config = await local.merge(this.resolvers, config);
+			}
+
+			/* stop if a configuration with "root" is set to true */
+			if (config.isRootFound()) {
+				break;
+			}
+
+			/* get the parent directory */
+			const child = current;
+			current = path.dirname(current);
+
+			/* stop if this is the root directory */
+			if (current === child) {
+				break;
+			}
+		}
+
+		/* no config was found by loader, return null and let caller decide what to do */
+		if (!found) {
+			this.cache.set(filename, null);
+			return null;
+		}
+
+		this.cache.set(filename, config);
+		return config;
+	}
+
+	private _merge(
+		globalConfig: Config,
+		override: Config,
+		config: Config | null,
+	): ResolvedConfig | Promise<ResolvedConfig> {
+		const merged = config
+			? config.merge(this.resolvers, override)
+			: globalConfig.merge(this.resolvers, override);
+		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+		if (isThenable(merged)) {
+			return merged.then((merged) => {
+				return merged.resolve();
+			});
+		} else {
+			return merged.resolve();
+		}
+	}
+
+	private _resolveSync1(
+		filename: string,
+		override: Config,
+	): ResolvedConfig | Promise<ResolvedConfig> {
+		if (override.isRootFound()) {
+			return override.resolve();
+		}
+
+		const globalConfig = this.getGlobalConfig();
+		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+		if (isThenable(globalConfig)) {
+			return globalConfig.then((globalConfig) => {
+				return this._resolveSync2(filename, override, globalConfig);
+			});
+		} else {
+			return this._resolveSync2(filename, override, globalConfig);
+		}
+	}
+
+	private _resolveSync2(
+		filename: string,
+		override: Config,
+		globalConfig: Config,
+	): ResolvedConfig | Promise<ResolvedConfig> {
+		/* special case when the global configuration is marked as root, should not
+		 * try to load and more configuration files */
+		if (globalConfig.isRootFound()) {
+			const merged = globalConfig.merge(this.resolvers, override);
+			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+			if (isThenable(merged)) {
+				return merged.then((merged) => {
+					return merged.resolve();
+				});
+			} else {
+				return merged.resolve();
+			}
+		}
+
+		const config = this.fromFilename(filename);
+		if (isThenable(config)) {
+			return config.then((config) => {
+				return this._merge(globalConfig, override, config);
+			});
+		} else {
+			return this._merge(globalConfig, override, config);
+		}
+	}
+
+	private async _resolveAsync(filename: string, override: Config): Promise<ResolvedConfig> {
+		if (override.isRootFound()) {
+			return override.resolve();
+		}
+
+		const globalConfig = await this.getGlobalConfig();
+
+		/* special case when the global configuration is marked as root, should not
+		 * try to load and more configuration files */
+		if (globalConfig.isRootFound()) {
+			const merged = await globalConfig.merge(this.resolvers, override);
+			return merged.resolve();
+		}
+
+		const config = await this.fromFilenameAsync(filename);
+		return this._merge(globalConfig, override, config);
+	}
+
+	/**
 	 * @internal For testing only
 	 */
 	public _getInternalCache(): Map<string, Config | null> {
 		return this.cache;
 	}
 
-	protected defaultConfig(): Config {
+	protected defaultConfig(): Config | Promise<Config> {
 		return Config.defaultConfig();
 	}
 }

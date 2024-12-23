@@ -117,25 +117,23 @@ export class Config {
     static defaultConfig(): Config;
     static empty(): Config;
     // @internal
-    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config;
-    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config;
+    static fromFile(resolvers: Resolver | Resolver[], filename: string): Config | Promise<Config>;
+    static fromObject(resolvers: Resolver | Resolver[], options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // @internal
     get(): ConfigData;
     // @internal
-    getMetaTable(): MetaTable;
+    getMetaTable(): MetaTable | Promise<MetaTable>;
     // @internal
     getPlugins(): Plugin_2[];
     // @internal
     getRules(): Map<string, [Severity, RuleOptions]>;
     // @internal
     getTransformers(): TransformerEntry[];
-    // @deprecated (undocumented)
-    init(): void;
     isRootFound(): boolean;
-    merge(resolvers: Resolver[], rhs: Config): Config;
-    resolve(): ResolvedConfig;
+    merge(resolvers: Resolver[], rhs: Config): Config | Promise<Config>;
+    resolve(): ResolvedConfig | Promise<ResolvedConfig>;
     // @internal
-    resolveData(): ResolvedConfigData;
+    resolveData(): ResolvedConfigData | Promise<ResolvedConfigData>;
     // @internal
     static validate(configData: ConfigData, filename?: string | null): void;
 }
@@ -159,23 +157,23 @@ export class ConfigError extends UserError {
 // @public
 export abstract class ConfigLoader {
     constructor(resolvers: Resolver[], configData?: ConfigData);
-    protected abstract defaultConfig(): Config;
+    protected abstract defaultConfig(): Config | Promise<Config>;
     // (undocumented)
     protected empty(): Config;
     abstract flushCache(handle?: string): void;
-    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+    abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
+    protected getGlobalConfig(): Config | Promise<Config>;
     // @internal
-    _getGlobalConfig(): ConfigData;
+    _getGlobalConfig(): Promise<ConfigData>;
+    protected getGlobalConfigSync(): Config;
     // @internal (undocumented)
     getResolvers(): Resolver[];
-    // (undocumented)
-    protected globalConfig: Config;
-    // (undocumented)
-    protected loadFromFile(filename: string): Config;
-    // (undocumented)
-    protected loadFromObject(options: ConfigData, filename?: string | null): Config;
+    protected loadFromFile(filename: string): Config | Promise<Config>;
+    protected loadFromObject(options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // (undocumented)
     protected readonly resolvers: Resolver[];
+    // @internal
+    protected setConfigData(configData: ConfigData): void;
 }
 
 // @internal (undocumented)
@@ -433,6 +431,12 @@ export interface ErrorDescriptor<ContextType> {
     node: DOMNode | null;
 }
 
+// @public
+export type ESMResolver = Required<Resolver>;
+
+// @public
+export function esmResolver(): ESMResolver;
+
 // @public (undocumented)
 interface Event_2 {
     location: Location_2 | null;
@@ -558,18 +562,18 @@ export class HtmlValidate {
     // (undocumented)
     protected configLoader: ConfigLoader;
     // @internal
-    dumpEvents(filename: string): EventDump[];
+    dumpEvents(filename: string): Promise<EventDump[]>;
     // @internal
-    dumpSource(filename: string): string[];
+    dumpSource(filename: string): Promise<string[]>;
     // @internal
-    dumpTokens(filename: string): TokenDump[];
+    dumpTokens(filename: string): Promise<TokenDump[]>;
     // @internal
-    dumpTree(filename: string): string[];
+    dumpTree(filename: string): Promise<string[]>;
     flushConfigCache(filename?: string): void;
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
     getConfigLoader(): ConfigLoader;
-    getConfigurationSchema(): SchemaObject;
+    getConfigurationSchema(): Promise<SchemaObject>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, filename?: string): Promise<RuleDocumentation | null>;
     getContextualDocumentation(message: Pick<Message, "ruleId" | "context">, config: ResolvedConfig | Promise<ResolvedConfig>): Promise<RuleDocumentation | null>;
     getContextualDocumentationSync(message: Pick<Message, "ruleId" | "context">, filename?: string): RuleDocumentation | null;
@@ -649,11 +653,7 @@ export interface ListenEventMap {
     // (undocumented)
     "source:ready": SourceReadyEvent;
     // (undocumented)
-    "tag:close": TagCloseEvent;
-    // (undocumented)
     "tag:end": TagEndEvent;
-    // (undocumented)
-    "tag:open": TagOpenEvent;
     // (undocumented)
     "tag:ready": TagReadyEvent;
     // (undocumented)
@@ -740,9 +740,9 @@ export interface MetaData {
     // (undocumented)
     deprecatedAttributes?: string[];
     // (undocumented)
-    embedded?: boolean | PropertyExpression | MetaCategoryCallback;
+    embedded?: boolean | MetaCategoryCallback;
     // (undocumented)
-    flow?: boolean | PropertyExpression | MetaCategoryCallback;
+    flow?: boolean | MetaCategoryCallback;
     focusable?: boolean | MetaFocusableCallback;
     // (undocumented)
     foreign?: boolean;
@@ -750,7 +750,7 @@ export interface MetaData {
     form?: boolean;
     formAssociated?: Partial<FormAssociated>;
     // (undocumented)
-    heading?: boolean | PropertyExpression | MetaCategoryCallback;
+    heading?: boolean | MetaCategoryCallback;
     // (undocumented)
     implicitClosed?: string[];
     // @deprecated (undocumented)
@@ -758,11 +758,11 @@ export interface MetaData {
     // (undocumented)
     inherit?: string;
     // (undocumented)
-    interactive?: boolean | PropertyExpression | MetaCategoryCallback;
+    interactive?: boolean | MetaCategoryCallback;
     // (undocumented)
-    labelable?: boolean | PropertyExpression | MetaLabelableCallback;
+    labelable?: boolean | MetaLabelableCallback;
     // (undocumented)
-    metadata?: boolean | PropertyExpression | MetaCategoryCallback;
+    metadata?: boolean | MetaCategoryCallback;
     // (undocumented)
     permittedContent?: Permitted;
     // (undocumented)
@@ -772,7 +772,7 @@ export interface MetaData {
     // (undocumented)
     permittedParent?: Permitted;
     // (undocumented)
-    phrasing?: boolean | PropertyExpression | MetaCategoryCallback;
+    phrasing?: boolean | MetaCategoryCallback;
     // (undocumented)
     requiredAncestors?: RequiredAncestors;
     // (undocumented)
@@ -782,7 +782,7 @@ export interface MetaData {
     // (undocumented)
     scriptSupporting?: boolean;
     // (undocumented)
-    sectioning?: boolean | PropertyExpression | MetaCategoryCallback;
+    sectioning?: boolean | MetaCategoryCallback;
     // (undocumented)
     textContent?: TextContent | `${TextContent}`;
     // (undocumented)
@@ -966,9 +966,6 @@ export interface ProcessElementContext {
     getMetaFor(this: void, tagName: string): MetaElement | null;
 }
 
-// @public @deprecated (undocumented)
-export type PropertyExpression = string | [string, any];
-
 // @public
 interface Report_2 {
     errorCount: number;
@@ -1014,9 +1011,13 @@ export class ResolvedConfig {
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
     // @internal
-    transformFilename(resolvers: Resolver[], filename: string): Source[];
+    transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]>;
     // @internal
-    transformSource(resolvers: Resolver[], source: Source, filename?: string): Source[];
+    transformFilenameSync(resolvers: Resolver[], filename: string): Source[];
+    // @internal
+    transformSource(resolvers: Resolver[], source: Source, filename?: string): Promise<Source[]>;
+    // @internal
+    transformSourceSync(resolvers: Resolver[], source: Source, filename?: string): Source[];
 }
 
 // @public (undocumented)
@@ -1034,10 +1035,10 @@ export interface ResolvedConfigData {
 // @public (undocumented)
 export interface Resolver {
     name: string;
-    resolveConfig?(id: string, options: ResolverOptions): ConfigData | null;
-    resolveElements?(id: string, options: ResolverOptions): MetaDataTable | null;
-    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | null;
-    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | null;
+    resolveConfig?(id: string, options: ResolverOptions): ConfigData | Promise<ConfigData | null> | null;
+    resolveElements?(id: string, options: ResolverOptions): MetaDataTable | Promise<MetaDataTable | null> | null;
+    resolvePlugin?(id: string, options: ResolverOptions): Plugin_2 | Promise<Plugin_2 | null> | null;
+    resolveTransformer?(id: string, options: ResolverOptions): Transformer_2 | Promise<Transformer_2 | null> | null;
 }
 
 // @public (undocumented)
@@ -1221,11 +1222,11 @@ export class StaticConfigLoader extends ConfigLoader {
     constructor(config?: ConfigData);
     constructor(resolvers: Resolver[], config?: ConfigData);
     // (undocumented)
-    protected defaultConfig(): Config;
+    protected defaultConfig(): Config | Promise<Config>;
     // (undocumented)
     flushCache(): void;
     // (undocumented)
-    getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig;
+    getConfigFor(_handle: string, configOverride?: ConfigData): ResolvedConfig | Promise<ResolvedConfig>;
     setConfig(config: ConfigData): void;
 }
 
@@ -1264,9 +1265,6 @@ export interface StyleToken extends BaseToken {
     type: TokenType.STYLE;
 }
 
-// @public @deprecated
-export type TagCloseEvent = TagEndEvent;
-
 // @internal (undocumented)
 export interface TagCloseToken extends BaseToken {
     // (undocumented)
@@ -1281,9 +1279,6 @@ export interface TagEndEvent extends Event_2 {
     previous: HtmlElement;
     target: HtmlElement | null;
 }
-
-// @public @deprecated
-export type TagOpenEvent = TagStartEvent;
 
 // @internal (undocumented)
 export interface TagOpenToken extends BaseToken {
@@ -1423,16 +1418,19 @@ export enum TokenType {
 
 // @public (undocumented)
 export interface TransformContext {
-    chain(source: Source, filename: string): Iterable<Source>;
+    chain(source: Source, filename: string): TransformerChainedResult;
     hasChain(filename: string): boolean;
 }
 
 // @public
 interface Transformer_2 {
-    (this: TransformContext, source: Source): Iterable<Source>;
+    (this: TransformContext, source: Source): TransformerResult;
     api?: number;
 }
 export { Transformer_2 as Transformer }
+
+// @public
+export type TransformerChainedResult = Iterable<Source> | Promise<Iterable<Source>>;
 
 // @public (undocumented)
 export type TransformerEntry = {
@@ -1444,6 +1442,9 @@ export type TransformerEntry = {
     pattern: RegExp;
     function: Transformer_2;
 };
+
+// @public
+export type TransformerResult = Source | Iterable<Source | Promise<Source>> | Promise<Source> | Promise<Source | Iterable<Source | Promise<Source>>>;
 
 // @public (undocumented)
 export type TransformMap = Record<string, string | Transformer_2>;

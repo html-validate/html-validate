@@ -5,20 +5,26 @@
 ```ts
 
 import { Source } from 'html-validate';
-import { TransformContext } from 'html-validate';
+import { Transformer as Transformer_2 } from 'html-validate';
+import { TransformerChainedResult } from 'html-validate';
+import { TransformerResult } from 'html-validate';
 
-// @public (undocumented)
-type Transformer_2 = (this: TransformContext, source: Source) => Iterable<Source>;
+export { Source }
+
 export { Transformer_2 as Transformer }
 
-// @public
-export function transformFile(fn: Transformer_2, filename: string, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export { TransformerChainedResult }
+
+export { TransformerResult }
 
 // @public
-export function transformSource(fn: Transformer_2, source: Source, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export function transformFile(fn: Transformer_2, filename: string, chain?: (source: Source, filename: string) => TransformerChainedResult): Promise<Source[]>;
 
 // @public
-export function transformString(fn: Transformer_2, data: string, chain?: (source: Source, filename: string) => Iterable<Source>): Source[];
+export function transformSource(fn: Transformer_2, source: Source, chain?: (source: Source, filename: string) => TransformerChainedResult): Promise<Source[]>;
+
+// @public
+export function transformString(fn: Transformer_2, data: string, chain?: (source: Source, filename: string) => TransformerChainedResult): Promise<Source[]>;
 
 // (No @packageDocumentation comment for this package)
 

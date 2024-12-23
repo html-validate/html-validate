@@ -58,7 +58,7 @@ Build:
   script:
     - npm run --if-present build
     - npm pack
-    - npm exec npm-pkg-lint -- --ignore-node-version=16
+    - npm exec npm-pkg-lint
     - |
       for dts in dist/{cjs,es}/{index,browser,jest,test-utils}.d.ts; do
         if [[ ! -e "${dts}" ]]; then
@@ -161,9 +161,9 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - 16
           - 18
           - 20
+          - 22
   image: node:${VERSION}
 
 Jest compat:
@@ -263,6 +263,7 @@ Module:
   script:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
+    - npm exec html-validate tests/integration/${BUILD}-cli
 
 .release:
   stage: release

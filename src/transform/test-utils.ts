@@ -1,10 +1,24 @@
 import fs from "fs";
-import { type Source, type TransformContext } from "html-validate";
+import {
+	type Source,
+	type TransformContext,
+	type Transformer,
+	type TransformerChainedResult,
+} from "html-validate";
 
-/**
- * @public
- */
-export type Transformer = (this: TransformContext, source: Source) => Iterable<Source>;
+/* eslint-disable-next-line import/no-extraneous-dependencies -- this is the package itself */
+export {
+	type Source,
+	type Transformer,
+	type TransformerResult,
+	type TransformerChainedResult,
+} from "html-validate";
+
+function isIterable(
+	value: Source | Iterable<Source | Promise<Source>>,
+): value is Iterable<Source | Promise<Source>> {
+	return Symbol.iterator in value;
+}
 
 /**
  * Helper function to call a transformer function in test-cases.
@@ -17,8 +31,8 @@ export type Transformer = (this: TransformContext, source: Source) => Iterable<S
 export function transformFile(
 	fn: Transformer,
 	filename: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
+): Promise<Source[]> {
 	const data = fs.readFileSync(filename, "utf-8");
 	const source: Source = {
 		filename,
@@ -41,8 +55,8 @@ export function transformFile(
 export function transformString(
 	fn: Transformer,
 	data: string,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
+): Promise<Source[]> {
 	const source: Source = {
 		filename: "inline",
 		line: 1,
@@ -61,15 +75,20 @@ export function transformString(
  * @param data - Source to transform.
  * @param chain - If set this function is called when chaining transformers. Default is pass-thru.
  */
-export function transformSource(
+export async function transformSource(
 	fn: Transformer,
 	source: Source,
-	chain?: (source: Source, filename: string) => Iterable<Source>,
-): Source[] {
+	chain?: (source: Source, filename: string) => TransformerChainedResult,
+): Promise<Source[]> {
 	const defaultChain = (source: Source): Iterable<Source> => [source];
 	const context: TransformContext = {
 		hasChain: /* istanbul ignore next */ () => true,
 		chain: chain ?? defaultChain,
 	};
-	return Array.from(fn.call(context, source));
+	const result = await fn.call(context, source);
+	if (isIterable(result)) {
+		return await Promise.all(Array.from(result));
+	} else {
+		return [result];
+	}
 }

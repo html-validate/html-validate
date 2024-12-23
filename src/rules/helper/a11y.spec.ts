@@ -20,13 +20,14 @@ const location: Location = {
 	size: 1,
 };
 
+let parser: Parser;
+
+beforeAll(async () => {
+	const config = await Config.defaultConfig().resolve();
+	parser = new Parser(config);
+});
+
 describe("a11y helpers", () => {
-	let parser: Parser;
-
-	beforeEach(() => {
-		parser = new Parser(Config.defaultConfig().resolve());
-	});
-
 	function parse(data: string): HtmlElement {
 		return parser.parseHtml({
 			data,

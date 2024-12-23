@@ -81,17 +81,19 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 
 describe("Engine", () => {
 	let config: Config;
+	let resolvedConfig: ResolvedConfig;
 	let engine: ExposedEngine<Parser>;
 
-	beforeEach(() => {
-		config = Config.fromObject([], {
+	beforeEach(async () => {
+		config = await Config.fromObject([], {
 			extends: ["html-validate:recommended"],
 			rules: {
 				deprecated: "off",
 				"no-unused-disable": "off",
 			},
 		});
-		engine = new ExposedEngine(config.resolve(), MockParser);
+		resolvedConfig = await config.resolve();
+		engine = new ExposedEngine(resolvedConfig, MockParser);
 	});
 
 	describe("lint()", () => {
@@ -173,10 +175,10 @@ describe("Engine", () => {
 			expect(report).toHaveError("close-order", expect.any(String));
 		});
 
-		it("should generate config:ready event", () => {
+		it("should generate config:ready event", async () => {
 			expect.assertions(5);
 			const source: Source[] = [inline("<div></div>")];
-			const resolved = config.resolve();
+			const resolved = await config.resolve();
 			const parser = new Parser(resolved);
 			const spy = jest.fn();
 			parser.on("config:ready", spy);
@@ -198,10 +200,11 @@ describe("Engine", () => {
 			expect(event.rules).toBeDefined();
 		});
 
-		it("should generate source:ready event", () => {
+		it("should generate source:ready event", async () => {
 			expect.assertions(3);
 			const source: Source[] = [inline("<div></div>"), inline("<p></i>")];
-			const parser = new Parser(config.resolve());
+			const resolvedConfig = await config.resolve();
+			const parser = new Parser(resolvedConfig);
 			const spy = jest.fn();
 			parser.on("source:ready", spy);
 			jest.spyOn(engine, "instantiateParser").mockReturnValue(parser);
@@ -488,7 +491,7 @@ describe("Engine", () => {
 	});
 
 	describe("plugins", () => {
-		it("should call init callback if present", () => {
+		it("should call init callback if present", async () => {
 			expect.assertions(1);
 
 			const plugin: Plugin = {
@@ -499,12 +502,13 @@ describe("Engine", () => {
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
-			const engine = new ExposedEngine(config.resolve(), MockParser);
+			const resolvedConfig = await config.resolve();
+			const engine = new ExposedEngine(resolvedConfig, MockParser);
 			engine.lint([source]);
 			expect(plugin.init).toHaveBeenCalledWith();
 		});
 
-		it("should call setup callback if present", () => {
+		it("should call setup callback if present", async () => {
 			expect.assertions(1);
 
 			const plugin: Plugin = {
@@ -515,7 +519,8 @@ describe("Engine", () => {
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
-			const engine = new ExposedEngine(config.resolve(), MockParser);
+			const resolvedConfig = await config.resolve();
+			const engine = new ExposedEngine(resolvedConfig, MockParser);
 			engine.lint([source]);
 			expect(plugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
@@ -527,8 +532,8 @@ describe("Engine", () => {
 			let reporter: Reporter;
 			let mockRule: any;
 
-			beforeEach(() => {
-				parser = new MockParser(config.resolve());
+			beforeEach(async () => {
+				parser = new MockParser(await config.resolve());
 				reporter = new Reporter();
 				mockRule = {
 					init: jest.fn(),
@@ -536,17 +541,11 @@ describe("Engine", () => {
 				};
 			});
 
-			it("should load and initialize rule", () => {
+			it("should load and initialize rule", async () => {
 				expect.assertions(4);
+				const resolvedConfig = await config.resolve();
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
-				const rule = engine.loadRule(
-					"void",
-					config.resolve(),
-					Severity.ERROR,
-					{},
-					parser,
-					reporter,
-				);
+				const rule = engine.loadRule("void", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBe(mockRule);
 				expect(rule.init).toHaveBeenCalledWith(
 					parser,
@@ -558,9 +557,10 @@ describe("Engine", () => {
 				expect(rule.name).toBe("void");
 			});
 
-			it("should add error if rule cannot be found", () => {
+			it("should add error if rule cannot be found", async () => {
 				expect.assertions(1);
-				engine.loadRule("foobar", config.resolve(), Severity.ERROR, {}, parser, reporter);
+				const resolvedConfig = await config.resolve();
+				engine.loadRule("foobar", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				const add = jest.spyOn(reporter, "add");
 				const location = {
 					filename: "inline",
@@ -584,7 +584,7 @@ describe("Engine", () => {
 				);
 			});
 
-			it("should load from plugins", () => {
+			it("should load from plugins", async () => {
 				expect.assertions(2);
 				class MyRule extends Rule {
 					public setup(): void {
@@ -601,10 +601,11 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
+				const resolvedConfig = await config.resolve();
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
-					config.resolve(),
+					resolvedConfig,
 					Severity.ERROR,
 					{},
 					parser,
@@ -614,7 +615,7 @@ describe("Engine", () => {
 				expect(rule.name).toBe("custom/my-rule");
 			});
 
-			it("should handle plugin setting rule to null", () => {
+			it("should handle plugin setting rule to null", async () => {
 				expect.assertions(1);
 
 				/* mock loading of plugins */
@@ -626,13 +627,14 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
+				const resolvedConfig = await config.resolve();
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
 				const missingRule = jest.spyOn(engine, "missingRule");
-				engine.loadRule("custom/my-rule", config.resolve(), Severity.ERROR, {}, parser, reporter);
+				engine.loadRule("custom/my-rule", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(missingRule).toHaveBeenCalledWith("custom/my-rule");
 			});
 
-			it("should handle missing setup callback", () => {
+			it("should handle missing setup callback", async () => {
 				expect.assertions(1);
 				// @ts-expect-error: abstract method not implemented, but plugin might be vanilla js so want to handle the case
 				class MyRule extends Rule {}
@@ -646,10 +648,11 @@ describe("Engine", () => {
 					},
 				];
 
-				const engine = new ExposedEngine<Parser>(config.resolve(), MockParser);
+				const resolvedConfig = await config.resolve();
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
 				const rule = engine.loadRule(
 					"custom/my-rule",
-					config.resolve(),
+					resolvedConfig,
 					Severity.ERROR,
 					{},
 					parser,
@@ -658,11 +661,12 @@ describe("Engine", () => {
 				expect(rule).toBeInstanceOf(MyRule);
 			});
 
-			it("should handle plugin without rules", () => {
+			it("should handle plugin without rules", async () => {
 				expect.assertions(1);
 				/* mock loading of plugins */
 				(config as any).plugins = [{}];
-				expect(() => new ExposedEngine(config.resolve(), MockParser)).not.toThrow();
+				const resolvedConfig = await config.resolve();
+				expect(() => new ExposedEngine(resolvedConfig, MockParser)).not.toThrow();
 			});
 		});
 	});

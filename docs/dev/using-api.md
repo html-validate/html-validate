@@ -174,8 +174,8 @@ Using the CLI API there is a factory function to retrieve formatters (see `html-
 import { CLI } from "html-validate";
 
 const cli = new CLI();
-const htmlvalidate = cli.getValidator();
-const formatter = cli.getFormatter("stylish,checkstyle=html-validate.xml");
+const htmlvalidate = await cli.getValidator();
+const formatter = await cli.getFormatter("stylish,checkstyle=html-validate.xml");
 const report = await htmlvalidate.validateFile("myfile.html");
 console.log(formatter(report));
 ```
@@ -216,10 +216,14 @@ A fully custom loader can be impemented by inheriting from `ConfigLoader`:
 import { Config, ConfigData, ConfigLoader, ResolvedConfig } from "html-validate";
 
 export class MyCustomLoader extends ConfigLoader {
-  public override getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig {
+  public override async getConfigFor(
+    handle: string,
+    configOverride?: ConfigData,
+  ): Promise<ResolvedConfig> {
     /* return config for given handle (e.g. filename passed to validateFile) */
-    const override = this.loadFromObject(configOverride || {});
-    const merged = this.globalConfig.merge(this.resolvers, override);
+    const override = await this.loadFromObject(configOverride || {});
+    const globalConfig = await this.getGlobalConfig();
+    const merged = await globalConfig.merge(this.resolvers, override);
     return merged.resolve();
   }
 
@@ -228,9 +232,9 @@ export class MyCustomLoader extends ConfigLoader {
     /* do nothing for this example */
   }
 
-  protected defaultConfig(): Config {
+  protected async defaultConfig(): Promise<Config> {
     /* return default configuration, used when no config is passed to constructor */
-    return this.loadFromObject({
+    return await this.loadFromObject({
       extends: ["html-validate:recommended"],
       elements: ["html5"],
     });
@@ -241,7 +245,7 @@ export class MyCustomLoader extends ConfigLoader {
 <div class="alert alert-info">
 	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
 	<strong>Note</strong>
-	<p><code>getConfigFor(..)</code> can for backwards compatibility return a <code>Config</code> instance. This is deprecated and will be removed in the next major version.</p>
+	<p><code>ConfigLoader.getConfigFor(..)</code> may return a <code>Promise</code> but an asynchronous loader cannot be used with synchronous API's such as <code>HtmlValidate.validateStringSync(..)</code>. CLI usage supports asynchronous loaders.</p>
 </div>
 
 The custom loader is used the same as builtin loaders:
@@ -366,7 +370,14 @@ export interface Resolver {
 The library comes with two builtin resolvers:
 
 - `StaticResolver` - resolves only predefined items, use the `staticResolver` function to create one.
+- `ESMResolver` - resolves items using `import(..)`, use the `esmResolver` function to create one.
 - `CommonJSResolver` - resolves items using `require(..)`, use the `cjsResolver` function to create one.
+
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>When using <code>ESMResolver</code> in a CommonJS project (i.e. not using <code>.mjs</code> or <code>"type": "module"</code>) the imported modules will use the <code>require</code> condition when resolving conditional subpath exports.</p>
+</div>
 
 ## Configuration cache
 
@@ -441,9 +452,9 @@ const cli = new CLI({
   configFile: argv.configFile,
 });
 
-const htmlvalidate = cli.getValidator();
-const formatter = cli.getFormatter(argv.formatter);
-const files = cli.expandFiles(["**/*.html"]);
+const htmlvalidate = await cli.getValidator();
+const formatter = await cli.getFormatter(argv.formatter);
+const files = await cli.expandFiles(["**/*.html"]);
 const report = await htmlvalidate.validateMultipleFiles(files);
 console.log(formatter(report));
 ```

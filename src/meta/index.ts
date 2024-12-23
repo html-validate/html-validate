@@ -20,7 +20,6 @@ export {
 	type PermittedEntry,
 	type PermittedGroup,
 	type PermittedOrder,
-	type PropertyExpression,
 	type RequiredAncestors,
 	type RequiredContent,
 	MetaCopyableProperty,

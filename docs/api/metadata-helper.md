@@ -26,7 +26,7 @@ export interface MetadataHelper {
 These functions are exported as `metadataHelper` and can be used when writing element metadata:
 
 ```js
-const { metadataHelper } = require("html-validate");
+import { metadataHelper } from "html-validate";
 
 /* eslint-disable-next-line no-unused-vars */
 const { allowedIfAttributeIsPresent } = metadataHelper;
@@ -37,11 +37,11 @@ const { allowedIfAttributeIsPresent } = metadataHelper;
 Returns an error if another attribute is omitted, i.e. it requires another attribute to be present to pass.
 
 ```js
-const { defineMetadata, metadataHelper } = require("html-validate");
+import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeIsPresent } = metadataHelper;
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {
@@ -58,11 +58,11 @@ module.exports = defineMetadata({
 Returns an error if another attribute is present, i.e. it requires another attribute to be omitted to pass.
 
 ```js
-const { defineMetadata, metadataHelper } = require("html-validate");
+import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeIsAbsent } = metadataHelper;
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {
@@ -79,11 +79,11 @@ module.exports = defineMetadata({
 Returns an error if another attribute does not have one of the listed values.
 
 ```js
-const { defineMetadata, metadataHelper } = require("html-validate");
+import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeHasValue } = metadataHelper;
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {
@@ -100,11 +100,11 @@ module.exports = defineMetadata({
 Returns an error if the node doesn't have any of the given elements as parent.
 
 ```js
-const { defineMetadata, metadataHelper } = require("html-validate");
+import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfParentIsPresent } = metadataHelper;
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {

@@ -108,7 +108,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		this.on("tag:ready", (event: TagReadyEvent) => {
 			this.onTagReady(event);
 		});
-		this.on("tag:close", (event: TagEndEvent) => {
+		this.on("tag:end", (event: TagEndEvent) => {
 			this.onTagClose(event);
 		});
 	}

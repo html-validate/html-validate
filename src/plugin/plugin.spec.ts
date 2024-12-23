@@ -56,7 +56,7 @@ describe("Plugin", () => {
 	});
 
 	describe("name", () => {
-		it("should use plugin name if set", () => {
+		it("should use plugin name if set", async () => {
 			expect.assertions(1);
 			mockPlugin.name = "my-plugin";
 			mockPlugin.configs = {
@@ -66,7 +66,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				extends: ["my-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -80,7 +80,7 @@ describe("Plugin", () => {
 			);
 		});
 
-		it("should default to package name", () => {
+		it("should default to package name", async () => {
 			expect.assertions(1);
 			mockPlugin.name = null;
 			mockPlugin.configs = {
@@ -90,7 +90,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -104,7 +104,7 @@ describe("Plugin", () => {
 			);
 		});
 
-		it("should retain original name", () => {
+		it("should retain original name", async () => {
 			expect.assertions(1);
 			mockPlugin.name = "my-plugin";
 			mockPlugin.configs = {
@@ -114,7 +114,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -130,7 +130,7 @@ describe("Plugin", () => {
 	});
 
 	describe("configs", () => {
-		it("should add extendable predefined configurations", () => {
+		it("should add extendable predefined configurations", async () => {
 			expect.assertions(1);
 			mockPlugin.configs = {
 				foo: {
@@ -139,7 +139,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin:foo"],
 				plugins: ["mock-plugin"],
 			});
@@ -153,12 +153,12 @@ describe("Plugin", () => {
 			);
 		});
 
-		it("should handle config being set to null", () => {
+		it("should handle config being set to null", async () => {
 			expect.assertions(1);
 			mockPlugin.configs = {
 				foo: null,
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			expect(config.get()).toEqual(
@@ -169,21 +169,21 @@ describe("Plugin", () => {
 		});
 	});
 
-	describe("extedMeta", () => {
-		it("should not throw error when schema isn't extended", () => {
+	describe("extendMeta", () => {
+		it("should not throw error when schema isn't extended", async () => {
 			expect.assertions(1);
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
-			expect(() => {
-				const metaTable = config.getMetaTable();
+			expect(async () => {
+				const metaTable = await config.getMetaTable();
 				return metaTable.getMetaFor("my-element");
 			}).not.toThrow();
 		});
 
-		it("should give validation errors when schema isn't extended", () => {
+		it("should give validation errors when schema isn't extended", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -198,7 +198,7 @@ describe("Plugin", () => {
 			);
 		});
 
-		it("should extend validation schema", () => {
+		it("should extend validation schema", async () => {
 			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
@@ -207,7 +207,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -217,7 +217,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
@@ -232,7 +232,7 @@ describe("Plugin", () => {
 			});
 		});
 
-		it("should extend validation schema with definition", () => {
+		it("should extend validation schema with definition", async () => {
 			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
@@ -246,7 +246,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -256,7 +256,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const meta = metaTable.getMetaFor("my-element");
 			expect(meta).toEqual({
 				tagName: "my-element",
@@ -271,7 +271,7 @@ describe("Plugin", () => {
 			});
 		});
 
-		it("should handle definition with missing properties", () => {
+		it("should handle definition with missing properties", async () => {
 			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				definitions: {
@@ -280,13 +280,13 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 			expect(() => config.getMetaTable()).not.toThrow();
 		});
 
-		it("should support copyable properties", () => {
+		it("should support copyable properties", async () => {
 			expect.assertions(1);
 			mockPlugin.elementSchema = {
 				properties: {
@@ -298,7 +298,7 @@ describe("Plugin", () => {
 					},
 				},
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				elements: [
 					{
@@ -313,7 +313,7 @@ describe("Plugin", () => {
 					},
 				],
 			});
-			const metaTable = config.getMetaTable();
+			const metaTable = await config.getMetaTable();
 			const a = metaTable.getMetaFor("my-element");
 			const b = metaTable.getMetaFor("my-element:real");
 			const node = HtmlElement.createElement("my-element", location, { meta: a });
@@ -334,50 +334,51 @@ describe("Plugin", () => {
 	});
 
 	describe("callbacks", () => {
-		beforeEach(() => {
+		beforeEach(async () => {
 			/* initialize config */
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
 		});
 
-		it("Engine should handle missing plugin callbacks", () => {
+		it("Engine should handle missing plugin callbacks", async () => {
 			expect.assertions(1);
-			expect(() => new Engine(config.resolve(), Parser)).not.toThrow();
+			const resolvedConfig = await config.resolve();
+			expect(() => new Engine(resolvedConfig, Parser)).not.toThrow();
 		});
 
-		it("Engine should call plugin init callback", () => {
+		it("Engine should call plugin init callback", async () => {
 			expect.assertions(1);
 			mockPlugin.init = jest.fn();
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.init).toHaveBeenCalledWith();
 		});
 
-		it("Engine should call plugin setup callback", () => {
+		it("Engine should call plugin setup callback", async () => {
 			expect.assertions(1);
 			mockPlugin.setup = jest.fn();
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(mockPlugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
 
-		it("Parser events should trigger plugin eventhandler", () => {
+		it("Parser events should trigger plugin eventhandler", async () => {
 			expect.assertions(1);
 			const handler = jest.fn();
 			mockPlugin.setup = (source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
 			};
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			engine.lint([source]);
 			expect(handler).toHaveBeenCalledWith("dom:ready", expect.anything());
 		});
 	});
 
 	describe("rules", () => {
-		beforeEach(() => {
+		beforeEach(async () => {
 			/* initialize config */
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				rules: {
 					"mock-rule": ["error", "mock-options"],
@@ -385,7 +386,7 @@ describe("Plugin", () => {
 			});
 		});
 
-		it("Engine should call rule init callback", () => {
+		it("Engine should call rule init callback", async () => {
 			expect.assertions(1);
 			const mockRule: Rule = new (class extends Rule {
 				public setup(): void {
@@ -396,7 +397,7 @@ describe("Plugin", () => {
 				"mock-rule": null /* instantiateRule is mocked, this can be anything */,
 			};
 			const setup = jest.spyOn(mockRule, "setup");
-			const engine = new Engine(config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser);
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();
@@ -404,7 +405,7 @@ describe("Plugin", () => {
 	});
 
 	describe("transform", () => {
-		it("should support exposing unnamed transform", () => {
+		it("should support exposing unnamed transform", async () => {
 			expect.assertions(1);
 			function transform(source: Source): Source[] {
 				return [
@@ -420,14 +421,14 @@ describe("Plugin", () => {
 			}
 			transform.api = TRANSFORMER_API.VERSION;
 			mockPlugin.transformer = transform as Transformer;
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin",
 				},
 			});
-			const resolvedConfig = config.resolve();
-			const sources = resolvedConfig.transformSource(resolvers, {
+			const resolvedConfig = await config.resolve();
+			const sources = await resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
@@ -451,7 +452,7 @@ describe("Plugin", () => {
 			`);
 		});
 
-		it("should support exposing named transform", () => {
+		it("should support exposing named transform", async () => {
 			expect.assertions(1);
 			function transform(source: Source): Source[] {
 				return [
@@ -469,14 +470,14 @@ describe("Plugin", () => {
 			mockPlugin.transformer = {
 				foobar: transform as Transformer,
 			};
-			config = Config.fromObject(resolvers, {
+			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 				transform: {
 					".*": "mock-plugin:foobar",
 				},
 			});
-			const resolvedConfig = config.resolve();
-			const sources = resolvedConfig.transformSource(resolvers, {
+			const resolvedConfig = await config.resolve();
+			const sources = await resolvedConfig.transformSource(resolvers, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,

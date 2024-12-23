@@ -8,14 +8,6 @@ nav: devguide
 
 While primarly developed as a NodeJS CLI/backend tool it is possible to run `html-validate` in a browser as well.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>While it is possible to get <code>html-validate</code> running in a browser it is currently not supported and requires a few workarounds.</p>
-</div>
-
-Improvements are welcome!
-
 ## Base implementation
 
 This article assume you are trying to get something similar to this code to run in the browser.
@@ -98,6 +90,18 @@ If you need addtional ones you must also use {@link dev/using-api#resolvers `Sta
  });
  const htmlvalidate = new HtmlValidate(loader);
 ```
+
+Starting with v9.0.0 it is also possible to use `esmResolver` and an [importmap][importmap].
+The `esmResolver` will import using dynamic `import(..)`.
+
+<div class="alert alert-info">
+	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+	<strong>Note</strong>
+	<p>The browser version of <code>esmResolver</code> will not fail gracefully if the imported module does not exist.</p>
+	<p>It assumes the module will be resolvable. If you use multiple resolvers the <code>esmResolver</code> should be run last as the next resolver will never be tried.</p>
+</div>
+
+[importmap]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
 
 ### Previous workaround
 

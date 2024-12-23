@@ -66,14 +66,6 @@ export interface TagStartEvent extends Event {
 }
 
 /**
- * Deprecated alias for TagStartEvent
- *
- * @public
- * @deprecated Use TagStartEvent instead
- */
-export type TagOpenEvent = TagStartEvent;
-
-/**
  * Event emitted when end tags `</..>` are encountered.
  *
  * @public
@@ -89,14 +81,6 @@ export interface TagEndEvent extends Event {
 	/** The node being closed. */
 	previous: HtmlElement;
 }
-
-/**
- * Deprecated alias for TagEndEvent
- *
- * @public
- * @deprecated Use TagEndEvent instead
- */
-export type TagCloseEvent = TagEndEvent;
 
 /**
  * Event emitted when a tag is ready (i.e. all the attributes has been
@@ -334,9 +318,7 @@ export interface ListenEventMap {
 	/** @internal */
 	token: TokenEvent;
 
-	"tag:open": TagOpenEvent;
 	"tag:start": TagStartEvent;
-	"tag:close": TagCloseEvent;
 	"tag:end": TagEndEvent;
 	"tag:ready": TagReadyEvent;
 	"element:ready": ElementReadyEvent;

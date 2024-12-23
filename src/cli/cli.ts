@@ -6,13 +6,15 @@ import {
 	FileSystemConfigLoader,
 	UserError,
 	HtmlValidate,
-	cjsResolver,
+	esmResolver,
 } from "..";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { IsIgnored } from "./is-ignored";
 import { type InitResult, init } from "./init";
 import { getRuleConfig } from "./get-rule-config";
+
+const resolver = esmResolver();
 
 function defaultConfig(preset: string): ConfigData {
 	const presets = preset.split(",").map((it) => `html-validate:${it}`);
@@ -31,10 +33,9 @@ export interface CLIOptions {
 	rules?: string | string[];
 }
 
-function getBaseConfig(preset?: string, filename?: string): ConfigData {
+async function getBaseConfig(preset?: string, filename?: string): Promise<ConfigData> {
 	if (filename) {
-		const resolver = cjsResolver();
-		const configData = resolver.resolveConfig(path.resolve(filename), { cache: false });
+		const configData = await resolver.resolveConfig(path.resolve(filename), { cache: false });
 		if (!configData) {
 			throw new UserError(`Failed to read configuration from "${filename}"`);
 		}
@@ -72,12 +73,15 @@ export class CLI {
 	 *
 	 * @public
 	 */
-	public expandFiles(patterns: string[], options: ExpandOptions = {}): string[] {
-		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
+	public async expandFiles(patterns: string[], options: ExpandOptions = {}): Promise<string[]> {
+		/* technical debt: expandFiles(..) should actually be async as well */
+		const files = expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
+		return Promise.resolve(files);
 	}
 
-	public getFormatter(formatters: string): (report: Report) => string {
-		return getFormatter(formatters);
+	public getFormatter(formatters: string): Promise<(report: Report) => string> {
+		/* while not actually async the API boundary returns a Promise in case it needs to in the future, i.e a ESM-based formatter */
+		return Promise.resolve(getFormatter(formatters));
 	}
 
 	/**
@@ -91,25 +95,18 @@ export class CLI {
 	}
 
 	/**
-	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
-	 * one of them contains a pattern matching given filename.
-	 */
-	public isIgnored(filename: string): boolean {
-		return this.ignored.isIgnored(filename);
-	}
-
-	/**
 	 * Clear cache.
 	 *
 	 * Previously fetched [[HtmlValidate]] instances must either be fetched again
 	 * or call [[HtmlValidate.flushConfigCache]].
 	 */
 	/* istanbul ignore next: each method is tested separately */
-	public clearCache(): void {
+	public clearCache(): Promise<void> {
 		if (this.loader) {
 			this.loader.flushCache();
 		}
 		this.ignored.clearCache();
+		return Promise.resolve();
 	}
 
 	/**
@@ -118,9 +115,10 @@ export class CLI {
 	 *
 	 * @internal
 	 */
-	public getLoader(): ConfigLoader {
+	public async getLoader(): Promise<ConfigLoader> {
 		if (!this.loader) {
-			this.loader = new FileSystemConfigLoader(this.getConfig());
+			const config = await this.getConfig();
+			this.loader = new FileSystemConfigLoader([resolver], config);
 		}
 		return this.loader;
 	}
@@ -131,24 +129,32 @@ export class CLI {
 	 *
 	 * @public
 	 */
-	public getValidator(): HtmlValidate {
-		const loader = this.getLoader();
+	public async getValidator(): Promise<HtmlValidate> {
+		const loader = await this.getLoader();
 		return new HtmlValidate(loader);
 	}
 
 	/**
 	 * @internal
 	 */
-	public getConfig(): ConfigData {
+	public async getConfig(): Promise<ConfigData> {
 		if (!this.config) {
-			this.config = this.resolveConfig();
+			this.config = await this.resolveConfig();
 		}
 		return this.config;
 	}
 
-	private resolveConfig(): ConfigData {
+	/**
+	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
+	 * one of them contains a pattern matching given filename.
+	 */
+	private isIgnored(filename: string): boolean {
+		return this.ignored.isIgnored(filename);
+	}
+
+	private async resolveConfig(): Promise<ConfigData> {
 		const { options } = this;
-		const config = getBaseConfig(options.preset, options.configFile);
+		const config = await getBaseConfig(options.preset, options.configFile);
 		if (options.rules) {
 			if (!options.preset) {
 				config.extends = [];

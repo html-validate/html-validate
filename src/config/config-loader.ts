@@ -1,3 +1,5 @@
+import { UserError } from "../error";
+import { isThenable } from "../utils";
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";
 import { type ResolvedConfig } from "./resolved-config";
@@ -12,8 +14,10 @@ import { type Resolver } from "./resolver";
  * @public
  */
 export abstract class ConfigLoader {
+	private _globalConfig: Config | null;
+	private _configData: ConfigData | undefined;
+
 	protected readonly resolvers: Resolver[];
-	protected globalConfig: Config;
 
 	/**
 	 * Create a new ConfigLoader.
@@ -22,12 +26,60 @@ export abstract class ConfigLoader {
 	 * @param configData - Default configuration (which all configurations will inherit from).
 	 */
 	public constructor(resolvers: Resolver[], configData?: ConfigData) {
-		const defaults = Config.empty();
 		this.resolvers = resolvers;
-		this.globalConfig = defaults.merge(
-			this.resolvers,
-			configData ? this.loadFromObject(configData) : this.defaultConfig(),
-		);
+		this._configData = configData;
+		this._globalConfig = null;
+	}
+
+	/**
+	 * Set a new default configuration on this loader. Resets cached global
+	 * configuration.
+	 *
+	 * @internal
+	 */
+	protected setConfigData(configData: ConfigData): void {
+		this._configData = configData;
+		this._globalConfig = null;
+	}
+
+	/**
+	 * Get the global configuration.
+	 *
+	 * @returns A promise resolving to the global configuration.
+	 */
+	protected getGlobalConfig(): Config | Promise<Config> {
+		if (this._globalConfig) {
+			return this._globalConfig;
+		}
+		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
+		if (isThenable(config)) {
+			return config.then((config) => {
+				this._globalConfig = config;
+				return this._globalConfig;
+			});
+		} else {
+			this._globalConfig = config;
+			return this._globalConfig;
+		}
+	}
+
+	/**
+	 * Get the global configuration.
+	 *
+	 * The synchronous version does not support async resolvers.
+	 *
+	 * @returns The global configuration.
+	 */
+	protected getGlobalConfigSync(): Config {
+		if (this._globalConfig) {
+			return this._globalConfig;
+		}
+		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
+		if (isThenable(config)) {
+			throw new UserError("Cannot load async config from sync function");
+		}
+		this._globalConfig = config;
+		return this._globalConfig;
 	}
 
 	/**
@@ -41,7 +93,10 @@ export abstract class ConfigLoader {
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
 	 */
-	public abstract getConfigFor(handle: string, configOverride?: ConfigData): ResolvedConfig;
+	public abstract getConfigFor(
+		handle: string,
+		configOverride?: ConfigData,
+	): ResolvedConfig | Promise<ResolvedConfig>;
 
 	/**
 	 * @internal
@@ -62,24 +117,34 @@ export abstract class ConfigLoader {
 	/**
 	 * @internal For testing only
 	 */
-	public _getGlobalConfig(): ConfigData {
-		return this.globalConfig.get();
+	public async _getGlobalConfig(): Promise<ConfigData> {
+		const config = await this.getGlobalConfig();
+		return config.get();
 	}
 
 	/**
 	 * Default configuration used when no explicit configuration is passed to constructor.
 	 */
-	protected abstract defaultConfig(): Config;
+	protected abstract defaultConfig(): Config | Promise<Config>;
 
 	protected empty(): Config {
 		return Config.empty();
 	}
 
-	protected loadFromObject(options: ConfigData, filename?: string | null): Config {
+	/**
+	 * Load configuration from object.
+	 */
+	protected loadFromObject(
+		options: ConfigData,
+		filename?: string | null,
+	): Config | Promise<Config> {
 		return Config.fromObject(this.resolvers, options, filename);
 	}
 
-	protected loadFromFile(filename: string): Config {
+	/**
+	 * Load configuration from filename.
+	 */
+	protected loadFromFile(filename: string): Config | Promise<Config> {
 		return Config.fromFile(this.resolvers, filename);
 	}
 }

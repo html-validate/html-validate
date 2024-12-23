@@ -1,9 +1,10 @@
 import { type Source } from "../context";
 import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
+import { type Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
-import { staticResolver } from "./resolver";
+import { type Resolver, staticResolver } from "./resolver";
 import { Severity } from "./severity";
 import { cjsResolver } from "./resolver/nodejs";
 
@@ -101,27 +102,83 @@ describe("config", () => {
 		);
 	});
 
-	it("should handle missing plugins property", () => {
+	it("should handle missing plugins property", async () => {
 		expect.assertions(3);
-		expect(Config.fromObject(resolvers, {}).getPlugins()).toEqual([]);
-		expect(Config.fromObject(resolvers, { plugins: undefined }).getPlugins()).toEqual([]);
-		expect(Config.fromObject(resolvers, { plugins: [] }).getPlugins()).toEqual([]);
+		expect((await Config.fromObject(resolvers, {})).getPlugins()).toEqual([]);
+		expect((await Config.fromObject(resolvers, { plugins: undefined })).getPlugins()).toEqual([]);
+		expect((await Config.fromObject(resolvers, { plugins: [] })).getPlugins()).toEqual([]);
 	});
 
-	it("should handle missing transform property", () => {
+	it("should return not promise if config is sync", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin() {
+				return { name: "mock-plugin" };
+			},
+		};
+		const config = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
+		expect(config).not.toBeInstanceOf(Promise);
+		expect((config as Config).getPlugins()).toEqual([
+			expect.objectContaining({ name: "mock-plugin" }),
+		]);
+	});
+
+	it("should return promise if config is async", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin() {
+				return Promise.resolve({ name: "mock-plugin" });
+			},
+		};
+		const config = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
+		expect(config).toBeInstanceOf(Promise);
+		expect((await config).getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
+	});
+
+	it("should handle missing transform property", async () => {
 		expect.assertions(3);
-		expect(Config.fromObject(resolvers, {}).getTransformers()).toEqual([]);
-		expect(Config.fromObject(resolvers, { transform: undefined }).getTransformers()).toEqual([]);
-		expect(Config.fromObject(resolvers, { transform: {} }).getTransformers()).toEqual([]);
+		expect((await Config.fromObject(resolvers, {})).getTransformers()).toEqual([]);
+		expect(
+			(await Config.fromObject(resolvers, { transform: undefined })).getTransformers(),
+		).toEqual([]);
+		expect((await Config.fromObject(resolvers, { transform: {} })).getTransformers()).toEqual([]);
 	});
 
 	describe("merge()", () => {
-		it("should merge two configs", () => {
-			expect.assertions(1);
-			const a = Config.fromObject(resolvers, { rules: { foo: 1 } });
-			const b = Config.fromObject(resolvers, { rules: { bar: 1 } });
+		it("should merge two sync configs", async () => {
+			expect.assertions(2);
+			const a = await Config.fromObject(resolvers, { rules: { foo: 1 } });
+			const b = await Config.fromObject(resolvers, { rules: { bar: 1 } });
 			const merged = a.merge(resolvers, b);
-			expect(merged.get()).toEqual(
+			expect(merged).not.toBeInstanceOf(Promise);
+			expect((merged as Config).get()).toEqual(
+				expect.objectContaining({
+					rules: {
+						foo: 1,
+						bar: 1,
+					},
+				}),
+			);
+		});
+
+		it("should merge two async configs", async () => {
+			expect.assertions(2);
+			const resolver: Resolver = {
+				name: "mock-resolver",
+				resolvePlugin() {
+					return Promise.resolve({ name: "mock-plugin" });
+				},
+			};
+			const a = await Config.fromObject([resolver], { rules: { foo: 1 } });
+			const b = await Config.fromObject([resolver], {
+				rules: { bar: 1 },
+				plugins: ["mock-plugin"],
+			});
+			const merged = a.merge([resolver], b);
+			expect(merged).toBeInstanceOf(Promise);
+			expect((await merged).get()).toEqual(
 				expect.objectContaining({
 					rules: {
 						foo: 1,
@@ -133,23 +190,23 @@ describe("config", () => {
 	});
 
 	describe("getRules()", () => {
-		it("should handle when config is missing rules", () => {
+		it("should handle when config is missing rules", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, { rules: undefined });
+			const config = await Config.fromObject(resolvers, { rules: undefined });
 			expect(config.get().rules).toEqual({});
 			expect(config.getRules()).toEqual(new Map());
 		});
 
-		it("should return parsed rules", () => {
+		it("should return parsed rules", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, { rules: { foo: "error" } });
+			const config = await Config.fromObject(resolvers, { rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
 			expect(Array.from(config.getRules().entries())).toEqual([["foo", [Severity.ERROR, {}]]]);
 		});
 
-		it("should parse severity from string", () => {
+		it("should parse severity from string", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: "error",
 					bar: "warn",
@@ -163,9 +220,9 @@ describe("config", () => {
 			]);
 		});
 
-		it("should retain severity from integer", () => {
+		it("should retain severity from integer", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: 2,
 					bar: 1,
@@ -179,9 +236,9 @@ describe("config", () => {
 			]);
 		});
 
-		it("should retain options", () => {
+		it("should retain options", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				rules: {
 					foo: [2, { foo: true }],
 					bar: ["error", { bar: false }],
@@ -197,10 +254,10 @@ describe("config", () => {
 	});
 
 	describe("fromFile()", () => {
-		it("should support JSON file", () => {
+		it("should support JSON file", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.json");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.json");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -208,10 +265,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support js file", () => {
+		it("should support js file", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config.js");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.js");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -219,10 +276,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support js file without extension", () => {
+		it("should support js file without extension", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromFile(resolver, "<rootDir>/test-files/config");
+			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config");
 			expect(Array.from(config.getRules().entries())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
@@ -232,10 +289,10 @@ describe("config", () => {
 	});
 
 	describe("extend", () => {
-		it("should extend base configuration", () => {
+		it("should extend base configuration", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config.json"],
 				rules: {
 					foo: 1,
@@ -248,10 +305,10 @@ describe("config", () => {
 			]);
 		});
 
-		it("should support deep extending", () => {
+		it("should support deep extending", async () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["<rootDir>/test-files/config-extending.json"],
 			});
 			expect(config.getRules()).toEqual(
@@ -263,57 +320,33 @@ describe("config", () => {
 			);
 		});
 
-		it("should support html-validate:recommended", () => {
+		it("should support html-validate:recommended", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:recommended"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:recommended (deprecated alias)", () => {
+		it("should support html-validate:document", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				extends: ["htmlvalidate:recommended"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
-		it("should support html-validate:document", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:document"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:document (deprecated alias)", () => {
+		it("should support htmlvalidate:a11y", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				extends: ["htmlvalidate:document"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
-		it("should support htmlvalidate:a11y", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["html-validate:a11y"],
 			});
 			expect(config.getRules()).toBeDefined();
 		});
 
-		it("should support htmlvalidate:a17y (deprecated alias)", () => {
+		it("passed config should have precedence over extended", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
-				extends: ["html-validate:a17y"],
-			});
-			expect(config.getRules()).toBeDefined();
-		});
-
-		it("passed config should have precedence over extended", () => {
-			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base"],
 				plugins: ["mock-plugin-presets"],
 				rules: {
@@ -330,9 +363,9 @@ describe("config", () => {
 			);
 		});
 
-		it("should be resolved in correct order", () => {
+		it("should be resolved in correct order", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: ["mock-plugin-presets:base", "mock-plugin-presets:no-foo"],
 				plugins: ["mock-plugin-presets"],
 			});
@@ -345,7 +378,7 @@ describe("config", () => {
 			);
 		});
 
-		it("should resolve elements in correct order", () => {
+		it("should resolve elements in correct order", async () => {
 			expect.assertions(3);
 			const resolver = staticResolver({
 				elements: {
@@ -378,14 +411,15 @@ describe("config", () => {
 					},
 				},
 			});
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				extends: ["mock-plugin:order-a", "mock-plugin:order-b"],
 				plugins: ["mock-plugin"],
 				elements: ["order-c"],
 			});
 			const elements = config.get().elements;
+			const metatable = await config.getMetaTable();
 			expect(elements).toEqual(["order-a", "order-b", "order-c"]);
-			expect(config.getMetaTable().getMetaFor("foo")).toEqual({
+			expect(metatable.getMetaFor("foo")).toEqual({
 				tagName: "foo",
 				aria: {
 					implicitRole: expect.any(Function),
@@ -396,7 +430,7 @@ describe("config", () => {
 				implicitRole: expect.any(Function),
 				permittedContent: ["baz"],
 			});
-			expect(config.getMetaTable().getMetaFor("bar")).toEqual({
+			expect(metatable.getMetaFor("bar")).toEqual({
 				tagName: "bar",
 				aria: {
 					implicitRole: expect.any(Function),
@@ -409,9 +443,9 @@ describe("config", () => {
 			});
 		});
 
-		it("should handle extends being explicitly set to undefined", () => {
+		it("should handle extends being explicitly set to undefined", async () => {
 			expect.assertions(1);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				extends: undefined,
 				rules: undefined,
 			});
@@ -420,23 +454,23 @@ describe("config", () => {
 	});
 
 	describe("getMetaTable()", () => {
-		it("should load metadata", () => {
+		it("should load metadata", async () => {
 			expect.assertions(1);
 			const config = Config.empty();
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeDefined();
 		});
 
-		it("should load inline metadata", () => {
+		it("should load inline metadata", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				elements: [
 					{
 						foo: {},
 					},
 				],
 			});
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeNull();
 			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
@@ -449,7 +483,7 @@ describe("config", () => {
 			expect(a).toBe(b);
 		});
 
-		it("should load metadata from resolver", () => {
+		it("should load metadata from resolver", async () => {
 			expect.assertions(2);
 			const resolver = staticResolver({
 				elements: {
@@ -458,17 +492,17 @@ describe("config", () => {
 					},
 				},
 			});
-			const config = Config.fromObject(resolver, {
+			const config = await Config.fromObject(resolver, {
 				elements: ["mock-elements"],
 			});
-			const metatable = config.getMetaTable();
+			const metatable = await config.getMetaTable();
 			expect(metatable.getMetaFor("div")).toBeNull();
 			expect(metatable.getMetaFor("foo")).not.toBeNull();
 		});
 
-		it("should throw ConfigError when module doesn't exist", () => {
+		it("should throw ConfigError when module doesn't exist", async () => {
 			expect.assertions(2);
-			const config = Config.fromObject(resolvers, {
+			const config = await Config.fromObject(resolvers, {
 				elements: ["missing-module"],
 			});
 			expect(() => config.getMetaTable()).toThrow(ConfigError);
@@ -478,17 +512,17 @@ describe("config", () => {
 		});
 	});
 
-	it("should load plugin from name", () => {
+	it("should load plugin from name", async () => {
 		expect.assertions(1);
-		const config = Config.fromObject(resolvers, {
+		const config = await Config.fromObject(resolvers, {
 			plugins: ["mock-plugin"],
 		});
 		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 	});
 
-	it("should load plugin inline", () => {
+	it("should load plugin inline", async () => {
 		expect.assertions(1);
-		const config = Config.fromObject([], {
+		const config = await Config.fromObject([], {
 			plugins: [
 				{
 					name: "inline-plugin",
@@ -502,6 +536,71 @@ describe("config", () => {
 			expect.objectContaining({ name: "inline-plugin" }),
 			expect.objectContaining({ name: ":unnamedPlugin@2" }),
 		]);
+	});
+
+	it("should load multiple plugins", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin(id): Plugin | null {
+				if (id === "foo") {
+					return { name: "foo", configs: { recommended: { rules: { foo: "error" } } } };
+				} else if (id === "bar") {
+					return { configs: { recommended: { rules: { bar: "error" } } } };
+				} else {
+					return null;
+				}
+			},
+		};
+		const config = await Config.fromObject([resolver], {
+			plugins: ["foo", "bar"],
+			extends: ["foo:recommended", "bar:recommended"],
+		});
+		expect(config.getPlugins()).toEqual([
+			expect.objectContaining({ name: "foo" }),
+			expect.objectContaining({ name: "bar" }),
+		]);
+		expect(config.getRules()).toEqual(
+			new Map([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.ERROR, {}]],
+			]),
+		);
+	});
+
+	it("should load multiple plugins (async)", async () => {
+		expect.assertions(2);
+		const resolver: Resolver = {
+			name: "mock-resolver",
+			resolvePlugin(id): Promise<Plugin | null> {
+				if (id === "foo") {
+					return Promise.resolve({
+						name: "foo",
+						configs: { recommended: { rules: { foo: "error" } } },
+					});
+				} else if (id === "bar") {
+					return Promise.resolve({
+						configs: { recommended: { rules: { bar: "error" } } },
+					});
+				} else {
+					return Promise.resolve(null);
+				}
+			},
+		};
+		const config = await Config.fromObject([resolver], {
+			plugins: ["foo", "bar"],
+			extends: ["foo:recommended", "bar:recommended"],
+		});
+		expect(config.getPlugins()).toEqual([
+			expect.objectContaining({ name: "foo" }),
+			expect.objectContaining({ name: "bar" }),
+		]);
+		expect(config.getRules()).toEqual(
+			new Map([
+				["foo", [Severity.ERROR, {}]],
+				["bar", [Severity.ERROR, {}]],
+			]),
+		);
 	});
 
 	describe("schema validation", () => {
@@ -556,7 +655,7 @@ describe("config", () => {
 	});
 });
 
-it("should load transformer by name", () => {
+it("should load transformer by name", async () => {
 	expect.assertions(1);
 	function foo(): Source[] {
 		return [];
@@ -566,7 +665,7 @@ it("should load transformer by name", () => {
 			foo,
 		},
 	});
-	const config = Config.fromObject([resolver], {
+	const config = await Config.fromObject([resolver], {
 		transform: {
 			".*": "foo",
 		},
@@ -574,12 +673,12 @@ it("should load transformer by name", () => {
 	expect(config.getTransformers()).toEqual([{ kind: "import", name: "foo", pattern: /.*/ }]);
 });
 
-it("should load transformer by function", () => {
+it("should load transformer by function", async () => {
 	expect.assertions(1);
 	function foo(): Source[] {
 		return [];
 	}
-	const config = Config.fromObject([], {
+	const config = await Config.fromObject([], {
 		transform: {
 			".*": foo,
 		},

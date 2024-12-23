@@ -1,5 +1,269 @@
 # Migration guide
 
+## Upgrading to v9
+
+ESM support has finally landed in HTML-Validate V9!
+
+- Configuration files (using `.htmlvalidate.mjs` or when `"type"` is `"module"` in `package.json`).
+- Plugins, element metadata, shared configurations and transformers can be written natively in ESM.
+
+This release is primarly breaking for API uses but some configuration changes might be required (see below).
+For API users the TL;DR version is most functions can return a `Promise` so make sure to `await` it.
+
+### Dependency changes {#v9-dependency-changes}
+
+NodeJS v18 or later is now required.
+
+### Configuration changes {#v9-configuration-changes}
+
+#### ESM
+
+ESM is now used by default.
+This shouldn't typically affect anyone but there are a few issues that might arise:
+
+> Error [ERR_UNSUPPORTED_DIR_IMPORT]: Directory import '...' is not supported resolving ES modules
+
+Somewhere in your configuration you are importing a directory (containing an `index.js`) but under ESM this is not allowed, explicitly add `index.js` instead:
+
+```diff
+-"plugins": ["./my-plugin"],
++"plugins": ["./my-plugin/index.js"],
+```
+
+#### Deprecated preset aliases
+
+The following deprecated aliases has been removed:
+
+- `htmlvalidate:recommended` replace with `html-validate:recommended`.
+- `htmlvalidate:document` - replace with `html-validate:document`.
+- `html-validate:a17y` - replace with `html-validate:a11y`.
+
+### Metadata changes {#v9-metadata-changes}
+
+These changes only affects users who write their own element metadata.
+
+#### String-based property expressions removed {#v9-property-expression}
+
+HTML-Validate v8.13 introduced callbacks for metadata properties and deprecated the old string-based expressions:
+
+- `["isDescendant", "tagName"]`
+- `["hasAttribute", "name"]`
+- `["matchAttribute", ["name", "!=", "value"]]`
+
+These have now been removed and can be replaced with callbacks:
+
+```diff
+-property: ["isDescendant", "parent"],
++property(node){
++  return Boolean(node.closest("parent"));
++},
+```
+
+```diff
+-property: ["hasAttribute", "name"],
++property(node){
++  return node.hasAttribute("name"));
++},
+```
+
+`matchAttribute` might require som extra care when it comes to missing value, dynamic attributes and case sensitivity.
+To strictly get the same behaviour as the old `matchAttribute` expression one can use (i.e. coalesce `null` and dynamic values to empty string `""`):
+
+```diff
+-property: ["matchAttribute", ["name", "!=", "value"]],
++property(node){
++  const raw = node.getAttribute("name") ?? "";
++  const value = raw.toString();
++  return value !== "value";
++},
+```
+
+However consider handling `null` and `DynamicValue` for saner behaviour:
+
+```diff
+-property: ["matchAttribute", ["name", "!=", "value"]],
++property(node){
++  const value = node.getAttribute("name");
++  if (value === null) {
++    return true; /* attribute is missing */
++  }
++  if (typeof value !== 'string') {
++    return true; /* attribute is dynamic, e.g. a property binding in a javascript framework */
++  }
++  return value !== "value";
++},
+```
+
+### API changes {#v9-api-changes}
+
+#### Plugin recommendations {v9-plugin-recommendations}
+
+For publicly published plugins and transformers it is recommended to publish hybrid ESM/CommonJS packages.
+If hybrid is not an option ESM is preferred over CommonJS.
+
+Plugins should also make sure to bundle all resources or ensure they are imported with `import`, i.e. don't use `node:fs` to read files.
+This is to ensure the plugin is usable in a browser context.
+
+#### Configuration errors {v9-config-deferred}
+
+In previous versions the `HtmlValidate` constructor would load the configuration directly and thus triggering configuration errors to occur.
+In V9 the configuration loading is deferred until validation occurs.
+
+Previous:
+
+```ts
+import { HtmlValidate } from "html-validate";
+
+/* --- */
+
+let htmlvalidate;
+try {
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  htmlvalidate = new HtmlValidate({
+    /* invalid configuration */
+  });
+} catch (err) {
+  /* ... */
+}
+```
+
+In V9 the above will not throw an exception but rather when later using the configuration it will, e.g. using any of the following will throw an exception:
+
+- `validateString(..)`
+- `validateFilename(..)`
+- `validateSource(..)`
+- `getConfigFor(..)`
+
+etc.
+
+#### Config `fromFile(..)` and `fromObject(..)` async {#v9-config-async}
+
+The `Config.fromFile(..)` and `Config.fromObject(..)` will return a `Promise` when used with an async `ConfigLoader` or `Resolver`.
+
+To future-proof your code if using the `Config` class directly it is recommended to always `await` the result.
+
+```diff
+ const resolvers = [staticResolver()];
+-const config = Config.fromObject(resolvers, {
++const config = await Config.fromObject(resolvers, {
+   /* configuration */
+ });
+```
+
+If you must use synchronous code only it is up to you to ensure everything the configuration requires (plugins, loaders, resolvers) works in a synchronous manner.
+
+#### Config `merge(..)` async {#v9-config-merge}
+
+The `Config.merge(..)` method will return a `Promise` when used with and async `ConfigLoader` or `Resolver`.
+
+To future-proof your code if using the `Config` class directly it is recommended to always `await` the result.
+
+```diff
+ const config1 = await Config.fromObject({ /* ... */ });
+ const config2 = await Config.fromObject({ /* ... */ });
+-const merged = config1.merge(config2);
++const merged = await config1.merge(config2);
+```
+
+#### ConfigLoader async {#v9-configloader-async}
+
+All methods of `ConfigLoader` can optionally return a `Promise` for asynchronous operation.
+For most use-cases this will not require any changes.
+
+If you are simply passing in the configuration to the `HtmlValidate` constructor no action needs to be taken.
+
+```ts
+import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
+
+/* --- */
+
+const loader = new FileSystemConfigLoader();
+const htmlvalidate = new HtmlValidate(loader); // no changes needed!
+htmlvalidate.validateString("..");
+```
+
+If you use a loader in other ways e.g. reading the resulting configuration, it is recommended to always `await` the result.
+
+```diff
+const loader = new FileSystemConfigLoader();
+-const config = loader.getConfigFor("my-file.html");
++const config = await loader.getConfigFor("my-file.html");
+```
+
+If you must use synchronous code only it is up to you to ensure everything the configuration requires works in a synchronous manner.
+
+Custom loaders will continue to work but can be rewritten to return a promise, for instance:
+
+```diff
+ class MyCustomLoader extends ConfigLoader {
+-  public getConfigFor(filePath: string): ResolvedConfig {
++  public async getConfigFor(filePath: string): Promise<ResolvedConfig> {
+     /* ... */
+   }
+ }
+```
+
+Using an asynchronous loader with any synchronous API such as `HtmlValidate.validateStringSync()` or `HtmlValidate.getConfigForSync()` results in an error.
+
+#### ConfigLoader `globalConfig` property removed {#v9-configloader-globalconfig}
+
+The `ConfigLoader.globalConfig` property has been removed and replaced with `getGlobalConfig()` and `getGlobalConfigSync()`.
+
+```diff
+-const merged = this.globalConfig.merge(this.resolvers, override);
++const globalConfig = await this.getGlobalConfig();
++const merged = globalConfig.merge(this.resolvers, override);
+```
+
+#### `Config.init()` method removed {#v9-config-init}
+
+The redundant and deprecated `Config.init()` method has been removed.
+
+Remove any calls to the method:
+
+```diff
+ const config = Config.fromObject({ /* ... */ });
+-config.init();
+```
+
+#### Test utils
+
+All functions from `html-validate/test-utils` now returns a `Promise`:
+
+- `transformFile`
+- `transformSource`
+- `transformString`
+
+If you are them to write unit tests for custom transfomers you need to resolve the returned promise:
+
+```diff
+ import { transformSource } from "html-validate/test-utils";
+
+-const result = transformSource(transformer, source);
++const result = await transformSource(transformer, source);
+```
+
+#### Transformers {#v9-transformers}
+
+Transformers may now return a `Promise` for asynchronous result.
+For most part there is no code changes required but if you use the `this.chain(..)` method to support chains you need to ensure you can handle that the next transformer may have returned a `Promise`.
+
+If you used a generator function and `yield*` replace with a simple return:
+
+```diff
+-yield* this.chain(..);
++return this.chain(..);
+```
+
+If you postprocess the result you must either `await` the result or test if the result is a `Promise`.
+
+When using TypeScript the return signature must change:
+
+```diff
+-function myTransformer(this: TransformContext, source: Source): Iterable<Source> {
++function myTransformer(this: TransformContext, source: Source): Iterable<Source> | Promise<Iterable<Source>> {
+```
+
 ## Upgrading to v8
 
 ### Dependency changes {#v8-dependency-changes}

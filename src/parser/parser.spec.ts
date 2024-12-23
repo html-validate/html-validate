@@ -115,9 +115,9 @@ describe("parser", () => {
 	let events: any[];
 	let parser: ExposedParser;
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		events = [];
-		parser = new ExposedParser(Config.empty().resolve());
+		parser = new ExposedParser(await Config.empty().resolve());
 		parser.on("*", (event: string, data: any) => {
 			if (ignoredEvents.includes(event)) return;
 			events.push(mergeEvent(event, data));

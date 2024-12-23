@@ -12,7 +12,12 @@ const location: Location = {
 	size: 1,
 };
 
-const parser = new Parser(Config.empty().resolve());
+let parser: Parser;
+
+beforeAll(async () => {
+	const config = await Config.empty().resolve();
+	parser = new Parser(config);
+});
 
 describe("classifyNodeText()", () => {
 	it("should classify element with text as STATIC_TEXT", () => {

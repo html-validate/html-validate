@@ -9,7 +9,7 @@ import { CLI } from "./cli";
 
 let cli: CLI;
 
-beforeEach(() => {
+beforeEach(async () => {
 	vol.reset();
 	fs.mkdirSync(".", { recursive: true });
 	jest.restoreAllMocks();

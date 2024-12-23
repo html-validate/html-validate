@@ -13,12 +13,9 @@ import {
 	type MetaDataTable,
 	type MetaElement,
 	type MetaLookupableProperty,
-	/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
-	type PropertyExpression,
 	setMetaProperty,
 } from "./element";
 import { migrateElement } from "./migrate";
-import { hasAttribute, isDescendant, matchAttribute } from "./evaluator";
 
 const dynamicKeys = [
 	"metadata",
@@ -30,14 +27,6 @@ const dynamicKeys = [
 	"interactive",
 	"labelable",
 ] satisfies Array<keyof MetaElement>;
-
-type PropertyEvaluator = (node: HtmlElement, options: string | [string, string, string]) => boolean;
-
-const functionTable: Record<string, PropertyEvaluator | undefined> = {
-	isDescendant: isDescendantFacade,
-	hasAttribute: hasAttributeFacade,
-	matchAttribute: matchAttributeFacade,
-};
 
 const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
 
@@ -279,13 +268,8 @@ export class MetaTable {
 function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	for (const key of dynamicKeys) {
 		const property = entry[key];
-		if (!property) {
-			continue;
-		}
 		if (typeof property === "function") {
 			setMetaProperty(entry, key, property(node._adapter));
-		} else if (typeof property !== "boolean") {
-			setMetaProperty(entry, key, evaluateProperty(node, property));
 		}
 	}
 	if (typeof entry.focusable === "function") {
@@ -325,64 +309,5 @@ function expandRegex(entry: MetaElement): void {
 		if (values.enum) {
 			entry.attributes[name].enum = values.enum.map(expandRegexValue);
 		}
-	}
-}
-
-/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
-function evaluateProperty(node: HtmlElement, expr: PropertyExpression): boolean {
-	const [func, options] = parseExpression(expr);
-	return func(node, options);
-}
-
-function parseExpression(
-	/* eslint-disable-next-line import/no-deprecated -- while deprecated it is still supported until a later major with breaking changes */
-	expr: PropertyExpression,
-): [PropertyEvaluator, string | [string, string, string]] {
-	if (typeof expr === "string") {
-		return parseExpression([expr, {}]);
-	} else {
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- old style expressions should be replaced with typesafe functions */
-		const [funcName, options] = expr;
-		const func = functionTable[funcName];
-		if (!func) {
-			throw new Error(`Failed to find function "${funcName}" when evaluating property expression`);
-		}
-		return [func, options as string | [string, string, string]];
-	}
-}
-
-function isDescendantFacade(node: HtmlElement, tagName: any): boolean {
-	if (typeof tagName !== "string") {
-		throw new Error(
-			`Property expression "isDescendant" must take string argument when evaluating metadata for <${node.tagName}>`,
-		);
-	}
-	return isDescendant(node, tagName);
-}
-
-function hasAttributeFacade(node: HtmlElement, attr: any): boolean {
-	if (typeof attr !== "string") {
-		throw new Error(
-			`Property expression "hasAttribute" must take string argument when evaluating metadata for <${node.tagName}>`,
-		);
-	}
-	return hasAttribute(node, attr);
-}
-
-function matchAttributeFacade(node: HtmlElement, match: string | string[]): boolean {
-	if (!Array.isArray(match) || match.length !== 3) {
-		throw new Error(
-			`Property expression "matchAttribute" must take [key, op, value] array as argument when evaluating metadata for <${node.tagName}>`,
-		);
-	}
-	const [key, op, value] = match.map((x) => x.toLowerCase());
-	switch (op) {
-		case "!=":
-		case "=":
-			return matchAttribute(node, key, op, value);
-		default:
-			throw new Error(
-				`Property expression "matchAttribute" has invalid operator "${op}" when evaluating metadata for <${node.tagName}>`,
-			);
 	}
 }

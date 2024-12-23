@@ -84,7 +84,7 @@
   "module": "dist/es/index.js",
   "browser": "dist/cjs/browser.js",
   "bin": {
-    "html-validate": "bin/html-validate.js"
+    "html-validate": "bin/html-validate.mjs"
   },
   "files": [
     "bin",
@@ -97,6 +97,8 @@
   ],
   "workspaces": [
     "docs",
+    "tests/integration/cjs-cli",
+    "tests/integration/esm-cli",
     "tests/vitest"
   ],
   "scripts": {
@@ -114,7 +116,7 @@
     "postdocs": "tsc -b docs/examples",
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
-    "htmlvalidate": "node ./bin/html-validate.js",
+    "htmlvalidate": "node ./bin/html-validate.mjs",
     "prepublishOnly": "release-prepublish --bundle",
     "postpublish": "release-postpublish",
     "prepare": "husky && npm run codegen",
@@ -243,7 +245,7 @@
     "@types/babel__code-frame": "7.0.6",
     "@types/jest": "29.5.14",
     "@types/minimist": "1.2.5",
-    "@types/node": "16.18.122",
+    "@types/node": "18.19.68",
     "@types/prompts": "2.4.9",
     "@types/semver": "7.5.8",
     "@types/stream-buffers": "3.0.7",
@@ -289,7 +291,7 @@
     }
   },
   "engines": {
-    "node": ">= 16.14"
+    "node": ">= 18"
   },
   "externalDependencies": [
     "@babel/code-frame",

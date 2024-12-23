@@ -13,9 +13,9 @@ To configure metadata sources use `elements: [...]`, see [configuring](/usage).
 A typical custom element may look like:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     flow: true,
   },
@@ -92,9 +92,9 @@ If the element has conditions for which content categories it belongs to one can
 For instance, the `<video>` element is interactive only if the `controls` attribute is present:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   video: {
     interactive(node) {
       return node.hasAttribute("controls");
@@ -102,32 +102,6 @@ module.exports = defineMetadata({
   },
 });
 ```
-
-### Property expressions
-
-Deprecated: Use property callbacks instead.
-
-Property expressions take the form `string | [string, any]` where the string is the name of the evaluator which may take optional data passed as the second argument.
-
-As with the `<video>` element shown above the `<audio>` element is also only interactive if the `controls` attribute is present:
-
-```json
-{
-  "audio": {
-    "interactive": ["hasAttribute", "controls"]
-  }
-}
-```
-
-The available evaluators are:
-
-- `isDescendant` evaluates to `true` if the element is a descendant of the
-  element provided as argument.  
-  `["isDescendant", "map"]`
-- `hasAttribute` evaluates to `true` if the element has the specified attribute.  
-  `["hasAttribute", "usemap"]`
-- `matchAttribute` tests if specified attribute against a value.  
-  `["matchAttribute", ["type", "!=", "hidden"]]`
 
 ## Element properties
 
@@ -255,9 +229,9 @@ Many native HTML elements has an implicit ARIA role (defined in [ARIA in HTML](h
 - a callback returning a string. The `node` parameter is the element the the role is requested for. If the callback returns `null` the element has no corresponding role.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   /* defines an element with a static implicit role */
   "custom-element": {
     aria: {
@@ -321,7 +295,7 @@ export interface MetaAttribute {
 ```ts
 import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {
@@ -350,9 +324,9 @@ If the callback returns an error string the attribute cannot be used in the give
 - The `attr` parameter is the value of the current attribute under consideration, e.g. the value of `foo` in the next example.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "custom-element": {
     attributes: {
       foo: {
@@ -708,9 +682,9 @@ Elements being inherited must be defined before the inheritor or an error will b
 Attributes will be inherited but can be overwritten, given the following:
 
 ```ts
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   vehicle: {
     attributes: {
       tires: {
@@ -740,9 +714,9 @@ The `<car>` element will still require the `color` attribute but not the `tires`
 The attribute could also be removed from the inheritor by setting it to `null`:
 
 ```ts
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   vehicle: {
     attributes: {
       tires: {

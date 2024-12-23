@@ -11,9 +11,9 @@ If we want to allow only phrasing content (`<span>`, `<strong>`, etc) inside we 
 `permittedContent` is a list of allowed tags or content categories.
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     permittedContent: ["span", "strong", "em"],
@@ -30,9 +30,9 @@ module.exports = defineMetadata({
 As it quickly get tedious to list all tag names we can refer to content categories directly:
 
 ```diff
- const { defineMetadata } = require("html-validate");
+ import { defineMetadata } from "html-validate";
 
- module.exports = defineMetadata({
+ export default defineMetadata({
    "my-component": {
      flow: true,
 -    permittedContent: ["span", "strong", "em"],
@@ -44,9 +44,9 @@ As it quickly get tedious to list all tag names we can refer to content categori
 The list can also be turned to a blacklist by using the `exclude` keyword:
 
 ```diff
- const { defineMetadata } = require("html-validate");
+ import { defineMetadata } from "html-validate";
 
- module.exports = defineMetadata({
+ export default defineMetadata({
    "my-component": {
      flow: true,
 -    permittedContent: ["span", "strong", "em"],
@@ -78,9 +78,9 @@ However, it can be used in circumstances where this is not possible.
 The most common case is to prevent nesting of the component or limit usage of certain content categories such as sectioning or headings:
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   "my-component": {
     flow: true,
     permittedDescendants: [{ exclude: ["my-component", "@sectioning"] }],
@@ -121,9 +121,9 @@ Other properties to limit content also exits, check the [element metadata refere
 (simplified for brevity)
 
 ```js
-const { defineMetadata } = require("html-validate");
+import { defineMetadata } from "html-validate";
 
-module.exports = defineMetadata({
+export default defineMetadata({
   html: {
     permittedContent: ["head?", "body?"],
     permittedOrder: ["head", "body"],
