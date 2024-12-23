@@ -48,12 +48,12 @@ Older major versions is generally supported for two year after the succeeding ve
       <td>8.x</td>
       <td>Active</td>
       <td>2023-06-04</td>
-      <td>-</td>
+      <td>2026-12-31</td>
     </tr>
     <tr class="release-active">
       <td>9.x</td>
       <td>Active</td>
-      <td>-</td>
+      <td>2024-12-23</td>
       <td>-</td>
     </tr>
   </tbody>
