@@ -1,17 +1,13 @@
-import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { type Report, type Result } from "../../reporter";
-import { HtmlValidate } from "../../htmlvalidate";
+import { type ValidateStringFn, createSyncFn, workerPath } from "../worker";
 
 /**
  * @internal
  */
 export function getResults(filename: string, value: Report | string): Result[] {
 	if (typeof value === "string") {
-		const loader = new FileSystemConfigLoader({
-			extends: ["html-validate:recommended"],
-		});
-		const htmlvalidate = new HtmlValidate(loader);
-		const report = htmlvalidate.validateStringSync(value, filename, {
+		const syncFn = createSyncFn<ValidateStringFn>(workerPath);
+		const report = syncFn(value, filename, {
 			rules: {
 				"void-style": "off",
 			},
