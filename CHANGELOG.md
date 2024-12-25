@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 9.1.0 (2024-12-25)
+
+### Features
+
+- **deps:** update dependency ignore to v7 ([43ae9ac](https://gitlab.com/html-validate/html-validate/commit/43ae9ac76c9d03733c4044272aeba069bad206b0))
+
+### Bug Fixes
+
+- use jest worker for `toMatchCodeframe` ([3c29ad5](https://gitlab.com/html-validate/html-validate/commit/3c29ad5e74ef8eede7755c4169ed1085f5167e87))
+
 ## 9.0.1 (2024-12-23)
 
 ### Bug Fixes
