@@ -1002,7 +1002,11 @@ export type RequiredContent = string[];
 export class ResolvedConfig {
     // @internal
     constructor({ metaTable, plugins, rules, transformers }: ResolvedConfigData, original: ConfigData);
+    // @internal (undocumented)
+    cache: Map<string, Transformer_2>;
     canTransform(filename: string): boolean;
+    // @internal (undocumented)
+    findTransformer(filename: string): TransformerEntry | null;
     getConfigData(): ConfigData;
     // (undocumented)
     getMetaTable(): MetaTable;
@@ -1014,10 +1018,6 @@ export class ResolvedConfig {
     transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]>;
     // @internal
     transformFilenameSync(resolvers: Resolver[], filename: string): Source[];
-    // @internal
-    transformSource(resolvers: Resolver[], source: Source, filename?: string): Promise<Source[]>;
-    // @internal
-    transformSourceSync(resolvers: Resolver[], source: Source, filename?: string): Source[];
 }
 
 // @public (undocumented)

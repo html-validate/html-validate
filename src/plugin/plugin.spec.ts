@@ -6,7 +6,7 @@ import { Engine } from "../engine";
 import { EventHandler } from "../event";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
-import { type Transformer, TRANSFORMER_API } from "../transform";
+import { type Transformer, TRANSFORMER_API, transformSource } from "../transform";
 import { type Plugin } from "./plugin";
 
 let mockPlugin: Plugin;
@@ -428,7 +428,7 @@ describe("Plugin", () => {
 				},
 			});
 			const resolvedConfig = await config.resolve();
-			const sources = await resolvedConfig.transformSource(resolvers, {
+			const sources = await transformSource(resolvers, resolvedConfig, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,
@@ -477,7 +477,7 @@ describe("Plugin", () => {
 				},
 			});
 			const resolvedConfig = await config.resolve();
-			const sources = await resolvedConfig.transformSource(resolvers, {
+			const sources = await transformSource(resolvers, resolvedConfig, {
 				data: "original data",
 				filename: "/path/to/mock.filename",
 				line: 2,

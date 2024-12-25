@@ -11,6 +11,7 @@ import configurationSchema from "./schema/config.json";
 import { StaticConfigLoader } from "./config/loaders/static";
 import { isThenable } from "./utils";
 import { UserError } from "./error";
+import { transformSource, transformSourceSync } from "./transform";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
@@ -148,7 +149,7 @@ export class HtmlValidate {
 		const source = normalizeSource(input);
 		const config = await this.getConfigFor(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
-		const transformedSource = await config.transformSource(resolvers, source);
+		const transformedSource = await transformSource(resolvers, config, source);
 		const engine = new Engine(config, Parser);
 		return engine.lint(transformedSource);
 	}
@@ -164,7 +165,7 @@ export class HtmlValidate {
 		const source = normalizeSource(input);
 		const config = this.getConfigForSync(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
-		const transformedSource = config.transformSourceSync(resolvers, source);
+		const transformedSource = transformSourceSync(resolvers, config, source);
 		const engine = new Engine(config, Parser);
 		return engine.lint(transformedSource);
 	}
