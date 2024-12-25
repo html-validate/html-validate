@@ -7,18 +7,12 @@ import {
 	getCachedTransformerFunction,
 	type TransformContext,
 	type Transformer,
+	type TransformerEntry,
 } from "../transform";
 import { isThenable } from "../utils";
 import { type ConfigData, type RuleOptions } from "./config-data";
 import { type Resolver } from "./resolver";
 import { type Severity } from "./severity";
-
-/**
- * @public
- */
-export type TransformerEntry =
-	| { kind: "import"; pattern: RegExp; name: string }
-	| { kind: "function"; pattern: RegExp; function: Transformer };
 
 /**
  * @public

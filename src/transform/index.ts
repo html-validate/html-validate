@@ -3,3 +3,4 @@ export { getCachedTransformerFunction, getTransformerFunction } from "./get-tran
 export { type Transformer } from "./transformer";
 export { TRANSFORMER_API } from "./transformer-api";
 export { type TransformerChainedResult, type TransformerResult } from "./transformer-result";
+export { type TransformerEntry } from "./transformer-entry";

@@ -1432,7 +1432,7 @@ export { Transformer_2 as Transformer }
 // @public
 export type TransformerChainedResult = Iterable<Source> | Promise<Iterable<Source>>;
 
-// @public (undocumented)
+// @public
 export type TransformerEntry = {
     kind: "import";
     pattern: RegExp;
