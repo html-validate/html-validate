@@ -1,15 +1,7 @@
-import fs from "node:fs";
-import { type Source } from "../context";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
-import {
-	transformSource,
-	transformSourceSync,
-	type Transformer,
-	type TransformerEntry,
-} from "../transform";
+import { type Transformer, type TransformerEntry } from "../transform";
 import { type ConfigData, type RuleOptions } from "./config-data";
-import { type Resolver } from "./resolver";
 import { type Severity } from "./severity";
 
 /**
@@ -75,54 +67,6 @@ export class ResolvedConfig {
 
 	public getRules(): Map<string, [Severity, RuleOptions]> {
 		return this.rules;
-	}
-
-	/**
-	 * Wrapper around [[transformSource]] which reads a file before passing it
-	 * as-is to transformSource.
-	 *
-	 * @internal
-	 * @param filename - Filename to transform (according to configured
-	 * transformations)
-	 * @returns A list of transformed sources ready for validation.
-	 */
-	public transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]> {
-		const stdin = 0;
-		const src = filename !== "/dev/stdin" ? filename : stdin;
-		const data = fs.readFileSync(src, { encoding: "utf8" });
-		const source: Source = {
-			data,
-			filename,
-			line: 1,
-			column: 1,
-			offset: 0,
-			originalData: data,
-		};
-		return transformSource(resolvers, this, source, filename);
-	}
-
-	/**
-	 * Wrapper around [[transformSource]] which reads a file before passing it
-	 * as-is to transformSource.
-	 *
-	 * @internal
-	 * @param filename - Filename to transform (according to configured
-	 * transformations)
-	 * @returns A list of transformed sources ready for validation.
-	 */
-	public transformFilenameSync(resolvers: Resolver[], filename: string): Source[] {
-		const stdin = 0;
-		const src = filename !== "/dev/stdin" ? filename : stdin;
-		const data = fs.readFileSync(src, { encoding: "utf8" });
-		const source: Source = {
-			data,
-			filename,
-			line: 1,
-			column: 1,
-			offset: 0,
-			originalData: data,
-		};
-		return transformSourceSync(resolvers, this, source, filename);
 	}
 
 	/**

@@ -1119,10 +1119,6 @@ export class ResolvedConfig {
     getPlugins(): Plugin_2[];
     // (undocumented)
     getRules(): Map<string, [Severity, RuleOptions]>;
-    // @internal
-    transformFilename(resolvers: Resolver[], filename: string): Promise<Source[]>;
-    // @internal
-    transformFilenameSync(resolvers: Resolver[], filename: string): Source[];
 }
 
 // @public (undocumented)
