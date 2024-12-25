@@ -14,7 +14,6 @@ export {
 	type StaticResolver,
 	type StaticResolverMap,
 	type TransformMap,
-	type TransformerEntry,
 	Config,
 	ConfigError,
 	ConfigLoader,
@@ -128,6 +127,7 @@ export {
 	type TransformContext,
 	type Transformer,
 	type TransformerChainedResult,
+	type TransformerEntry,
 	type TransformerResult,
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";

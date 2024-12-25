@@ -10,6 +10,7 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import bundledRules from "../rules";
 import { Rule } from "../rule";
+import { type TransformerEntry } from "../transform";
 import { isThenable } from "../utils";
 import {
 	type ConfigData,
@@ -21,7 +22,7 @@ import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
-import { type ResolvedConfigData, type TransformerEntry, ResolvedConfig } from "./resolved-config";
+import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
 import { type Resolver, resolvePlugin, resolveConfig, resolveElements } from "./resolver";
 
 /**
