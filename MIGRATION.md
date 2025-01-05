@@ -34,7 +34,7 @@ Somewhere in your configuration you are importing a directory (containing an `in
 
 The following deprecated aliases has been removed:
 
-- `htmlvalidate:recommended` replace with `html-validate:recommended`.
+- `htmlvalidate:recommended` - replace with `html-validate:recommended`.
 - `htmlvalidate:document` - replace with `html-validate:document`.
 - `html-validate:a17y` - replace with `html-validate:a11y`.
 

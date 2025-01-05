@@ -37,9 +37,9 @@ For API users the TL;DR version is most functions can return a `Promise` so make
 - **config:** This change affects all users. The following deprecated
   configuration presets has been removed:
 
-  - `htmlvalidate:recommended`
-  - `htmlvalidate:document`
-  - `html-validate:a17y`
+  - `htmlvalidate:recommended` - replace with `html-validate:recommended`.
+  - `htmlvalidate:document` - replace with `html-validate:document`.
+  - `html-validate:a17y` - replace with `html-validate:a11y`.
 
 - **cli:** CLI uses ESM (with `esmResolver`). For most part this shouldn't
   affect anything but in some cases you might need slight configuration
