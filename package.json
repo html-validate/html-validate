@@ -163,7 +163,8 @@
           "schema",
           "transform",
           "types",
-          "utils"
+          "utils",
+          "vitest"
         ]
       ]
     }
