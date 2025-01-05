@@ -1,9 +1,13 @@
 {
   "name": "tests-vitest",
   "private": true,
+  "type": "module",
   "files": [],
   "scripts": {
     "test": "vitest run --no-coverage"
+  },
+  "dependencies": {
+    "html-validate": "file:../.."
   },
   "devDependencies": {
     "vite": "4.5.5",

@@ -1,10 +1,10 @@
-import { pathToFileURL } from "node:url";
 import {
 	type MessagePort,
 	MessageChannel,
 	Worker,
 	receiveMessageOnPort,
 } from "node:worker_threads";
+import { legacyRequire } from "../../resolve";
 import {
 	type AnyAsyncFn,
 	type AnyFn,
@@ -61,7 +61,7 @@ function startWorkerThread<R, T extends AnyAsyncFn<R>>(
 	workerPath: string,
 ): (...args: Parameters<T>) => R {
 	const { port1: mainPort, port2: workerPort } = new MessageChannel();
-	const workerPathUrl = pathToFileURL(require.resolve(workerPath));
+	const workerPathUrl = legacyRequire.resolve(workerPath);
 	const worker = new Worker(workerPathUrl, {
 		eval: false,
 		workerData: { sharedBuffer, workerPort },

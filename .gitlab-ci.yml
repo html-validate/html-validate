@@ -239,7 +239,6 @@ Vitest compat:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
-    - npm install --no-save @types/node@18
     - npm install -w tests/vitest $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
     - npm ls vitest
   script:
