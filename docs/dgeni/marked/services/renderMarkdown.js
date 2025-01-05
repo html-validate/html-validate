@@ -1,5 +1,5 @@
 const { marked } = require("marked");
-const { code, heading, ruleInfoPlugin } = require("../plugins");
+const { code, container, heading, ruleInfoPlugin } = require("../plugins");
 
 /**
  * Customized version of dgeni nunjucks renderer with highlighting support
@@ -8,6 +8,7 @@ const { code, heading, ruleInfoPlugin } = require("../plugins");
  */
 module.exports = function renderMarkdown(example, highlight) {
 	/* enable custom render functions */
+	marked.use(container());
 	marked.use(heading());
 	marked.use(code({ example, highlight }));
 	marked.use(ruleInfoPlugin());
