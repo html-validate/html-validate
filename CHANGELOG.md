@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.1.1 (2025-01-05)
+
+### Bug Fixes
+
+- **vitest:** fix `require is not defined` in vitest ([6a42bb1](https://gitlab.com/html-validate/html-validate/commit/6a42bb1ce34aca2475150723fb6d3cbb5b915048)), closes [#276](https://gitlab.com/html-validate/html-validate/issues/276)
+
 ## 9.1.0 (2024-12-25)
 
 ### Features
