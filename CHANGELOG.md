@@ -28,12 +28,6 @@ For API users the TL;DR version is most functions can return a `Promise` so make
 
 ### ⚠ BREAKING CHANGES
 
-- **meta:** The deprecated metadata property expressions have been removed
-  and can be replaced with callback functions. This gives greater control for the
-  metadata author, provides better IDE support and is more reusable when querying
-  the metadata directly.
-- **api:** `Config.merge(..)` will return a `Promise` when used with an
-  async loader or resolver.
 - **config:** This change affects all users. The following deprecated
   configuration presets has been removed:
 
@@ -44,47 +38,51 @@ For API users the TL;DR version is most functions can return a `Promise` so make
 - **cli:** CLI uses ESM (with `esmResolver`). For most part this shouldn't
   affect anything but in some cases you might need slight configuration
   migration. See Migration Guide for details.
-
-refactor(cli): use ESM in CLI
-
+- **cli:** use ESM in CLI
+- **meta:** The deprecated metadata property expressions have been removed
+  and can be replaced with callback functions. This gives greater control for the
+  metadata author, provides better IDE support and is more reusable when querying
+  the metadata directly.
 - **deps:** Requires NodeJS v18 or later.
+- **api:** `Config.merge(..)` will return a `Promise` when used with an
+  async loader or resolver.
 - **api:** The deprecated `tag:open` and `tag:close` events has been
   removed, use `tag:begin` and `tag:end` instead.
 - **api:** The `Config.resolve()` method can return a `Promise` if any
   underlying loader or resolver has returned a `Promise`.
 
-It is recommended to assume it returns a `Promise` and always `await` the
-result:
+  It is recommended to assume it returns a `Promise` and always `await` the
+  result:
 
-```diff
--const resolved = config.resolve();
-+const resolved = await config.resolve();
-```
+  ```diff
+  -const resolved = config.resolve();
+  +const resolved = await config.resolve();
+  ```
 
-If you need synchronous code ensure the configuration, the loader and the
-resolver all returns synchronous results, e.g. the `staticResolver` with
-synchronous code.
+  If you need synchronous code ensure the configuration, the loader and the
+  resolver all returns synchronous results, e.g. the `staticResolver` with
+  synchronous code.
 
 - **api:** The `HtmlValidate.getConfigurationSchema()` method is now async
   and returns a `Promise`. If you use this method you need to await the result:
 
-```diff
--const schema = htmlvalidate.getConfigurationSchema();
-+const schema = await htmlvalidate.getConfigurationSchema();
-```
+  ```diff
+  -const schema = htmlvalidate.getConfigurationSchema();
+  +const schema = await htmlvalidate.getConfigurationSchema();
+  ```
 
 - **api:** If you are writing your own transformers they may now
   optionally return a `Promise`. If you are using `test-utils` to write unit tests
   you must now resolve the promise.
 
-```diff
- import { transformSource } from "html-validate/test-utils";
+  ```diff
+   import { transformSource } from "html-validate/test-utils";
 
--const result = transformSource(transformer, source);
-+const result = await transformSource(transformer, source);
-```
+  -const result = transformSource(transformer, source);
+  +const result = await transformSource(transformer, source);
+  ```
 
-This is no matter if your transformer is actually async or not.
+  This is no matter if your transformer is actually async or not.
 
 - **api:** The `CLI.isIgnored(..)` method has been removed from the public
   API. There is no replacement. If you need this method open an issue describing
@@ -101,12 +99,12 @@ This is no matter if your transformer is actually async or not.
 - **api:** The redundant and deprecated `Config.init()` method has been
   removed.
 
-Remove any calls to the method:
+  Remove any calls to the method:
 
-```diff
- const config = Config.fromObject({ /* ... */ });
--config.init();
-```
+  ```diff
+   const config = Config.fromObject({ /* ... */ });
+  -config.init();
+  ```
 
 ### Features
 
