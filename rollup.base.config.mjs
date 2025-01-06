@@ -250,8 +250,10 @@ export function build(format) {
 				sourcemap: true,
 				manualChunks,
 				entryFileNames(chunkInfo) {
-					if (chunkInfo.name === "worker") {
-						return "jest-worker.js";
+					const worker = chunkInfo.facadeModuleId.match(/src\/([^/]+)\/worker\/worker.ts$/);
+					if (worker) {
+						const [, category] = worker;
+						return `${category}-worker.js`;
 					}
 					return "[name].js";
 				},
