@@ -6,8 +6,31 @@ nav: devguide
 
 # DOM cache API
 
-The DOM cache API can be used to save computations on DOM nodes.
-Values are cached per node and must not be used before DOM is fully constructed.
+The DOM cache API can be used to save computations on DOM nodes (e.g. elements).
+Values are cached per node.
+
+For example, testing if an element is part of the accessibility tree includes multiples tests not only on the node itself but also all of the ancestors, for instance:
+
+- Does the element or one of its ancestors have the `hidden` attribute?
+- Does the element or one of its ancestors have the `inert` attribute?
+- Does the element or one of its ancestors have `aria-hidden="true"`?
+- etc
+
+Testing if an element is part of the accessibility tree is a frequent test required by most of the a11y related tests and thus gains by caching the result.
+
+::: warning
+
+The cache API is only available after the DOM is fully constructed, i.e. after the `dom:ready` event has fired.
+
+:::
+
+## When to use
+
+There is no definitive answer as it is always a tradeof between memory and performance but as a rule of thumb you should use the cache API if the computation result:
+
+- Is reused in multiple rules.
+- Is reused multiple times within the same rule.
+- Involves ancestors or descendants (cache the intermediate result on each node as you go)
 
 ## Cache key
 
