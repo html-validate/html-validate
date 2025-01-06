@@ -215,11 +215,11 @@ export class MyRule extends Rule<void, RuleOptions> {
 
 If the optional `schema()` function is implemented is should return [JSON schema](https://json-schema.org/learn/getting-started-step-by-step.html) for the options interface.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>Note the function must be <code>static</code> as it will be called before the instance is created, i.e. no unvalidated options will ever touch the rule implementation.</p>
-</div>
+::: warning Note
+
+Note the function must be `static` as it will be called before the instance is created, i.e. no unvalidated options will ever touch the rule implementation.
+
+:::
 
 The object is merged into the `properties` object of a boilerplate object schema.
 

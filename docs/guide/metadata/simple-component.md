@@ -98,11 +98,11 @@ Rerunning the validation will now have the complete opposite effect, the element
 This happens because we have not yet told the validator what kind of element it is, we only provided it with empty metadata.
 Most properties default to `false` or `[]`.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Tips</strong>
-	<p>Use {@link rules/no-unknown-elements <code>no-unknown-elements</code>} rule to find elements you have not yet provided metadata for.</p>
-</div>
+::: tip
+
+Use the {@link rules/no-unknown-elements `no-unknown-elements`} rule to find elements you have not yet provided metadata for.
+
+:::
 
 ## Content categories
 
@@ -162,15 +162,13 @@ If we set the `phrasing` property as well the element will be allowed inside a `
 Some elements might want only one or the other and some want both.
 Most of the time a phrasing elements belongs to both the flow and phrasing categories but the opposite is not true.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Rule of thumb</strong>
-	<ul>
-		<li>If the component is meant to be used where a <code>&lt;span&gt;</code> would go set both <code>flow</code> and <code>phrasing</code> to <code>true</code>.</li>
-		<li>If the component is meant to be used where a <code>&lt;div&gt;</code> would go set only <code>flow</code> to <code>true</code>.</li>
-		<li>If the component wraps a <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element set <code>interactive</code> to <code>true</code>.</li>
-	</ul>
-</div>
+::: tip Rule of thumb
+
+- If the component is meant to be used where a `<span>` would go set both `flow` and `phrasing` to `true`.
+- If the component is meant to be used where a `<div>` would go set only `flow` to `true`.
+- If the component wraps a `<a>` or `<button>` element set `interactive` to `true`.
+
+:::
 
 There are other content categories as well, check the [element metadata reference](/usage/elements.html) and the official HTML5 specification for details of each one.
 

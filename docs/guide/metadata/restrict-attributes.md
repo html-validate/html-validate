@@ -56,13 +56,11 @@ We can also specify regular expressions by surrounding the string with `/` (reme
   <my-component ducks="huey">...</my-component>
 </validate>
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Tips</strong>
-	<p>
-		Regular expressions and enumeration can be used at the same time.
-	</p>
-</div>
+::: tip
+
+Regular expressions and enumeration can be used at the same time.
+
+:::
 
 To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.
 

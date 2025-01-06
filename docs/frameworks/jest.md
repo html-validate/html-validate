@@ -43,11 +43,12 @@ const elem = document.createElement("div");
 expect(elem).toHTMLValidate();
 ```
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>The {@link void-style} rule is disabled by default since jsdom normalizes the style. It can be enabled by passing a custom configuration reenabling it.</p>
-</div>
+::: info
+
+The {@link void-style} rule is disabled by default since jsdom normalizes the style.
+It can be enabled by passing a custom configuration reenabling it.
+
+:::
 
 If needed a custom configuration can be passed:
 

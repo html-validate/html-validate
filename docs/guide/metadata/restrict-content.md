@@ -63,11 +63,11 @@ The list can also be turned to a blacklist by using the `exclude` keyword:
   </my-component>
 </validate>
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Tips</strong>
-	<p><code>exclude</code> is also useful to prevent interactive elements from disallowing other interactive elements by excluding <code>@interactive</code></p>
-</div>
+::: tip
+
+`exclude` is also useful to prevent interactive elements from disallowing other interactive elements by excluding `@interactive`.
+
+:::
 
 ## Descendants
 
@@ -104,15 +104,13 @@ export default defineMetadata({
   </my-component>
 </validate>
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Rule of thumb</strong>
-	<ul>
-		<li>Use <code>permittedContent</code> to limit the elements you want to allow as content.</li>
-		<li>Use <code>permittedDescendants</code> to prevent nestling.</li>
-		<li>If the component wraps a <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element use <code>permittedDescendants</code> exclude other interactive elements.</li>
-	</ul>
-</div>
+::: tip Rule of thumb
+
+- Use `permittedContent` to limit the elements you want to allow as content.
+- Use `permittedDescendants` to prevent nestling.
+- If the component wraps a `<a>` or `<button>` element use `permittedDescendants` exclude other interactive elements.
+
+:::
 
 Other properties to limit content also exits, check the [element metadata reference](/usage/elements.html) for details.
 

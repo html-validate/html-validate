@@ -34,13 +34,11 @@ export default defineMetadata({
 
 When inheriting you can still override any properties from the inherited element.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>
-		Some elements has properties not suitable for inheriting.
-		For instance <code>&lt;input&gt;</code> is a <code>void</code> element but custom elements cannot be pure <code>void</code> thus if you inherit from it you must set <code>void</code> to <code>false</code>.
-	</p>
-</div>
+::: warning
+
+Some elements has properties not suitable for inheriting.
+For instance `<input>` is a `void` element but custom elements cannot be pure `void` thus if you inherit from it you must set `void` to `false`.
+
+:::
 
 Inheritance is implied when overwriting existing elements, e.g. when overwriting builtin elements or loading multiple definitions of the same component.

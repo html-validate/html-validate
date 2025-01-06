@@ -1,0 +1,137 @@
+@property --docs-container-color {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: transparent;
+}
+
+@property --docs-container-background {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: transparent;
+}
+
+@property --docs-container-icon {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: transparent;
+}
+
+@property --docs-container-info-border {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #b9b9b9;
+}
+
+@property --docs-container-info-background {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #fbfbfb;
+}
+
+@property --docs-container-tip-border {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #4a52b6;
+}
+
+@property --docs-container-tip-background {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #f5f6fa;
+}
+
+@property --docs-container-warning-border {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #ffbe10;
+}
+
+@property --docs-container-warning-background {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #fffcf3;
+}
+
+@property --docs-container-danger-border {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #ca1515;
+}
+
+@property --docs-container-danger-background {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #fcf3f3;
+}
+
+@property --docs-container-code-background-color {
+	syntax: "<color>";
+	inherits: false;
+	initial-value: #e5e5e5;
+}
+
+.docs-container {
+	background: var(--docs-container-background);
+	border: 2px solid var(--docs-container-color);
+	border-left-width: 1rem;
+	padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+	margin-bottom: 1rem;
+	border-radius: 2px;
+
+	:last-child {
+		margin-bottom: 0;
+	}
+
+	&__title {
+		font-weight: bold;
+	}
+
+	&__icon {
+		color: var(--docs-container-icon);
+		margin-right: 0.5ch;
+	}
+
+	&--info {
+		--docs-container-color: var(--docs-container-info-border);
+		--docs-container-background: var(--docs-container-info-background);
+		--docs-container-icon: #333;
+
+		.docs-container__icon {
+			@include fa-icon-solid($fa-var-info-circle);
+		}
+	}
+
+	&--tip {
+		--docs-container-color: var(--docs-container-tip-border);
+		--docs-container-background: var(--docs-container-tip-background);
+		--docs-container-icon: var(--docs-container-tip-border);
+
+		.docs-container__icon {
+			@include fa-icon-solid($fa-var-info-circle);
+		}
+	}
+
+	&--warning {
+		--docs-container-color: var(--docs-container-warning-border);
+		--docs-container-background: var(--docs-container-warning-background);
+		--docs-container-icon: #333;
+
+		.docs-container__icon {
+			@include fa-icon-solid($fa-var-circle-exclamation);
+		}
+	}
+
+	&--danger {
+		--docs-container-color: var(--docs-container-danger-border);
+		--docs-container-background: var(--docs-container-danger-background);
+		--docs-container-icon: var(--docs-container-danger-border);
+
+		.docs-container__icon {
+			@include fa-icon-solid($fa-var-triangle-exclamation);
+		}
+	}
+
+	code {
+		background-color: var(--docs-container-code-background-color);
+	}
+}
