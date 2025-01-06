@@ -20,16 +20,21 @@ const peerDependencies = Object.keys(packageJson.peerDependencies);
  * @typedef {import('rollup').RollupOptions} RollupOptions
  */
 
-/** @type {string[]} */
+/**
+ * List of entrypoints to build.
+ *
+ * - `in` is the entrypoint input filename.
+ * - `out` (optional) is the output name (in dist).
+ */
 const entrypoints = [
-	"src/index.ts",
-	"src/browser.ts",
-	"src/html5.ts",
-	"src/cli/html-validate.ts",
-	"src/jest/jest.ts",
-	"src/jest/worker/worker.ts",
-	"src/vitest/vitest.ts",
-	"src/transform/test-utils.ts",
+	{ in: "src/index.ts" },
+	{ in: "src/browser.ts" },
+	{ in: "src/html5.ts" },
+	{ in: "src/cli/html-validate.ts" },
+	{ in: "src/jest/jest.ts" },
+	{ in: "src/vitest/vitest.ts" },
+	{ in: "src/transform/test-utils.ts" },
+	{ in: "src/jest/worker/worker.ts", out: "jest-worker" },
 ];
 
 /** @type {string[]} */
@@ -104,7 +109,7 @@ function jestChunks(rel) {
 function manualChunks(id) {
 	/** @type {string} */
 	const base = path.relative(rootDir, id).replace(/\\/g, "/");
-	if (entrypoints.includes(base)) {
+	if (entrypoints.find((it) => it.in === base)) {
 		return undefined;
 	}
 
@@ -243,17 +248,17 @@ function workerPlugin() {
 export function build(format) {
 	return [
 		{
-			input: entrypoints,
+			input: entrypoints.map((it) => it.in),
 			output: {
 				dir: `dist/${format}`,
 				format,
 				sourcemap: true,
 				manualChunks,
-				entryFileNames(chunkInfo) {
-					const worker = chunkInfo.facadeModuleId.match(/src\/([^/]+)\/worker\/worker.ts$/);
-					if (worker) {
-						const [, category] = worker;
-						return `${category}-worker.js`;
+				entryFileNames({ facadeModuleId }) {
+					const base = path.relative(rootDir, facadeModuleId).replace(/\\/g, "/");
+					const entrypoint = entrypoints.find((it) => it.in === base);
+					if (entrypoint?.out) {
+						return `${entrypoint.out}.js`;
 					}
 					return "[name].js";
 				},
