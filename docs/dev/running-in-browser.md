@@ -94,12 +94,13 @@ If you need addtional ones you must also use {@link dev/using-api#resolvers `Sta
 Starting with v9.0.0 it is also possible to use `esmResolver` and an [importmap][importmap].
 The `esmResolver` will import using dynamic `import(..)`.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>The browser version of <code>esmResolver</code> will not fail gracefully if the imported module does not exist.</p>
-	<p>It assumes the module will be resolvable. If you use multiple resolvers the <code>esmResolver</code> should be run last as the next resolver will never be tried.</p>
-</div>
+::: warning
+
+The browser version of `esmResolver` will not fail gracefully if the imported module does not exist.
+
+It assumes the module will be resolvable. If you use multiple resolvers the `esmResolver` should be run last as the next resolver will never be tried.
+
+:::
 
 [importmap]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
 

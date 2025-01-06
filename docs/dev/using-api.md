@@ -242,11 +242,12 @@ export class MyCustomLoader extends ConfigLoader {
 }
 ```
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p><code>ConfigLoader.getConfigFor(..)</code> may return a <code>Promise</code> but an asynchronous loader cannot be used with synchronous API's such as <code>HtmlValidate.validateStringSync(..)</code>. CLI usage supports asynchronous loaders.</p>
-</div>
+::: warning
+
+`ConfigLoader.getConfigFor(..)` may return a `Promise` but an asynchronous loader cannot be used with synchronous API's such as `HtmlValidate.validateStringSync(..)`.
+CLI usage supports asynchronous loaders.
+
+:::
 
 The custom loader is used the same as builtin loaders:
 
@@ -373,11 +374,11 @@ The library comes with two builtin resolvers:
 - `ESMResolver` - resolves items using `import(..)`, use the `esmResolver` function to create one.
 - `CommonJSResolver` - resolves items using `require(..)`, use the `cjsResolver` function to create one.
 
-<div class="alert alert-info">
-	<i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-	<strong>Note</strong>
-	<p>When using <code>ESMResolver</code> in a CommonJS project (i.e. not using <code>.mjs</code> or <code>"type": "module"</code>) the imported modules will use the <code>require</code> condition when resolving conditional subpath exports.</p>
-</div>
+::: warning
+
+When using `ESMResolver` in a CommonJS project (i.e. not using `.mjs` or `"type": "module"`) the imported modules will use the `require` condition when resolving conditional subpath exports.
+
+:::
 
 ## Configuration cache
 
