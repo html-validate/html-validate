@@ -71,7 +71,7 @@ function isNodejsChunk(relativeId) {
  * @returns {boolean}
  */
 function isBrowserChunk(relativeId) {
-	return relativeId.endsWith(".browser.ts");
+	return relativeId.startsWith("config/resolver/browser/") || relativeId.endsWith(".browser.ts");
 }
 
 /**
