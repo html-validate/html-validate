@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 import { importResolve } from "../../../resolve";
 import { UserError } from "../../../error";
 import { type ResolverOptions } from "../resolver";
@@ -68,8 +67,7 @@ export async function internalImport<T = unknown>(
 		if (url.protocol !== "file:") {
 			return null;
 		}
-		const moduleName = fileURLToPath(url);
-
+		const moduleName = url.toString();
 		const { default: defaultImport } = (await importFunction(moduleName)) as { default: T };
 		if (!defaultImport) {
 			throw new UserError(`"${id}" does not have a default export`);

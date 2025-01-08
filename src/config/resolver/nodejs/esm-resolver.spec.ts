@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { type Source } from "../../../context";
 import * as ResolveModule from "../../../resolve";
 import * as ImportFunctionModule from "./import-function";
@@ -8,7 +9,7 @@ import { determineRootDir } from "./determine-root-dir";
 
 let mockModules: Record<string, unknown>;
 const mockResolve = jest.spyOn(ResolveModule, "importResolve");
-const mockImport = jest.spyOn(ImportFunctionModule, "importFunction");
+const mockImport = ImportFunctionModule.importFunction as jest.Mock<unknown, [id: string]>; // mocked in jest.setup.js
 const resolver = esmResolver();
 
 function createMockedModule(
@@ -39,6 +40,7 @@ beforeEach(() => {
 		}
 	});
 	mockImport.mockReset().mockImplementation(async (name: string) => {
+		name = fileURLToPath(name);
 		if (name.startsWith("/\x00")) {
 			name = name.slice(2);
 		}
