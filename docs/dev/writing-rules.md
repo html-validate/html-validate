@@ -267,7 +267,7 @@ Schema validation will help both the user and the rule author:
 
 ## Cache
 
-Expensive operations on `DOMNode` can be cached using the {@link dev/cache cache API}.
+Expensive operations that will be reused (e.g. required by multiple rules or where the result depends on the ancestors or descendants of an element) on `DOMNode` can be cached using the {@link dev/cache cache API}.
 
 ## API
 
