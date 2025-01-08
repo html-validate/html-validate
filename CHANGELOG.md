@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.1.2 (2025-01-08)
+
+### Bug Fixes
+
+- fix `ERR_UNSUPPORTED_ESM_URL_SCHEME` on windows ([6b193f3](https://gitlab.com/html-validate/html-validate/commit/6b193f3bd8fc76fa800b8fa6efcf327b817102e3))
+
 ## 9.1.1 (2025-01-05)
 
 ### Bug Fixes
