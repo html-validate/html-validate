@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.1.3 (2025-01-09)
+
+### Bug Fixes
+
+- nodejs 18.19 or later is required ([69ec7e2](https://gitlab.com/html-validate/html-validate/commit/69ec7e232aaffbc36c189c7ba963ef1a4100391b))
+
 ## 9.1.2 (2025-01-08)
 
 ### Bug Fixes
