@@ -152,8 +152,9 @@ Docs:
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run codegen
-    - npm test -- --no-coverage --testPathIgnorePatterns matchers tests/jest tests/vitest
     - npm run --if-present build
+    - npm test -- --no-coverage --testPathIgnorePatterns matchers -- src tests/jest
+    - npm run -w tests/vitest test
     - npm run compatibility
 
 Node:
@@ -161,9 +162,12 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - 18
-          - 20
-          - 22
+          - "18.19"
+          - "18"
+          - "20.6"
+          - "20"
+          - "22.0"
+          - "22"
   image: node:${VERSION}
 
 Jest compat:
@@ -257,8 +261,6 @@ Module:
       - BUILD:
           - esm
           - cjs
-  before_script:
-    - (cd tests/integration/${BUILD} && npm install)
   script:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}

@@ -60,3 +60,17 @@ if [[ $? != 0 ]]; then
 	echo "Compatibility test failed, expected command to exit with zero status"
 	exit 1
 fi
+
+echo "Testing ESM CLI"
+./bin/html-validate.mjs html-validate tests/integration/esm-cli
+if [[ $? != 0 ]]; then
+	echo "Compatibility test failed, expected command to exit with zero status"
+	exit 1
+fi
+
+echo "Testing CJS CLI"
+./bin/html-validate.mjs html-validate tests/integration/cjs-cli
+if [[ $? != 0 ]]; then
+	echo "Compatibility test failed, expected command to exit with zero status"
+	exit 1
+fi
