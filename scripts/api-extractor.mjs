@@ -86,6 +86,35 @@ async function patchAugmentations(config) {
 }
 
 /**
+ * Sort entrypoints:
+ *
+ * - index forced first.
+ * - browser forced second.
+ * - rest in alphabetical order.
+ *
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function cmp(a, b) {
+	const ab = path.basename(a);
+	const bb = path.basename(b);
+	if (ab.endsWith("-index.json")) {
+		return -1;
+	}
+	if (bb.endsWith("-index.json")) {
+		return 1;
+	}
+	if (ab.endsWith("-browser.json")) {
+		return -1;
+	}
+	if (bb.endsWith("-browser.json")) {
+		return 1;
+	}
+	return a.localeCompare(b);
+}
+
+/**
  * @param {string[]} patterns
  * @returns {Promise<void>}
  */
@@ -96,7 +125,7 @@ export async function apiExtractor(patterns) {
 		console.log("Running API Extractor in local mode.");
 	}
 
-	const filenames = await expandPatterns(patterns);
+	const filenames = (await expandPatterns(patterns)).sort(cmp);
 	const plural = filenames.length !== 1 ? "s" : "";
 	console.group("Processing", filenames.length, `configuration file${plural}:`);
 	for (const filename of filenames) {
