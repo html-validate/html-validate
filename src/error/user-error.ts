@@ -8,6 +8,12 @@ export class UserError extends NestedError {
 		super(message, nested);
 		Error.captureStackTrace(this, UserError);
 		this.name = UserError.name;
+
+		Object.defineProperty(this, "isUserError", {
+			value: true,
+			enumerable: false,
+			writable: false,
+		});
 	}
 
 	/**

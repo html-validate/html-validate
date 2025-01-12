@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "node:path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { SchemaValidationError, UserError } from "..";
+import { type UserError, SchemaValidationError, isUserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { CLI } from "./cli";
 import { handleSchemaValidationError } from "./errors";
@@ -282,7 +282,7 @@ async function run(): Promise<void> {
 	} catch (err) {
 		if (err instanceof SchemaValidationError) {
 			handleSchemaValidationError(console, err);
-		} else if (err instanceof UserError) {
+		} else if (isUserError(err)) {
 			handleUserError(err);
 		} else {
 			handleUnknownError(err);

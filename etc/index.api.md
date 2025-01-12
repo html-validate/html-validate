@@ -726,6 +726,9 @@ export interface InitResult {
     filename: string;
 }
 
+// @public
+export function isUserError(error: unknown): error is UserError;
+
 // @internal (undocumented)
 export function keywordPatternMatcher(list: string[], keyword: string): boolean;
 
