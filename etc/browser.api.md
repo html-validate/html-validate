@@ -630,7 +630,7 @@ export interface IncludeExcludeOptions {
 }
 
 // @public
-export function isUserError(error: unknown): error is UserError;
+export function isUserError(error: unknown): error is UserErrorData;
 
 // @internal (undocumented)
 export function keywordPatternMatcher(list: string[], keyword: string): boolean;
@@ -1498,6 +1498,11 @@ export interface UnicodeBOMToken extends BaseToken {
 export class UserError extends NestedError {
     constructor(message: string, nested?: Error);
     // (undocumented)
+    prettyFormat(): string | undefined;
+}
+
+// @public
+export interface UserErrorData extends Error {
     prettyFormat(): string | undefined;
 }
 

@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "node:path";
 import kleur from "kleur";
 import minimist from "minimist";
-import { type UserError, SchemaValidationError, isUserError } from "..";
+import { type UserErrorData, SchemaValidationError, isUserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { CLI } from "./cli";
 import { handleSchemaValidationError } from "./errors";
@@ -75,7 +75,7 @@ function requiresFilename(mode: Mode): boolean {
 	}
 }
 
-function handleUserError(err: UserError): void {
+function handleUserError(err: UserErrorData): void {
 	const formatted = err.prettyFormat();
 	if (formatted) {
 		console.error(); /* blank line */

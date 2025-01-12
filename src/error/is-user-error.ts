@@ -1,4 +1,4 @@
-import { type UserError } from "./user-error";
+import { type UserErrorData } from "./user-error-data";
 
 /**
  * Returns `true` if the error is a `UserError`, i.e. it is an error thrown that
@@ -6,6 +6,6 @@ import { type UserError } from "./user-error";
  *
  * @public
  */
-export function isUserError(error: unknown): error is UserError {
+export function isUserError(error: unknown): error is UserErrorData {
 	return Boolean(error && typeof error === "object" && "isUserError" in error);
 }
