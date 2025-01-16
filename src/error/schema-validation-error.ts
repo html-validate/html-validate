@@ -11,7 +11,7 @@ function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {
 }
 
 /**
- * @public
+ * @internal
  */
 export class SchemaValidationError extends UserError {
 	/** Configuration filename the error originates from */

@@ -1,7 +1,7 @@
 import { NestedError } from "./nested-error";
 
 /**
- * @public
+ * @internal
  */
 export class UserError extends NestedError {
 	public constructor(message: string, nested?: Error) {

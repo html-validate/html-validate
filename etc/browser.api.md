@@ -149,7 +149,7 @@ export interface ConfigData {
     transform?: TransformMap;
 }
 
-// @public (undocumented)
+// @internal (undocumented)
 export class ConfigError extends UserError {
     constructor(message: string, nested?: Error);
 }
@@ -1149,7 +1149,7 @@ export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;
 
 export { SchemaObject }
 
-// @public (undocumented)
+// @internal (undocumented)
 export class SchemaValidationError extends UserError {
     constructor(filename: string | null, message: string, obj: unknown, schema: SchemaObject, errors: ErrorObject[]);
     readonly errors: ErrorObject[];
@@ -1494,10 +1494,10 @@ export interface UnicodeBOMToken extends BaseToken {
     type: TokenType.UNICODE_BOM;
 }
 
-// @public (undocumented)
+// @internal (undocumented)
 export class UserError extends NestedError {
     constructor(message: string, nested?: Error);
-    // (undocumented)
+    // @public (undocumented)
     prettyFormat(): string | undefined;
 }
 
