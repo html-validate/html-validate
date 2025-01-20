@@ -93,6 +93,11 @@ Some exceptions occur, refer to the following table:
       <td>Last 3 majors</td>
     </tr>
     <tr>
+      <td>Vitest</td>
+      <td><code>v0.34 || v1.x || v2.x || v3.x</code></td>
+      <td>Last 3 majors</td>
+    </tr>
+    <tr>
       <td>Vue 2.x</td>
       <td><code>2.x</code></td>
       <td>Vue v2 will be supported until further notice</td>
