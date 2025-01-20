@@ -40,7 +40,7 @@ const loader = new StaticConfigLoader([resolver], {
 const htmlvalidate = new HtmlValidate(loader);
 
 describe("regression tests", () => {
-	const files = globSync("test-files/issues/**/*.html");
+	const files = globSync("test-files/issues/**/*.html", { posix: true });
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile(filename);

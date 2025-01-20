@@ -239,7 +239,7 @@ describe("configuration smoketest", () => {
 		return data;
 	}
 
-	const files = globSync("test-files/config/**/*.html");
+	const files = globSync("test-files/config/**/*.html", { posix: true });
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(2);
 		const loader = new FileSystemConfigLoader();

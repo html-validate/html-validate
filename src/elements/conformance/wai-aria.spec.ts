@@ -57,7 +57,7 @@ describe("validator test-files", () => {
 	} as const;
 
 	const fixtureDir = "test-files/wai-aria";
-	const files = globSync("*.html", { cwd: fixtureDir }) as Array<keyof typeof mapping>;
+	const files = globSync("*.html", { cwd: fixtureDir, posix: true }) as Array<keyof typeof mapping>;
 
 	it.each(files)("%s", async (filename) => {
 		expect.assertions(1);

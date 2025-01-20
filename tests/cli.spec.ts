@@ -2,7 +2,7 @@ import * as path from "node:path";
 import { globSync } from "glob";
 import { CLI } from "../src/cli/cli";
 
-const fixtures = globSync("cli-*/*.html", { cwd: __dirname });
+const fixtures = globSync("cli-*/*.html", { cwd: __dirname, posix: true });
 
 it.each(fixtures)("%s", async (filePath) => {
 	expect.assertions(1);
