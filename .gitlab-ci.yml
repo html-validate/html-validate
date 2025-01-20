@@ -240,6 +240,7 @@ Vitest compat:
           - 0
           - 1
           - 2
+          - 3
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build

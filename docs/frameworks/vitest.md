@@ -26,4 +26,5 @@ All matchers except `toMatchCodeframe` and `toMatchInlineCodeframe` are availabl
 
 ## Version history
 
+- %version% - Support Vitest v3
 - 8.5.0 - Vitest experimental support added.
