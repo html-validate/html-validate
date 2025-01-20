@@ -1,13 +1,19 @@
 import { NestedError } from "./nested-error";
 
 /**
- * @public
+ * @internal
  */
 export class UserError extends NestedError {
 	public constructor(message: string, nested?: Error) {
 		super(message, nested);
 		Error.captureStackTrace(this, UserError);
 		this.name = UserError.name;
+
+		Object.defineProperty(this, "isUserError", {
+			value: true,
+			enumerable: false,
+			writable: false,
+		});
 	}
 
 	/**

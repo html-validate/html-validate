@@ -39,7 +39,14 @@ export {
 	TextNode,
 } from "./dom";
 export { type EventDump, type RuleBlocker, type TokenDump } from "./engine";
-export { NestedError, SchemaValidationError, UserError, WrappedError } from "./error";
+export {
+	type UserErrorData,
+	NestedError,
+	SchemaValidationError,
+	UserError,
+	WrappedError,
+	isUserError,
+} from "./error";
 export * from "./event";
 export { version } from "./generated/package";
 export {

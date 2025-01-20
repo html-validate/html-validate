@@ -1,7 +1,7 @@
 import { UserError } from "../error";
 
 /**
- * @public
+ * @internal
  */
 export class ConfigError extends UserError {
 	public constructor(message: string, nested?: Error) {
