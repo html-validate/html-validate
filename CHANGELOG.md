@@ -1,5 +1,20 @@
 # html-validate changelog
 
+## 9.2.0 (2025-01-28)
+
+### Features
+
+- **api:** error classes marked internal ([84e957b](https://gitlab.com/html-validate/html-validate/commit/84e957b92865078ec066e6b63e06f64593cfae5f))
+- **api:** new `isUserError(..) to determine if an exception is caused by a user misconfiguration ([20dab72](https://gitlab.com/html-validate/html-validate/commit/20dab721c6962e6a276f53ddf94bf185efd5420b))
+- **deps:** support vitest v3 ([0926c7f](https://gitlab.com/html-validate/html-validate/commit/0926c7f25a286cc9c2af9333ee1bf345a37f0bad))
+
+### Bug Fixes
+
+- better error message when `import.meta.resolve` isnt available ([8ed0ae8](https://gitlab.com/html-validate/html-validate/commit/8ed0ae8522413164740703137b4f20d70bdeebc5))
+- **cli:** fix CLI argument `--config` not finding configuration file on windows ([9a1c41c](https://gitlab.com/html-validate/html-validate/commit/9a1c41c2fd21672bf9a8075d4fc6d8034bb4901f))
+- **deps:** update dependency ignore to v7.0.1 ([d1ab96e](https://gitlab.com/html-validate/html-validate/commit/d1ab96ea243449c7422bd0c462f58d5f7f611200))
+- **deps:** update dependency ignore to v7.0.3 ([cbc0f6e](https://gitlab.com/html-validate/html-validate/commit/cbc0f6e834a670ee429216529800222e44ef643f))
+
 ## 9.1.3 (2025-01-09)
 
 ### Bug Fixes
