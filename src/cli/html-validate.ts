@@ -6,12 +6,13 @@ import minimist from "minimist";
 import { type UserErrorData, SchemaValidationError, isUserError } from "..";
 import { name, version, bugs as pkgBugs } from "../generated/package";
 import { CLI } from "./cli";
-import { handleSchemaValidationError } from "./errors";
+import { handleSchemaValidationError, ImportResolveMissingError } from "./errors";
 import { Mode, modeToFlag } from "./mode";
 import { lint } from "./actions/lint";
 import { init } from "./actions/init";
 import { printConfig } from "./actions/print-config";
 import { dump } from "./actions/dump";
+import { haveImportMetaResolve } from "./have-import-meta-resolve";
 
 interface ParsedArgs {
 	config?: string;
@@ -264,6 +265,11 @@ async function run(): Promise<void> {
 	}
 
 	try {
+		/* istanbul ignore next -- not tested with unittests */
+		if (!haveImportMetaResolve()) {
+			throw new ImportResolveMissingError();
+		}
+
 		let success: boolean;
 		if (mode === Mode.LINT) {
 			success = await lint(htmlvalidate, process.stdout, files, {
