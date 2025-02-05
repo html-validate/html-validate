@@ -108,5 +108,5 @@ For instance, with the following configuration only the second URL yields an err
 
 ## Version history
 
-- %version% - only tests `<link>` with `rel` set to one of `stylesheet`, `preload` or `modulepreload`.
+- 9.2.1 - only tests `<link>` with `rel` set to one of `stylesheet`, `preload` or `modulepreload`.
 - 7.1.0 - `include` and `exclude` options added

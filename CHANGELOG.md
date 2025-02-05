@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 9.2.1 (2025-02-05)
+
+### Bug Fixes
+
+- fix repetitive "validator crashed" messages ([4a71fcf](https://gitlab.com/html-validate/html-validate/commit/4a71fcf382d3e1b845a4367fd5b516c7f74606a4))
+- only require SRI on `<link>` with `rel="stylesheet"`, `rel="preload"` or `rel="modulepreload"` ([0b47d2a](https://gitlab.com/html-validate/html-validate/commit/0b47d2aac0ccbe8dbe70edd89e07c939a581e95b))
+
 ## 9.2.0 (2025-01-28)
 
 ### Features
