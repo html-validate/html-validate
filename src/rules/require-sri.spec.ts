@@ -11,15 +11,54 @@ describe("rule require-sri", () => {
 			});
 		});
 
-		it("should report error when integrity attribute is missing on <link>", async () => {
+		it('should report error when integrity attribute is missing on <link rel="stylesheet">', async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href=".." />`;
+			const markup = /* HTML */ ` <link rel="stylesheet" href=".." /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href=".." />
-				    |  ^^^^
+				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				> 1 |  <link rel="stylesheet" href=".." />
+				    |   ^^^^
+				Selector: link"
+			`);
+		});
+
+		it('should report error when integrity attribute is missing on <link rel="preload" as="style">', async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <link rel="preload" as="style" href=".." /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				> 1 |  <link rel="preload" as="style" href=".." />
+				    |   ^^^^
+				Selector: link"
+			`);
+		});
+
+		it('should report error when integrity attribute is missing on <link rel="preload" as="script">', async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <link rel="preload" as="script" href=".." /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				> 1 |  <link rel="preload" as="script" href=".." />
+				    |   ^^^^
+				Selector: link"
+			`);
+		});
+
+		it('should report error when integrity attribute is missing on <link rel="modulepreload">', async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <link rel="modulepreload" href=".." /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				> 1 |  <link rel="modulepreload" href=".." />
+				    |   ^^^^
 				Selector: link"
 			`);
 		});
@@ -51,6 +90,34 @@ describe("rule require-sri", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report error on <link> with other rel", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `<link rel="icon" href=".." />`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error on <link> with missing rel", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `<link href=".." />`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error on preload link without as>", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <link rel="preload" href=".." /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error on preload with other as", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <link rel="preload" as="image" href=".." /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should not report error on <script> without src attribute", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `<script></script>`;
@@ -74,7 +141,7 @@ describe("rule require-sri", () => {
 
 		it("should not report error when integrity attribute is present on <link>", async () => {
 			expect.assertions(1);
-			const markup = /* HTML */ `<link href=".." integrity="..." />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href=".." integrity="..." />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -96,12 +163,12 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <link> with same origin", async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href="/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href="/foo.css" />
+				> 1 | <link rel="stylesheet" href="/foo.css" />
 				    |  ^^^^
 				Selector: link"
 			`);
@@ -113,21 +180,21 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
-				> 1 | <script src="./foo.js"></script>
-				    |  ^^^^^^
-				Selector: script"
-			`);
+					"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
+					> 1 | <script src="./foo.js"></script>
+					    |  ^^^^^^
+					Selector: script"
+				`);
 		});
 
 		it("should report error when integrity attribute is missing on <link> with crossorigin", async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href="https://example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="https://example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href="https://example.net/foo.css" />
+				> 1 | <link rel="stylesheet" href="https://example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
 			`);
@@ -156,7 +223,7 @@ describe("rule require-sri", () => {
 
 		it("should not report error when integrity attribute is missing on <link> with same origin", async () => {
 			expect.assertions(1);
-			const markup = /* HTML */ `<link href="/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -170,12 +237,12 @@ describe("rule require-sri", () => {
 
 		it("should report error when integrity attribute is missing on <link> with crossorigin", async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href="https://example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="https://example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href="https://example.net/foo.css" />
+				> 1 | <link rel="stylesheet" href="https://example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
 			`);
@@ -213,19 +280,19 @@ describe("rule require-sri", () => {
 
 		it("should not report error when url isn't matching any patterns listed in include", async () => {
 			expect.assertions(1);
-			const markup = /* HTML */ `<link href="//domain.example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="//domain.example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when url matches one pattern listed in include", async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href="//include.example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="//include.example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href="//include.example.net/foo.css" />
+				> 1 | <link rel="stylesheet" href="//include.example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
 			`);
@@ -243,19 +310,19 @@ describe("rule require-sri", () => {
 
 		it("should not report error when url matches one pattern listed in exclude", async () => {
 			expect.assertions(1);
-			const markup = /* HTML */ `<link href="//exclude.example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="//exclude.example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
 
 		it("should report error when url isn't matching any patterns listed in exclude", async () => {
 			expect.assertions(2);
-			const markup = /* HTML */ `<link href="//domain.example.net/foo.css" />`;
+			const markup = /* HTML */ `<link rel="stylesheet" href="//domain.example.net/foo.css" />`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
 				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
-				> 1 | <link href="//domain.example.net/foo.css" />
+				> 1 | <link rel="stylesheet" href="//domain.example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
 			`);

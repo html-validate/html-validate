@@ -4,18 +4,18 @@ const markup: Record<string, string> = {};
 markup["incorrect"] = `<script src="//cdn.example.net/jquery.min.js"></script>`;
 markup["correct"] = `<script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>`;
 markup["crossorigin"] = `<!--- local resource -->
-<link href="local.css">
+<link rel="stylesheet" href="local.css">
 
 <!-- resource loaded over CDN -->
-<link href="//cdn.example.net/remote.css">`;
+<link rel="stylesheet" href="//cdn.example.net/remote.css">`;
 markup["include-option"] = `<!-- matches included pattern, yields error -->
-<link href="//cdn.example.net/remote.css" />
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />
 <!-- doesn't match, no error -->
-<link href="//static-assets.example.org/remote.css" />`;
+<link rel="stylesheet" href="//static-assets.example.org/remote.css" />`;
 markup["exclude-option"] = `<!-- doesn't match excluded pattern, yields error -->
-<link href="//cdn.example.net/remote.css">
+<link rel="stylesheet" href="//cdn.example.net/remote.css">
 <!-- matches excluded pattern, no error -->
-<link href="//static-assets.example.org/remote.css">`;
+<link rel="stylesheet" href="//static-assets.example.org/remote.css">`;
 
 describe("docs/rules/require-sri.md", () => {
 	it("inline validation: incorrect", async () => {

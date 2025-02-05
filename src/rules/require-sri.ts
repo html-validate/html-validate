@@ -21,6 +21,23 @@ const supportSri: Record<string, string> = {
 	link: "href",
 	script: "src",
 };
+const supportedRel = ["stylesheet", "preload", "modulepreload"];
+const supportedPreload = ["style", "script"];
+
+function linkSupportsSri(node: HtmlElement): boolean {
+	const rel = node.getAttribute("rel");
+	if (typeof rel?.value !== "string") {
+		return false;
+	}
+	if (!supportedRel.includes(rel.value)) {
+		return false;
+	}
+	if (rel.value === "preload") {
+		const as = node.getAttribute("as");
+		return typeof as?.value === "string" && supportedPreload.includes(as.value);
+	}
+	return true;
+}
 
 export default class RequireSri extends Rule<void, RuleOptions> {
 	private target: Target;
@@ -98,6 +115,10 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 	}
 
 	private needSri(node: HtmlElement): boolean {
+		if (node.is("link") && !linkSupportsSri(node)) {
+			return false;
+		}
+
 		const attr = this.elementSourceAttr(node);
 		if (!attr) {
 			return false;

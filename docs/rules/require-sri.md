@@ -55,10 +55,10 @@ technically would point to the same origin.
 
 <validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossorigin"}'>
     <!--- local resource -->
-    <link href="local.css">
+    <link rel="stylesheet" href="local.css">
 
     <!-- resource loaded over CDN -->
-    <link href="//cdn.example.net/remote.css">
+    <link rel="stylesheet" href="//cdn.example.net/remote.css">
 
 </validate>
 
@@ -79,9 +79,9 @@ For instance, with the following configuration only the first URL yields an erro
 
 <validate name="include-option" rules="require-sri" require-sri='{"include": ["//cdn.example.net/"]}'>
     <!-- matches included pattern, yields error -->
-    <link href="//cdn.example.net/remote.css" />
+    <link rel="stylesheet" href="//cdn.example.net/remote.css" />
     <!-- doesn't match, no error -->
-    <link href="//static-assets.example.org/remote.css" />
+    <link rel="stylesheet" href="//static-assets.example.org/remote.css" />
 </validate>
 
 ### `exclude`
@@ -101,11 +101,12 @@ For instance, with the following configuration only the second URL yields an err
 
 <validate name="exclude-option" rules="require-sri" require-sri='{"exclude": ["//cdn.example.net/"]}'>
     <!-- doesn't match excluded pattern, yields error -->
-    <link href="//cdn.example.net/remote.css">
+    <link rel="stylesheet" href="//cdn.example.net/remote.css">
     <!-- matches excluded pattern, no error -->
-    <link href="//static-assets.example.org/remote.css">
+    <link rel="stylesheet" href="//static-assets.example.org/remote.css">
 </validate>
 
 ## Version history
 
+- %version% - only tests `<link>` with `rel` set to one of `stylesheet`, `preload` or `modulepreload`.
 - 7.1.0 - `include` and `exclude` options added
