@@ -21,17 +21,18 @@ export async function lint(
 	files: string[],
 	options: LintOptions,
 ): Promise<boolean> {
-	const reports = files.map(async (filename: string) => {
+	const reports: Report[] = [];
+	for (const filename of files) {
 		try {
-			return await htmlvalidate.validateFile(filename);
+			reports.push(await htmlvalidate.validateFile(filename));
 		} catch (err) {
 			const message = kleur.red(`Validator crashed when parsing "${filename}"`);
 			output.write(`${message}\n`);
 			throw err;
 		}
-	});
+	}
 
-	const merged = await Reporter.merge(reports);
+	const merged = Reporter.merge(reports);
 
 	/* rename stdin if an explicit filename was passed */
 	if (options.stdinFilename) {
