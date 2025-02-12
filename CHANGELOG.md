@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.2.2 (2025-02-12)
+
+### Bug Fixes
+
+- handle dashes in custom element names ([4a87773](https://gitlab.com/html-validate/html-validate/commit/4a877738c5b8d4c54ec478b78ca2ab2520cd281e)), closes [#283](https://gitlab.com/html-validate/html-validate/issues/283)
+
 ## 9.2.1 (2025-02-05)
 
 ### Bug Fixes
