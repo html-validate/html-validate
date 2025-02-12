@@ -16,7 +16,7 @@ const MATCH_DOCTYPE_OPEN = /^<!(DOCTYPE)\s/i;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\s+/;
-const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
+const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-_:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
 const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<[^ ]|$))/;
 const MATCH_TEMPLATING = /^(?:<%.*?%>|<\?.*?\?>|<\$.*?\$>)/s;
