@@ -277,6 +277,15 @@ describe("lexer", () => {
 			expect(token.next().done).toBeTruthy();
 		});
 
+		it("tags with underscore", () => {
+			expect.assertions(4);
+			const token = lexer.tokenize(inlineSource("<foo_bar>"));
+			expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+			expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+			expect(token.next()).toBeToken({ type: TokenType.EOF });
+			expect(token.next().done).toBeTruthy();
+		});
+
 		it("attribute with double-quotes", () => {
 			expect.assertions(7);
 			const token = lexer.tokenize(inlineSource('<foo bar="baz">'));

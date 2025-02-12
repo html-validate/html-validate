@@ -176,6 +176,23 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it("with underscore", () => {
+			expect.assertions(5);
+			parser.parseHtml("<foo_bar></foo_bar>");
+			expect(events.shift()).toEqual({ event: "tag:start", target: "foo_bar" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "foo_bar" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "foo_bar",
+				previous: "foo_bar",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "foo_bar",
+			});
+			expect(events.shift()).toBeUndefined();
+		});
+
 		it("elements closed on wrong order (case 1: stray end tag)", () => {
 			expect.assertions(7);
 			const markup = `
