@@ -154,9 +154,12 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
       },
       {
         "column": 24,
-        "context": 2,
+        "context": {
+          "id": "foo bar",
+          "kind": 2,
+        },
         "line": 7,
-        "message": "element id must not contain whitespace",
+        "message": "element id "foo bar" must not contain whitespace",
         "offset": 390,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",

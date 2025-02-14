@@ -19298,9 +19298,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
       },
       {
         "column": 4,
-        "context": 1,
+        "context": {
+          "id": "",
+          "kind": 1,
+        },
         "line": 8,
-        "message": "element id must not be empty",
+        "message": "element id "" must not be empty",
         "offset": 156,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
@@ -19331,9 +19334,12 @@ exports[`HTML elements global attributes invalid markup 1`] = `
       },
       {
         "column": 8,
-        "context": 2,
+        "context": {
+          "id": "foo bar",
+          "kind": 2,
+        },
         "line": 11,
-        "message": "element id must not contain whitespace",
+        "message": "element id "foo bar" must not contain whitespace",
         "offset": 213,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",

@@ -1,6 +1,6 @@
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import { RuleContext } from "./valid-id";
+import { type RuleContext, ErrorKind } from "./valid-id";
 import "../jest";
 
 describe("rule valid-id", () => {
@@ -50,7 +50,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must not be empty (valid-id) at inline:1:6:
+				"error: element id "" must not be empty (valid-id) at inline:1:6:
 				> 1 | <div id=""></div>
 				    |      ^^^^^
 				Selector: div"
@@ -63,7 +63,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id " foobar" must not contain whitespace (valid-id) at inline:1:10:
 				> 1 | <div id=" foobar"></div>
 				    |          ^^^^^^^
 				Selector: #\\ foobar"
@@ -76,7 +76,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foobar " must not contain whitespace (valid-id) at inline:1:10:
 				> 1 | <div id="foobar "></div>
 				    |          ^^^^^^^
 				Selector: #foobar\\"
@@ -89,7 +89,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foo bar" must not contain whitespace (valid-id) at inline:1:10:
 				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\ bar"
@@ -102,7 +102,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "123" must begin with a letter (valid-id) at inline:1:10:
 				> 1 | <div id="123"></div>
 				    |          ^^^
 				Selector: [id="123"]"
@@ -115,7 +115,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "123foo" must begin with a letter (valid-id) at inline:1:10:
 				> 1 | <div id="123foo"></div>
 				    |          ^^^^^^
 				Selector: [id="123foo"]"
@@ -128,7 +128,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "-foo" must begin with a letter (valid-id) at inline:1:10:
 				> 1 | <div id="-foo"></div>
 				    |          ^^^^
 				Selector: #-foo"
@@ -141,7 +141,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "_foo" must begin with a letter (valid-id) at inline:1:10:
 				> 1 | <div id="_foo"></div>
 				    |          ^^^^
 				Selector: #_foo"
@@ -154,7 +154,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must only contain letters, digits, dash and underscore characters (valid-id) at inline:1:10:
+				"error: element id "foo!bar" must only contain letters, digits, dash and underscore characters (valid-id) at inline:1:10:
 				> 1 | <div id="foo!bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\!bar"
@@ -163,14 +163,14 @@ describe("rule valid-id", () => {
 
 		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const context = RuleContext.LEADING_CHARACTER;
+			const context: RuleContext = { kind: ErrorKind.LEADING_CHARACTER, id: "_foo" };
 			const docs = await htmlvalidate.getContextualDocumentation({
 				ruleId: "valid-id",
 				context,
 			});
 			expect(docs).toMatchInlineSnapshot(`
 				{
-				  "description": "Element ID must begin with a letter.
+				  "description": "Element ID \`_foo\` must begin with a letter.
 
 				Under the current configuration the following rules are applied:
 
@@ -212,7 +212,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foo bar" must not contain whitespace (valid-id) at inline:1:10:
 				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\ bar"
@@ -221,14 +221,14 @@ describe("rule valid-id", () => {
 
 		it("should contain documentation", async () => {
 			expect.assertions(1);
-			const context = RuleContext.EMPTY;
+			const context: RuleContext = { kind: ErrorKind.EMPTY, id: "" };
 			const docs = await htmlvalidate.getContextualDocumentation({
 				ruleId: "valid-id",
 				context,
 			});
 			expect(docs).toMatchInlineSnapshot(`
 				{
-				  "description": "Element ID must not be empty.
+				  "description": "Element ID \`\` must not be empty.
 
 				Under the current configuration the following rules are applied:
 
