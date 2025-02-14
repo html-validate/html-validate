@@ -1,16 +1,25 @@
 import { DynamicValue } from "../dom";
 import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { interpolate } from "../utils/interpolate";
 
 interface RuleOptions {
 	relaxed: boolean;
 }
 
-export enum RuleContext {
+/**
+ * @internal
+ */
+export enum ErrorKind {
 	EMPTY = 1,
 	WHITESPACE,
 	LEADING_CHARACTER,
 	DISALLOWED_CHARACTER,
+}
+
+export interface RuleContext {
+	kind: ErrorKind;
+	id: string;
 }
 
 const defaults: RuleOptions = {
@@ -32,7 +41,9 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 
 	public documentation(context: RuleContext): RuleDocumentation {
 		const { relaxed } = this.options;
-		const message = this.messages[context]
+		const { kind, id } = context;
+		const message = this.messages[kind]
+			.replace(`"{{ id }}"`, "`{{ id }}`")
 			.replace("id", "ID")
 			.replace(/^(.)/, (m) => m.toUpperCase());
 		const relaxedDescription = relaxed
@@ -43,7 +54,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 				];
 		return {
 			description: [
-				`${message}.`,
+				`${interpolate(message, { id })}.`,
 				"",
 				"Under the current configuration the following rules are applied:",
 				"",
@@ -64,14 +75,14 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 			}
 
 			if (value === "") {
-				const context = RuleContext.EMPTY;
-				this.report(event.target, this.messages[context], event.location, context);
+				const context: RuleContext = { kind: ErrorKind.EMPTY, id: value };
+				this.report(event.target, this.messages[context.kind], event.location, context);
 				return;
 			}
 
 			if (value.match(/\s/)) {
-				const context = RuleContext.WHITESPACE;
-				this.report(event.target, this.messages[context], event.valueLocation, context);
+				const context: RuleContext = { kind: ErrorKind.WHITESPACE, id: value };
+				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
 				return;
 			}
 
@@ -81,25 +92,24 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 			}
 
 			if (value.match(/^[^\p{L}]/u)) {
-				const context = RuleContext.LEADING_CHARACTER;
-				this.report(event.target, this.messages[context], event.valueLocation, context);
+				const context: RuleContext = { kind: ErrorKind.LEADING_CHARACTER, id: value };
+				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
 				return;
 			}
 
 			if (value.match(/[^\p{L}\p{N}_-]/u)) {
-				const context = RuleContext.DISALLOWED_CHARACTER;
-				this.report(event.target, this.messages[context], event.valueLocation, context);
+				const context: RuleContext = { kind: ErrorKind.DISALLOWED_CHARACTER, id: value };
+				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
 			}
 		});
 	}
 
-	protected get messages(): Record<RuleContext, string> {
+	protected get messages(): Record<ErrorKind, string> {
 		return {
-			[RuleContext.EMPTY]: "element id must not be empty",
-			[RuleContext.WHITESPACE]: "element id must not contain whitespace",
-			[RuleContext.LEADING_CHARACTER]: "element id must begin with a letter",
-			[RuleContext.DISALLOWED_CHARACTER]:
-				"element id must only contain letters, digits, dash and underscore characters",
+			[ErrorKind.EMPTY]: `element id "{{ id }}" must not be empty`,
+			[ErrorKind.WHITESPACE]: `element id "{{ id }}" must not contain whitespace`,
+			[ErrorKind.LEADING_CHARACTER]: `element id "{{ id }}" must begin with a letter`,
+			[ErrorKind.DISALLOWED_CHARACTER]: `element id "{{ id }}" must only contain letters, digits, dash and underscore characters`,
 		};
 	}
 

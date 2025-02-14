@@ -10,9 +10,12 @@ exports[`docs/rules/valid-id.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 4,
-        "context": 1,
+        "context": {
+          "id": "",
+          "kind": 1,
+        },
         "line": 1,
-        "message": "element id must not be empty",
+        "message": "element id "" must not be empty",
         "offset": 3,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
@@ -22,9 +25,12 @@ exports[`docs/rules/valid-id.md inline validation: incorrect 1`] = `
       },
       {
         "column": 8,
-        "context": 2,
+        "context": {
+          "id": "foo bar",
+          "kind": 2,
+        },
         "line": 2,
-        "message": "element id must not contain whitespace",
+        "message": "element id "foo bar" must not contain whitespace",
         "offset": 21,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
@@ -34,9 +40,12 @@ exports[`docs/rules/valid-id.md inline validation: incorrect 1`] = `
       },
       {
         "column": 8,
-        "context": 3,
+        "context": {
+          "id": "123",
+          "kind": 3,
+        },
         "line": 3,
-        "message": "element id must begin with a letter",
+        "message": "element id "123" must begin with a letter",
         "offset": 42,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
