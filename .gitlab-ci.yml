@@ -244,8 +244,8 @@ Vitest compat:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
-    - npm install -w tests/vitest $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
-    - npm ls vitest
+    - npm install -w tests/vitest --include-workspace-root $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
+    - npm ls vite vitest
   script:
     - npm run -w tests/vitest test
 
