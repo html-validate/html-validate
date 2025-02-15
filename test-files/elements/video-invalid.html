@@ -28,3 +28,9 @@
 
 <!-- should not be allowed if src is omitted -->
 <video itemprop></video>
+
+<!-- should not allow invalid width and height -->
+<video width="" height=""></video>
+<video width="foo" height="foo"></video>
+<video width="-1" height="-1"></video>
+<video width="1.5" height="1.5"></video>

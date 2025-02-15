@@ -7,3 +7,9 @@
 <!-- should not allow omitted or invalid referrerpolicy -->
 <iframe src="page.html" title="lorem ipsum" referrerpolicy></iframe>
 <iframe src="page.html" title="lorem ipsum" referrerpolicy="invalid"></iframe>
+
+<!-- should not allow invalid width and height -->
+<iframe src="page.html" title="lorem ipsum" width="" height=""></iframe>
+<iframe src="page.html" title="lorem ipsum" width="foo" height="foo"></iframe>
+<iframe src="page.html" title="lorem ipsum" width="-1" height="-1"></iframe>
+<iframe src="page.html" title="lorem ipsum" width="1.5" height="1.5"></iframe>
