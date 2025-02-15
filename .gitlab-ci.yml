@@ -139,7 +139,7 @@ Docs:
     - npm run build
     - npm run docs
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
-    - npm test -- docs
+    - npm test -- --no-coverage docs
     - npm exec eslint docs/examples
     - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
