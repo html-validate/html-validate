@@ -18,3 +18,9 @@
 <!-- should not allow omitted or invalid referrerpolicy -->
 <img src="foo.png" referrerpolicy>
 <img src="foo.png" referrerpolicy="invalid">
+
+<!-- should not allow invalid width and height -->
+<img src="foo.png" width="" height="">
+<img src="foo.png" width="foo" height="foo">
+<img src="foo.png" width="-1" height="-1">
+<img src="foo.png" width="1.5" height="1.5">

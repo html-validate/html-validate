@@ -20,3 +20,9 @@
 	foo
 	<object data="resource" usemap></object>
 </button>
+
+<!-- should not allow invalid width and height -->
+<object data="resource" width="" height=""></object>
+<object data="resource" width="foo" height="foo"></object>
+<object data="resource" width="-1" height="-1"></object>
+<object data="resource" width="1.5" height="1.5"></object>

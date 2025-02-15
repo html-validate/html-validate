@@ -912,12 +912,18 @@ export default defineMetadata({
 		interactive: true,
 		void: true,
 		attributes: {
+			height: {
+				enum: ["/\\d+/"],
+			},
 			src: {
 				required: true,
 				enum: ["/.+/"],
 			},
 			title: {
 				required: true,
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 	},
@@ -1287,6 +1293,9 @@ export default defineMetadata({
 			frameborder: {
 				deprecated: true,
 			},
+			height: {
+				enum: ["/\\d+/"],
+			},
 			hspace: {
 				deprecated: true,
 			},
@@ -1310,6 +1319,9 @@ export default defineMetadata({
 			},
 			vspace: {
 				deprecated: true,
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 		permittedContent: [],
@@ -1343,6 +1355,9 @@ export default defineMetadata({
 			decoding: {
 				enum: ["sync", "async", "auto"],
 			},
+			height: {
+				enum: ["/\\d+/"],
+			},
 			hspace: {
 				deprecated: true,
 			},
@@ -1367,6 +1382,9 @@ export default defineMetadata({
 			},
 			vspace: {
 				deprecated: true,
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 		aria: {
@@ -2038,6 +2056,9 @@ export default defineMetadata({
 			declare: {
 				deprecated: true,
 			},
+			height: {
+				enum: ["/\\d+/"],
+			},
 			hspace: {
 				deprecated: true,
 			},
@@ -2049,6 +2070,9 @@ export default defineMetadata({
 			},
 			vspace: {
 				deprecated: true,
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 		permittedContent: ["param", "@flow"],
@@ -2976,12 +3000,18 @@ export default defineMetadata({
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
 			},
+			height: {
+				enum: ["/\\d+/"],
+			},
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
 			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 		permittedContent: ["@flow", "track", "source"],

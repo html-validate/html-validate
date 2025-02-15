@@ -3849,7 +3849,7 @@ exports[`HTML elements <em> valid markup 1`] = `[]`;
 exports[`HTML elements <embed> invalid markup 1`] = `
 [
   {
-    "errorCount": 4,
+    "errorCount": 12,
     "filePath": "test-files/elements/embed-invalid.html",
     "messages": [
       {
@@ -3915,6 +3915,174 @@ exports[`HTML elements <embed> invalid markup 1`] = `
         "severity": 2,
         "size": 3,
       },
+      {
+        "column": 44,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "embed",
+          "value": "",
+        },
+        "line": 9,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 262,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(4)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 53,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "embed",
+          "value": "",
+        },
+        "line": 9,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 271,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(4)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 51,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "embed",
+          "value": "foo",
+        },
+        "line": 10,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 332,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(5)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 64,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "embed",
+          "value": "foo",
+        },
+        "line": 10,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 345,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(5)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 51,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "embed",
+          "value": "-1",
+        },
+        "line": 11,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 401,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(6)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 63,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "embed",
+          "value": "-1",
+        },
+        "line": 11,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 413,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(6)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 51,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "embed",
+          "value": "1.5",
+        },
+        "line": 12,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 468,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 64,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "embed",
+          "value": "1.5",
+        },
+        "line": 12,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 481,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "embed:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should not be allowed to have end tag -->
 <embed src="url" title="My embedded thing"></embed>
@@ -3922,6 +4090,12 @@ exports[`HTML elements <embed> invalid markup 1`] = `
 <!-- should have src and title -->
 <embed>
 <embed src="" title="">
+
+<!-- should not allow invalid width and height -->
+<embed src="url" title="My embedded thing" width="" height="">
+<embed src="url" title="My embedded thing" width="foo" height="foo">
+<embed src="url" title="My embedded thing" width="-1" height="-1">
+<embed src="url" title="My embedded thing" width="1.5" height="1.5">
 ",
     "warningCount": 0,
   },
@@ -5690,7 +5864,7 @@ exports[`HTML elements <i> valid markup 1`] = `[]`;
 exports[`HTML elements <iframe> invalid markup 1`] = `
 [
   {
-    "errorCount": 4,
+    "errorCount": 12,
     "filePath": "test-files/elements/iframe-invalid.html",
     "messages": [
       {
@@ -5787,6 +5961,174 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 45,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "iframe",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 436,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(5)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 54,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "iframe",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 445,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(5)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 52,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "iframe",
+          "value": "foo",
+        },
+        "line": 13,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 516,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(6)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 65,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "iframe",
+          "value": "foo",
+        },
+        "line": 13,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 529,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(6)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 52,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "iframe",
+          "value": "-1",
+        },
+        "line": 14,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 595,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(7)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 64,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "iframe",
+          "value": "-1",
+        },
+        "line": 14,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 607,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(7)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 52,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "iframe",
+          "value": "1.5",
+        },
+        "line": 15,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 672,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(8)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 65,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "iframe",
+          "value": "1.5",
+        },
+        "line": 15,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 685,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "iframe:nth-child(8)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should require title attribute -->
 <iframe></iframe>
@@ -5797,6 +6139,12 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
 <!-- should not allow omitted or invalid referrerpolicy -->
 <iframe src="page.html" title="lorem ipsum" referrerpolicy></iframe>
 <iframe src="page.html" title="lorem ipsum" referrerpolicy="invalid"></iframe>
+
+<!-- should not allow invalid width and height -->
+<iframe src="page.html" title="lorem ipsum" width="" height=""></iframe>
+<iframe src="page.html" title="lorem ipsum" width="foo" height="foo"></iframe>
+<iframe src="page.html" title="lorem ipsum" width="-1" height="-1"></iframe>
+<iframe src="page.html" title="lorem ipsum" width="1.5" height="1.5"></iframe>
 ",
     "warningCount": 0,
   },
@@ -5808,7 +6156,7 @@ exports[`HTML elements <iframe> valid markup 1`] = `[]`;
 exports[`HTML elements <img> invalid markup 1`] = `
 [
   {
-    "errorCount": 7,
+    "errorCount": 15,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": [
       {
@@ -5954,6 +6302,174 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 20,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "img",
+          "value": "",
+        },
+        "line": 23,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 562,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(8)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 29,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "img",
+          "value": "",
+        },
+        "line": 23,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 571,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(8)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 27,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "img",
+          "value": "foo",
+        },
+        "line": 24,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 608,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 40,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "img",
+          "value": "foo",
+        },
+        "line": 24,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 621,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 27,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "img",
+          "value": "-1",
+        },
+        "line": 25,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 653,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(10)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 39,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "img",
+          "value": "-1",
+        },
+        "line": 25,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 665,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(10)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 27,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "img",
+          "value": "1.5",
+        },
+        "line": 26,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 696,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 40,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "img",
+          "value": "1.5",
+        },
+        "line": 26,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 709,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- must have src attribute -->
 <img>
@@ -5975,6 +6491,12 @@ exports[`HTML elements <img> invalid markup 1`] = `
 <!-- should not allow omitted or invalid referrerpolicy -->
 <img src="foo.png" referrerpolicy>
 <img src="foo.png" referrerpolicy="invalid">
+
+<!-- should not allow invalid width and height -->
+<img src="foo.png" width="" height="">
+<img src="foo.png" width="foo" height="foo">
+<img src="foo.png" width="-1" height="-1">
+<img src="foo.png" width="1.5" height="1.5">
 ",
     "warningCount": 0,
   },
@@ -15086,7 +15608,7 @@ exports[`HTML elements <noscript> valid markup 1`] = `[]`;
 exports[`HTML elements <object> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 13,
     "filePath": "test-files/elements/object-invalid.html",
     "messages": [
       {
@@ -15168,6 +15690,174 @@ exports[`HTML elements <object> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 25,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "object",
+          "value": "",
+        },
+        "line": 25,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 486,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 34,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "object",
+          "value": "",
+        },
+        "line": 25,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 495,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(6)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 32,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "object",
+          "value": "foo",
+        },
+        "line": 26,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 546,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 45,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "object",
+          "value": "foo",
+        },
+        "line": 26,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 559,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 32,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "object",
+          "value": "-1",
+        },
+        "line": 27,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 605,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(8)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 44,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "object",
+          "value": "-1",
+        },
+        "line": 27,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 617,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(8)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 32,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "object",
+          "value": "1.5",
+        },
+        "line": 28,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 662,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 45,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "object",
+          "value": "1.5",
+        },
+        "line": 28,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 675,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "object:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should be transparent -->
 <span>
@@ -15191,6 +15881,12 @@ exports[`HTML elements <object> invalid markup 1`] = `
 	foo
 	<object data="resource" usemap></object>
 </button>
+
+<!-- should not allow invalid width and height -->
+<object data="resource" width="" height=""></object>
+<object data="resource" width="foo" height="foo"></object>
+<object data="resource" width="-1" height="-1"></object>
+<object data="resource" width="1.5" height="1.5"></object>
 ",
     "warningCount": 0,
   },
@@ -18949,7 +19645,7 @@ exports[`HTML elements <var> valid markup 1`] = `[]`;
 exports[`HTML elements <video> invalid markup 1`] = `
 [
   {
-    "errorCount": 8,
+    "errorCount": 16,
     "filePath": "test-files/elements/video-invalid.html",
     "messages": [
       {
@@ -19077,6 +19773,174 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "video",
+          "value": "",
+        },
+        "line": 33,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 716,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(8)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "video",
+          "value": "",
+        },
+        "line": 33,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 725,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(8)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "video",
+          "value": "foo",
+        },
+        "line": 34,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 758,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 28,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "video",
+          "value": "foo",
+        },
+        "line": 34,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 771,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(9)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "video",
+          "value": "-1",
+        },
+        "line": 35,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 799,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(10)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 27,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "video",
+          "value": "-1",
+        },
+        "line": 35,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 811,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(10)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "width",
+          "element": "video",
+          "value": "1.5",
+        },
+        "line": 36,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 838,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 28,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\\\d\\+\\$/,
+            ],
+          },
+          "attribute": "height",
+          "element": "video",
+          "value": "1.5",
+        },
+        "line": 36,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 851,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
     ],
     "source": "<!-- should not allow <audio> or <video> descendant -->
 <video>
@@ -19108,6 +19972,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
 
 <!-- should not be allowed if src is omitted -->
 <video itemprop></video>
+
+<!-- should not allow invalid width and height -->
+<video width="" height=""></video>
+<video width="foo" height="foo"></video>
+<video width="-1" height="-1"></video>
+<video width="1.5" height="1.5"></video>
 ",
     "warningCount": 0,
   },
