@@ -52,34 +52,50 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public setup(): void {
+		const { style } = this;
+		const validateStyle = {
+			[Style.AlwaysOmit]: this.validateOmitted.bind(this),
+			[Style.AlwaysSelfclose]: this.validateSelfClosed.bind(this),
+		}[style];
 		this.on("tag:end", (event: TagEndEvent) => {
 			const active = event.previous; // The current active element (that is, the current element on the stack)
 
 			if (active.meta) {
-				this.validateActive(active);
+				validateStyle(active);
 			}
 		});
 	}
 
-	private validateActive(node: HtmlElement): void {
+	private validateOmitted(node: HtmlElement): void {
 		/* ignore non-void elements, they must be closed with regular end tag */
 		if (!node.voidElement) {
 			return;
 		}
 
-		if (this.shouldBeOmitted(node)) {
-			this.reportError(
-				node,
-				`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`,
-			);
+		if (node.closed !== NodeClosed.VoidSelfClosed) {
+			return;
 		}
 
-		if (this.shouldBeSelfClosed(node)) {
-			this.reportError(
-				node,
-				`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`,
-			);
+		this.reportError(
+			node,
+			`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`,
+		);
+	}
+
+	private validateSelfClosed(node: HtmlElement): void {
+		/* ignore non-void elements, they must be closed with regular end tag */
+		if (!node.voidElement) {
+			return;
 		}
+
+		if (node.closed !== NodeClosed.VoidOmitted) {
+			return;
+		}
+
+		this.reportError(
+			node,
+			`Expected self-closing element <${node.tagName}/> instead of omitted end-tag <${node.tagName}>`,
+		);
 	}
 
 	public reportError(node: HtmlElement, message: string): void {
@@ -88,14 +104,6 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 			tagName: node.tagName,
 		};
 		super.report(node, message, null, context);
-	}
-
-	private shouldBeOmitted(node: HtmlElement): boolean {
-		return this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed;
-	}
-
-	private shouldBeSelfClosed(node: HtmlElement): boolean {
-		return this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted;
 	}
 }
 
