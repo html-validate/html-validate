@@ -43,7 +43,7 @@ NPM:
     - node --version
     - npm --version
     - npm ci --no-fund --no-audit --no-update-notifier
-    - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
+    - npm audit --json --omit=dev | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
     - npx sort-package-json --check
 
 Build:
@@ -139,7 +139,7 @@ Docs:
     - npm run build
     - npm run docs
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
-    - npm test -- docs
+    - npm test -- --no-coverage docs
     - npm exec eslint docs/examples
     - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
@@ -244,8 +244,8 @@ Vitest compat:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
-    - npm install -w tests/vitest $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
-    - npm ls vitest
+    - npm install -w tests/vitest --include-workspace-root $(npx -y npm-min-peer vitest --major ${VERSION} --with-name)
+    - npm ls vite vitest
   script:
     - npm run -w tests/vitest test
 
