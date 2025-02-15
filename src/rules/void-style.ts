@@ -67,11 +67,15 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 			return;
 		}
 
-		if (this.shouldBeOmitted(node)) {
-			this.reportError(
-				node,
-				`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`,
-			);
+		if (this.style === Style.AlwaysOmit) {
+			if (this.shouldBeOmitted(node)) {
+				this.reportError(
+					node,
+					`Expected omitted end tag <${node.tagName}> instead of self-closing element <${node.tagName}/>`,
+				);
+			}
+
+			return;
 		}
 
 		if (this.shouldBeSelfClosed(node)) {
@@ -91,11 +95,11 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 	}
 
 	private shouldBeOmitted(node: HtmlElement): boolean {
-		return this.style === Style.AlwaysOmit && node.closed === NodeClosed.VoidSelfClosed;
+		return node.closed === NodeClosed.VoidSelfClosed;
 	}
 
 	private shouldBeSelfClosed(node: HtmlElement): boolean {
-		return this.style === Style.AlwaysSelfclose && node.closed === NodeClosed.VoidOmitted;
+		return node.closed === NodeClosed.VoidOmitted;
 	}
 }
 
