@@ -43,7 +43,7 @@ NPM:
     - node --version
     - npm --version
     - npm ci --no-fund --no-audit --no-update-notifier
-    - npm audit --json --production | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
+    - npm audit --json --omit=dev | npx --yes gitlab-npm-audit-parser -o gl-dependency-scanning.json || true
     - npx sort-package-json --check
 
 Build:
