@@ -1,5 +1,22 @@
 # html-validate changelog
 
+## 9.3.0 (2025-02-16)
+
+### Features
+
+- ensure `width` and `height` are non-negative integers on `<img>` and other embedded elements ([6bde9e6](https://gitlab.com/html-validate/html-validate/commit/6bde9e691bab127a59e8818f723e26cac2546481)), closes [#280](https://gitlab.com/html-validate/html-validate/issues/280)
+
+### Bug Fixes
+
+- **cli:** fix `--rule` overwriting `extends` from `--config` ([5623120](https://gitlab.com/html-validate/html-validate/commit/5623120a46c8357777d031d0c17dd47a9c1cca4d))
+- **cli:** fix `--rule` overwriting all rules from `--config` or `--preset` ([8cc81c8](https://gitlab.com/html-validate/html-validate/commit/8cc81c816373f1f67b9418b0048ea98cb89e9572)), closes [#289](https://gitlab.com/html-validate/html-validate/issues/289)
+- include id in `valid-id` error message ([c0c6b73](https://gitlab.com/html-validate/html-validate/commit/c0c6b73701261f72f717ffa92fb4bc3966c68587)), closes [#282](https://gitlab.com/html-validate/html-validate/issues/282)
+
+### Performance Improvements
+
+- improve `no-dup-id` performance ([8da515f](https://gitlab.com/html-validate/html-validate/commit/8da515f0ca917b3a2848ed4d47790fe9aa7ffe14)), closes [#288](https://gitlab.com/html-validate/html-validate/issues/288)
+- improve performance for `void-style` ([5a156de](https://gitlab.com/html-validate/html-validate/commit/5a156de6409cd217cf0424732e8c9a7a1dce081d)), closes [#287](https://gitlab.com/html-validate/html-validate/issues/287)
+
 ## 9.2.2 (2025-02-12)
 
 ### Bug Fixes
