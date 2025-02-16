@@ -216,7 +216,23 @@ describe("CLI", () => {
 			});
 			const config = await cli.getConfig();
 			expect(config).toEqual({
-				extends: [],
+				rules: {
+					foo: "error",
+					bar: "error",
+					baz: "off",
+				},
+			});
+		});
+
+		it("should combine extended configuration file with rules", async () => {
+			expect.assertions(1);
+			const cli = new CLI({
+				configFile: path.join(__dirname, "__fixtures__/config-with-extend.json"),
+				rules: ["bar:error", "baz:off"],
+			});
+			const config = await cli.getConfig();
+			expect(config).toEqual({
+				extends: ["html-validate:standard"],
 				rules: {
 					foo: "error",
 					bar: "error",
