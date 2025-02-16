@@ -1,0 +1,6 @@
+{
+  "extends": ["html-validate:standard"],
+  "rules": {
+    "foo": "error"
+  }
+}
