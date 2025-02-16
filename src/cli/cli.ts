@@ -154,12 +154,26 @@ export class CLI {
 
 	private async resolveConfig(): Promise<ConfigData> {
 		const { options } = this;
+		const havePreset = Boolean(options.preset);
+		const haveConfig = Boolean(options.configFile);
 		const config = await getBaseConfig(options.preset, options.configFile);
 		if (options.rules) {
-			if (!options.preset) {
+			if (!havePreset) {
 				config.extends = [];
 			}
-			config.rules = getRuleConfig(options.rules);
+
+			if (havePreset || haveConfig) {
+				/* when rules are explicitly specified and combined with an explicit
+				 * preset or configuration file we merge the result as the user would
+				expect rules from the preset or configuration files to be used */
+				config.rules = { ...config.rules, ...getRuleConfig(options.rules) };
+			} else {
+				/* if neither an explicit configuration file or preset is passed as a
+				 * CLI argument a default configuration is loaded but since the user has
+				 * specified one or more rules explicitly we overwrite the default rules
+				 * with the explicit rules */
+				config.rules = getRuleConfig(options.rules);
+			}
 		}
 		return config;
 	}
