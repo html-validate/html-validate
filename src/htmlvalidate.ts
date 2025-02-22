@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { type SchemaObject } from "ajv";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
 import { normalizeSource, type Source } from "./context";
@@ -185,7 +186,7 @@ export class HtmlValidate {
 	public async validateFile(filename: string): Promise<Report> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = await transformFilename(resolvers, config, filename);
+		const source = await transformFilename(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
 		return Promise.resolve(engine.lint(source));
 	}
@@ -200,7 +201,7 @@ export class HtmlValidate {
 	public validateFileSync(filename: string): Report {
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = transformFilenameSync(resolvers, config, filename);
+		const source = transformFilenameSync(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
 		return engine.lint(source);
 	}
@@ -279,7 +280,7 @@ export class HtmlValidate {
 	public async dumpTokens(filename: string): Promise<TokenDump[]> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = await transformFilename(resolvers, config, filename);
+		const source = await transformFilename(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTokens(source);
 	}
@@ -296,7 +297,7 @@ export class HtmlValidate {
 	public async dumpEvents(filename: string): Promise<EventDump[]> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = await transformFilename(resolvers, config, filename);
+		const source = await transformFilename(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
 		return engine.dumpEvents(source);
 	}
@@ -313,7 +314,7 @@ export class HtmlValidate {
 	public async dumpTree(filename: string): Promise<string[]> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const source = await transformFilename(resolvers, config, filename);
+		const source = await transformFilename(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
 		return engine.dumpTree(source);
 	}
@@ -330,7 +331,7 @@ export class HtmlValidate {
 	public async dumpSource(filename: string): Promise<string[]> {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
-		const sources = await transformFilename(resolvers, config, filename);
+		const sources = await transformFilename(resolvers, config, filename, fs);
 		return sources.reduce<string[]>((result: string[], source: Source) => {
 			const line = String(source.line);
 			const column = String(source.column);
