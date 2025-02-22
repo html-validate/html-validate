@@ -183,6 +183,7 @@
       "!src/index.ts",
       "!src/browser.ts",
       "!src/html5.ts",
+      "!src/htmlvalidate.browser.ts",
       "!src/cli/have-import-meta-resolve.ts",
       "!src/cli/html-validate.ts",
       "!src/jest/jest.ts",

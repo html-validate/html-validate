@@ -582,8 +582,8 @@ describe("HtmlValidate", () => {
 			});
 			await htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
-			expect(spy).toHaveBeenCalledWith("foo.html");
-			expect(spy).toHaveBeenCalledWith("bar.html");
+			expect(spy).toHaveBeenCalledWith("foo.html", expect.anything());
+			expect(spy).toHaveBeenCalledWith("bar.html", expect.anything());
 		});
 
 		it("should merge reports", async () => {
@@ -701,8 +701,8 @@ describe("HtmlValidate", () => {
 			});
 			htmlvalidate.validateMultipleFilesSync(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
-			expect(spy).toHaveBeenCalledWith("foo.html");
-			expect(spy).toHaveBeenCalledWith("bar.html");
+			expect(spy).toHaveBeenCalledWith("foo.html", expect.anything());
+			expect(spy).toHaveBeenCalledWith("bar.html", expect.anything());
 		});
 
 		it("should merge reports", () => {
