@@ -20,17 +20,23 @@ Older major versions is generally supported for two year after the succeeding ve
     </tr>
   </thead>
   <tbody>
-    <tr class="release-eol">
-      <td>4.x</td>
-      <td>End of Life</td>
-      <td>2020-11-07</td>
-      <td>2022-06-31</td>
+    <tr class="release-active">
+      <td>9.x</td>
+      <td>Active</td>
+      <td>2024-12-23</td>
+      <td>-</td>
+    </tr>
+    <tr class="release-active">
+      <td>8.x</td>
+      <td>Active</td>
+      <td>2023-06-04</td>
+      <td>2026-12-31</td>
     </tr>
     <tr class="release-eol">
-      <td>5.x</td>
+      <td>7.x</td>
       <td>End of Life</td>
-      <td>2021-06-26</td>
-      <td>2023-09-31</td>
+      <td>2022-05-06</td>
+      <td>2024-06-31</td>
     </tr>
     <tr class="release-eol">
       <td>6.x</td>
@@ -39,22 +45,16 @@ Older major versions is generally supported for two year after the succeeding ve
       <td>2024-05-31</td>
     </tr>
     <tr class="release-eol">
-      <td>7.x</td>
+      <td>5.x</td>
       <td>End of Life</td>
-      <td>2022-05-06</td>
-      <td>2024-06-31</td>
+      <td>2021-06-26</td>
+      <td>2023-09-31</td>
     </tr>
-    <tr class="release-active">
-      <td>8.x</td>
-      <td>Active</td>
-      <td>2023-06-04</td>
-      <td>2026-12-31</td>
-    </tr>
-    <tr class="release-active">
-      <td>9.x</td>
-      <td>Active</td>
-      <td>2024-12-23</td>
-      <td>-</td>
+    <tr class="release-eol">
+      <td>4.x</td>
+      <td>End of Life</td>
+      <td>2020-11-07</td>
+      <td>2022-06-31</td>
     </tr>
   </tbody>
 </table>
