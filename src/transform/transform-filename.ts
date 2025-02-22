@@ -12,7 +12,7 @@ import { transformSource, transformSourceSync } from "./transform-source";
  * - and probably more.
  *
  * @public
- * @since %version%
+ * @since 9.4.0
  */
 export interface TransformFS {
 	/** read file from filesystem */

@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.4.0 (2025-02-22)
+
+### Features
+
+- support custom `fs` implementation in `validateFile` and similar functions: optional for node required for browser ([f9edf65](https://gitlab.com/html-validate/html-validate/commit/f9edf652069722578a5d92852a5256abd4979cb1)), closes [#293](https://gitlab.com/html-validate/html-validate/issues/293)
+
 ## 9.3.0 (2025-02-16)
 
 ### Features
