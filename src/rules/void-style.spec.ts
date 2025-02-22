@@ -68,6 +68,13 @@ describe("rule void-style", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report when non-void element has end tag", async () => {
+			expect.assertions(1);
+			const markup = /* RAW */ ` <div></div> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should report when void element is self-closed", async () => {
 			expect.assertions(2);
 			const markup = /* RAW */ ` <input /> `;
@@ -100,6 +107,13 @@ describe("rule void-style", () => {
 				    |        ^
 				Selector: input"
 			`);
+		});
+
+		it("should not report when non-void element has end tag", async () => {
+			expect.assertions(1);
+			const markup = /* RAW */ ` <div></div> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
 		});
 
 		it("should not report when void element is self-closed", async () => {
