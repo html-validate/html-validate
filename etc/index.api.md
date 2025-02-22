@@ -653,13 +653,13 @@ export class HtmlValidate {
     // (undocumented)
     protected configLoader: ConfigLoader;
     // @internal
-    dumpEvents(filename: string): Promise<EventDump[]>;
+    dumpEvents(filename: string, fs?: TransformFS): Promise<EventDump[]>;
     // @internal
-    dumpSource(filename: string): Promise<string[]>;
+    dumpSource(filename: string, fs?: TransformFS): Promise<string[]>;
     // @internal
-    dumpTokens(filename: string): Promise<TokenDump[]>;
+    dumpTokens(filename: string, fs?: TransformFS): Promise<TokenDump[]>;
     // @internal
-    dumpTree(filename: string): Promise<string[]>;
+    dumpTree(filename: string, fs?: TransformFS): Promise<string[]>;
     flushConfigCache(filename?: string): void;
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
     getConfigForSync(filename: string, configOverride?: ConfigData): ResolvedConfig;
@@ -678,10 +678,10 @@ export class HtmlValidate {
     // @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
     setConfigLoader(loader: ConfigLoader): void;
-    validateFile(filename: string): Promise<Report_2>;
-    validateFileSync(filename: string): Report_2;
-    validateMultipleFiles(filenames: string[]): Promise<Report_2>;
-    validateMultipleFilesSync(filenames: string[]): Report_2;
+    validateFile(filename: string, fs?: TransformFS): Promise<Report_2>;
+    validateFileSync(filename: string, fs?: TransformFS): Report_2;
+    validateMultipleFiles(filenames: string[], fs?: TransformFS): Promise<Report_2>;
+    validateMultipleFilesSync(filenames: string[], fs?: TransformFS): Report_2;
     validateSource(input: Source, configOverride?: ConfigData): Promise<Report_2>;
     validateSourceSync(input: Source, configOverride?: ConfigData): Report_2;
     validateString(str: string): Promise<Report_2>;
@@ -1549,6 +1549,15 @@ export type TransformerEntry = {
 
 // @public
 export type TransformerResult = Source | Iterable<Source | Promise<Source>> | Promise<Source> | Promise<Source | Iterable<Source | Promise<Source>>>;
+
+// @public
+export interface TransformFS {
+    readFileSync(this: void, path: string | number, options: {
+        encoding: "utf8";
+    }): {
+        toString(encoding: "utf8"): string;
+    } | string;
+}
 
 // @public (undocumented)
 export type TransformMap = Record<string, string | Transformer_2>;

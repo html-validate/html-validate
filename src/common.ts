@@ -1,6 +1,5 @@
 /* used when calling require('htmlvalidate'); */
 
-export { HtmlValidate } from "./htmlvalidate";
 export { type AttributeData } from "./parser";
 export {
 	type ConfigData,
@@ -136,6 +135,7 @@ export {
 	type TransformerChainedResult,
 	type TransformerEntry,
 	type TransformerResult,
+	type TransformFS,
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";

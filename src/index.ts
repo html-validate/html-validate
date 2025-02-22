@@ -1,6 +1,7 @@
 /* entrypoint for nodejs build */
 
 export * from "./common";
+export { HtmlValidate } from "./htmlvalidate.nodejs";
 export {
 	type FileSystemConfigLoaderOptions,
 	FileSystemConfigLoader,

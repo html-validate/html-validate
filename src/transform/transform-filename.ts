@@ -3,10 +3,24 @@ import { type Source } from "../context";
 import { transformSource, transformSourceSync } from "./transform-source";
 
 /**
- * @internal
+ * File system API required by transform functions.
+ *
+ * Compatible with:
+ *
+ * - `node:fs`
+ * - `memfs`
+ * - and probably more.
+ *
+ * @public
+ * @since %version%
  */
-export interface FSLike {
-	readFileSync(this: void, path: string | number, options: { encoding: "utf8" }): Buffer | string;
+export interface TransformFS {
+	/** read file from filesystem */
+	readFileSync(
+		this: void,
+		path: string | number,
+		options: { encoding: "utf8" },
+	): { toString(encoding: "utf8"): string } | string;
 }
 
 /**
@@ -22,12 +36,13 @@ export function transformFilename(
 	resolvers: Resolver[],
 	config: ResolvedConfig,
 	filename: string,
-	fs: FSLike,
+	fs: TransformFS,
 ): Promise<Source[]> {
 	const stdin = 0;
 	const src = filename !== "/dev/stdin" ? filename : stdin;
 	const output = fs.readFileSync(src, { encoding: "utf8" });
-	const data = Buffer.isBuffer(output) ? output.toString("utf8") : output;
+	/* istanbul ignore next -- not testing with buffer */
+	const data = typeof output === "string" ? output : output.toString("utf8");
 	const source: Source = {
 		data,
 		filename,
@@ -52,12 +67,13 @@ export function transformFilenameSync(
 	resolvers: Resolver[],
 	config: ResolvedConfig,
 	filename: string,
-	fs: FSLike,
+	fs: TransformFS,
 ): Source[] {
 	const stdin = 0;
 	const src = filename !== "/dev/stdin" ? filename : stdin;
 	const output = fs.readFileSync(src, { encoding: "utf8" });
-	const data = Buffer.isBuffer(output) ? output.toString("utf8") : output;
+	/* istanbul ignore next -- not testing with buffer */
+	const data = typeof output === "string" ? output : output.toString("utf8");
 	const source: Source = {
 		data,
 		filename,
