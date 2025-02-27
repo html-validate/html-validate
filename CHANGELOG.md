@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.4.1 (2025-02-27)
+
+### Bug Fixes
+
+- fix another configuration path issue on windows ([1967d8f](https://gitlab.com/html-validate/html-validate/commit/1967d8f8960ce7c136c73ea41fa43ffe026285cd))
+
 ## 9.4.0 (2025-02-22)
 
 ### Features
