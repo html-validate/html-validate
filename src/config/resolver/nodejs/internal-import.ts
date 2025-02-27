@@ -1,4 +1,6 @@
+import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
+import { pathToFileURL } from "node:url";
 import { importResolve } from "../../../resolve";
 import { UserError } from "../../../error";
 import { type ResolverOptions } from "../resolver";
@@ -17,7 +19,7 @@ async function getModuleName(
 	{ cache, rootDir }: { cache: boolean; rootDir: string },
 ): Promise<URL> {
 	const moduleName = id.replace("<rootDir>", rootDir);
-	const url = importResolve(moduleName);
+	const url = existsSync(id) ? pathToFileURL(id) : importResolve(moduleName);
 
 	if (url.protocol !== "file:") {
 		return url;
