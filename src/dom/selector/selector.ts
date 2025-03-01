@@ -2,6 +2,7 @@ import { type DynamicValue } from "../dynamic-value";
 import { type HtmlElement } from "../htmlelement";
 import { Combinator } from "./combinator";
 import { Compound } from "./compound";
+import { matchElement } from "./match-element";
 import { type SelectorContext } from "./selector-context";
 import { splitSelectorElements } from "./split-selector-elements";
 
@@ -68,6 +69,14 @@ export class Selector {
 	public *match(root: HtmlElement): IterableIterator<HtmlElement> {
 		const context: SelectorContext = { scope: root };
 		yield* this.matchInternal(root, 0, context);
+	}
+
+	/**
+	 * Returns `true` if the element matches this selector.
+	 */
+	public matchElement(element: HtmlElement): boolean {
+		const context: SelectorContext = { scope: null };
+		return matchElement(element, this.pattern, context);
 	}
 
 	private *matchInternal(
