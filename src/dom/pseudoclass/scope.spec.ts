@@ -1,6 +1,6 @@
 import { type Location } from "../../context";
 import { HtmlElement } from "../htmlelement";
-import { type SelectorContext } from "../selector-context";
+import { type SelectorContext } from "../selector";
 import { scope } from "./scope";
 
 const location: Location = {

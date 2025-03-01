@@ -1,7 +1,6 @@
 import { type Location, sliceLocation } from "../context";
-import { type HtmlElement, Pattern } from "../dom";
+import { type HtmlElement, type SelectorContext, Compound } from "../dom";
 import { type DOMInternalID } from "../dom/domnode";
-import { type SelectorContext } from "../dom/selector-context";
 import { type TagEndEvent, type TagReadyEvent, type TagStartEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -51,13 +50,13 @@ function parseMaxInitial(value: string | false): number {
 
 export default class HeadingLevel extends Rule<void, RuleOptions> {
 	private minInitialRank: number;
-	private sectionRoots: Pattern[];
+	private sectionRoots: Compound[];
 	private stack: SectioningRoot[] = [];
 
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.minInitialRank = parseMaxInitial(this.options.minInitialRank);
-		this.sectionRoots = this.options.sectioningRoots.map((it) => new Pattern(it));
+		this.sectionRoots = this.options.sectioningRoots.map((it) => new Compound(it));
 
 		/* add a global sectioning root used by default */
 		this.stack.push({
