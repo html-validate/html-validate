@@ -1,19 +1,15 @@
-import { type Attribute } from "../attribute";
 import { type DynamicValue } from "../dynamic-value";
 import { type HtmlElement } from "../htmlelement";
-import { factory as pseudoClassFunction } from "../pseudoclass";
 import { Combinator, parseCombinator } from "./combinator";
+import {
+	type Condition,
+	AttributeCondition,
+	ClassCondition,
+	IdCondition,
+	PseudoClassCondition,
+} from "./condition";
 import { type SelectorContext } from "./selector-context";
 import { splitSelectorElements } from "./split-selector-elements";
-
-/**
- * Homage to PHP: unescapes slashes.
- *
- * E.g. "foo\:bar" becomes "foo:bar"
- */
-function stripslashes(value: string): string {
-	return value.replace(/\\(.)/g, "$1");
-}
 
 /**
  * Unescape codepoints.
@@ -144,93 +140,11 @@ export function* splitPattern(pattern: string): Generator<string> {
 	yield tail;
 }
 
-abstract class Matcher {
-	/**
-	 * Returns `true` if given node matches.
-	 */
-	public abstract match(node: HtmlElement, context: SelectorContext): boolean;
-}
-
-class ClassMatcher extends Matcher {
-	private readonly classname: string;
-
-	public constructor(classname: string) {
-		super();
-		this.classname = classname;
-	}
-
-	public match(node: HtmlElement): boolean {
-		return node.classList.contains(this.classname);
-	}
-}
-
-class IdMatcher extends Matcher {
-	private readonly id: string;
-
-	public constructor(id: string) {
-		super();
-		this.id = stripslashes(id);
-	}
-
-	public match(node: HtmlElement): boolean {
-		return node.id === this.id;
-	}
-}
-
-class AttrMatcher extends Matcher {
-	private readonly key: string;
-	private readonly op: string;
-	private readonly value: string;
-
-	public constructor(attr: string) {
-		super();
-		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
-		this.key = key;
-		this.op = op;
-		this.value = value;
-	}
-
-	public match(node: HtmlElement): boolean {
-		const attr = node.getAttribute(this.key, true);
-		return attr.some((cur: Attribute) => {
-			switch (this.op) {
-				case undefined:
-					return true; /* attribute exists */
-				case "=":
-					return cur.value === this.value;
-				default:
-					throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
-			}
-		});
-	}
-}
-
-class PseudoClassMatcher extends Matcher {
-	private readonly name: string;
-	private readonly args: string;
-
-	public constructor(pseudoclass: string, context: string) {
-		super();
-		const match = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
-		if (!match) {
-			throw new Error(`Missing pseudo-class after colon in selector pattern "${context}"`);
-		}
-		const [, name, args] = match;
-		this.name = name;
-		this.args = args;
-	}
-
-	public match(node: HtmlElement, context: SelectorContext): boolean {
-		const fn = pseudoClassFunction(this.name, context);
-		return fn(node, this.args);
-	}
-}
-
 export class Pattern {
 	public readonly combinator: Combinator;
 	public readonly tagName: string;
 	private readonly selector: string;
-	private readonly pattern: Matcher[];
+	private readonly conditions: Condition[];
 
 	public constructor(pattern: string) {
 		const match = pattern.match(/^([~+\->]?)((?:[*]|[^.#[:]+)?)([^]*)$/);
@@ -242,27 +156,27 @@ export class Pattern {
 		this.selector = pattern;
 		this.combinator = parseCombinator(match.shift(), pattern);
 		this.tagName = match.shift() || "*"; // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- empty string */
-		this.pattern = Array.from(splitPattern(match[0]), (it) => this.createMatcher(it));
+		this.conditions = Array.from(splitPattern(match[0]), (it) => this.createCondition(it));
 	}
 
 	public match(node: HtmlElement, context: SelectorContext): boolean {
-		return node.is(this.tagName) && this.pattern.every((cur: Matcher) => cur.match(node, context));
+		return node.is(this.tagName) && this.conditions.every((cur) => cur.match(node, context));
 	}
 
-	private createMatcher(pattern: string): Matcher {
+	private createCondition(pattern: string): Condition {
 		switch (pattern[0]) {
 			case ".":
-				return new ClassMatcher(pattern.slice(1));
+				return new ClassCondition(pattern.slice(1));
 			case "#":
-				return new IdMatcher(pattern.slice(1));
+				return new IdCondition(pattern.slice(1));
 			case "[":
-				return new AttrMatcher(pattern.slice(1, -1));
+				return new AttributeCondition(pattern.slice(1, -1));
 			case ":":
-				return new PseudoClassMatcher(pattern.slice(1), this.selector);
+				return new PseudoClassCondition(pattern.slice(1), this.selector);
 			default:
 				/* istanbul ignore next: fallback solution, the switch cases should cover
 				 * everything and there is no known way to trigger this fallback */
-				throw new Error(`Failed to create matcher for "${pattern}"`);
+				throw new Error(`Failed to create selector condition for "${pattern}"`);
 		}
 	}
 }
