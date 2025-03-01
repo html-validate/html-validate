@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.4.2-rc.1 (2025-03-01)
+
+### Performance Improvements
+
+- rewrite and optimize `HtmlElement.matches()` increasing performance of large documents ([9175e43](https://gitlab.com/html-validate/html-validate/commit/9175e43110b7273c9d8eca3131d9de1087c60e04)), closes [#45](https://gitlab.com/html-validate/html-validate/issues/45)
+
 ## 9.4.1 (2025-02-27)
 
 ### Bug Fixes
