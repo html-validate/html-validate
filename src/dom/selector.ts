@@ -334,9 +334,6 @@ export class Selector {
 			case Combinator.SCOPE:
 				return [root];
 		}
-		/* istanbul ignore next: fallback solution, the switch cases should cover
-		 * everything and there is no known way to trigger this fallback */
-		return [];
 	}
 
 	private static findAdjacentSibling(node: HtmlElement): HtmlElement[] {
