@@ -6,6 +6,12 @@ export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";
 export { NodeType } from "./nodetype";
-export { Selector, Pattern, escapeSelectorComponent, generateIdSelector } from "./selector";
+export {
+	type SelectorContext,
+	Compound,
+	Selector,
+	escapeSelectorComponent,
+	generateIdSelector,
+} from "./selector";
 export { TextNode, isTextNode } from "./text";
 export { type DOMNodeCache } from "./cache";

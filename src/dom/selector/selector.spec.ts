@@ -3,7 +3,7 @@ import { Parser } from "../../parser";
 import { reset as resetDOMCounter } from "../domnode";
 import { type HtmlElement } from "../htmlelement";
 import { type NodeType } from "../nodetype";
-import { escapeSelectorComponent, generateIdSelector, Selector, splitPattern } from "./selector";
+import { escapeSelectorComponent, generateIdSelector, Selector } from "./selector";
 
 interface StrippedHtmlElement {
 	id: string | null;
@@ -167,73 +167,6 @@ describe("generateIdSelector()", () => {
 		expect.assertions(1);
 		const id = "123foo";
 		expect(generateIdSelector(id)).toBe('[id="123foo"]');
-	});
-});
-
-describe("splitPattern()", () => {
-	it("should return [] when and empty string is passed", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern(""))).toEqual([]);
-	});
-
-	it("should return the full string when no delimiter was found", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div"))).toEqual(["div"]);
-	});
-
-	it("should split class selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div.foo"))).toEqual(["div", ".foo"]);
-	});
-
-	it("should split id selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div#foo"))).toEqual(["div", "#foo"]);
-	});
-
-	it("should split attribute selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div[foo=bar]"))).toEqual(["div", "[foo=bar]"]);
-	});
-
-	it("should split pseudo class selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div:foo"))).toEqual(["div", ":foo"]);
-	});
-
-	it("should split pseudo element selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("div::foo"))).toEqual(["div", "::foo"]);
-	});
-
-	it("should handle leading class selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern(".foo"))).toEqual([".foo"]);
-	});
-
-	it("should handle leading id selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("#foo"))).toEqual(["#foo"]);
-	});
-
-	it("should handle leading attribute selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("[foo=bar]"))).toEqual(["[foo=bar]"]);
-	});
-
-	it("should handle leading pseudo class selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern(":foo"))).toEqual([":foo"]);
-	});
-
-	it("should handle leading pseudo element selector", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern("::foo"))).toEqual(["::foo"]);
-	});
-
-	it("should handle nested characters in string", () => {
-		expect.assertions(1);
-		expect(Array.from(splitPattern('[id=":#[]\'"'))).toEqual(['[id=":#[]\'"']);
 	});
 });
 
