@@ -375,25 +375,11 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * Implementation of DOM specification of Element.matches(selectors).
 	 */
-	public matches(selector: string): boolean {
-		/* find root element */
-		/* eslint-disable-next-line @typescript-eslint/no-this-alias -- false positive */
-		let root: HtmlElement = this;
-		while (root.parent) {
-			root = root.parent;
-		}
-
-		/* a bit slow implementation as it finds all candidates for the selector and
-		 * then tests if any of them are the current element. A better
-		 * implementation would be to walk the selector right-to-left and test
-		 * ancestors. */
-		for (const match of root.querySelectorAll(selector)) {
-			if (match.unique === this.unique) {
-				return true;
-			}
-		}
-
-		return false;
+	public matches(selectorList: string): boolean {
+		return selectorList.split(",").some((it) => {
+			const selector = new Selector(it.trim());
+			return selector.matchElement(this);
+		});
 	}
 
 	public get meta(): MetaElement | null {
