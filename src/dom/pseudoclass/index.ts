@@ -1,5 +1,5 @@
 import { type HtmlElement } from "../htmlelement";
-import { type SelectorContext } from "../selector-context";
+import { type SelectorContext } from "../selector";
 import { firstChild } from "./first-child";
 import { lastChild } from "./last-child";
 import { nthChild } from "./nth-child";

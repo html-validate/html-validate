@@ -1,7 +1,7 @@
 import { type Location, sliceLocation } from "../context";
 import { type HtmlElement, Pattern } from "../dom";
 import { type DOMInternalID } from "../dom/domnode";
-import { type SelectorContext } from "../dom/selector-context";
+import { type SelectorContext } from "../dom/selector";
 import { type TagEndEvent, type TagReadyEvent, type TagStartEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 

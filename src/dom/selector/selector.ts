@@ -1,8 +1,8 @@
-import { type Attribute } from "./attribute";
+import { type Attribute } from "../attribute";
+import { type DynamicValue } from "../dynamic-value";
+import { type HtmlElement } from "../htmlelement";
+import { factory as pseudoClassFunction } from "../pseudoclass";
 import { Combinator, parseCombinator } from "./combinator";
-import { type DynamicValue } from "./dynamic-value";
-import { type HtmlElement } from "./htmlelement";
-import { factory as pseudoClassFunction } from "./pseudoclass";
 import { type SelectorContext } from "./selector-context";
 import { splitSelectorElements } from "./split-selector-elements";
 
