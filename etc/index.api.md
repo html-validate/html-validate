@@ -601,7 +601,7 @@ export class HtmlElement extends DOMNode {
     is(tagName: string): boolean;
     get lastElementChild(): HtmlElement | null;
     loadMeta(meta: MetaElement): void;
-    matches(selector: string): boolean;
+    matches(selectorList: string): boolean;
     // (undocumented)
     get meta(): MetaElement | null;
     // (undocumented)
