@@ -1,17 +1,5 @@
 #!/bin/bash
 
-cat > dist/cjs/package.json <<EOF
-{
-    "type": "commonjs"
-}
-EOF
-
-cat > dist/es/package.json <<EOF
-{
-    "type": "module"
-}
-EOF
-
 # generate fallback in dist/*/*.d.ts re-exporting dist/types/*.d.ts
 # needed by ts-jest which does not respect the "exports" field
 for format in cjs es; do
