@@ -1,0 +1,9 @@
+{
+  "name": "@html-validate/rollup-plugin-legacy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js"
+  }
+}

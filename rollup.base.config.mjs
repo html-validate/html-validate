@@ -10,6 +10,7 @@ import virtual from "@rollup/plugin-virtual";
 import esbuild from "rollup-plugin-esbuild";
 import MagicString from "magic-string";
 import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
+import { legacyPlugin } from "@html-validate/rollup-plugin-legacy";
 import { packageJsonPlugin } from "@html-validate/rollup-plugin-packagejson";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
@@ -279,6 +280,7 @@ export function build(format) {
 					target: "node18",
 					platform: "node",
 				}),
+				legacyPlugin(),
 				workerPlugin(),
 				packageJsonPlugin(),
 				json(jsonConfig),
