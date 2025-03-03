@@ -110,7 +110,6 @@
     "build:cjs": "rollup --config rollup.cjs.config.mjs",
     "build:esm": "rollup --config rollup.esm.config.mjs",
     "build:script": "node build.mjs",
-    "postbuild": "bash scripts/pkg",
     "clean": "rm -rf dist public",
     "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",

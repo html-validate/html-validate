@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# generate stub file for dist/types/*.d.ts or typescript wont find the file
-for declaration in dist/types/*.d.ts; do
-	echo -n > ${declaration/.d.ts/.js}
-done

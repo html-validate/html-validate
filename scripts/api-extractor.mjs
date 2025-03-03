@@ -160,6 +160,10 @@ export async function apiExtractor(patterns) {
 
 		await patchAugmentations(config);
 
+		/* create a stub js file for really old typescript versions */
+		const stub = config.publicTrimmedFilePath.replace(/\.d\.ts$/, ".js");
+		await fs.writeFile(stub, "", "utf-8");
+
 		/* intentional blank line */
 		console.log();
 	}
