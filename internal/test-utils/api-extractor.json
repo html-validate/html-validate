@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "extends": "../../api-extractor.json",
+
+  "apiReport": {
+    "reportFileName": "test-utils.api.md"
+  },
+
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/temp/test-utils.api.json"
+  },
+
+  "dtsRollup": {
+    "publicTrimmedFilePath": "../../dist/types/test-utils.d.ts"
+  },
+
+  "tsdocMetadata": {
+    /* the tsdoc metadata is written globally not per-package so no need to generate it here */
+    "enabled": false
+  }
+}

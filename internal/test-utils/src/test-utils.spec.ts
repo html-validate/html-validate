@@ -1,5 +1,5 @@
 import fs from "fs";
-import { type Source } from "../context";
+import { type Source } from "html-validate";
 import {
 	type Transformer,
 	type TransformerChainedResult,

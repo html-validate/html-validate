@@ -6,7 +6,6 @@ import {
 	type TransformerChainedResult,
 } from "html-validate";
 
-/* eslint-disable-next-line import/no-extraneous-dependencies -- this is the package itself */
 export {
 	type Source,
 	type Transformer,

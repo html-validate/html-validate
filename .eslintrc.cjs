@@ -24,6 +24,14 @@ module.exports = {
 		},
 
 		{
+			/* build scripts and configurations may log to console */
+			files: ["internal/*/*.{js,mjs,cjs}"],
+			rules: {
+				"no-console": "off",
+			},
+		},
+
+		{
 			files: "*.ts",
 			extends: ["@html-validate/typescript"],
 			rules: {
