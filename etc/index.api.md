@@ -334,14 +334,10 @@ export class DOMNode {
     blockRules(rules: string[] | Set<string>, blocker: RuleBlocker): void;
     // @internal
     cacheEnable(): void;
-    cacheExists<K extends keyof DOMNodeCache>(key: K): boolean;
-    // (undocumented)
     cacheExists(key: string | number | symbol): boolean;
     cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
     // (undocumented)
     cacheGet(key: string | number | symbol): any | undefined;
-    cacheRemove<K extends keyof DOMNodeCache>(key: K): boolean;
-    // (undocumented)
     cacheRemove(key: string | number | symbol): boolean;
     cacheSet<K extends keyof DOMNodeCache>(key: K, value: DOMNodeCache[K]): DOMNodeCache[K];
     // (undocumented)
@@ -470,7 +466,7 @@ export interface ErrorDescriptor<ContextType> {
     // (undocumented)
     context?: ContextType;
     // (undocumented)
-    location?: Location_2 | null | undefined;
+    location?: Location_2 | null;
     // (undocumented)
     message: string;
     // (undocumented)
@@ -1186,8 +1182,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     isBlocked(node?: DOMNode | null): boolean;
     // @internal
     isEnabled(node?: DOMNode | null): boolean;
-    isKeywordIgnored<T extends IncludeExcludeOptions>(this: {
-        options: T;
+    isKeywordIgnored(this: {
+        options: IncludeExcludeOptions;
     }, keyword: string, matcher?: (list: string[], it: string) => boolean): boolean;
     name: string;
     on<K extends keyof ListenEventMap>(event: K, callback: (event: ListenEventMap[K]) => void): () => void;
@@ -1196,7 +1192,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     readonly options: OptionsType;
     report(error: ErrorDescriptor<ContextType>): void;
     // (undocumented)
-    report(node: DOMNode | null, message: string, location?: Location_2 | null | undefined): void;
+    report(node: DOMNode | null, message: string, location?: Location_2 | null): void;
     // (undocumented)
     report(node: DOMNode | null, message: string, location: Location_2 | null | undefined, context: ContextType): void;
     static schema(): SchemaObject | null | undefined;
@@ -1657,8 +1653,8 @@ export interface WhitespaceToken extends BaseToken {
 }
 
 // @public
-export class WrappedError<T> extends Error {
-    constructor(message: T);
+export class WrappedError extends Error {
+    constructor(message: unknown);
 }
 
 // (No @packageDocumentation comment for this package)

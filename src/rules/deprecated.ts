@@ -127,7 +127,7 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 }
 
 function prettySource(source: string): string {
-	const match = source.match(/html(\d)(\d)?/);
+	const match = /html(\d)(\d)?/.exec(source);
 	if (match) {
 		const [, ...parts] = match;
 		const version = parts.filter(Boolean).join(".");

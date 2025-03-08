@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- works for now and this will be removed when commonjs support ends */
+
 /**
  * Similar to `require(..)` but removes the cached copy first.
  */

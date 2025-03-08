@@ -36,6 +36,7 @@ const NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
 
 type MarkerLines = Record<number, true | [number, number] | undefined>;
 
+/* eslint-disable-next-line sonarjs/cognitive-complexity -- technical debt */
 function getMarkerLines(
 	loc: NodeLocation,
 	source: string[],

@@ -56,12 +56,14 @@ export default class InputMissingLabel extends Rule {
 		let label: HtmlElement[] = [];
 
 		/* try to find label by id */
+		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 		if ((label = findLabelById(root, elem.id)).length > 0) {
 			this.validateLabel(root, elem, label);
 			return;
 		}
 
 		/* try to find parent label (input nested in label) */
+		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 		if ((label = findLabelByParent(elem)).length > 0) {
 			this.validateLabel(root, elem, label);
 			return;

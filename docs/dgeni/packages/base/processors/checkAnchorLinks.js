@@ -49,6 +49,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 						// The path with a trailing hash is valid
 						allValidReferences[`${docPathVariant}#`] = true;
 						// The path referencing each name/id in the doc is valid
+						/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 						linkInfo.names.forEach((name) => {
 							allValidReferences[`${docPathVariant}#${name}`] = true;
 						});
@@ -68,6 +69,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 
 				// Filter out links that should be ignored
 				linkInfo.hrefs
+					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 					.filter((href) => this.ignoredLinks.every((rule) => !rule.test(href)))
 					.forEach((link) => {
 						const normalizedLink = path.join(
@@ -76,6 +78,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 						);
 						if (
 							!this.pathVariants.some(
+								/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 								(pathVariant) => allValidReferences[normalizedLink + pathVariant],
 							)
 						) {

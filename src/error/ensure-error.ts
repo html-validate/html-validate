@@ -8,7 +8,7 @@ import { WrappedError } from "./wrapped-error";
  *
  * @internal
  */
-export function ensureError<T>(value: T): Error {
+export function ensureError(value: unknown): Error {
 	if (value instanceof Error) {
 		return value;
 	} else {

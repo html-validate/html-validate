@@ -25,7 +25,7 @@ ajv.addMetaSchema(ajvSchemaDraft);
 export interface ErrorDescriptor<ContextType> {
 	node: DOMNode | null;
 	message: string;
-	location?: Location | null | undefined;
+	location?: Location | null;
 	context?: ContextType;
 }
 
@@ -236,8 +236,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns `true` if keyword is not present in `include` or is present in
 	 * `exclude`.
 	 */
-	public isKeywordIgnored<T extends IncludeExcludeOptions>(
-		this: { options: T },
+	public isKeywordIgnored(
+		this: { options: IncludeExcludeOptions },
 		keyword: string,
 		matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it),
 	): boolean {
@@ -287,11 +287,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * have any effect.
 	 */
 	public report(error: ErrorDescriptor<ContextType>): void;
-	public report(
-		node: DOMNode | null,
-		message: string,
-		location?: Location | null | undefined,
-	): void;
+	public report(node: DOMNode | null, message: string, location?: Location | null): void;
 	public report(
 		node: DOMNode | null,
 		message: string,

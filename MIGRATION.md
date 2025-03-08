@@ -122,7 +122,7 @@ try {
   htmlvalidate = new HtmlValidate({
     /* invalid configuration */
   });
-} catch (err) {
+} catch {
   /* ... */
 }
 ```

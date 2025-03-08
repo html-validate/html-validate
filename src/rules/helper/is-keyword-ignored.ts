@@ -24,7 +24,7 @@ function compilePattern(pattern: string): RegExp {
 	if (cached) {
 		return cached;
 	}
-	const match = pattern.match(/^\/(.*)\/$/);
+	const match = /^\/(.*)\/$/.exec(pattern);
 	const regexp = match ? compileRegExpPattern(match[1]) : compileStringPattern(pattern);
 	patternCache.set(pattern, regexp);
 	return regexp;
@@ -46,8 +46,8 @@ export function keywordPatternMatcher(list: string[], keyword: string): boolean 
 /**
  * @internal
  */
-export function isKeywordIgnored<T extends IncludeExcludeOptions>(
-	options: T,
+export function isKeywordIgnored(
+	options: IncludeExcludeOptions,
 	keyword: string,
 	matcher: (list: string[], it: string) => boolean = (list, it) => list.includes(it),
 ): boolean {

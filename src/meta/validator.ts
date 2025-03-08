@@ -65,7 +65,7 @@ export class Validator {
 			}
 
 			// Check if the rule has a quantifier
-			const [, category, quantifier] = rule.match(/^(@?.*?)([?*]?)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+			const [, category, quantifier] = /^(@?.*?)([?*]?)$/.exec(rule)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 			const limit = category && quantifier && parseQuantifier(quantifier);
 
 			if (limit) {
@@ -292,7 +292,7 @@ export class Validator {
 		category: string,
 		defaultMatch: boolean,
 	): boolean {
-		const [, rawCategory] = category.match(/^(@?.*?)([?*]?)$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+		const [, rawCategory] = /^(@?.*?)([?*]?)$/.exec(category)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 
 		/* match tagName when an explicit name is given */
 		if (!rawCategory.startsWith("@")) {

@@ -61,7 +61,7 @@ export default class NoSelfClosing extends Rule<string, RuleOptions> {
 function isRelevant(node: HtmlElement, options: RuleOptions): boolean {
 	/* tags in XML namespaces are relevant only if ignoreXml is false, in which
 	 * case assume all xml elements must not be self-closed */
-	if (node.tagName.match(xmlns)) {
+	if (xmlns.exec(node.tagName)) {
 		return !options.ignoreXML;
 	}
 

@@ -314,6 +314,8 @@ export class HtmlElement extends DOMNode {
 			/* this will generate the worst kind of selector but at least it will be accurate (optimizations welcome) */
 			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${String(index + 1)})`);
 		}
+
+		/* eslint-disable-next-line sonarjs/no-misleading-array-reverse -- technical debt */
 		return parts.reverse().join(" > ");
 	}
 

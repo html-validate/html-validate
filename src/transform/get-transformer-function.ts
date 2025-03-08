@@ -27,7 +27,7 @@ function loadTransformerFunction(
 	plugins: Plugin[],
 ): Transformer | Promise<Transformer> {
 	/* try to match a named transformer from plugin */
-	const match = name.match(/(.*):(.*)/);
+	const match = /(.*):(.*)/.exec(name);
 	if (match) {
 		const [, pluginName, key] = match;
 		return getNamedTransformerFromPlugin(name, plugins, pluginName, key);

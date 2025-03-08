@@ -219,7 +219,7 @@ it("should write current filename to output stream when an exception is cast", a
 	const files = ["foo.html"];
 	try {
 		await lint(htmlvalidate, stdout, files, defaultOptions);
-	} catch (err) {
+	} catch {
 		/* do nothing */
 	}
 	expect(stdout.getContentsAsString("utf-8")).toMatchInlineSnapshot(`

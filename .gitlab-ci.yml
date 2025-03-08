@@ -195,7 +195,7 @@ Jest compat:
     - >
       npm rm rollup-plugin-dts
     - >
-      npm install
+      npm install --force
       @jest/core@${JEST_VERSION}
       jest@${JEST_VERSION}
       jest-circus@${JEST_VERSION}

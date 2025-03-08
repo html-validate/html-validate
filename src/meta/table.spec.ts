@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, security/detect-non-literal-require, @typescript-eslint/no-var-requires -- needed to load fixtues */
+/* eslint-disable import/no-dynamic-require, security/detect-non-literal-require, @typescript-eslint/no-require-imports -- needed to load fixtues */
 
 import path from "node:path";
 

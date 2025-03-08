@@ -55,7 +55,7 @@ function getMarkup(src: unknown): string {
 
 type Arg1 = Partial<Message> | ConfigData | string;
 type Arg2 = ConfigData | string;
-type Arg3 = string;
+type Arg3 = string; /* eslint-disable-line sonarjs/redundant-type-aliases -- for consistency */
 
 function createMatcher(
 	expect: MatcherExpect,
@@ -70,8 +70,8 @@ function createMatcher(
 	): MatcherResult {
 		const markup = getMarkup(actual);
 		const message = isMessage(arg0) ? arg0 : undefined;
-		const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined;
-		const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2;
+		const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
+		const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
 		return toHTMLValidateImpl.call(this, expect, diff, markup, message, config, filename);
 	}
 	return diverge(toHTMLValidate);

@@ -88,8 +88,8 @@ export class HtmlValidate {
 		arg3?: SourceHooks,
 	): Promise<Report> {
 		const filename = typeof arg1 === "string" ? arg1 : "inline";
-		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined;
-		const hooks = isSourceHooks(arg1) ? arg1 : isSourceHooks(arg2) ? arg2 : arg3;
+		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
+		const hooks = isSourceHooks(arg1) ? arg1 : isSourceHooks(arg2) ? arg2 : arg3; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
 		const source = {
 			data: str,
 			filename,
@@ -131,8 +131,8 @@ export class HtmlValidate {
 		arg3?: SourceHooks,
 	): Report {
 		const filename = typeof arg1 === "string" ? arg1 : "inline";
-		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined;
-		const hooks = isSourceHooks(arg1) ? arg1 : isSourceHooks(arg2) ? arg2 : arg3;
+		const options = isConfigData(arg1) ? arg1 : isConfigData(arg2) ? arg2 : undefined; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
+		const hooks = isSourceHooks(arg1) ? arg1 : isSourceHooks(arg2) ? arg2 : arg3; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
 		const source = {
 			data: str,
 			filename,
@@ -339,6 +339,7 @@ export class HtmlValidate {
 			result.push(`Source ${source.filename}@${line}:${column} (offset: ${offset})`);
 			if (source.transformedBy) {
 				result.push("Transformed by:");
+				/* eslint-disable-next-line sonarjs/no-misleading-array-reverse -- technical debt */
 				result = result.concat(source.transformedBy.reverse().map((name) => ` - ${name}`));
 			}
 			if (source.hooks && Object.keys(source.hooks).length > 0) {

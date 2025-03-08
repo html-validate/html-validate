@@ -22,7 +22,7 @@ module.exports = function generateValidationResultsProcessor(log, validateMap) {
 		const previousEnabled = kleur.enabled;
 		kleur.enabled = false;
 		validateMap.forEach((validation) => {
-			htmlvalidate = new HtmlValidate(validation.config);
+			const htmlvalidate = new HtmlValidate(validation.config);
 			validation.report = htmlvalidate.validateStringSync(validation.markup);
 			validation.codeframe = codeframe(validation.report.results, formatterOptions);
 

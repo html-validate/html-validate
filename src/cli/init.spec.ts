@@ -42,7 +42,7 @@ it("should not overwrite configuration unless requested", async () => {
 	});
 	try {
 		await cli.init(".");
-	} catch (err) {
+	} catch {
 		/* do nothing */
 	}
 	const output = fs.readFileSync(".htmlvalidate.json", "utf-8");

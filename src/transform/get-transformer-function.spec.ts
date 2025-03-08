@@ -18,7 +18,7 @@ it("should load transformer from package", () => {
 	const resolvers = [cjsResolver()];
 	const name = "mock-transform";
 	const transformer = getTransformerFunction(resolvers, name, []);
-	expect(transformer).toEqual(require("mock-transform")); // eslint-disable-line @typescript-eslint/no-var-requires -- for now
+	expect(transformer).toEqual(require("mock-transform")); // eslint-disable-line @typescript-eslint/no-require-imports -- for now
 });
 
 it("should load transformer from path with <rootDir>", () => {
@@ -26,7 +26,7 @@ it("should load transformer from path with <rootDir>", () => {
 	const resolvers = [cjsResolver()];
 	const name = "<rootDir>/src/transform/__mocks__/mock-transform";
 	const transformer = getTransformerFunction(resolvers, name, []);
-	expect(transformer).toEqual(require("mock-transform")); // eslint-disable-line @typescript-eslint/no-var-requires -- for now
+	expect(transformer).toEqual(require("mock-transform")); // eslint-disable-line @typescript-eslint/no-require-imports -- for now
 });
 
 it("should load async transformer", async () => {

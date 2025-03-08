@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string -- generated code */
-
 async function update() {
 	const fs = require("node:fs/promises");
 	const crypto = require("node:crypto");
@@ -658,6 +656,7 @@ async function update() {
 	}
 
 	function hash(text) {
+		/* eslint-disable-next-line sonarjs/hashing -- not used for anything sensitive */
 		return crypto.createHash("md5").update(text).digest("hex");
 	}
 
@@ -711,7 +710,7 @@ async function update() {
 	}
 
 	function* generateData() {
-		for (row of rows) {
+		for (const row of rows) {
 			const [elementCell, semanticsCell, stateCell] = row.querySelectorAll("th, td");
 			const id = elementCell.id;
 

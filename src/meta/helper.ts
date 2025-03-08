@@ -70,7 +70,7 @@ export function allowedIfAttributeHasValue(
 		if (attr && typeof attr !== "string") {
 			return null;
 		}
-		const actualValue = attr ? attr : defaultValue;
+		const actualValue = attr ?? defaultValue;
 		if (actualValue && expectedValue.includes(actualValue.toLocaleLowerCase())) {
 			return null;
 		}

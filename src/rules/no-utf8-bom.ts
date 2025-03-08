@@ -12,6 +12,7 @@ export default class NoUtf8Bom extends Rule {
 
 	public setup(): void {
 		const unregister = this.on("token", (event: TokenEvent) => {
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			if (event.type === TokenType.UNICODE_BOM) {
 				this.report(null, "File should be saved without UTF-8 BOM", event.location);
 			}

@@ -13,9 +13,11 @@ export default class AttrSpacing extends Rule {
 	public setup(): void {
 		let previousToken: TokenType;
 		this.on("token", (event: TokenEvent) => {
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			if (event.type === TokenType.ATTR_NAME && previousToken !== TokenType.WHITESPACE) {
 				this.report(null, "No space between attributes", event.location);
 			}
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			previousToken = event.type;
 		});
 	}

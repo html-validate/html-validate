@@ -19,6 +19,7 @@ const selectors = [
 
 function getTextFromReference(
 	document: DOMTree,
+	/* eslint-disable-next-line sonarjs/use-type-alias -- technical debt */
 	id: string | DynamicValue | null,
 ): string | DynamicValue | null {
 	if (!id || id instanceof DynamicValue) {

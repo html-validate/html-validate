@@ -6,6 +6,7 @@ import { type DOMNodeCache } from "./cache";
 /**
  * @public
  */
+/* eslint-disable-next-line sonarjs/redundant-type-aliases -- better for documentation and help in IDE */
 export type DOMInternalID = number;
 
 const DOCUMENT_NODE_NAME = "#document";
@@ -39,6 +40,7 @@ export class DOMNode {
 	 */
 	public readonly unique: DOMInternalID;
 
+	/* eslint-disable-next-line sonarjs/use-type-alias -- technical debt */
 	private cache: null | Map<string | number | symbol, any>;
 
 	/**
@@ -123,8 +125,6 @@ export class DOMNode {
 	 *
 	 * @returns `true` if the entry existed and has been removed.
 	 */
-	public cacheRemove<K extends keyof DOMNodeCache>(key: K): boolean;
-	public cacheRemove(key: string | number | symbol): boolean;
 	public cacheRemove(key: string | number | symbol): boolean {
 		if (this.cache) {
 			return this.cache.delete(key);
@@ -136,8 +136,6 @@ export class DOMNode {
 	/**
 	 * Check if key exists in cache.
 	 */
-	public cacheExists<K extends keyof DOMNodeCache>(key: K): boolean;
-	public cacheExists(key: string | number | symbol): boolean;
 	public cacheExists(key: string | number | symbol): boolean {
 		return Boolean(this.cache?.has(key));
 	}

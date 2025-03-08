@@ -3,7 +3,7 @@ function escape(value: string): string {
 }
 
 function format(value: unknown, quote: boolean = false): string {
-	if (value === null) {
+	if (value === null || value === undefined) {
 		return "null";
 	}
 
@@ -27,6 +27,7 @@ function format(value: unknown, quote: boolean = false): string {
 		return `{ ${content} }`;
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-base-to-string -- should not really be reachable */
 	return String(value);
 }
 

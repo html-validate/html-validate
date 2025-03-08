@@ -115,7 +115,7 @@ export function classifyNodeText(
 	}
 
 	/* if any text has non-whitespace character classify as static */
-	if (text.some((cur) => cur.textContent.match(/\S/) !== null)) {
+	if (text.some((cur) => /\S/.exec(cur.textContent) !== null)) {
 		return node.cacheSet(cacheKey, TextClassification.STATIC_TEXT);
 	}
 
