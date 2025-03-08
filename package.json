@@ -110,6 +110,7 @@
     "build:cjs": "rollup --config rollup.cjs.config.mjs",
     "build:esm": "rollup --config rollup.esm.config.mjs",
     "build:script": "node build.mjs",
+    "postbuild": "npm run --workspaces --if-present build",
     "clean": "rm -rf dist public",
     "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",
@@ -177,10 +178,10 @@
   },
   "jest": {
     "collectCoverageFrom": [
+      "internal/*/src/**/*.ts",
       "src/**/*.ts",
-      "!src/**/*.spec.ts",
-      "!src/**/index.ts",
-      "!src/index.ts",
+      "!**/*.spec.ts",
+      "!**/index.ts",
       "!src/browser.ts",
       "!src/html5.ts",
       "!src/htmlvalidate.browser.ts",
@@ -202,6 +203,7 @@
     "roots": [
       "<rootDir>/docs",
       "<rootDir>/elements",
+      "<rootDir>/internal/test-utils/src",
       "<rootDir>/src",
       "<rootDir>/tests"
     ],

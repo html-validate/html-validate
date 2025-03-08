@@ -1,0 +1,15 @@
+{
+  "name": "@html-validate/test-utils",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prebuild": "tsc",
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "html-validate": "*"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0"
+  }
+}
