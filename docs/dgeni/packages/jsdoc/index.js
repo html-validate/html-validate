@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string -- easier to read as it is */
-
 const Package = require("dgeni").Package;
 
 /**

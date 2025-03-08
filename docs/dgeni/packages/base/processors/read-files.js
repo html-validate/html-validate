@@ -53,6 +53,7 @@ module.exports = function readFilesProcessor(log) {
 
 					log.debug(`Found ${files.length} files:\n`, files);
 
+					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 					files.forEach((file) => {
 						// Load up each file and extract documents using the appropriate fileReader
 						const docsPromise = readFile(file).then((content) => {
@@ -82,6 +83,7 @@ module.exports = function readFilesProcessor(log) {
 
 						docsPromises.push(docsPromise);
 					});
+					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 					return Promise.all(docsPromises).then((results) => results.flat());
 				});
 			});

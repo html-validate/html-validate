@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string -- easier to read without constants */
-
 import { defineMetadata } from "../meta/define-metadata";
 import { metadataHelper } from "../meta/helper";
 import { type HtmlElementLike } from "../meta/html-element-like";

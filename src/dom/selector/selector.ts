@@ -47,7 +47,7 @@ export function escapeSelectorComponent(text: string | DynamicValue): string {
  */
 export function generateIdSelector(id: string): string {
 	const escaped = escapeSelectorComponent(id);
-	return escaped.match(/^\d/) ? `[id="${escaped}"]` : `#${escaped}`;
+	return /^\d/.exec(escaped) ? `[id="${escaped}"]` : `#${escaped}`;
 }
 
 /**

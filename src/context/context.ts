@@ -47,12 +47,14 @@ export class Context {
 		while ((offset = consumed.indexOf("\n")) >= 0) {
 			this.line++;
 			this.column = 1;
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			consumed = consumed.substr(offset + 1);
 		}
 		this.column += consumed.length;
 		this.offset += n;
 
 		/* remove N chars */
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		this.string = this.string.substr(n);
 
 		/* change state */

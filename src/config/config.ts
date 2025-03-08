@@ -372,12 +372,14 @@ export class Config {
 			if (isThenable(result)) {
 				return result.then(() => {
 					metaTable.init();
+					/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 					return (this.metaTable = metaTable);
 				});
 			}
 		}
 
 		metaTable.init();
+		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 		return (this.metaTable = metaTable);
 	}
 

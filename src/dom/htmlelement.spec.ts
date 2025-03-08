@@ -1,3 +1,6 @@
+/* eslint-disable sonarjs/no-unused-vars -- already covered by @typescript-eslint/no-unused-vars */
+/* eslint-disable sonarjs/no-dead-store -- has side-effects and in this case gives more consistent code */
+
 import { Config } from "../config";
 import { type Location, type Source } from "../context";
 import { type TagCloseToken, type TagOpenToken, type Token, TokenType } from "../lexer";

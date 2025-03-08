@@ -7,6 +7,9 @@ module.exports = {
 	rules: {
 		"import/extensions": "off",
 		"security/detect-unsafe-regex": "off",
+		"sonarjs/function-return-type": "off",
+		"sonarjs/slow-regex": "off",
+		"sonarjs/todo-tag": "off",
 	},
 
 	overrides: [
@@ -42,7 +45,7 @@ module.exports = {
 		{
 			files: ["docs/examples/**/*.[jt]s"],
 			rules: {
-				"@typescript-eslint/no-var-requires": "off",
+				"@typescript-eslint/no-require-imports": "off",
 				"eslint-comments/require-description": "off",
 				"import/no-duplicates": "off",
 				"import/no-extraneous-dependencies": "off",
@@ -68,6 +71,9 @@ module.exports = {
 			files: "*.spec.[jt]s",
 			excludedFiles: ["cypress/**", "tests/e2e/**"],
 			extends: ["@html-validate/jest"],
+			rules: {
+				"sonarjs/no-nested-functions": "off",
+			},
 		},
 		{
 			/* files which should lint even if project isn't build yet */

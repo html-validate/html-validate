@@ -544,7 +544,7 @@ export class Parser {
 		if (!postamble.startsWith("]")) {
 			throw new ParserError(token.location, `Missing end bracket "]" on directive "${text}"`);
 		}
-		const match = directive.match(/^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/);
+		const match = /^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/.exec(directive);
 
 		/* istanbul ignore next: should not be possible, would be emitted as comment token */
 		if (!match) {
@@ -803,7 +803,7 @@ export class Parser {
 	private closeTree(source: Source, location: Location): void {
 		let active;
 		const documentElement = this.dom.root;
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- the condition is not unnecessary, it performs an assignment */
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, sonarjs/no-nested-assignment -- the condition is not unnecessary, it performs an assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
 			if (active.meta?.implicitClosed) {
 				active.closed = NodeClosed.ImplicitClosed;

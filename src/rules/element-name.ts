@@ -109,7 +109,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 
 			/* ignore elements in xml namespaces, they should be validated against a
 			 * DTD instead */
-			if (tagName.match(xmlns)) {
+			if (xmlns.exec(tagName)) {
 				return;
 			}
 

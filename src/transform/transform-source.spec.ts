@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- technical debt */
+
 import { type Source } from "../context";
 import { MetaTable } from "../meta";
 import { type ResolvedConfigData, ResolvedConfig, type Resolver, staticResolver } from "../config";

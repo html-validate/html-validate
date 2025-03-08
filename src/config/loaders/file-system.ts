@@ -150,6 +150,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * This configuration is not merged with global configuration and may return
 	 * `null` if no configuration files are found.
 	 */
+	/* eslint-disable-next-line sonarjs/cognitive-complexity -- technical debt */
 	public fromFilename(filename: string): Config | Promise<Config | null> | null {
 		if (filename === "inline") {
 			return null;

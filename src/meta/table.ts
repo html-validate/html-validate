@@ -286,7 +286,7 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 		return value;
 	}
 	/* match anything starting and ending with `/`, optionally with `/i` at the end. */
-	const match = value.match(/^\/(.*(?=\/))\/(i?)$/);
+	const match = /^\/(.*(?=\/))\/(i?)$/.exec(value);
 	if (match) {
 		const [, expr, flags] = match;
 		/* eslint-disable security/detect-non-literal-regexp -- expected to be regexp */

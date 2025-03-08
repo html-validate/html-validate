@@ -1,4 +1,4 @@
-function stringify<T>(value: T): string {
+function stringify(value: unknown): string {
 	if (typeof value === "string") {
 		return String(value);
 	} else {
@@ -11,8 +11,8 @@ function stringify<T>(value: T): string {
  *
  * @public
  */
-export class WrappedError<T> extends Error {
-	public constructor(message: T) {
+export class WrappedError extends Error {
+	public constructor(message: unknown) {
 		super(stringify(message));
 	}
 }

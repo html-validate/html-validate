@@ -15,6 +15,7 @@ interface WorkerData {
 	workerPort: MessagePort;
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- false positive, it is used in nested functions */
 function runAsWorker<R = unknown, T extends AnyAsyncFn<R> = AnyAsyncFn<R>>(fn: T): void {
 	if (!workerData) {
 		return;

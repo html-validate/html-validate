@@ -3,7 +3,7 @@ import { type AttributeData } from "../../parser";
 
 export function* processAttribute(attr: AttributeData): Iterable<AttributeData> {
 	/* handle foo="{{ bar }}" as "foo" with a dynamic value (interpolated) */
-	if (typeof attr.value === "string" && attr.value.match(/{{.*}}/)) {
+	if (typeof attr.value === "string" && /{{.*}}/.exec(attr.value)) {
 		yield {
 			...attr,
 			value: new DynamicValue(attr.value),

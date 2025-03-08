@@ -64,7 +64,7 @@ export class AttributeCondition extends Condition {
 
 	public constructor(attr: string) {
 		super();
-		const [, key, op, value] = attr.match(/^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+		const [, key, op, value] = /^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 		this.key = key;
 		this.op = op;
 		this.value = value;
@@ -74,6 +74,7 @@ export class AttributeCondition extends Condition {
 		const attr = node.getAttribute(this.key, true);
 		return attr.some((cur: Attribute) => {
 			switch (this.op) {
+				/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- technical debt, the type of op should reflect this case */
 				case undefined:
 					return true; /* attribute exists */
 				case "=":
@@ -94,7 +95,7 @@ export class PseudoClassCondition extends Condition {
 
 	public constructor(pseudoclass: string, context: string) {
 		super();
-		const match = pseudoclass.match(/^([^(]+)(?:\((.*)\))?$/);
+		const match = /^([^(]+)(?:\((.*)\))?$/.exec(pseudoclass);
 		if (!match) {
 			throw new Error(`Missing pseudo-class after colon in selector pattern "${context}"`);
 		}

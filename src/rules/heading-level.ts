@@ -28,7 +28,7 @@ function isRelevant(event: TagStartEvent): boolean {
 }
 
 function extractLevel(node: HtmlElement): number | null {
-	const match = node.tagName.match(/^[hH](\d)$/);
+	const match = /^[hH](\d)$/.exec(node.tagName);
 	if (match) {
 		return parseInt(match[1], 10);
 	} else {
@@ -40,7 +40,7 @@ function parseMaxInitial(value: string | false): number {
 	if (value === false || value === "any") {
 		return 6;
 	}
-	const match = value.match(/^h(\d)$/);
+	const match = /^h(\d)$/.exec(value);
 	/* istanbul ignore next: should never happen, schema validation should catch invalid values */
 	if (!match) {
 		return 1;

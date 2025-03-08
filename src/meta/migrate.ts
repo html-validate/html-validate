@@ -66,6 +66,7 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 		...Object.keys(src.attributes ?? {}),
 		...(src.requiredAttributes ?? []),
 		...(src.deprecatedAttributes ?? []),
+		/* eslint-disable-next-line sonarjs/no-alphabetical-sort -- not really needed in this case, this is a-z anyway */
 	].sort();
 
 	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
@@ -101,6 +102,7 @@ function normalizeAriaNaming(
 }
 
 export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
+	/* eslint-disable-next-line @typescript-eslint/no-deprecated -- should handle deprecated property for now */
 	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
 	const result = {
 		...src,

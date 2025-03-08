@@ -18,6 +18,7 @@ const crypto = require("crypto");
  * @returns {string}
  */
 function generateCompilationId(code) {
+	/* eslint-disable-next-line sonarjs/hashing -- technical debt, not used for anything sensitive but should probably use sha256 or similar instead */
 	const hash = crypto.createHash("md5").update(code).digest("hex");
 	return `example-${hash.slice(0, 6)}`;
 }

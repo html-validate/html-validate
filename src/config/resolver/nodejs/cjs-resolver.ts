@@ -56,6 +56,7 @@ export type NodeJSResolver = Required<Resolver>;
 export function cjsResolver(options: { rootDir?: string } = {}): CommonJSResolver {
 	const rootDir = options.rootDir ?? determineRootDir();
 
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- technical debt, should return unknown as use explicit cast */
 	function internalRequire<T = unknown>(id: string, { cache }: ResolverOptions): T | null {
 		const moduleName = id.replace("<rootDir>", rootDir);
 		try {
@@ -146,6 +147,7 @@ export function cjsResolver(options: { rootDir?: string } = {}): CommonJSResolve
  * @since 8.0.0
  */
 /* istanbul ignore next -- deprecated alias */
+/* eslint-disable-next-line @typescript-eslint/no-deprecated -- deprecated but should still work */
 export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolver {
 	return cjsResolver(options);
 }

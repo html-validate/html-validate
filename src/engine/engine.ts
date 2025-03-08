@@ -109,6 +109,7 @@ export class Engine<T extends Parser = Parser> {
 			parser.trigger("config:ready", configEvent);
 
 			/* trigger source ready event */
+			/* eslint-disable-next-line sonarjs/no-unused-vars -- wrong config and already covered by @typescript-eslint/no-unused-vars */
 			const { hooks: _, ...sourceData } = source;
 			const sourceEvent: SourceReadyEvent = {
 				location,

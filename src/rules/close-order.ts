@@ -72,7 +72,7 @@ export default class CloseOrder extends Rule {
 		});
 
 		/* handle stray tags */
-		/* eslint-disable-next-line complexity -- lots of needed ifs'n buts */
+		/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- lots of needed ifs'n buts */
 		this.on("tag:end", (event: TagEndEvent) => {
 			const current = event.target; // The current element being closed
 			const active = event.previous; // The current active element (that is, the current element on the stack)
