@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.5.0 (2025-03-08)
+
+### Features
+
+- **deps:** update dependency @sidvind/better-ajv-errors to v4 ([75a17cf](https://gitlab.com/html-validate/html-validate/commit/75a17cf699ee77941c88650a38b7217d276664db))
+
 ## 9.4.2 (2025-03-06)
 
 ### Performance Improvements
