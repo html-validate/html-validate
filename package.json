@@ -234,7 +234,7 @@
   },
   "devDependencies": {
     "@babel/code-frame": "7.26.2",
-    "@html-validate/commitlint-config": "3.4.2",
+    "@html-validate/commitlint-config": "3.4.3",
     "@html-validate/eslint-config": "5.27.0",
     "@html-validate/eslint-config-jest": "5.27.0",
     "@html-validate/eslint-config-typescript": "5.27.0",
