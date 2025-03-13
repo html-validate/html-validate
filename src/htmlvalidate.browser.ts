@@ -23,14 +23,14 @@ function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {
 		return false;
 	}
-	return Boolean(value.processAttribute || value.processElement);
+	return Boolean(value.processAttribute ?? value.processElement);
 }
 
 function isConfigData(value: any): value is ConfigData {
 	if (!value || typeof value === "string") {
 		return false;
 	}
-	return !(value.processAttribute || value.processElement);
+	return !(value.processAttribute ?? value.processElement);
 }
 
 /**

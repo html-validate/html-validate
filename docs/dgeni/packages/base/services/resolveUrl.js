@@ -13,6 +13,7 @@ const path = require("canonical-path");
 module.exports = function resolveUrl() {
 	return (currentPath, newPath, base) => {
 		// Extract only the path and the hash from the newPath
+		/* eslint-disable-next-line n/no-deprecated-api -- technical debt */
 		const parsedUrl = url.parse(newPath);
 		parsedUrl.search = null;
 		newPath = url.format(parsedUrl);
@@ -22,6 +23,7 @@ module.exports = function resolveUrl() {
 			newPath = path.resolve(base, newPath).replace(/^(\w:)?\//, "");
 		} else {
 			// Otherwise resolve against the current path
+			/* eslint-disable-next-line n/no-deprecated-api -- technical debt */
 			newPath = url.resolve(currentPath || "", newPath);
 		}
 
