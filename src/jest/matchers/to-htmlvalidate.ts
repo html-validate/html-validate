@@ -16,14 +16,14 @@ function isMessage(arg: any): arg is Partial<Message> {
 		return false;
 	}
 	return Boolean(
-		arg.ruleId ||
-			arg.severity ||
-			arg.message ||
-			arg.offset ||
-			arg.line ||
-			arg.column ||
-			arg.size ||
-			arg.selector ||
+		arg.ruleId ??
+			arg.severity ??
+			arg.message ??
+			arg.offset ??
+			arg.line ??
+			arg.column ??
+			arg.size ??
+			arg.selector ??
 			arg.context,
 	);
 }
@@ -33,7 +33,7 @@ function isConfig(arg: any): arg is ConfigData {
 		return false;
 	}
 	return Boolean(
-		arg.root || arg.extends || arg.elements || arg.plugin || arg.transform || arg.rules,
+		arg.root ?? arg.extends ?? arg.elements ?? arg.plugin ?? arg.transform ?? arg.rules,
 	);
 }
 
