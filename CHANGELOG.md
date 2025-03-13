@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.5.1 (2025-03-13)
+
+### Bug Fixes
+
+- handle id with comma ([435abf5](https://gitlab.com/html-validate/html-validate/commit/435abf537e17db9239b79cac408223eec8c8a420)), closes [#299](https://gitlab.com/html-validate/html-validate/issues/299)
+
 ## 9.5.0 (2025-03-08)
 
 ### Features
