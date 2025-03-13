@@ -6,6 +6,35 @@ exports[`regression tests test-files/issues/issue-138-srcset-line-wrapping.html 
 
 exports[`regression tests test-files/issues/issue-154-case-insensitive-attr.html 1`] = `[]`;
 
+exports[`regression tests test-files/issues/issue-299-comma-id.html 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/issues/issue-299-comma-id.html",
+    "messages": [
+      {
+        "column": 10,
+        "context": {
+          "id": "start,-end",
+          "kind": 4,
+        },
+        "line": 1,
+        "message": "element id "start,-end" must only contain letters, digits, dash and underscore characters",
+        "offset": 9,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "#start\\,-end",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<div id="start,-end"></div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `[]`;
 
 exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `[]`;

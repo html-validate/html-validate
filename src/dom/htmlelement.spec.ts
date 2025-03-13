@@ -989,6 +989,17 @@ describe("HtmlElement", () => {
 			expect(el.map((it) => it.id)).toEqual(["third"]);
 		});
 
+		it("should handle escaped comma", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <div id="foo,bar"></div> `;
+			const resolvedConfig = await Config.empty().resolve();
+			const parser = new Parser(resolvedConfig);
+			const document = parser.parseHtml(markup);
+			const el = document.querySelector("#foo\\,bar");
+			expect(el?.tagName).toBe("div");
+			expect(el?.id).toBe("foo,bar");
+		});
+
 		it("should return null if nothing matches", () => {
 			expect.assertions(1);
 			const el = document.querySelector("foobar");
@@ -1023,6 +1034,18 @@ describe("HtmlElement", () => {
 			expect(el[0].tagName).toBe("li");
 			expect(el[1].tagName).toBe("li");
 			expect(el[2].tagName).toBe("p");
+		});
+
+		it("should handle escaped comma", async () => {
+			expect.assertions(3);
+			const markup = /* HTML */ ` <div id="foo,bar"></div> `;
+			const resolvedConfig = await Config.empty().resolve();
+			const parser = new Parser(resolvedConfig);
+			const document = parser.parseHtml(markup);
+			const el = document.querySelectorAll("#foo\\,bar");
+			expect(el).toHaveLength(1);
+			expect(el[0].tagName).toBe("div");
+			expect(el[0].id).toBe("foo,bar");
 		});
 
 		it("should return [] when nothing matches", () => {
