@@ -168,6 +168,12 @@ describe("generateIdSelector()", () => {
 		const id = "123foo";
 		expect(generateIdSelector(id)).toBe('[id="123foo"]');
 	});
+
+	it("should handle comma", () => {
+		expect.assertions(1);
+		const id = "foo,bar";
+		expect(generateIdSelector(id)).toBe("#foo\\,bar");
+	});
 });
 
 describe("Selector", () => {

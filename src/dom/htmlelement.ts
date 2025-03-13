@@ -652,7 +652,7 @@ export class HtmlElement extends DOMNode {
 		if (!selectorList) {
 			return;
 		}
-		for (const selector of selectorList.split(/,\s*/)) {
+		for (const selector of selectorList.split(/(?<!\\),\s*/)) {
 			const pattern = new Selector(selector);
 			yield* pattern.match(this);
 		}
