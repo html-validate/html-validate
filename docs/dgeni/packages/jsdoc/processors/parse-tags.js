@@ -66,7 +66,7 @@ function createTagParser(tagDefinitions, parserAdapters) {
 	 * @param  {number} startingLine The line in the doc file where this text begins
 	 * @return {TagCollection}       A collection of tags that were parsed
 	 */
-	/* eslint-disable-next-line complexity, sonarjs/cognitive-complexity -- technical debt: imported as-is */
+	/* eslint-disable-next-line complexity -- technical debt: imported as-is */
 	return function tagParser(content, startingLine) {
 		const lines = content.split(END_OF_LINE);
 		let lineNumber = 0;

@@ -44,7 +44,7 @@ function runAsWorker<R = unknown, T extends AnyAsyncFn<R> = AnyAsyncFn<R>>(fn: T
 				};
 			}
 			workerPort.off("message", handleAbortMessage);
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- modified by handleAbortMessage
+
 			if (isAborted) {
 				return;
 			}

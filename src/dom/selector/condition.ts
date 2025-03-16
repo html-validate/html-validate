@@ -74,7 +74,6 @@ export class AttributeCondition extends Condition {
 		const attr = node.getAttribute(this.key, true);
 		return attr.some((cur: Attribute) => {
 			switch (this.op) {
-				/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- technical debt, the type of op should reflect this case */
 				case undefined:
 					return true; /* attribute exists */
 				case "=":
