@@ -109,7 +109,7 @@ export class Engine<T extends Parser = Parser> {
 			parser.trigger("config:ready", configEvent);
 
 			/* trigger source ready event */
-			/* eslint-disable-next-line sonarjs/no-unused-vars -- wrong config and already covered by @typescript-eslint/no-unused-vars */
+
 			const { hooks: _, ...sourceData } = source;
 			const sourceEvent: SourceReadyEvent = {
 				location,
@@ -448,10 +448,7 @@ export class Engine<T extends Parser = Parser> {
 		rule.init(parser, report, severity, meta);
 
 		/* call setup callback if present */
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition --
-		 * unnecessary from a typescript perspective but if the plugin is not
-		 * implemented in TS the user might not have implemented the callback even
-		 * if the declaration requires it */
+
 		if (rule.setup) {
 			rule.setup();
 		}

@@ -119,6 +119,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 	public setup(): void {
 		const selector = this.getSelector();
 		const { shared } = this.options;
+		/* eslint-disable-next-line complexity -- technical debt */
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			const controls = document.querySelectorAll(selector);

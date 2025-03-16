@@ -150,7 +150,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * This configuration is not merged with global configuration and may return
 	 * `null` if no configuration files are found.
 	 */
-	/* eslint-disable-next-line sonarjs/cognitive-complexity -- technical debt */
+
 	public fromFilename(filename: string): Config | Promise<Config | null> | null {
 		if (filename === "inline") {
 			return null;
@@ -165,7 +165,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.empty();
 
-		// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- it will break out when filesystem is traversed
 		while (true) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
@@ -233,7 +232,6 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.empty();
 
-		// eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition -- it will break out when filesystem is traversed
 		while (true) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {

@@ -17,16 +17,20 @@ export default [
 			"**/coverage/**",
 			"**/dist/**",
 			"**/node_modules/**",
+			"**/out/**",
 			"**/public/assets/**",
 			"**/temp/**",
 		],
 	},
+
 	...defaultConfig,
+
 	{
 		name: "@html-validate/eslint-config-typescript",
 		files: ["**/*.ts"],
 		...typescriptConfig,
 	},
+
 	{
 		name: "@html-validate/eslint-config-typeinfo",
 		files: ["src/**/*.ts"],
@@ -39,20 +43,12 @@ export default [
 		},
 		...typescriptTypeinfoConfig,
 	},
+
 	{
 		name: "@html-validate/eslint-config-jest",
 		files: ["**/*.spec.[jt]s"],
 		ignores: ["cypress/**", "tests/e2e/**"],
 		...jestConfig,
-	},
-	{
-		/* files which should lint even if project isn't build yet */
-		files: ["./*.d.ts", "./bin/*.mjs"],
-		rules: {
-			"import/export": "off",
-			"import/extensions": "off",
-			"import/no-unresolved": "off",
-		},
 	},
 
 	{

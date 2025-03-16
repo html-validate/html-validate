@@ -81,6 +81,7 @@ function isSpecialEmpty(node: HtmlElement): boolean {
  *
  * @public
  */
+/* eslint-disable-next-line complexity -- technical debt */
 export function classifyNodeText(
 	node: HtmlElement,
 	options: TextClassificationOptions = {},
