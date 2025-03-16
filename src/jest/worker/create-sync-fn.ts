@@ -30,7 +30,7 @@ function isWorkerError<T>(value: WorkerToMainMessage<T>): value is WorkerToMainE
 }
 
 function receiveMessageWithId<R>(port: MessagePort, expectedId: number): WorkerToMainMessage<R> {
-	const timeout = 10000;
+	const timeout = 30000;
 	const status = Atomics.wait(sharedBufferView, 0, 0, timeout);
 	Atomics.store(sharedBufferView, 0, 0);
 
