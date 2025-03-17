@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.5.2 (2025-03-17)
+
+### Bug Fixes
+
+- **jest:** increase internal timeout for `.toHTMLValidate()` from 10s to 30s ([f5f9917](https://gitlab.com/html-validate/html-validate/commit/f5f9917cbf904b600561336f4fae37c62bc22138)), closes [#298](https://gitlab.com/html-validate/html-validate/issues/298)
+
 ## 9.5.1 (2025-03-13)
 
 ### Bug Fixes
