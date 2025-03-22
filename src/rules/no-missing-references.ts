@@ -1,4 +1,11 @@
-import { type Attribute, type DOMTree, type HtmlElement, DOMTokenList, DynamicValue } from "../dom";
+import {
+	type Attribute,
+	type DOMTree,
+	type HtmlElement,
+	DOMTokenList,
+	DynamicValue,
+	generateIdSelector,
+} from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -24,7 +31,7 @@ const ARIA: AriaAttribute[] = [
 ];
 
 function idMissing(document: DOMTree, id: string): boolean {
-	const nodes = document.querySelectorAll(`[id="${id}"]`);
+	const nodes = document.querySelectorAll(generateIdSelector(id));
 	return nodes.length === 0;
 }
 

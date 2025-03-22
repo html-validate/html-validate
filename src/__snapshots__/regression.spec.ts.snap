@@ -6,11 +6,11 @@ exports[`regression tests test-files/issues/issue-138-srcset-line-wrapping.html 
 
 exports[`regression tests test-files/issues/issue-154-case-insensitive-attr.html 1`] = `[]`;
 
-exports[`regression tests test-files/issues/issue-299-comma-id.html 1`] = `
+exports[`regression tests test-files/issues/issue-299/issue-299-comma-id.html 1`] = `
 [
   {
     "errorCount": 1,
-    "filePath": "test-files/issues/issue-299-comma-id.html",
+    "filePath": "test-files/issues/issue-299/issue-299-comma-id.html",
     "messages": [
       {
         "column": 10,
@@ -29,6 +29,7 @@ exports[`regression tests test-files/issues/issue-299-comma-id.html 1`] = `
       },
     ],
     "source": "<div id="start,-end"></div>
+<div aria-controls="start,-end" aria-labelledby="start,-end"></div>
 ",
     "warningCount": 0,
   },
