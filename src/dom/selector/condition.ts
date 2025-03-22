@@ -59,15 +59,15 @@ export class IdCondition extends Condition {
  */
 export class AttributeCondition extends Condition {
 	private readonly key: string;
-	private readonly op: string;
-	private readonly value: string;
+	private readonly op: string | undefined;
+	private readonly value: string | undefined;
 
 	public constructor(attr: string) {
 		super();
 		const [, key, op, value] = /^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 		this.key = key;
 		this.op = op;
-		this.value = value;
+		this.value = typeof value === "string" ? stripslashes(value) : value;
 	}
 
 	public match(node: HtmlElement): boolean {
@@ -77,6 +77,7 @@ export class AttributeCondition extends Condition {
 				case undefined:
 					return true; /* attribute exists */
 				case "=":
+					/* eslint-disable-next-line sonarjs/different-types-comparison -- false positive */
 					return cur.value === this.value;
 				default:
 					throw new Error(`Attribute selector operator ${this.op} is not implemented yet`);
