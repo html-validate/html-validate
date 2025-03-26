@@ -244,7 +244,7 @@
     "@html-validate/release-scripts": "6.8.0",
     "@html-validate/rollup-plugin-legacy": "file:internal/rollup-plugin-legacy",
     "@html-validate/rollup-plugin-packagejson": "file:internal/rollup-plugin-packagejson",
-    "@microsoft/api-extractor": "7.52.1",
+    "@microsoft/api-extractor": "7.52.2",
     "@rollup/plugin-commonjs": "28.0.3",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.1",
