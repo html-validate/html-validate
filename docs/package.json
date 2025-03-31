@@ -29,7 +29,7 @@
     "postcss": "8.5.3",
     "prettier": "3.5.3",
     "sass": "1.86.0",
-    "serve-static": "1.16.2",
+    "serve-static": "2.2.0",
     "synckit": "0.10.3"
   },
   "engines": {
