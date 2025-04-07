@@ -42,8 +42,6 @@ export function determineRootDirImpl(intial: string, fs: FSLike): string {
  */
 /* istanbul ignore next: cached version of determineRootDirImpl, no need to test */
 export function determineRootDir(): string {
-	if (cachedRootDir === null) {
-		cachedRootDir = determineRootDirImpl(process.cwd(), fs);
-	}
+	cachedRootDir ??= determineRootDirImpl(process.cwd(), fs);
 	return cachedRootDir;
 }

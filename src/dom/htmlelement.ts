@@ -357,9 +357,7 @@ export class HtmlElement extends DOMNode {
 	 * the subsequent `dom:ready` event).
 	 */
 	public loadMeta(meta: MetaElement): void {
-		if (!this.metaElement) {
-			this.metaElement = {} as MetaElement;
-		}
+		this.metaElement ??= {} as MetaElement;
 		for (const key of MetaCopyableProperty) {
 			const value = meta[key];
 			if (typeof value !== "undefined") {

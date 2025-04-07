@@ -138,9 +138,7 @@ export class CLI {
 	 * @internal
 	 */
 	public async getConfig(): Promise<ConfigData> {
-		if (!this.config) {
-			this.config = await this.resolveConfig();
-		}
+		this.config ??= await this.resolveConfig();
 		return this.config;
 	}
 
