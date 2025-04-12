@@ -6,32 +6,76 @@ exports[`regression tests test-files/issues/issue-138-srcset-line-wrapping.html 
 
 exports[`regression tests test-files/issues/issue-154-case-insensitive-attr.html 1`] = `[]`;
 
-exports[`regression tests test-files/issues/issue-299/issue-299-comma-id.html 1`] = `
+exports[`regression tests test-files/issues/issue-299/aria.html 1`] = `
 [
   {
-    "errorCount": 4,
-    "filePath": "test-files/issues/issue-299/issue-299-comma-id.html",
+    "errorCount": 1,
+    "filePath": "test-files/issues/issue-299/aria.html",
     "messages": [
       {
         "column": 10,
         "context": {
-          "id": "start,-end",
+          "id": "foo,-bar",
+          "kind": 4,
+        },
+        "line": 2,
+        "message": "element id "foo,-bar" must only contain letters, digits, dash and underscore characters",
+        "offset": 73,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "#foo\\,-bar",
+        "severity": 2,
+        "size": 8,
+      },
+    ],
+    "source": "<div aria-controls="foo,-bar" aria-labelledby="foo,-bar"></div>
+<div id="foo,-bar"></div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`regression tests test-files/issues/issue-299/id.html 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/issues/issue-299/id.html",
+    "messages": [
+      {
+        "column": 10,
+        "context": {
+          "id": "foo,-bar",
           "kind": 4,
         },
         "line": 1,
-        "message": "element id "start,-end" must only contain letters, digits, dash and underscore characters",
+        "message": "element id "foo,-bar" must only contain letters, digits, dash and underscore characters",
         "offset": 9,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
-        "selector": "div:nth-child(1)",
+        "selector": "#foo\\,-bar",
         "severity": 2,
-        "size": 10,
+        "size": 8,
       },
+    ],
+    "source": "<div id="foo,-bar"></div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "test-files/issues/issue-299/input-label.html",
+    "messages": [
       {
         "column": 8,
-        "line": 4,
+        "line": 1,
         "message": "Redundant "for" attribute",
-        "offset": 104,
+        "offset": 7,
         "ruleId": "no-redundant-for",
         "ruleUrl": "https://html-validate.org/rules/no-redundant-for.html",
         "selector": "label",
@@ -41,35 +85,21 @@ exports[`regression tests test-files/issues/issue-299/issue-299-comma-id.html 1`
       {
         "column": 13,
         "context": {
-          "id": "start,-end",
+          "id": "foo,-bar",
           "kind": 4,
         },
-        "line": 5,
-        "message": "element id "start,-end" must only contain letters, digits, dash and underscore characters",
-        "offset": 134,
+        "line": 2,
+        "message": "element id "foo,-bar" must only contain letters, digits, dash and underscore characters",
+        "offset": 35,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
-        "selector": "label > input",
+        "selector": "#foo\\,-bar",
         "severity": 2,
-        "size": 10,
-      },
-      {
-        "column": 13,
-        "line": 5,
-        "message": "Duplicate ID "start,-end"",
-        "offset": 134,
-        "ruleId": "no-dup-id",
-        "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
-        "selector": "label > input",
-        "severity": 2,
-        "size": 10,
+        "size": 8,
       },
     ],
-    "source": "<div id="start,-end"></div>
-<div aria-controls="start,-end" aria-labelledby="start,-end"></div>
-
-<label for="start,-end">
-	<input id="start,-end" type="checkbox">
+    "source": "<label for="foo,-bar">
+	<input id="foo,-bar" type="checkbox">
 </label>
 ",
     "warningCount": 0,
