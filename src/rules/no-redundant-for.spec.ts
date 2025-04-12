@@ -87,6 +87,27 @@ describe("rule no-redundant-for", () => {
 		`);
 	});
 
+	it("should handle comma", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label for="foo,-bar">
+				<input id="foo,-bar" />
+			</label>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: Redundant "for" attribute (no-redundant-for) at inline:2:11:
+		  1 |
+		> 2 | 			<label for="foo,-bar">
+		    | 			       ^^^
+		  3 | 				<input id="foo,-bar" />
+		  4 | 			</label>
+		  5 |
+		Selector: label"
+	`);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const context = undefined;

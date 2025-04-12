@@ -1,4 +1,4 @@
-import { escapeSelectorComponent } from "../dom";
+import { generateIdSelector, isStaticAttribute } from "../dom";
 import { type ElementReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -21,7 +21,7 @@ export default class NoRedundantFor extends Rule {
 
 			/* ignore label without for or dynamic value */
 			const attr = target.getAttribute("for");
-			if (!attr || attr.isDynamic) {
+			if (!attr || !isStaticAttribute(attr)) {
 				return;
 			}
 
@@ -32,8 +32,7 @@ export default class NoRedundantFor extends Rule {
 			}
 
 			/* try to find labeled control */
-			const escaped = escapeSelectorComponent(id);
-			const control = target.querySelector(`[id="${escaped}"]`);
+			const control = target.querySelector(generateIdSelector(id));
 			if (!control) {
 				return;
 			}

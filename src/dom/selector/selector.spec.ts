@@ -174,6 +174,12 @@ describe("generateIdSelector()", () => {
 		const id = "foo,bar";
 		expect(generateIdSelector(id)).toBe("#foo\\,bar");
 	});
+
+	it("should handle leading digits and comma", () => {
+		expect.assertions(1);
+		const id = "1foo,bar";
+		expect(generateIdSelector(id)).toBe('[id="1foo\\,bar"]');
+	});
 });
 
 describe("Selector", () => {
@@ -315,6 +321,39 @@ describe("Selector", () => {
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo[bar]"></div>`);
 		const selector = new Selector("#foo\\[bar\\]");
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with leading number", async () => {
+		expect.assertions(2);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		const document = parser.parseHtml(`<div id="1foo"></div>`);
+		const text = generateIdSelector("1foo");
+		const selector = new Selector(text);
+		expect(text).toBe('[id="1foo"]');
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with comma", async () => {
+		expect.assertions(2);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		const document = parser.parseHtml(`<div id="foo,bar"></div>`);
+		const text = generateIdSelector("foo,bar");
+		const selector = new Selector(text);
+		expect(text).toBe("#foo\\,bar");
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
+	});
+
+	it("should match id with leading number and comma", async () => {
+		expect.assertions(2);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		const document = parser.parseHtml(`<div id="1foo,bar"></div>`);
+		const text = generateIdSelector("1foo,bar");
+		const selector = new Selector(text);
+		expect(text).toBe('[id="1foo\\,bar"]');
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
