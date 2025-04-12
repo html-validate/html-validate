@@ -9,7 +9,7 @@ exports[`regression tests test-files/issues/issue-154-case-insensitive-attr.html
 exports[`regression tests test-files/issues/issue-299/issue-299-comma-id.html 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 4,
     "filePath": "test-files/issues/issue-299/issue-299-comma-id.html",
     "messages": [
       {
@@ -23,13 +23,54 @@ exports[`regression tests test-files/issues/issue-299/issue-299-comma-id.html 1`
         "offset": 9,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
-        "selector": "#start\\,-end",
+        "selector": "div:nth-child(1)",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 8,
+        "line": 4,
+        "message": "Redundant "for" attribute",
+        "offset": 104,
+        "ruleId": "no-redundant-for",
+        "ruleUrl": "https://html-validate.org/rules/no-redundant-for.html",
+        "selector": "label",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 13,
+        "context": {
+          "id": "start,-end",
+          "kind": 4,
+        },
+        "line": 5,
+        "message": "element id "start,-end" must only contain letters, digits, dash and underscore characters",
+        "offset": 134,
+        "ruleId": "valid-id",
+        "ruleUrl": "https://html-validate.org/rules/valid-id.html",
+        "selector": "label > input",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 13,
+        "line": 5,
+        "message": "Duplicate ID "start,-end"",
+        "offset": 134,
+        "ruleId": "no-dup-id",
+        "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
+        "selector": "label > input",
         "severity": 2,
         "size": 10,
       },
     ],
     "source": "<div id="start,-end"></div>
 <div aria-controls="start,-end" aria-labelledby="start,-end"></div>
+
+<label for="start,-end">
+	<input id="start,-end" type="checkbox">
+</label>
 ",
     "warningCount": 0,
   },
