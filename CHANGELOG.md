@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 9.5.3 (2025-04-13)
+
+### Bug Fixes
+
+- fix crash when aria attribute references id with comma ([fb91b7c](https://gitlab.com/html-validate/html-validate/commit/fb91b7c7e7b4c3a3b01998c0bd348e4a43eb817f)), closes [#299](https://gitlab.com/html-validate/html-validate/issues/299)
+- fix crash when attribute selector `[..]` contains escaped characters ([0c19b82](https://gitlab.com/html-validate/html-validate/commit/0c19b8267deac4f957558ed4149ee2ba52cd0a06))
+
 ## 9.5.2 (2025-03-17)
 
 ### Bug Fixes
