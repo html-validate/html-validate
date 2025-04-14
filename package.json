@@ -266,7 +266,7 @@
     "jest-diff": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-snapshot": "29.7.0",
-    "jsdom": "26.0.0",
+    "jsdom": "26.1.0",
     "magic-string": "0.30.17",
     "memfs": "4.17.0",
     "npm-pkg-lint": "3.10.11",
