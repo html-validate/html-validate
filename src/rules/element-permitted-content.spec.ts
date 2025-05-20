@@ -298,6 +298,64 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
+	describe("<template>", () => {
+		it("should not report error when a non permitted descendant is inside a template tag child", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<a href="">
+					<template>
+						<a href="">Other content</a>
+					</template>
+				</a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error when a non permitted descendant is inside a template tag descendant", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<a href="">
+					Some content
+					<span>
+						<template>
+							<a href="">Other content</a>
+						</template>
+					</span>
+				</a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report an error for non permitted descendants within a template tag", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<template>
+					<a href="">
+						Some content
+						<span>
+							<a href="">Other content</a>
+						</span>
+					</a>
+				</template>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content) at inline:6:9:
+				  4 | 						Some content
+				  5 | 						<span>
+				> 6 | 							<a href="">Other content</a>
+				    | 							 ^
+				  7 | 						</span>
+				  8 | 					</a>
+				  9 | 				</template>
+				Selector: template > a > span > a"
+			`);
+		});
+	});
+
 	describe("should contain documentation", () => {
 		it("content error", async () => {
 			expect.assertions(1);
