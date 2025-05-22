@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 9.5.4 (2025-05-22)
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.4 ([f62c179](https://gitlab.com/html-validate/html-validate/commit/f62c179c6c0113bec16449be89be9a60fec8be79))
+- **rules:** ignore parents of template tags when checking permitted descendants ([6a0d48a](https://gitlab.com/html-validate/html-validate/commit/6a0d48a101dc7227ad09a69838312b0bd0702864)), closes [#305](https://gitlab.com/html-validate/html-validate/issues/305)
+
 ## 9.5.3 (2025-04-13)
 
 ### Bug Fixes
