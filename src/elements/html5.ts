@@ -431,7 +431,7 @@ export default defineMetadata({
 				return node.hasAttribute("href") ? "allowed" : "prohibited";
 			},
 		},
-		requiredAncestors: ["map"],
+		requiredAncestors: ["map", "template"],
 	},
 
 	article: {
@@ -792,7 +792,7 @@ export default defineMetadata({
 	dd: {
 		implicitClosed: ["dd", "dt"],
 		permittedContent: ["@flow"],
-		requiredAncestors: ["dl > dd", "dl > div > dd"],
+		requiredAncestors: ["dl > dd", "dl > div > dd", "template > dd", "template > div > dd"],
 	},
 
 	del: {
@@ -890,7 +890,7 @@ export default defineMetadata({
 		implicitClosed: ["dd", "dt"],
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["header", "footer", "@sectioning", "@heading"] }],
-		requiredAncestors: ["dl > dt", "dl > div > dt"],
+		requiredAncestors: ["dl > dt", "dl > div > dt", "template > dt", "template > div > dt"],
 	},
 
 	em: {
