@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.5.5 (2025-05-25)
+
+### Bug Fixes
+
+- fix `<area>`, `<dd>` and `<dt>` not being allowed in `<template>` ([707d990](https://gitlab.com/html-validate/html-validate/commit/707d990a205f1f2e1b2633a7806a2b2562eeda5b)), closes [#307](https://gitlab.com/html-validate/html-validate/issues/307)
+
 ## 9.5.4 (2025-05-22)
 
 ### Bug Fixes
