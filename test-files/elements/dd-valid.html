@@ -1,7 +1,10 @@
-<!-- should be allowed in <dl> -->
+<!-- should be allowed in <dl> and <template> elements -->
 <dl>
 	<dd>foo</dd>
 </dl>
+<template>
+	<dd>foo</dd>
+</template>
 
 <!-- should allow flow content -->
 <dl>
@@ -9,3 +12,15 @@
 		<div>foo</div>
 	</dd>
 </dl>
+
+<!-- should allow intermixing single <div> -->
+<dl>
+	<div>
+		<dd>foo</dd>
+	</div>
+</dl>
+<template>
+	<div>
+		<dd>foo</dd>
+	</div>
+</template>
