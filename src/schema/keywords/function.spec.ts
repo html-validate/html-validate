@@ -12,10 +12,10 @@ const schema = {
 		},
 	},
 };
+const validate = ajv.compile(schema);
 
 it("should give error if value isn't function", () => {
 	expect.assertions(2);
-	const validate = ajv.compile(schema);
 	const result = validate({
 		foo: "spam",
 	});
@@ -35,7 +35,6 @@ it("should give error if value isn't function", () => {
 
 it("should not give error if value is function", () => {
 	expect.assertions(2);
-	const validate = ajv.compile(schema);
 	function foo(): void {
 		/* do nothing */
 	}
@@ -48,7 +47,6 @@ it("should not give error if value is function", () => {
 
 it("should not give error if value is arrow function", () => {
 	expect.assertions(2);
-	const validate = ajv.compile(schema);
 	const result = validate({
 		foo: (): void => {
 			/* do nothing */
@@ -60,7 +58,6 @@ it("should not give error if value is arrow function", () => {
 
 it("should not give error if value is method", () => {
 	expect.assertions(2);
-	const validate = ajv.compile(schema);
 	const result = validate({
 		foo(): void {
 			/* do nothing */
