@@ -16,6 +16,7 @@ const tsjest = {
 	27: "27.1",
 	28: "28",
 	29: "29",
+	30: "29.4",
 };
 
 const typescript = {
