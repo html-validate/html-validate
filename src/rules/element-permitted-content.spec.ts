@@ -354,6 +354,41 @@ describe("rule element-permitted-content", () => {
 				Selector: template > a > span > a"
 			`);
 		});
+
+		it("should report error when <template> metadata has disabled script supporting", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				elements: [
+					"html5",
+					{
+						template: {
+							scriptSupporting: false,
+						},
+					},
+				],
+				rules: { "element-permitted-content": "error" },
+			});
+			const markup = /* HTML */ `
+				<a href="">
+					<template>
+						<a href=""></a>
+					</template>
+				</a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+			"error: <a> element is not permitted as a descendant of <a> (element-permitted-content) at inline:4:8:
+			  2 | 				<a href="">
+			  3 | 					<template>
+			> 4 | 						<a href=""></a>
+			    | 						 ^
+			  5 | 					</template>
+			  6 | 				</a>
+			  7 |
+			Selector: a > template > a"
+		`);
+		});
 	});
 
 	describe("should contain documentation", () => {
