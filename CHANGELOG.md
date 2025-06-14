@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 9.6.0 (2025-06-14)
+
+### Features
+
+- **deps:** support jest v30 ([2023958](https://gitlab.com/html-validate/html-validate/commit/2023958259d2f8c5aac1bff2e496a6057c3ab089))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.5 ([731ba29](https://gitlab.com/html-validate/html-validate/commit/731ba290e2fdcd262e4f585fcfc7aba782df63f2))
+
 ## 9.5.5 (2025-05-25)
 
 ### Bug Fixes
