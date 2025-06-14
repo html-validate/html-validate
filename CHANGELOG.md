@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 9.6.1 (2025-06-14)
+
+### Bug Fixes
+
+- validate descendants of `<template>` when `scriptSupporting` is disabled ([f4629f8](https://gitlab.com/html-validate/html-validate/commit/f4629f899c6a410cbb1100cbefe4daef55ec755c))
+
 ## 9.6.0 (2025-06-14)
 
 ### Features
