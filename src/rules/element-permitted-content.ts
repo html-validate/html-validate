@@ -24,6 +24,10 @@ export interface DescendantContext {
 
 type RuleContext = ContentContext | DescendantContext;
 
+function isNativeTemplate(node: HtmlElement): boolean {
+	return Boolean(node.tagName === "template" && node.meta?.scriptSupporting);
+}
+
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
 	if (typeof transparent === "boolean") {
 		return node.childElements;
@@ -128,7 +132,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 	private validatePermittedDescendant(node: HtmlElement, parent: HtmlElement | null): boolean {
 		for (
 			let cur = parent;
-			cur && !cur.isRootElement() && cur.tagName !== "template";
+			cur && !cur.isRootElement() && !isNativeTemplate(cur);
 			cur = /* istanbul ignore next */ cur.parent ?? null
 		) {
 			const meta = cur.meta;
