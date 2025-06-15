@@ -1,2 +1,2 @@
-declare const value: Record<string, unknown>;
+declare const value: import("html-validate").MetaDataTable;
 export default value;
