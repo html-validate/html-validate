@@ -3,6 +3,7 @@
   "rules": {
     "long-title": ["error", { "maxlength": 120 }],
     "no-trailing-whitespace": "off",
-    "require-sri": "off"
+    "require-sri": "off",
+    "wcag/h63": ["error", { "strict": true }]
   }
 }

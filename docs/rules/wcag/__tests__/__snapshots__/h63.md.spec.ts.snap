@@ -1,57 +1,62 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`docs/rules/wcag/h63.md inline validation: correct-col 1`] = `[]`;
 
-exports[`docs/rules/wcag/h63.md inline validation: correct-colgroup 1`] = `[]`;
-
 exports[`docs/rules/wcag/h63.md inline validation: correct-row 1`] = `[]`;
 
-exports[`docs/rules/wcag/h63.md inline validation: correct-rowgroup 1`] = `[]`;
-
-exports[`docs/rules/wcag/h63.md inline validation: incorrect-auto 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "inline",
-    "messages": [
-      {
-        "column": 12,
-        "line": 2,
-        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 58,
-        "ruleId": "wcag/h63",
-        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
-        "selector": "th",
-        "severity": 2,
-        "size": 4,
-      },
-    ],
-    "source": "<!-- auto state cannot be set with a value -->
-<th scope="auto"></th>",
-    "warningCount": 0,
-  },
-]
-`;
+exports[`docs/rules/wcag/h63.md inline validation: correct-simple 1`] = `[]`;
 
 exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "inline",
     "messages": [
       {
-        "column": 2,
-        "line": 1,
+        "column": 10,
+        "line": 3,
         "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 1,
+        "offset": 26,
         "ruleId": "wcag/h63",
         "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
-        "selector": "th",
+        "selector": "table > tr:nth-child(1) > th:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 10,
+        "line": 4,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
+        "offset": 52,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "table > tr:nth-child(1) > th:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 10,
+        "line": 8,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
+        "offset": 161,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "table > tr:nth-child(2) > th",
         "severity": 2,
         "size": 2,
       },
     ],
-    "source": "<th></th>",
+    "source": "<table>
+    <tr>
+        <th>Column A</th>
+        <th>Column B</th>
+    </tr>
+    <tr>
+        <!-- complex table with both column and row headers -->
+        <th>Row 1</th>
+        <td>Row 1</td>
+    </tr>
+</table>",
     "warningCount": 0,
   },
 ]
