@@ -14,7 +14,13 @@ describe("wcag/h63", () => {
 
 	it("should not report when th has scope attribute", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <th scope="col"></th> `;
+		const markup = /* HTML */ `
+			<table>
+				<tr>
+					<th scope="col"></th>
+				</tr>
+			</table>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
@@ -28,69 +34,116 @@ describe("wcag/h63", () => {
 
 	it("should not report when th has dynamic scope attribute", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <th dynamic-scope="expr"></th> `;
+		const markup = /* HTML */ `
+			<table>
+				<tr>
+					<th dynamic-scope="expr"></th>
+				</tr>
+			</table>
+		`;
 		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeValid();
 	});
 
 	it("should report error when th does not have scope", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <th></th> `;
+		const markup = /* HTML */ `
+			<table>
+				<tr>
+					<th></th>
+				</tr>
+			</table>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:3:
-			> 1 |  <th></th>
-			    |   ^^
-			Selector: th"
+			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:7:
+			  2 | 			<table>
+			  3 | 				<tr>
+			> 4 | 					<th></th>
+			    | 					 ^^
+			  5 | 				</tr>
+			  6 | 			</table>
+			  7 |
+			Selector: table > tr > th"
 		`);
 	});
 
 	it("should report error when th has empty scope", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
-			<th scope></th>
-			<th scope=""></th>
+			<table>
+				<tr>
+					<th scope></th>
+					<th scope=""></th>
+				</tr>
+			</table>
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:2:8:
-			  1 |
-			> 2 | 			<th scope></th>
-			    | 			    ^^^^^
-			  3 | 			<th scope=""></th>
-			  4 |
-			Selector: th:nth-child(1)
-			error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:3:8:
-			  1 |
-			  2 | 			<th scope></th>
-			> 3 | 			<th scope=""></th>
-			    | 			    ^^^^^
-			  4 |
-			Selector: th:nth-child(2)"
+			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:10:
+			  2 | 			<table>
+			  3 | 				<tr>
+			> 4 | 					<th scope></th>
+			    | 					    ^^^^^
+			  5 | 					<th scope=""></th>
+			  6 | 				</tr>
+			  7 | 			</table>
+			Selector: table > tr > th:nth-child(1)
+			error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:5:10:
+			  3 | 				<tr>
+			  4 | 					<th scope></th>
+			> 5 | 					<th scope=""></th>
+			    | 					    ^^^^^
+			  6 | 				</tr>
+			  7 | 			</table>
+			  8 |
+			Selector: table > tr > th:nth-child(2)"
 		`);
 	});
 
 	it("should report error when auto is used as keyword for th scope", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <th scope="auto"></th> `;
+		const markup = /* HTML */ `
+			<table>
+				<tr>
+					<th scope="auto"></th>
+				</tr>
+			</table>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:13:
-			> 1 |  <th scope="auto"></th>
-			    |             ^^^^
-			Selector: th"
+			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:17:
+			  2 | 			<table>
+			  3 | 				<tr>
+			> 4 | 					<th scope="auto"></th>
+			    | 					           ^^^^
+			  5 | 				</tr>
+			  6 | 			</table>
+			  7 |
+			Selector: table > tr > th"
 		`);
 	});
 
 	it("should report error when th has invalid scope", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <th scope="foobar"></th> `;
+		const markup = /* HTML */ `
+			<table>
+				<tr>
+					<th scope="foobar"></th>
+				</tr>
+			</table>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:1:13:
-			> 1 |  <th scope="foobar"></th>
-			    |             ^^^^^^
-			Selector: th"
+			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:17:
+			  2 | 			<table>
+			  3 | 				<tr>
+			> 4 | 					<th scope="foobar"></th>
+			    | 					           ^^^^^^
+			  5 | 				</tr>
+			  6 | 			</table>
+			  7 |
+			Selector: table > tr > th"
 		`);
 	});
 
@@ -98,21 +151,24 @@ describe("wcag/h63", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h63.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at test-files/rules/wcag/h63.html:8:2:
-			   6 |
-			   7 | <!-- invalid cases -->
-			>  8 | <th></th>
-			     |  ^^
-			   9 | <th scope="auto"></th>
-			  10 |
-			Selector: th:nth-child(5)
-			error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at test-files/rules/wcag/h63.html:9:12:
-			   7 | <!-- invalid cases -->
-			   8 | <th></th>
-			>  9 | <th scope="auto"></th>
-			     |            ^^^^
-			  10 |
-			Selector: th:nth-child(6)"
+			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at test-files/rules/wcag/h63.html:10:4:
+			   8 |
+			   9 | 		<!-- invalid cases -->
+			> 10 | 		<th></th>
+			     | 		 ^^
+			  11 | 		<th scope="auto"></th>
+			  12 | 	</tr>
+			  13 | </table>
+			Selector: table > tr > th:nth-child(5)
+			error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at test-files/rules/wcag/h63.html:11:14:
+			   9 | 		<!-- invalid cases -->
+			  10 | 		<th></th>
+			> 11 | 		<th scope="auto"></th>
+			     | 		           ^^^^
+			  12 | 	</tr>
+			  13 | </table>
+			  14 |
+			Selector: table > tr > th:nth-child(6)"
 		`);
 	});
 

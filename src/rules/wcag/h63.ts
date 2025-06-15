@@ -1,9 +1,9 @@
-import { type TagReadyEvent } from "../../event";
+import { type HtmlElement, DynamicValue } from "../../dom";
+import { type ElementReadyEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
 import { type MetaAttribute } from "../../meta";
 import { naturalJoin } from "../../utils/natural-join";
-import { DynamicValue } from "../../dom";
 
 /* istanbul ignore next: this will always be present for the <th>
  * attribute (or the tests would fail) */
@@ -21,30 +21,34 @@ export default class H63 extends Rule {
 	}
 
 	public setup(): void {
-		this.on("tag:ready", (event: TagReadyEvent) => {
+		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
-
-			/* only validate th */
-			if (node.tagName !== "th") {
+			if (!node.is("table")) {
 				return;
 			}
 
-			const scope = node.getAttribute("scope");
+			this.validateTable(node);
+		});
+	}
+
+	private validateTable(node: HtmlElement): void {
+		for (const th of node.querySelectorAll("th")) {
+			const scope = th.getAttribute("scope");
 			const value = scope?.value;
 
 			/* ignore dynamic scope */
 			if (value instanceof DynamicValue) {
-				return;
+				continue;
 			}
 
 			/* ignore elements with valid scope values */
 			if (value && validScopes.includes(value)) {
-				return;
+				continue;
 			}
 
 			const message = `<th> element must have a valid scope attribute: ${joinedScopes}`;
-			const location = scope?.valueLocation ?? scope?.keyLocation ?? node.location;
-			this.report(node, message, location);
-		});
+			const location = scope?.valueLocation ?? scope?.keyLocation ?? th.location;
+			this.report(th, message, location);
+		}
 	}
 }
