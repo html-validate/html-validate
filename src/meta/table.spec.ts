@@ -512,6 +512,7 @@ describe("MetaTable", () => {
 				  "focusable": false,
 				  "implicitRole": [Function],
 				  "tagName": "foo",
+				  "templateRoot": false,
 				}
 			`);
 			expect(bar).toMatchInlineSnapshot(`
@@ -536,6 +537,7 @@ describe("MetaTable", () => {
 				  "implicitRole": [Function],
 				  "inherit": "foo",
 				  "tagName": "bar",
+				  "templateRoot": false,
 				}
 			`);
 		});

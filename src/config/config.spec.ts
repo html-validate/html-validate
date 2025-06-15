@@ -419,28 +419,18 @@ describe("config", () => {
 			const elements = config.get().elements;
 			const metatable = await config.getMetaTable();
 			expect(elements).toEqual(["order-a", "order-b", "order-c"]);
-			expect(metatable.getMetaFor("foo")).toEqual({
-				tagName: "foo",
-				aria: {
-					implicitRole: expect.any(Function),
-					naming: expect.any(Function),
-				},
-				attributes: {},
-				focusable: false,
-				implicitRole: expect.any(Function),
-				permittedContent: ["baz"],
-			});
-			expect(metatable.getMetaFor("bar")).toEqual({
-				tagName: "bar",
-				aria: {
-					implicitRole: expect.any(Function),
-					naming: expect.any(Function),
-				},
-				attributes: {},
-				focusable: false,
-				implicitRole: expect.any(Function),
-				permittedContent: ["baz"],
-			});
+			expect(metatable.getMetaFor("foo")).toEqual(
+				expect.objectContaining({
+					tagName: "foo",
+					permittedContent: ["baz"],
+				}),
+			);
+			expect(metatable.getMetaFor("bar")).toEqual(
+				expect.objectContaining({
+					tagName: "bar",
+					permittedContent: ["baz"],
+				}),
+			);
 		});
 
 		it("should handle extends being explicitly set to undefined", async () => {

@@ -214,6 +214,15 @@ export interface MetaData {
 	formAssociated?: Partial<FormAssociated>;
 	labelable?: boolean | MetaLabelableCallback;
 
+	/**
+	 * Set to `true` if this element should have no impact on DOM
+	 * ancestry. Default `false`.
+	 *
+	 * I.e., the `<template>` element (where allowed) can contain anything, as it
+	 * does not directly affect the DOM tree.
+	 */
+	templateRoot?: boolean;
+
 	/** @deprecated use {@link MetaAria.implicitRole} instead */
 	implicitRole?: MetaImplicitRoleCallback;
 
@@ -297,6 +306,15 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 
 	focusable: boolean | MetaFocusableCallback;
 	formAssociated?: FormAssociated;
+
+	/**
+	 * Set to `true` if this element should have no impact on DOM
+	 * ancestry. Default `false`.
+	 *
+	 * I.e., the `<template>` element (where allowed) can contain anything. as it
+	 * does not directly affect the DOM tree.
+	 */
+	templateRoot: boolean;
 
 	/** @deprecated Use {@link MetaAria.implicitRole} instead */
 	implicitRole: MetaImplicitRoleCallback;

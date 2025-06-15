@@ -782,6 +782,7 @@ export interface MetaData {
     scriptSupporting?: boolean;
     // (undocumented)
     sectioning?: boolean | MetaCategoryCallback;
+    templateRoot?: boolean;
     // (undocumented)
     textContent?: TextContent | `${TextContent}`;
     // (undocumented)
@@ -819,6 +820,7 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     implicitRole: MetaImplicitRoleCallback;
     // (undocumented)
     tagName: string;
+    templateRoot: boolean;
     // (undocumented)
     textContent?: TextContent;
 }

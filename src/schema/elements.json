@@ -130,6 +130,12 @@
           "anyOf": [{ "type": "boolean" }, { "function": true }]
         },
 
+        "templateRoot": {
+          "title": "Mark element as an element ignoring DOM ancestry, i.e. <template>.",
+          "description": "The <template> element can contain any elements.",
+          "type": "boolean"
+        },
+
         "deprecatedAttributes": {
           "title": "List of deprecated attributes",
           "type": "array",

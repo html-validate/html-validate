@@ -228,6 +228,7 @@ describe("Plugin", () => {
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
+				templateRoot: false,
 				myMeta: 5,
 			});
 		});
@@ -267,6 +268,7 @@ describe("Plugin", () => {
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
+				templateRoot: false,
 				myMeta: 5,
 			});
 		});
@@ -327,6 +329,7 @@ describe("Plugin", () => {
 				attributes: {},
 				focusable: false,
 				implicitRole: expect.any(Function),
+				templateRoot: false,
 				foo: "copied" /* foo is marked for copying */,
 				bar: "original" /* bar is not marked for copying */,
 			});

@@ -25,7 +25,8 @@ export interface DescendantContext {
 type RuleContext = ContentContext | DescendantContext;
 
 function isNativeTemplate(node: HtmlElement): boolean {
-	return Boolean(node.tagName === "template" && node.meta?.scriptSupporting);
+	const { tagName, meta } = node;
+	return Boolean(tagName === "template" && meta?.templateRoot && meta?.scriptSupporting);
 }
 
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {

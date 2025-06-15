@@ -183,6 +183,30 @@ describe("formAssociated", () => {
 	});
 });
 
+describe("templateRoot", () => {
+	it("should set to false by default", () => {
+		expect.assertions(1);
+		const src: MetaData = {};
+		const result = migrateElement(src);
+		expect(result.templateRoot).toBe(false);
+	});
+
+	it("should retain original explicit value", () => {
+		expect.assertions(2);
+		const enabled: MetaData = { templateRoot: true };
+		const disabled: MetaData = { templateRoot: false };
+		expect(migrateElement(enabled).templateRoot).toBe(true);
+		expect(migrateElement(disabled).templateRoot).toBe(false);
+	});
+
+	it("should default to false when value is invalid", () => {
+		expect.assertions(1);
+		const src = { templateRoot: "foobar" } as unknown as MetaData;
+		const result = migrateElement(src);
+		expect(result.templateRoot).toBe(false);
+	});
+});
+
 describe("aria.implicitRole", () => {
 	it("should normalize missing property", () => {
 		expect.assertions(1);

@@ -48,6 +48,9 @@ export interface MetaElement {
   formAssociated?: FormAssociated;
   labelable?: boolean | MetaLabelableCallback;
 
+  /* ignore DOM ancestry */
+  templateRoot?: boolean;
+
   /* WAI-ARIA attributes */
   aria?: MetaAria;
 
@@ -216,6 +219,13 @@ Disablable elements can be disabled using the disabled attribute.
 This is typically elements input elements such as `<input>`.
 
 [whatwg-labelable]: https://html.spec.whatwg.org/multipage/forms.html#category-label
+
+### `templateRoot`
+
+When set to `true`, this element has no impact on DOM ancestry.
+I.e., the `<template>` element (where allowed) can contain anything, as it does not directly affect the DOM tree.
+
+If unset, defaults to `false`.
 
 ### `aria.implicitRole`
 
