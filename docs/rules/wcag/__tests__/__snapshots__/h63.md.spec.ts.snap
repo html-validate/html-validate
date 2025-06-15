@@ -2,45 +2,14 @@
 
 exports[`docs/rules/wcag/h63.md inline validation: correct-col 1`] = `[]`;
 
-exports[`docs/rules/wcag/h63.md inline validation: correct-colgroup 1`] = `[]`;
-
 exports[`docs/rules/wcag/h63.md inline validation: correct-row 1`] = `[]`;
 
-exports[`docs/rules/wcag/h63.md inline validation: correct-rowgroup 1`] = `[]`;
-
-exports[`docs/rules/wcag/h63.md inline validation: incorrect-auto 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "inline",
-    "messages": [
-      {
-        "column": 20,
-        "line": 4,
-        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 91,
-        "ruleId": "wcag/h63",
-        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
-        "selector": "table > tr > th",
-        "severity": 2,
-        "size": 4,
-      },
-    ],
-    "source": "<table>
-    <tr>
-        <!-- auto state cannot be set with a value -->
-        <th scope="auto"></th>
-    </tr>
-</table>",
-    "warningCount": 0,
-  },
-]
-`;
+exports[`docs/rules/wcag/h63.md inline validation: correct-simple 1`] = `[]`;
 
 exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "inline",
     "messages": [
       {
@@ -50,14 +19,42 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
         "offset": 26,
         "ruleId": "wcag/h63",
         "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
-        "selector": "table > tr > th",
+        "selector": "table > tr:nth-child(1) > th:nth-child(1)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 10,
+        "line": 4,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
+        "offset": 52,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "table > tr:nth-child(1) > th:nth-child(2)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 10,
+        "line": 8,
+        "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
+        "offset": 161,
+        "ruleId": "wcag/h63",
+        "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
+        "selector": "table > tr:nth-child(2) > th",
         "severity": 2,
         "size": 2,
       },
     ],
     "source": "<table>
     <tr>
-        <th></th>
+        <th>Column A</th>
+        <th>Column B</th>
+    </tr>
+    <tr>
+        <!-- complex table with both column and row headers -->
+        <th>Row 1</th>
+        <td>Row 1</td>
     </tr>
 </table>",
     "warningCount": 0,

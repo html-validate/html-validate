@@ -1,13 +1,26 @@
 <table>
-	<tr>
-		<!-- valid cases -->
-		<th scope="row"></th>
-		<th scope="col"></th>
-		<th scope="rowgroup"></th>
-		<th scope="colgroup"></th>
+	<thead>
+		<tr>
+			<!-- to force a complex table -->
+			<th scope="col"></th>
+			<th scope="col"></th>
+			<th scope="col"></th>
+			<th scope="col"></th>
+			<th scope="col"></th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<!-- valid cases -->
+			<th scope="row"></th>
+			<th scope="col"></th>
+			<th scope="rowgroup"></th>
+			<th scope="colgroup"></th>
 
-		<!-- invalid cases -->
-		<th></th>
-		<th scope="auto"></th>
-	</tr>
+			<!-- invalid cases -->
+			<th></th>
+			<th scope="auto"></th>
+		</tr>
+	</tbody>
 </table>
