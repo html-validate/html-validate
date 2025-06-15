@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## 9.7.0 (2025-06-15)
+
+### Features
+
+- add special `templateRoot` meta property for `<template>` element ([beccfda](https://gitlab.com/html-validate/html-validate/commit/beccfdafca7b21d62040ecef3c53753eebcdc28d))
+- **rules:** add `strict` option to `wcag/h63` to enforce for all tables ([51eecf2](https://gitlab.com/html-validate/html-validate/commit/51eecf2422f59e33dc2642e7cc6d5a21a8ead158))
+- **rules:** determine if a table is simple or complex before applying `wcag/h63` ([0e84024](https://gitlab.com/html-validate/html-validate/commit/0e84024fe42f814c3ee776f4370c90715aaafb21)), closes [#303](https://gitlab.com/html-validate/html-validate/issues/303)
+
+### Bug Fixes
+
+- better dts for html5 metadata ([8e9537c](https://gitlab.com/html-validate/html-validate/commit/8e9537c497ff545d72cfafd862b71d1ec2fc0653))
+
 ## 9.6.1 (2025-06-14)
 
 ### Bug Fixes
