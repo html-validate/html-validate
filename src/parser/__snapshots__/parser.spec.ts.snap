@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`parser should postprocess elements allow modify element metadata 1`] = `
 {
@@ -75,6 +75,7 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "dd",
   ],
   "tagName": "i",
+  "templateRoot": false,
 }
 `;
 
@@ -140,5 +141,6 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
   ],
   "phrasing": true,
   "tagName": "u",
+  "templateRoot": false,
 }
 `;

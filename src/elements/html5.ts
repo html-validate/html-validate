@@ -2712,6 +2712,7 @@ export default defineMetadata({
 		flow: true,
 		phrasing: true,
 		scriptSupporting: true,
+		templateRoot: true,
 		aria: {
 			naming: "prohibited",
 		},

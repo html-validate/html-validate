@@ -113,6 +113,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,
 		implicitRole,
+		templateRoot: src.templateRoot === true,
 		aria: {
 			implicitRole,
 			naming: normalizeAriaNaming(src.aria?.naming),
