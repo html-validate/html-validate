@@ -1,9 +1,17 @@
 import { type HtmlElement, DynamicValue } from "../../dom";
 import { type ElementReadyEvent } from "../../event";
-import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
 import { type MetaAttribute } from "../../meta";
 import { naturalJoin } from "../../utils/natural-join";
+
+interface RuleOptions {
+	strict: boolean;
+}
+
+const defaults: RuleOptions = {
+	strict: false,
+};
 
 /* istanbul ignore next: this will always be present for the <th>
  * attribute (or the tests would fail) */
@@ -74,7 +82,19 @@ export function isSimpleTable(table: HtmlElement): boolean {
 	return false;
 }
 
-export default class H63 extends Rule {
+export default class H63 extends Rule<void, RuleOptions> {
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
+	}
+
+	public static schema(): SchemaObject {
+		return {
+			strict: {
+				type: "boolean",
+			},
+		};
+	}
+
 	public documentation(): RuleDocumentation {
 		return {
 			description:
@@ -84,13 +104,16 @@ export default class H63 extends Rule {
 	}
 
 	public setup(): void {
+		const { strict } = this.options;
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
-			if (!node.is("table") || isSimpleTable(node)) {
+			if (!node.is("table")) {
 				return;
 			}
 
-			this.validateTable(node);
+			if (strict || !isSimpleTable(node)) {
+				this.validateTable(node);
+			}
 		});
 	}
 

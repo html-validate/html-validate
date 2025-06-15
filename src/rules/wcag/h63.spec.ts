@@ -437,244 +437,397 @@ describe("isSimpleTable()", () => {
 });
 
 describe("wcag/h63", () => {
-	let htmlvalidate: HtmlValidate;
+	describe("with relaxed option", () => {
+		let htmlvalidate: HtmlValidate;
 
-	beforeAll(() => {
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "wcag/h63": "error" },
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "wcag/h63": ["error", { strict: false }] },
+			});
+		});
+
+		it("should not report error when simple table has omitted scope attribute", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<!-- all headers in first row -->
+				<table>
+					<tr>
+						<th>a</th>
+						<th>b</th>
+						<th>c</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+					</tr>
+				</table>
+
+				<!-- all headers in first column -->
+				<table>
+					<tr>
+						<th>a</th>
+						<th>b</th>
+						<th>c</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+					</tr>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report when th has dynamic scope attribute", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th dynamic-scope="expr"></th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup, { processAttribute });
+			expect(report).toBeValid();
+		});
+
+		it("should report error when th does not have scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:9:
+				  10 | 					<tbody>
+				  11 | 						<tr>
+				> 12 | 							<th></th>
+				     | 							 ^^
+				  13 | 							<td></td>
+				  14 | 						</tr>
+				  15 | 					</tbody>
+				Selector: table > tbody > tr > th"
+			`);
+		});
+
+		it("should report error when th has empty scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope></th>
+							<th scope=""></th>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:12:
+				  10 | 					<tbody>
+				  11 | 						<tr>
+				> 12 | 							<th scope></th>
+				     | 							    ^^^^^
+				  13 | 							<th scope=""></th>
+				  14 | 						</tr>
+				  15 | 					</tbody>
+				Selector: table > tbody > tr > th:nth-child(1)
+				error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:13:12:
+				  11 | 						<tr>
+				  12 | 							<th scope></th>
+				> 13 | 							<th scope=""></th>
+				     | 							    ^^^^^
+				  14 | 						</tr>
+				  15 | 					</tbody>
+				  16 | 				</table>
+				Selector: table > tbody > tr > th:nth-child(2)"
+			`);
+		});
+
+		it("should report error when auto is used as keyword for th scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="auto"></th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:19:
+				  10 | 					<tbody>
+				  11 | 						<tr>
+				> 12 | 							<th scope="auto"></th>
+				     | 							           ^^^^
+				  13 | 							<td></td>
+				  14 | 						</tr>
+				  15 | 					</tbody>
+				Selector: table > tbody > tr > th"
+			`);
+		});
+
+		it("should report error when th has invalid scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="foobar"></th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:19:
+				  10 | 					<tbody>
+				  11 | 						<tr>
+				> 12 | 							<th scope="foobar"></th>
+				     | 							           ^^^^^^
+				  13 | 							<td></td>
+				  14 | 						</tr>
+				  15 | 					</tbody>
+				Selector: table > tbody > tr > th"
+			`);
+		});
+
+		it("should report error when table with colspan is missing scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
+					<thead>
+						<tr>
+							<!-- force complex table -->
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th colspan="2"></th>
+						</tr>
+					</tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:9:
+				  10 | 					<tbody>
+				  11 | 						<tr>
+				> 12 | 							<th colspan="2"></th>
+				     | 							 ^^
+				  13 | 						</tr>
+				  14 | 					</tbody>
+				  15 | 				</table>
+				Selector: table > tbody > tr > th"
+			`);
 		});
 	});
 
-	it("should not report error when simple table has omitted scope attribute", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<!-- all headers in first row -->
-			<table>
-				<tr>
-					<th>a</th>
-					<th>b</th>
-					<th>c</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-				</tr>
-			</table>
+	describe("with strict option", () => {
+		let htmlvalidate: HtmlValidate;
 
-			<!-- all headers in first column -->
-			<table>
-				<tr>
-					<th>a</th>
-					<th>b</th>
-					<th>c</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-				</tr>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toBeValid();
-	});
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "wcag/h63": ["error", { strict: true }] },
+			});
+		});
 
-	it("should not report when th has dynamic scope attribute", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
+		it("should not report when th has scope attribute", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<!-- force complex table -->
 						<th scope="col"></th>
-						<th scope="col"></th>
 					</tr>
-				</thead>
-				<tbody>
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report for other elements", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <div></div> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report when th has dynamic scope attribute", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<th dynamic-scope="expr"></th>
 						<td></td>
 					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup, { processAttribute });
-		expect(report).toBeValid();
-	});
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup, { processAttribute });
+			expect(report).toBeValid();
+		});
 
-	it("should report error when th does not have scope", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
-					<tr>
-						<!-- force complex table -->
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
+		it("should report error when th does not have scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<th></th>
 						<td></td>
 					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:8:
-			  10 | 				<tbody>
-			  11 | 					<tr>
-			> 12 | 						<th></th>
-			     | 						 ^^
-			  13 | 						<td></td>
-			  14 | 					</tr>
-			  15 | 				</tbody>
-			Selector: table > tbody > tr > th"
-		`);
-	});
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:8:
+				  2 | 				<table>
+				  3 | 					<tr>
+				> 4 | 						<th></th>
+				    | 						 ^^
+				  5 | 						<td></td>
+				  6 | 					</tr>
+				  7 | 				</table>
+				Selector: table > tr > th"
+			`);
+		});
 
-	it("should report error when th has empty scope", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
-					<tr>
-						<!-- force complex table -->
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
+		it("should report error when th has empty scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<th scope></th>
 						<th scope=""></th>
 					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:11:
-			  10 | 				<tbody>
-			  11 | 					<tr>
-			> 12 | 						<th scope></th>
-			     | 						    ^^^^^
-			  13 | 						<th scope=""></th>
-			  14 | 					</tr>
-			  15 | 				</tbody>
-			Selector: table > tbody > tr > th:nth-child(1)
-			error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:13:11:
-			  11 | 					<tr>
-			  12 | 						<th scope></th>
-			> 13 | 						<th scope=""></th>
-			     | 						    ^^^^^
-			  14 | 					</tr>
-			  15 | 				</tbody>
-			  16 | 			</table>
-			Selector: table > tbody > tr > th:nth-child(2)"
-		`);
-	});
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:11:
+				  2 | 				<table>
+				  3 | 					<tr>
+				> 4 | 						<th scope></th>
+				    | 						    ^^^^^
+				  5 | 						<th scope=""></th>
+				  6 | 					</tr>
+				  7 | 				</table>
+				Selector: table > tr > th:nth-child(1)
+				error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:5:11:
+				  3 | 					<tr>
+				  4 | 						<th scope></th>
+				> 5 | 						<th scope=""></th>
+				    | 						    ^^^^^
+				  6 | 					</tr>
+				  7 | 				</table>
+				  8 |
+				Selector: table > tr > th:nth-child(2)"
+			`);
+		});
 
-	it("should report error when auto is used as keyword for th scope", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
-					<tr>
-						<!-- force complex table -->
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
+		it("should report error when auto is used as keyword for th scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<th scope="auto"></th>
 						<td></td>
 					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:18:
-			  10 | 				<tbody>
-			  11 | 					<tr>
-			> 12 | 						<th scope="auto"></th>
-			     | 						           ^^^^
-			  13 | 						<td></td>
-			  14 | 					</tr>
-			  15 | 				</tbody>
-			Selector: table > tbody > tr > th"
-		`);
-	});
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:18:
+				  2 | 				<table>
+				  3 | 					<tr>
+				> 4 | 						<th scope="auto"></th>
+				    | 						           ^^^^
+				  5 | 						<td></td>
+				  6 | 					</tr>
+				  7 | 				</table>
+				Selector: table > tr > th"
+			`);
+		});
 
-	it("should report error when th has invalid scope", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
-					<tr>
-						<!-- force complex table -->
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
+		it("should report error when th has invalid scope", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<table>
 					<tr>
 						<th scope="foobar"></th>
 						<td></td>
 					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:18:
-			  10 | 				<tbody>
-			  11 | 					<tr>
-			> 12 | 						<th scope="foobar"></th>
-			     | 						           ^^^^^^
-			  13 | 						<td></td>
-			  14 | 					</tr>
-			  15 | 				</tbody>
-			Selector: table > tbody > tr > th"
-		`);
-	});
-
-	it("should report error when table with colspan is missing scope", async () => {
-		expect.assertions(1);
-		const markup = /* HTML */ `
-			<table>
-				<thead>
-					<tr>
-						<!-- force complex table -->
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th colspan="2"></th>
-					</tr>
-				</tbody>
-			</table>
-		`;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toMatchInlineCodeframe(`
-			"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:12:8:
-			  10 | 				<tbody>
-			  11 | 					<tr>
-			> 12 | 						<th colspan="2"></th>
-			     | 						 ^^
-			  13 | 					</tr>
-			  14 | 				</tbody>
-			  15 | 			</table>
-			Selector: table > tbody > tr > th"
-		`);
+				</table>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <th> element must have a valid scope attribute: row, col, rowgroup or colgroup (wcag/h63) at inline:4:18:
+				  2 | 				<table>
+				  3 | 					<tr>
+				> 4 | 						<th scope="foobar"></th>
+				    | 						           ^^^^^^
+				  5 | 						<td></td>
+				  6 | 					</tr>
+				  7 | 				</table>
+				Selector: table > tr > th"
+			`);
+		});
 	});
 
 	it("smoketest", async () => {
