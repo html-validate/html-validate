@@ -2,6 +2,8 @@
 import { type ConfigData } from "../config";
 import { type Message } from "../message";
 
+import "vitest";
+
 declare module "vitest" {
 	interface Assertion<T = any> {
 		/**
