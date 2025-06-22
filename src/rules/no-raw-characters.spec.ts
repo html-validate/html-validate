@@ -234,6 +234,13 @@ describe("rule no-raw-characters", () => {
 		});
 	});
 
+	it("should not report for boolean attributes", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <input type="checkbox" checked=checked'> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({

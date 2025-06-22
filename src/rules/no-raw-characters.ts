@@ -70,6 +70,8 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 		});
 
 		this.on("attr", (event: AttributeEvent) => {
+			const { meta } = event;
+
 			/* boolean attributes has no value so nothing to validate */
 			if (!event.value) {
 				return;
@@ -78,6 +80,12 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 			/* quoted attribute values can contain most symbols except the quotemark
 			 * itself but unescaped quotemarks would cause a parsing error */
 			if (event.quote) {
+				return;
+			}
+
+			/* ignore boolean attribute as raw characters would not be allowed and
+			 * this would be caught using attribute-allowed-values instead */
+			if (meta?.boolean) {
 				return;
 			}
 
