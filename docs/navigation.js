@@ -62,7 +62,7 @@ module.exports = {
 				title: "API",
 				children: [
 					{ title: "Using API", target: "dev/using-api" },
-					{ title: "Getting starterd with API", target: "guide/api/getting-started" },
+					{ title: "Getting started with API", target: "guide/api/getting-started" },
 					{ title: "Running in a browser", target: "dev/running-in-browser" },
 					{ title: "Writing rules", target: "dev/writing-rules" },
 					{ title: "Writing plugins", target: "dev/writing-plugins" },
