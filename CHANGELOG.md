@@ -1,5 +1,14 @@
 # html-validate changelog
 
+## 9.7.1 (2025-06-28)
+
+### Bug Fixes
+
+- **docs:** fix typo in docs navigation ([1a2b87a](https://gitlab.com/html-validate/html-validate/commit/1a2b87a4eca16562f3738067245ce4be140dcf7d))
+- **rules:** `no-raw-characters` ignores boolean attributes in favor of `attribute-allowed-values` ([22b18be](https://gitlab.com/html-validate/html-validate/commit/22b18be4aa3c25c205d0f735a3da6824edbe31ae)), closes [#296](https://gitlab.com/html-validate/html-validate/issues/296)
+- **rules:** allow aria-label on `<dialog>` ([bd07810](https://gitlab.com/html-validate/html-validate/commit/bd07810dd2cddf61f2893d1e051126c39c4207b0)), closes [#304](https://gitlab.com/html-validate/html-validate/issues/304)
+- **vitest:** fix matchers augmentation for typescript ([7c4bb69](https://gitlab.com/html-validate/html-validate/commit/7c4bb69a1bda07f266c4cff5b751526ebfb05595))
+
 ## 9.7.0 (2025-06-15)
 
 ### Features
