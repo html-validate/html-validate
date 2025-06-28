@@ -19,6 +19,7 @@ The attribute can only be used on the following elements:
 - Landmark elements
 - Elements with roles inheriting from widget
 - `<area>`
+- `<dialog>`
 - `<form>` and `<fieldset>`
 - `<iframe>`
 - `<img>` and `<figure>`

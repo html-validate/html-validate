@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`rule aria-label-misuse should contain documentation 1`] = `
 {
@@ -9,6 +9,7 @@ exports[`rule aria-label-misuse should contain documentation 1`] = `
 - Landmark elements
 - Elements with roles inheriting from widget
 - \`<area>\`
+- \`<dialog>\`
 - \`<form>\` and \`<fieldset>\`
 - \`<iframe>\`
 - \`<img>\` and \`<figure>\`
