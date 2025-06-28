@@ -68,6 +68,7 @@ describe("rule aria-label-misuse", () => {
 			${'<p role="widget" aria-label="foobar">'}     | ${'[role=".."]'}
 			${'<p tabindex="0" aria-label="foobar"></p>'}  | ${"[tabindex]"}
 			${'<area aria-label="foobar"></area>'}         | ${"<area>"}
+			${'<dialog aria-label="foobar"></dialog>'}     | ${"<dialog>"}
 			${'<form aria-label="foobar"></form>'}         | ${"<form>"}
 			${'<fieldset aria-label="foobar"></fieldset>'} | ${"<fieldset>"}
 			${'<iframe aria-label="foobar"></iframe>'}     | ${"<iframe>"}
@@ -198,11 +199,11 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:6:
-			> 1 |  <h1 aria-label="lorem ipsum">spam</h1>
-			    |      ^^^^^^^^^^
-			Selector: h1"
-		`);
+				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:6:
+				> 1 |  <h1 aria-label="lorem ipsum">spam</h1>
+				    |      ^^^^^^^^^^
+				Selector: h1"
+			`);
 		});
 	});
 
