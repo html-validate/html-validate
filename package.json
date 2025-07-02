@@ -258,7 +258,7 @@
     "@types/cli-table": "0.3.4",
     "@types/jest": "30.0.0",
     "@types/minimist": "1.2.5",
-    "@types/node": "18.19.113",
+    "@types/node": "18.19.115",
     "@types/prompts": "2.4.9",
     "@types/semver": "7.7.0",
     "@types/stream-buffers": "3.0.7",
