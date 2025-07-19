@@ -10,6 +10,6 @@
     "html-validate": "*"
   },
   "devDependencies": {
-    "esbuild": "0.25.6"
+    "esbuild": "0.25.7"
   }
 }
