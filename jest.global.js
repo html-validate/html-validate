@@ -7,7 +7,7 @@ module.exports = function setup() {
 		format: "cjs",
 		outfile: "temp/jest-worker.js",
 		platform: "node",
-		target: "node18",
+		target: "node20",
 		plugins: [
 			{
 				name: "html-validate:get-rule-url",

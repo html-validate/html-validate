@@ -24,7 +24,7 @@ export class ImportResolveMissingError extends UserError {
 			"",
 			`Either ensure you are running a supported NodeJS version:`,
 			`  Current:  ${currentVersion}`,
-			`  Required: ${requiredVersion.join(", ")}, or later`,
+			`  Required: ${requiredVersion.join(", ")} or later`,
 			`Or set NODE_OPTIONS="--experimental-import-meta-resolve"`,
 		].join("\n");
 	}
