@@ -274,7 +274,7 @@
     "stream-buffers": "3.0.3",
     "ts-jest": "29.4.1",
     "typescript": "5.9.2",
-    "vite": "6.3.5",
+    "vite": "7.1.1",
     "vitest": "3.2.4"
   },
   "peerDependencies": {
