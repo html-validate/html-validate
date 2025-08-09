@@ -57,7 +57,7 @@ export function isElementNode(node: DOMNode | null | undefined): node is HtmlEle
 }
 
 function isInvalidTagName(tagName: string | undefined): tagName is "" | "*" {
-	return Boolean(tagName === "" || tagName === "*");
+	return tagName === "" || tagName === "*";
 }
 
 function createAdapter(node: HtmlElement): HtmlElementLike {

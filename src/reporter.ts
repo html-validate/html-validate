@@ -188,10 +188,12 @@ export class Reporter {
 }
 
 function countErrors(messages: Array<Message | DeferredMessage>): number {
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
 	return messages.filter((m) => m.severity === Number(Severity.ERROR)).length;
 }
 
 function countWarnings(messages: Array<Message | DeferredMessage>): number {
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
 	return messages.filter((m) => m.severity === Number(Severity.WARN)).length;
 }
 
