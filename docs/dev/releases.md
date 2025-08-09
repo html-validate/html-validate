@@ -84,7 +84,7 @@ Some exceptions occur, refer to the following table:
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>27 || 28 || 29 || 30</code></td>
+      <td><code>28 || 29 || 30</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>

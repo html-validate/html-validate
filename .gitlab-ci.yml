@@ -177,7 +177,6 @@ Jest compat:
   parallel:
     matrix:
       - MATRIX:
-          - 27
           - 28
           - 29
           - 30
@@ -198,6 +197,7 @@ Jest compat:
     - >
       npm install --force
       @jest/core@${JEST_VERSION}
+      @jest/expect@${JEST_VERSION}
       jest@${JEST_VERSION}
       jest-circus@${JEST_VERSION}
       jest-diff@${JEST_VERSION}
@@ -207,7 +207,6 @@ Jest compat:
       ts-jest@${TS_JEST_VERSION}
       typescript@${TS_VERSION}
       @types/jest@${TYPES_VERSION}
-    - if [[ "${MATRIX}" -ge "28" ]]; then npm install @jest/expect@${JEST_VERSION}; fi
     - npm dedupe
     - >
       npm ls
@@ -226,8 +225,8 @@ Jest compat:
   script:
     - sed 's#/src/browser.ts#/dist/cjs/browser.js#g' -i package.json
     # older jest/ts-jest versions doesn't work with bundler so use nodenext instead
-    - sed '/moduleResolution/s/bundler/nodenext/' -i tsconfig.json
-    - if [[ "${MATRIX}" -eq "25" ]]; then sed -i '/"paths"/i"baseUrl":"./",' tsconfig.json; fi
+    - sed '/"moduleResolution"/s/bundler/nodenext/' -i tsconfig.json
+    - sed '/"lib"/s/es2023/es2022/' -i tsconfig.json
     - for spec in tests/jest/*.spec.ts; do sed 's#../../src#../../dist/cjs#g' -i "${spec}"; done
     - npm exec jest -- --no-coverage --ci --logHeapUsage -- tests/jest
 

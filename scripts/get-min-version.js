@@ -7,20 +7,18 @@ const minRequiredJest = jest.split("||").map((it) => minVersion(it.trim()));
 const foundJest = minSatisfying(minRequiredJest, constraint);
 
 const types = {
-	27: "27",
 	28: "27",
 	29: "29",
+	30: "30",
 };
 
 const tsjest = {
-	27: "27.1",
 	28: "28",
 	29: "29",
 	30: "29.4",
 };
 
 const typescript = {
-	27: "4.6",
 	28: "4.8",
 	29: "4.8",
 	30: "4.8",
