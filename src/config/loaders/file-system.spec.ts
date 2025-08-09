@@ -1,4 +1,4 @@
-import { Volume } from "memfs/lib/volume";
+import { Volume } from "memfs";
 import * as requireUncached from "../../utils/require-uncached";
 import { isThenable } from "../../utils";
 import { Config } from "../config";
