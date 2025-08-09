@@ -229,8 +229,8 @@ if (argv._.length === 0) {
 if (typeof argv.config !== "undefined") {
 	const checkPath = path.resolve(argv.config);
 	if (!fs.existsSync(checkPath)) {
-		console.log(`The file "${argv.config}" was not found.`);
-		console.log(`The location this file was checked for at was: "${checkPath}"`);
+		console.error(`The file "${argv.config}" was not found.`);
+		console.error(`The location this file was checked for at was: "${checkPath}"`);
 		process.exit(1);
 	}
 }
@@ -249,7 +249,7 @@ async function run(): Promise<void> {
 
 	/* sanity check: ensure maxWarnings has a valid value */
 	if (isNaN(maxWarnings)) {
-		console.log(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
+		console.error(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
 		process.exit(1);
 	}
 
