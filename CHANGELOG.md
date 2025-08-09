@@ -1,5 +1,22 @@
 # html-validate changelog
 
+## 10.0.0 (2025-08-09)
+
+### ⚠ BREAKING CHANGES
+
+- **deps:** Support for Vitest v0 has been removed. Vitest v1 or later is
+  required.
+- **deps:** Support for Jest v27 has been removed. Jest v28 or later is
+  required.
+- **deps:** NodeJS v20 or later is now required.
+
+### Features
+
+- **deps:** remove support for jest v27 ([cb3160e](https://gitlab.com/html-validate/html-validate/commit/cb3160e93ff0e04bd8c48fb5d94d2fc56f26dc72))
+- **deps:** remove support for vitest v0 ([3a75046](https://gitlab.com/html-validate/html-validate/commit/3a750464390db13c5e593f4f661c09291f6123c2))
+- **deps:** require nodejs v20 or later ([f893e34](https://gitlab.com/html-validate/html-validate/commit/f893e34bc2f5903d579db929beea5cd2639ba1ee))
+- **deps:** update dependency glob to v11 ([f52239d](https://gitlab.com/html-validate/html-validate/commit/f52239d5e73f77cf1ca925110d9ba9c4fbf6704d))
+
 ## 9.7.1 (2025-06-28)
 
 ### Bug Fixes
