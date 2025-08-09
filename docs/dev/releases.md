@@ -89,7 +89,7 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>11 || 12 || 13 || 14</code></td>
+      <td><code>12 || 13 || 14</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
