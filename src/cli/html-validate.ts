@@ -229,8 +229,8 @@ if (argv._.length === 0) {
 if (typeof argv.config !== "undefined") {
 	const checkPath = path.resolve(argv.config);
 	if (!fs.existsSync(checkPath)) {
-		console.log(`The file "${String(argv.config)}" was not found.`);
-		console.log(`The location this file was checked for at was: "${String(checkPath)}"`);
+		console.log(`The file "${argv.config}" was not found.`);
+		console.log(`The location this file was checked for at was: "${checkPath}"`);
 		process.exit(1);
 	}
 }
