@@ -60,8 +60,8 @@ The library comes in four flavours:
 
 - CommonJS full (`dist/cjs/index.js`)
 - CommonJS browser (`dist/cjs/browser.js`)
-- ESM full (`dist/es/index.js`)
-- ESM browser (`dist/es/browser.js`)
+- ESM full (`dist/esm/index.js`)
+- ESM browser (`dist/esm/browser.js`)
 
 The browser bundle contains a slimmed version without CLI and NodeJS dependencies.
 

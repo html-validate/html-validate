@@ -1,7 +1,7 @@
 {
   "name": "html-validate",
   "version": "9.7.1",
-  "description": "Offline html5 validator",
+  "description": "Offline HTML5 validator and linter",
   "keywords": [
     "html",
     "lint",
@@ -33,67 +33,60 @@
       "browser": {
         "types": "./dist/types/browser.d.ts",
         "require": "./dist/cjs/browser.js",
-        "import": "./dist/es/browser.js"
+        "import": "./dist/esm/browser.js"
       },
       "node": {
         "types": "./dist/types/index.d.ts",
         "require": "./dist/cjs/index.js",
-        "import": "./dist/es/index.js"
+        "import": "./dist/esm/index.js"
       },
       "default": {
         "types": "./dist/types/index.d.ts",
         "require": "./dist/cjs/index.js",
-        "import": "./dist/es/index.js"
+        "import": "./dist/esm/index.js"
       }
     },
     "./browser": {
       "types": "./dist/types/browser.d.ts",
       "require": "./dist/cjs/browser.js",
-      "import": "./dist/es/browser.js"
+      "import": "./dist/esm/browser.js"
     },
     "./node": {
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.js",
-      "import": "./dist/es/index.js"
+      "import": "./dist/esm/index.js"
     },
-    "./dist/cjs/*": "./dist/cjs/*",
-    "./dist/es/*": "./dist/es/*",
     "./dist/schema/*": "./dist/schema/*",
     "./elements/html5": {
-      "types": "./elements/html5.d.ts",
+      "types": "./dist/types/html5.d.ts",
       "require": "./dist/cjs/html5.js",
-      "import": "./dist/es/html5.js"
+      "import": "./dist/esm/html5.js"
     },
     "./jest": {
       "types": "./dist/types/jest.d.ts",
       "require": "./dist/cjs/jest.js",
-      "import": "./dist/es/jest.js"
+      "import": "./dist/esm/jest.js"
     },
     "./package.json": "./package.json",
     "./test-utils": {
       "types": "./dist/types/test-utils.d.ts",
       "require": "./dist/cjs/test-utils.js",
-      "import": "./dist/es/test-utils.js"
+      "import": "./dist/esm/test-utils.js"
     },
     "./vitest": {
       "types": "./dist/types/vitest.d.ts",
-      "import": "./dist/es/vitest.js"
+      "import": "./dist/esm/vitest.js"
     }
   },
   "main": "dist/cjs/index.js",
-  "module": "dist/es/index.js",
+  "module": "dist/esm/index.js",
   "browser": "dist/cjs/browser.js",
   "bin": {
     "html-validate": "bin/html-validate.mjs"
   },
   "files": [
     "bin",
-    "dist",
-    "elements",
-    "browser.{js,d.ts}",
-    "node.{js,d.ts}",
-    "jest.{js,d.ts}",
-    "test-utils.{js,d.ts}"
+    "dist"
   ],
   "workspaces": [
     "docs",
@@ -203,7 +196,6 @@
     "preset": "@html-validate/jest-config",
     "roots": [
       "<rootDir>/docs",
-      "<rootDir>/elements",
       "<rootDir>/internal/test-utils/src",
       "<rootDir>/src",
       "<rootDir>/tests"

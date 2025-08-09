@@ -18,8 +18,8 @@
     "strict": true,
 
     "paths": {
-      "html-validate/jest": ["../../../dist/es/jest.d.ts"],
-      "html-validate": ["../../../dist/es/index.d.ts"]
+      "html-validate/jest": ["../../../dist/types/jest.d.ts"],
+      "html-validate": ["../../../dist/types/index.d.ts"]
     }
   },
   "include": ["**/*.js", "**/*.ts"]

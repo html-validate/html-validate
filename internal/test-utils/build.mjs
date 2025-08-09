@@ -4,7 +4,7 @@ import { apiExtractor } from "../../scripts/api-extractor.mjs";
 
 const folder = {
 	cjs: "cjs",
-	esm: "es",
+	esm: "esm",
 };
 
 for (const format of ["cjs", "esm"]) {

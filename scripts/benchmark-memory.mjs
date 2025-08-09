@@ -4,7 +4,7 @@
 import { styleText } from "node:util";
 import babar from "babar";
 import Table from "cli-table";
-import { CLI } from "../dist/es/index.js";
+import { CLI } from "../dist/esm/index.js";
 
 async function iteration() {
 	if (global.gc) {

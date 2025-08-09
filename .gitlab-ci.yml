@@ -60,7 +60,7 @@ Build:
     - npm pack
     - npm exec npm-pkg-lint
     - |
-      for dts in dist/{cjs,es}/{index,browser,jest,test-utils}.d.ts; do
+      for dts in dist/{cjs,esm}/{index,browser,jest,test-utils}.d.ts; do
         if [[ ! -e "${dts}" ]]; then
           echo "${dts}" is missing from package
           exit 1

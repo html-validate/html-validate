@@ -38,6 +38,14 @@ const entrypoints = [
 	{ in: "src/jest/worker/worker.ts", out: "jest-worker" },
 ];
 
+/**
+ * Map output formats to folder.
+ */
+const folders = {
+	cjs: "cjs",
+	es: "esm",
+};
+
 /** @type {string[]} */
 const external = [
 	/* nodejs */
@@ -251,7 +259,7 @@ export function build(format) {
 		{
 			input: entrypoints.map((it) => it.in),
 			output: {
-				dir: `dist/${format}`,
+				dir: `dist/${folders[format]}`,
 				format,
 				sourcemap: true,
 				manualChunks,
