@@ -58,7 +58,7 @@ Build:
   script:
     - npm run --if-present build
     - npm pack
-    - npm exec npm-pkg-lint -- --ignore-node-version=18
+    - npm exec npm-pkg-lint
     - |
       for dts in dist/{cjs,es}/{index,browser,jest,test-utils}.d.ts; do
         if [[ ! -e "${dts}" ]]; then
@@ -162,8 +162,6 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - "18.19"
-          - "18"
           - "20.6"
           - "20"
           - "22.0"

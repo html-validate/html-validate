@@ -276,7 +276,7 @@ export function build(format) {
 					"src/resolve": generateResolved(format),
 				}),
 				esbuild({
-					target: "node18",
+					target: "node20",
 					platform: "node",
 				}),
 				legacyPlugin(),

@@ -8,9 +8,9 @@
     "declarationMap": true,
     "declarationDir": "${configDir}/temp/types",
 
-    /* based on https://github.com/tsconfig/bases/blob/main/bases/node18.json */
+    /* based on https://github.com/tsconfig/bases/blob/main/bases/node20.json */
     "target": "es2022",
-    "lib": ["es2022"],
+    "lib": ["es2023"],
 
     /* the Vite ecosystem does not play well with types, until vite#15714 is
      * backported to Vite 4 we cannot test Vitest compatibility

@@ -23,6 +23,7 @@ const typescript = {
 	27: "4.6",
 	28: "4.8",
 	29: "4.8",
+	30: "4.8",
 };
 
 if (!foundJest) {
