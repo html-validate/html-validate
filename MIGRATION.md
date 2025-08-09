@@ -1,5 +1,21 @@
 # Migration guide
 
+## Upgrading to v10
+
+### Dependency changes {#v10-dependency-changes}
+
+NodeJS v20.6.0 or later is now required.
+
+Support for third-party tools has changed:
+
+- Jest v28 or later is now required.
+- Vitest v1 or later is now required.
+- Cypress v11 or later is now required.
+
+### Toolchain changes {#v10-toolchain}
+
+A toolchain supporting subpath exports is now required.
+
 ## Upgrading to v9
 
 ESM support has finally landed in HTML-Validate V9!
