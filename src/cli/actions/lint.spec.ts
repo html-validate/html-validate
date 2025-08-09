@@ -211,6 +211,36 @@ it("should rename stdin if stdinFilename is given", async () => {
 	`);
 });
 
+it("should not rename other files when stdinFilename is given", async () => {
+	expect.assertions(2);
+	jest.spyOn(htmlvalidate, "validateFile").mockImplementation((filePath: string) =>
+		Promise.resolve({
+			valid: false,
+			results: [
+				{
+					messages: [mockError("mock-rule", "lorem ipsum")],
+					filePath,
+					errorCount: 1,
+					warningCount: 0,
+					source: null,
+				},
+			],
+			errorCount: 1,
+			warningCount: 0,
+		}),
+	);
+	const files = ["foo.html"];
+	const success = await lint(htmlvalidate, stdout, files, {
+		...defaultOptions,
+		stdinFilename: "https://example.net/page.html",
+	});
+	expect(success).toBeFalsy();
+	expect(stdout.getContentsAsString("utf-8")).toMatchInlineSnapshot(`
+		"foo.html:1:1: error [mock-rule] lorem ipsum
+		"
+	`);
+});
+
 it("should write current filename to output stream when an exception is cast", async () => {
 	expect.assertions(1);
 	jest.spyOn(htmlvalidate, "validateFile").mockImplementation(() => {

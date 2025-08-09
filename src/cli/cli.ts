@@ -116,6 +116,7 @@ export class CLI {
 	 * @internal
 	 */
 	public async getLoader(): Promise<ConfigLoader> {
+		/* istanbul ignore next: cache will most likely be cold during testing */
 		if (!this.loader) {
 			const config = await this.getConfig();
 			this.loader = new FileSystemConfigLoader([resolver], config);

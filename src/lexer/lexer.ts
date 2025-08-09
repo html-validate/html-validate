@@ -158,7 +158,7 @@ export class Lexer {
 					yield token;
 				}
 				const state = this.evalNextState(nextState, token);
-				context.consume(match, state);
+				context.consume(match[0].length, state);
 				this.enter(context, state, match);
 				return;
 			}

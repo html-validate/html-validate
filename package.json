@@ -190,6 +190,7 @@
       "!src/jest/jest.ts",
       "!src/jest/worker/**",
       "!src/vitest/vitest.ts",
+      "!src/vitest/augmentation.ts",
       "!src/utils/compatibility-check.browser.ts",
       "!src/utils/compatibility-check.nodejs.ts",
       "!**/*.d.ts",

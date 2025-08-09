@@ -34,13 +34,7 @@ export class Context {
 		return JSON.stringify(this.string.length > n ? `${this.string.slice(0, 10)}...` : this.string);
 	}
 
-	public consume(n: number | string[], state: State): void {
-		/* if "n" is an regex match the first value is the full matched
-		 * string so consume that many characters. */
-		if (typeof n !== "number") {
-			n = n[0].length; /* regex match */
-		}
-
+	public consume(n: number, state: State): void {
 		/* poor mans line counter :( */
 		let consumed = this.string.slice(0, n);
 		let offset;
