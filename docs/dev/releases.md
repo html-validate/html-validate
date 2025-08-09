@@ -94,7 +94,7 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Vitest</td>
-      <td><code>v0.34 || v1.x || v2.x || v3.x</code></td>
+      <td><code>v1.x || v2.x || v3.x</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>

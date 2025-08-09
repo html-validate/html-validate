@@ -237,7 +237,6 @@ Vitest compat:
   parallel:
     matrix:
       - VERSION:
-          - 0
           - 1
           - 2
           - 3
