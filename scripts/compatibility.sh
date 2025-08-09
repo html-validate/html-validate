@@ -1,21 +1,22 @@
 #!/bin/bash
 
+set -e
+
 cd $(dirname $0)/..
 
 echo "Testing if node bundle is importable"
-node node.js
 node --input-type commonjs -e 'require("./dist/cjs/index.js")'
-node --input-type module -e 'import("./dist/es/index.js")'
+node --input-type module -e 'import("./dist/esm/index.js")'
 
 echo "Testing if browser bundle is importable"
-node browser.js
 node --input-type commonjs -e 'require("./dist/cjs/browser.js")'
-node --input-type module -e 'import("./dist/es/browser.js")'
+node --input-type module -e 'import("./dist/esm/browser.js")'
 
 echo "Testing if elements bundle is importable"
-node elements/html5.js
 node --input-type commonjs -e 'require("./dist/cjs/elements.js")'
-node --input-type module -e 'import("./dist/es/elements.js")'
+node --input-type module -e 'import("./dist/esm/elements.js")'
+
+set +e
 
 echo "Testing if html-validate can successfully validate a file"
 ./bin/html-validate.mjs test-files/elements/table-valid.html

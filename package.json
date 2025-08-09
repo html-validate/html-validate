@@ -60,7 +60,7 @@
     "./dist/es/*": "./dist/es/*",
     "./dist/schema/*": "./dist/schema/*",
     "./elements/html5": {
-      "types": "./elements/html5.d.ts",
+      "types": "./dist/types/html5.d.ts",
       "require": "./dist/cjs/html5.js",
       "import": "./dist/es/html5.js"
     },
@@ -88,12 +88,7 @@
   },
   "files": [
     "bin",
-    "dist",
-    "elements",
-    "browser.{js,d.ts}",
-    "node.{js,d.ts}",
-    "jest.{js,d.ts}",
-    "test-utils.{js,d.ts}"
+    "dist"
   ],
   "workspaces": [
     "docs",
@@ -203,7 +198,6 @@
     "preset": "@html-validate/jest-config",
     "roots": [
       "<rootDir>/docs",
-      "<rootDir>/elements",
       "<rootDir>/internal/test-utils/src",
       "<rootDir>/src",
       "<rootDir>/tests"

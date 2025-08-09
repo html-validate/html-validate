@@ -10,10 +10,10 @@ nav: devguide
 
 The `html-validate` package contains four bundles:
 
-- CommonJS full (`dist/cjs/main.js`)
+- CommonJS full (`dist/cjs/index.js`)
 - CommonJS browser (`dist/cjs/browser.js`)
-- ESM full (`dist/es/main.js`)
-- ESM browser (`dist/es/browser.js`)
+- ESM full (`dist/esm/index.js`)
+- ESM browser (`dist/esm/browser.js`)
 
 The default full bundle includes everything (`CLI` classes etc) while the browser bundles are a bit more stripped and includes only code that runs in a browser<sup>1</sup>.
 
