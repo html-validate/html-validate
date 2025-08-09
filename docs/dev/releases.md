@@ -21,10 +21,16 @@ Older major versions is generally supported for two year after the succeeding ve
   </thead>
   <tbody>
     <tr class="release-active">
+      <td>10.x</td>
+      <td>Active</td>
+      <td>2024-08-09</td>
+      <td>-</td>
+    </tr>
+    <tr class="release-active">
       <td>9.x</td>
       <td>Active</td>
       <td>2024-12-23</td>
-      <td>-</td>
+      <td>2027-08-31</td>
     </tr>
     <tr class="release-active">
       <td>8.x</td>
