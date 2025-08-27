@@ -266,7 +266,7 @@
     "jest-snapshot": "30.0.5",
     "jsdom": "26.1.0",
     "magic-string": "0.30.18",
-    "memfs": "4.38.1",
+    "memfs": "4.38.2",
     "npm-pkg-lint": "4.0.3",
     "npm-run-all2": "8.0.4",
     "rollup": "4.48.1",
