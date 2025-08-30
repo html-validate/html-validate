@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`rule prefer-native-element default config smoketest 1`] = `
 "error: Prefer to use the native <article> element (prefer-native-element) at test-files/rules/prefer-native-element.html:3:6:

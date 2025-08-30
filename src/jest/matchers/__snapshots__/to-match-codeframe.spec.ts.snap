@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`toMatchCodeframe() should match invalid async report 1`] = `
 "error: mock message (my-rule) at inline:4:8:

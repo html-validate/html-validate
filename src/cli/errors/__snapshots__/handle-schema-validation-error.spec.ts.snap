@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`should handle function keyword: stderr 1`] = `
 "A configuration error was found in "src/cli/errors/__fixtures__/invalid.json":

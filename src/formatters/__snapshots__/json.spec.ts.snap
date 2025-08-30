@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`json formatter should generate output 1`] = `"[{"filePath":"first.html","errorCount":1,"warningCount":1,"source":"<div id=\\"foo\\"\\n    class=\\"bar\\"\\n    name=\\"baz\\">\\n","messages":[{"ruleId":"foo","ruleUrl":"https://example.net/rule/foo.html","severity":2,"message":"An error","offset":5,"line":1,"column":6,"size":2,"selector":"div"},{"ruleId":"bar","ruleUrl":"https://example.net/rule/bar.html","severity":1,"message":"A warning","offset":18,"line":2,"column":5,"size":5,"selector":"div"}]},{"filePath":"second.html","errorCount":1,"warningCount":0,"source":"<p>lorem ipsum</p>\\n","messages":[{"ruleId":"no-lorem-ipsum","ruleUrl":"https://example.net/rule/no-lorem-ipsum.html","severity":2,"message":"Lorem ipsum is not allowed","offset":3,"line":1,"column":4,"size":11,"selector":"p"}]}]"`;
 

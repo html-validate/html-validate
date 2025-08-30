@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`validator test-files abstract-roles-prohibited.html 1`] = `
 "error: Role "command" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:10:16:
