@@ -27,7 +27,7 @@ export default [
 
 	{
 		name: "@html-validate/eslint-config-typescript",
-		files: ["**/*.ts"],
+		files: ["**/*.{ts,cts,mts}"],
 		...typescriptConfig,
 	},
 
@@ -38,7 +38,7 @@ export default [
 		languageOptions: {
 			parserOptions: {
 				tsconfigRootDir: rootDir,
-				project: ["./tsconfig.json"],
+				projectService: true,
 			},
 		},
 		...typescriptTypeinfoConfig,
@@ -56,9 +56,7 @@ export default [
 		rules: {
 			"import/extensions": "off",
 			"security/detect-unsafe-regex": "off",
-			"sonarjs/function-return-type": "off",
 			"sonarjs/slow-regex": "off",
-			"sonarjs/todo-tag": "off",
 		},
 	},
 
@@ -109,24 +107,6 @@ export default [
 		rules: {
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-unnecessary-condition": "off",
-		},
-	},
-
-	{
-		name: "local/tests/integration",
-		files: ["./tests/integration/**/*.{js,cjs,mjs,ts,mts,cts}"],
-		rules: {
-			"import/named": "off",
-			"import/no-unresolved": "off",
-		},
-	},
-
-	{
-		name: "local/tests/vitest",
-		files: ["./tests/vitest/**/*.{js,cjs,mjs,ts,mts,cts}"],
-		rules: {
-			"import/no-extraneous-dependencies": "off",
-			"import/no-unresolved": "off",
 		},
 	},
 ];
