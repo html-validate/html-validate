@@ -162,9 +162,9 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - "20.6"
+          - "20.19"
           - "20"
-          - "22.0"
+          - "22.12"
           - "22"
   variables:
     NODE_OPTIONS: "--max_old_space_size=4096"
