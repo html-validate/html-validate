@@ -10,10 +10,10 @@ export {
 	type FSLike,
 	type CommonJSResolver,
 	type ESMResolver,
-	type NodeJSResolver,
+	type NodeJSResolver, // eslint-disable-line @typescript-eslint/no-deprecated -- to be removed in next breaking
 	cjsResolver,
 	esmResolver,
-	nodejsResolver,
+	nodejsResolver, // eslint-disable-line @typescript-eslint/no-deprecated -- to be removed in next breaking
 } from "./config/resolver/nodejs";
 export {
 	type AvailableFormatters,
