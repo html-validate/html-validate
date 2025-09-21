@@ -56,7 +56,7 @@ export async function transformSource(
 	const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 	try {
 		const result = await fn.call(context, source);
-		const transformedSources = await Promise.all(toArray(result));
+		const transformedSources = await Promise.all(toArray(result)); // eslint-disable-line @typescript-eslint/await-thenable -- false positive
 		for (const source of transformedSources) {
 			/* keep track of which transformers that has been run on this source
 			 * by appending this entry to the transformedBy array */
