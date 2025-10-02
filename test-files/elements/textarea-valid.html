@@ -1,4 +1,13 @@
+<!-- [html-validate-disable-block no-raw-characters -- not under test here] -->
+
 <textarea></textarea>
+<textarea>foo</textarea>
+
+<!-- should allow nested markup (browsers render the literal markup as content) -->
+<textarea><span>foo</span></textarea>
+
+<!-- should allow malformed markup -->
+<textarea><span><em</textarea>
 
 <!-- should allow attributes -->
 <textarea spellcheck=""></textarea>

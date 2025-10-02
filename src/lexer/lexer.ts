@@ -31,6 +31,8 @@ const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
 const MATCH_STYLE_END = /^<(\/)(style)/;
+const MATCH_TEXTAREA_DATA = /^[^]*?(?=<\/textarea)/;
+const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
 const MATCH_DIRECTIVE = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
@@ -86,6 +88,10 @@ export class Lexer {
 
 				case State.STYLE:
 					yield* this.tokenizeStyle(context);
+					break;
+
+				case State.TEXTAREA:
+					yield* this.tokenizeTextarea(context);
 					break;
 
 				/* istanbul ignore next: sanity check: should not happen unless adding new states */
@@ -178,6 +184,8 @@ export class Lexer {
 				context.contentModel = ContentModel.SCRIPT;
 			} else if (data[0] === "<style") {
 				context.contentModel = ContentModel.STYLE;
+			} else if (data[0] === "<textarea") {
+				context.contentModel = ContentModel.TEXTAREA;
 			} else {
 				context.contentModel = ContentModel.TEXT;
 			}
@@ -216,20 +224,27 @@ export class Lexer {
 	private *tokenizeTag(context: Context): Iterable<Token> {
 		function nextState(token: Token | null): State {
 			const tagCloseToken = token as TagCloseToken | null;
+			const selfClosed = tagCloseToken && !tagCloseToken.data[0].startsWith("/");
 			switch (context.contentModel) {
 				case ContentModel.TEXT:
 					return State.TEXT;
 				case ContentModel.SCRIPT:
-					if (tagCloseToken && !tagCloseToken.data[0].startsWith("/")) {
+					if (selfClosed) {
 						return State.SCRIPT;
 					} else {
 						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 					}
 				case ContentModel.STYLE:
-					if (tagCloseToken && !tagCloseToken.data[0].startsWith("/")) {
+					if (selfClosed) {
 						return State.STYLE;
 					} else {
 						return State.TEXT; /* <style/> */
+					}
+				case ContentModel.TEXTAREA:
+					if (selfClosed) {
+						return State.TEXTAREA;
+					} else {
+						return State.TEXT; /* <textarea/> */
 					}
 			}
 		}
@@ -298,6 +313,17 @@ export class Lexer {
 				[MATCH_STYLE_DATA, State.STYLE, TokenType.STYLE],
 			],
 			"expected </style>",
+		);
+	}
+
+	private *tokenizeTextarea(context: Context): Iterable<Token> {
+		yield* this.match(
+			context,
+			[
+				[MATCH_TEXTAREA_END, State.TAG, TokenType.TAG_OPEN],
+				[MATCH_TEXTAREA_DATA, State.TEXTAREA, TokenType.TEXT],
+			],
+			"expected </textarea>",
 		);
 	}
 }
