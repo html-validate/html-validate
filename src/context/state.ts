@@ -7,4 +7,5 @@ export enum State {
 	CDATA,
 	SCRIPT,
 	STYLE,
+	TEXTAREA,
 }

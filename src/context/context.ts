@@ -6,6 +6,7 @@ export enum ContentModel {
 	TEXT = 1,
 	SCRIPT,
 	STYLE,
+	TEXTAREA,
 }
 
 /**

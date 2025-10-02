@@ -803,6 +803,47 @@ describe("lexer", () => {
 			});
 		});
 
+		describe("textarea tag", () => {
+			it("with text content", () => {
+				expect.assertions(7);
+				const markup = `<textarea>lorem ipsum</textarea>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["lorem ipsum"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with markup as text content", () => {
+				expect.assertions(7);
+				const markup = `<textarea><ul><li>foo</li></ul></textarea>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul><li>foo</li></ul>"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with malformed markup as text content", () => {
+				expect.assertions(7);
+				const markup = `<textarea><ul><li</textarea>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul><li"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+		});
+
 		it("comment", () => {
 			expect.assertions(3);
 			const token = lexer.tokenize(inlineSource("<!-- comment -->"));
