@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 10.1.0 (2025-10-03)
+
+### Features
+
+- parse `<textarea>` content as literal characters instead of HTML elements ([f3d4f5b](https://gitlab.com/html-validate/html-validate/commit/f3d4f5b178aab8e31e2e8680081ea3cdc8bfdf04)), closes [#314](https://gitlab.com/html-validate/html-validate/issues/314)
+- store `<script>` and `<style>` content as text node ([740b94a](https://gitlab.com/html-validate/html-validate/commit/740b94a8c0d43d4b793ca8e94f0bb8acee07eb16)), closes [#316](https://gitlab.com/html-validate/html-validate/issues/316)
+
 ## 10.0.0 (2025-08-09)
 
 ### ⚠ BREAKING CHANGES
