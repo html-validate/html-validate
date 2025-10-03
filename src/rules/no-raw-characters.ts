@@ -54,6 +54,11 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
 
+			/* ignore <script> and <style> as its content is not html */
+			if (node.matches("script, style")) {
+				return;
+			}
+
 			/* only iterate over direct descendants */
 			for (const child of node.childNodes) {
 				if (child.nodeType !== NodeType.TEXT_NODE) {

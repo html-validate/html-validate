@@ -548,8 +548,9 @@ describe("parser", () => {
 		});
 
 		it("script tag", () => {
-			expect.assertions(5);
-			parser.parseHtml('<script>document.write("</p>");</script>');
+			expect.assertions(6);
+			const doc = parser.parseHtml('<script>document.write("</p>");</script>');
+			const script = doc.querySelector("script");
 			expect(events.shift()).toEqual({ event: "tag:start", target: "script" });
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "script" });
 			expect(events.shift()).toEqual({
@@ -562,11 +563,13 @@ describe("parser", () => {
 				target: "script",
 			});
 			expect(events.shift()).toBeUndefined();
+			expect(script?.textContent).toBe('document.write("</p>");');
 		});
 
-		it("style tag tag", () => {
-			expect.assertions(5);
-			parser.parseHtml("<style>body { background: hotpink; }</style>");
+		it("style tag", () => {
+			expect.assertions(6);
+			const doc = parser.parseHtml("<style>body { background: hotpink; }</style>");
+			const style = doc.querySelector("style");
 			expect(events.shift()).toEqual({ event: "tag:start", target: "style" });
 			expect(events.shift()).toEqual({ event: "tag:ready", target: "style" });
 			expect(events.shift()).toEqual({
@@ -579,6 +582,26 @@ describe("parser", () => {
 				target: "style",
 			});
 			expect(events.shift()).toBeUndefined();
+			expect(style?.textContent).toBe("body { background: hotpink; }");
+		});
+
+		it("textarea tag", () => {
+			expect.assertions(6);
+			const doc = parser.parseHtml("<textarea><em>lorem ipsum</em></textarea>");
+			const textarea = doc.querySelector("textarea");
+			expect(events.shift()).toEqual({ event: "tag:start", target: "textarea" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "textarea" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "textarea",
+				previous: "textarea",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "textarea",
+			});
+			expect(events.shift()).toBeUndefined();
+			expect(textarea?.textContent).toBe("<em>lorem ipsum</em>");
 		});
 	});
 
