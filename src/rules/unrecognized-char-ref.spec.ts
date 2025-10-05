@@ -26,6 +26,32 @@ describe("rule unrecognized-char-ref", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report error for <script>", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<script>
+					const url = "example.net/foo?bar=1&baz=2";
+				</script>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error for <style>", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<style>
+					main {
+						&foo {
+							color: hotpink;
+						}
+					}
+				</style>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should report error when for invalid character reference", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
