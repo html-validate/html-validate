@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.1.1 (2025-10-06)
+
+### Bug Fixes
+
+- fix `unrecognized-char-ref` triggering [secure] positives for `<script>` and `<style>` tags ([efffc6b](https://gitlab.com/html-validate/html-validate/commit/efffc6bcd56e9be85314739833d3f661a87fb8cd))
+
 ## 10.1.0 (2025-10-03)
 
 ### Features
