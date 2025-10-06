@@ -495,6 +495,23 @@ export class HtmlElement extends DOMNode {
 	}
 
 	/**
+	 * Read-only property with the type of the text content of this
+	 * element.
+	 *
+	 * @internal
+	 */
+	public get textType(): "text" | "script" | "css" {
+		const tagName = this.tagName.toLowerCase();
+		if (tagName === "script") {
+			return "script";
+		} else if (tagName === "style") {
+			return "css";
+		} else {
+			return "text";
+		}
+	}
+
+	/**
 	 * Get a list of all attributes on this node.
 	 */
 	public get attributes(): Attribute[] {

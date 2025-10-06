@@ -95,6 +95,11 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
 
+			/* ignore <script> and <style> as its content is not html */
+			if (node.textType !== "text") {
+				return;
+			}
+
 			/* only iterate over direct descendants */
 			for (const child of node.childNodes) {
 				if (child.nodeType !== NodeType.TEXT_NODE) {

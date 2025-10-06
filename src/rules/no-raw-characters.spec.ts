@@ -34,6 +34,30 @@ describe("rule no-raw-characters", () => {
 				expect(report).toBeValid();
 			});
 
+			it("should not report error when <script> has raw special characters", async () => {
+				expect.assertions(1);
+				const markup = /* HTML */ `
+					<script>
+						const u = 1 < 3;
+					</script>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			});
+
+			it("should not report error when <style> has raw special characters", async () => {
+				expect.assertions(1);
+				const markup = /* HTML */ `
+					<style>
+						main > h1 {
+							color: hotpink;
+						}
+					</style>
+				`;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			});
+
 			it("should report error when raw special characters are present", async () => {
 				expect.assertions(2);
 				const markup = /* HTML */ ` <p>< & ></p> `;

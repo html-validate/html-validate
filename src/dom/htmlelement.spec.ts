@@ -882,6 +882,50 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("textType", () => {
+		it("should return text by default", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<div></div>
+
+				<!-- prettier-ignore -->
+				<DIV></DIV>
+			`;
+			const document = parser.parseHtml(markup);
+			const [element1, element2] = document.querySelectorAll("div");
+			expect(element1.textType).toBe("text");
+			expect(element2.textType).toBe("text");
+		});
+
+		it("should return script for <script> element", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<script></script>
+
+				<!-- prettier-ignore -->
+				<SCRIPT></SCRIPT>
+			`;
+			const document = parser.parseHtml(markup);
+			const [element1, element2] = document.querySelectorAll("script");
+			expect(element1.textType).toBe("script");
+			expect(element2.textType).toBe("script");
+		});
+
+		it("should return css for <style> element", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<style></style>
+
+				<!-- prettier-ignore -->
+				<STYLE></STYLE>
+			`;
+			const document = parser.parseHtml(markup);
+			const [element1, element2] = document.querySelectorAll("style");
+			expect(element1.textType).toBe("css");
+			expect(element2.textType).toBe("css");
+		});
+	});
+
 	describe("querySelector()", () => {
 		it("should find element by tagname", () => {
 			expect.assertions(2);
