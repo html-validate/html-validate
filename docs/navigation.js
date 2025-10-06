@@ -52,6 +52,7 @@ module.exports = {
 		items: [
 			{ title: "Rules reference", target: "rules" },
 			{ title: "Configuration presets", target: "rules/presets" },
+			{ title: "Third-party rules", target: "rules/third-party" },
 		],
 	},
 
