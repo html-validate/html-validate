@@ -626,6 +626,8 @@ export class HtmlElement extends DOMNode {
     get tabIndex(): number | null;
     // (undocumented)
     readonly tagName: string;
+    // @internal
+    get textType(): "text" | "script" | "css";
     // (undocumented)
     readonly voidElement: boolean;
 }

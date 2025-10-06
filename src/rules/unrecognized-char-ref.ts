@@ -96,7 +96,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			const node = event.target;
 
 			/* ignore <script> and <style> as its content is not html */
-			if (node.matches("script, style")) {
+			if (node.textType !== "text") {
 				return;
 			}
 
