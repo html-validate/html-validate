@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import path from "node:path";
 import { CLI } from "./cli";
 import { IsIgnored } from "./is-ignored";

@@ -1,9 +1,9 @@
 import "../jest";
+import { StaticConfigLoader } from "../browser";
+import { staticResolver } from "../config";
 import { HtmlValidate } from "../htmlvalidate";
 import { type Plugin } from "../plugin";
 import { Rule } from "../rule";
-import { staticResolver } from "../config";
-import { StaticConfigLoader } from "../browser";
 import { type RuleContext } from "./no-unused-disable";
 
 class DirectRule extends Rule {

@@ -1,9 +1,9 @@
 import checkstyle from "./checkstyle";
 import { codeframe } from "./codeframe";
+import { type Formatter } from "./formatter";
 import json from "./json";
 import stylish from "./stylish";
 import text from "./text";
-import { type Formatter } from "./formatter";
 
 export { type Formatter } from "./formatter";
 

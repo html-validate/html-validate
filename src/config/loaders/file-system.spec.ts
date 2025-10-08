@@ -1,6 +1,6 @@
 import { Volume } from "memfs";
-import * as requireUncached from "../../utils/require-uncached";
 import { isThenable } from "../../utils";
+import * as requireUncached from "../../utils/require-uncached";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type Resolver } from "../resolver";

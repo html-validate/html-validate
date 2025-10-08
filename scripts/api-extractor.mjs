@@ -2,9 +2,9 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import isCI from "is-ci";
-import { glob } from "glob";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
+import { glob } from "glob";
+import isCI from "is-ci";
 
 /**
  * @param {string[]} patterns

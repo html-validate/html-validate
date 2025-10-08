@@ -1,6 +1,6 @@
 import { InheritError } from "./inherit-error";
-import { UserError } from "./user-error";
 import { isUserError } from "./is-user-error";
+import { UserError } from "./user-error";
 
 it("should return true when error is UserError", () => {
 	expect.assertions(1);

@@ -1,5 +1,5 @@
 import { type Source } from "./context";
-import { type Result, type DeferredMessage, Reporter } from "./reporter";
+import { type DeferredMessage, type Result, Reporter } from "./reporter";
 
 describe("Reporter", () => {
 	describe("merge()", () => {

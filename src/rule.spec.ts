@@ -2,13 +2,13 @@ import path from "node:path";
 import { type ConfigData, Config, Severity } from "./config";
 import { type Location } from "./context";
 import { HtmlElement } from "./dom";
+import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
 import { type Event, type EventCallback } from "./event";
+import { MetaTable } from "./meta";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
-import { Rule, ruleDocumentationUrl, type SchemaObject } from "./rule";
-import { MetaTable } from "./meta";
-import { bundledElements } from "./elements";
+import { type SchemaObject, Rule, ruleDocumentationUrl } from "./rule";
 
 interface RuleContext {
 	foo: string;

@@ -1,6 +1,6 @@
 import kleur from "kleur";
-import { UserError } from "../../error";
 import { engines } from "../../../package.json";
+import { UserError } from "../../error";
 
 /**
  * @internal

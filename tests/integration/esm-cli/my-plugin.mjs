@@ -1,4 +1,4 @@
-import { definePlugin, Rule } from "html-validate";
+import { Rule, definePlugin } from "html-validate";
 
 class CustomRule extends Rule {}
 

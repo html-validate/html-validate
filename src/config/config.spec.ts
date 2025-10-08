@@ -5,8 +5,8 @@ import { type Plugin } from "../plugin";
 import { Config } from "./config";
 import { ConfigError } from "./error";
 import { type Resolver, staticResolver } from "./resolver";
-import { Severity } from "./severity";
 import { cjsResolver } from "./resolver/nodejs";
+import { Severity } from "./severity";
 
 /* a mocked file which throws an exception when loaded */
 jest.mock(

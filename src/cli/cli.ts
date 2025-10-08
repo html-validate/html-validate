@@ -4,15 +4,15 @@ import {
 	type ConfigLoader,
 	type Report,
 	FileSystemConfigLoader,
-	UserError,
 	HtmlValidate,
+	UserError,
 	esmResolver,
 } from "..";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
-import { IsIgnored } from "./is-ignored";
-import { type InitResult, init } from "./init";
 import { getRuleConfig } from "./get-rule-config";
+import { type InitResult, init } from "./init";
+import { IsIgnored } from "./is-ignored";
 
 const resolver = esmResolver();
 

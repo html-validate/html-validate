@@ -14,8 +14,8 @@ import { type Message } from "../message";
 import { type Parser, ParserError } from "../parser";
 import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
-import type NoUnusedDisable from "../rules/no-unused-disable";
 import bundledRules from "../rules";
+import type NoUnusedDisable from "../rules/no-unused-disable";
 import { dumpTree } from "../utils";
 import { createBlocker } from "./rule-blocker";
 

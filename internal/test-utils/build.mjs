@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { build, analyzeMetafile } from "esbuild";
+import { analyzeMetafile, build } from "esbuild";
 import { apiExtractor } from "../../scripts/api-extractor.mjs";
 
 const folder = {

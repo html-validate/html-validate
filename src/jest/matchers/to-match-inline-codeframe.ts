@@ -1,6 +1,6 @@
-import kleur from "kleur";
 import { toMatchInlineSnapshot } from "jest-snapshot";
-import { codeframe, type CodeframeOptions } from "../../formatters/codeframe";
+import kleur from "kleur";
+import { type CodeframeOptions, codeframe } from "../../formatters/codeframe";
 import { type Report } from "../../reporter";
 import { type MatcherContext, type MatcherResult, isThenable } from "../utils";
 import { getResults } from "./get-results";

@@ -66,8 +66,8 @@ afterEach(() => {
 
 ```ts
 import { defineConfig } from "cypress";
-import { ConfigData } from "html-validate";
 import htmlvalidate, { CypressHtmlValidateOptions } from "cypress-html-validate/plugin";
+import { ConfigData } from "html-validate";
 
 /* html-validate configuration */
 const config: ConfigData = {
@@ -143,8 +143,8 @@ For instance, to enforce the attribute of `srcset` being required on `img` eleme
 
 ```ts
 import { defineConfig } from "cypress";
-import { ConfigData } from "html-validate";
 import htmlvalidate from "cypress-html-validate/plugin";
+import { ConfigData } from "html-validate";
 
 const config: ConfigData = {
   elements: [

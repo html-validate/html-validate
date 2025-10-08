@@ -1,4 +1,4 @@
-import { parseSeverity, Severity } from "./severity";
+import { Severity, parseSeverity } from "./severity";
 
 describe("parseSeverity()", () => {
 	it("should parse 0", () => {

@@ -1,7 +1,7 @@
 import { type HtmlElement } from "../dom";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { hasAltText } from "./helper";
-import { classifyNodeText, TextClassification } from "./helper/text";
+import { TextClassification, classifyNodeText } from "./helper/text";
 
 const selector = ["h1", "h2", "h3", "h4", "h5", "h6"].join(",");
 

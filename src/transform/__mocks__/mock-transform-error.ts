@@ -1,5 +1,5 @@
-import { type Source } from "../../context";
 import { type Transformer, TRANSFORMER_API } from "..";
+import { type Source } from "../../context";
 
 /**
  * Mock transformer always failing with an exception

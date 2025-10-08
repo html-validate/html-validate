@@ -2,14 +2,14 @@ import Ajv from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
 import { bundledElements } from "../elements";
-import { ensureError, SchemaValidationError } from "../error";
+import { SchemaValidationError, ensureError } from "../error";
 import { MetaTable } from "../meta";
 import { type MetaDataTable, type MetaElement, MetaCopyableProperty } from "../meta/element";
 import { type Plugin } from "../plugin";
+import { Rule } from "../rule";
+import bundledRules from "../rules";
 import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
-import bundledRules from "../rules";
-import { Rule } from "../rule";
 import { type TransformerEntry } from "../transform";
 import { isThenable } from "../utils";
 import {
@@ -20,10 +20,10 @@ import {
 } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
-import { type Severity, parseSeverity } from "./severity";
 import Presets from "./presets";
 import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
-import { type Resolver, resolvePlugin, resolveConfig, resolveElements } from "./resolver";
+import { type Resolver, resolveConfig, resolveElements, resolvePlugin } from "./resolver";
+import { type Severity, parseSeverity } from "./severity";
 
 /**
  * Internal interface for a loaded plugin.

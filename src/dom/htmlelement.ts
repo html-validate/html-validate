@@ -9,7 +9,7 @@ import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
-import { generateIdSelector, Selector } from "./selector";
+import { Selector, generateIdSelector } from "./selector";
 import { TextNode } from "./text";
 
 const ROLE = Symbol("role");

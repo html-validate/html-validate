@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
+import { CLI, HtmlValidate } from "html-validate";
 import { beforeAll, expect, it } from "vitest";
-import { HtmlValidate, CLI } from "html-validate";
 import "html-validate/vitest";
 
 let htmlvalidate: HtmlValidate;

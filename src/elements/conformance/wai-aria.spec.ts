@@ -6,10 +6,10 @@
 import path from "node:path";
 import { globSync } from "glob";
 import "../../jest";
-import { ariaNaming } from "../../rules/helper";
 import { type Source } from "../../context";
 import { type HtmlElement } from "../../dom";
 import { HtmlValidate } from "../../htmlvalidate";
+import { ariaNaming } from "../../rules/helper";
 import waiAria from "./wai-aria";
 
 const htmlvalidate = new HtmlValidate({

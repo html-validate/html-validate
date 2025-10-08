@@ -1,5 +1,5 @@
-import { type Resolver } from "../config/resolver";
 import { ConfigError } from "../config/error";
+import { type Resolver } from "../config/resolver";
 import { ensureError } from "../error";
 import { type Plugin } from "../plugin";
 import { isThenable } from "../utils";

@@ -1,4 +1,4 @@
-const { definePlugin, Rule } = require("html-validate");
+const { Rule, definePlugin } = require("html-validate");
 
 class CustomRule extends Rule {}
 

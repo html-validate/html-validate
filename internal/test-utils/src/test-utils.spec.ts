@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import { type Source } from "html-validate";
 import {
 	type Transformer,

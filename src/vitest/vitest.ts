@@ -2,8 +2,8 @@ import "./augmentation";
 
 import { expect } from "vitest";
 import {
-	toBeValid,
 	toBeInvalid,
+	toBeValid,
 	toHTMLValidate,
 	toHaveError,
 	toHaveErrors,

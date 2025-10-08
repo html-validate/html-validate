@@ -1,5 +1,5 @@
-const path = require("node:path");
 const { createHash } = require("node:crypto");
+const path = require("node:path");
 
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;

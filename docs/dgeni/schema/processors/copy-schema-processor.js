@@ -1,5 +1,5 @@
+const fs = require("node:fs");
 const path = require("node:path");
-const fs = require("fs");
 
 module.exports = function copySchemaProcessor(copySchema, readFilesProcessor) {
 	return {

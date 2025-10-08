@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import { pathToFileURL } from "node:url";
-import { importResolve } from "../../../resolve";
 import { UserError } from "../../../error";
+import { importResolve } from "../../../resolve";
 import { type ResolverOptions } from "../resolver";
 import { importFunction } from "./import-function";
 

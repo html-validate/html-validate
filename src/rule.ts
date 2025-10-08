@@ -5,14 +5,14 @@ import { Severity } from "./config/severity";
 import { type Location } from "./context";
 import { type DOMNode } from "./dom";
 import { type RuleBlocker } from "./engine/rule-blocker";
+import { SchemaValidationError } from "./error";
 import { type Event, type ListenEventMap } from "./event";
+import { type MetaElement, type MetaLookupableProperty, type MetaTable } from "./meta";
 import { type Parser } from "./parser";
 import { type Reporter } from "./reporter";
-import { type MetaTable, type MetaLookupableProperty, type MetaElement } from "./meta";
-import { SchemaValidationError } from "./error";
-import { interpolate } from "./utils/interpolate";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
 import { getRuleUrl } from "./utils/get-rule-url.mjs";
+import { interpolate } from "./utils/interpolate";
 
 export { type SchemaObject } from "ajv";
 

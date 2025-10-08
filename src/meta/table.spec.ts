@@ -37,7 +37,7 @@ jest.mock(
 );
 
 import { ResolvedConfig } from "../config";
-import { SchemaValidationError, InheritError } from "../error";
+import { InheritError, SchemaValidationError } from "../error";
 import { Parser } from "../parser";
 import { type MetaData, type MetaDataTable } from "./element";
 import { MetaTable } from "./table";

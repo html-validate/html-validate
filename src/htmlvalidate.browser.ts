@@ -1,16 +1,15 @@
 import { type SchemaObject } from "ajv";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
-import { normalizeSource, type Source } from "./context";
+import { StaticConfigLoader } from "./config/loaders/static";
+import { type Source, normalizeSource } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
+import { UserError } from "./error";
 import { type Message } from "./message";
 import { Parser } from "./parser";
 import { type Report, Reporter } from "./reporter";
 import { type RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
-import { StaticConfigLoader } from "./config/loaders/static";
-import { isThenable } from "./utils";
-import { UserError } from "./error";
 import {
 	type TransformFS,
 	transformFilename,
@@ -18,6 +17,7 @@ import {
 	transformSource,
 	transformSourceSync,
 } from "./transform";
+import { isThenable } from "./utils";
 
 function isSourceHooks(value: any): value is SourceHooks {
 	if (!value || typeof value === "string") {

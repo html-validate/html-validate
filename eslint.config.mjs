@@ -4,9 +4,9 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import defaultConfig from "@html-validate/eslint-config";
+import jestConfig from "@html-validate/eslint-config-jest";
 import typescriptConfig from "@html-validate/eslint-config-typescript";
 import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-typeinfo";
-import jestConfig from "@html-validate/eslint-config-jest";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 

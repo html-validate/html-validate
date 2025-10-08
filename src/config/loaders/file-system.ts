@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import { isThenable } from "../../utils";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";
 import { type ResolvedConfig } from "../resolved-config";
 import { type Resolver } from "../resolver";
 import { type FSLike, esmResolver } from "../resolver/nodejs";
-import { isThenable } from "../../utils";
 
 /**
  * Options for [[FileSystemConfigLoader]].

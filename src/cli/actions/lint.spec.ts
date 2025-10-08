@@ -1,9 +1,9 @@
 import kleur from "kleur";
 import { WritableStreamBuffer } from "stream-buffers";
-import { getFormatter } from "../formatter";
-import { HtmlValidate, type Message } from "../..";
+import { type Message, HtmlValidate } from "../..";
 import { Severity } from "../../config";
-import { lint, type LintOptions } from "./lint";
+import { getFormatter } from "../formatter";
+import { type LintOptions, lint } from "./lint";
 
 kleur.enabled = true;
 

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { HtmlValidate, CLI } from "../../src";
+import { CLI, HtmlValidate } from "../../src";
 import "../../src/jest";
 
 let htmlvalidate: HtmlValidate;

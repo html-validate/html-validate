@@ -1,7 +1,7 @@
 import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../../dom";
 import { inAccessibilityTree } from "./a11y";
 import { hasAltText } from "./has-alt-text";
-import { classifyNodeText, TextClassification } from "./text";
+import { TextClassification, classifyNodeText } from "./text";
 
 declare module "../../dom/cache" {
 	export interface DOMNodeCache {

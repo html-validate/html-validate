@@ -7,9 +7,9 @@ export {
 	FileSystemConfigLoader,
 } from "./config/loaders/file-system";
 export {
-	type FSLike,
 	type CommonJSResolver,
 	type ESMResolver,
+	type FSLike,
 	type NodeJSResolver, // eslint-disable-line @typescript-eslint/no-deprecated -- to be removed in next breaking
 	cjsResolver,
 	esmResolver,

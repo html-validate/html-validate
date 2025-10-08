@@ -1,4 +1,4 @@
-import { isDynamicAttribute, type HtmlElement } from "../dom";
+import { type HtmlElement, isDynamicAttribute } from "../dom";
 import { type ElementReadyEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 

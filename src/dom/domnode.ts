@@ -1,12 +1,12 @@
 import { type Location } from "../context";
 import { type RuleBlocker } from "../engine";
-import { NodeType } from "./nodetype";
 import { type DOMNodeCache } from "./cache";
+import { NodeType } from "./nodetype";
 
 /**
  * @public
  */
-/* eslint-disable-next-line sonarjs/redundant-type-aliases -- better for documentation and help in IDE */
+
 export type DOMInternalID = number;
 
 const DOCUMENT_NODE_NAME = "#document";
@@ -40,7 +40,6 @@ export class DOMNode {
 	 */
 	public readonly unique: DOMInternalID;
 
-	/* eslint-disable-next-line sonarjs/use-type-alias -- technical debt */
 	private cache: null | Map<string | number | symbol, any>;
 
 	/**

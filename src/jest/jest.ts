@@ -1,8 +1,8 @@
 import "./augmentation";
 
 import {
-	toBeValid,
 	toBeInvalid,
+	toBeValid,
 	toHTMLValidate,
 	toHaveError,
 	toHaveErrors,

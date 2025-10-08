@@ -1,10 +1,10 @@
 import { type DOMNode, type HtmlElement, isTextNode } from "../dom";
 import { type ElementReadyEvent } from "../event";
-import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { type MetaElement, TextContent as TextContentEnum } from "../meta";
+import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { classifyNodeText } from "./helper";
-import { TextClassification } from "./helper/text";
 import { inAccessibilityTree } from "./helper/a11y";
+import { TextClassification } from "./helper/text";
 
 interface RuleContext {
 	tagName: string;

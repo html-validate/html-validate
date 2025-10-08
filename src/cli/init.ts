@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import deepmerge from "deepmerge";
 import prompts from "prompts";
 import { type ConfigData } from "..";

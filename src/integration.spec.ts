@@ -1,14 +1,14 @@
 import { globSync } from "glob";
-import { HtmlValidate } from "./htmlvalidate";
+import "./jest";
+import { StaticConfigLoader } from "./browser";
 import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
 import { FileSystemConfigLoader } from "./config/loaders/file-system";
 import { type Source } from "./context";
-import { TRANSFORMER_API } from "./transform";
-import { type Plugin } from "./plugin";
-import "./jest";
-import { Rule } from "./rule";
 import { type DOMReadyEvent } from "./event";
-import { StaticConfigLoader } from "./browser";
+import { HtmlValidate } from "./htmlvalidate";
+import { type Plugin } from "./plugin";
+import { Rule } from "./rule";
+import { TRANSFORMER_API } from "./transform";
 
 expect.addSnapshotSerializer({
 	serialize(value: string): string {

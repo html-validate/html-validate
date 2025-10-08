@@ -1,6 +1,6 @@
+import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { type HtmlElement } from "../dom";
 
 export default class MultipleLabeledControls extends Rule {
 	private labelable: string = "";
