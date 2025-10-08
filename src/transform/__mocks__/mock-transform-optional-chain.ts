@@ -1,10 +1,10 @@
-import { type Source } from "../../context";
 import {
 	type TransformContext,
 	type Transformer,
 	type TransformerResult,
 	TRANSFORMER_API,
 } from "..";
+import { type Source } from "../../context";
 
 /**
  * Mock transformer chaining to a new transformer by chopping of the current

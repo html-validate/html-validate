@@ -55,7 +55,7 @@ function getMarkup(src: unknown): string {
 
 type Arg1 = Partial<Message> | ConfigData | string;
 type Arg2 = ConfigData | string;
-type Arg3 = string; /* eslint-disable-line sonarjs/redundant-type-aliases -- for consistency */
+type Arg3 = string;
 
 function createMatcher(
 	expect: MatcherExpect,

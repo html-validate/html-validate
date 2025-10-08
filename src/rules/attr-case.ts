@@ -1,6 +1,6 @@
 import { type HtmlElement } from "../dom";
 import { type AttributeEvent } from "../event";
-import { type SchemaObject, type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 import { type CaseStyleName, CaseStyle } from "./helper/case-style";
 
 interface RuleOptions {

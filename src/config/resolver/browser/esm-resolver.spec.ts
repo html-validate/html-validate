@@ -1,6 +1,6 @@
 import { type Source } from "../../../context";
-import * as ImportFunctionModule from "./import-function";
 import { esmResolver } from "./esm-resolver";
+import * as ImportFunctionModule from "./import-function";
 
 let mockModules: Record<string, unknown>;
 const mockImport = jest.spyOn(ImportFunctionModule, "importFunction");

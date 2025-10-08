@@ -1,8 +1,8 @@
-import { HtmlValidate } from "../../htmlvalidate";
-import { processAttribute } from "../../transform/mocks/attribute";
 import "../../jest";
-import { Parser } from "../../parser";
 import { Config } from "../../config";
+import { HtmlValidate } from "../../htmlvalidate";
+import { Parser } from "../../parser";
+import { processAttribute } from "../../transform/mocks/attribute";
 import { isSimpleTable } from "./h63";
 
 describe("isSimpleTable()", () => {

@@ -2,10 +2,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { type Source } from "../../../context";
 import * as ResolveModule from "../../../resolve";
+import { determineRootDir } from "./determine-root-dir";
+import { esmResolver } from "./esm-resolver";
 import * as ImportFunctionModule from "./import-function";
 import { type ImportError } from "./internal-import";
-import { esmResolver } from "./esm-resolver";
-import { determineRootDir } from "./determine-root-dir";
 
 let mockModules: Record<string, unknown>;
 const mockResolve = jest.spyOn(ResolveModule, "importResolve");

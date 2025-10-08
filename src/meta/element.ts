@@ -12,7 +12,7 @@ export interface PermittedGroup {
 /**
  * @public
  */
-/* eslint-disable-next-line sonarjs/redundant-type-aliases -- better for documentation and help in IDE */
+
 export type CategoryOrTag = string;
 
 /**

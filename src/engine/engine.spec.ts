@@ -1,14 +1,14 @@
 import { type ResolvedConfig, type RuleOptions, Config, Severity } from "../config";
 import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
+import { type ConfigReadyEvent, type DOMLoadEvent, EventHandler } from "../event";
 import { InvalidTokenError } from "../lexer";
 import "../jest";
 import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
+import { type Plugin } from "../plugin";
 import { Reporter } from "../reporter";
 import { Rule } from "../rule";
-import { type ConfigReadyEvent, type DOMLoadEvent, EventHandler } from "../event";
-import { type Plugin } from "../plugin";
 import { Engine } from "./engine";
 
 function inline(source: string): Source {

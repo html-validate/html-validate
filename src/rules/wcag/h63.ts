@@ -1,8 +1,8 @@
 import { type HtmlElement, DynamicValue } from "../../dom";
-import { type ElementReadyEvent } from "../../event";
-import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import html5 from "../../elements/html5";
+import { type ElementReadyEvent } from "../../event";
 import { type MetaAttribute } from "../../meta";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import { naturalJoin } from "../../utils/natural-join";
 
 interface RuleOptions {

@@ -53,7 +53,7 @@ It is also possible to pass a [configuration loader](#configuration-loaders) to 
 
 ```diff
 -import { HtmlValidate } from "html-validate";
-+import { StaticConfigLoader, HtmlValidate } from "html-validate";
++import { HtmlValidate, StaticConfigLoader } from "html-validate";
 
 -const htmlvalidate = new HtmlValidate();
 +const loader = new StaticConfigLoader();
@@ -296,7 +296,7 @@ htmlvalidate.validateString("..", "/path/to/my-file.html");
 Default loader which loads configuration only from the configuration passed to the constructor or explicit overrides to `validateString(..)`.
 
 ```ts
-import { StaticConfigLoader, HtmlValidate } from "html-validate";
+import { HtmlValidate, StaticConfigLoader } from "html-validate";
 
 const loader = new StaticConfigLoader({
   /* your global configuration here */
@@ -308,7 +308,7 @@ const htmlvalidate = new HtmlValidate(loader);
 The global configuration is used by default when using `validateFile`, `validateString` and `validateSource` without any arguments:
 
 ```ts
-import { StaticConfigLoader, HtmlValidate } from "html-validate";
+import { HtmlValidate, StaticConfigLoader } from "html-validate";
 
 const loader = new StaticConfigLoader({
   /* your global configuration here */

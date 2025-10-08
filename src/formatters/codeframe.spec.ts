@@ -1,7 +1,6 @@
 import { type Message } from "../message";
 import { type Result } from "../reporter";
 import {
-	outOfBounds,
 	edgeCases,
 	emptyMessages,
 	emptyResult,
@@ -9,6 +8,7 @@ import {
 	missingSource,
 	missingUrl,
 	multiline,
+	outOfBounds,
 	regular,
 	singleChar,
 } from "./__fixtures__";

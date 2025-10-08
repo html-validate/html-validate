@@ -1,18 +1,18 @@
 /* eslint-disable no-console, n/no-process-exit -- as expected from a cli app */
-import fs from "fs";
+import fs from "node:fs";
 import path from "node:path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { type UserErrorData, SchemaValidationError, isUserError } from "..";
-import { name, version, bugs as pkgBugs } from "../generated/package";
-import { CLI } from "./cli";
-import { handleSchemaValidationError, ImportResolveMissingError } from "./errors";
-import { Mode, modeToFlag } from "./mode";
-import { lint } from "./actions/lint";
-import { init } from "./actions/init";
-import { printConfig } from "./actions/print-config";
+import { bugs as pkgBugs, name, version } from "../generated/package";
 import { dump } from "./actions/dump";
+import { init } from "./actions/init";
+import { lint } from "./actions/lint";
+import { printConfig } from "./actions/print-config";
+import { CLI } from "./cli";
+import { ImportResolveMissingError, handleSchemaValidationError } from "./errors";
 import { haveImportMetaResolve } from "./have-import-meta-resolve";
+import { Mode, modeToFlag } from "./mode";
 
 interface ParsedArgs {
 	config?: string;

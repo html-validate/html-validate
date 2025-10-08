@@ -1,4 +1,4 @@
-import { reportOk, reportOkAsync, reportError, reportErrorAsync } from "./__fixtures__";
+import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
 import "../jest";
 
 describe("toMatchCodeframe()", () => {

@@ -12,21 +12,21 @@ import {
 	EventHandler,
 } from "../event";
 import {
-	type Token,
-	type TokenStream,
-	type DirectiveToken,
-	type TagOpenToken,
-	type TagCloseToken,
-	type CommentToken,
 	type AttrNameToken,
 	type AttrValueToken,
+	type CommentToken,
 	type ConditionalToken,
+	type DirectiveToken,
 	type DoctypeOpenToken,
 	type DoctypeValueToken,
+	type TagCloseToken,
+	type TagOpenToken,
+	type Token,
+	type TokenStream,
 	Lexer,
 	TokenType,
 } from "../lexer";
-import { type MetaTable, type MetaElement } from "../meta";
+import { type MetaElement, type MetaTable } from "../meta";
 import { type AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";

@@ -2,7 +2,7 @@ import { Config } from "../../config";
 import { type Location } from "../../context";
 import { DynamicValue } from "../../dom";
 import { Parser } from "../../parser";
-import { classifyNodeText, getCachekey, TextClassification } from "./text";
+import { TextClassification, classifyNodeText, getCachekey } from "./text";
 
 const location: Location = {
 	filename: "inline",

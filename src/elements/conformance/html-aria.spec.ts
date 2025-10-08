@@ -3,11 +3,11 @@
  * https://www.w3.org/TR/html-aria
  */
 
-import { ariaNaming } from "../../rules/helper";
 import { type Source } from "../../context";
 import { type HtmlElement } from "../../dom";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Parser } from "../../parser";
+import { ariaNaming } from "../../rules/helper";
 import htmlAria from "./html-aria";
 
 const htmlvalidate = new HtmlValidate({

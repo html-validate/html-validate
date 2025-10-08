@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import {
 	type Source,
 	type TransformContext,
@@ -9,8 +9,8 @@ import {
 export {
 	type Source,
 	type Transformer,
-	type TransformerResult,
 	type TransformerChainedResult,
+	type TransformerResult,
 } from "html-validate";
 
 function isIterable(

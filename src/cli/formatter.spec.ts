@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import { vol } from "memfs";
 import { type Report } from "../reporter";
 import { CLI } from "./cli";

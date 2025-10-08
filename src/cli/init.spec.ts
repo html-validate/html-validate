@@ -3,7 +3,7 @@ const prompts = jest.fn();
 jest.mock("prompts", () => prompts);
 jest.mock("fs");
 
-import fs from "fs";
+import fs from "node:fs";
 import { vol } from "memfs";
 import { CLI } from "./cli";
 

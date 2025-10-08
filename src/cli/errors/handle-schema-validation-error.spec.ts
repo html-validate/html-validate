@@ -1,9 +1,9 @@
+import { Console } from "node:console";
 import fs from "node:fs";
 import path from "node:path";
-import { Console } from "node:console";
-import { WritableStreamBuffer } from "stream-buffers";
 import Ajv, { type SchemaObject } from "ajv";
 import kleur from "kleur";
+import { WritableStreamBuffer } from "stream-buffers";
 import { SchemaValidationError } from "../../error";
 import { stripAnsi } from "../../jest/utils";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../../schema/keywords";

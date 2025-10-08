@@ -1,11 +1,11 @@
 export {
-	type Source,
-	type SourceHooks,
 	type ProcessAttributeCallback,
 	type ProcessElementCallback,
 	type ProcessElementContext,
+	type Source,
+	type SourceHooks,
 } from "./source";
 export { type Location, sliceLocation } from "./location";
-export { Context, ContentModel } from "./context";
+export { ContentModel, Context } from "./context";
 export { normalizeSource } from "./normalize-source";
 export { State } from "./state";

@@ -1,7 +1,7 @@
 export { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
-export { parseCssDeclaration, type CSSStyleDeclaration } from "./css";
+export { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 export { HtmlElement, NodeClosed, isElementNode } from "./htmlelement";
-export { DOMNode, type DOMInternalID } from "./domnode";
+export { type DOMInternalID, DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";

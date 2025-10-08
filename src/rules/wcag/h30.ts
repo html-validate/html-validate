@@ -2,7 +2,7 @@ import { type DOMReadyEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 import { hasAltText, hasAriaLabel } from "../helper";
 import { inAccessibilityTree } from "../helper/a11y";
-import { classifyNodeText, TextClassification } from "../helper/text";
+import { TextClassification, classifyNodeText } from "../helper/text";
 
 export default class H30 extends Rule {
 	public documentation(): RuleDocumentation {

@@ -3,7 +3,7 @@ import { Parser } from "../../parser";
 import { reset as resetDOMCounter } from "../domnode";
 import { type HtmlElement } from "../htmlelement";
 import { type NodeType } from "../nodetype";
-import { escapeSelectorComponent, generateIdSelector, Selector } from "./selector";
+import { Selector, escapeSelectorComponent, generateIdSelector } from "./selector";
 
 interface StrippedHtmlElement {
 	id: string | null;

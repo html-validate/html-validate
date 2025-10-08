@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import { memfs } from "memfs";
 import { type ResolvedConfigData, ResolvedConfig } from "../config";
 import { MetaTable } from "../meta";

@@ -1,5 +1,5 @@
 import { WritableStreamBuffer } from "stream-buffers";
-import { HtmlValidate, Config } from "../..";
+import { Config, HtmlValidate } from "../..";
 import { printConfig } from "./print-config";
 
 let stdout: WritableStreamBuffer;

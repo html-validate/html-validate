@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports -- technical debt */
 
+import { type ResolvedConfigData, type Resolver, ResolvedConfig, staticResolver } from "../config";
 import { type Source } from "../context";
 import { MetaTable } from "../meta";
-import { type ResolvedConfigData, ResolvedConfig, type Resolver, staticResolver } from "../config";
 import { transformSource, transformSourceSync } from "./transform-source";
 
 function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {

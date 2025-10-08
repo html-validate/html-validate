@@ -1,12 +1,12 @@
-import Ajv, { type ValidateFunction, type SchemaObject } from "ajv";
+import Ajv, { type SchemaObject, type ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import deepmerge from "deepmerge";
 import { type HtmlElement } from "../dom";
-import { ensureError, SchemaValidationError, UserError, InheritError } from "../error";
+import { InheritError, SchemaValidationError, UserError, ensureError } from "../error";
 import { type SchemaValidationPatch } from "../plugin";
-import { computeHash } from "../utils/compute-hash";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
+import { computeHash } from "../utils/compute-hash";
 import {
 	type InternalAttributeFlags,
 	type MetaAttribute,

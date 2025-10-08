@@ -1,4 +1,4 @@
-const { minVersion, minSatisfying } = require("semver");
+const { minSatisfying, minVersion } = require("semver");
 const { jest } = require("../package.json").peerDependencies;
 
 const constraint = process.argv[2];

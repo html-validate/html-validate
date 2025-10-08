@@ -114,8 +114,8 @@ export {
 export {
 	type IncludeExcludeOptions,
 	type TextClassificationOptions,
-	ariaNaming,
 	TextClassification,
+	ariaNaming,
 	classifyNodeText,
 	keywordPatternMatcher,
 } from "./rules/helper";
@@ -131,11 +131,11 @@ export {
 export { type DeferredMessage, type Report, type Result, Reporter } from "./reporter";
 export {
 	type TransformContext,
+	type TransformFS,
 	type Transformer,
 	type TransformerChainedResult,
 	type TransformerEntry,
 	type TransformerResult,
-	type TransformFS,
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";

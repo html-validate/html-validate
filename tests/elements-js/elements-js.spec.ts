@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { HtmlValidate, FileSystemConfigLoader } from "../../src/index";
+import { FileSystemConfigLoader, HtmlValidate } from "../../src/index";
 import "../../src/jest";
 
 it("should handle elements js file", async () => {

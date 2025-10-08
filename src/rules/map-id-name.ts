@@ -1,4 +1,4 @@
-import { DynamicValue, type Attribute } from "../dom";
+import { type Attribute, DynamicValue } from "../dom";
 import { type TagReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 

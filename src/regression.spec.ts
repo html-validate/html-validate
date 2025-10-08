@@ -1,10 +1,10 @@
 import { globSync } from "glob";
+import { StaticConfigLoader, staticResolver } from "./browser";
 import { type Source } from "./context";
 import { DynamicValue } from "./dom";
 import { HtmlValidate } from "./htmlvalidate";
 import { type AttributeData } from "./parser";
 import { TRANSFORMER_API } from "./transform";
-import { StaticConfigLoader, staticResolver } from "./browser";
 
 function transformer(source: Source): Iterable<Source> {
 	source.hooks = {

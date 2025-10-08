@@ -3,8 +3,8 @@ export {
 	type ConfigData,
 	type RuleConfig,
 	type RuleOptions,
-	type TransformMap,
 	type RuleSeverity,
+	type TransformMap,
 } from "./config-data";
 export { ConfigLoader } from "./config-loader";
 export { defineConfig } from "./define-config";

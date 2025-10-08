@@ -1,4 +1,4 @@
-const url = require("url");
+const url = require("node:url");
 const path = require("canonical-path");
 
 /**

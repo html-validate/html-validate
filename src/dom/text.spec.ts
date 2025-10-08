@@ -1,8 +1,8 @@
 import { type Location } from "../context";
-import { HtmlElement } from "./htmlelement";
 import { DynamicValue } from "./dynamic-value";
+import { HtmlElement } from "./htmlelement";
 import { NodeType } from "./nodetype";
-import { isTextNode, TextNode } from "./text";
+import { TextNode, isTextNode } from "./text";
 
 const location: Location = {
 	filename: "inline",
