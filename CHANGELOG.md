@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.1.2 (2025-10-11)
+
+### Bug Fixes
+
+- **rules:** ignore disabled input fields in `form-dup-name` rule ([cf1962e](https://gitlab.com/html-validate/html-validate/commit/cf1962ea79701d1a6f6933ee23b443373023c544)), closes [#294](https://gitlab.com/html-validate/html-validate/issues/294)
+
 ## 10.1.1 (2025-10-06)
 
 ### Bug Fixes

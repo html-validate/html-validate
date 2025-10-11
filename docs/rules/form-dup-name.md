@@ -187,7 +187,7 @@ export default defineMetadata({
 
 ## Version history
 
-- %version% - Rule ignores disabled inputs.
+- 10.1.2 - Rule ignores disabled inputs.
 - 8.19.0 - `allowCheckboxDefault` option added.
 - 8.18.1 - Track `<template>` elements separately.
 - 7.15.2 - `<button type="submit">` included as `shared` by default.
