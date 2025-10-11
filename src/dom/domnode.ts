@@ -83,8 +83,8 @@ export class DOMNode {
 	 *
 	 * @internal
 	 */
-	public cacheEnable(): void {
-		this.cache = new Map();
+	public cacheEnable(enable: boolean = true): void {
+		this.cache = enable ? new Map() : null;
 	}
 
 	/**

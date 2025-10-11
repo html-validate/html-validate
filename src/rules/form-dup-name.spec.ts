@@ -25,6 +25,34 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when other input fields are disabled", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<input name="foo" disabled />
+				<input name="foo" hidden />
+				<input name="foo" inert />
+				<input name="foo" />
+			</form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when other input fields are disabled by fieldset", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<fieldset disabled><input name="foo" /></fieldset>
+				<fieldset hidden><input name="foo" /></fieldset>
+				<fieldset inert><input name="foo" /></fieldset>
+				<input name="foo" />
+			</form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when different forms have same name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `

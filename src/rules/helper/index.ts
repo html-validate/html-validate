@@ -1,4 +1,5 @@
 export { ariaNaming } from "./aria-naming";
+export { isInputDisabled } from "./is-input-disabled";
 export {
 	type IncludeExcludeOptions,
 	isKeywordIgnored,

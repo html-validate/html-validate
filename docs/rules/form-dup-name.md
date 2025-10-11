@@ -15,6 +15,7 @@ The form control name also plays a role in the autocomplete heurestics so using 
 By default, radiobuttons (`<input type="radio">`) is generally ignored by this rule as they are typically using the same name on purpose but they cannot share the same name as other controls.
 
 Each `<form>` and `<template>` element tracks the names separately, i.e. you can have two forms with colliding names.
+Disabled inputs are ignored by this rule.
 
 ## Rule details
 
@@ -186,6 +187,7 @@ export default defineMetadata({
 
 ## Version history
 
+- %version% - Rule ignores disabled inputs.
 - 8.19.0 - `allowCheckboxDefault` option added.
 - 8.18.1 - Track `<template>` elements separately.
 - 7.15.2 - `<button type="submit">` included as `shared` by default.
