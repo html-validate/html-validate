@@ -333,7 +333,7 @@ export class DOMNode {
     // @internal
     blockRules(rules: string[] | Set<string>, blocker: RuleBlocker): void;
     // @internal
-    cacheEnable(): void;
+    cacheEnable(enable?: boolean): void;
     cacheExists(key: string | number | symbol): boolean;
     cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
     // (undocumented)
