@@ -5,7 +5,7 @@ const categoryName = {
 	security: "Security",
 	seo: "SEO",
 	style: "Style",
-	syntax: "HTML Syntax and concepts",
+	syntax: "HTML syntax and concepts",
 	document: "Document",
 };
 

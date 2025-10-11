@@ -11,3 +11,5 @@ Rules with <span class="fa-solid fa-check"></span> are enabled by `html-validate
 Rules with <span class="fa-solid fa-file-lines"></span> are enabled by `html-validate:document`.
 
 Additional presets can be found and compared in {@link rules/presets Configuration presets}.
+
+Third-party rules can be found in {@link rules/third-party Third-party rules}.

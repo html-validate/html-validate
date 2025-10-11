@@ -115,6 +115,7 @@ rules/script-type.html
 rules/svg-focusable.html
 rules/tel-non-breaking.html
 rules/text-content.html
+rules/third-party.html
 rules/unique-landmark.html
 rules/unrecognized-char-ref.html
 rules/valid-autocomplete.html
