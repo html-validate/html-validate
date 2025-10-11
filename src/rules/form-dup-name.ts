@@ -1,7 +1,8 @@
 import { type Attribute, type DynamicValue, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
-import { partition } from "./helper";
+import { isInputDisabled, partition } from "./helper";
+import { isHTMLHidden, isInert } from "./helper/a11y";
 
 interface ControlDetails {
 	/** `true` if control has name ending with `[]` */
@@ -36,6 +37,22 @@ declare module "../dom/cache" {
 		[UNIQUE_CACHE_KEY]: Map<string, ControlDetails>;
 		[SHARED_CACHE_KEY]: Map<string, string>;
 	}
+}
+
+function isEnabled(element: HtmlElement): boolean {
+	if (isHTMLHidden(element)) {
+		return false;
+	}
+
+	if (isInert(element)) {
+		return false;
+	}
+
+	if (isInputDisabled(element)) {
+		return false;
+	}
+
+	return true;
 }
 
 function haveName(name: string | DynamicValue | null | undefined): name is string {
@@ -122,7 +139,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		/* eslint-disable-next-line complexity -- technical debt */
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			const controls = document.querySelectorAll(selector);
+			const controls = document.querySelectorAll(selector).filter(isEnabled);
 			const [sharedControls, uniqueControls] = partition(controls, (it) => {
 				return allowSharedName(it, shared);
 			});

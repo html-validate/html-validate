@@ -14,7 +14,7 @@ declare module "../../dom/cache" {
 export interface IsInputDisabledResult {
 	/** `true` if one or more fieldset ancestors are disabled */
 	byFieldset: boolean;
-	/** `true` if the element itself is inert */
+	/** `true` if the element itself is disabled */
 	bySelf: boolean;
 }
 
