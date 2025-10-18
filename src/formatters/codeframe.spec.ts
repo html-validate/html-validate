@@ -12,15 +12,21 @@ import {
 	regular,
 	singleChar,
 } from "./__fixtures__";
+import { type CodeframeOptions, type codeframe as fn } from "./codeframe";
 
-/* force colors on when running stylish tests */
-const defaultColor = process.env.FORCE_COLOR;
-process.env.FORCE_COLOR = "1";
+let codeframe: typeof fn;
 
-import { type CodeframeOptions, codeframe } from "./codeframe";
+beforeAll(async () => {
+	/* force colors on when running codeframe tests */
+	const defaultColor = process.env.FORCE_COLOR;
+	process.env.FORCE_COLOR = "1";
 
-/* restore color, need only to be set when importing library */
-process.env.FORCE_COLOR = defaultColor;
+	const module = await import("./codeframe");
+	codeframe = module.codeframe;
+
+	/* restore color, need only to be set when importing library */
+	process.env.FORCE_COLOR = defaultColor;
+});
 
 describe("codeframe formatter", () => {
 	it("should generate output", () => {

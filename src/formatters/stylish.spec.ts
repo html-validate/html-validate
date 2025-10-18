@@ -6,44 +6,50 @@ import {
 	missingUrl,
 	regular,
 } from "./__fixtures__";
+import { type stylish as fn } from "./stylish";
 
-/* force colors on when running stylish tests */
-const defaultColor = process.env.FORCE_COLOR;
-process.env.FORCE_COLOR = "1";
+let stylish: typeof fn;
 
-import formatter from "./stylish";
+beforeAll(async () => {
+	/* force colors on when running stylish tests */
+	const defaultColor = process.env.FORCE_COLOR;
+	process.env.FORCE_COLOR = "1";
 
-/* restore color, need only to be set when importing library */
-process.env.FORCE_COLOR = defaultColor;
+	const module = await import("./stylish");
+	stylish = module.stylish;
+
+	/* restore color, need only to be set when importing library */
+	process.env.FORCE_COLOR = defaultColor;
+});
 
 describe("stylish formatter", () => {
 	it("should generate output", () => {
 		expect.assertions(1);
-		expect(formatter(regular)).toMatchSnapshot();
+		expect(stylish(regular)).toMatchSnapshot();
 	});
 
 	it("should handle missing rule url", () => {
 		expect.assertions(1);
-		expect(formatter(missingUrl)).toMatchSnapshot();
+		expect(stylish(missingUrl)).toMatchSnapshot();
 	});
 
 	it("should handle missing source", () => {
 		expect.assertions(1);
-		expect(formatter(missingSource)).toMatchSnapshot();
+		expect(stylish(missingSource)).toMatchSnapshot();
 	});
 
 	it("should handle edge cases", () => {
 		expect.assertions(1);
-		expect(formatter(edgeCases)).toMatchSnapshot();
+		expect(stylish(edgeCases)).toMatchSnapshot();
 	});
 
 	it("should handle empty result", () => {
 		expect.assertions(1);
-		expect(formatter(emptyResult)).toMatchSnapshot();
+		expect(stylish(emptyResult)).toMatchSnapshot();
 	});
 
 	it("should handle empty messages", () => {
 		expect.assertions(1);
-		expect(formatter(emptyMessages)).toMatchSnapshot();
+		expect(stylish(emptyMessages)).toMatchSnapshot();
 	});
 });
