@@ -1,7 +1,6 @@
 import { stylish as stylishImpl } from "@html-validate/stylish";
 import kleur from "kleur";
 import { type Result } from "../reporter";
-import { type Formatter } from "./formatter";
 
 function linkSummary(results: Result[]): string {
 	const urls = results.reduce<string[]>((result, it): string[] => {
@@ -20,7 +19,7 @@ function linkSummary(results: Result[]): string {
 	return `\n${kleur.bold("More information")}:\n${lines.join("")}\n`;
 }
 
-function stylish(results: Result[]): string {
+export function stylish(results: Result[]): string {
 	const errors = stylishImpl(
 		results.map((it) => ({
 			...it,
@@ -31,6 +30,3 @@ function stylish(results: Result[]): string {
 	const links = linkSummary(results);
 	return `${errors}${links}`;
 }
-
-const formatter: Formatter = stylish;
-export default formatter;
