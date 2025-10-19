@@ -64,11 +64,11 @@ function mockTransformerResolver(
 }
 
 describe("resolveConfig()", () => {
-	it("should query resolvers for requested id", () => {
+	it("should query resolvers for requested id", async () => {
 		expect.assertions(1);
 		const resolver = mockConfigResolver("foo", {});
 		const spy = jest.spyOn(resolver, "resolveConfig");
-		resolveConfig([resolver], "foo", { cache: false });
+		await resolveConfig([resolver], "foo", { cache: false });
 		expect(spy).toHaveBeenCalledWith("foo", { cache: false });
 	});
 
@@ -151,11 +151,11 @@ describe("resolveConfigAsync()", () => {
 });
 
 describe("resolveElements()", () => {
-	it("should query resolvers for requested id", () => {
+	it("should query resolvers for requested id", async () => {
 		expect.assertions(1);
 		const resolver = mockElementsResolver("foo", {});
 		const spy = jest.spyOn(resolver, "resolveElements");
-		resolveElements([resolver], "foo", { cache: false });
+		await resolveElements([resolver], "foo", { cache: false });
 		expect(spy).toHaveBeenCalledWith("foo", { cache: false });
 	});
 
@@ -238,11 +238,11 @@ describe("resolveElementsAsync()", () => {
 });
 
 describe("resolvePlugin()", () => {
-	it("should query resolvers for requested id", () => {
+	it("should query resolvers for requested id", async () => {
 		expect.assertions(1);
 		const resolver = mockPluginResolver("foo", {});
 		const spy = jest.spyOn(resolver, "resolvePlugin");
-		resolvePlugin([resolver], "foo", { cache: false });
+		await resolvePlugin([resolver], "foo", { cache: false });
 		expect(spy).toHaveBeenCalledWith("foo", { cache: false });
 	});
 
@@ -337,11 +337,11 @@ describe("resolveTransformer()", () => {
 		return [];
 	}
 
-	it("should query resolvers for requested id", () => {
+	it("should query resolvers for requested id", async () => {
 		expect.assertions(1);
 		const resolver = mockTransformerResolver("foo", foo);
 		const spy = jest.spyOn(resolver, "resolveTransformer");
-		resolveTransformer([resolver], "foo", { cache: false });
+		await resolveTransformer([resolver], "foo", { cache: false });
 		expect(spy).toHaveBeenCalledWith("foo", { cache: false });
 	});
 

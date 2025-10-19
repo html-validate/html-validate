@@ -209,6 +209,7 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: ["element-name"],
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
 			expect(docs).toMatchSnapshot();
 		});
@@ -224,6 +225,7 @@ describe("rule element-name", () => {
 				pattern: DEFAULT_PATTERN,
 				blacklist: [] as string[],
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
 			expect(docs).toMatchSnapshot();
 		});
@@ -239,6 +241,7 @@ describe("rule element-name", () => {
 				pattern: "^foo-.+$",
 				blacklist: [] as string[],
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("element-name", null, context);
 			expect(docs).toMatchSnapshot();
 		});

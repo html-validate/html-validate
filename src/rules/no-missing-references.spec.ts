@@ -281,6 +281,7 @@ describe("rule no-missing-references", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-missing-references": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-missing-references", null, {
 			key: "my-attribute",
 			value: "my-id",

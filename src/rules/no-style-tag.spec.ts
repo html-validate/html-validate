@@ -32,6 +32,7 @@ describe("rule no-style-tag", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-style-tag");
 		expect(docs).toMatchSnapshot();
 	});

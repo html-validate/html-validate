@@ -9,6 +9,7 @@ describe("toBeValid()", () => {
 
 	it("should pass if async report is valid", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 		await expect(reportOkAsync()).toBeValid();
 	});
 
@@ -28,6 +29,7 @@ describe("toBeValid()", () => {
 		expect.assertions(3);
 		let error: any;
 		try {
+			/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 			await expect(reportErrorAsync()).toBeValid();
 		} catch (e: any) {
 			error = e;

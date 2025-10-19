@@ -455,6 +455,7 @@ describe("rule input-missing-label", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("input-missing-label");
 		expect(docs).toMatchSnapshot();
 	});

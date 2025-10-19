@@ -174,6 +174,7 @@ describe("wcag/h30", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h30": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("wcag/h30");
 		expect(docs).toMatchSnapshot();
 	});

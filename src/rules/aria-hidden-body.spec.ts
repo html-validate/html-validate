@@ -2,7 +2,7 @@ import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
 
-describe("rule attr-case", () => {
+describe("rule aria-hidden-body", () => {
 	let htmlvalidate: HtmlValidate;
 
 	beforeAll(() => {
@@ -77,6 +77,7 @@ describe("rule attr-case", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("aria-hidden-body");
 		expect(docs).toMatchSnapshot();
 	});

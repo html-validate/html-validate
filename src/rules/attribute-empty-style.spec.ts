@@ -160,6 +160,7 @@ describe("rule attribute-empty-style", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "attribute-empty-style": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-empty-style");
 		expect(docs).toMatchSnapshot();
 	});

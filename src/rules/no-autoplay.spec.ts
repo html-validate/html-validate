@@ -69,6 +69,7 @@ describe("rule no-autoplay", () => {
 		const context = {
 			tagName: "video",
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-autoplay", null, context);
 		expect(docs).toMatchSnapshot();
 	});

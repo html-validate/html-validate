@@ -59,6 +59,7 @@ describe("DOMTree", () => {
 		expect.assertions(1);
 		const spy = jest.spyOn(walk, "depthFirst");
 		const cb = jest.fn();
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		tree.visitDepthFirst(cb);
 		expect(spy).toHaveBeenCalledWith(tree, cb);
 	});
@@ -67,6 +68,7 @@ describe("DOMTree", () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(tree.root, "find").mockReturnValue(node);
 		const cb = jest.fn().mockReturnValue(true);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		expect(tree.find(cb)).toBe(node);
 		expect(spy).toHaveBeenCalledWith(cb);
 	});

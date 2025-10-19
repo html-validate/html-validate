@@ -72,6 +72,7 @@ describe("rule input-attributes", () => {
 			attribute: "alt",
 			type: "text",
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("input-attributes", null, context);
 		expect(docs).toMatchSnapshot();
 	});
@@ -86,6 +87,7 @@ describe("rule input-attributes", () => {
 			attribute: "missing",
 			type: "text",
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("input-attributes", null, context);
 		expect(docs).toMatchSnapshot();
 	});

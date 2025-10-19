@@ -147,6 +147,7 @@ describe("wcag/h32", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h32": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("wcag/h32");
 		expect(docs).toMatchSnapshot();
 	});

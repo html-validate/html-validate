@@ -334,6 +334,7 @@ describe("rule require-sri", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "require-sri": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("require-sri");
 		expect(docs).toMatchSnapshot();
 	});

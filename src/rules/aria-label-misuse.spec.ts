@@ -79,7 +79,7 @@ describe("rule aria-label-misuse", () => {
 			${'<td aria-label="foobar"></td>'}             | ${"<td>"}
 			${'<th aria-label="foobar"></th>'}             | ${"<th>"}
 			${'<any aria-label="foobar"></any>'}           | ${"<any>"}
-		`("$description", async ({ markup }) => {
+		`("$description", async ({ markup }: { markup: string }) => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -209,6 +209,7 @@ describe("rule aria-label-misuse", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("aria-label-misuse");
 		expect(docs).toMatchSnapshot();
 	});

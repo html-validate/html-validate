@@ -119,6 +119,7 @@ describe("rule no-self-closing", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "no-self-closing": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-self-closing");
 		expect(docs).toMatchSnapshot();
 	});
@@ -129,6 +130,7 @@ describe("rule no-self-closing", () => {
 			rules: { "no-self-closing": "error" },
 		});
 		const context = "div";
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-self-closing", null, context);
 		expect(docs).toMatchSnapshot();
 	});

@@ -1,11 +1,11 @@
 import { cjsResolver } from "../config/resolver/nodejs";
-import { Source } from "../context";
-import { Plugin } from "../plugin";
+import { type Source } from "../context";
+import { type Plugin } from "../plugin";
 import { getTransformerFunction } from "./get-transformer-function";
 import { TRANSFORMER_API } from "./transformer-api";
 
 expect.addSnapshotSerializer({
-	serialize(value) {
+	serialize(value: string) {
 		return value;
 	},
 	test(): boolean {
@@ -90,63 +90,63 @@ describe("should load transformer from plugins", () => {
 	});
 });
 
-it("should throw error if transformer uses obsolete API", () => {
+it("should throw error if transformer uses obsolete API", async () => {
 	expect.assertions(1);
 	const resolvers = [cjsResolver()]; // uses jest automock from src/transform/__mocks__/
-	expect(() => {
-		getTransformerFunction(resolvers, "mock-transform-obsolete", []);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction(resolvers, "mock-transform-obsolete", []);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		`Failed to load transformer "mock-transform-obsolete": Transformer uses API version 0 but only version 1 is supported`,
 	);
 });
 
-it("should throw error when transform is missing", () => {
+it("should throw error when transform is missing", async () => {
 	expect.assertions(1);
-	expect(() => {
-		getTransformerFunction([], "missing-transform", []);
-	}).toThrowErrorMatchingInlineSnapshot(`Failed to load transformer "missing-transform"`);
+	await expect(async () => {
+		await getTransformerFunction([], "missing-transform", []);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(`Failed to load transformer "missing-transform"`);
 });
 
-it("should throw error when referencing plugin without any transformers", () => {
+it("should throw error when referencing plugin without any transformers", async () => {
 	expect.assertions(2);
 	const mockPlugin: Plugin = {
 		name: "mock-plugin",
 	};
-	expect(() => {
-		getTransformerFunction([], "mock-plugin", [mockPlugin]);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "mock-plugin", [mockPlugin]);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		`Failed to load transformer "mock-plugin": Plugin does not expose any transformers`,
 	);
-	expect(() => {
-		getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		`Failed to load transformer "mock-plugin:foobar": Plugin does not expose any transformers`,
 	);
 });
 
-it("should throw error when named transform references missing plugin", () => {
+it("should throw error when named transform references missing plugin", async () => {
 	expect.assertions(1);
-	expect(() => {
-		getTransformerFunction([], "missing-plugin:foobar", []);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "missing-plugin:foobar", []);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		`Failed to load transformer "missing-plugin:foobar": No plugin named "missing-plugin" has been loaded`,
 	);
 });
 
-it("should throw error when named transform is missing", () => {
+it("should throw error when named transform is missing", async () => {
 	expect.assertions(1);
 	const mockPlugin: Plugin = {
 		name: "mock-plugin",
 		transformer: {},
 	};
-	expect(() => {
-		getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		'Failed to load transformer "mock-plugin:foobar": Plugin "mock-plugin" does not expose a transformer named "foobar".',
 	);
 });
 
-it("should throw error when referencing named transformer without name", () => {
+it("should throw error when referencing named transformer without name", async () => {
 	expect.assertions(1);
 	const mockPlugin: Plugin = {
 		name: "mock-plugin",
@@ -154,14 +154,14 @@ it("should throw error when referencing named transformer without name", () => {
 			foobar: null,
 		},
 	};
-	expect(() => {
-		getTransformerFunction([], "mock-plugin", [mockPlugin]);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "mock-plugin", [mockPlugin]);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		'Failed to load transformer "mock-plugin": Transformer "mock-plugin" refers to unnamed transformer but plugin exposes only named.',
 	);
 });
 
-it("should throw error when referencing unnamed transformer with name", () => {
+it("should throw error when referencing unnamed transformer with name", async () => {
 	expect.assertions(1);
 	const mockPlugin: Plugin = {
 		name: "mock-plugin",
@@ -169,9 +169,9 @@ it("should throw error when referencing unnamed transformer with name", () => {
 			return [];
 		},
 	};
-	expect(() => {
-		getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
-	}).toThrowErrorMatchingInlineSnapshot(
+	await expect(async () => {
+		await getTransformerFunction([], "mock-plugin:foobar", [mockPlugin]);
+	}).rejects.toThrowErrorMatchingInlineSnapshot(
 		'Failed to load transformer "mock-plugin:foobar": Transformer "mock-plugin:foobar" refers to named transformer but plugin exposes only unnamed, use "mock-plugin" instead.',
 	);
 });

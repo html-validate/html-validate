@@ -98,9 +98,9 @@ it("getGlobalConfigSync(..) should cache results", () => {
 	const loader = new SyncMockLoader([]);
 	const defaultConfig = jest.spyOn(loader, "defaultConfig");
 	expect(defaultConfig).toHaveBeenCalledTimes(0);
-	loader.getConfigFor();
+	void loader.getConfigFor();
 	expect(defaultConfig).toHaveBeenCalledTimes(1);
-	loader.getConfigFor();
+	void loader.getConfigFor();
 	expect(defaultConfig).toHaveBeenCalledTimes(1);
 });
 

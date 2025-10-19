@@ -91,6 +91,7 @@ describe("rule deprecated-rule", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "deprecated-rule": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("deprecated-rule");
 		expect(docs).toMatchSnapshot();
 	});
@@ -100,6 +101,7 @@ describe("rule deprecated-rule", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "deprecated-rule": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("deprecated-rule", null, "my-rule");
 		expect(docs).toMatchSnapshot();
 	});

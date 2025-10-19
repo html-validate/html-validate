@@ -132,6 +132,7 @@ describe("rule map-id-name", () => {
 			root: true,
 			rules: { "map-id-name": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("map-id-name");
 		expect(docs).toMatchInlineSnapshot(`
 			{

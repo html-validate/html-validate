@@ -32,7 +32,8 @@ describe("toHTMLValidate()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(`
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
+		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(`
 			"Expected HTML to be valid but had the following errors:
 
 			  Unclosed element '<a>' [close-order]
@@ -53,7 +54,8 @@ describe("toHTMLValidate()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
+		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(
 			`"HTML is valid when an error was expected"`,
 		);
 	});
@@ -151,7 +153,8 @@ describe("toHTMLValidate()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error?.message || "")).toMatchInlineSnapshot(`
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
+		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(`
 			"expect(received).not.toHTMLValidate(expected) // expected error
 
 			Expected error to be present:

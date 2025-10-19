@@ -69,6 +69,7 @@ describe("rule require-csp-nonce", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "require-csp-nonce": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("require-csp-nonce");
 		expect(docs?.url).toMatchInlineSnapshot(
 			`"https://html-validate.org/rules/require-csp-nonce.html"`,

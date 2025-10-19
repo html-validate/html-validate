@@ -8,10 +8,13 @@ it.each`
 	${"0"}     | ${"off"}
 	${"1"}     | ${"warn"}
 	${"2"}     | ${"error"}
-`('should parse "$value" as $severity', ({ value, severity }) => {
-	expect.assertions(1);
-	expect(parseSeverity("mock rule", value)).toBe(severity);
-});
+`(
+	'should parse "$value" as $severity',
+	({ value, severity }: { value: string; severity: string }) => {
+		expect.assertions(1);
+		expect(parseSeverity("mock rule", value)).toBe(severity);
+	},
+);
 
 it("should throw error if severity cannot be interpreted", () => {
 	expect.assertions(1);

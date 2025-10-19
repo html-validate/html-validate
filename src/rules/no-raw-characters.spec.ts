@@ -214,7 +214,7 @@ describe("rule no-raw-characters", () => {
 				${"<?\n&\n?>"} | ${"<? & ?> (with newlines)"}
 				${"<$ & $>"}   | ${"<$ & $>"}
 				${"<$\n&\n$>"} | ${"<$ & $> (with newlines)"}
-			`("$description", async ({ input }) => {
+			`("$description", async ({ input }: { input: string }) => {
 				expect.assertions(1);
 				const markup = /* HTML */ ` <p>lorem ${input} ipsum</p> `;
 				const report = await htmlvalidate.validateString(markup);
@@ -271,6 +271,7 @@ describe("rule no-raw-characters", () => {
 			root: true,
 			rules: { "no-raw-characters": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-raw-characters");
 		expect(docs).toMatchSnapshot();
 	});

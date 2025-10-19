@@ -110,6 +110,7 @@ describe("rule element-required-content", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "element-required-content": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-required-content", null, {
 			element: "<my-element>",
 			missing: "<my-other-element>",

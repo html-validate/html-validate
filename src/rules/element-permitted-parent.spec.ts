@@ -164,6 +164,7 @@ describe("rule element-permitted-parent", () => {
 			parent: "<div>",
 			rules: ["foo", "bar", "@phrasing"],
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-parent", null, context);
 		expect(docs).toMatchSnapshot();
 	});

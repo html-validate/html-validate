@@ -11,7 +11,7 @@ const modes: Array<[string, Mode]> = Object.values(Mode)
 describe("modeToFlag() should convert to CLI flag name", () => {
 	it.each(modes)("%s", (name, mode) => {
 		expect.assertions(1);
-		const result = modeToFlag(mode as any);
+		const result = modeToFlag(mode);
 		expect([name, result]).toMatchSnapshot();
 	});
 });

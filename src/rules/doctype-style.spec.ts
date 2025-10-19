@@ -49,6 +49,7 @@ describe("rule doctype-style", () => {
 			const context = {
 				style: "uppercase",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
 			expect(docs).toMatchSnapshot();
 		});
@@ -99,6 +100,7 @@ describe("rule doctype-style", () => {
 			const context = {
 				style: "uppercase",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
 			expect(docs).toMatchSnapshot();
 		});

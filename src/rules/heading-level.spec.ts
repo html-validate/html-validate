@@ -309,6 +309,7 @@ describe("rule heading-level", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: false }] },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
 		expect(docs).toMatchSnapshot();
 	});
@@ -318,6 +319,7 @@ describe("rule heading-level", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { allowMultipleH1: true }] },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
 		expect(docs).toMatchSnapshot();
 	});
@@ -327,6 +329,7 @@ describe("rule heading-level", () => {
 		const htmlvalidate = new HtmlValidate({
 			rules: { "heading-level": ["error", { minInitialRank: "h2" }] },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("heading-level");
 		expect(docs).toMatchSnapshot();
 	});

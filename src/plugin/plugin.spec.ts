@@ -46,13 +46,13 @@ describe("Plugin", () => {
 		];
 	});
 
-	it("should throw ConfigError when loading plugin fails", () => {
+	it("should throw ConfigError when loading plugin fails", async () => {
 		expect.assertions(2);
-		const loadConfig = (): void => {
-			Config.fromObject(resolvers, { plugins: ["missing-plugin"] });
+		const loadConfig = async (): Promise<void> => {
+			await Config.fromObject(resolvers, { plugins: ["missing-plugin"] });
 		};
-		expect(loadConfig).toThrow(ConfigError);
-		expect(loadConfig).toThrow(/Failed to load plugin "missing-plugin":/);
+		await expect(loadConfig).rejects.toThrow(ConfigError);
+		await expect(loadConfig).rejects.toThrow(/Failed to load plugin "missing-plugin":/);
 	});
 
 	describe("name", () => {

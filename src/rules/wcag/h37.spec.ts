@@ -253,6 +253,7 @@ describe("rule h37", () => {
 			root: true,
 			rules: { "wcag/h37": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("wcag/h37");
 		expect(docs).toMatchSnapshot();
 	});

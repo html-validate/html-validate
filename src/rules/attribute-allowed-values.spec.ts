@@ -171,6 +171,7 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values");
 		expect(docs).toMatchSnapshot();
 	});
@@ -185,6 +186,7 @@ describe("rule attribute-allowed-values", () => {
 				enum: ["spam", "ham", /\d+/],
 			},
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
 		expect(docs).toMatchSnapshot();
 	});
@@ -199,6 +201,7 @@ describe("rule attribute-allowed-values", () => {
 				boolean: true,
 			},
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
 		expect(docs).toMatchSnapshot();
 	});
@@ -213,6 +216,7 @@ describe("rule attribute-allowed-values", () => {
 				omit: true,
 			},
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
 		expect(docs).toMatchSnapshot();
 	});

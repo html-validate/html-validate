@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`rule attr-case should contain documentation 1`] = `
+exports[`rule aria-hidden-body should contain documentation 1`] = `
 {
   "description": "\`aria-hidden\` must not be used on the \`<body>\` element as it makes the page inaccessible to assistive technology such as screenreaders",
   "url": "https://html-validate.org/rules/aria-hidden-body.html",
