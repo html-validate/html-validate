@@ -1172,7 +1172,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     block(id: RuleBlocker): void;
     get deprecated(): boolean;
     // @virtual
-    documentation(context: ContextType): RuleDocumentation | null;
+    documentation(_context: ContextType): RuleDocumentation | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;

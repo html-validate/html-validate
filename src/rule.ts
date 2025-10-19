@@ -452,8 +452,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns Rule documentation and url with additional details or `null` if no
 	 * additional documentation is available.
 	 */
-	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- technical debt, prototype should be moved to interface */
-	public documentation(context: ContextType): RuleDocumentation | null {
+	public documentation(_context: ContextType): RuleDocumentation | null {
 		return null;
 	}
 }

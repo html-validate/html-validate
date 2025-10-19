@@ -369,7 +369,7 @@ describe("Plugin", () => {
 		it("Parser events should trigger plugin eventhandler", async () => {
 			expect.assertions(1);
 			const handler = jest.fn();
-			mockPlugin.setup = (source: Source, eventhandler: EventHandler) => {
+			mockPlugin.setup = (_source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
 			};
 			const engine = new Engine(await config.resolve(), Parser);

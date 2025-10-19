@@ -1553,7 +1553,7 @@ describe("parser", () => {
 		let document: DOMTree;
 
 		beforeEach(() => {
-			callback = jest.fn((event: string, data: any) => {
+			callback = jest.fn((_event: string, data: any) => {
 				document = data.document;
 			});
 			parser.on("dom:ready", callback);
