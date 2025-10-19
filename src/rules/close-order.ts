@@ -40,7 +40,7 @@ function findAncestor(
 }
 
 export default class CloseOrder extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "HTML requires elements to be closed in the same order as they were opened.",
 			url: ruleDocumentationUrl(__filename),

@@ -7,7 +7,7 @@ export interface RuleContext {
 }
 
 export default class NoUnusedDisable extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: `\`${context.ruleId}\` rule is disabled but no error was reported.`,
 			url: ruleDocumentationUrl(__filename),

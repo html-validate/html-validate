@@ -34,7 +34,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 		this.style = parseStyle(this.options.style);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			style: {
 				enum: ["omit", "selfclose", "selfclosing"],
@@ -43,7 +43,7 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const [desc, end] = styleDescription(context.style);
 		return {
 			description: `The current configuration requires void elements to ${desc}, use <${context.tagName}${end}> instead.`,

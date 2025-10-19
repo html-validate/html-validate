@@ -47,7 +47,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 		this.target = this.options.target;
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			target: {
 				enum: ["all", "crossorigin"],
@@ -82,7 +82,7 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Subresource Integrity (SRI) \`integrity\` attribute is required to prevent tampering or manipulation from Content Delivery Networks (CDN), rouge proxies,  malicious entities, etc.`,
 			url: ruleDocumentationUrl(__filename),

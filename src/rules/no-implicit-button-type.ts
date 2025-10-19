@@ -6,7 +6,7 @@ function isRelevant(event: ElementReadyEvent): boolean {
 }
 
 export default class NoImplicitButtonType extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"`<button>` is missing recommended `type` attribute",

@@ -23,7 +23,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 		}
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			alias: {
 				anyOf: [
@@ -44,7 +44,7 @@ export default class H37 extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"Both HTML5 and WCAG 2.0 requires images to have a alternative text for each image.",

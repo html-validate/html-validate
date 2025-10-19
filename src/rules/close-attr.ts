@@ -2,7 +2,7 @@ import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class CloseAttr extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "HTML disallows end tags to have attributes.",
 			url: ruleDocumentationUrl(__filename),

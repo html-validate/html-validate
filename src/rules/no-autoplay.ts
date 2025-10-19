@@ -21,7 +21,7 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: [
 				`The autoplay attribute is not allowed on <${context.tagName}>.`,
@@ -32,7 +32,7 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			exclude: {
 				anyOf: [

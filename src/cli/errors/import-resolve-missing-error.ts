@@ -13,7 +13,7 @@ export class ImportResolveMissingError extends UserError {
 		this.name = ImportResolveMissingError.name;
 	}
 
-	public prettyFormat(): string {
+	public override prettyFormat(): string {
 		const { message } = this;
 		const currentVersion = process.version;
 		const requiredVersion = engines.node

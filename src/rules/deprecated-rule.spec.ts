@@ -12,7 +12,7 @@ class RuleRegular extends Rule {
 }
 
 class RuleDeprecated extends Rule {
-	public get deprecated(): boolean {
+	public override get deprecated(): boolean {
 		return true;
 	}
 	public setup(): void {

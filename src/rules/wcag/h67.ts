@@ -2,7 +2,7 @@ import { type TagEndEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 
 export default class H67 extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"A decorative image cannot have a title attribute. Either remove `title` or add a descriptive `alt` text.",

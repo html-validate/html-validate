@@ -8,7 +8,7 @@ export interface RuleContext {
 }
 
 export default class NoRedundantRole extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const { role, tagName } = context;
 		return {
 			description: `Using the \`${role}\` role is redundant as it is already implied by the \`<${tagName}>\` element.`,

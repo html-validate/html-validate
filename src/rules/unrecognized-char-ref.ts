@@ -73,7 +73,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			ignoreCase: {
 				type: "boolean",
@@ -84,7 +84,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDescription(context, this.options),
 			url: ruleDocumentationUrl(__filename),

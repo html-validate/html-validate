@@ -2,6 +2,8 @@ import { type HtmlElement, NodeClosed } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
+type RuleContext = string;
+
 interface RuleOptions {
 	ignoreForeign: boolean;
 	ignoreXML: boolean;
@@ -13,12 +15,12 @@ const defaults: RuleOptions = {
 	ignoreXML: true,
 };
 
-export default class NoSelfClosing extends Rule<string, RuleOptions> {
+export default class NoSelfClosing extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			ignoreForeign: {
 				type: "boolean",
@@ -29,10 +31,10 @@ export default class NoSelfClosing extends Rule<string, RuleOptions> {
 		};
 	}
 
-	public documentation(tagName: string): RuleDocumentation {
-		tagName = tagName || "element";
+	public override documentation(context: RuleContext): RuleDocumentation {
+		context = context || "element";
 		return {
-			description: `Self-closing elements are disallowed. Use regular end tag <${tagName}></${tagName}> instead of self-closing <${tagName}/>.`,
+			description: `Self-closing elements are disallowed. Use regular end tag <${context}></${context}> instead of self-closing <${context}/>.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

@@ -12,7 +12,7 @@ function getName(attr: Attribute): string | null {
 }
 
 export default class MapDupName extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"`<map>` must have a unique name, it cannot be the same name as another `<map>` element",

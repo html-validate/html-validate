@@ -15,7 +15,7 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Meta refresh directive must use the \`0;url=...\` format. Non-zero values for time interval is disallowed as people with assistive technology might be unable to read and understand the page content before automatically reloading. For the same reason skipping the url is disallowed as it would put the browser in an infinite loop reloading the same page over and over again.`,
 			url: ruleDocumentationUrl(__filename),

@@ -21,7 +21,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 		this.style = new CaseStyle(this.options.style, "attr-case");
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
 		return {
 			ignoreForeign: {
@@ -45,7 +45,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		const { style } = this.options;
 		return {
 			description: Array.isArray(style)

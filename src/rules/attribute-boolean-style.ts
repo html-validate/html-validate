@@ -22,7 +22,7 @@ export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 		this.hasInvalidStyle = parseStyle(this.options.style);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			style: {
 				enum: ["empty", "name", "omit"],
@@ -31,7 +31,7 @@ export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "Require a specific style when writing boolean attributes.",
 			url: ruleDocumentationUrl(__filename),

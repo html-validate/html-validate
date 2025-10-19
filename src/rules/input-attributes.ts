@@ -87,7 +87,7 @@ function isInput(event: TagReadyEvent): boolean {
 }
 
 export default class InputAttributes extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const { attribute, type } = context;
 		const summary = `Attribute \`${attribute}\` is not allowed on \`<input type="${type}">\`\n`;
 		const details = `\`${attribute}\` can only be used when \`type\` is:`;

@@ -2,7 +2,7 @@ import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class MissingDoctype extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "Requires that the document contains a doctype.",
 			url: ruleDocumentationUrl(__filename),

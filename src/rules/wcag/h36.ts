@@ -3,7 +3,7 @@ import { hasAltText } from "../helper";
 import { inAccessibilityTree } from "../helper/a11y";
 
 export default class H36 extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"WCAG 2.1 requires all images used as submit buttons to have a non-empty textual description using the `alt` attribute.",

@@ -5,7 +5,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { walk } from "../utils/walk";
 
 export default class ElementPermittedOrder extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "Some elements has a specific order the children must use.",
 			url: ruleDocumentationUrl(__filename),

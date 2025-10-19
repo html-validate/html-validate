@@ -56,7 +56,7 @@ function getRuleDescription(context: RuleContext): string[] {
 }
 
 export default class ElementPermittedContent extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

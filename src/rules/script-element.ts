@@ -3,7 +3,7 @@ import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class ScriptElement extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"The end tag for `<script>` is a hard requirement and must never be omitted even when using the `src` attribute.",

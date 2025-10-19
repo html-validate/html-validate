@@ -30,7 +30,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 		this.pattern = new RegExp(this.options.pattern);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			blacklist: {
 				items: {
@@ -50,7 +50,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 		};
 	}
 
-	public documentation(context: Context): RuleDocumentation {
+	public override documentation(context: Context): RuleDocumentation {
 		return {
 			description: this.documentationMessages(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

@@ -2,7 +2,7 @@ import { type TagStartEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoStyleTag extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"Prefer to use external stylesheets with the `<link>` tag instead of inlining the styling.",

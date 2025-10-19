@@ -3,7 +3,7 @@ import { type DOMReadyEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 
 export default class H71 extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"H71: Providing a description for groups of form controls using fieldset and legend elements",

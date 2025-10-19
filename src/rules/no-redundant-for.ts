@@ -3,7 +3,7 @@ import { type ElementReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoRedundantFor extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `When the \`<label>\` element wraps the labelable control the \`for\` attribute is redundant and better left out.`,
 			url: ruleDocumentationUrl(__filename),

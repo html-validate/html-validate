@@ -16,7 +16,7 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 		this.maxlength = this.options.maxlength;
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			maxlength: {
 				type: "number",
@@ -24,7 +24,7 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Search engines truncates titles with long text, possibly down-ranking the page in the process.`,
 			url: ruleDocumentationUrl(__filename),

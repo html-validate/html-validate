@@ -273,7 +273,7 @@ export class HtmlElement extends DOMNode {
 	 * Generate a DOM selector for this element. The returned selector will be
 	 * unique inside the current document.
 	 */
-	public generateSelector(): string | null {
+	public override generateSelector(): string | null {
 		/* root element cannot have a selector as it isn't a proper element */
 		if (this.isRootElement()) {
 			return null;

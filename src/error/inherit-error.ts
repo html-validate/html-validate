@@ -18,7 +18,7 @@ export class InheritError extends UserError {
 		this.filename = null;
 	}
 
-	public prettyFormat(): string {
+	public override prettyFormat(): string {
 		const { message, tagName, inherit } = this;
 		const source: string[] = this.filename
 			? ["", "This error occurred when loading element metadata from:", `"${this.filename}"`, ""]

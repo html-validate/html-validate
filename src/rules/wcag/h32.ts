@@ -3,7 +3,7 @@ import { type DOMReadyEvent } from "../../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../../rule";
 
 export default class H32 extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "WCAG 2.1 requires each `<form>` element to have at least one submit button.",
 			url: ruleDocumentationUrl(__filename),

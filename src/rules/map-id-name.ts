@@ -13,7 +13,7 @@ function hasStaticValue(
 }
 
 export default class MapIdName extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"When the `id` attribute is present on a `<map>` element it must be equal to the `name` attribute.",

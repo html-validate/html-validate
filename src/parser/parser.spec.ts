@@ -85,11 +85,11 @@ function mergeEvent(event: string, data: any): any {
 }
 
 class ExposedParser extends Parser {
-	public consumeDirective(token: DirectiveToken): void {
+	public override consumeDirective(token: DirectiveToken): void {
 		super.consumeDirective(token);
 	}
 
-	public *consumeUntil(
+	public override *consumeUntil(
 		tokenStream: TokenStream,
 		search: TokenType,
 		errorLocation: Location,
@@ -97,7 +97,7 @@ class ExposedParser extends Parser {
 		yield* super.consumeUntil(tokenStream, search, errorLocation);
 	}
 
-	public trigger(event: any, data: any): void {
+	public override trigger(event: any, data: any): void {
 		super.trigger(event, data);
 	}
 }

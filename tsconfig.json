@@ -26,6 +26,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,

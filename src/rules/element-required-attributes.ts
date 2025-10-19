@@ -1,13 +1,13 @@
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-interface Context {
+interface RuleContext {
 	element: string;
 	attribute: string;
 }
 
-export default class ElementRequiredAttributes extends Rule<Context> {
-	public documentation(context?: Context): RuleDocumentation {
+export default class ElementRequiredAttributes extends Rule<RuleContext> {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const docs: RuleDocumentation = {
 			description: "Element is missing a required attribute",
 			url: ruleDocumentationUrl(__filename),
@@ -37,7 +37,7 @@ export default class ElementRequiredAttributes extends Rule<Context> {
 
 				if (node.hasAttribute(key)) continue;
 
-				const context: Context = {
+				const context: RuleContext = {
 					element: node.tagName,
 					attribute: key,
 				};

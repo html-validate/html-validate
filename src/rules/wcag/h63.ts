@@ -87,7 +87,7 @@ export default class H63 extends Rule<void, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			strict: {
 				type: "boolean",
@@ -95,7 +95,7 @@ export default class H63 extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"H63: Using the scope attribute to associate header cells and data cells in data tables",

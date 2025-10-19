@@ -2,7 +2,7 @@ import { type WhitespaceEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoTrailingWhitespace extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"Lines with trailing whitespace cause unnessecary diff when using version control and usually serve no special purpose in HTML.",
