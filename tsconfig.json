@@ -28,6 +28,7 @@
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "sourceMap": true,

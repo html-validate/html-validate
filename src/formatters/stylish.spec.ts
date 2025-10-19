@@ -12,14 +12,14 @@ let stylish: typeof fn;
 
 beforeAll(async () => {
 	/* force colors on when running stylish tests */
-	const defaultColor = process.env.FORCE_COLOR;
-	process.env.FORCE_COLOR = "1";
+	const defaultColor = process.env["FORCE_COLOR"];
+	process.env["FORCE_COLOR"] = "1";
 
 	const module = await import("./stylish");
 	stylish = module.stylish;
 
 	/* restore color, need only to be set when importing library */
-	process.env.FORCE_COLOR = defaultColor;
+	process.env["FORCE_COLOR"] = defaultColor;
 });
 
 describe("stylish formatter", () => {

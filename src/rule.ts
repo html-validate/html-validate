@@ -75,7 +75,7 @@ function isErrorDescriptor<T>(
 		| [DOMNode | null, string, (Location | null | undefined)?]
 		| [DOMNode | null, string, Location | null | undefined, T],
 ): value is [ErrorDescriptor<T>] {
-	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>).message);
+	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>)["message"]);
 }
 
 function unpackErrorDescriptor<T>(
