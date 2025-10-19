@@ -1,4 +1,5 @@
 {
+  "extends": ["@tsconfig/strictest", "@tsconfig/node20", "@tsconfig/node-ts"],
   "compilerOptions": {
     "rootDir": "${configDir}/src",
     "outDir": "${configDir}/dist",
@@ -7,33 +8,19 @@
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "${configDir}/temp/types",
-
-    /* based on https://github.com/tsconfig/bases/blob/main/bases/node20.json */
-    "target": "es2022",
-    "lib": ["es2023"],
-
-    /* the Vite ecosystem does not play well with types, until vite#15714 is
-     * backported to Vite 4 we cannot test Vitest compatibility
-     *
-     * https://github.com/vitejs/vite/issues/15714 */
-    "skipLibCheck": true,
+    "sourceMap": true,
 
     "module": "esnext",
     "moduleResolution": "bundler",
-    "isolatedModules": true,
 
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "strict": true,
+    "exactOptionalPropertyTypes": false, // does not work well with third-party libraries
     "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": false, // we handle this with eslint
+
+    /* technical debt */
+    "erasableSyntaxOnly": false,
+    "noUncheckedIndexedAccess": false,
+    "verbatimModuleSyntax": false,
 
     "paths": {
       "html-validate": ["./src"]

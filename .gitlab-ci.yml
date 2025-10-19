@@ -206,6 +206,7 @@ Jest compat:
       jest-snapshot@${JEST_VERSION}
       ts-jest@${TS_JEST_VERSION}
       typescript@${TS_VERSION}
+      @tsconfig/node16
       @types/jest@${TYPES_VERSION}
     - npm dedupe
     - >
@@ -223,10 +224,15 @@ Jest compat:
       typescript
       @types/jest
   script:
-    - sed 's#/src/browser.ts#/dist/cjs/browser.js#g' -i package.json
-    # older jest/ts-jest versions doesn't work with bundler so use nodenext instead
-    - sed '/"moduleResolution"/s/bundler/nodenext/' -i tsconfig.json
-    - sed '/"lib"/s/es2023/es2022/' -i tsconfig.json
+    - |
+      sed 's#/src/browser.ts#/dist/cjs/browser.js#g' -i package.json
+      # older jest/ts-jest versions doesn't work with bundler so use nodenext instead
+      sed '/"moduleResolution"/s/bundler/nodenext/' -i tsconfig.json
+      # remove options not supported by older typescript versions
+      sed -e '/"erasableSyntaxOnly"/d' -e '/"verbatimModuleSyntax"/d' -i tsconfig.json
+      # older typescript does not support extends with array, fallback on the node20 base only
+      sed '/"extends"/s#\[.*\]#"@tsconfig/node16"#' -i tsconfig.json
+      cat tsconfig.json
     - for spec in tests/jest/*.spec.ts; do sed 's#../../src#../../dist/cjs#g' -i "${spec}"; done
     - npm exec jest -- --no-coverage --ci --logHeapUsage -- tests/jest
 
