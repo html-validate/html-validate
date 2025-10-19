@@ -48,7 +48,7 @@ export default class AreaAlt extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			accessible: {
 				type: "boolean",
@@ -56,7 +56,7 @@ export default class AreaAlt extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

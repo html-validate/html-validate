@@ -38,7 +38,7 @@ export class TextNode extends DOMNode {
 	/**
 	 * Get the text from node.
 	 */
-	public get textContent(): string {
+	public override get textContent(): string {
 		return this.text.toString();
 	}
 

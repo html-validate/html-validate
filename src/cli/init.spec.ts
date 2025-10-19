@@ -22,7 +22,7 @@ it.each([
 	["vuejs", ["Vue.js"]],
 	["markdown", ["Markdown"]],
 	["combined", ["AngularJS", "Vue.js", "Markdown"]],
-])("should generate configuration for %s", async (name, frameworks) => {
+])("should generate configuration for %s", async (_name, frameworks) => {
 	expect.assertions(1);
 	prompts.mockResolvedValue({
 		write: true,
@@ -100,7 +100,7 @@ it("should propagate errors from fs.writeFile", async () => {
 		name: "ErrnoException",
 		message: "mock error",
 	};
-	jest.spyOn(fs, "writeFile").mockImplementation((fn, data, cb) => {
+	jest.spyOn(fs, "writeFile").mockImplementation((_fn, _data, cb) => {
 		cb(error);
 	});
 	prompts.mockResolvedValue({

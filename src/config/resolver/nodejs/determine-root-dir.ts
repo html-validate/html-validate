@@ -14,7 +14,7 @@ export function determineRootDirImpl(intial: string, fs: FSLike): string {
 	/* try to locate package.json */
 	let current = intial;
 
-	while (true) {
+	for (;;) {
 		const search = path.join(current, "package.json");
 		if (fs.existsSync(search)) {
 			return current;

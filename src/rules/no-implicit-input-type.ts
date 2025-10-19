@@ -6,7 +6,7 @@ function isRelevant(event: ElementReadyEvent): boolean {
 }
 
 export default class NoImplicitInputType extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: ["`<input>` is missing recommended `type` attribute"].join("\n"),
 			url: ruleDocumentationUrl(__filename),

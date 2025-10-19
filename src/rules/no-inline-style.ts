@@ -19,7 +19,7 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			exclude: {
 				anyOf: [
@@ -56,7 +56,7 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		const text = [
 			"Inline style is not allowed.\n",
 			"Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.\n",

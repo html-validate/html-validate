@@ -34,7 +34,7 @@ interface ParsedArgs {
 }
 
 function getMode(argv: Record<string, any>): Mode {
-	if (argv.init) {
+	if (argv["init"]) {
 		return Mode.INIT;
 	}
 

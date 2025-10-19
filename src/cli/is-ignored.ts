@@ -28,7 +28,7 @@ export class IsIgnored {
 	private match(target: string): boolean {
 		let current = path.dirname(target);
 
-		while (true) {
+		for (;;) {
 			const relative = path.relative(current, target);
 			const filename = path.join(current, ".htmlvalidateignore");
 

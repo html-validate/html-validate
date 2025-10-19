@@ -45,7 +45,7 @@ export abstract class BasePatternRule extends Rule<BasePatternRuleContext, BaseP
 		this.patterns = toArray(pattern).map((it) => parsePattern(it));
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			pattern: {
 				oneOf: [{ type: "array", items: { type: "string" }, minItems: 1 }, { type: "string" }],

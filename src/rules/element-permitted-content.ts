@@ -26,7 +26,10 @@ type RuleContext = ContentContext | DescendantContext;
 
 function isNativeTemplate(node: HtmlElement): boolean {
 	const { tagName, meta } = node;
-	return Boolean(tagName === "template" && meta?.templateRoot && meta?.scriptSupporting);
+	if (!meta) {
+		return false;
+	}
+	return Boolean(tagName === "template" && meta.templateRoot && meta.scriptSupporting);
 }
 
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
@@ -56,7 +59,7 @@ function getRuleDescription(context: RuleContext): string[] {
 }
 
 export default class ElementPermittedContent extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),

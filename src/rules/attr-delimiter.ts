@@ -6,7 +6,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 const whitespace = /(\s+)/;
 
 export default class AttrDelimiter extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Attribute value must not be separated by whitespace.`,
 			url: ruleDocumentationUrl(__filename),

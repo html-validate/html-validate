@@ -99,7 +99,7 @@ function isExcluded(entry: { node: HtmlElement; text: string | DynamicValue | nu
 }
 
 export default class UniqueLandmark extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"When the same type of landmark is present more than once in the same document each must be uniquely identifiable with a non-empty and unique name.",

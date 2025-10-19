@@ -3,7 +3,7 @@ import { TokenType } from "../lexer";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class AttrSpacing extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `No space between attributes. At least one whitespace character (commonly space) must be used to separate attributes.`,
 			url: ruleDocumentationUrl(__filename),

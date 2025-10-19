@@ -93,7 +93,7 @@ export async function init(cwd: string): Promise<InitResult> {
 
 	/* write configuration to file */
 	let config = initialConfig;
-	config = addFrameworks(config, answers.frameworks as string[]);
+	config = addFrameworks(config, answers["frameworks"] as string[]);
 	await writeConfig(filename, config);
 
 	return {

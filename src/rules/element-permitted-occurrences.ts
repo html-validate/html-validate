@@ -5,7 +5,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { walk } from "../utils/walk";
 
 export default class ElementPermittedOccurrences extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "Some elements may only be used a fixed amount of times in given context.",
 			url: ruleDocumentationUrl(__filename),

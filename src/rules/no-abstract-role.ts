@@ -26,7 +26,7 @@ function isRelevant(event: AttributeEvent): boolean {
 }
 
 export default class NoAbstractRole extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: [
 				`Role \`"${context.role}"\` is abstract and must not be used.`,

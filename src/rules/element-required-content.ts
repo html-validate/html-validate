@@ -14,7 +14,7 @@ function isCategory(value: CategoryOrTag): boolean {
 }
 
 export default class ElementRequiredContent extends Rule<Context> {
-	public documentation(context: Context): RuleDocumentation {
+	public override documentation(context: Context): RuleDocumentation {
 		const { element, missing } = context;
 		return {
 			description: `The \`${element}\` element requires a \`${missing}\` to be present as content.`,

@@ -31,7 +31,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			relaxed: {
 				type: "boolean",
@@ -39,7 +39,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const { relaxed } = this.options;
 		const { kind, id } = context;
 		const message = this.messages[kind]

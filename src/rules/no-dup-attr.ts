@@ -2,7 +2,7 @@ import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoDupAttr extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "HTML disallows two or more attributes with the same (case-insensitive) name.",
 			url: ruleDocumentationUrl(__filename),

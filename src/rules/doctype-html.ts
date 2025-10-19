@@ -2,7 +2,7 @@ import { type DoctypeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoStyleTag extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				'HTML5 documents should use the "html" doctype (short `form`, not legacy string):',

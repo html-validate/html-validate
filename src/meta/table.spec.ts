@@ -617,7 +617,7 @@ describe("MetaTable", () => {
 				},
 			});
 			const schema = table.getJSONSchema();
-			const properties = schema.patternProperties["^[^$].*$"].properties;
+			const properties = schema["patternProperties"]["^[^$].*$"].properties;
 			expect(properties).toEqual(
 				expect.objectContaining({
 					foo: {
@@ -638,7 +638,7 @@ describe("MetaTable", () => {
 				},
 			});
 			const schema = table.getJSONSchema();
-			const definitions = schema.definitions;
+			const definitions = schema["definitions"];
 			expect(definitions).toEqual(
 				expect.objectContaining({
 					foo: {

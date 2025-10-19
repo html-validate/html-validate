@@ -2,7 +2,7 @@ import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoMultipleMain extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"Only a single visible `<main>` element can be present at in a document at a time.",

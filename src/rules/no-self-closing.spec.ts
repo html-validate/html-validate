@@ -114,16 +114,6 @@ describe("rule no-self-closing", () => {
 		});
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			rules: { "no-self-closing": "error" },
-		});
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-		const docs = await htmlvalidate.getRuleDocumentation("no-self-closing");
-		expect(docs).toMatchSnapshot();
-	});
-
 	it("should contain contextual documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({

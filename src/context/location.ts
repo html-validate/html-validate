@@ -103,7 +103,7 @@ export function sliceLocation(
 	if (wrap) {
 		let index = -1;
 		const col = sliced.column;
-		do {
+		for (;;) {
 			index = wrap.indexOf("\n", index + 1);
 			if (index >= 0 && index < begin) {
 				sliced.column = col - (index + 1);
@@ -111,7 +111,7 @@ export function sliceLocation(
 			} else {
 				break;
 			}
-		} while (true); // eslint-disable-line no-constant-condition -- it will break out
+		}
 	}
 
 	return sliced;

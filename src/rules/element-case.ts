@@ -20,7 +20,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		this.style = new CaseStyle(this.options.style, "element-case");
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
 		return {
 			style: {
@@ -41,7 +41,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		const { style } = this.options;
 		return {
 			description: Array.isArray(style)

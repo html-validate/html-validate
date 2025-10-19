@@ -5,7 +5,7 @@ import { inAccessibilityTree } from "../helper/a11y";
 import { TextClassification, classifyNodeText } from "../helper/text";
 
 export default class H30 extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"WCAG 2.1 requires each `<a href>` anchor link to have a text describing the purpose of the link using either plain text or an `<img>` with the `alt` attribute set.",

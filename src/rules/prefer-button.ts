@@ -29,7 +29,7 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			exclude: {
 				anyOf: [
@@ -60,7 +60,7 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const src = `<input type="${context.type}">`;
 		const dst = replacement[context.type] || `<button>`;
 		return {

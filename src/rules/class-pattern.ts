@@ -16,11 +16,11 @@ export default class ClassPattern extends BasePatternRule {
 		super("class", { ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return BasePatternRule.schema();
 	}
 
-	public documentation(context: BasePatternRuleContext): RuleDocumentation {
+	public override documentation(context: BasePatternRuleContext): RuleDocumentation {
 		return {
 			description: this.description(context),
 			url: ruleDocumentationUrl(__filename),

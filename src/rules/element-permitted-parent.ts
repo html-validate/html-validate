@@ -56,7 +56,7 @@ function formatMessage(node: HtmlElement, parent: HtmlElement, rules: Permitted)
 }
 
 export default class ElementPermittedParent extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getRuleDescription(context).join("\n"),
 			url: ruleDocumentationUrl(__filename),
@@ -92,7 +92,7 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 				 * content */
 				const rules = node.meta?.permittedParent;
 				if (!rules) {
-					return false;
+					return;
 				}
 
 				if (Validator.validatePermitted(parent, rules)) {

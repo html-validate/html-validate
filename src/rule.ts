@@ -75,7 +75,7 @@ function isErrorDescriptor<T>(
 		| [DOMNode | null, string, (Location | null | undefined)?]
 		| [DOMNode | null, string, Location | null | undefined, T],
 ): value is [ErrorDescriptor<T>] {
-	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>).message);
+	return Boolean(value[0] && (value[0] as unknown as Record<string, unknown>)["message"]);
 }
 
 function unpackErrorDescriptor<T>(
@@ -452,8 +452,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns Rule documentation and url with additional details or `null` if no
 	 * additional documentation is available.
 	 */
-	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- technical debt, prototype should be moved to interface */
-	public documentation(context: ContextType): RuleDocumentation | null {
+	public documentation(_context: ContextType): RuleDocumentation | null {
 		return null;
 	}
 }

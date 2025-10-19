@@ -66,7 +66,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		});
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			allowMultipleH1: {
 				type: "boolean",
@@ -83,7 +83,7 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		const text: string[] = [];
 		const modality = this.minInitialRank > 1 ? "should" : "must";
 		text.push(`Headings ${modality} start at <h1> and can only increase one level at a time.`);

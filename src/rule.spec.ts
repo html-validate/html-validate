@@ -484,7 +484,7 @@ it("should be off by default", () => {
 
 describe("validateOptions()", () => {
 	class MockRuleSchema extends Rule {
-		public static schema(): SchemaObject {
+		public static override schema(): SchemaObject {
 			return {
 				foo: {
 					type: "number",

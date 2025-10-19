@@ -109,7 +109,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			allowArrayBrackets: {
 				type: "boolean",
@@ -126,7 +126,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getDocumentation(context),
 			url: ruleDocumentationUrl(__filename),

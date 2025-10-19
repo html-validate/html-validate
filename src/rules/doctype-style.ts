@@ -18,7 +18,7 @@ export default class DoctypeStyle extends Rule<RuleContext, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			style: {
 				enum: ["lowercase", "uppercase"],
@@ -27,7 +27,7 @@ export default class DoctypeStyle extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: `While DOCTYPE is case-insensitive in the standard the current configuration requires it to be ${context.style}`,
 			url: ruleDocumentationUrl(__filename),

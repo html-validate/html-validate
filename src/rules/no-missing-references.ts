@@ -36,7 +36,7 @@ function idMissing(document: DOMTree, id: string): boolean {
 }
 
 export default class NoMissingReferences extends Rule<Context> {
-	public documentation(context: Context): RuleDocumentation {
+	public override documentation(context: Context): RuleDocumentation {
 		return {
 			description: `The element ID "${context.value}" referenced by the ${context.key} attribute must point to an existing element.`,
 			url: ruleDocumentationUrl(__filename),

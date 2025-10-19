@@ -2,8 +2,10 @@ import { Severity } from "../config/severity";
 import { type ConfigReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-export default class DeprecatedRule extends Rule<string> {
-	public documentation(context: string): RuleDocumentation {
+type RuleContext = string;
+
+export default class DeprecatedRule extends Rule<RuleContext> {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const preamble = context ? `The rule "${context}"` : "This rule";
 		return {
 			description: `${preamble} is deprecated and should not be used any longer, consult documentation for further information.`,

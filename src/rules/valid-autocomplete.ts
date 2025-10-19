@@ -354,7 +354,7 @@ function getMarkdownMessage(context: RuleContext): string {
 }
 
 export default class ValidAutocomplete extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: getMarkdownMessage(context),
 			url: ruleDocumentationUrl(__filename),

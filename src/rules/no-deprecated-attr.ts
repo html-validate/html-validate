@@ -3,7 +3,7 @@ import { type MetaAttribute } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoDeprecatedAttr extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "HTML5 deprecated many old attributes.",
 			url: ruleDocumentationUrl(__filename),

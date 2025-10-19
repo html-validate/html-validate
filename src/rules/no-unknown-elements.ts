@@ -2,6 +2,7 @@ import { type TagStartEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 import { type IncludeExcludeOptions, keywordPatternMatcher } from "./helper";
 
+type RuleContext = string;
 type RuleOptions = IncludeExcludeOptions;
 
 const defaults: RuleOptions = {
@@ -9,12 +10,12 @@ const defaults: RuleOptions = {
 	exclude: null,
 };
 
-export default class NoUnknownElements extends Rule<string, RuleOptions> {
+export default class NoUnknownElements extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			exclude: {
 				anyOf: [
@@ -45,7 +46,7 @@ export default class NoUnknownElements extends Rule<string, RuleOptions> {
 		};
 	}
 
-	public documentation(context: string): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const element = context ? ` <${context}>` : "";
 		return {
 			description: `An unknown element${element} was used. If this is a Custom Element you need to supply element metadata for it.`,

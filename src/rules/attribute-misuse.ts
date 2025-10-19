@@ -15,7 +15,7 @@ function ruleDescription(context: RuleContext): string {
 }
 
 export default class AttributeMisuse extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: ruleDescription(context),
 			url: ruleDocumentationUrl(__filename),

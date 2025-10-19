@@ -5,7 +5,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 export default class MultipleLabeledControls extends Rule {
 	private labelable: string = "";
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `A \`<label>\` element can only be associated with one control at a time.`,
 			url: ruleDocumentationUrl(__filename),

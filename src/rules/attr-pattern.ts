@@ -58,7 +58,7 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 		this.pattern = generateRegexp(this.options.pattern);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			pattern: {
 				oneOf: [{ type: "array", items: { type: "string" }, minItems: 1 }, { type: "string" }],
@@ -69,7 +69,7 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
 			description: generateDescription(context.attr, context.pattern),
 			url: ruleDocumentationUrl(__filename),

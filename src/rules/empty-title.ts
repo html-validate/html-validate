@@ -2,7 +2,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { TextClassification, classifyNodeText } from "./helper/text";
 
 export default class EmptyTitle extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"The `<title>` element cannot be empty, it must have textual content.",

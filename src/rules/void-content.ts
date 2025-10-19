@@ -2,15 +2,17 @@ import { NodeClosed } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-export default class VoidContent extends Rule<string> {
-	public documentation(tagName: string): RuleDocumentation {
+type RuleContext = string;
+
+export default class VoidContent extends Rule<RuleContext> {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description:
 				"HTML void elements cannot have any content and must not have content or end tag.",
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (tagName) {
-			doc.description = `<${tagName}> is a void element and must not have content or end tag.`;
+		if (context) {
+			doc.description = `<${context}> is a void element and must not have content or end tag.`;
 		}
 		return doc;
 	}

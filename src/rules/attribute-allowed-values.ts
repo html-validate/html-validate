@@ -5,7 +5,7 @@ import { type MetaAttribute, Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { walk } from "../utils/walk";
 
-interface Context {
+interface RuleContext {
 	element: string;
 	attribute: string;
 	value: string;
@@ -23,16 +23,12 @@ function pick(attr: MetaAttribute): Pick<MetaAttribute, "enum" | "boolean"> {
 	return result;
 }
 
-export default class AttributeAllowedValues extends Rule<Context> {
-	public documentation(context?: Context): RuleDocumentation {
+export default class AttributeAllowedValues extends Rule<RuleContext> {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const docs: RuleDocumentation = {
 			description: "Attribute has invalid value.",
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (!context) {
-			return docs;
-		}
-
 		const { allowed, attribute, element, value } = context;
 		if (allowed.enum) {
 			const allowedList = allowed.enum.map((value: string | RegExp) => {
@@ -72,7 +68,7 @@ export default class AttributeAllowedValues extends Rule<Context> {
 					}
 
 					const value = attr.value ? attr.value.toString() : "";
-					const context: Context = {
+					const context: RuleContext = {
 						element: node.tagName,
 						attribute: attr.key,
 						value,

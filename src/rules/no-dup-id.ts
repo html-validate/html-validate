@@ -11,7 +11,7 @@ declare module "../dom/cache" {
 }
 
 export default class NoDupID extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "The ID of an element must be unique.",
 			url: ruleDocumentationUrl(__filename),

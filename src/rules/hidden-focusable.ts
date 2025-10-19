@@ -7,7 +7,7 @@ import { isFocusable } from "./helper/is-focusable";
 export type RuleContext = "parent" | "self";
 
 export default class HiddenFocusable extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const byParent =
 			context === "parent"
 				? " In this case it is being hidden by an ancestor with `aria-hidden.`"

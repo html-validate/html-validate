@@ -14,7 +14,7 @@ function isIgnored(node: HtmlElement): boolean {
 }
 
 export default class InputMissingLabel extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"Each form element must have an a label or accessible name.",

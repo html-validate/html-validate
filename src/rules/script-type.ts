@@ -10,7 +10,7 @@ const javascript = [
 ];
 
 export default class ScriptType extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"While valid the HTML5 standard encourages authors to omit the type element for JavaScript resources.",

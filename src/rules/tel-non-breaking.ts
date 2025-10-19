@@ -70,7 +70,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		this.regex = constructRegex(this.options.characters);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			characters: {
 				type: "array",
@@ -102,7 +102,7 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const { characters } = this.options;
 		const replacements = characters.map((it) => {
 			return `  - \`${it.pattern}\` - replace with \`${it.replacement}\` (${it.description}).`;

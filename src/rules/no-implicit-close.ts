@@ -3,7 +3,7 @@ import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoImplicitClose extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Some elements in HTML has optional end tags. When an optional tag is omitted a browser must handle it as if the end tag was present.
 

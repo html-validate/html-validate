@@ -84,7 +84,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		this.allowAbsolute = parseAllow(this.options.allowAbsolute);
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		const booleanOrObject = {
 			anyOf: [
 				{ type: "boolean" },
@@ -111,7 +111,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		};
 	}
 
-	public documentation(context: Style): RuleDocumentation {
+	public override documentation(context: Style): RuleDocumentation {
 		const message =
 			description[context] ?? "This link type is not allowed by current configuration";
 		return {

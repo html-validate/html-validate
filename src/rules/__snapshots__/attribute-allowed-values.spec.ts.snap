@@ -26,10 +26,3 @@ exports[`rule attribute-allowed-values should contain contextual documentation w
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
-
-exports[`rule attribute-allowed-values should contain documentation 1`] = `
-{
-  "description": "Attribute has invalid value.",
-  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
-}
-`;

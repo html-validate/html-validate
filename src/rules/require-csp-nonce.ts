@@ -14,7 +14,7 @@ export default class RequireCSPNonce extends Rule<void, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			tags: {
 				type: "array",
@@ -26,7 +26,7 @@ export default class RequireCSPNonce extends Rule<void, RuleOptions> {
 		};
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: [
 				"Required Content-Security-Policy (CSP) nonce is missing or empty.",

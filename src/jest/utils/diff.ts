@@ -24,11 +24,11 @@ export type DiffFunction = (a: any, b: any, options?: DiffOptions) => string | n
 /* istanbul ignore next: this is covered by integration tests */
 const diffCandidates: Array<DiffFunction | undefined> = [
 	// @ts-ignore
-	jestDiffDefault?.diff,
+	jestDiffDefault?.diff, // eslint-disable-line @typescript-eslint/no-unnecessary-condition -- for compatibility
 	// @ts-ignore
 	jestDiffDefault,
 	// @ts-ignore
-	jestDiff?.diff,
+	jestDiff?.diff, // eslint-disable-line @typescript-eslint/no-unnecessary-condition -- for compatibility
 	// @ts-ignore
 	jestDiff,
 ];

@@ -71,7 +71,7 @@ function describeStyle(style: QuoteStyle, unquoted: boolean): string {
 export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 	private style: QuoteStyle;
 
-	public static schema(): SchemaObject {
+	public static override schema(): SchemaObject {
 		return {
 			style: {
 				enum: ["auto", "double", "single", "any"],
@@ -83,7 +83,7 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 		};
 	}
 
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const { style } = this;
 		const { unquoted } = this.options;
 		const description = [

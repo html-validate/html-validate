@@ -92,7 +92,7 @@ function haveAccessibleText(node: HtmlElement): boolean {
 }
 
 export default class TextContent extends Rule<RuleContext> {
-	public documentation(context: RuleContext): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const doc: RuleDocumentation = {
 			description: `The textual content for this element is not valid.`,
 			url: ruleDocumentationUrl(__filename),

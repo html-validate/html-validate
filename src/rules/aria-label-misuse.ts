@@ -67,7 +67,7 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 		super({ ...defaults, ...options });
 	}
 
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		const valid = [
 			"Interactive elements",
 			"Labelable elements",

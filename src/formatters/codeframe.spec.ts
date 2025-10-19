@@ -18,14 +18,14 @@ let codeframe: typeof fn;
 
 beforeAll(async () => {
 	/* force colors on when running codeframe tests */
-	const defaultColor = process.env.FORCE_COLOR;
-	process.env.FORCE_COLOR = "1";
+	const defaultColor = process.env["FORCE_COLOR"];
+	process.env["FORCE_COLOR"] = "1";
 
 	const module = await import("./codeframe");
 	codeframe = module.codeframe;
 
 	/* restore color, need only to be set when importing library */
-	process.env.FORCE_COLOR = defaultColor;
+	process.env["FORCE_COLOR"] = defaultColor;
 });
 
 describe("codeframe formatter", () => {

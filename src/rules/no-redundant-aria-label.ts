@@ -4,7 +4,7 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 const selectors = ["input[aria-label]", "textarea[aria-label]", "select[aria-label]"];
 
 export default class NoRedundantAriaLabel extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description:
 				"`aria-label` is redundant when an associated `<label>` element containing the same text exists.",

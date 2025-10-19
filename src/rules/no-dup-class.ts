@@ -3,7 +3,7 @@ import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoDupClass extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: "Prevents unnecessary duplication of class names.",
 			url: ruleDocumentationUrl(__filename),

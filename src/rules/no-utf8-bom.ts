@@ -3,7 +3,7 @@ import { TokenType } from "../lexer";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoUtf8Bom extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `This file is saved with the UTF-8 byte order mark (BOM) present. It is neither required or recommended to use.\n\nInstead the document should be served with the \`Content-Type: application/javascript; charset=utf-8\` header.`,
 			url: ruleDocumentationUrl(__filename),

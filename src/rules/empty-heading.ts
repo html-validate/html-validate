@@ -18,7 +18,7 @@ function hasImgAltText(node: HtmlElement): boolean {
 }
 
 export default class EmptyHeading extends Rule {
-	public documentation(): RuleDocumentation {
+	public override documentation(): RuleDocumentation {
 		return {
 			description: `Assistive technology such as screen readers require textual content in headings. Whitespace only is considered empty.`,
 			url: ruleDocumentationUrl(__filename),

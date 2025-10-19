@@ -22,7 +22,7 @@ function inline(source: string): Source {
 }
 
 class MockParser extends Parser {
-	public parseHtml(source: string | Source): HtmlElement {
+	public override parseHtml(source: string | Source): HtmlElement {
 		if (typeof source === "string") return super.parseHtml(source);
 		switch (source.data) {
 			case "invalid-token-error":
@@ -57,7 +57,7 @@ class MockParser extends Parser {
 
 class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
-	public loadRule(
+	public override loadRule(
 		name: string,
 		resolvedConfig: ResolvedConfig,
 		severity: Severity,
@@ -69,12 +69,12 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 	}
 
 	/* exposed for testing */
-	public instantiateRule(name: string, options: RuleOptions): Rule<unknown, unknown> {
+	public override instantiateRule(name: string, options: RuleOptions): Rule<unknown, unknown> {
 		return super.instantiateRule(name, options);
 	}
 
 	/* exposed for testing */
-	public missingRule(name: string): Rule {
+	public override missingRule(name: string): Rule {
 		return super.missingRule(name);
 	}
 }
