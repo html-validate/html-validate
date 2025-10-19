@@ -1,7 +1,6 @@
 import { type HtmlElement, DynamicValue } from "../../dom";
 import html5 from "../../elements/html5";
 import { type ElementReadyEvent } from "../../event";
-import { type MetaAttribute } from "../../meta";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../../rule";
 import { naturalJoin } from "../../utils/natural-join";
 
@@ -13,9 +12,7 @@ const defaults: RuleOptions = {
 	strict: false,
 };
 
-/* istanbul ignore next: this will always be present for the <th>
- * attribute (or the tests would fail) */
-const { enum: validScopes } = html5.th.attributes?.scope as MetaAttribute & { enum: string[] };
+const { enum: validScopes } = html5.th.attributes.scope;
 
 const joinedScopes = naturalJoin(validScopes);
 

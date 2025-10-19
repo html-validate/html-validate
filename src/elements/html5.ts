@@ -1,4 +1,4 @@
-import { defineMetadata } from "../meta/define-metadata";
+import { type MetaDataTable } from "../meta";
 import { metadataHelper } from "../meta/helper";
 import { type HtmlElementLike } from "../meta/html-element-like";
 
@@ -74,7 +74,7 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 	return tokens.some((keyword) => bodyOk.includes(keyword));
 }
 
-export default defineMetadata({
+export default {
 	"*": {
 		attributes: {
 			contenteditable: {
@@ -3033,4 +3033,4 @@ export default defineMetadata({
 			source: "html32",
 		},
 	},
-});
+} satisfies MetaDataTable;
