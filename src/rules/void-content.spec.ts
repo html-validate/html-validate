@@ -87,12 +87,14 @@ describe("rule void-content", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("void-content");
 		expect(docs).toMatchSnapshot();
 	});
 
 	it("should provide contextual documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("void-content", null, "foo");
 		expect(docs).toMatchSnapshot();
 	});

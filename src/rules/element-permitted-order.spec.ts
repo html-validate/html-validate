@@ -71,6 +71,7 @@ describe("rule element-permitted-order", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-permitted-order");
 		expect(docs).toMatchSnapshot();
 	});

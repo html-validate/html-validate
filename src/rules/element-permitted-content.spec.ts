@@ -434,6 +434,7 @@ describe("rule element-permitted-content", () => {
 				child: "<div>",
 				parent: "<span>",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const doc = await htmlvalidate.getRuleDocumentation(
 				"element-permitted-content",
 				null,
@@ -449,6 +450,7 @@ describe("rule element-permitted-content", () => {
 				child: "<div>",
 				ancestor: "<span>",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const doc = await htmlvalidate.getRuleDocumentation(
 				"element-permitted-content",
 				null,

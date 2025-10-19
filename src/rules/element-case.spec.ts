@@ -266,6 +266,7 @@ describe("rule element-case", () => {
 			root: true,
 			rules: { "element-case": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-case");
 		expect(docs).toMatchSnapshot();
 	});
@@ -276,6 +277,7 @@ describe("rule element-case", () => {
 			root: true,
 			rules: { "element-case": ["error", { style: ["lowercase", "pascalcase"] }] },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-case");
 		expect(docs).toMatchSnapshot();
 	});

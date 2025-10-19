@@ -1039,7 +1039,7 @@ describe("lexer", () => {
 			${"<?\n...\n?>"} | ${"<? ... ?> (with newlines)"}
 			${"<$ ... $>"}   | ${"<$ ... $>"}
 			${"<$\n...\n$>"} | ${"<$ ... $> (with newlines)"}
-		`("$description", ({ input }) => {
+		`("$description", ({ input }: { input: string }) => {
 			expect.assertions(2);
 			const token = lexer.tokenize(inlineSource(input));
 			expect(token.next()).toBeToken({

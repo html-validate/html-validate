@@ -78,6 +78,7 @@ describe("rule element-required-attributes", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("element-required-attributes");
 		expect(docs).toMatchSnapshot();
 	});
@@ -88,6 +89,7 @@ describe("rule element-required-attributes", () => {
 			element: "any",
 			attribute: "foo",
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation(
 			"element-required-attributes",
 			null,

@@ -7,7 +7,7 @@ import { CLI } from "./cli";
 let cli: CLI;
 const cwd = "/folder";
 
-beforeEach(async () => {
+beforeEach(() => {
 	jest.restoreAllMocks();
 	vol.fromJSON(
 		{

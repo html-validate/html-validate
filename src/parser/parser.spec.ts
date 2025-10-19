@@ -538,7 +538,7 @@ describe("parser", () => {
 				${"<% ... %>"}
 				${"<? ... ?>"}
 				${"<$ ... $>"}
-			`("$input", ({ input }) => {
+			`("$input", ({ input }: { input: string }) => {
 				expect.assertions(1);
 				const text = `lorem ${input} ipsum`;
 				const doc = parser.parseHtml(`<p>${text}</p>`);
@@ -1201,10 +1201,12 @@ describe("parser", () => {
 				optionsLocation: undefined,
 				commentLocation: undefined,
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable] -->
 				    |                      ^^^^^^
@@ -1227,14 +1229,17 @@ describe("parser", () => {
 				optionsLocation: expect.anything(),
 				commentLocation: undefined,
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar] -->
 				    |                      ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar] -->
 				    |                             ^^^^^^^
@@ -1257,14 +1262,17 @@ describe("parser", () => {
 				optionsLocation: undefined,
 				commentLocation: expect.anything(),
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
 				    |                      ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable: lorem ipsum] -->
 				    |                              ^^^^^^^^^^^
@@ -1287,14 +1295,17 @@ describe("parser", () => {
 				optionsLocation: undefined,
 				commentLocation: expect.anything(),
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
 				    |                      ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable -- lorem ipsum] -->
 				    |                                ^^^^^^^^^^^
@@ -1317,18 +1328,22 @@ describe("parser", () => {
 				optionsLocation: expect.anything(),
 				commentLocation: expect.anything(),
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
 				    |                      ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
 				    |                             ^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar: baz] -->
 				    |                                      ^^^
@@ -1351,18 +1366,22 @@ describe("parser", () => {
 				optionsLocation: expect.anything(),
 				commentLocation: expect.anything(),
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
 				    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
 				    |                      ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
 				    |                             ^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!-- [html-validate-enable foo bar -- baz] -->
 				    |                                        ^^^
@@ -1385,18 +1404,22 @@ describe("parser", () => {
 				optionsLocation: expect.anything(),
 				commentLocation: expect.anything(),
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.location)).toMatchInlineSnapshot(`
 				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
 				    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.actionLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
 				    |                     ^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.optionsLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
 				    |                            	 ^^^^^^^
 			`);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 			expect(codeframe(markup, event.commentLocation)).toMatchInlineSnapshot(`
 				> 1 |  <!--[html-validate-enable 	 foo bar    --    baz]-->
 				    |                            	                  ^^^
@@ -1887,10 +1910,10 @@ describe("parser", () => {
 
 		it("attribute (deprecated method)", () => {
 			expect.assertions(6);
-			const processAttribute = jest.fn((attr) => {
+			const processAttribute = jest.fn((attr: AttributeData): AttributeData[] => {
 				attr.key = "fred";
 				attr.value = "barney";
-				return attr;
+				return [attr];
 			});
 			const source: Source = {
 				data: '<input id="foo">',
@@ -2173,7 +2196,9 @@ describe("parser", () => {
 		it("should push wildcard event on event queue", () => {
 			expect.assertions(2);
 			const cb = jest.fn();
-			(parser as any).event.once = jest.fn((event, fn) => fn());
+			(parser as any).event.once = jest.fn((event: string, fn: EventCallback) => {
+				fn(event, fn);
+			});
 			parser.defer(cb);
 			expect((parser as any).event.once).toHaveBeenCalledWith("*", cb);
 			expect(cb).toHaveBeenCalled();

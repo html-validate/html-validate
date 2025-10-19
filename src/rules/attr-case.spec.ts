@@ -370,6 +370,7 @@ describe("rule attr-case", () => {
 			root: true,
 			rules: { "attr-case": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attr-case");
 		expect(docs).toMatchInlineSnapshot(`
 			{
@@ -385,6 +386,7 @@ describe("rule attr-case", () => {
 			root: true,
 			rules: { "attr-case": ["error", { style: ["lowercase", "camelcase"] }] },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attr-case");
 		expect(docs).toMatchInlineSnapshot(`
 			{

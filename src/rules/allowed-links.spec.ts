@@ -63,7 +63,7 @@ describe("rule allowed-links", () => {
 			${"<img src>"}    | ${'<img src="/foo">'}
 			${"<link href>"}  | ${'<link href="/foo">'}
 			${"<script src>"} | ${'<script src="/foo"></script>'}
-		`("$description", async ({ markup }) => {
+		`("$description", async ({ markup }: { markup: string }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
@@ -514,6 +514,7 @@ describe("rule allowed-links", () => {
 			root: true,
 			rules: { "allowed-links": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("allowed-links");
 		expect(docs).toMatchSnapshot();
 	});
@@ -531,6 +532,7 @@ describe("rule allowed-links", () => {
 				root: true,
 				rules: { "allowed-links": "error" },
 			});
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("allowed-links", null, value);
 			expect(docs).toMatchSnapshot();
 		});

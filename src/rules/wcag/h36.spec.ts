@@ -79,6 +79,7 @@ describe("wcag/h36", () => {
 		htmlvalidate = new HtmlValidate({
 			rules: { "wcag/h36": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("wcag/h36");
 		expect(docs).toMatchSnapshot();
 	});

@@ -15,7 +15,7 @@ describe("rule no-trailing-whitespace", () => {
 		newline   | description
 		${"\n"}   | ${"LR"}
 		${"\r\n"} | ${"CRLF"}
-	`("$description", ({ newline }) => {
+	`("$description", ({ newline }: { newline: string }) => {
 		it("should not report when there is no trailing whitespace", async () => {
 			expect.assertions(1);
 			const markup = /* RAW */ ` <div>${newline}  foo${newline}</div>`;
@@ -59,6 +59,7 @@ describe("rule no-trailing-whitespace", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-trailing-whitespace");
 		expect(docs).toMatchSnapshot();
 	});

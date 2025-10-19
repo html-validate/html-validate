@@ -16,6 +16,7 @@ export enum Mode {
  */
 export function modeToFlag(mode: Mode.LINT): null;
 export function modeToFlag(mode: Exclude<Mode, Mode.LINT>): string;
+export function modeToFlag(mode: Mode): string | null;
 export function modeToFlag(mode: Mode): string | null {
 	switch (mode) {
 		case Mode.LINT:

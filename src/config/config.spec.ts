@@ -3,6 +3,7 @@ import { SchemaValidationError } from "../error";
 import { UserError } from "../error/user-error";
 import { type Plugin } from "../plugin";
 import { Config } from "./config";
+import { type ConfigData } from "./config-data";
 import { ConfigError } from "./error";
 import { type Resolver, staticResolver } from "./resolver";
 import { cjsResolver } from "./resolver/nodejs";
@@ -95,7 +96,7 @@ describe("config", () => {
 		expect(() =>
 			Config.fromObject(resolvers, {
 				rules: "spam",
-			} as any),
+			} as unknown as ConfigData),
 		).toThrow("Invalid configuration: /rules: type must be object");
 		expect(() => Config.fromFile(resolvers, "invalid-file.json")).toThrow(
 			'Failed to load configuration from "invalid-file.json"',
@@ -109,7 +110,7 @@ describe("config", () => {
 		expect((await Config.fromObject(resolvers, { plugins: [] })).getPlugins()).toEqual([]);
 	});
 
-	it("should return not promise if config is sync", async () => {
+	it("should return not promise if config is sync", () => {
 		expect.assertions(2);
 		const resolver: Resolver = {
 			name: "mock-resolver",
@@ -613,7 +614,7 @@ describe("config", () => {
 				["rules with severity", { rules: { a: "off", b: "warn", c: "error" } }],
 				["rules with missing options", { rules: { foo: ["error"] } }],
 				["rules with options", { rules: { foo: ["error", { spam: "ham" }] } }],
-			] as Array<[string, any]>)("%s", (_, config: any) => {
+			] as Array<[string, any]>)("%s", (_, config: ConfigData) => {
 				expect.assertions(1);
 				expect(() => {
 					Config.validate(config);
@@ -635,10 +636,10 @@ describe("config", () => {
 				["rules with invalid numeric severity", { rules: { foo: -1, bar: 3 } }],
 				["rules with invalid severity", { rules: { foo: "spam" } }],
 				["additional property", { foo: "bar" }],
-			] as Array<[string, any]>)("%s", (_, config: any) => {
+			] as Array<[string, any]>)("%s", (_, config: unknown) => {
 				expect.assertions(1);
 				expect(() => {
-					Config.validate(config);
+					Config.validate(config as ConfigData);
 				}).toThrow(SchemaValidationError);
 			});
 		});

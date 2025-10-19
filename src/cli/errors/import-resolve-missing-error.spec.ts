@@ -2,7 +2,7 @@ import { stripAnsi } from "../../jest/utils";
 import { ImportResolveMissingError } from "./import-resolve-missing-error";
 
 expect.addSnapshotSerializer({
-	serialize(value) {
+	serialize(value: string) {
 		/* mask current version as it will differ */
 		return stripAnsi(value.replace(/(Current:\s+)v[\d.]+/, "$1[..]"));
 	},

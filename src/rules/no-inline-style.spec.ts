@@ -282,6 +282,7 @@ describe("rule no-inline-style", () => {
 			root: true,
 			rules: { "no-inline-style": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-inline-style");
 		expect(docs).toMatchSnapshot();
 	});

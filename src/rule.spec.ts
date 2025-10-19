@@ -369,13 +369,16 @@ describe("isEnabled()", () => {
 		${0}    | ${0}     | ${false}
 		${0}    | ${1}     | ${false}
 		${0}    | ${2}     | ${false}
-	`("enabled=$enabled, severity=$severity should be $result", ({ enabled, severity, result }) => {
-		expect.assertions(1);
-		const rule = new MockRule();
-		rule.setEnabled(Boolean(enabled));
-		rule.setServerity(severity);
-		expect(rule.isEnabled()).toEqual(result);
-	});
+	`(
+		"enabled=$enabled, severity=$severity should be $result",
+		({ enabled, severity, result }: { enabled: number; severity: number; result: boolean }) => {
+			expect.assertions(1);
+			const rule = new MockRule();
+			rule.setEnabled(Boolean(enabled));
+			rule.setServerity(severity);
+			expect(rule.isEnabled()).toEqual(result);
+		},
+	);
 });
 
 describe("isBlocked()", () => {

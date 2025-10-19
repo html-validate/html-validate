@@ -71,6 +71,7 @@ describe("rule map-dup-name", () => {
 			root: true,
 			rules: { "map-dup-name": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("map-dup-name");
 		expect(docs).toMatchInlineSnapshot(`
 			{

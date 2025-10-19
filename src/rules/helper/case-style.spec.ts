@@ -1,4 +1,4 @@
-import { CaseStyle } from "./case-style";
+import { type CaseStyleName, CaseStyle } from "./case-style";
 
 it.each`
 	style           | text
@@ -8,11 +8,14 @@ it.each`
 	${"camelcase"}  | ${"fooBar"}
 	${"pascalcase"} | ${"Foo"}
 	${"pascalcase"} | ${"FooBar"}
-`('style "$style" should match "$text"', ({ style, text }) => {
-	expect.assertions(1);
-	const cs = new CaseStyle(style, "test-case");
-	expect(cs.match(text)).toBeTruthy();
-});
+`(
+	'style "$style" should match "$text"',
+	({ style, text }: { style: CaseStyleName; text: string }) => {
+		expect.assertions(1);
+		const cs = new CaseStyle(style, "test-case");
+		expect(cs.match(text)).toBeTruthy();
+	},
+);
 
 it.each`
 	style           | text
@@ -22,11 +25,14 @@ it.each`
 	${"camelcase"}  | ${"FooBar"}
 	${"pascalcase"} | ${"foo"}
 	${"pascalcase"} | ${"fooBar"}
-`('style "$style" should not match "$text"', ({ style, text }) => {
-	expect.assertions(1);
-	const cs = new CaseStyle(style, "test-case");
-	expect(cs.match(text)).toBeFalsy();
-});
+`(
+	'style "$style" should not match "$text"',
+	({ style, text }: { style: CaseStyleName; text: string }) => {
+		expect.assertions(1);
+		const cs = new CaseStyle(style, "test-case");
+		expect(cs.match(text)).toBeFalsy();
+	},
+);
 
 it("should handle multiple patterns", () => {
 	expect.assertions(3);
@@ -39,7 +45,7 @@ it("should handle multiple patterns", () => {
 it("should throw exception for unknown styles", () => {
 	expect.assertions(1);
 	expect(() => {
-		return new CaseStyle("unknown-style" as any, "test-case");
+		return new CaseStyle("unknown-style" as unknown as CaseStyleName, "test-case");
 	}).toThrow('Invalid style "unknown-style" for test-case rule');
 });
 

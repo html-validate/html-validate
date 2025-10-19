@@ -5,6 +5,7 @@ import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { type Resolver } from "../resolver";
 import { cjsResolver } from "../resolver/nodejs";
+import type * as internalImport from "../resolver/nodejs/internal-import";
 import { FileSystemConfigLoader } from "./file-system";
 
 declare module "../config-data" {
@@ -30,24 +31,21 @@ jest
 		}
 	});
 
-jest.mock(
-	"../resolver/nodejs/internal-import",
-	(): typeof import("../resolver/nodejs/internal-import") => {
-		return {
-			internalImport(moduleName) {
-				if (!volume) {
-					throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
-				}
-				if (moduleName.endsWith(".json")) {
-					const content = volume.readFileSync(moduleName, "utf-8") as string;
-					return Promise.resolve(JSON.parse(content));
-				} else {
-					throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
-				}
-			},
-		};
-	},
-);
+jest.mock("../resolver/nodejs/internal-import", (): typeof internalImport => {
+	return {
+		internalImport(moduleName) {
+			if (!volume) {
+				throw new Error(`Failed to read mocked "${moduleName}", no fs mocked`);
+			}
+			if (moduleName.endsWith(".json")) {
+				const content = volume.readFileSync(moduleName, "utf-8") as string;
+				return Promise.resolve(JSON.parse(content));
+			} else {
+				throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
+			}
+		},
+	};
+});
 
 class ForcedSyncLoader extends FileSystemConfigLoader {
 	protected override loadFromObject(options: ConfigData): Config {
@@ -97,7 +95,7 @@ describe("FileSystemConfigLoader", () => {
 		});
 	});
 
-	it("should use custom resolver", () => {
+	it("should use custom resolver", async () => {
 		expect.assertions(1);
 		volume = Volume.fromJSON({});
 		const mockResolver: Resolver = {
@@ -114,7 +112,7 @@ describe("FileSystemConfigLoader", () => {
 			},
 			{ fs: volume },
 		);
-		loader.getConfigFor("inline");
+		await loader.getConfigFor("inline");
 		expect(resolveConfig).toHaveBeenCalledWith("foo", expect.anything());
 	});
 

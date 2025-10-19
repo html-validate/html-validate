@@ -61,7 +61,7 @@ class ExposedEngine<T extends Parser> extends Engine<T> {
 		name: string,
 		resolvedConfig: ResolvedConfig,
 		severity: Severity,
-		options: any,
+		options: RuleOptions,
 		parser: Parser,
 		report: Reporter,
 	): Rule<unknown, unknown> {
@@ -172,6 +172,7 @@ describe("Engine", () => {
 			const source: Source[] = [inline("<div>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 			expect(report).toHaveError("close-order", expect.any(String));
 		});
 
@@ -366,6 +367,7 @@ describe("Engine", () => {
 				const source: Source[] = [inline(markup)];
 				const report = engine.lint(source);
 				expect(report).toBeInvalid();
+				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 				expect(report).toHaveError("void-style", expect.any(String));
 			});
 
@@ -380,6 +382,7 @@ describe("Engine", () => {
 				const source: Source[] = [inline(markup)];
 				const report = engine.lint(source);
 				expect(report).toBeInvalid();
+				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 				expect(report).toHaveError("void-style", expect.any(String));
 			});
 		});
@@ -544,6 +547,7 @@ describe("Engine", () => {
 			it("should load and initialize rule", async () => {
 				expect.assertions(4);
 				const resolvedConfig = await config.resolve();
+				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
 				const rule = engine.loadRule("void", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBe(mockRule);

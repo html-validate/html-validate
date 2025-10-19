@@ -24,7 +24,7 @@ function moduleNotFound(name: string): never {
 
 beforeEach(() => {
 	mockModules = {};
-	mockImport.mockReset().mockImplementation(async (name: string) => {
+	mockImport.mockReset().mockImplementation((name: string) => {
 		if (name.startsWith("/\x00")) {
 			name = name.slice(2);
 		}

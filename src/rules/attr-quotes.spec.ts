@@ -234,6 +234,7 @@ describe("rule attr-quotes", () => {
 				error: "unquoted",
 				attr: "foo",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.url).toMatchInlineSnapshot(`"https://html-validate.org/rules/attr-quotes.html"`);
 		});
@@ -247,6 +248,7 @@ describe("rule attr-quotes", () => {
 				error: "unquoted",
 				attr: "foo",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});
@@ -262,6 +264,7 @@ describe("rule attr-quotes", () => {
 				actual: "'",
 				expected: '"',
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});
@@ -285,6 +288,7 @@ describe("rule attr-quotes", () => {
 				error: "unquoted",
 				attr: "foo",
 			};
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("attr-quotes", null, context);
 			expect(docs?.description).toMatchSnapshot();
 		});

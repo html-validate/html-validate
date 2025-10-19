@@ -389,6 +389,7 @@ describe("rule close-order", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("close-order");
 		expect(docs).toMatchSnapshot();
 	});

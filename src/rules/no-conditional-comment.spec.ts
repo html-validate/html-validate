@@ -52,6 +52,7 @@ describe("rule no-conditional-comment", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("no-conditional-comment");
 		expect(docs).toMatchSnapshot();
 	});

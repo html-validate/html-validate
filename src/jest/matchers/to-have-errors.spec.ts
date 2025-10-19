@@ -10,6 +10,7 @@ describe("toHaveErrors()", () => {
 
 	it("should pass if async error is preset", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 		await expect(reportErrorAsync()).toHaveErrors([["my-rule", "mock message"]]);
 	});
 
@@ -40,6 +41,7 @@ describe("toHaveErrors()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
+		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 });

@@ -33,6 +33,7 @@ describe("toBeToken()", () => {
 			error = e;
 		}
 		expect(error).toBeDefined();
-		expect(stripAnsi(error?.message || "")).toMatchSnapshot();
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
+		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 });

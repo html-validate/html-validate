@@ -39,7 +39,7 @@ beforeEach(() => {
 			moduleNotFound(name);
 		}
 	});
-	mockImport.mockReset().mockImplementation(async (name: string) => {
+	mockImport.mockReset().mockImplementation((name: string) => {
 		name = fileURLToPath(name);
 		if (name.startsWith("/\x00")) {
 			name = name.slice(2);

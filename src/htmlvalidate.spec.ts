@@ -1105,7 +1105,9 @@ describe("HtmlValidate", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
 		const config = await mockConfig();
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		await htmlvalidate.getRuleDocumentation("foo");
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		await htmlvalidate.getRuleDocumentation("foo", config, { bar: "baz" });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({
@@ -1120,7 +1122,9 @@ describe("HtmlValidate", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
 		const config = mockConfigSync();
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		htmlvalidate.getRuleDocumentationSync("foo");
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		htmlvalidate.getRuleDocumentationSync("foo", config, { bar: "baz" });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({ ruleId: "foo", context: null });
 		expect(engine.getRuleDocumentation).toHaveBeenCalledWith({

@@ -234,6 +234,7 @@ describe("rule meta-refresh", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("meta-refresh");
 		expect(docs).toMatchSnapshot();
 	});

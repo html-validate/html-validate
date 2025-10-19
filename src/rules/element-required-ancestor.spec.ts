@@ -131,6 +131,7 @@ describe("rule element-required-ancestor", () => {
 			child: "<li>",
 			ancestor: ["<ul>", "<ol>", "<menu>"],
 		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation(
 			"element-required-ancestor",
 			null,

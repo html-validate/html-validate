@@ -344,6 +344,7 @@ describe("rule attribute-boolean-style", () => {
 			root: true,
 			rules: { "attribute-boolean-style": "error" },
 		});
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 		const docs = await htmlvalidate.getRuleDocumentation("attribute-boolean-style");
 		expect(docs).toMatchSnapshot();
 	});

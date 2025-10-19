@@ -110,22 +110,24 @@ describe("resolveTransformer()", () => {
 		expect(result).toEqual(foo);
 	});
 
-	it("should throw helpful error when trying to load unregistered plugin as transformer", () => {
+	it("should throw helpful error when trying to load unregistered plugin as transformer", async () => {
 		expect.assertions(1);
 		createMockedModule("mock-plugin-unregistered", { transformer: {} });
-		expect(() => {
-			resolver.resolveTransformer("mock-plugin-unregistered", { cache: true });
-		}).toThrowErrorMatchingInlineSnapshot(
+		await expect(async () => {
+			await resolver.resolveTransformer("mock-plugin-unregistered", { cache: true });
+		}).rejects.toThrowErrorMatchingInlineSnapshot(
 			`"Module "mock-plugin-unregistered" is not a valid transformer. This looks like a plugin, did you forget to load the plugin first?"`,
 		);
 	});
 
-	it("should throw error when trying to load garbage as transformer", () => {
+	it("should throw error when trying to load garbage as transformer", async () => {
 		expect.assertions(1);
 		createMockedModule("mock-garbage", "foobar");
-		expect(() => {
-			resolver.resolveTransformer("mock-garbage", { cache: true });
-		}).toThrowErrorMatchingInlineSnapshot(`"Module "mock-garbage" is not a valid transformer."`);
+		await expect(async () => {
+			await resolver.resolveTransformer("mock-garbage", { cache: true });
+		}).rejects.toThrowErrorMatchingInlineSnapshot(
+			`"Module "mock-garbage" is not a valid transformer."`,
+		);
 	});
 });
 
