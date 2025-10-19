@@ -2,7 +2,7 @@
 
 exports[`rule element-required-attributes should contain documentation 1`] = `
 {
-  "description": "The <any> element is required to have a "foo" attribute.",
+  "description": "The \`<any>\` element is required to have a \`foo\` attribute.",
   "url": "https://html-validate.org/rules/element-required-attributes.html",
 }
 `;

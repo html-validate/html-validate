@@ -9,7 +9,7 @@ interface RuleContext {
 export default class ElementRequiredAttributes extends Rule<RuleContext> {
 	public override documentation(context: RuleContext): RuleDocumentation {
 		return {
-			description: `The <${context.element}> element is required to have a "${context.attribute}" attribute.`,
+			description: `The \`<${context.element}>\` element is required to have a \`${context.attribute}\` attribute.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

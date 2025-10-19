@@ -32,7 +32,6 @@ export default class NoSelfClosing extends Rule<RuleContext, RuleOptions> {
 	}
 
 	public override documentation(context: RuleContext): RuleDocumentation {
-		context = context || "element";
 		return {
 			description: `Self-closing elements are disallowed. Use regular end tag <${context}></${context}> instead of self-closing <${context}/>.`,
 			url: ruleDocumentationUrl(__filename),
