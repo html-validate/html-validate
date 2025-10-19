@@ -8,16 +8,10 @@ interface RuleContext {
 
 export default class ElementRequiredAttributes extends Rule<RuleContext> {
 	public override documentation(context: RuleContext): RuleDocumentation {
-		const docs: RuleDocumentation = {
-			description: "Element is missing a required attribute",
+		return {
+			description: `The <${context.element}> element is required to have a "${context.attribute}" attribute.`,
 			url: ruleDocumentationUrl(__filename),
 		};
-
-		if (context) {
-			docs.description = `The <${context.element}> element is required to have a "${context.attribute}" attribute.`;
-		}
-
-		return docs;
 	}
 
 	public setup(): void {

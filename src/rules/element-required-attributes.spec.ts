@@ -78,13 +78,6 @@ describe("rule element-required-attributes", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-		const docs = await htmlvalidate.getRuleDocumentation("element-required-attributes");
-		expect(docs).toMatchSnapshot();
-	});
-
-	it("should contain contextual documentation", async () => {
-		expect.assertions(1);
 		const context = {
 			element: "any",
 			attribute: "foo",

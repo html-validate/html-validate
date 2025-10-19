@@ -29,10 +29,6 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 			description: "Attribute has invalid value.",
 			url: ruleDocumentationUrl(__filename),
 		};
-		if (!context) {
-			return docs;
-		}
-
 		const { allowed, attribute, element, value } = context;
 		if (allowed.enum) {
 			const allowedList = allowed.enum.map((value: string | RegExp) => {

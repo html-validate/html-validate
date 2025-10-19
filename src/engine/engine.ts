@@ -447,6 +447,7 @@ export class Engine<T extends Parser = Parser> {
 
 		/* call setup callback if present */
 
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- technical debt: setup() should be optional in Rule interface */
 		if (rule.setup) {
 			rule.setup();
 		}

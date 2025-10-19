@@ -165,7 +165,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.empty();
 
-		while (true) {
+		for (;;) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = this.loadFromFile(configFile);
@@ -232,7 +232,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		let current = path.resolve(path.dirname(filename));
 		let config = this.empty();
 
-		while (true) {
+		for (;;) {
 			/* search configuration files in current directory */
 			for (const configFile of findConfigurationFiles(this.fs, current)) {
 				const local = await this.loadFromFile(configFile);

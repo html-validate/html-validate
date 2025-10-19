@@ -805,7 +805,7 @@ export class Parser {
 	private closeTree(source: Source, location: Location): void {
 		let active;
 		const documentElement = this.dom.root;
-		/* eslint-disable-next-line sonarjs/no-nested-assignment -- the condition is not unnecessary, it performs an assignment */
+		/* eslint-disable-next-line sonarjs/no-nested-assignment, @typescript-eslint/no-unnecessary-condition -- the condition is not unnecessary, it performs an assignment */
 		while ((active = this.dom.getActive()) && !active.isRootElement()) {
 			if (active.meta?.implicitClosed) {
 				active.closed = NodeClosed.ImplicitClosed;

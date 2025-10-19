@@ -1,15 +1,8 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`rule element-required-attributes should contain contextual documentation 1`] = `
-{
-  "description": "The <any> element is required to have a "foo" attribute.",
-  "url": "https://html-validate.org/rules/element-required-attributes.html",
-}
-`;
-
 exports[`rule element-required-attributes should contain documentation 1`] = `
 {
-  "description": "Element is missing a required attribute",
+  "description": "The <any> element is required to have a "foo" attribute.",
   "url": "https://html-validate.org/rules/element-required-attributes.html",
 }
 `;
