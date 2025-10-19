@@ -27,6 +27,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
+    "noImplicitReturns": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,

@@ -92,7 +92,7 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 				 * content */
 				const rules = node.meta?.permittedParent;
 				if (!rules) {
-					return false;
+					return;
 				}
 
 				if (Validator.validatePermitted(parent, rules)) {
