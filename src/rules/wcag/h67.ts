@@ -15,7 +15,7 @@ export default class H67 extends Rule {
 			const node = event.target;
 
 			/* only validate images */
-			if (!node || node.tagName !== "img") {
+			if (node?.tagName !== "img") {
 				return;
 			}
 

@@ -62,7 +62,7 @@ export function inAccessibilityTree(node: HtmlElement): boolean {
 function isAriaHiddenImpl(node: HtmlElement): IsHiddenResult {
 	const getAriaHiddenAttr = (node: HtmlElement): boolean => {
 		const ariaHidden = node.getAttribute("aria-hidden");
-		return Boolean(ariaHidden && ariaHidden.value === "true");
+		return ariaHidden?.value === "true";
 	};
 	return {
 		byParent: node.parent ? isAriaHidden(node.parent) : false,

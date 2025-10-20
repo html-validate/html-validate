@@ -15,7 +15,7 @@ export default class ScriptElement extends Rule {
 		this.on("tag:end", (event: TagEndEvent) => {
 			const node = event.target; // The current element being closed.
 
-			if (!node || node.tagName !== "script") {
+			if (node?.tagName !== "script") {
 				return;
 			}
 
