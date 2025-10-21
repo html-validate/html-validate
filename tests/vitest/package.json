@@ -10,7 +10,7 @@
     "html-validate": "file:../.."
   },
   "devDependencies": {
-    "vite": "7.1.10",
+    "vite": "7.1.11",
     "vitest": "3.2.4"
   }
 }
