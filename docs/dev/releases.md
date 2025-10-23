@@ -23,7 +23,7 @@ Older major versions is generally supported for two year after the succeeding ve
     <tr class="release-active">
       <td>10.x</td>
       <td>Active</td>
-      <td>2024-08-09</td>
+      <td>2025-08-09</td>
       <td>-</td>
     </tr>
     <tr class="release-active">
@@ -90,12 +90,12 @@ Some exceptions occur, refer to the following table:
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>28 || 29 || 30</code></td>
+      <td><code>v28.x || v29.x || v30.x</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>12 || 13 || 14</code></td>
+      <td><code>v12.x || v13.x || v14.x || v15.x</code></td>
       <td>Last 3 majors</td>
     </tr>
     <tr>
