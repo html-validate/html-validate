@@ -18,9 +18,9 @@ exports[`regression tests test-files/issues/issue-299/aria.html 1`] = `
           "id": "foo,-bar",
           "kind": 4,
         },
-        "line": 2,
+        "line": 3,
         "message": "element id "foo,-bar" must only contain letters, digits, dash and underscore characters",
-        "offset": 73,
+        "offset": 151,
         "ruleId": "valid-id",
         "ruleUrl": "https://html-validate.org/rules/valid-id.html",
         "selector": "#foo\\,-bar",
@@ -28,7 +28,8 @@ exports[`regression tests test-files/issues/issue-299/aria.html 1`] = `
         "size": 8,
       },
     ],
-    "source": "<div aria-controls="foo,-bar" aria-labelledby="foo,-bar"></div>
+    "source": "<!-- [html-validate-disable-block aria-label-misuse -- not part of issue] -->
+<div aria-controls="foo,-bar" aria-labelledby="foo,-bar"></div>
 <div id="foo,-bar"></div>
 ",
     "warningCount": 0,

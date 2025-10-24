@@ -1,8 +1,13 @@
-import { type HtmlElement } from "../dom";
+import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { ariaNaming } from "./helper";
+
+export interface RuleContext {
+	attr: "aria-label" | "aria-labelledby";
+	allowsNaming: boolean;
+}
 
 export interface RuleOptions {
 	allowAnyNamable: boolean;
@@ -12,7 +17,7 @@ const defaults: RuleOptions = {
 	allowAnyNamable: false,
 };
 
-const whitelisted = [
+const allowlist = new Set([
 	"main",
 	"nav",
 	"table",
@@ -25,12 +30,13 @@ const whitelisted = [
 	"article",
 	"dialog",
 	"form",
+	"iframe",
 	"img",
 	"area",
 	"fieldset",
 	"summary",
 	"figure",
-];
+]);
 
 function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	/* elements with explicit aria-label attribute are valid */
@@ -39,8 +45,8 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 		return true;
 	}
 
-	/* landmark and other whitelisted elements are valid */
-	if (whitelisted.includes(target.tagName)) {
+	/* landmark and other allowed elements are valid */
+	if (allowlist.has(target.tagName)) {
 		return true;
 	}
 
@@ -62,12 +68,12 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	return false;
 }
 
-export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
+export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 
-	public override documentation(): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const valid = [
 			"Interactive elements",
 			"Labelable elements",
@@ -81,26 +87,47 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 			"`<summary>`",
 			"`<table>`, `<td>` and `<th>`",
 		];
-		const lines = valid.map((it) => `- ${it}\n`).join("");
-		return {
-			description: `\`aria-label\` can only be used on:\n\n${lines}`,
-			url: ruleDocumentationUrl(__filename),
-		};
+		const lines = valid.map((it) => `- ${it}`);
+		const url = ruleDocumentationUrl(__filename);
+		if (context.allowsNaming) {
+			return {
+				description: [
+					`\`${context.attr}\` is strictly allowed but is not recommended to be used on this element.`,
+					`\`${context.attr}\` can only be used on:`,
+					"",
+					...lines,
+				].join("\n"),
+				url,
+			};
+		} else {
+			return {
+				description: [`\`${context.attr}\` can only be used on:`, "", ...lines].join("\n"),
+				url,
+			};
+		}
 	}
 
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			for (const target of document.querySelectorAll("[aria-label]")) {
-				this.validateElement(target);
+			for (const target of document.querySelectorAll("[aria-label], [aria-labelledby]")) {
+				const ariaLabel = target.getAttribute("aria-label");
+				if (ariaLabel) {
+					this.validateElement(target, ariaLabel, "aria-label");
+				}
+				const ariaLabelledby = target.getAttribute("aria-labelledby");
+				if (ariaLabelledby) {
+					this.validateElement(target, ariaLabelledby, "aria-labelledby");
+				}
 			}
 		});
 	}
 
-	private validateElement(target: HtmlElement): void {
-		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the
-		 * earier [aria-label] selector ensures this is always present */
-		const attr = target.getAttribute("aria-label")!;
+	private validateElement(
+		target: HtmlElement,
+		attr: Attribute,
+		key: "aria-label" | "aria-labelledby",
+	): void {
 		if (!attr.value || attr.valueMatches("", false)) {
 			return;
 		}
@@ -116,11 +143,28 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 			return;
 		}
 
+		const allowsNaming = ariaNaming(target) === "allowed";
+
 		/* ignore elements where naming is allowed (but not recommended) if `allowAnyNamable` is enabled */
-		if (this.options.allowAnyNamable && ariaNaming(target) === "allowed") {
+		if (allowsNaming && this.options.allowAnyNamable) {
 			return;
 		}
 
-		this.report(target, `"aria-label" cannot be used on this element`, attr.keyLocation);
+		const context: RuleContext = { attr: key, allowsNaming };
+		if (allowsNaming) {
+			this.report({
+				node: target,
+				location: attr.keyLocation,
+				context,
+				message: `"{{ attr }}" is strictly allowed but is not recommended to be used on this element`,
+			});
+		} else {
+			this.report({
+				node: target,
+				location: attr.keyLocation,
+				context,
+				message: `"{{ attr }}" cannot be used on this element`,
+			});
+		}
 	}
 }
