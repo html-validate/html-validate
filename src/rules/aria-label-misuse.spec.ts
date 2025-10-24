@@ -14,7 +14,6 @@ describe("rule aria-label-misuse", () => {
 					"custom-allowed": {
 						attributes: {
 							"aria-label": {},
-							"aria-labelledby": {},
 						},
 					},
 					"custom-disallowed": {
@@ -185,14 +184,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:23:
+			"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:2:23:
 			  1 |
 			> 2 | 			<custom-disallowed aria-label="foobar"></custom-disallowed>
 			    | 			                   ^^^^^^^^^^
 			  3 | 			<custom-disallowed aria-labelledby="foobar"></custom-disallowed>
 			  4 |
 			Selector: custom-disallowed:nth-child(1)
-			error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:23:
+			error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:3:23:
 			  1 |
 			  2 | 			<custom-disallowed aria-label="foobar"></custom-disallowed>
 			> 3 | 			<custom-disallowed aria-labelledby="foobar"></custom-disallowed>
@@ -314,14 +313,14 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:9:
+				"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:2:9:
 				  1 |
 				> 2 | 				<h1 aria-label="lorem ipsum">spam</h1>
 				    | 				    ^^^^^^^^^^
 				  3 | 				<h1 aria-labelledby="lorem ipsum">spam</h1>
 				  4 |
 				Selector: h1:nth-child(1)
-				error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:9:
+				error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:3:9:
 				  1 |
 				  2 | 				<h1 aria-label="lorem ipsum">spam</h1>
 				> 3 | 				<h1 aria-labelledby="lorem ipsum">spam</h1>
@@ -333,12 +332,21 @@ describe("rule aria-label-misuse", () => {
 	});
 
 	it("should contain documentation", async () => {
-		expect.assertions(1);
-		const context: RuleContext = { attr: "aria-label" };
-		const docs = await htmlvalidate.getContextualDocumentation({
+		expect.assertions(3);
+		const docs1 = await htmlvalidate.getContextualDocumentation({
 			ruleId: "aria-label-misuse",
-			context,
+			context: { attr: "aria-label", allowsNaming: false } satisfies RuleContext,
 		});
-		expect(docs).toMatchSnapshot();
+		const docs2 = await htmlvalidate.getContextualDocumentation({
+			ruleId: "aria-label-misuse",
+			context: { attr: "aria-labelledby", allowsNaming: false } satisfies RuleContext,
+		});
+		const docs3 = await htmlvalidate.getContextualDocumentation({
+			ruleId: "aria-label-misuse",
+			context: { attr: "aria-label", allowsNaming: true } satisfies RuleContext,
+		});
+		expect(docs1).toMatchSnapshot();
+		expect(docs2).toMatchSnapshot();
+		expect(docs3).toMatchSnapshot();
 	});
 });

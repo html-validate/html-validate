@@ -6,6 +6,7 @@ import { ariaNaming } from "./helper";
 
 export interface RuleContext {
 	attr: "aria-label" | "aria-labelledby";
+	allowsNaming: boolean;
 }
 
 export interface RuleOptions {
@@ -86,11 +87,24 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 			"`<summary>`",
 			"`<table>`, `<td>` and `<th>`",
 		];
-		const lines = valid.map((it) => `- ${it}\n`).join("");
-		return {
-			description: `\`${context.attr}\` can only be used on:\n\n${lines}`,
-			url: ruleDocumentationUrl(__filename),
-		};
+		const lines = valid.map((it) => `- ${it}`);
+		const url = ruleDocumentationUrl(__filename);
+		if (context.allowsNaming) {
+			return {
+				description: [
+					`\`${context.attr}\` is strictly allowed but is not recommended to be used on this element.`,
+					`\`${context.attr}\` can only be used on:`,
+					"",
+					...lines,
+				].join("\n"),
+				url,
+			};
+		} else {
+			return {
+				description: [`\`${context.attr}\` can only be used on:`, "", ...lines].join("\n"),
+				url,
+			};
+		}
 	}
 
 	public setup(): void {
@@ -125,17 +139,28 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 			return;
 		}
 
+		const allowsNaming = ariaNaming(target) === "allowed";
+
 		/* ignore elements where naming is allowed (but not recommended) if `allowAnyNamable` is enabled */
-		if (this.options.allowAnyNamable && ariaNaming(target) === "allowed") {
+		if (allowsNaming && this.options.allowAnyNamable) {
 			return;
 		}
 
-		const context: RuleContext = { attr: key };
-		this.report({
-			node: target,
-			location: attr.keyLocation,
-			context,
-			message: `"{{ attr }}" cannot be used on this element`,
-		});
+		const context: RuleContext = { attr: key, allowsNaming };
+		if (allowsNaming) {
+			this.report({
+				node: target,
+				location: attr.keyLocation,
+				context,
+				message: `"{{ attr }}" is strictly allowed but is not recommended to be used on this element`,
+			});
+		} else {
+			this.report({
+				node: target,
+				location: attr.keyLocation,
+				context,
+				message: `"{{ attr }}" cannot be used on this element`,
+			});
+		}
 	}
 }

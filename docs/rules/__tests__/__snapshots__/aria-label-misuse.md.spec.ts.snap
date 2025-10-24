@@ -13,6 +13,7 @@ exports[`docs/rules/aria-label-misuse.md inline validation: incorrect 1`] = `
       {
         "column": 22,
         "context": {
+          "allowsNaming": false,
           "attr": "aria-label",
         },
         "line": 1,

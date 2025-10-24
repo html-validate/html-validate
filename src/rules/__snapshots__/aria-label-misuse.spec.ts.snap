@@ -14,8 +14,46 @@ exports[`rule aria-label-misuse should contain documentation 1`] = `
 - \`<iframe>\`
 - \`<img>\` and \`<figure>\`
 - \`<summary>\`
-- \`<table>\`, \`<td>\` and \`<th>\`
-",
+- \`<table>\`, \`<td>\` and \`<th>\`",
+  "url": "https://html-validate.org/rules/aria-label-misuse.html",
+}
+`;
+
+exports[`rule aria-label-misuse should contain documentation 2`] = `
+{
+  "description": "\`aria-labelledby\` can only be used on:
+
+- Interactive elements
+- Labelable elements
+- Landmark elements
+- Elements with roles inheriting from widget
+- \`<area>\`
+- \`<dialog>\`
+- \`<form>\` and \`<fieldset>\`
+- \`<iframe>\`
+- \`<img>\` and \`<figure>\`
+- \`<summary>\`
+- \`<table>\`, \`<td>\` and \`<th>\`",
+  "url": "https://html-validate.org/rules/aria-label-misuse.html",
+}
+`;
+
+exports[`rule aria-label-misuse should contain documentation 3`] = `
+{
+  "description": "\`aria-label\` is strictly allowed but is not recommended to be used on this element.
+\`aria-label\` can only be used on:
+
+- Interactive elements
+- Labelable elements
+- Landmark elements
+- Elements with roles inheriting from widget
+- \`<area>\`
+- \`<dialog>\`
+- \`<form>\` and \`<fieldset>\`
+- \`<iframe>\`
+- \`<img>\` and \`<figure>\`
+- \`<summary>\`
+- \`<table>\`, \`<td>\` and \`<th>\`",
   "url": "https://html-validate.org/rules/aria-label-misuse.html",
 }
 `;
