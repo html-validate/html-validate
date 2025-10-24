@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 10.2.0 (2025-10-24)
+
+### Features
+
+- **deps:** support vitest v4 ([11936fc](https://gitlab.com/html-validate/html-validate/commit/11936fc0d4c91608e8035fcd62716c37b66d3685))
+- **rules:** `aria-label-misuse` validates `aria-labelledby` in addition to `aria-label` ([ef27898](https://gitlab.com/html-validate/html-validate/commit/ef278982c85b784518e7e502a50fa40545b88b2a))
+- **rules:** clearer `aria-label-misuse` error for elements where its strictly allowed but not recommended ([7b3a486](https://gitlab.com/html-validate/html-validate/commit/7b3a486716b4de1d63208ab2a69528b3da5b2641))
+
 ## 10.1.2 (2025-10-11)
 
 ### Bug Fixes

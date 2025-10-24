@@ -99,6 +99,6 @@ This option is disabled by default and `html-validate:recommended` but enabled b
 
 ## Version history
 
-- %version% - validates `aria-labelledby` in addition to `aria-label`.
+- 10.2.0 - validates `aria-labelledby` in addition to `aria-label`.
 - 8.11.0 - `allowAnyNamable` option added.
 - 7.17.0 - Allow usage on custom elements.
