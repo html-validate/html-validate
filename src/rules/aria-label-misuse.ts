@@ -4,6 +4,10 @@ import { type MetaAttribute, type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { ariaNaming } from "./helper";
 
+export interface RuleContext {
+	attr: "aria-label" | "aria-labelledby";
+}
+
 export interface RuleOptions {
 	allowAnyNamable: boolean;
 }
@@ -12,7 +16,7 @@ const defaults: RuleOptions = {
 	allowAnyNamable: false,
 };
 
-const whitelisted = [
+const allowlist = [
 	"main",
 	"nav",
 	"table",
@@ -25,6 +29,7 @@ const whitelisted = [
 	"article",
 	"dialog",
 	"form",
+	"iframe",
 	"img",
 	"area",
 	"fieldset",
@@ -39,8 +44,8 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 		return true;
 	}
 
-	/* landmark and other whitelisted elements are valid */
-	if (whitelisted.includes(target.tagName)) {
+	/* landmark and other allowed elements are valid */
+	if (allowlist.includes(target.tagName)) {
 		return true;
 	}
 
@@ -62,12 +67,12 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	return false;
 }
 
-export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
+export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 	}
 
-	public override documentation(): RuleDocumentation {
+	public override documentation(context: RuleContext): RuleDocumentation {
 		const valid = [
 			"Interactive elements",
 			"Labelable elements",
@@ -83,7 +88,7 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 		];
 		const lines = valid.map((it) => `- ${it}\n`).join("");
 		return {
-			description: `\`aria-label\` can only be used on:\n\n${lines}`,
+			description: `\`${context.attr}\` can only be used on:\n\n${lines}`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -92,15 +97,19 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			for (const target of document.querySelectorAll("[aria-label]")) {
-				this.validateElement(target);
+				this.validateElement(target, "aria-label");
+			}
+			for (const target of document.querySelectorAll("[aria-labelledby]")) {
+				this.validateElement(target, "aria-labelledby");
 			}
 		});
 	}
 
-	private validateElement(target: HtmlElement): void {
+	private validateElement(target: HtmlElement, key: "aria-label" | "aria-labelledby"): void {
 		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the
-		 * earier [aria-label] selector ensures this is always present */
-		const attr = target.getAttribute("aria-label")!;
+		 * earlier [aria-label] or [aria-labelledby] selector ensures this is always
+		 * present */
+		const attr = target.getAttribute(key)!;
 		if (!attr.value || attr.valueMatches("", false)) {
 			return;
 		}
@@ -121,6 +130,12 @@ export default class AriaLabelMisuse extends Rule<void, RuleOptions> {
 			return;
 		}
 
-		this.report(target, `"aria-label" cannot be used on this element`, attr.keyLocation);
+		const context: RuleContext = { attr: key };
+		this.report({
+			node: target,
+			location: attr.keyLocation,
+			context,
+			message: `"{{ attr }}" cannot be used on this element`,
+		});
 	}
 }
