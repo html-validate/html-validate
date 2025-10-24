@@ -1,4 +1,4 @@
-import { type HtmlElement } from "../dom";
+import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, type MetaElement } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
@@ -17,7 +17,7 @@ const defaults: RuleOptions = {
 	allowAnyNamable: false,
 };
 
-const allowlist = [
+const allowlist = new Set([
 	"main",
 	"nav",
 	"table",
@@ -36,7 +36,7 @@ const allowlist = [
 	"fieldset",
 	"summary",
 	"figure",
-];
+]);
 
 function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	/* elements with explicit aria-label attribute are valid */
@@ -46,7 +46,7 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 	}
 
 	/* landmark and other allowed elements are valid */
-	if (allowlist.includes(target.tagName)) {
+	if (allowlist.has(target.tagName)) {
 		return true;
 	}
 
@@ -110,20 +110,24 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
-			for (const target of document.querySelectorAll("[aria-label]")) {
-				this.validateElement(target, "aria-label");
-			}
-			for (const target of document.querySelectorAll("[aria-labelledby]")) {
-				this.validateElement(target, "aria-labelledby");
+			for (const target of document.querySelectorAll("[aria-label], [aria-labelledby]")) {
+				const ariaLabel = target.getAttribute("aria-label");
+				if (ariaLabel) {
+					this.validateElement(target, ariaLabel, "aria-label");
+				}
+				const ariaLabelledby = target.getAttribute("aria-labelledby");
+				if (ariaLabelledby) {
+					this.validateElement(target, ariaLabelledby, "aria-labelledby");
+				}
 			}
 		});
 	}
 
-	private validateElement(target: HtmlElement, key: "aria-label" | "aria-labelledby"): void {
-		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the
-		 * earlier [aria-label] or [aria-labelledby] selector ensures this is always
-		 * present */
-		const attr = target.getAttribute(key)!;
+	private validateElement(
+		target: HtmlElement,
+		attr: Attribute,
+		key: "aria-label" | "aria-labelledby",
+	): void {
 		if (!attr.value || attr.valueMatches("", false)) {
 			return;
 		}
