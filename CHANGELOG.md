@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.2.1 (2025-10-24)
+
+### Bug Fixes
+
+- package republished only, no changes from v10.2.0 ([722c37f](https://gitlab.com/html-validate/html-validate/commit/722c37f3781d158596489bbe29affd64a6f127d5))
+
 ## 10.2.0 (2025-10-24)
 
 ### Features
