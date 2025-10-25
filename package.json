@@ -257,7 +257,7 @@
     "@types/node": "20.19.23",
     "@types/prompts": "2.4.9",
     "@types/semver": "7.7.1",
-    "@types/stream-buffers": "3.0.7",
+    "@types/stream-buffers": "3.0.8",
     "babar": "0.2.3",
     "cli-table": "0.3.11",
     "esbuild": "0.25.11",
