@@ -82,8 +82,8 @@ See [running in browser](https://html-validate.org/dev/running-in-browser.html) 
 
 ### Prerequisites
 
-- NodeJS 18
-- NPM 7
+- Node.js 20
+- NPM 10
 
 ### Test
 
