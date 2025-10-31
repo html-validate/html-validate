@@ -1755,7 +1755,7 @@ describe("parser", () => {
 		});
 
 		it("svg with nested title", () => {
-			expect.assertions(13);
+			expect.assertions(9);
 			parser.parseHtml("<svg><title><title></title></title></svg>");
 			expect(events.shift()).toEqual({
 				event: "tag:start",
@@ -1771,23 +1771,6 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toEqual({
 				event: "tag:ready",
-				target: "svg:title",
-			});
-			expect(events.shift()).toEqual({
-				event: "tag:start",
-				target: "svg:title",
-			});
-			expect(events.shift()).toEqual({
-				event: "tag:ready",
-				target: "svg:title",
-			});
-			expect(events.shift()).toEqual({
-				event: "tag:end",
-				previous: "svg:title",
-				target: "svg:title",
-			});
-			expect(events.shift()).toEqual({
-				event: "element:ready",
 				target: "svg:title",
 			});
 			expect(events.shift()).toEqual({

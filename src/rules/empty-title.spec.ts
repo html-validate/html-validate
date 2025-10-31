@@ -35,6 +35,20 @@ describe("rule empty-title", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when title has children without text", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <title><span></span></title> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when title only has comment", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <title><!-- foo --></title> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when title has dynamic text", async () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
@@ -60,19 +74,6 @@ describe("rule empty-title", () => {
 		`);
 	});
 
-	it("should report error when title has no children with content", async () => {
-		expect.assertions(2);
-		const markup = /* HTML */ ` <title><span></span></title> `;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toBeInvalid();
-		expect(report).toMatchInlineCodeframe(`
-			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
-			> 1 |  <title><span></span></title>
-			    |   ^^^^^
-			Selector: title"
-		`);
-	});
-
 	it("should report error when title only has whitespace content", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <title> </title> `;
@@ -81,19 +82,6 @@ describe("rule empty-title", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
 			> 1 |  <title> </title>
-			    |   ^^^^^
-			Selector: title"
-		`);
-	});
-
-	it("should report error when title only has comment", async () => {
-		expect.assertions(2);
-		const markup = /* HTML */ ` <title><!-- foo --></title> `;
-		const report = await htmlvalidate.validateString(markup);
-		expect(report).toBeInvalid();
-		expect(report).toMatchInlineCodeframe(`
-			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
-			> 1 |  <title><!-- foo --></title>
 			    |   ^^^^^
 			Selector: title"
 		`);
