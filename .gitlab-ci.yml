@@ -288,6 +288,9 @@ Dry run:
   extends: .release
   needs: []
   dependencies: []
+  id_tokens:
+    NPM_ID_TOKEN:
+      aud: "npm:registry.npmjs.org"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
     - if: '$CI_COMMIT_REF_NAME == "next"'
@@ -302,6 +305,8 @@ Release:
   id_tokens:
     SIGSTORE_ID_TOKEN:
       aud: sigstore
+    NPM_ID_TOKEN:
+      aud: "npm:registry.npmjs.org"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
       when: manual
