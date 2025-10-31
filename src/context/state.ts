@@ -8,4 +8,5 @@ export enum State {
 	SCRIPT,
 	STYLE,
 	TEXTAREA,
+	TITLE,
 }

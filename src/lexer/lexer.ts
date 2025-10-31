@@ -33,6 +33,8 @@ const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
 const MATCH_STYLE_END = /^<(\/)(style)/;
 const MATCH_TEXTAREA_DATA = /^[^]*?(?=<\/textarea)/;
 const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
+const MATCH_TITLE_DATA = /^[^]*?(?=<\/title)/;
+const MATCH_TITLE_END = /^<(\/)(title)/;
 const MATCH_DIRECTIVE = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
@@ -92,6 +94,10 @@ export class Lexer {
 
 				case State.TEXTAREA:
 					yield* this.tokenizeTextarea(context);
+					break;
+
+				case State.TITLE:
+					yield* this.tokenizeTitle(context);
 					break;
 
 				/* istanbul ignore next: sanity check: should not happen unless adding new states */
@@ -186,6 +192,8 @@ export class Lexer {
 				context.contentModel = ContentModel.STYLE;
 			} else if (data[0] === "<textarea") {
 				context.contentModel = ContentModel.TEXTAREA;
+			} else if (data[0] === "<title") {
+				context.contentModel = ContentModel.TITLE;
 			} else {
 				context.contentModel = ContentModel.TEXT;
 			}
@@ -222,6 +230,7 @@ export class Lexer {
 	}
 
 	private *tokenizeTag(context: Context): Iterable<Token> {
+		/* eslint-disable-next-line complexity -- technical debt, should be replaced with a lookup table */
 		function nextState(token: Token | null): State {
 			const tagCloseToken = token as TagCloseToken | null;
 			const selfClosed = tagCloseToken && !tagCloseToken.data[0].startsWith("/");
@@ -245,6 +254,12 @@ export class Lexer {
 						return State.TEXTAREA;
 					} else {
 						return State.TEXT; /* <textarea/> */
+					}
+				case ContentModel.TITLE:
+					if (selfClosed) {
+						return State.TITLE;
+					} else {
+						return State.TEXT; /* <title/> */
 					}
 			}
 		}
@@ -324,6 +339,17 @@ export class Lexer {
 				[MATCH_TEXTAREA_DATA, State.TEXTAREA, TokenType.TEXT],
 			],
 			"expected </textarea>",
+		);
+	}
+
+	private *tokenizeTitle(context: Context): Iterable<Token> {
+		yield* this.match(
+			context,
+			[
+				[MATCH_TITLE_END, State.TAG, TokenType.TAG_OPEN],
+				[MATCH_TITLE_DATA, State.TITLE, TokenType.TEXT],
+			],
+			"expected </title>",
 		);
 	}
 }

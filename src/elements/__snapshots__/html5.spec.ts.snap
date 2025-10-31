@@ -19267,7 +19267,7 @@ exports[`HTML elements <time> valid markup 1`] = `[]`;
 exports[`HTML elements <title> invalid markup 1`] = `
 [
   {
-    "errorCount": 7,
+    "errorCount": 5,
     "filePath": "test-files/elements/title-invalid.html",
     "messages": [
       {
@@ -19337,38 +19337,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
         "severity": 2,
         "size": 5,
       },
-      {
-        "column": 4,
-        "context": {
-          "child": "<span>",
-          "kind": "content",
-          "parent": "<title>",
-        },
-        "line": 22,
-        "message": "<span> element is not permitted as content under <title>",
-        "offset": 449,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "head:nth-child(5) > title > span",
-        "severity": 2,
-        "size": 4,
-      },
-      {
-        "column": 4,
-        "context": {
-          "child": "<div>",
-          "kind": "content",
-          "parent": "<title>",
-        },
-        "line": 23,
-        "message": "<div> element is not permitted as content under <title>",
-        "offset": 468,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "head:nth-child(5) > title > div",
-        "severity": 2,
-        "size": 3,
-      },
     ],
     "source": "<!-- title cannot be empty or whitespace only -->
 <head>
@@ -19387,12 +19355,72 @@ exports[`HTML elements <title> invalid markup 1`] = `
 <div>
 	<title>foo</title>
 </div>
+",
+    "warningCount": 0,
+  },
+]
+`;
 
-<!-- should not allow arbitrary content -->
+exports[`HTML elements <title> valid markup 1`] = `
+[
+  {
+    "errorCount": 4,
+    "filePath": "test-files/elements/title-valid.html",
+    "messages": [
+      {
+        "column": 12,
+        "line": 8,
+        "message": "Raw "<" must be encoded as "&lt;"",
+        "offset": 178,
+        "ruleId": "no-raw-characters",
+        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
+        "selector": "head:nth-child(2) > title",
+        "severity": 2,
+        "size": 1,
+      },
+      {
+        "column": 17,
+        "line": 8,
+        "message": "Raw ">" must be encoded as "&gt;"",
+        "offset": 183,
+        "ruleId": "no-raw-characters",
+        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
+        "selector": "head:nth-child(2) > title",
+        "severity": 2,
+        "size": 1,
+      },
+      {
+        "column": 21,
+        "line": 8,
+        "message": "Raw "<" must be encoded as "&lt;"",
+        "offset": 187,
+        "ruleId": "no-raw-characters",
+        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
+        "selector": "head:nth-child(2) > title",
+        "severity": 2,
+        "size": 1,
+      },
+      {
+        "column": 27,
+        "line": 8,
+        "message": "Raw ">" must be encoded as "&gt;"",
+        "offset": 193,
+        "ruleId": "no-raw-characters",
+        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
+        "selector": "head:nth-child(2) > title",
+        "severity": 2,
+        "size": 1,
+      },
+    ],
+    "source": "<!-- should be allowed under <head> -->
+<head>
+	<title>foo</title>
+</head>
+
+<!-- should allow nested markup (browsers render the literal markup as content) -->
 <head>
 	<title>
 		<span>foo</span>
-		<div>bar</div>
 	</title>
 </head>
 ",
@@ -19400,8 +19428,6 @@ exports[`HTML elements <title> invalid markup 1`] = `
   },
 ]
 `;
-
-exports[`HTML elements <title> valid markup 1`] = `[]`;
 
 exports[`HTML elements <tr> invalid markup 1`] = `
 [
