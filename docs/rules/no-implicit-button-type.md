@@ -32,4 +32,5 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
+- %version% - Rule ignores omitted `type` attribute on `<button>` when used as first child of `<select>`.
 - 8.3.0 - Rule added.

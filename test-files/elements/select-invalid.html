@@ -13,3 +13,26 @@
 
 <!-- should not allow text size -->
 <select size="foobar4u"></select>
+
+<!-- should only allow a single button -->
+<select>
+	<button><selectedcontent></selectedcontent></button>
+	<button><selectedcontent></selectedcontent></button>
+</select>
+
+<!-- should only allow button as first children -->
+<select>
+	<option>foo</option>
+	<button><selectedcontent></selectedcontent></button>
+</select>
+
+<!-- should not allow these elements -->
+<select>
+	<option><datalist></datalist></option>
+	<option><object data="foo"></object></option>
+	<option><button type="submit">lorem ipsum</button></option>
+	<option><a href="">lorem ipsum</a></option>
+
+	<!-- this should yield an error but doesn't yet -->
+	<option><span tabindex="0"></span></option>
+</select>

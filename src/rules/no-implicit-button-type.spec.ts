@@ -49,6 +49,17 @@ describe("rule no-implicit-button-type", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when <button> is a child of <select>", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<select>
+				<button></button>
+			</select>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when <button> is missing type", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <button></button> `;

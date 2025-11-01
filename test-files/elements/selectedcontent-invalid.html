@@ -1,0 +1,18 @@
+<!-- [html-validate-disable no-implicit-button-type -- button elements are not under test here] -->
+
+<!-- should not be allowed under arbitrary content -->
+<div>
+	<selectedcontent></selectedcontent>
+</div>
+
+<!-- should both a <button> and <select> ancestor -->
+<div>
+	<button>
+		<selectedcontent></selectedcontent>
+	</button>
+</div>
+<div>
+	<select>
+		<selectedcontent></selectedcontent>
+	</select>
+</div>

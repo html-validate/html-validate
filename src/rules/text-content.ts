@@ -82,6 +82,15 @@ function haveAccessibleText(node: HtmlElement): boolean {
 		return true;
 	}
 
+	/* While the `<selectedcontent>` technically does not have any accessible text
+	 * the only usage is as a child of a customizable select where this is already
+	 * covered by the `<label>` associated with the `<select>` field. So at least
+	 * for now we consider the `<selectedcontent>` element as providing accessible
+	 * text to not have rules flag this element as lacking text */
+	if (node.is("selectedcontent")) {
+		return true;
+	}
+
 	if (hasDefaultText(node)) {
 		return true;
 	}

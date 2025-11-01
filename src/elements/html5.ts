@@ -2131,7 +2131,8 @@ export default {
 		aria: {
 			implicitRole: "option",
 		},
-		permittedContent: [],
+		permittedContent: ["@phrasing", "div"],
+		permittedDescendants: [{ exclude: ["@interactive", "datalist", "object"] }],
 	},
 
 	output: {
@@ -2420,7 +2421,23 @@ export default {
 				return "combobox";
 			},
 		},
-		permittedContent: ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"],
+		permittedContent: [
+			"@script",
+			"button?",
+			"datasrc",
+			"datafld",
+			"dataformatas",
+			"option",
+			"optgroup",
+		],
+		permittedOrder: ["button", "option, optgroup"],
+	},
+
+	selectedcontent: {
+		phrasing: true,
+		permittedContent: [],
+		textContent: "none",
+		requiredAncestors: ["select > button"],
 	},
 
 	slot: {

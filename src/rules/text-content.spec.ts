@@ -324,6 +324,17 @@ describe("rule text-content", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report error when <selectedcontent> is used", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<text-accessible>
+					<selectedcontent></selectedcontent>
+				</text-accessible>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		describe("should not report error when element has", () => {
 			it.each`
 				description                               | markup

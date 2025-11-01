@@ -27,6 +27,14 @@ export default class NoImplicitButtonType extends Rule {
 	public setup(): void {
 		this.on("element:ready", isRelevant, (event) => {
 			const { target } = event;
+
+			/* when using customizable select an inert `<button>` element is used as
+			 * the first child and does not need or use the `type` attribute so it can
+			 * safely be omitted and should not trigger and errors from this rule */
+			if (target.parent?.is("select")) {
+				return;
+			}
+
 			const attr = target.getAttribute("type");
 			if (!attr) {
 				this.report({

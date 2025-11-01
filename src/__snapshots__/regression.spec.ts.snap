@@ -108,6 +108,8 @@ exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
 ]
 `;
 
+exports[`regression tests test-files/issues/issue-321-customizable-select.html 1`] = `[]`;
+
 exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `[]`;
 
 exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `[]`;
