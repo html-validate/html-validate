@@ -1731,7 +1731,12 @@ export default {
 				],
 			},
 			blocking: {
-				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
+				allowed: allowedIfAttributeHasValue("rel", [
+					"expect",
+					"stylesheet",
+					"preload",
+					"modulepreload",
+				]),
 				list: true,
 				enum: ["render"],
 			},

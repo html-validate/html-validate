@@ -14328,11 +14328,11 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "column": 36,
         "context": {
           "attr": "blocking",
-          "details": ""rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+          "details": ""rel" attribute must be "expect", "stylesheet", "preload" or "modulepreload"",
           "tagName": "<link>",
         },
         "line": 29,
-        "message": ""blocking" attribute cannot be used on <link> in this context: "rel" attribute must be "stylesheet", "preload" or "modulepreload"",
+        "message": ""blocking" attribute cannot be used on <link> in this context: "rel" attribute must be "expect", "stylesheet", "preload" or "modulepreload"",
         "offset": 1046,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
