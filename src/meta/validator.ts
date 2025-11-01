@@ -296,7 +296,7 @@ export class Validator {
 
 		/* match tagName when an explicit name is given */
 		if (!rawCategory.startsWith("@")) {
-			return node.tagName === rawCategory;
+			return node.matches(rawCategory);
 		}
 
 		/* if the meta entry is missing assume any content model would match */
