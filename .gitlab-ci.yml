@@ -1,6 +1,7 @@
 image: node:22
 
 include:
+  - component: $CI_SERVER_FQDN/html-validate/gitlab-ci/release@master
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
 
@@ -272,50 +273,6 @@ Module:
     - npm exec tsc -- --build tests/integration/${BUILD}
     - node tests/integration/${BUILD}
     - npm exec html-validate tests/integration/${BUILD}-cli
-
-.release:
-  stage: release
-  variables:
-    GIT_AUTHOR_NAME: ${GITLAB_USER_NAME}
-    GIT_AUTHOR_EMAIL: ${GITLAB_USER_EMAIL}
-    GIT_COMMITTER_NAME: ${HTML_VALIDATE_BOT_NAME}
-    GIT_COMMITTER_EMAIL: ${HTML_VALIDATE_BOT_EMAIL}
-  before_script:
-    - npm install -g $(node -p 'require("./package.json").release.extends')
-    - node --version
-
-Dry run:
-  extends: .release
-  needs: []
-  dependencies: []
-  id_tokens:
-    NPM_ID_TOKEN:
-      aud: "npm:registry.npmjs.org"
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "master"'
-    - if: '$CI_COMMIT_REF_NAME == "next"'
-    - if: '$CI_COMMIT_REF_NAME =~ /^release\//'
-  script:
-    - npm exec semantic-release -- --dry-run
-
-Release:
-  extends: .release
-  tags:
-    - saas-linux-small-amd64
-  id_tokens:
-    SIGSTORE_ID_TOKEN:
-      aud: sigstore
-    NPM_ID_TOKEN:
-      aud: "npm:registry.npmjs.org"
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "master" && $CI_PIPELINE_SOURCE == "web"'
-      when: manual
-    - if: '$CI_COMMIT_REF_NAME == "next" && $CI_PIPELINE_SOURCE == "web"'
-      when: manual
-    - if: '$CI_COMMIT_REF_NAME =~ /^release\// && $CI_PIPELINE_SOURCE == "web"'
-      when: manual
-  script:
-    - npm exec semantic-release
 
 .downstream: &downstream
   stage: postrelease
