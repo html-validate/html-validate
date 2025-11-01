@@ -15979,7 +15979,7 @@ exports[`HTML elements <optgroup> valid markup 1`] = `[]`;
 exports[`HTML elements <option> invalid markup 1`] = `
 [
   {
-    "errorCount": 3,
+    "errorCount": 1,
     "filePath": "test-files/elements/option-invalid.html",
     "messages": [
       {
@@ -15998,51 +15998,11 @@ exports[`HTML elements <option> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
-      {
-        "column": 4,
-        "context": {
-          "child": "<span>",
-          "kind": "content",
-          "parent": "<option>",
-        },
-        "line": 9,
-        "message": "<span> element is not permitted as content under <option>",
-        "offset": 152,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select > option > span",
-        "severity": 2,
-        "size": 4,
-      },
-      {
-        "column": 4,
-        "context": {
-          "child": "<div>",
-          "kind": "content",
-          "parent": "<option>",
-        },
-        "line": 10,
-        "message": "<div> element is not permitted as content under <option>",
-        "offset": 171,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select > option > div",
-        "severity": 2,
-        "size": 3,
-      },
     ],
     "source": "<!-- should not be allowed under other content -->
 <div>
 	<option>foo</option>
 </div>
-
-<!-- should not allow flow or phrasing -->
-<select>
-	<option>
-		<span>foo</span>
-		<div>bar</div>
-	</option>
-</select>
 ",
     "warningCount": 0,
   },
@@ -16984,7 +16944,7 @@ exports[`HTML elements <section> valid markup 1`] = `[]`;
 exports[`HTML elements <select> invalid markup 1`] = `
 [
   {
-    "errorCount": 8,
+    "errorCount": 12,
     "filePath": "test-files/elements/select-invalid.html",
     "messages": [
       {
@@ -17125,6 +17085,70 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "severity": 2,
         "size": 6,
       },
+      {
+        "column": 11,
+        "context": {
+          "ancestor": "<option>",
+          "child": "<datalist>",
+          "kind": "descendant",
+        },
+        "line": 31,
+        "message": "<datalist> element is not permitted as a descendant of <option>",
+        "offset": 712,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "select:nth-child(8) > option:nth-child(1) > datalist",
+        "severity": 2,
+        "size": 8,
+      },
+      {
+        "column": 11,
+        "context": {
+          "ancestor": "<option>",
+          "child": "<object>",
+          "kind": "descendant",
+        },
+        "line": 32,
+        "message": "<object> element is not permitted as a descendant of <option>",
+        "offset": 752,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "select:nth-child(8) > option:nth-child(2) > object",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 11,
+        "context": {
+          "ancestor": "<option>",
+          "child": "<button>",
+          "kind": "descendant",
+        },
+        "line": 33,
+        "message": "<button> element is not permitted as a descendant of <option>",
+        "offset": 799,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "select:nth-child(8) > option:nth-child(3) > button",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 11,
+        "context": {
+          "ancestor": "<option>",
+          "child": "<a>",
+          "kind": "descendant",
+        },
+        "line": 34,
+        "message": "<a> element is not permitted as a descendant of <option>",
+        "offset": 860,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "select:nth-child(8) > option:nth-child(4) > a",
+        "severity": 2,
+        "size": 1,
+      },
     ],
     "source": "<!-- should not allow arbitrary content -->
 <select>
@@ -17152,6 +17176,17 @@ exports[`HTML elements <select> invalid markup 1`] = `
 <select>
 	<option>foo</option>
 	<button><selectedcontent></selectedcontent></button>
+</select>
+
+<!-- should not allow these elements -->
+<select>
+	<option><datalist></datalist></option>
+	<option><object data="foo"></object></option>
+	<option><button type="submit">lorem ipsum</button></option>
+	<option><a href="">lorem ipsum</a></option>
+
+	<!-- this should yield an error but doesn't yet -->
+	<option><span tabindex="0"></span></option>
 </select>
 ",
     "warningCount": 0,

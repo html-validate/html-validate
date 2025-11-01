@@ -21,3 +21,9 @@
 	<option>bar
 	<option>baz
 </select>
+
+<!-- should allow <div> and phrasing when used as a descendant of <select> -->
+<select>
+	<option><div></div></option>
+	<option><span></span></option>
+</select>

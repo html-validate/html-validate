@@ -2131,7 +2131,8 @@ export default {
 		aria: {
 			implicitRole: "option",
 		},
-		permittedContent: [],
+		permittedContent: ["@phrasing", "div"],
+		permittedDescendants: [{ exclude: ["@interactive", "datalist", "object"] }],
 	},
 
 	output: {
