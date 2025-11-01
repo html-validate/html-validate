@@ -41,10 +41,9 @@
 		<!-- should allow "blocking" with valid values -->
 		<link href="my-url" rel="stylesheet" blocking="render render render">
 
-		<!-- should allow "blocking" if "rel" is "stylesheet", "preload" or "modulepreload" -->
+		<!-- should allow "blocking" if "rel" is "expect" or "stylesheet" -->
+		<link href="my-url" rel="expect" blocking="render">
 		<link href="my-url" rel="stylesheet" blocking="render">
-		<link href="my-url" rel="preload" blocking="render">
-		<link href="my-url" rel="modulepreload" blocking="render">
 
 		<!-- should allow "disabled" if "rel" is "stylesheet" -->
 		<link href="my-url" rel="stylesheet" disabled>
