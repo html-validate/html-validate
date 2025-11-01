@@ -91,7 +91,8 @@ export default {
 				enum: ["true", "false"],
 			},
 			hidden: {
-				boolean: true,
+				omit: true,
+				enum: ["hidden", "until-found"],
 			},
 			id: {
 				enum: [validId],

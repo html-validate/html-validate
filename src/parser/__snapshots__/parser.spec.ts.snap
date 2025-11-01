@@ -43,7 +43,11 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
       ],
     },
     "hidden": {
-      "boolean": true,
+      "enum": [
+        "hidden",
+        "until-found",
+      ],
+      "omit": true,
     },
     "id": {
       "enum": [
@@ -110,7 +114,11 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
       ],
     },
     "hidden": {
-      "boolean": true,
+      "enum": [
+        "hidden",
+        "until-found",
+      ],
+      "omit": true,
     },
     "id": {
       "enum": [
