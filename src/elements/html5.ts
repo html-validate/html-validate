@@ -2420,7 +2420,16 @@ export default {
 				return "combobox";
 			},
 		},
-		permittedContent: ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"],
+		permittedContent: [
+			"@script",
+			"button?",
+			"datasrc",
+			"datafld",
+			"dataformatas",
+			"option",
+			"optgroup",
+		],
+		permittedOrder: ["button", "option, optgroup"],
 	},
 
 	selectedcontent: {

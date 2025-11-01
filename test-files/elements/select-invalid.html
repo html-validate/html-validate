@@ -13,3 +13,15 @@
 
 <!-- should not allow text size -->
 <select size="foobar4u"></select>
+
+<!-- should only allow a single button -->
+<select>
+	<button><selectedcontent></selectedcontent></button>
+	<button><selectedcontent></selectedcontent></button>
+</select>
+
+<!-- should only allow button as first children -->
+<select>
+	<option>foo</option>
+	<button><selectedcontent></selectedcontent></button>
+</select>

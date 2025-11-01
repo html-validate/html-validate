@@ -45,3 +45,8 @@
 	<!-- [html-validate-disable-next no-implicit-button-type] -->
 	<button formaction formenctype formmethod="post" formnovalidate formtarget="_blank">lorem ipsum</button>
 </div>
+
+<!-- should not require type when used as first child of <select> -->
+<select>
+	<button>lorem ipsum</button>
+</select>

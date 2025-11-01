@@ -16984,7 +16984,7 @@ exports[`HTML elements <section> valid markup 1`] = `[]`;
 exports[`HTML elements <select> invalid markup 1`] = `
 [
   {
-    "errorCount": 6,
+    "errorCount": 8,
     "filePath": "test-files/elements/select-invalid.html",
     "messages": [
       {
@@ -17103,6 +17103,28 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "severity": 2,
         "size": 8,
       },
+      {
+        "column": 3,
+        "line": 20,
+        "message": "Element <button> can only appear once under <select>",
+        "offset": 441,
+        "ruleId": "element-permitted-occurrences",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
+        "selector": "select:nth-child(6) > button:nth-child(2)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 3,
+        "line": 26,
+        "message": "Element <button> must be used before <option> in this context",
+        "offset": 589,
+        "ruleId": "element-permitted-order",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
+        "selector": "select:nth-child(7) > button",
+        "severity": 2,
+        "size": 6,
+      },
     ],
     "source": "<!-- should not allow arbitrary content -->
 <select>
@@ -17119,6 +17141,18 @@ exports[`HTML elements <select> invalid markup 1`] = `
 
 <!-- should not allow text size -->
 <select size="foobar4u"></select>
+
+<!-- should only allow a single button -->
+<select>
+	<button><selectedcontent></selectedcontent></button>
+	<button><selectedcontent></selectedcontent></button>
+</select>
+
+<!-- should only allow button as first children -->
+<select>
+	<option>foo</option>
+	<button><selectedcontent></selectedcontent></button>
+</select>
 ",
     "warningCount": 0,
   },
@@ -17241,40 +17275,7 @@ exports[`HTML elements <selectedcontent> invalid markup 1`] = `
 ]
 `;
 
-exports[`HTML elements <selectedcontent> valid markup 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "test-files/elements/selectedcontent-valid.html",
-    "messages": [
-      {
-        "column": 3,
-        "context": {
-          "child": "<button>",
-          "kind": "content",
-          "parent": "<select>",
-        },
-        "line": 3,
-        "message": "<button> element is not permitted as content under <select>",
-        "offset": 53,
-        "ruleId": "element-permitted-content",
-        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select > button",
-        "severity": 2,
-        "size": 6,
-      },
-    ],
-    "source": "<!-- should be allowed under <button> -->
-<select>
-	<button>
-		<selectedcontent></selectedcontent>
-	</button>
-</select>
-",
-    "warningCount": 0,
-  },
-]
-`;
+exports[`HTML elements <selectedcontent> valid markup 1`] = `[]`;
 
 exports[`HTML elements <slot> invalid markup 1`] = `
 [
