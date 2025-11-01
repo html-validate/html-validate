@@ -17127,6 +17127,155 @@ exports[`HTML elements <select> invalid markup 1`] = `
 
 exports[`HTML elements <select> valid markup 1`] = `[]`;
 
+exports[`HTML elements <selectedcontent> invalid markup 1`] = `
+[
+  {
+    "errorCount": 5,
+    "filePath": "test-files/elements/selectedcontent-invalid.html",
+    "messages": [
+      {
+        "column": 3,
+        "context": {
+          "child": "<selectedcontent>",
+          "kind": "content",
+          "parent": "<div>",
+        },
+        "line": 5,
+        "message": "<selectedcontent> element is not permitted as content under <div>",
+        "offset": 164,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div:nth-child(1) > selectedcontent",
+        "severity": 2,
+        "size": 15,
+      },
+      {
+        "column": 3,
+        "context": {
+          "ancestor": [
+            ""select > button"",
+          ],
+          "child": "<selectedcontent>",
+        },
+        "line": 5,
+        "message": "<selectedcontent> element requires a "select > button" ancestor",
+        "offset": 164,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "div:nth-child(1) > selectedcontent",
+        "severity": 2,
+        "size": 15,
+      },
+      {
+        "column": 4,
+        "context": {
+          "ancestor": [
+            ""select > button"",
+          ],
+          "child": "<selectedcontent>",
+        },
+        "line": 11,
+        "message": "<selectedcontent> element requires a "select > button" ancestor",
+        "offset": 280,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "div:nth-child(2) > button > selectedcontent",
+        "severity": 2,
+        "size": 15,
+      },
+      {
+        "column": 4,
+        "context": {
+          "child": "<selectedcontent>",
+          "kind": "content",
+          "parent": "<select>",
+        },
+        "line": 16,
+        "message": "<selectedcontent> element is not permitted as content under <select>",
+        "offset": 352,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "div:nth-child(3) > select > selectedcontent",
+        "severity": 2,
+        "size": 15,
+      },
+      {
+        "column": 4,
+        "context": {
+          "ancestor": [
+            ""select > button"",
+          ],
+          "child": "<selectedcontent>",
+        },
+        "line": 16,
+        "message": "<selectedcontent> element requires a "select > button" ancestor",
+        "offset": 352,
+        "ruleId": "element-required-ancestor",
+        "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
+        "selector": "div:nth-child(3) > select > selectedcontent",
+        "severity": 2,
+        "size": 15,
+      },
+    ],
+    "source": "<!-- [html-validate-disable no-implicit-button-type -- button elements are not under test here] -->
+
+<!-- should not be allowed under arbitrary content -->
+<div>
+	<selectedcontent></selectedcontent>
+</div>
+
+<!-- should both a <button> and <select> ancestor -->
+<div>
+	<button>
+		<selectedcontent></selectedcontent>
+	</button>
+</div>
+<div>
+	<select>
+		<selectedcontent></selectedcontent>
+	</select>
+</div>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`HTML elements <selectedcontent> valid markup 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/elements/selectedcontent-valid.html",
+    "messages": [
+      {
+        "column": 3,
+        "context": {
+          "child": "<button>",
+          "kind": "content",
+          "parent": "<select>",
+        },
+        "line": 3,
+        "message": "<button> element is not permitted as content under <select>",
+        "offset": 53,
+        "ruleId": "element-permitted-content",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
+        "selector": "select > button",
+        "severity": 2,
+        "size": 6,
+      },
+    ],
+    "source": "<!-- should be allowed under <button> -->
+<select>
+	<button>
+		<selectedcontent></selectedcontent>
+	</button>
+</select>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`HTML elements <slot> invalid markup 1`] = `
 [
   {

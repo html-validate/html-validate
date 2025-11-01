@@ -2423,6 +2423,13 @@ export default {
 		permittedContent: ["@script", "datasrc", "datafld", "dataformatas", "option", "optgroup"],
 	},
 
+	selectedcontent: {
+		phrasing: true,
+		permittedContent: [],
+		textContent: "none",
+		requiredAncestors: ["select > button"],
+	},
+
 	slot: {
 		flow: true,
 		phrasing: true,
