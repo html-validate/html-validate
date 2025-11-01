@@ -555,8 +555,7 @@ This is used by
 
 Requires children to be used in a specific order.
 
-Elements listed has to occur in the same order as specified, elements which is
-not specified can appear anywhere.
+Elements listed have to occur in the same order as specified, elements which are not specified can appear anywhere.
 
 ```json
 {
@@ -566,11 +565,21 @@ not specified can appear anywhere.
 }
 ```
 
-This will require `<thead>` to come before `<tbody>` but will let `<script>`
-appear anywhere.
+This will require `<thead>` to come before `<tbody>` but will let `<script>` appear anywhere.
 
-This is used by
-[element-permitted-order](/rules/element-permitted-order.html) rule.
+A selector list can be specified to allow each element in the selector list to appear in any order:
+
+```json
+{
+  "select": {
+    "permittedOrder": ["button", "option, optgroup"]
+  }
+}
+```
+
+This will require `<button>` to be come before `<option>` and `<optgroup>` but `<option>` and `<optgroup>` can otherwise appear in any order.
+
+This is used by [element-permitted-order](/rules/element-permitted-order.html) rule.
 
 ### `requiredAncestors`
 
