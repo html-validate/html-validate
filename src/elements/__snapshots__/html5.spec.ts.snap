@@ -20470,7 +20470,10 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "column": 12,
         "context": {
           "allowed": {
-            "boolean": true,
+            "enum": [
+              "hidden",
+              "until-found",
+            ],
           },
           "attribute": "hidden",
           "element": "p",
