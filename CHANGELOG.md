@@ -1,5 +1,23 @@
 # html-validate changelog
 
+## 10.3.0 (2025-11-02)
+
+### Features
+
+- **html5:** allow `<button>` as first child of `<select>` ([3de8a0f](https://gitlab.com/html-validate/html-validate/commit/3de8a0f4ddce303dacbb92b345382c90bafc213f)), closes [#321](https://gitlab.com/html-validate/html-validate/issues/321)
+- **html5:** allow `<option>` to have child content ([6056325](https://gitlab.com/html-validate/html-validate/commit/6056325c4a7016b77256c3116b3ed2a457275538)), closes [#321](https://gitlab.com/html-validate/html-validate/issues/321)
+- **html5:** support `<selectedcontent>` element ([d3d2c22](https://gitlab.com/html-validate/html-validate/commit/d3d2c2237f266747b956e5f21a50ddd5ed5a62ef)), closes [#321](https://gitlab.com/html-validate/html-validate/issues/321)
+- **html5:** support `hidden="until-found"` ([baa033f](https://gitlab.com/html-validate/html-validate/commit/baa033fa1d0cea969f16ad2e30e9c6426b16752e)), closes [#322](https://gitlab.com/html-validate/html-validate/issues/322)
+- **meta:** `permittedOrder` can take a selector list for elements with equal order requirement ([b3f92c2](https://gitlab.com/html-validate/html-validate/commit/b3f92c2d472a707c2cf45e7a1c252f67bb9a2608))
+- parse `<title>` content as literal characters instead of HTML elements ([3399ab5](https://gitlab.com/html-validate/html-validate/commit/3399ab5c939216f329ce2b323ad7b580c5ebd00e)), closes [#326](https://gitlab.com/html-validate/html-validate/issues/326)
+
+### Bug Fixes
+
+- **html5:** allow `blocking` attribute on `<link rel="expect">` ([5bbabc4](https://gitlab.com/html-validate/html-validate/commit/5bbabc436f473bcee422c94f799a57c4c360509c)), closes [#327](https://gitlab.com/html-validate/html-validate/issues/327)
+- **html5:** disallow `blocking` attribute on `<link rel="preload">` and `<link rel="modulepreload">` ([0a17e50](https://gitlab.com/html-validate/html-validate/commit/0a17e500a55f8334668419c34f7a84d40f5bf12c))
+- **html5:** let `<selectedcontent>` fulfill the accessible text content requirement of `<button>` elements ([d1dff73](https://gitlab.com/html-validate/html-validate/commit/d1dff73346054a5c2815230ee6c3767fe8510a60)), closes [#321](https://gitlab.com/html-validate/html-validate/issues/321)
+- **rules:** ignore omitted `type` attribute on `<button>` when used as first child of `<select>` ([1476960](https://gitlab.com/html-validate/html-validate/commit/1476960b0a7294f30dd239bc256c05f03b5c9a0d)), closes [#321](https://gitlab.com/html-validate/html-validate/issues/321)
+
 ## 10.2.1 (2025-10-24)
 
 ### Bug Fixes
