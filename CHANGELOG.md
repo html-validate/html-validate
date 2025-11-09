@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 10.3.1 (2025-11-09)
+
+### Bug Fixes
+
+- **html5:** `<a>` element is only interactive if it has an `href` attribute ([385f92f](https://gitlab.com/html-validate/html-validate/commit/385f92fb3f01e8755c566adf1a6ed61923ca5899))
+- **html5:** allow `<hr>` element to be used as descendant of `<select>` ([e601d36](https://gitlab.com/html-validate/html-validate/commit/e601d36776c150497f879ad11082bcb27719c7a2)), closes [#331](https://gitlab.com/html-validate/html-validate/issues/331)
+- **html5:** disallow nested `<a>` elements even without `href` attribute ([622e2f6](https://gitlab.com/html-validate/html-validate/commit/622e2f66d1b055d2fbd98c7c0132c3fea708dac3))
+
 ## 10.3.0 (2025-11-02)
 
 ### Features
