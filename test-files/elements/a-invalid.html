@@ -2,11 +2,11 @@
 <span><a><div>foo</div></a></span>
 
 <!-- should not allow interactive as content or descendant-->
-<a><button type="button">foo</button></a>
-<a><span><button type="button">foo</button></span></a>
+<a href="target"><button type="button">foo</button></a>
+<a href="target"><span><button type="button">foo</button></span></a>
 
 <!-- should not allow nesting -->
-<a><span><a>foo</a></span></a>
+<a href="target"><span><a href="target">foo</a></span></a>
 
 <!-- should not allow omitted href value -->
 <a href>foo</a>
