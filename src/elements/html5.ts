@@ -116,7 +116,11 @@ export default {
 			return node.hasAttribute("href");
 		},
 		phrasing: true,
-		interactive: true,
+		interactive(node) {
+			/* "If the element has an href attribute: Interactive content."
+			 * https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element */
+			return node.hasAttribute("href");
+		},
 		transparent: true,
 		attributes: {
 			charset: {
@@ -243,7 +247,12 @@ export default {
 				deprecated: true,
 			},
 		},
-		permittedDescendants: [{ exclude: "@interactive" }],
+		permittedDescendants: [
+			/* "Transparent, but there must be no interactive content descendant, a
+			 * element descendant, or descendant with the tabindex attribute
+			 * specified." */
+			{ exclude: ["@interactive", "a"] },
+		],
 		aria: {
 			implicitRole(node) {
 				return node.hasAttribute("href") ? "link" : "generic";

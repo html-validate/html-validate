@@ -2,9 +2,9 @@
 <button type="button"><div>foo</div></button>
 
 <!-- should not allow interactive as content or descendant-->
-<button type="button"><a>foo</a></button>
+<button type="button"><a href="target">foo</a></button>
 <button type="button">
-	<span><a>foo</a></span>
+	<span><a href="target">foo</a></span>
 </button>
 
 <!-- should not allow nesting -->
