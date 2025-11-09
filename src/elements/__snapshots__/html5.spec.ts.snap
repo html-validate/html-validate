@@ -16995,7 +16995,7 @@ exports[`HTML elements <section> valid markup 1`] = `[]`;
 exports[`HTML elements <select> invalid markup 1`] = `
 [
   {
-    "errorCount": 12,
+    "errorCount": 13,
     "filePath": "test-files/elements/select-invalid.html",
     "messages": [
       {
@@ -17137,18 +17137,29 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "size": 6,
       },
       {
+        "column": 3,
+        "line": 30,
+        "message": "Element <button> must be used before <hr> in this context",
+        "offset": 668,
+        "ruleId": "element-permitted-order",
+        "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
+        "selector": "select:nth-child(8) > button",
+        "severity": 2,
+        "size": 6,
+      },
+      {
         "column": 11,
         "context": {
           "ancestor": "<option>",
           "child": "<datalist>",
           "kind": "descendant",
         },
-        "line": 31,
+        "line": 35,
         "message": "<datalist> element is not permitted as a descendant of <option>",
-        "offset": 712,
+        "offset": 791,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select:nth-child(8) > option:nth-child(1) > datalist",
+        "selector": "select:nth-child(9) > option:nth-child(1) > datalist",
         "severity": 2,
         "size": 8,
       },
@@ -17159,12 +17170,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "child": "<object>",
           "kind": "descendant",
         },
-        "line": 32,
+        "line": 36,
         "message": "<object> element is not permitted as a descendant of <option>",
-        "offset": 752,
+        "offset": 831,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select:nth-child(8) > option:nth-child(2) > object",
+        "selector": "select:nth-child(9) > option:nth-child(2) > object",
         "severity": 2,
         "size": 6,
       },
@@ -17175,12 +17186,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "child": "<button>",
           "kind": "descendant",
         },
-        "line": 33,
+        "line": 37,
         "message": "<button> element is not permitted as a descendant of <option>",
-        "offset": 799,
+        "offset": 878,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select:nth-child(8) > option:nth-child(3) > button",
+        "selector": "select:nth-child(9) > option:nth-child(3) > button",
         "severity": 2,
         "size": 6,
       },
@@ -17191,12 +17202,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "child": "<a>",
           "kind": "descendant",
         },
-        "line": 34,
+        "line": 38,
         "message": "<a> element is not permitted as a descendant of <option>",
-        "offset": 860,
+        "offset": 939,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "select:nth-child(8) > option:nth-child(4) > a",
+        "selector": "select:nth-child(9) > option:nth-child(4) > a",
         "severity": 2,
         "size": 1,
       },
@@ -17226,6 +17237,10 @@ exports[`HTML elements <select> invalid markup 1`] = `
 <!-- should only allow button as first children -->
 <select>
 	<option>foo</option>
+	<button><selectedcontent></selectedcontent></button>
+</select>
+<select>
+	<hr>
 	<button><selectedcontent></selectedcontent></button>
 </select>
 

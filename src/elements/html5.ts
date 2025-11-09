@@ -2431,6 +2431,14 @@ export default {
 				return "combobox";
 			},
 		},
+		/* "Zero or one button elements if the select is a drop-down box, followed
+		 * by zero or more select element inner content element."
+		 *
+		 * "The following are select element inner content elements:
+		 * option, optgroup, hr, script-supporting elements, noscript, div"
+		 *
+		 * https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element
+		 */
 		permittedContent: [
 			"@script",
 			"button?",
@@ -2439,8 +2447,9 @@ export default {
 			"dataformatas",
 			"option",
 			"optgroup",
+			"hr",
 		],
-		permittedOrder: ["button", "option, optgroup"],
+		permittedOrder: ["button", "option, optgroup, hr"],
 	},
 
 	selectedcontent: {
