@@ -247,7 +247,12 @@ export default {
 				deprecated: true,
 			},
 		},
-		permittedDescendants: [{ exclude: "@interactive" }],
+		permittedDescendants: [
+			/* "Transparent, but there must be no interactive content descendant, a
+			 * element descendant, or descendant with the tabindex attribute
+			 * specified." */
+			{ exclude: ["@interactive", "a"] },
+		],
 		aria: {
 			implicitRole(node) {
 				return node.hasAttribute("href") ? "link" : "generic";
