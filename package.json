@@ -248,7 +248,7 @@
     "@rollup/plugin-virtual": "3.0.2",
     "@tsconfig/node-ts": "23.6.2",
     "@tsconfig/node20": "20.1.7",
-    "@tsconfig/strictest": "2.0.7",
+    "@tsconfig/strictest": "2.0.8",
     "@types/babar": "0.2.4",
     "@types/babel__code-frame": "7.0.6",
     "@types/cli-table": "0.3.4",
