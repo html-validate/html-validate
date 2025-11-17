@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 10.4.0 (2025-11-17)
+
+### Features
+
+- **meta:** new metadata helper `hasKeyword` to test if a space-separated list contains a given keyword ([e1f0099](https://gitlab.com/html-validate/html-validate/commit/e1f0099b7a67c61fdc520f2b63a5fe289a69ce67))
+- **meta:** support `attribute.required` as callback ([f0292a7](https://gitlab.com/html-validate/html-validate/commit/f0292a71106913cc8cea7bb2f66a3c7c76d0fbb1))
+
+### Bug Fixes
+
+- **html5:** `<link>` `imagesrcset` and `imagesizes` attributes are only allowed if `rel="preload"` and `as="image"` ([7b5ade4](https://gitlab.com/html-validate/html-validate/commit/7b5ade4cd85b10c915585d8229a4a0f82bf10d28))
+- **html5:** `<link>` only requires `href` if `imagesrcset` is absent ([f0d2f6a](https://gitlab.com/html-validate/html-validate/commit/f0d2f6abdc82fbcd074a61e2bf5b17efc537e71c)), closes [#330](https://gitlab.com/html-validate/html-validate/issues/330)
+- **html5:** `<link>` requires `imagesizes` if `imagesrcset` is present ([6fdc002](https://gitlab.com/html-validate/html-validate/commit/6fdc002340362d6c8f921ee01c120649bbd8cc00))
+
 ## 10.3.1 (2025-11-09)
 
 ### Bug Fixes

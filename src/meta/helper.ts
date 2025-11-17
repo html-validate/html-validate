@@ -33,7 +33,7 @@ export interface MetadataHelper {
 	 * Returns true if an attribute with space-separated tokens includes given
 	 * keyword.
 	 *
-	 * @since %version%
+	 * @since 10.4.0
 	 * @param attr - Attribute value.
 	 * @param keyword - Keyword to look for.
 	 */

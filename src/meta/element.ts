@@ -112,7 +112,7 @@ export type MetaAttributeAllowedCallback = (
  * "missing required attribute" error message.
  *
  * @public
- * @since %version%
+ * @since 10.4.0
  * @param node - The node the attribute belongs to.
  */
 export type MetaAttributeRequiredCallback = (

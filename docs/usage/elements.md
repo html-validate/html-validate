@@ -392,7 +392,7 @@ This is used by the [no-deprecated-attr](/rules/no-deprecated-attr.html) rule.
 
 When set to a `true` this attribute is required to be present on the element.
 
-Since %version% this can be set to a callback returning a truthy result if this attribute is required to present on the element.
+Since 10.4.0 this can be set to a callback returning a truthy result if this attribute is required to present on the element.
 If the return value is a non-empty string this replaces the default error message.
 
 - The `node` parameter is the element the attribute belongs to.
