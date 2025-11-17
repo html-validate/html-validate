@@ -1,5 +1,3 @@
-/* eslint-disable no-console -- CLI script is expected to log */
-
 import fs from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
