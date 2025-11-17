@@ -1767,6 +1767,17 @@ export default {
 				},
 				enum: ["/.+/"],
 			},
+			imagesizes: {
+				required(node) {
+					/* "If the imagesrcset attribute is present [..], the imagesizes
+					 * attribute must also be present"
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					if (node.hasAttribute("imagesrcset")) {
+						return `{{ tagName }} requires "{{ attr }}" attribute when "imagesrcset" attribute is set`;
+					}
+					return false;
+				},
+			},
 			integrity: {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
 				enum: ["/.+/"],

@@ -14153,7 +14153,7 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 30,
+    "errorCount": 31,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
@@ -14677,13 +14677,28 @@ exports[`HTML elements <link> invalid markup 1`] = `
       {
         "column": 4,
         "context": {
+          "attr": "imagesizes",
+          "tagName": "<link>",
+        },
+        "line": 60,
+        "message": "<link> requires "imagesizes" attribute when "imagesrcset" attribute is set",
+        "offset": 2209,
+        "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
+        "selector": "html > head > link:nth-child(30)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 4,
+        "context": {
           "child": "<link>",
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 63,
+        "line": 65,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2237,
+        "offset": 2351,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(1)",
@@ -14697,9 +14712,9 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 64,
+        "line": 66,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2260,
+        "offset": 2374,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(2)",
@@ -14765,6 +14780,8 @@ exports[`HTML elements <link> invalid markup 1`] = `
 		<!-- should handle disallowed keywords in a list of many -->
 		<link href="my-url" rel="alternate external canonical">
 
+		<!-- should require imagesizes when imagesrcset is present -->
+		<link rel="preload" as="image" imagesrcset="">
 	</head>
 	<body>
 
