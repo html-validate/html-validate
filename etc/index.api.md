@@ -898,6 +898,7 @@ export interface MetadataHelper {
     allowedIfAttributeIsAbsent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
     allowedIfAttributeIsPresent(this: void, ...attr: string[]): MetaAttributeAllowedCallback;
     allowedIfParentIsPresent(this: void, ...tags: string[]): MetaAttributeAllowedCallback;
+    hasKeyword(this: void, attr: string, keyword: string): boolean;
 }
 
 // @public (undocumented)
