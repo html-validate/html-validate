@@ -56,6 +56,13 @@
 		<!-- should handle disallowed keywords in a list of many -->
 		<link href="my-url" rel="alternate external canonical">
 
+		<!-- should require imagesizes when imagesrcset is present -->
+		<link rel="preload" as="image" imagesrcset="">
+
+		<!-- imagesrcset and imagesizes requires rel="preload" and as="image" -->
+		<link imagesrcset="" imagesizes="">
+		<link rel="prefetch" as="image" imagesrcset="" imagesizes="">
+		<link rel="preload" as="fetch" imagesrcset="" imagesizes="">
 	</head>
 	<body>
 

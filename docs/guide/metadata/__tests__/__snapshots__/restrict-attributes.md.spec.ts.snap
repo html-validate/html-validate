@@ -152,8 +152,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: required 
       {
         "column": 2,
         "context": {
-          "attribute": "duck",
-          "element": "my-component",
+          "attr": "duck",
+          "tagName": "<my-component>",
         },
         "line": 2,
         "message": "<my-component> is missing required "duck" attribute",

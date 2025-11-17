@@ -297,7 +297,7 @@ export interface MetaAttribute {
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
   list?: boolean;
-  required?: boolean;
+  required?: boolean | ((node: HtmlElementLike) => string | boolean | null | undefined);
   omit?: boolean;
 }
 ```
@@ -333,7 +333,7 @@ If the callback returns an error string the attribute cannot be used in the give
 - The `node` parameter is the element the attribute belongs to.
 - The `attr` parameter is the value of the current attribute under consideration, e.g. the value of `foo` in the next example.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -390,7 +390,45 @@ This is used by the [no-deprecated-attr](/rules/no-deprecated-attr.html) rule.
 
 #### `attribute.required`
 
-If set to `true` this attribute is required to be present on the element.
+When set to a `true` this attribute is required to be present on the element.
+
+Since %version% this can be set to a callback returning a truthy result if this attribute is required to present on the element.
+If the return value is a non-empty string this replaces the default error message.
+
+- The `node` parameter is the element the attribute belongs to.
+
+```ts
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  "custom-element": {
+    attributes: {
+      foo: {
+        required(node) {
+          /* foo is required if bar is not specified */
+          return !node.hasAttribute("bar");
+        },
+      },
+      bar: {},
+    },
+  },
+});
+```
+
+::: tip
+
+When using a callback to dynamically enable/disable the required property only set one of the two attributes as required or the user will get two different errors both telling that both attributes are required at the same time.
+
+If needed, return a string with a custom error message describing that either one of the two must be present:
+
+```ts nocompile
+if (node.hasAttribute("bar")) {
+  return false;
+}
+return '<custom-element> requires either the "foo" or the "bar" attribute to be set';
+```
+
+:::
 
 This is used by the [element-required-attributes](/rules/element-required-attributes.html) rule.
 

@@ -20,15 +20,16 @@ export interface MetadataHelper {
     options?: { defaultValue?: string | null },
   ): MetaAttributeAllowedCallback;
   allowedIfParentIsPresent(...tags: string[]): MetaAttributeAllowedCallback;
+  hasKeyword(attr: string, keyword: string): boolean;
 }
 ```
 
 These functions are exported as `metadataHelper` and can be used when writing element metadata:
 
-```js
+```ts
 import { metadataHelper } from "html-validate";
 
-/* eslint-disable-next-line no-unused-vars */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const { allowedIfAttributeIsPresent } = metadataHelper;
 ```
 
@@ -36,7 +37,7 @@ const { allowedIfAttributeIsPresent } = metadataHelper;
 
 Returns an error if another attribute is omitted, i.e. it requires another attribute to be present to pass.
 
-```js
+```ts
 import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeIsPresent } = metadataHelper;
@@ -57,7 +58,7 @@ export default defineMetadata({
 
 Returns an error if another attribute is present, i.e. it requires another attribute to be omitted to pass.
 
-```js
+```ts
 import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeIsAbsent } = metadataHelper;
@@ -78,7 +79,7 @@ export default defineMetadata({
 
 Returns an error if another attribute does not have one of the listed values.
 
-```js
+```ts
 import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfAttributeHasValue } = metadataHelper;
@@ -99,7 +100,7 @@ export default defineMetadata({
 
 Returns an error if the node doesn't have any of the given elements as parent.
 
-```js
+```ts
 import { defineMetadata, metadataHelper } from "html-validate";
 
 const { allowedIfParentIsPresent } = metadataHelper;
@@ -110,6 +111,36 @@ export default defineMetadata({
       foo: {
         /* will be allowed only if <custom-element> has a <other-element> as ancestor  */
         allowed: allowedIfParentIsPresent("other-element"),
+      },
+    },
+  },
+});
+```
+
+## `hasKeyword`
+
+Returns true if an attribute with space-separated tokens includes given keyword.
+
+```ts
+import { defineMetadata, metadataHelper } from "html-validate";
+
+const { hasKeyword } = metadataHelper;
+
+export default defineMetadata({
+  "custom-element": {
+    attributes: {
+      foo: {
+        /* will be allowed only if "bar" attribute includes the "valid" keyword"  */
+        allowed(node) {
+          const attr = node.getAttribute("bar");
+          if (!attr || (typeof attr === "string" && !hasKeyword(attr, "valid"))) {
+            return `"bar" attribute must include "valid" keyword`;
+          }
+          return null;
+        },
+      },
+      bar: {
+        list: true,
       },
     },
   },

@@ -1,5 +1,7 @@
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
+import { type MetaDataTable } from "../meta";
+import { type RuleContext } from "./element-required-attributes";
 
 describe("rule element-required-attributes", () => {
 	let htmlvalidate: HtmlValidate;
@@ -60,6 +62,100 @@ describe("rule element-required-attributes", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle required property callback", async () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-required-attributes": "error" },
+			elements: [
+				{
+					foo: {
+						attributes: {
+							a: {
+								required(node) {
+									return !node.hasAttribute("condition");
+								},
+							},
+							b: {
+								required(node) {
+									if (node.hasAttribute("condition")) {
+										return false;
+									}
+									return '{{ tagName }} requires either "b" or "condition" attribute';
+								},
+							},
+							true: {
+								required() {
+									return true;
+								},
+							},
+							undefined: {
+								required() {
+									return undefined;
+								},
+							},
+							null: {
+								required() {
+									return null;
+								},
+							},
+							false: {
+								required() {
+									return false;
+								},
+							},
+							empty: {
+								required() {
+									return "";
+								},
+							},
+							condition: {},
+						},
+					},
+				} satisfies MetaDataTable,
+			],
+		});
+		const markup = /* HTML */ `
+			<!-- should yield error -->
+			<foo></foo>
+
+			<!-- should not yield error -->
+			<foo a b true></foo>
+			<foo true condition></foo>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <foo> is missing required "a" attribute (element-required-attributes) at inline:3:5:
+			  1 |
+			  2 | 			<!-- should yield error -->
+			> 3 | 			<foo></foo>
+			    | 			 ^^^
+			  4 |
+			  5 | 			<!-- should not yield error -->
+			  6 | 			<foo a b true></foo>
+			Selector: foo:nth-child(1)
+			error: <foo> requires either "b" or "condition" attribute (element-required-attributes) at inline:3:5:
+			  1 |
+			  2 | 			<!-- should yield error -->
+			> 3 | 			<foo></foo>
+			    | 			 ^^^
+			  4 |
+			  5 | 			<!-- should not yield error -->
+			  6 | 			<foo a b true></foo>
+			Selector: foo:nth-child(1)
+			error: <foo> is missing required "true" attribute (element-required-attributes) at inline:3:5:
+			  1 |
+			  2 | 			<!-- should yield error -->
+			> 3 | 			<foo></foo>
+			    | 			 ^^^
+			  4 |
+			  5 | 			<!-- should not yield error -->
+			  6 | 			<foo a b true></foo>
+			Selector: foo:nth-child(1)"
+		`);
+	});
+
 	it("smoketest", async () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile(
@@ -78,16 +174,14 @@ describe("rule element-required-attributes", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		const context = {
-			element: "any",
-			attribute: "foo",
+		const context: RuleContext = {
+			tagName: "<any>",
+			attr: "foo",
 		};
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-		const docs = await htmlvalidate.getRuleDocumentation(
-			"element-required-attributes",
-			null,
+		const docs = await htmlvalidate.getContextualDocumentation({
+			ruleId: "element-required-attributes",
 			context,
-		);
+		});
 		expect(docs).toMatchSnapshot();
 	});
 });

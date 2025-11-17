@@ -28,6 +28,16 @@ export interface MetadataHelper {
 	 * @since 8.2.0
 	 **/
 	allowedIfParentIsPresent(this: void, ...tags: string[]): MetaAttributeAllowedCallback;
+
+	/**
+	 * Returns true if an attribute with space-separated tokens includes given
+	 * keyword.
+	 *
+	 * @since %version%
+	 * @param attr - Attribute value.
+	 * @param keyword - Keyword to look for.
+	 */
+	hasKeyword(this: void, attr: string, keyword: string): boolean;
 }
 
 /**
@@ -97,6 +107,13 @@ export function allowedIfParentIsPresent(
 }
 
 /**
+ * @internal
+ */
+export function hasKeyword(attr: string, keyword: string): boolean {
+	return attr.toLowerCase().split(/\s+/).includes(keyword);
+}
+
+/**
  * @public
  */
 export const metadataHelper: MetadataHelper = {
@@ -104,4 +121,5 @@ export const metadataHelper: MetadataHelper = {
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeHasValue,
 	allowedIfParentIsPresent,
+	hasKeyword,
 };

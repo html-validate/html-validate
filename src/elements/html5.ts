@@ -7,6 +7,7 @@ const {
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeHasValue,
 	allowedIfParentIsPresent,
+	hasKeyword,
 } = metadataHelper;
 
 const validId = "/\\S+/";
@@ -1756,8 +1757,61 @@ export default {
 				boolean: true,
 			},
 			href: {
-				required: true,
+				required(node) {
+					/* "One or both of the href or imagesrcset attributes must be
+					 * present."
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					if (node.hasAttribute("imagesrcset")) {
+						return false;
+					}
+					return `{{ tagName }} is missing required "href" or "imagesrcset" attribute`;
+				},
 				enum: ["/.+/"],
+			},
+			imagesrcset: {
+				allowed(node) {
+					/* "The imagesrcset and imagesizes attributes must only be specified
+					 * on link elements that have both a rel attribute that specifies the
+					 * preload keyword, as well as an as attribute in the "image"
+					 * state."
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					const rel = node.getAttribute("rel");
+					const as = node.getAttribute("as");
+					if (!rel || (typeof rel === "string" && !hasKeyword(rel, "preload"))) {
+						return `"rel" attribute must be "preload"`;
+					}
+					if (!as || (typeof as === "string" && as !== "image")) {
+						return `"as" attribute must be "image"`;
+					}
+					return null;
+				},
+			},
+			imagesizes: {
+				allowed(node) {
+					/* "The imagesrcset and imagesizes attributes must only be specified
+					 * on link elements that have both a rel attribute that specifies the
+					 * preload keyword, as well as an as attribute in the "image"
+					 * state."
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					const rel = node.getAttribute("rel");
+					const as = node.getAttribute("as");
+					if (!rel || (typeof rel === "string" && !hasKeyword(rel, "preload"))) {
+						return `"rel" attribute must be "preload"`;
+					}
+					if (!as || (typeof as === "string" && as !== "image")) {
+						return `"as" attribute must be "image"`;
+					}
+					return null;
+				},
+				required(node) {
+					/* "If the imagesrcset attribute is present [..], the imagesizes
+					 * attribute must also be present"
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					if (node.hasAttribute("imagesrcset")) {
+						return `{{ tagName }} requires "{{ attr }}" attribute when "imagesrcset" attribute is set`;
+					}
+					return false;
+				},
 			},
 			integrity: {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),

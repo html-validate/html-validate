@@ -8,6 +8,7 @@ import {
 	allowedIfAttributeIsAbsent,
 	allowedIfAttributeIsPresent,
 	allowedIfParentIsPresent,
+	hasKeyword,
 } from "./helper";
 
 let parser: Parser;
@@ -189,5 +190,40 @@ describe("allowedIfParentIsPresent()", () => {
 		expect(allowedIfParentIsPresent("spam", "ham")(node, attr)).toMatchInlineSnapshot(
 			`"requires <spam> or <ham> as parent"`,
 		);
+	});
+});
+
+describe("hasKeyword()", () => {
+	it("should return true if keyword is exactly equal to the attribute", () => {
+		expect.assertions(1);
+		expect(hasKeyword("foo", "foo")).toBeTruthy();
+	});
+
+	it("should return true if keyword is equal to the attribute with whitespace", () => {
+		expect.assertions(3);
+		expect(hasKeyword("foo ", "foo")).toBeTruthy();
+		expect(hasKeyword("foo ", "foo")).toBeTruthy();
+		expect(hasKeyword(" foo ", "foo")).toBeTruthy();
+	});
+
+	it("should return true if keyword is present in the list", () => {
+		expect.assertions(3);
+		expect(hasKeyword("foo bar baz", "foo")).toBeTruthy();
+		expect(hasKeyword("foo bar baz", "bar")).toBeTruthy();
+		expect(hasKeyword("foo bar baz", "baz")).toBeTruthy();
+	});
+
+	it("should return true if keyword is mixed case", () => {
+		expect.assertions(3);
+		expect(hasKeyword("foo", "foo")).toBeTruthy();
+		expect(hasKeyword("FOO", "foo")).toBeTruthy();
+		expect(hasKeyword("Foo", "foo")).toBeTruthy();
+	});
+
+	it("should return false if the keyword is not present", () => {
+		expect.assertions(3);
+		expect(hasKeyword("", "foo")).toBeFalsy();
+		expect(hasKeyword("bar", "foo")).toBeFalsy();
+		expect(hasKeyword("bar baz", "foo")).toBeFalsy();
 	});
 });

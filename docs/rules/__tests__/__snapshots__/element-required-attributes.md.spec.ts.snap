@@ -11,8 +11,8 @@ exports[`docs/rules/element-required-attributes.md inline validation: incorrect 
       {
         "column": 2,
         "context": {
-          "attribute": "src",
-          "element": "img",
+          "attr": "src",
+          "tagName": "<img>",
         },
         "line": 1,
         "message": "<img> is missing required "src" attribute",

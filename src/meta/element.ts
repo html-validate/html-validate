@@ -105,6 +105,21 @@ export type MetaAttributeAllowedCallback = (
 ) => string | null | undefined;
 
 /**
+ * Callback for the `required` property of `MetaAttribute`.
+ *
+ * The return value should be truthy if the attribute is required or falsey if
+ * not. If the return value is a non-empty string it replaces the default
+ * "missing required attribute" error message.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node the attribute belongs to.
+ */
+export type MetaAttributeRequiredCallback = (
+	node: HtmlElementLike,
+) => string | boolean | null | undefined;
+
+/**
  * @public
  */
 export interface MetaAttribute {
@@ -146,7 +161,7 @@ export interface MetaAttribute {
 	/**
 	 * If set this attribute is required to be present on the element.
 	 */
-	required?: boolean;
+	required?: boolean | MetaAttributeRequiredCallback;
 }
 
 /**
