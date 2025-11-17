@@ -1756,7 +1756,15 @@ export default {
 				boolean: true,
 			},
 			href: {
-				required: true,
+				required(node) {
+					/* "One or both of the href or imagesrcset attributes must be
+					 * present."
+					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
+					if (node.hasAttribute("imagesrcset")) {
+						return false;
+					}
+					return `{{ tagName }} is missing required "href" or "imagesrcset" attribute`;
+				},
 				enum: ["/.+/"],
 			},
 			integrity: {

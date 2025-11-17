@@ -14175,7 +14175,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "tagName": "<link>",
         },
         "line": 9,
-        "message": "<link> is missing required "href" attribute",
+        "message": "<link> is missing required "href" or "imagesrcset" attribute",
         "offset": 174,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",

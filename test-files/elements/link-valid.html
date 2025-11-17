@@ -65,9 +65,19 @@
 		<!-- should allow empty rel attribute -->
 		<link href="my-url" rel>
 		<link href="my-url" rel="">
+
+		<!-- - should be valid with either or both href and imagesrcset -->
+		<link rel="preload" as="image" href="foo.png">
+		<link rel="preload" as="image" imagesrcset="foo.png, bar.png 600w" imagesizes="50vw">
+		<link
+			rel="preload"
+			as="image"
+			href="foo.png"
+			imagesrcset="foo.png, bar.png 600w"
+			imagesizes="50vw"
+		>
 	</head>
 	<body>
-
 		<!-- allowed under body when rel is set to a "body ok" keyword -->
 		<link href="my-url" rel="dns-prefetch">
 		<link href="my-url" rel="modulepreload">
