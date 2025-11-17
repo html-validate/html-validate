@@ -14153,7 +14153,7 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 31,
+    "errorCount": 37,
     "filePath": "test-files/elements/link-invalid.html",
     "messages": [
       {
@@ -14690,15 +14690,111 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 4,
       },
       {
+        "column": 9,
+        "context": {
+          "attr": "imagesrcset",
+          "details": ""rel" attribute must be "preload"",
+          "tagName": "<link>",
+        },
+        "line": 63,
+        "message": ""imagesrcset" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
+        "offset": 2340,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(31)",
+        "severity": 2,
+        "size": 11,
+      },
+      {
+        "column": 24,
+        "context": {
+          "attr": "imagesizes",
+          "details": ""rel" attribute must be "preload"",
+          "tagName": "<link>",
+        },
+        "line": 63,
+        "message": ""imagesizes" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
+        "offset": 2355,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(31)",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 35,
+        "context": {
+          "attr": "imagesrcset",
+          "details": ""rel" attribute must be "preload"",
+          "tagName": "<link>",
+        },
+        "line": 64,
+        "message": ""imagesrcset" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
+        "offset": 2404,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(32)",
+        "severity": 2,
+        "size": 11,
+      },
+      {
+        "column": 50,
+        "context": {
+          "attr": "imagesizes",
+          "details": ""rel" attribute must be "preload"",
+          "tagName": "<link>",
+        },
+        "line": 64,
+        "message": ""imagesizes" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
+        "offset": 2419,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(32)",
+        "severity": 2,
+        "size": 10,
+      },
+      {
+        "column": 34,
+        "context": {
+          "attr": "imagesrcset",
+          "details": ""as" attribute must be "image"",
+          "tagName": "<link>",
+        },
+        "line": 65,
+        "message": ""imagesrcset" attribute cannot be used on <link> in this context: "as" attribute must be "image"",
+        "offset": 2467,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(33)",
+        "severity": 2,
+        "size": 11,
+      },
+      {
+        "column": 49,
+        "context": {
+          "attr": "imagesizes",
+          "details": ""as" attribute must be "image"",
+          "tagName": "<link>",
+        },
+        "line": 65,
+        "message": ""imagesizes" attribute cannot be used on <link> in this context: "as" attribute must be "image"",
+        "offset": 2482,
+        "ruleId": "attribute-misuse",
+        "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
+        "selector": "html > head > link:nth-child(33)",
+        "severity": 2,
+        "size": 10,
+      },
+      {
         "column": 4,
         "context": {
           "child": "<link>",
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 65,
+        "line": 70,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2351,
+        "offset": 2593,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(1)",
@@ -14712,9 +14808,9 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 66,
+        "line": 71,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2374,
+        "offset": 2616,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(2)",
@@ -14782,6 +14878,11 @@ exports[`HTML elements <link> invalid markup 1`] = `
 
 		<!-- should require imagesizes when imagesrcset is present -->
 		<link rel="preload" as="image" imagesrcset="">
+
+		<!-- imagesrcset and imagesizes requires rel="preload" and as="image" -->
+		<link imagesrcset="" imagesizes="">
+		<link rel="prefetch" as="image" imagesrcset="" imagesizes="">
+		<link rel="preload" as="fetch" imagesrcset="" imagesizes="">
 	</head>
 	<body>
 
