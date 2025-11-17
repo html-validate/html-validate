@@ -316,8 +316,8 @@
                   "title": "Set to true if this attribute can optionally omit its value"
                 },
                 "required": {
-                  "type": "boolean",
-                  "title": "Set to true if this attribute is required"
+                  "title": "Set to true or a function to evaluate if this attribute is required",
+                  "oneOf": [{ "type": "boolean" }, { "function": true }]
                 }
               }
             },

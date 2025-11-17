@@ -719,11 +719,14 @@ export interface MetaAttribute {
     enum?: Array<string | RegExp>;
     list?: boolean;
     omit?: boolean;
-    required?: boolean;
+    required?: boolean | MetaAttributeRequiredCallback;
 }
 
 // @public
 export type MetaAttributeAllowedCallback = (node: HtmlElementLike, attr: string | DynamicValue | null | undefined) => string | null | undefined;
+
+// @public
+export type MetaAttributeRequiredCallback = (node: HtmlElementLike) => string | boolean | null | undefined;
 
 // @public
 export type MetaCategoryCallback = (node: HtmlElementLike) => boolean;

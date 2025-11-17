@@ -80,6 +80,7 @@ export {
 	type MetaAria,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
+	type MetaAttributeRequiredCallback,
 	type MetaCategoryCallback,
 	type MetaData,
 	type MetaDataTable,

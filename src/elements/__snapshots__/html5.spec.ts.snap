@@ -3893,8 +3893,8 @@ exports[`HTML elements <embed> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "src",
-          "element": "embed",
+          "attr": "src",
+          "tagName": "<embed>",
         },
         "line": 5,
         "message": "<embed> is missing required "src" attribute",
@@ -3908,8 +3908,8 @@ exports[`HTML elements <embed> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "title",
-          "element": "embed",
+          "attr": "title",
+          "tagName": "<embed>",
         },
         "line": 5,
         "message": "<embed> is missing required "title" attribute",
@@ -4884,8 +4884,8 @@ exports[`HTML elements <frame> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "title",
-          "element": "frame",
+          "attr": "title",
+          "tagName": "<frame>",
         },
         "line": 6,
         "message": "<frame> is missing required "title" attribute",
@@ -5731,8 +5731,8 @@ exports[`HTML elements <html> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "lang",
-          "element": "html",
+          "attr": "lang",
+          "tagName": "<html>",
         },
         "line": 2,
         "message": "<html> is missing required "lang" attribute",
@@ -5896,8 +5896,8 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "title",
-          "element": "iframe",
+          "attr": "title",
+          "tagName": "<iframe>",
         },
         "line": 2,
         "message": "<iframe> is missing required "title" attribute",
@@ -6188,8 +6188,8 @@ exports[`HTML elements <img> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "src",
-          "element": "img",
+          "attr": "src",
+          "tagName": "<img>",
         },
         "line": 2,
         "message": "<img> is missing required "src" attribute",
@@ -14171,8 +14171,8 @@ exports[`HTML elements <link> invalid markup 1`] = `
       {
         "column": 4,
         "context": {
-          "attribute": "href",
-          "element": "link",
+          "attr": "href",
+          "tagName": "<link>",
         },
         "line": 9,
         "message": "<link> is missing required "href" attribute",
@@ -14827,8 +14827,8 @@ exports[`HTML elements <map> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "name",
-          "element": "map",
+          "attr": "name",
+          "tagName": "<map>",
         },
         "line": 2,
         "message": "<map> is missing required "name" attribute",
@@ -15690,8 +15690,8 @@ exports[`HTML elements <object> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attribute": "data",
-          "element": "object",
+          "attr": "data",
+          "tagName": "<object>",
         },
         "line": 9,
         "message": "<object> is missing required "data" attribute",
