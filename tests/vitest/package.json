@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "vite": "7.2.4",
-    "vitest": "4.0.10"
+    "vitest": "4.0.12"
   }
 }
