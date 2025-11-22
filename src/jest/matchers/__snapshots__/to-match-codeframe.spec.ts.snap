@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`toMatchCodeframe() should handle hint: foobar 1`] = `""`;
+
 exports[`toMatchCodeframe() should match invalid async report 1`] = `
 "error: mock message (my-rule) at inline:4:8:
   2 | 		<header id="foo">
@@ -34,3 +36,5 @@ Selector: div"
 exports[`toMatchCodeframe() should match valid async report 1`] = `""`;
 
 exports[`toMatchCodeframe() should match valid report 1`] = `""`;
+
+exports[`toMatchCodeframe() should match valid string 1`] = `""`;

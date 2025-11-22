@@ -15,7 +15,7 @@ describe("toMatchCodeframe()", () => {
 
 	it("should match valid string", () => {
 		expect.assertions(1);
-		expect("<p></p>").toMatchInlineCodeframe(`""`);
+		expect("<p></p>").toMatchCodeframe();
 	});
 
 	it("should match invalid report", () => {
@@ -31,5 +31,10 @@ describe("toMatchCodeframe()", () => {
 	it("should match invalid string", () => {
 		expect.assertions(1);
 		expect("<div>").toMatchCodeframe();
+	});
+
+	it("should handle hint", () => {
+		expect.assertions(1);
+		expect(reportOk()).toMatchCodeframe("foobar");
 	});
 });
