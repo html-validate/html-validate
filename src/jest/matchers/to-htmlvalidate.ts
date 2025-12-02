@@ -17,14 +17,14 @@ function isMessage(arg: any): arg is Partial<Message> {
 	}
 	return Boolean(
 		arg.ruleId ??
-			arg.severity ??
-			arg.message ??
-			arg.offset ??
-			arg.line ??
-			arg.column ??
-			arg.size ??
-			arg.selector ??
-			arg.context,
+		arg.severity ??
+		arg.message ??
+		arg.offset ??
+		arg.line ??
+		arg.column ??
+		arg.size ??
+		arg.selector ??
+		arg.context,
 	);
 }
 
