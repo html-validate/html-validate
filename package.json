@@ -236,7 +236,7 @@
     "@html-validate/eslint-config-typescript": "6.11.1",
     "@html-validate/eslint-config-typescript-typeinfo": "6.11.1",
     "@html-validate/jest-config": "3.13.0",
-    "@html-validate/prettier-config": "3.1.9",
+    "@html-validate/prettier-config": "3.1.10",
     "@html-validate/release-scripts": "7.1.0",
     "@html-validate/rollup-plugin-legacy": "file:internal/rollup-plugin-legacy",
     "@html-validate/rollup-plugin-packagejson": "file:internal/rollup-plugin-packagejson",
