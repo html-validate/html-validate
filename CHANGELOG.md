@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 10.5.0 (2025-12-14)
+
+### Features
+
+- **deps:** update dependency glob to v12 ([61e3a2d](https://gitlab.com/html-validate/html-validate/commit/61e3a2d68c8d4f061ee12d09f4fed5d79b1fe58c))
+- **deps:** update dependency glob to v13 ([eb80287](https://gitlab.com/html-validate/html-validate/commit/eb80287e75dfacb99a2d7a5bbf192ebc440f75d2))
+
+### Bug Fixes
+
+- **deps:** update dependency @sidvind/better-ajv-errors to v4.0.1 ([651c383](https://gitlab.com/html-validate/html-validate/commit/651c383cacdd0b1763288d582f0bc985b9cd64b8))
+
 ## 10.4.0 (2025-11-17)
 
 ### Features
