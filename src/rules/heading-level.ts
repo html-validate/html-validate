@@ -115,7 +115,9 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	private onTagStart(event: TagStartEvent): void {
 		/* extract heading level from tagName (e.g "h1" -> 1)*/
 		const level = extractLevel(event.target);
-		if (!level) return;
+		if (!level) {
+			return;
+		}
 
 		/* fetch the current sectioning root */
 		const root = this.getCurrentRoot();

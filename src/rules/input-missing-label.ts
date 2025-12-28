@@ -97,7 +97,9 @@ export default class InputMissingLabel extends Rule {
 }
 
 function findLabelById(root: DOMTree, id: string | null): HtmlElement[] {
-	if (!id) return [];
+	if (!id) {
+		return [];
+	}
 	return root.querySelectorAll(`label[for="${id}"]`);
 }
 

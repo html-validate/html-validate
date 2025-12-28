@@ -77,6 +77,7 @@ function createMatcher(
 	return diverge(toHTMLValidate);
 }
 
+/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 function toHTMLValidateImpl(
 	this: MatcherContext,
 	expect: MatcherExpect,

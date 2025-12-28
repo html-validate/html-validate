@@ -11,7 +11,9 @@ const replacement = {
  * @returns {string}
  */
 function htmlEncode(str) {
-	if (!str) return "";
+	if (!str) {
+		return "";
+	}
 
 	return str.replace(/[<>&"']/g, (m) => {
 		return replacement[m];

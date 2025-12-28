@@ -544,7 +544,9 @@ export class Config {
 		/* presets from plugins */
 		for (const plugin of plugins) {
 			for (const [name, config] of Object.entries(plugin.configs ?? {})) {
-				if (!config) continue;
+				if (!config) {
+					continue;
+				}
 
 				Config.validate(config, name);
 

@@ -119,7 +119,9 @@ describe("parser", () => {
 		events = [];
 		parser = new ExposedParser(await Config.empty().resolve());
 		parser.on("*", (event: string, data: any) => {
-			if (ignoredEvents.includes(event)) return;
+			if (ignoredEvents.includes(event)) {
+				return;
+			}
 			events.push(mergeEvent(event, data));
 		});
 	});

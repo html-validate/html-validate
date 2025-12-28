@@ -89,7 +89,9 @@ export function sliceLocation(
 	end?: number,
 	wrap?: string,
 ): Location | null {
-	if (!location) return null;
+	if (!location) {
+		return null;
+	}
 	const size = sliceSize(location.size, begin, end);
 	const sliced: LocationRW = {
 		filename: location.filename,

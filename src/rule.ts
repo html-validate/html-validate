@@ -404,6 +404,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * @internal
 	 */
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	public static validateOptions(
 		cls: RuleConstructor<unknown, unknown> | undefined,
 		ruleId: string,

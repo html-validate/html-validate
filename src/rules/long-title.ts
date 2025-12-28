@@ -34,7 +34,9 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 	public setup(): void {
 		this.on("tag:end", (event) => {
 			const node = event.previous;
-			if (node.tagName !== "title") return;
+			if (node.tagName !== "title") {
+				return;
+			}
 
 			const text = node.textContent;
 			if (text.length > this.maxlength) {

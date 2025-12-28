@@ -17,7 +17,9 @@ export default class H36 extends Rule {
 		this.on("tag:end", (event) => {
 			/* only handle input elements */
 			const node = event.previous;
-			if (node.tagName !== "input") return;
+			if (node.tagName !== "input") {
+				return;
+			}
 
 			/* only handle images with type="image" */
 			if (node.getAttributeValue("type") !== "image") {
