@@ -61,7 +61,9 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 	}
 
 	function readElements(fileInfo, filename) {
-		if (!filename) return filename;
+		if (!filename) {
+			return filename;
+		}
 		const dir = path.dirname(fileInfo.filePath);
 		/* eslint-disable-next-line import/no-dynamic-require, security/detect-non-literal-require -- expected to read file */
 		return require(`${dir}/${filename}`);

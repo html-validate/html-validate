@@ -386,7 +386,9 @@ export class Engine<T extends Parser = Parser> {
 		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {
-				if (!rule) continue;
+				if (!rule) {
+					continue;
+				}
 				availableRules[name] = rule;
 			}
 		}
@@ -432,6 +434,7 @@ export class Engine<T extends Parser = Parser> {
 	/**
 	 * Load and setup a rule using current config.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	protected loadRule(
 		ruleId: string,
 		config: ResolvedConfig,

@@ -117,6 +117,7 @@ export class Reporter {
 		};
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	public add<ContextType, OptionsType>(
 		rule: Rule<ContextType, OptionsType>,
 		message: string,

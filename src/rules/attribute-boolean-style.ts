@@ -46,11 +46,15 @@ export default class AttributeBooleanStyle extends Rule<void, RuleOptions> {
 
 				/* ignore rule if element has no meta or meta does not specify attribute
 				 * allowed values */
-				if (!meta?.attributes) return;
+				if (!meta?.attributes) {
+					return;
+				}
 
 				/* check all boolean attributes */
 				for (const attr of node.attributes) {
-					if (!this.isBoolean(attr, meta.attributes)) continue;
+					if (!this.isBoolean(attr, meta.attributes)) {
+						continue;
+					}
 
 					/* ignore attribute if it is aliased by a dynamic value,
 					 * e.g. ng-required or v-bind:required, since it will probably have a

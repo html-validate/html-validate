@@ -48,7 +48,9 @@ function addFrameworks(src: ConfigData, frameworks: string[]): ConfigData {
 function writeConfig(dst: string, config: ConfigData): Promise<void> {
 	return new Promise((resolve, reject) => {
 		fs.writeFile(dst, JSON.stringify(config, null, 2), (err) => {
-			if (err) reject(err);
+			if (err) {
+				reject(err);
+			}
 			resolve();
 		});
 	});

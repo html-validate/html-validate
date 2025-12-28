@@ -105,7 +105,9 @@ export class MetaTable {
 			}
 
 			for (const [key, value] of Object.entries(obj)) {
-				if (key === "$schema") continue;
+				if (key === "$schema") {
+					continue;
+				}
 				this.addEntry(key, migrateElement(value));
 			}
 		} catch (err) {
@@ -221,7 +223,9 @@ export class MetaTable {
 	 */
 	private resolveGlobal(): void {
 		/* skip if there is no global elements */
-		if (!this.elements["*"]) return;
+		if (!this.elements["*"]) {
+			return;
+		}
 
 		/* fetch and remove the global element, it should not be resolvable by
 		 * itself */

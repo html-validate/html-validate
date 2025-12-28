@@ -669,7 +669,9 @@ export class Parser {
 		while (!it.done) {
 			const token = it.value;
 			yield token;
-			if (token.type === search) return;
+			if (token.type === search) {
+				return;
+			}
 			it = this.next(tokenStream);
 		}
 		throw new ParserError(

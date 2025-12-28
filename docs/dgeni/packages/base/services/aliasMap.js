@@ -12,7 +12,9 @@ module.exports = function aliasMap() {
 		 * @param {Object} doc The document to add to the map
 		 */
 		addDoc(doc) {
-			if (!doc.aliases) return;
+			if (!doc.aliases) {
+				return;
+			}
 
 			// We store references to this doc under all its id aliases in the map
 			// This map will be used to match references to docs

@@ -23,7 +23,9 @@ function inline(source: string): Source {
 
 class MockParser extends Parser {
 	public override parseHtml(source: string | Source): HtmlElement {
-		if (typeof source === "string") return super.parseHtml(source);
+		if (typeof source === "string") {
+			return super.parseHtml(source);
+		}
 		switch (source.data) {
 			case "invalid-token-error":
 				throw new InvalidTokenError(
@@ -57,6 +59,7 @@ class MockParser extends Parser {
 
 class ExposedEngine<T extends Parser> extends Engine<T> {
 	/* exposed for testing */
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	public override loadRule(
 		name: string,
 		resolvedConfig: ResolvedConfig,

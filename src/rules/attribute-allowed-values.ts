@@ -60,7 +60,9 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 
 				/* ignore rule if element has no meta or meta does not specify attribute
 				 * allowed values */
-				if (!meta?.attributes) return;
+				if (!meta?.attributes) {
+					return;
+				}
 
 				for (const attr of node.attributes) {
 					if (Validator.validateAttribute(attr, meta.attributes)) {
