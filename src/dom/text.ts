@@ -11,7 +11,7 @@ const TEXT_NODE_NAME = "#text";
  * @public
  */
 export function isTextNode(node: DOMNode | null | undefined): node is TextNode {
-	return Boolean(node && node.nodeType === NodeType.TEXT_NODE);
+	return node?.nodeType === NodeType.TEXT_NODE;
 }
 
 /**

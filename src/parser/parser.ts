@@ -32,7 +32,7 @@ import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";
 
 function isAttrValueToken(token?: Token): token is AttrValueToken {
-	return Boolean(token && token.type === TokenType.ATTR_VALUE);
+	return token?.type === TokenType.ATTR_VALUE;
 }
 
 function svgShouldRetainTag(foreignTagName: string, tagName: string): boolean {
@@ -511,7 +511,7 @@ export class Parser {
 	 *      ^^^          ^^^         ^^^    (null)   (null)
 	 */
 	private getAttributeValueLocation(token?: Token): Location | null {
-		if (!token || token.type !== TokenType.ATTR_VALUE || token.data[2] === "") {
+		if (token?.type !== TokenType.ATTR_VALUE || token.data[2] === "") {
 			return null;
 		}
 		const quote = token.data[3];
@@ -528,7 +528,7 @@ export class Parser {
 	 */
 	private getAttributeLocation(key: AttrNameToken, value?: Token): Location {
 		const begin = key.location;
-		const end = value && value.type === TokenType.ATTR_VALUE ? value.location : undefined;
+		const end = value?.type === TokenType.ATTR_VALUE ? value.location : undefined;
 		return {
 			filename: begin.filename,
 			line: begin.line,

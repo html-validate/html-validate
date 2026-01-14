@@ -28,7 +28,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			}
 
 			const parent = closed.parent;
-			const closedByParent = parent && parent.tagName === by.tagName; /* <ul><li></ul> */
+			const closedByParent = parent?.tagName === by.tagName; /* <ul><li></ul> */
 			const closedByDocument = closedByParent && parent.isRootElement();
 			const sameTag = closed.tagName === by.tagName; /* <p>foo<p>bar */
 

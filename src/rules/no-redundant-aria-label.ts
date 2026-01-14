@@ -23,7 +23,8 @@ export default class NoRedundantAriaLabel extends Rule {
 					continue;
 				}
 				const label = document.querySelector(`label[for="${id}"]`);
-				if (!ariaLabel || !label || label.textContent.trim() !== ariaLabel.value) {
+				/* eslint-disable-next-line sonarjs/different-types-comparison -- false positive */
+				if (!ariaLabel || label?.textContent.trim() !== ariaLabel.value) {
 					continue;
 				}
 				const message = "aria-label is redundant when label containing same text exists";

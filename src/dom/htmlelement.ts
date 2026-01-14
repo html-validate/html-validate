@@ -53,7 +53,7 @@ export enum NodeClosed {
  * @public
  */
 export function isElementNode(node: DOMNode | null | undefined): node is HtmlElement {
-	return Boolean(node && node.nodeType === NodeType.ELEMENT_NODE);
+	return node?.nodeType === NodeType.ELEMENT_NODE;
 }
 
 function isInvalidTagName(tagName: string | undefined): tagName is "" | "*" {

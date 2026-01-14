@@ -33,7 +33,7 @@ export default [
 
 	{
 		name: "@html-validate/eslint-config-typeinfo",
-		files: ["src/**/*.ts"],
+		files: ["src/**/*.{ts,cts,mts}"],
 		languageOptions: {
 			parserOptions: {
 				tsconfigRootDir: rootDir,
@@ -48,14 +48,6 @@ export default [
 		files: ["**/*.spec.[jt]s"],
 		ignores: ["cypress/**", "tests/e2e/**"],
 		...jestConfig,
-		rules: {
-			...jestConfig.rules,
-			/* until upstream config disables this rule */
-			"@typescript-eslint/unbound-method": "off",
-
-			/* technical debt: untyped mocks */
-			"@typescript-eslint/no-unsafe-assignment": "off",
-		},
 	},
 
 	{
