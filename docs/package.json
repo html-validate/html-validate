@@ -30,7 +30,7 @@
     "prettier": "3.7.4",
     "sass": "1.97.2",
     "serve-static": "2.2.1",
-    "synckit": "0.11.11"
+    "synckit": "0.11.12"
   },
   "engines": {
     "node": ">= 22.3"
