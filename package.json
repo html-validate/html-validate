@@ -250,7 +250,7 @@
     "@tsconfig/node20": "20.1.8",
     "@tsconfig/strictest": "2.0.8",
     "@types/babar": "0.2.4",
-    "@types/babel__code-frame": "7.0.6",
+    "@types/babel__code-frame": "7.27.0",
     "@types/cli-table": "0.3.4",
     "@types/jest": "30.0.0",
     "@types/minimist": "1.2.5",
