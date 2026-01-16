@@ -17,7 +17,11 @@ export interface ParsedPattern {
 /**
  * @internal
  */
-export function parsePattern(pattern: PatternName): ParsedPattern {
+export function parsePattern(pattern: PatternName | RegExp): ParsedPattern {
+	if (pattern instanceof RegExp) {
+		return { regexp: pattern, description: pattern.toString() };
+	}
+
 	switch (pattern) {
 		case "kebabcase":
 			return { regexp: /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/, description: pattern };

@@ -11,6 +11,7 @@ import { type MetaElement, type MetaLookupableProperty, type MetaTable } from ".
 import { type Parser } from "./parser";
 import { type Reporter } from "./reporter";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
+import { ajvRegexpKeyword } from "./schema/keywords";
 import { getRuleUrl } from "./utils/get-rule-url.mjs";
 import { interpolate } from "./utils/interpolate";
 
@@ -18,6 +19,7 @@ export { type SchemaObject } from "ajv";
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addMetaSchema(ajvSchemaDraft);
+ajv.addKeyword(ajvRegexpKeyword);
 
 /**
  * @public

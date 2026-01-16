@@ -223,9 +223,18 @@ describe("underscore", () => {
 	});
 });
 
-it("should support user-supplied regexp", () => {
+it("should support user-supplied regexp (string)", () => {
 	expect.assertions(4);
 	const pattern = parsePattern("/^foo-[a-z]\\w+$/");
+	expect("foo-bar").toMatch(pattern.regexp);
+	expect("bar-foo").not.toMatch(pattern.regexp);
+	expect("barfoo-baz").not.toMatch(pattern.regexp);
+	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
+});
+
+it("should support user-supplied regexp (RegExp object)", () => {
+	expect.assertions(4);
+	const pattern = parsePattern(/^foo-[a-z]\w+$/);
 	expect("foo-bar").toMatch(pattern.regexp);
 	expect("bar-foo").not.toMatch(pattern.regexp);
 	expect("barfoo-baz").not.toMatch(pattern.regexp);
