@@ -37,3 +37,7 @@ Multiple consecutive underscores are not allowed.
 - `lorem-ipsum__dolor--sit-amet`
 
 Matches string using [BEM naming convention](https://getbem.com/naming/).
+
+## Custom patterns
+
+In addition to the predefined patterns above, you can define custom regular expressions using either a string wrapped with `/` (`"/[a-z]+/"`).

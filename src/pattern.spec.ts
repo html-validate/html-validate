@@ -1,5 +1,9 @@
 import { parsePattern } from "./pattern";
 
+afterEach(() => {
+	jest.restoreAllMocks();
+});
+
 describe("kebabcase", () => {
 	it("should match strings with dashes", () => {
 		expect.assertions(7);
@@ -221,9 +225,23 @@ describe("underscore", () => {
 
 it("should support user-supplied regexp", () => {
 	expect.assertions(4);
-	const pattern = parsePattern("^foo-[a-z]\\w+$");
+	const pattern = parsePattern("/^foo-[a-z]\\w+$/");
 	expect("foo-bar").toMatch(pattern.regexp);
 	expect("bar-foo").not.toMatch(pattern.regexp);
 	expect("barfoo-baz").not.toMatch(pattern.regexp);
 	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
+});
+
+it("should support user-supplied regexp (deprecated unwrapped string)", () => {
+	expect.assertions(5);
+	const spy = jest.spyOn(console, "warn").mockImplementation();
+	/* @ts-expect-error deprecated but should still work */
+	const pattern = parsePattern("^foo-[a-z]\\w+$");
+	expect("foo-bar").toMatch(pattern.regexp);
+	expect("bar-foo").not.toMatch(pattern.regexp);
+	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
+	expect(spy).toHaveBeenCalledTimes(1);
+	expect(spy).toHaveBeenCalledWith(
+		'Custom pattern "^foo-[a-z]\\w+$" should be wrapped in forward slashes, e.g., "/^foo-[a-z]\\w+$/". Support for unwrapped patterns is deprecated and will be removed in a future version.',
+	);
 });

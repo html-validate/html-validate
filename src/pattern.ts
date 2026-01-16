@@ -1,4 +1,10 @@
-export type PatternName = "kebabcase" | "camelcase" | "underscore" | string;
+export type PatternName =
+	| "kebabcase"
+	| "camelcase"
+	| "underscore"
+	| "snakecase"
+	| "bem"
+	| `/${string}/`;
 
 /**
  * @internal
@@ -34,6 +40,18 @@ export function parsePattern(pattern: PatternName): ParsedPattern {
 		}
 
 		default: {
+			if (pattern.startsWith("/") && pattern.endsWith("/")) {
+				const regexpSource = pattern.slice(1, -1);
+				/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
+				const regexp = new RegExp(regexpSource);
+				return { regexp, description: regexp.toString() };
+			}
+
+			/* @deprecated: Support for patterns without /.../ wrapper is deprecated */
+			/* eslint-disable-next-line no-console -- deprecation warning */
+			console.warn(
+				`Custom pattern "${pattern}" should be wrapped in forward slashes, e.g., "/${pattern}/". Support for unwrapped patterns is deprecated and will be removed in a future version.`,
+			);
 			/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
 			const regexp = new RegExp(pattern);
 			return { regexp, description: regexp.toString() };
