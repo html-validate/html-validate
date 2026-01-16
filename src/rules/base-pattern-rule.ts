@@ -38,11 +38,15 @@ export abstract class BasePatternRule extends Rule<BasePatternRuleContext, BaseP
 	/** Parsed configured patterns */
 	protected patterns: ParsedPattern[];
 
-	/**
-	 * @param attr - Attribute holding the value.
-	 * @param options - Rule options with defaults expanded.
-	 */
-	public constructor(attr: string, options: BasePatternRuleOptions) {
+	public constructor({
+		attr,
+		options,
+	}: {
+		/** Attribute holding the value. */
+		attr: string;
+		/** Rule options with defaults expanded. */
+		options: BasePatternRuleOptions;
+	}) {
 		super(options);
 		const { pattern } = this.options;
 		this.attr = attr;

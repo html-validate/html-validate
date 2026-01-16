@@ -13,7 +13,10 @@ const defaults: BasePatternRuleOptions = {
 
 export default class NamePattern extends BasePatternRule {
 	public constructor(options: Partial<BasePatternRuleOptions>) {
-		super("name", { ...defaults, ...options });
+		super({
+			attr: "name",
+			options: { ...defaults, ...options },
+		});
 	}
 
 	public static override schema(): SchemaObject {

@@ -27,7 +27,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("kebabcase");
@@ -43,7 +43,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("/^[a-z]+$/");
@@ -61,7 +61,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("/^[a-z][a-z0-9-]*$/");
@@ -79,7 +79,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].description).toBe("kebabcase");
@@ -96,7 +96,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].description).toBe("/^[a-z]+$/");
@@ -116,7 +116,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].regexp).toBe(regexp1);
@@ -136,7 +136,7 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({ attr: "test-attr", options: config });
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(3);
 		expect(patterns[0].description).toBe("kebabcase");
