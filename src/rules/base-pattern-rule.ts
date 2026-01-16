@@ -15,11 +15,15 @@ export interface BasePatternRuleContext {
  * @internal
  */
 export interface BasePatternRuleOptions {
-	pattern: PatternName | PatternName[];
+	pattern: PatternName | RegExp | ReadonlyArray<PatternName | RegExp>;
 }
 
-function toArray<T>(value: T | T[]): T[] {
-	return Array.isArray(value) ? value : [value];
+function toArray<T>(value: T | readonly T[]): readonly T[] {
+	if (Array.isArray(value)) {
+		return value as readonly T[];
+	} else {
+		return [value] as readonly T[];
+	}
 }
 
 /**
@@ -48,7 +52,11 @@ export abstract class BasePatternRule extends Rule<BasePatternRuleContext, BaseP
 	public static override schema(): SchemaObject {
 		return {
 			pattern: {
-				oneOf: [{ type: "array", items: { type: "string" }, minItems: 1 }, { type: "string" }],
+				anyOf: [
+					{ type: "array", items: { anyOf: [{ type: "string" }, { regexp: true }] }, minItems: 1 },
+					{ type: "string" },
+					{ regexp: true },
+				],
 			},
 		};
 	}
