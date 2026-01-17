@@ -60,7 +60,7 @@ describe("rule id-pattern", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
-			rules: { "id-pattern": ["error", { pattern: ["camelcase", "underscore", "^spam-"] }] },
+			rules: { "id-pattern": ["error", { pattern: ["camelcase", "underscore", "/^spam-/"] }] },
 		});
 		const markup = /* HTML */ ` <p id="foo-bar"></p> `;
 		const report = await htmlvalidate.validateString(markup);

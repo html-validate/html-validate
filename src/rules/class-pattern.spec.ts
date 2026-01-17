@@ -47,7 +47,7 @@ describe("rule class-pattern", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
-			rules: { "class-pattern": ["error", { pattern: ["camelcase", "underscore", "^spam-"] }] },
+			rules: { "class-pattern": ["error", { pattern: ["camelcase", "underscore", "/^spam-/"] }] },
 		});
 		const markup = /* HTML */ ` <p class="foo-bar"></p> `;
 		const report = await htmlvalidate.validateString(markup);

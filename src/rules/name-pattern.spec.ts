@@ -94,7 +94,7 @@ describe("rule name-pattern", () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
-			rules: { "name-pattern": ["error", { pattern: ["camelcase", "underscore", "^spam-"] }] },
+			rules: { "name-pattern": ["error", { pattern: ["camelcase", "underscore", "/^spam-/"] }] },
 		});
 		const markup = /* HTML */ ` <input name="foo-bar" /> `;
 		const report = await htmlvalidate.validateString(markup);
