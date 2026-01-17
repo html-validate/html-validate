@@ -1,7 +1,9 @@
 import Ajv from "ajv";
-import { type ParsedPattern } from "../pattern";
+import { type NamedPattern, type ParsedPattern, patternNamesValues } from "../pattern";
 import { ajvRegexpKeyword } from "../schema/keywords";
-import { BasePatternRule } from "./base-pattern-rule";
+import { BasePatternRule, validateAllowedPatterns } from "./base-pattern-rule";
+
+const allowedPatterns = new Set(patternNamesValues);
 
 const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
 ajv.addKeyword(ajvRegexpKeyword);
@@ -27,7 +29,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns,
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("kebabcase");
@@ -43,7 +50,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns,
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("/^[a-z]+$/");
@@ -61,7 +73,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns,
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
 		expect(patterns[0].description).toBe("/^[a-z][a-z0-9-]*$/");
@@ -79,7 +96,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns,
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].description).toBe("kebabcase");
@@ -96,7 +118,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns: new Set(),
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].description).toBe("/^[a-z]+$/");
@@ -116,7 +143,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns: new Set(),
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(2);
 		expect(patterns[0].regexp).toBe(regexp1);
@@ -136,7 +168,12 @@ describe("BasePatternRule", () => {
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
 
-		const rule = new MockRule("test-attr", config);
+		const rule = new MockRule({
+			ruleId: "mock-rule",
+			attr: "test-attr",
+			options: config,
+			allowedPatterns,
+		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(3);
 		expect(patterns[0].description).toBe("kebabcase");
@@ -165,5 +202,109 @@ describe("BasePatternRule", () => {
 		const config = { pattern: ["kebabcase", 123] } as const;
 		expect(validator(config)).toBeFalsy();
 		expect(validator.errors).not.toBeNull();
+	});
+});
+
+describe("validateAllowedPatterns", () => {
+	it("should not throw when using only allowed named patterns", () => {
+		expect.assertions(1);
+		const patterns = ["kebabcase", "camelcase"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase", "snakecase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).not.toThrow();
+	});
+
+	it("should not throw when using custom string patterns", () => {
+		expect.assertions(1);
+		const patterns = ["/^[a-z]+$/", "/^[A-Z]+$/"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).not.toThrow();
+	});
+
+	it("should not throw when using RegExp objects", () => {
+		expect.assertions(1);
+		const patterns = [/^[a-z]+$/, /^[A-Z]+$/] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).not.toThrow();
+	});
+
+	it("should not throw when mixing allowed named patterns with custom patterns", () => {
+		expect.assertions(1);
+		const patterns = ["kebabcase", "/^[a-z]+$/", /^\d+$/] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).not.toThrow();
+	});
+
+	it("should throw when using a single disallowed named pattern", () => {
+		expect.assertions(1);
+		const patterns = ["snakecase"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "snakecase" cannot be used with "mock-rule". Allowed patterns: "kebabcase" and "camelcase""`,
+		);
+	});
+
+	it("should throw when using multiple disallowed named patterns", () => {
+		expect.assertions(1);
+		const patterns = ["snakecase", "bem"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "snakecase" and "bem" cannot be used with "mock-rule". Allowed patterns: "kebabcase" and "camelcase""`,
+		);
+	});
+
+	it("should throw when mixing allowed and disallowed named patterns", () => {
+		expect.assertions(1);
+		const patterns = ["kebabcase", "snakecase", "/^[a-z]+$/"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "snakecase" cannot be used with "mock-rule". Allowed patterns: "kebabcase" and "camelcase""`,
+		);
+	});
+
+	it("should include rule ID in error message", () => {
+		expect.assertions(1);
+		const patterns = ["bem"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "my-custom-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "bem" cannot be used with "my-custom-rule". Allowed patterns: "kebabcase""`,
+		);
+	});
+
+	it("should handle single allowed pattern in error message", () => {
+		expect.assertions(1);
+		const patterns = ["camelcase"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "camelcase" cannot be used with "mock-rule". Allowed patterns: "kebabcase""`,
+		);
+	});
+
+	it("should handle three or more allowed patterns in error message", () => {
+		expect.assertions(1);
+		const patterns = ["bem"] as const;
+		const allowedPatterns = new Set<NamedPattern>(["kebabcase", "camelcase", "snakecase"]);
+		expect(() => {
+			validateAllowedPatterns(patterns, allowedPatterns, "mock-rule");
+		}).toThrowErrorMatchingInlineSnapshot(
+			`"Pattern "bem" cannot be used with "mock-rule". Allowed patterns: "kebabcase", "camelcase" and "snakecase""`,
+		);
 	});
 });

@@ -1,5 +1,6 @@
 import { DOMTokenList } from "../dom";
 import { type AttributeEvent } from "../event";
+import { patternNames } from "../pattern";
 import { type RuleDocumentation, type SchemaObject, ruleDocumentationUrl } from "../rule";
 import {
 	type BasePatternRuleContext,
@@ -13,7 +14,12 @@ const defaults: BasePatternRuleOptions = {
 
 export default class ClassPattern extends BasePatternRule {
 	public constructor(options: Partial<BasePatternRuleOptions>) {
-		super("class", { ...defaults, ...options });
+		super({
+			ruleId: "class-pattern",
+			attr: "class",
+			options: { ...defaults, ...options },
+			allowedPatterns: patternNames, // allow all patterns
+		});
 	}
 
 	public static override schema(): SchemaObject {
