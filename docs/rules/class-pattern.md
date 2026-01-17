@@ -44,6 +44,7 @@ Either one of the presets or a custom regular expression.
 - `"camelcase"` matches lowercase letter followed by letters and digits (e.g. `camelCase`)
 - `"snakecase"` matches lowercase letters, digits and underscore (e.g. `snake_case`)
 - `"bem"` matches [BEM naming convention](https://getbem.com/naming/) (e.g. `block__elem--modifier`)
+- `"tailwind"` matches [Tailwind CSS](https://tailwindcss.com/) classes
 
 Read more about {@link pattern details and examples of predefined patterns}.
 
@@ -52,5 +53,6 @@ If value matches either of the patterns it is considered valid.
 
 ## Version history
 
+- %version% - Support `tailwind` pattern.
 - 8.18.0 - Support `snakecase` (previously `underscore`) and `bem`.
 - 8.17.0 - Support multiple patterns.

@@ -7,6 +7,7 @@ export const patternNamesValues = [
 	"underscore",
 	"snakecase",
 	"bem",
+	"tailwind",
 ] as const;
 
 /**
@@ -65,6 +66,13 @@ export function parsePattern(pattern: Pattern | RegExp): ParsedPattern {
 			return {
 				regexp: new RegExp(`^${block}${element}${modifier}$`),
 				description: pattern,
+			};
+		}
+
+		case "tailwind": {
+			return {
+				regexp: /^!?(?:[-a-z[]|\d+xl:)[\w\-:./\\[\]()#'&>,!=%]*$/,
+				description: "tailwind",
 			};
 		}
 

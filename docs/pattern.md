@@ -45,6 +45,19 @@ Multiple consecutive underscores are not allowed.
 
 Matches string using [BEM naming convention](https://getbem.com/naming/).
 
+## `tailwind`
+
+- `bg-blue-500`
+
+Matches [Tailwind CSS](https://tailwindcss.com/) class names.
+
+::: info
+
+This pattern validates the basic format of Tailwind class names but does not verify if a specific class exists in Tailwind.
+It uses a permissive approach to support all Tailwind constructs including arbitrary values, variants, custom plugins, and future additions without requiring the Tailwind library as a dependency.
+
+:::
+
 ## Custom patterns
 
 In addition to the predefined patterns above, you can define custom regular expressions using either a string wrapped with `/` (`"/^[a-z-]+/$"`) or a `RegExp` object.
