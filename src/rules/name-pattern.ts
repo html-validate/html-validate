@@ -1,6 +1,6 @@
 import { DynamicValue } from "../dom";
 import { type AttributeEvent } from "../event";
-import { patternNames } from "../pattern";
+import { type NamedPattern, patternNames } from "../pattern";
 import { type RuleDocumentation, type SchemaObject, ruleDocumentationUrl } from "../rule";
 import {
 	type BasePatternRuleContext,
@@ -12,13 +12,22 @@ const defaults: BasePatternRuleOptions = {
 	pattern: "camelcase",
 };
 
+function exclude(set: Set<NamedPattern>, ...values: NamedPattern[]): Set<NamedPattern> {
+	const result = new Set(set);
+	for (const value of values) {
+		result.delete(value);
+	}
+	return result;
+}
+
 export default class NamePattern extends BasePatternRule {
 	public constructor(options: Partial<BasePatternRuleOptions>) {
+		const allowedPatterns = exclude(patternNames, "tailwind");
 		super({
 			ruleId: "name-pattern",
 			attr: "name",
 			options: { ...defaults, ...options },
-			allowedPatterns: patternNames, // allow all patterns
+			allowedPatterns,
 		});
 	}
 
