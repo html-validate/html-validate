@@ -1,5 +1,6 @@
 import { DynamicValue } from "../dom";
 import { type AttributeEvent } from "../event";
+import { patternNames } from "../pattern";
 import { type RuleDocumentation, type SchemaObject, ruleDocumentationUrl } from "../rule";
 import {
 	type BasePatternRuleContext,
@@ -14,8 +15,10 @@ const defaults: BasePatternRuleOptions = {
 export default class NamePattern extends BasePatternRule {
 	public constructor(options: Partial<BasePatternRuleOptions>) {
 		super({
+			ruleId: "name-pattern",
 			attr: "name",
 			options: { ...defaults, ...options },
+			allowedPatterns: patternNames, // allow all patterns
 		});
 	}
 

@@ -1,10 +1,28 @@
-export type PatternName =
-	| "kebabcase"
-	| "camelcase"
-	| "underscore"
-	| "snakecase"
-	| "bem"
-	| `/${string}/`;
+/**
+ * @internal
+ */
+export const patternNamesValues = [
+	"kebabcase",
+	"camelcase",
+	"underscore",
+	"snakecase",
+	"bem",
+] as const;
+
+/**
+ * @internal
+ */
+export const patternNames = new Set(patternNamesValues);
+
+/**
+ * @internal
+ */
+export type NamedPattern = (typeof patternNamesValues)[number];
+
+/**
+ * @internal
+ */
+export type Pattern = NamedPattern | `/${string}/`;
 
 /**
  * @internal
@@ -17,7 +35,14 @@ export interface ParsedPattern {
 /**
  * @internal
  */
-export function parsePattern(pattern: PatternName | RegExp): ParsedPattern {
+export function isNamedPattern(value: Pattern | RegExp): value is NamedPattern {
+	return typeof value === "string" && (patternNames as Set<string>).has(value);
+}
+
+/**
+ * @internal
+ */
+export function parsePattern(pattern: Pattern | RegExp): ParsedPattern {
 	if (pattern instanceof RegExp) {
 		return { regexp: pattern, description: pattern.toString() };
 	}
