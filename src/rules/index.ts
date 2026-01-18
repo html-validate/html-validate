@@ -79,6 +79,7 @@ import TextContent from "./text-content";
 import UniqueLandmark from "./unique-landmark";
 import UnrecognizedCharRef from "./unrecognized-char-ref";
 import ValidAutocomplete from "./valid-autocomplete";
+import ValidFor from "./valid-for";
 import ValidID from "./valid-id";
 import VoidContent from "./void-content";
 import VoidStyle from "./void-style";
@@ -165,6 +166,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"unique-landmark": UniqueLandmark,
 	"unrecognized-char-ref": UnrecognizedCharRef,
 	"valid-autocomplete": ValidAutocomplete,
+	"valid-for": ValidFor,
 	"valid-id": ValidID,
 	"void-content": VoidContent,
 	"void-style": VoidStyle,

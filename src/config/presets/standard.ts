@@ -33,6 +33,7 @@ const config: ConfigData = {
 		"script-element": "error",
 		"unrecognized-char-ref": "error",
 		"valid-autocomplete": "error",
+		"valid-for": "error",
 		"valid-id": ["error", { relaxed: true }],
 		"void-content": "error",
 	},

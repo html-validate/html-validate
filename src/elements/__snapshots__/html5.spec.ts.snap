@@ -6534,7 +6534,7 @@ exports[`HTML elements <img> valid markup 1`] = `[]`;
 exports[`HTML elements <input> invalid markup 1`] = `
 [
   {
-    "errorCount": 436,
+    "errorCount": 437,
     "filePath": "test-files/elements/input-invalid.html",
     "messages": [
       {
@@ -13245,6 +13245,17 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "severity": 2,
         "size": 10,
       },
+      {
+        "column": 13,
+        "line": 455,
+        "message": "<label> "for" attribute must reference a labelable form control",
+        "offset": 16710,
+        "ruleId": "valid-for",
+        "ruleUrl": "https://html-validate.org/rules/valid-for.html",
+        "selector": "label",
+        "severity": 2,
+        "size": 12,
+      },
     ],
     "source": "<!-- should not allow end tag -->
 <input type="text"></input>
@@ -13698,6 +13709,10 @@ exports[`HTML elements <input> invalid markup 1`] = `
 <div id="invalid-form-overrides">
 	<input type="text" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
 </div>
+
+<!-- should not allow label to reference hidden input -->
+<label for="hidden-field">Lorem ipsum</label>
+<input type="hidden" id="hidden-field">
 ",
     "warningCount": 0,
   },

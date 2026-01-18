@@ -91,6 +91,7 @@ exports[`should match results: test-files/config/cjs-config/file.html config 1`]
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -212,6 +213,7 @@ exports[`should match results: test-files/config/directive/disable.html config 1
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -374,6 +376,7 @@ exports[`should match results: test-files/config/directive/disable-block.html co
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -571,6 +574,7 @@ exports[`should match results: test-files/config/directive/disable-multiple.html
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -735,6 +739,7 @@ exports[`should match results: test-files/config/directive/disable-next.html con
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -898,6 +903,7 @@ exports[`should match results: test-files/config/elements/file.html config 1`] =
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1202,6 +1208,7 @@ exports[`should match results: test-files/config/file.html config 1`] = `
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1346,6 +1353,7 @@ exports[`should match results: test-files/config/js-config/file.html config 1`] 
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1488,6 +1496,7 @@ exports[`should match results: test-files/config/mjs-config/file.html config 1`]
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1609,6 +1618,7 @@ exports[`should match results: test-files/config/off/error/file.html config 1`] 
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1753,6 +1763,7 @@ exports[`should match results: test-files/config/off/file.html config 1`] = `
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {
@@ -1874,6 +1885,7 @@ exports[`should match results: test-files/config/warn/file.html config 1`] = `
     "unique-landmark": "error",
     "unrecognized-char-ref": "error",
     "valid-autocomplete": "error",
+    "valid-for": "error",
     "valid-id": [
       "error",
       {

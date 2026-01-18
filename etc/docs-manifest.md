@@ -119,6 +119,7 @@ rules/third-party.html
 rules/unique-landmark.html
 rules/unrecognized-char-ref.html
 rules/valid-autocomplete.html
+rules/valid-for.html
 rules/valid-id.html
 rules/void-content.html
 rules/void-style.html
