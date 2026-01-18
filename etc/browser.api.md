@@ -650,6 +650,8 @@ export interface ListenEventMap {
     // @internal (undocumented)
     "parse:end": ParseEndEvent;
     // @internal (undocumented)
+    "parse:error": ParseErrorEvent;
+    // @internal (undocumented)
     "rule:error": RuleErrorEvent;
     // (undocumented)
     "source:ready": SourceReadyEvent;
@@ -905,6 +907,12 @@ export interface ParseBeginEvent extends Event_2 {
 export interface ParseEndEvent extends Event_2 {
     // (undocumented)
     location: null;
+}
+
+// @public
+export interface ParseErrorEvent extends Event_2 {
+    location: Location_2;
+    message: string;
 }
 
 // @public
@@ -1475,6 +1483,8 @@ export interface TriggerEventMap {
     "parse:begin": ParseBeginEvent;
     // @internal (undocumented)
     "parse:end": ParseEndEvent;
+    // @internal (undocumented)
+    "parse:error": ParseErrorEvent;
     // @internal (undocumented)
     "rule:error": RuleErrorEvent;
     // (undocumented)

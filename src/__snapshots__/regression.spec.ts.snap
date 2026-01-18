@@ -110,6 +110,43 @@ exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
 
 exports[`regression tests test-files/issues/issue-321-customizable-select.html 1`] = `[]`;
 
+exports[`regression tests test-files/issues/issue-335-invalid-directives.html 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "test-files/issues/issue-335-invalid-directives.html",
+    "messages": [
+      {
+        "column": 1,
+        "line": 2,
+        "message": "Unknown directive "foo"",
+        "offset": 57,
+        "ruleId": "parser-error",
+        "selector": null,
+        "severity": 2,
+        "size": 28,
+      },
+      {
+        "column": 1,
+        "line": 3,
+        "message": "Unknown directive "bar"",
+        "offset": 86,
+        "ruleId": "parser-error",
+        "selector": null,
+        "severity": 2,
+        "size": 28,
+      },
+    ],
+    "source": "<!-- [html-validate-disable-next no-unknown-element] -->
+<!-- [html-validate-foo] -->
+<!-- [html-validate-bar] -->
+<custom-element></custom-element>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`regression tests test-files/issues/issue27-disable-block.html 1`] = `[]`;
 
 exports[`regression tests test-files/issues/issue35-dynamic-values.html 1`] = `[]`;

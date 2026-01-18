@@ -554,7 +554,11 @@ export class Parser {
 		}
 
 		if (!isValidDirective(action)) {
-			throw new ParserError(token.location, `Unknown directive "${action}"`);
+			this.trigger("parse:error", {
+				location: token.location,
+				message: `Unknown directive "${action}"`,
+			});
+			return;
 		}
 
 		const [, data, separator2, comment] = match;
