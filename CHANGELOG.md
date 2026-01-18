@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 10.6.0 (2026-01-18)
+
+### Features
+
+- **config:** allow passing regexp object directly as patterns to `class-pattern`, `id-pattern` and `name-pattern` ([b12fb9f](https://gitlab.com/html-validate/html-validate/commit/b12fb9fc0b526f77f71bd7f7f426faa33716b10b))
+- **config:** require custom patterns to `class-pattern`, `id-pattern` and `name-pattern` to be wrapped with `/` ([19203d3](https://gitlab.com/html-validate/html-validate/commit/19203d35db81f4a8a9748363c140092450dbc4ca))
+- **rules:** add `"tailwind"` as a supported predefined class pattern ([ffc3352](https://gitlab.com/html-validate/html-validate/commit/ffc3352a2c3ffe4acb738f06f0da7dcc4f9954fa)), closes [#338](https://gitlab.com/html-validate/html-validate/issues/338)
+- **rules:** new rule `valid-for` ([616a3ec](https://gitlab.com/html-validate/html-validate/commit/616a3ecd3608e3dc4038d779dd07f20d3895589e)), closes [#337](https://gitlab.com/html-validate/html-validate/issues/337)
+
+### Bug Fixes
+
+- **parser:** make invalid directives non-fatal ([85204b3](https://gitlab.com/html-validate/html-validate/commit/85204b3c8530cd8f7f9e73f43c100b354602bcef)), closes [#335](https://gitlab.com/html-validate/html-validate/issues/335)
+
 ## 10.5.0 (2025-12-14)
 
 ### Features

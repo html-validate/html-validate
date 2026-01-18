@@ -39,4 +39,4 @@ Examples of **correct** code for this rule:
 
 ## Version history
 
-- %version% - Rule added.
+- 10.6.0 - Rule added.

@@ -53,6 +53,6 @@ If value matches either of the patterns it is considered valid.
 
 ## Version history
 
-- %version% - Support `tailwind` pattern.
+- 10.6.0 - Support `tailwind` pattern.
 - 8.18.0 - Support `snakecase` (previously `underscore`) and `bem`.
 - 8.17.0 - Support multiple patterns.
