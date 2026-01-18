@@ -70,7 +70,7 @@ function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
 
 	/* legacy: not useful for these tests */
-	if (event !== "attr" && event !== "directive") {
+	if (event !== "attr" && event !== "directive" && event !== "parse:error") {
 		delete merged.location;
 	}
 
@@ -1430,12 +1430,33 @@ describe("parser", () => {
 		});
 
 		it("should report unknown directives", () => {
-			expect.assertions(2);
-			const parse = (): void => {
-				parser.parseHtml("<!-- [html-validate-arbitrary-action foo bar] -->");
-			};
-			expect(parse).toThrow(ParserError);
-			expect(parse).toThrow('Unknown directive "arbitrary-action"');
+			expect.assertions(7);
+			const markup = /* HTML */ `
+				<!-- [html-validate-foo] -->
+				<!-- [html-validate-bar] -->
+				<div></div>
+			`;
+			parser.parseHtml(markup);
+			expect(events.shift()).toMatchObject({
+				event: "parse:error",
+				message: 'Unknown directive "foo"',
+			});
+			expect(events.shift()).toMatchObject({
+				event: "parse:error",
+				message: 'Unknown directive "bar"',
+			});
+			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "div",
+				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
+			expect(events.shift()).toBeUndefined();
 		});
 
 		it("throw when missing end bracket ]", () => {

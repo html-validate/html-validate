@@ -122,6 +122,11 @@ export class Engine<T extends Parser = Parser> {
 				this.processDirective(event, parser, directiveContext);
 			});
 
+			/* setup parse error handling for non-fatal errors */
+			parser.on("parse:error", (_: string, event) => {
+				this.reportError("parser-error", event.message, event.location);
+			});
+
 			/* parse token stream */
 			try {
 				parser.parseHtml(source);

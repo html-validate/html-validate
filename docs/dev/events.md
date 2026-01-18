@@ -215,3 +215,38 @@ export interface ConditionalEvent {
 
 Emitted when a conditional comment `<![conditional]>` is parsed.
 The parser ignores and condition and run all possible branches but raises the event for any rules that wishes to do anything with it.
+
+### `directive`
+
+```typescript nocompile
+export interface DirectiveEvent {
+  location: Location;
+  actionLocation: Location;
+  optionsLocation?: Location;
+  commentLocation?: Location;
+  action: "enable" | "disable" | "disable-block" | "disable-next";
+  data: string;
+  comment: string;
+}
+```
+
+Emitted when a html-validate directive `<!-- [html-validate-...] -->` is parsed.
+
+`action` contains the directive action (e.g., `enable`, `disable`, etc.), `data` contains the directive options (e.g., rule names), and `comment` contains any comment following the `--` or `:` delimiter.
+
+The `actionLocation`, `optionsLocation`, and `commentLocation` properties provide precise locations for each part of the directive.
+
+### `parse:error`
+
+```typescript nocompile
+export interface ParseErrorEvent {
+  location: Location;
+  message: string;
+}
+```
+
+Emitted when a non-fatal parse error is encountered during parsing.
+
+Unlike fatal parse errors (which throw exceptions and halt parsing), these errors are reported as events allowing parsing to continue. This is used for issues like unknown directives where the parser can safely skip the problematic construct and continue processing the rest of the document.
+
+The error will be reported as a `parser-error` rule violation in the final report.

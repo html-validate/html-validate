@@ -204,6 +204,19 @@ export interface DirectiveEvent extends Event {
 }
 
 /**
+ * Event emitted when a non-fatal parse error is encountered.
+ *
+ * @public
+ */
+export interface ParseErrorEvent extends Event {
+	/** Event location. */
+	location: Location;
+
+	/** Error message. */
+	message: string;
+}
+
+/**
  * Event emitted when doctypes `<!DOCTYPE ..>` are encountered.
  *
  * @public
@@ -299,6 +312,9 @@ export interface TriggerEventMap {
 	directive: DirectiveEvent;
 
 	/** @internal */
+	"parse:error": ParseErrorEvent;
+
+	/** @internal */
 	"rule:error": RuleErrorEvent;
 
 	/** @internal */
@@ -329,6 +345,9 @@ export interface ListenEventMap {
 	whitespace: WhitespaceEvent;
 	conditional: ConditionalEvent;
 	directive: DirectiveEvent;
+
+	/** @internal */
+	"parse:error": ParseErrorEvent;
 
 	/** @internal */
 	"rule:error": RuleErrorEvent;
