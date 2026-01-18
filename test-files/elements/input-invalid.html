@@ -450,3 +450,7 @@
 <div id="invalid-form-overrides">
 	<input type="text" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
 </div>
+
+<!-- should not allow label to reference hidden input -->
+<label for="hidden-field">Lorem ipsum</label>
+<input type="hidden" id="hidden-field">

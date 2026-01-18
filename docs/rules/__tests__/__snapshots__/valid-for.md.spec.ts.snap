@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`docs/rules/valid-for.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/valid-for.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 13,
+        "line": 1,
+        "message": "<label> "for" attribute must reference a labelable form control",
+        "offset": 12,
+        "ruleId": "valid-for",
+        "ruleUrl": "https://html-validate.org/rules/valid-for.html",
+        "selector": "label",
+        "severity": 2,
+        "size": 3,
+      },
+    ],
+    "source": "<label for="foo">Lorem ipsum</label>
+<p id="foo">dolor sit amet</p>",
+    "warningCount": 0,
+  },
+]
+`;
