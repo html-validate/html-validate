@@ -905,7 +905,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-disable] -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"disable",
 						"",
 						"",
@@ -924,7 +925,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-foo-123-bar] -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"foo-123-bar",
 						"",
 						"",
@@ -944,7 +946,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-action options: comment] -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"action",
 						" ",
 						"options: comment",
@@ -964,7 +967,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-action options -- comment] -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"action",
 						" ",
 						"options -- comment",
@@ -982,7 +986,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-action options] -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"action",
 						" ",
 						"options",
@@ -1002,7 +1007,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!--   \t\n\t   [html-validate-action options: comment]   \t\n\t   -->",
-						"<!--   \t\n\t   [html-validate-",
+						"<!--   \t\n\t   [",
+						"html-validate-",
 						"action",
 						" ",
 						"options: comment",
@@ -1022,7 +1028,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!--[html-validate-action options: comment]-->",
-						"<!--[html-validate-",
+						"<!--[",
+						"html-validate-",
 						"action",
 						" ",
 						"options: comment",
@@ -1042,7 +1049,8 @@ describe("lexer", () => {
 					type: TokenType.DIRECTIVE,
 					data: [
 						"<!-- [html-validate-action options: comment -->",
-						"<!-- [html-validate-",
+						"<!-- [",
+						"html-validate-",
 						"action",
 						" ",
 						"options: comment",

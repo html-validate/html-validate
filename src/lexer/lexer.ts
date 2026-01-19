@@ -35,7 +35,7 @@ const MATCH_TEXTAREA_DATA = /^[^]*?(?=<\/textarea)/;
 const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
 const MATCH_TITLE_DATA = /^[^]*?(?=<\/title)/;
 const MATCH_TITLE_END = /^<(\/)(title)/;
-const MATCH_DIRECTIVE = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
+const MATCH_DIRECTIVE = /^(<!--\s*\[)(html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
 /* eslint-enable no-useless-escape */

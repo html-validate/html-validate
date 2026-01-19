@@ -542,10 +542,10 @@ export class Parser {
 	 * @internal
 	 */
 	protected consumeDirective(token: DirectiveToken): void {
-		const [text, preamble, action, separator1, directive, postamble] = token.data;
+		const [text, preamble, prefix, action, separator1, directive, postamble] = token.data;
 		if (!postamble.startsWith("]")) {
 			this.trigger("parse:error", {
-				location: token.location,
+				location: sliceLocation(token.location, preamble.length - 1, -postamble.length),
 				message: `Missing end bracket "]" on directive "${text}"`,
 			});
 			return;
@@ -558,30 +558,28 @@ export class Parser {
 		}
 
 		if (!isValidDirective(action)) {
+			const begin = preamble.length;
+			const end = preamble.length + prefix.length + action.length;
 			this.trigger("parse:error", {
-				location: token.location,
+				location: sliceLocation(token.location, begin, -text.length + end),
 				message: `Unknown directive "${action}"`,
 			});
 			return;
 		}
 
 		const [, data, separator2, comment] = match;
-		const prefix = "html-validate-";
 
 		/* <!-- [html-validate-action options -- comment] -->
-		 *                     ^      ^          ^--------------- comment offset
-		 *                     |      \-------------------------- options offset
-		 *                     \--------------------------------- action offset
+		 *       ^             ^      ^          ^--------------- comment offset
+		 *       |             |      \-------------------------- options offset
+		 *       |             \--------------------------------- action offset
+		 *       \----------------------------------------------- prefix offset
 		 */
-		const actionOffset = preamble.length;
+		const actionOffset = preamble.length + prefix.length;
 		const optionsOffset = actionOffset + action.length + separator1.length;
 		const commentOffset = optionsOffset + data.length + (separator2 || "").length;
 
-		const location = sliceLocation(
-			token.location,
-			preamble.length - prefix.length - 1,
-			-postamble.length + 1,
-		);
+		const location = sliceLocation(token.location, preamble.length - 1, -postamble.length + 1);
 		const actionLocation = sliceLocation(
 			token.location,
 			actionOffset,
