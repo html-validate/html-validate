@@ -544,7 +544,11 @@ export class Parser {
 	protected consumeDirective(token: DirectiveToken): void {
 		const [text, preamble, action, separator1, directive, postamble] = token.data;
 		if (!postamble.startsWith("]")) {
-			throw new ParserError(token.location, `Missing end bracket "]" on directive "${text}"`);
+			this.trigger("parse:error", {
+				location: token.location,
+				message: `Missing end bracket "]" on directive "${text}"`,
+			});
+			return;
 		}
 		const match = /^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/.exec(directive);
 

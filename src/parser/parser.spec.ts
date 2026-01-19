@@ -19,7 +19,6 @@ import "../jest";
 import { dumpTree } from "../utils";
 import { type AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
-import { ParserError } from "./parser-error";
 
 const codeframePrefix = "codeframe:";
 
@@ -1459,14 +1458,37 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
-		it("throw when missing end bracket ]", () => {
-			expect.assertions(2);
-			const markup = /* HTML */ ` <!-- [html-validate-disable-next foo -- bar --> `;
-			const fn = (): HtmlElement => parser.parseHtml(markup);
-			expect(fn).toThrow(ParserError);
-			expect(fn).toThrow(
-				'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"',
-			);
+		it("should report missing end bracket ]", () => {
+			expect.assertions(7);
+			const markup = /* HTML */ `
+				<!-- [html-validate-disable-next foo -- bar -->
+				<!-- [html-validate-enable baz -- qux -->
+				<div></div>
+			`;
+			parser.parseHtml(markup);
+			expect(events.shift()).toMatchObject({
+				event: "parse:error",
+				message:
+					'Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->"',
+				location: expect.anything(),
+			});
+			expect(events.shift()).toMatchObject({
+				event: "parse:error",
+				message: 'Missing end bracket "]" on directive "<!-- [html-validate-enable baz -- qux -->"',
+				location: expect.anything(),
+			});
+			expect(events.shift()).toEqual({ event: "tag:start", target: "div" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "div" });
+			expect(events.shift()).toEqual({
+				event: "tag:end",
+				target: "div",
+				previous: "div",
+			});
+			expect(events.shift()).toEqual({
+				event: "element:ready",
+				target: "div",
+			});
+			expect(events.shift()).toBeUndefined();
 		});
 	});
 

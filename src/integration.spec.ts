@@ -262,3 +262,72 @@ describe("configuration smoketest", () => {
 		);
 	});
 });
+
+describe("Parser error handling", () => {
+	let htmlvalidate: HtmlValidate;
+
+	beforeAll(() => {
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: {},
+		});
+	});
+
+	it("should report two unknown directives as non-fatal errors", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<!-- [html-validate-unknown-directive foo] -->
+			<!-- [html-validate-another-unknown bar] -->
+			<div></div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unknown directive "unknown-directive" (parser-error) at inline:2:4:
+			  1 |
+			> 2 | 			<!-- [html-validate-unknown-directive foo] -->
+			    | 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			  3 | 			<!-- [html-validate-another-unknown bar] -->
+			  4 | 			<div></div>
+			  5 |
+			Selector: -
+			error: Unknown directive "another-unknown" (parser-error) at inline:3:4:
+			  1 |
+			  2 | 			<!-- [html-validate-unknown-directive foo] -->
+			> 3 | 			<!-- [html-validate-another-unknown bar] -->
+			    | 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			  4 | 			<div></div>
+			  5 |
+			Selector: -"
+		`);
+	});
+
+	it("should report two directives missing end bracket as non-fatal errors", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<!-- [html-validate-disable-next foo -- bar -->
+			<!-- [html-validate-enable baz -- qux -->
+			<div></div>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->" (parser-error) at inline:2:4:
+			  1 |
+			> 2 | 			<!-- [html-validate-disable-next foo -- bar -->
+			    | 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			  3 | 			<!-- [html-validate-enable baz -- qux -->
+			  4 | 			<div></div>
+			  5 |
+			Selector: -
+			error: Missing end bracket "]" on directive "<!-- [html-validate-enable baz -- qux -->" (parser-error) at inline:3:4:
+			  1 |
+			  2 | 			<!-- [html-validate-disable-next foo -- bar -->
+			> 3 | 			<!-- [html-validate-enable baz -- qux -->
+			    | 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			  4 | 			<div></div>
+			  5 |
+			Selector: -"
+		`);
+	});
+});
