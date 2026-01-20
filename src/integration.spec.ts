@@ -277,7 +277,7 @@ describe("Parser error handling", () => {
 		expect.assertions(2);
 		const markup = /* HTML */ `
 			<!-- [html-validate-unknown-directive foo] -->
-			<!-- [html-validate-another-unknown bar] -->
+			<!-- html-validate-another-unknown bar -->
 			<div></div>
 		`;
 		const report = await htmlvalidate.validateString(markup);
@@ -287,15 +287,15 @@ describe("Parser error handling", () => {
 			  1 |
 			> 2 | 			<!-- [html-validate-unknown-directive foo] -->
 			    | 			      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-			  3 | 			<!-- [html-validate-another-unknown bar] -->
+			  3 | 			<!-- html-validate-another-unknown bar -->
 			  4 | 			<div></div>
 			  5 |
 			Selector: -
-			error: Unknown directive "another-unknown" (parser-error) at inline:3:10:
+			error: Unknown directive "another-unknown" (parser-error) at inline:3:9:
 			  1 |
 			  2 | 			<!-- [html-validate-unknown-directive foo] -->
-			> 3 | 			<!-- [html-validate-another-unknown bar] -->
-			    | 			      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			> 3 | 			<!-- html-validate-another-unknown bar -->
+			    | 			     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			  4 | 			<div></div>
 			  5 |
 			Selector: -"

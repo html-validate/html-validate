@@ -47,7 +47,7 @@ exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = 
         },
         "line": 7,
         "message": "Attribute "type" has invalid value "spam"",
-        "offset": 283,
+        "offset": 281,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "button",
@@ -57,7 +57,7 @@ exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = 
     ],
     "source": "<div>
   <button type="foo">Invalid button</button>
-  <!-- [html-validate-disable-block attribute-allowed-values -- will be disabled until the parent div is closed] -->
+  <!-- html-validate-disable-block attribute-allowed-values -- will be disabled until the parent div is closed -->
   <button type="bar">Invalid but ignored</button>
   <button type="baz">Still ignored</button>
 </div>
@@ -82,7 +82,7 @@ exports[`docs/usage/index.md inline validation: disable-next-deprecated 1`] = `
         },
         "line": 3,
         "message": "<blink> is deprecated",
-        "offset": 145,
+        "offset": 143,
         "ruleId": "deprecated",
         "ruleUrl": "https://html-validate.org/rules/deprecated.html",
         "selector": "blink:nth-child(2)",
@@ -90,7 +90,7 @@ exports[`docs/usage/index.md inline validation: disable-next-deprecated 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- [html-validate-disable-next deprecated -- the next occurrence will not trigger an error] -->
+    "source": "<!-- html-validate-disable-next deprecated -- the next occurrence will not trigger an error -->
 <blink>This will not trigger an error</blink>
 <blink>But this line will</blink>",
     "warningCount": 0,
