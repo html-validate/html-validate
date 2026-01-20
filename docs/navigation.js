@@ -9,6 +9,7 @@ module.exports = {
 				children: [
 					{ title: "Getting started", target: "usage" },
 					{ title: "Using CLI", target: "usage/cli" },
+					{ title: "Inline configuration", target: "usage/inline-config" },
 				],
 			},
 			{
