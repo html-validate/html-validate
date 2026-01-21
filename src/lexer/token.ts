@@ -156,7 +156,15 @@ export interface ConditionalToken extends BaseToken {
  */
 export interface DirectiveToken extends BaseToken {
 	type: TokenType.DIRECTIVE;
-	data: [text: string, begin: "[", action: string, delimiter: string, rest: string, end: "]" | ""];
+	data: [
+		text: string,
+		begin: "<!-- [",
+		prefix: "html-validate-",
+		action: string,
+		delimiter: string,
+		rest: string,
+		end: "]" | "",
+	];
 }
 
 /**

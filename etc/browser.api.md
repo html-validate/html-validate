@@ -230,7 +230,15 @@ export interface DirectiveEvent extends Event_2 {
 // @internal (undocumented)
 export interface DirectiveToken extends BaseToken {
     // (undocumented)
-    data: [text: string, begin: "[", action: string, delimiter: string, rest: string, end: "]" | ""];
+    data: [
+    text: string,
+    begin: "<!-- [",
+    prefix: "html-validate-",
+    action: string,
+    delimiter: string,
+    rest: string,
+    end: "]" | ""
+    ];
     // (undocumented)
     type: TokenType.DIRECTIVE;
 }

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`docs/usage/index.md inline validation: directive-commend 1`] = `[]`;
+exports[`docs/usage/inline-config.md inline validation: directive-commend 1`] = `[]`;
 
-exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = `
+exports[`docs/usage/inline-config.md inline validation: disable-block-button-type 1`] = `
 [
   {
     "errorCount": 2,
@@ -67,7 +67,7 @@ exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = 
 ]
 `;
 
-exports[`docs/usage/index.md inline validation: disable-next-deprecated 1`] = `
+exports[`docs/usage/inline-config.md inline validation: disable-next-deprecated 1`] = `
 [
   {
     "errorCount": 1,

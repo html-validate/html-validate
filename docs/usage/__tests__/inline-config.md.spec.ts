@@ -16,7 +16,7 @@ markup["disable-next-deprecated"] = `<!-- html-validate-disable-next deprecated 
 <blink>This will not trigger an error</blink>
 <blink>But this line will</blink>`;
 
-describe("docs/usage/index.md", () => {
+describe("docs/usage/inline-config.md", () => {
 	it("inline validation: directive-commend", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});

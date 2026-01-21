@@ -408,9 +408,9 @@ describe("Engine", () => {
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unknown directive "foo" (parser-error) at inline:1:1:
+				"error: Unknown directive "foo" (parser-error) at inline:1:7:
 				> 1 | <!-- [html-validate-foo] -->
-				    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				    |       ^^^^^^^^^^^^^^^^^
 				Selector: -"
 			`);
 		});

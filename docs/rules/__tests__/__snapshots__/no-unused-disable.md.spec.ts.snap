@@ -13,13 +13,13 @@ exports[`docs/rules/no-unused-disable.md inline validation: incorrect 1`] = `
     "filePath": "inline",
     "messages": [
       {
-        "column": 34,
+        "column": 33,
         "context": {
           "ruleId": "attribute-allowed-values",
         },
         "line": 1,
         "message": ""attribute-allowed-values" rule is disabled but no error was reported",
-        "offset": 33,
+        "offset": 32,
         "ruleId": "no-unused-disable",
         "ruleUrl": "https://html-validate.org/rules/no-unused-disable.html",
         "selector": null,
@@ -27,7 +27,7 @@ exports[`docs/rules/no-unused-disable.md inline validation: incorrect 1`] = `
         "size": 24,
       },
     ],
-    "source": "<!-- [html-validate-disable-next attribute-allowed-values -- no error, disable is invalid] -->
+    "source": "<!-- html-validate-disable-next attribute-allowed-values -- no error, disable is invalid -->
 <button type="submit"></button>",
     "warningCount": 0,
   },

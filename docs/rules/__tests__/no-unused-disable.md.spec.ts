@@ -1,13 +1,13 @@
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<!-- [html-validate-disable-next attribute-allowed-values -- no error, disable is invalid] -->
+markup["incorrect"] = `<!-- html-validate-disable-next attribute-allowed-values -- no error, disable is invalid -->
 <button type="submit"></button>`;
 markup["correct-removed"] = `<!-- disable removed, no error -->
 <button type="submit"></button>`;
-markup["correct-error-present"] = `<!-- [html-validate-disable-next attribute-allowed-values -- element has error, disable is valid] -->
+markup["correct-error-present"] = `<!-- html-validate-disable-next attribute-allowed-values -- element has error, disable is valid -->
 <button type="foobar"></button>`;
-markup["correct-disabled"] = `<!-- [html-validate-disable-next attribute-allowed-values, no-unused-disable -- no error as no-unused-disable is also disabled] -->
+markup["correct-disabled"] = `<!-- html-validate-disable-next attribute-allowed-values, no-unused-disable -- no error as no-unused-disable is also disabled -->
 <button type="submit"></button>`;
 
 describe("docs/rules/no-unused-disable.md", () => {
