@@ -1,5 +1,5 @@
 import { type Location } from "../context";
-import { type DOMTree, type HtmlElement, DynamicValue } from "../dom";
+import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -26,7 +26,7 @@ function getTextFromReference(
 		return id;
 	}
 
-	const selector = `#${id}`;
+	const selector = generateIdSelector(id);
 	const ref = document.querySelector(selector);
 	if (ref) {
 		return ref.textContent;

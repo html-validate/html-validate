@@ -383,6 +383,16 @@ describe("rule unique-landmark", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should handle id with colon in aria-labelledby", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<nav aria-labelledby=":r3:"></nav>
+			<nav aria-labelledby=":r2:"></nav>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(2);
 		const docs = await htmlvalidate.getContextualDocumentation({
