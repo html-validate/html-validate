@@ -331,6 +331,104 @@ describe("rule aria-label-misuse", () => {
 		});
 	});
 
+	describe("with elements option", () => {
+		it("should ignore elements not in include list", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: {
+					"aria-label-misuse": [
+						"error",
+						{
+							elements: {
+								include: ["div"],
+								exclude: null,
+							},
+						},
+					],
+				},
+			});
+			const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error for elements in include list", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: {
+					"aria-label-misuse": [
+						"error",
+						{
+							elements: {
+								include: ["p"],
+								exclude: null,
+							},
+						},
+					],
+				},
+			});
+			const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+				> 1 |  <p aria-label="foobar"></p>
+				    |     ^^^^^^^^^^
+				Selector: p"
+			`);
+		});
+
+		it("should ignore elements in exclude list", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: {
+					"aria-label-misuse": [
+						"error",
+						{
+							elements: {
+								include: null,
+								exclude: ["p"],
+							},
+						},
+					],
+				},
+			});
+			const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error for elements not in exclude list", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				elements: ["html5"],
+				rules: {
+					"aria-label-misuse": [
+						"error",
+						{
+							elements: {
+								include: null,
+								exclude: ["div"],
+							},
+						},
+					],
+				},
+			});
+			const markup = /* HTML */ ` <p aria-label="foobar"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+				> 1 |  <p aria-label="foobar"></p>
+				    |     ^^^^^^^^^^
+				Selector: p"
+			`);
+		});
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(3);
 		const docs1 = await htmlvalidate.getContextualDocumentation({

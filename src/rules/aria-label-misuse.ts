@@ -1,8 +1,8 @@
 import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
 import { type MetaAttribute, type MetaElement } from "../meta";
-import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
-import { ariaNaming } from "./helper";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { ariaNaming, isKeywordIgnored, keywordPatternMatcher } from "./helper";
 
 export interface RuleContext {
 	attr: "aria-label" | "aria-labelledby";
@@ -11,10 +11,18 @@ export interface RuleContext {
 
 export interface RuleOptions {
 	allowAnyNamable: boolean;
+	elements: {
+		include: string[] | null;
+		exclude: string[] | null;
+	};
 }
 
 const defaults: RuleOptions = {
 	allowAnyNamable: false,
+	elements: {
+		include: null,
+		exclude: null,
+	},
 };
 
 const allowlist = new Set([
@@ -71,6 +79,26 @@ function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
 export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
+	}
+
+	public static override schema(): SchemaObject {
+		return {
+			allowAnyNamable: {
+				type: "boolean",
+			},
+			elements: {
+				type: "object",
+				properties: {
+					include: {
+						anyOf: [{ type: "array", items: { type: "string" } }, { type: "null" }],
+					},
+					exclude: {
+						anyOf: [{ type: "array", items: { type: "string" } }, { type: "null" }],
+					},
+				},
+				additionalProperties: false,
+			},
+		};
 	}
 
 	public override documentation(context: RuleContext): RuleDocumentation {
@@ -138,6 +166,11 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 			return;
 		}
 
+		/* ignore elements matching filters */
+		if (this.shouldIgnoreElement(target)) {
+			return;
+		}
+
 		/* ignore elements which is valid usage */
 		if (isValidUsage(target, meta)) {
 			return;
@@ -166,5 +199,9 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 				message: `"{{ attr }}" cannot be used on this element`,
 			});
 		}
+	}
+
+	private shouldIgnoreElement(target: HtmlElement): boolean {
+		return isKeywordIgnored(this.options.elements, target.tagName, keywordPatternMatcher);
 	}
 }

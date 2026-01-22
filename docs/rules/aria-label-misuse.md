@@ -81,11 +81,18 @@ This rule takes an optional object:
 
 ```json
 {
-  "allowAnyNamable": false
+  "allowAnyNamable": false,
+  "elements": {
+    "include": null,
+    "exclude": null
+  }
 }
 ```
 
 ### `allowAnyNamable`
+
+- type: `boolean`
+- default: `false`
 
 By default this rule disallows `aria-label` or `aria-labelledby` on elements that allow naming but where it is not recommended to do so.
 
@@ -97,8 +104,75 @@ With this option enabled, the following is valid despite not being recommended:
 
 This option is disabled by default and `html-validate:recommended` but enabled by `html-validate:standard`.
 
+### `elements.include`
+
+- type: `string[] | null`
+- default: `null`
+
+If set, only elements matching the specified patterns will be validated.
+Other elements will be ignored.
+
+Patterns can be:
+
+- Literal element names: `["div", "span"]`
+- Wildcard patterns: `["custom-*"]` matches any element starting with `custom-`
+- Regular expressions: `["/my-.*/"]` matches any element starting with `my-`
+
+With this option set to `["div"]`, only `<div>` elements are validated:
+
+```json
+{
+  "elements": {
+    "include": ["div"]
+  }
+}
+```
+
+<validate name="elements-include" rules="aria-label-misuse" aria-label-misuse='{"elements": {"include": ["div"]}}'>
+	<!-- div is validated and will report an error -->
+	<div aria-label="Lorem ipsum">dolor sit amet</div>
+
+    <!-- p is ignored, no error despite normally not being allowed -->
+    <p aria-label="Lorem ipsum">dolor sit amet</p>
+
+</validate>
+
+### `elements.exclude`
+
+- type: `string[] | null`
+- default: `null`
+
+If set, elements matching the specified patterns will be ignored.
+Other elements will be validated normally.
+
+Patterns can be:
+
+- Literal element names: `["div", "span"]`
+- Wildcard patterns: `["custom-*"]` matches any element starting with `custom-`
+- Regular expressions: `["/my-.*/"]` matches any element starting with `my-`
+
+With this option set to `["p"]`, `<p>` elements are ignored:
+
+```json
+{
+  "elements": {
+    "exclude": ["p"]
+  }
+}
+```
+
+<validate name="elements-exclude" rules="aria-label-misuse" aria-label-misuse='{"elements": {"exclude": ["p"]}}'>
+	<!-- div is validated and will report an error -->
+	<div aria-label="Lorem ipsum">dolor sit amet</div>
+
+    <!-- p is ignored, no error despite normally not being allowed -->
+    <p aria-label="Lorem ipsum">dolor sit amet</p>
+
+</validate>
+
 ## Version history
 
+- %version% - `elements.include` and `elements.exclude` options added.
 - 10.2.0 - validates `aria-labelledby` in addition to `aria-label`.
 - 8.11.0 - `allowAnyNamable` option added.
 - 7.17.0 - Allow usage on custom elements.
