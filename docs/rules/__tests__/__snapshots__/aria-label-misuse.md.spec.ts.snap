@@ -4,6 +4,70 @@ exports[`docs/rules/aria-label-misuse.md inline validation: any-namable 1`] = `[
 
 exports[`docs/rules/aria-label-misuse.md inline validation: correct 1`] = `[]`;
 
+exports[`docs/rules/aria-label-misuse.md inline validation: elements-exclude 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 6,
+        "context": {
+          "allowsNaming": false,
+          "attr": "aria-label",
+        },
+        "line": 2,
+        "message": ""aria-label" cannot be used on this element",
+        "offset": 56,
+        "ruleId": "aria-label-misuse",
+        "ruleUrl": "https://html-validate.org/rules/aria-label-misuse.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<!-- div is validated and will report an error -->
+<div aria-label="Lorem ipsum">dolor sit amet</div>
+
+   <!-- p is ignored, no error despite normally not being allowed -->
+   <p aria-label="Lorem ipsum">dolor sit amet</p>",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/aria-label-misuse.md inline validation: elements-include 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 6,
+        "context": {
+          "allowsNaming": false,
+          "attr": "aria-label",
+        },
+        "line": 2,
+        "message": ""aria-label" cannot be used on this element",
+        "offset": 56,
+        "ruleId": "aria-label-misuse",
+        "ruleUrl": "https://html-validate.org/rules/aria-label-misuse.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 10,
+      },
+    ],
+    "source": "<!-- div is validated and will report an error -->
+<div aria-label="Lorem ipsum">dolor sit amet</div>
+
+   <!-- p is ignored, no error despite normally not being allowed -->
+   <p aria-label="Lorem ipsum">dolor sit amet</p>",
+    "warningCount": 0,
+  },
+]
+`;
+
 exports[`docs/rules/aria-label-misuse.md inline validation: incorrect 1`] = `
 [
   {
