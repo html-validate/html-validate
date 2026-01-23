@@ -19,7 +19,7 @@ alternatively:
 Comment is optional but encouraged.
 
 ::: info Optional brackets
-Versions earlier than %version% required brackets around the directive:
+Versions earlier than 10.7.0 required brackets around the directive:
 
     <!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
 

@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 10.7.0 (2026-01-23)
+
+### Features
+
+- optional brackets `[]` around `html-validate` directives for inline configuration ([8426f6c](https://gitlab.com/html-validate/html-validate/commit/8426f6cbe6c2624900dc935dc6bbbe61edcbfcf6))
+- **rules:** add `allowTemplate` option to `no-style`-tag rule ([0930fd8](https://gitlab.com/html-validate/html-validate/commit/0930fd8a6e27ba2db0dd0f94342e3894accd60e6)), closes [#329](https://gitlab.com/html-validate/html-validate/issues/329)
+- **rules:** add `elements.include` and `elements.exclude` to `aria-label-misuse` ([c88bec7](https://gitlab.com/html-validate/html-validate/commit/c88bec70c80441c13798c04d121b143382e52ac2)), closes [#334](https://gitlab.com/html-validate/html-validate/issues/334)
+
+### Bug Fixes
+
+- make directives missing end bracket non-fatal ([2370ad3](https://gitlab.com/html-validate/html-validate/commit/2370ad3e49ccee4d972cae6392c13bf96c9dfd9a))
+- **rules:** handle id with colon for `unique-landmark` rule ([0174785](https://gitlab.com/html-validate/html-validate/commit/0174785afdb32747fa02b3e801485a4a37bc35c5)), closes [#333](https://gitlab.com/html-validate/html-validate/issues/333)
+
 ## 10.6.0 (2026-01-18)
 
 ### Features

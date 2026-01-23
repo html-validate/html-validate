@@ -172,7 +172,7 @@ With this option set to `["p"]`, `<p>` elements are ignored:
 
 ## Version history
 
-- %version% - `elements.include` and `elements.exclude` options added.
+- 10.7.0 - `elements.include` and `elements.exclude` options added.
 - 10.2.0 - validates `aria-labelledby` in addition to `aria-label`.
 - 8.11.0 - `allowAnyNamable` option added.
 - 7.17.0 - Allow usage on custom elements.

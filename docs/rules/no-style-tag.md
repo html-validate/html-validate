@@ -59,4 +59,4 @@ With `allowTemplate` set to `true` this is considered valid:
 
 ## Version history
 
-- %version% - `allowTemplate` option added.
+- 10.7.0 - `allowTemplate` option added.
