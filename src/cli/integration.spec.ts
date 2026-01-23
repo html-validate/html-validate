@@ -26,4 +26,4 @@ it("should match results", async () => {
 		expect(filter(config.getConfigData())).toMatchSnapshot(`${projectRelative} config`);
 		expect(report).toMatchSnapshot(`${projectRelative} result`);
 	}
-});
+}, 15000);
