@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`docs/rules/no-style-tag.md inline validation: allow-template 1`] = `[]`;
+
 exports[`docs/rules/no-style-tag.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/no-style-tag.md inline validation: incorrect 1`] = `
