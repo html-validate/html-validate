@@ -229,7 +229,7 @@
     "semver": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/code-frame": "7.28.6",
+    "@babel/code-frame": "7.29.0",
     "@html-validate/commitlint-config": "3.6.5",
     "@html-validate/eslint-config": "6.14.0",
     "@html-validate/eslint-config-jest": "6.14.0",
