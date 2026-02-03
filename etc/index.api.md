@@ -1129,7 +1129,7 @@ export type RequiredContent = string[];
 // @public
 export class ResolvedConfig {
     // @internal
-    constructor({ metaTable, plugins, rules, transformers }: ResolvedConfigData, original: ConfigData);
+    constructor(input: ResolvedConfigData, original: ConfigData);
     // @internal (undocumented)
     cache: Map<string, Transformer_2>;
     canTransform(filename: string): boolean;
