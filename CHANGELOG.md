@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.8.0 (2026-02-15)
+
+### Features
+
+- **rules:** new rule `autocomplete-password` ([13dd4a2](https://gitlab.com/html-validate/html-validate/commit/13dd4a24ab55da1d50ac0af1b64d7c2bb863e55c)), closes [#318](https://gitlab.com/html-validate/html-validate/issues/318)
+
 ## 10.7.0 (2026-01-23)
 
 ### Features

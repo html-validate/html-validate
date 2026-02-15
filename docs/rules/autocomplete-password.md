@@ -65,4 +65,4 @@ Examples of **correct** code with `{ "preferred": "new-password" }`:
 
 ## Version history
 
-- %version% - Rule added.
+- 10.8.0 - Rule added.
