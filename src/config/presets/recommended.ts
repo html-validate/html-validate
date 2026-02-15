@@ -13,6 +13,7 @@ const config: ConfigData = {
 		"attribute-boolean-style": "error",
 		"attribute-empty-style": "error",
 		"attribute-misuse": "error",
+		"autocomplete-password": "error",
 		"close-attr": "error",
 		"close-order": "error",
 		deprecated: "error",

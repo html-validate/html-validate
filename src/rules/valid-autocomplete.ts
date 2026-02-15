@@ -140,8 +140,8 @@ const fieldNameGroup: Record<string, ControlGroup> = {
 	"honorific-suffix": "text",
 	nickname: "text",
 	username: "username",
-	"new-password": "password", // eslint-disable-line sonarjs/no-hardcoded-passwords -- false positive, it is not used as a password
-	"current-password": "password", // eslint-disable-line sonarjs/no-hardcoded-passwords -- false positive, it is not used as a password
+	"new-password": "password",
+	"current-password": "password",
 	"one-time-code": "password",
 	"organization-title": "text",
 	organization: "text",
