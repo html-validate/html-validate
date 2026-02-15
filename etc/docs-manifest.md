@@ -48,6 +48,7 @@ rules/attribute-allowed-values.html
 rules/attribute-boolean-style.html
 rules/attribute-empty-style.html
 rules/attribute-misuse.html
+rules/autocomplete-password.html
 rules/class-pattern.html
 rules/close-attr.html
 rules/close-order.html

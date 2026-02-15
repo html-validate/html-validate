@@ -55,6 +55,7 @@ export default [
 		rules: {
 			"import/extensions": "off",
 			"security/detect-unsafe-regex": "off",
+			"sonarjs/no-hardcoded-passwords": "off",
 			"sonarjs/slow-regex": "off",
 		},
 	},

@@ -20,6 +20,9 @@ const htmlvalidate = new HtmlValidate({
 		},
 	],
 	rules: {
+		/* not really relevant for testing HTML5, the rule has specific tests */
+		"autocomplete-password": "off",
+
 		/* allow any style of boolean/empty attributes, some tests runs all of them */
 		"attribute-boolean-style": "off",
 		"attribute-empty-style": "off",
