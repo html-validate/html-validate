@@ -246,7 +246,7 @@
     "@rollup/plugin-node-resolve": "16.0.3",
     "@rollup/plugin-replace": "6.0.3",
     "@rollup/plugin-virtual": "3.0.2",
-    "@tsconfig/node-ts": "23.6.3",
+    "@tsconfig/node-ts": "23.6.4",
     "@tsconfig/node20": "20.1.9",
     "@tsconfig/strictest": "2.0.8",
     "@types/babar": "0.2.4",
