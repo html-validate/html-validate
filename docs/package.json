@@ -17,7 +17,7 @@
     "dgeni": "0.4.14",
     "dgeni-front-matter": "5.0.0",
     "front-matter": "4.0.2",
-    "glob": "13.0.3",
+    "glob": "13.0.4",
     "highlight.js": "11.11.1",
     "htmlparser2": "10.1.0",
     "is-ci": "4.1.0",
