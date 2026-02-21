@@ -90,8 +90,8 @@ export default [
 		name: "local/docs/examples",
 		files: ["docs/examples/**/*.[jt]s"],
 		rules: {
+			"@eslint-community/eslint-comments/require-description": "off",
 			"@typescript-eslint/no-require-imports": "off",
-			"eslint-comments/require-description": "off",
 			"import/no-duplicates": "off",
 			"import/no-extraneous-dependencies": "off",
 			"import/no-unresolved": "off",
