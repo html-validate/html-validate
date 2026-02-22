@@ -81,4 +81,4 @@ Example configuration:
 
 ## Version history
 
-- %version% - Rule added.
+- 10.9.0 - Rule added.

@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 10.9.0 (2026-02-22)
+
+### Features
+
+- **rules:** new rule `deprecated-class` ([49794db](https://gitlab.com/html-validate/html-validate/commit/49794dbf0e780c428d520f80cd74cb0d4ea516d0))
+
+### Bug Fixes
+
+- **html5:** add html-aria mapping for `<selectedcontent>` ([a6e4755](https://gitlab.com/html-validate/html-validate/commit/a6e4755a70ce5a975181973488d265dca56edece))
+- **html5:** update html-aam mapping for `<html>` ([b3ae63f](https://gitlab.com/html-validate/html-validate/commit/b3ae63f7126fa3e6b0c8ade640cc3cb8255ab16b))
+
 ## 10.8.0 (2026-02-15)
 
 ### Features
