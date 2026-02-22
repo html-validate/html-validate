@@ -17,6 +17,7 @@ import ClassPattern from "./class-pattern";
 import CloseAttr from "./close-attr";
 import CloseOrder from "./close-order";
 import Deprecated from "./deprecated";
+import DeprecatedClass from "./deprecated-class";
 import DeprecatedRule from "./deprecated-rule";
 import DoctypeHtml from "./doctype-html";
 import DoctypeStyle from "./doctype-style";
@@ -105,6 +106,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"close-attr": CloseAttr,
 	"close-order": CloseOrder,
 	deprecated: Deprecated,
+	"deprecated-class": DeprecatedClass,
 	"deprecated-rule": DeprecatedRule,
 	"doctype-html": DoctypeHtml,
 	"doctype-style": DoctypeStyle,
