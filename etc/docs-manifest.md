@@ -52,6 +52,7 @@ rules/autocomplete-password.html
 rules/class-pattern.html
 rules/close-attr.html
 rules/close-order.html
+rules/deprecated-class.html
 rules/deprecated-rule.html
 rules/deprecated.html
 rules/doctype-html.html

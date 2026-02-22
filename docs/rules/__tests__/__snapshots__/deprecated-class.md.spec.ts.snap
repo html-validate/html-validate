@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`docs/rules/deprecated-class.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/deprecated-class.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 16,
+        "context": {
+          "class": "old-btn",
+          "message": null,
+          "replacement": [],
+          "url": null,
+        },
+        "line": 1,
+        "message": "class "old-btn" is deprecated",
+        "offset": 15,
+        "ruleId": "deprecated-class",
+        "ruleUrl": "https://html-validate.org/rules/deprecated-class.html",
+        "selector": "button",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 13,
+        "context": {
+          "class": "legacy-grid",
+          "message": null,
+          "replacement": [],
+          "url": null,
+        },
+        "line": 2,
+        "message": "class "legacy-grid" is deprecated",
+        "offset": 54,
+        "ruleId": "deprecated-class",
+        "ruleUrl": "https://html-validate.org/rules/deprecated-class.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 11,
+      },
+    ],
+    "source": "<button class="old-btn">Click me</button>
+<div class="legacy-grid">Content</div>",
+    "warningCount": 0,
+  },
+]
+`;
