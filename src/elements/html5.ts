@@ -1266,7 +1266,7 @@ export default {
 			},
 		},
 		aria: {
-			implicitRole: "document",
+			implicitRole: "generic",
 			naming: "prohibited",
 		},
 	},
@@ -2511,6 +2511,10 @@ export default {
 		permittedContent: [],
 		textContent: "none",
 		requiredAncestors: ["select > button"],
+		aria: {
+			implicitRole: "generic",
+			naming: "prohibited",
+		},
 	},
 
 	slot: {
