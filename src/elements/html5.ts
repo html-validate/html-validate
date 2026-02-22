@@ -2511,6 +2511,10 @@ export default {
 		permittedContent: [],
 		textContent: "none",
 		requiredAncestors: ["select > button"],
+		aria: {
+			implicitRole: "generic",
+			naming: "prohibited",
+		},
 	},
 
 	slot: {
