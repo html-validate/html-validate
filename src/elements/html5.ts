@@ -1266,7 +1266,7 @@ export default {
 			},
 		},
 		aria: {
-			implicitRole: "document",
+			implicitRole: "generic",
 			naming: "prohibited",
 		},
 	},
