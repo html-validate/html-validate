@@ -16,11 +16,11 @@ const stubFilename = "docs/stub.js";
  */
 
 function removePreamble(code) {
-	return code.replace(/[^]*\/\* --- \*\/\n+/gm, "");
+	return code.replaceAll(/[^]*\/\* --- \*\/\n+/gm, "");
 }
 
 function stripEslintComments(code) {
-	return code.replace(/\/\* eslint-disable.*\n/g, "");
+	return code.replaceAll(/\/\* eslint-disable.*\n/g, "");
 }
 
 const isEmpty = RegExp.prototype.test.bind(/^\s*$/);

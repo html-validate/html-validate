@@ -21,7 +21,7 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 					return;
 				}
 
-				doc.content = doc.content.replace(VALIDATE_REGEX, processValidate.bind(undefined, doc));
+				doc.content = doc.content.replaceAll(VALIDATE_REGEX, processValidate.bind(undefined, doc));
 			} catch (error) {
 				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
 			}
@@ -71,7 +71,7 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 
 	function extractAttributes(attributeText) {
 		const attributes = {};
-		attributeText.replace(ATTRIBUTE_REGEX, function (match, prop, val1, val2) {
+		attributeText.replaceAll(ATTRIBUTE_REGEX, function (match, prop, val1, val2) {
 			attributes[prop] = val1 || val2;
 		});
 		return attributes;

@@ -24,6 +24,6 @@ export function getRuleUrl(filename, homepage = "https://html-validate.org") {
 	const parsed = path.parse(filename);
 	const url = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../rules");
 	const rel = path.relative(url, path.join(parsed.dir, parsed.name));
-	const normalized = rel.replace(/\\/g, "/");
+	const normalized = rel.replaceAll("\\", "/");
 	return `${homepage}/rules/${normalized}.html`;
 }

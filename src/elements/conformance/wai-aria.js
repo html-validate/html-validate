@@ -19,9 +19,9 @@ async function update() {
 		naming: nameFromProhibited.includes(it) ? "prohibited" : "allowed",
 	}));
 	const serialized = JSON.stringify(data, null, "\t")
-		.replace(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
-		.replace(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
-		.replace(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
+		.replaceAll(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
+		.replaceAll(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
+		.replaceAll(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
 	const content = [
 		update.toString(),
 		`if (require.main === module) {\n\tupdate();\n}`,

@@ -63,7 +63,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	}
 
 	private validateCase(target: HtmlElement, targetLocation: Location): void {
-		const letters = target.tagName.replace(/[^a-z]+/gi, "");
+		const letters = target.tagName.replaceAll(/[^a-z]+/gi, "");
 		if (!this.style.match(letters)) {
 			const location = sliceLocation(targetLocation, 1);
 			this.report(target, `Element "${target.tagName}" should be ${this.style.name}`, location);

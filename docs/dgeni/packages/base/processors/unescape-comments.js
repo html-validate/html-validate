@@ -13,8 +13,8 @@ module.exports = function unescapeCommentsProcessor() {
 			docs.forEach(
 				(doc) =>
 					(doc.renderedContent = doc.renderedContent
-						.replace(/\/&amp;#42;/g, "/*")
-						.replace(/&amp;#42;\//g, "*/")),
+						.replaceAll("/&amp;#42;", "/*")
+						.replaceAll("&amp;#42;/", "*/")),
 			);
 		},
 	};

@@ -51,7 +51,7 @@ async function patchAugmentations(config) {
 	 * @returns {string}
 	 */
 	function rewriteImport(content) {
-		return content.replace(/from ".*";/g, 'from "./index"');
+		return content.replaceAll(/from ".*";/g, 'from "./index"');
 	}
 
 	/**
@@ -69,7 +69,7 @@ async function patchAugmentations(config) {
 	console.group("Patching module augmentations");
 	try {
 		const mainDir = path.dirname(mainEntryPointFilePath);
-		const pattern = `${mainDir.replace(/\\/g, "/")}/**/*.d.ts`;
+		const pattern = `${mainDir.replaceAll("\\", "/")}/**/*.d.ts`;
 		const files = await glob(pattern);
 		console.log("Searching", files.length, "declaration files in", mainDir);
 		const augmentations = (await Promise.all(files.map(extract))).flat();

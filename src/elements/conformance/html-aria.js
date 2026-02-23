@@ -660,7 +660,7 @@ async function update() {
 	);
 
 	function getText(element) {
-		return element.textContent.trim().replace(/\s+/g, " ");
+		return element.textContent.trim().replaceAll(/\s+/g, " ");
 	}
 
 	function hash(text) {
@@ -748,9 +748,9 @@ async function update() {
 
 	const data = Array.from(generateData());
 	const serialized = JSON.stringify(data, null, "\t")
-		.replace(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
-		.replace(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
-		.replace(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
+		.replaceAll(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
+		.replaceAll(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
+		.replaceAll(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
 	const content = [
 		update.toString(),
 		`if (require.main === module) {\n\tupdate();\n}`,

@@ -29,7 +29,7 @@ module.exports = function generateValidationsPublicProcessor(validateMap) {
 				path: path.dirname(fileInfo.projectRelativePath),
 				file: path.basename(fileInfo.projectRelativePath),
 				fullpath: fileInfo.projectRelativePath,
-				docRoot: path.dirname(fileInfo.projectRelativePath).replace(/[^/]+/g, ".."),
+				docRoot: path.dirname(fileInfo.projectRelativePath).replaceAll(/[^/]+/g, ".."),
 			},
 			validate,
 			json: JSON.stringify(data, null, 2),

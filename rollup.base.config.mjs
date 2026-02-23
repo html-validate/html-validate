@@ -117,15 +117,15 @@ function jestChunks(rel) {
 /* eslint-disable-next-line complexity -- needed to be like this */
 function manualChunks(id) {
 	/** @type {string} */
-	const base = path.relative(rootDir, id).replace(/\\/g, "/");
+	const base = path.relative(rootDir, id).replaceAll("\\", "/");
 	if (entrypoints.find((it) => it.in === base)) {
 		return undefined;
 	}
 
 	/** @type {string} */
 	const rel = base.startsWith("src/")
-		? path.relative(path.join(rootDir, "src"), id).replace(/\\/g, "/")
-		: path.relative(path.join(rootDir, "dist/types"), id).replace(/\\/g, "/");
+		? path.relative(path.join(rootDir, "src"), id).replaceAll("\\", "/")
+		: path.relative(path.join(rootDir, "dist/types"), id).replaceAll("\\", "/");
 
 	if (rel.startsWith("cli/")) {
 		return "cli";
@@ -264,7 +264,7 @@ export function build(format) {
 				sourcemap: true,
 				manualChunks,
 				entryFileNames({ facadeModuleId }) {
-					const base = path.relative(rootDir, facadeModuleId).replace(/\\/g, "/");
+					const base = path.relative(rootDir, facadeModuleId).replaceAll("\\", "/");
 					const entrypoint = entrypoints.find((it) => it.in === base);
 					if (entrypoint?.out) {
 						return `${entrypoint.out}.js`;
