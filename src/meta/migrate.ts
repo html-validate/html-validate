@@ -106,9 +106,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
 	const result = {
 		...src,
-		...{
-			formAssociated: undefined as FormAssociated | undefined,
-		},
+		formAssociated: undefined as FormAssociated | undefined,
 		attributes: migrateAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,
