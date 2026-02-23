@@ -105,9 +105,12 @@ describe("config", () => {
 
 	it("should handle missing plugins property", async () => {
 		expect.assertions(3);
-		expect((await Config.fromObject(resolvers, {})).getPlugins()).toEqual([]);
-		expect((await Config.fromObject(resolvers, { plugins: undefined })).getPlugins()).toEqual([]);
-		expect((await Config.fromObject(resolvers, { plugins: [] })).getPlugins()).toEqual([]);
+		const config1 = await Config.fromObject(resolvers, {});
+		const config2 = await Config.fromObject(resolvers, { plugins: undefined });
+		const config3 = await Config.fromObject(resolvers, { plugins: [] });
+		expect(config1.getPlugins()).toEqual([]);
+		expect(config2.getPlugins()).toEqual([]);
+		expect(config3.getPlugins()).toEqual([]);
 	});
 
 	it("should return not promise if config is sync", () => {
@@ -133,18 +136,20 @@ describe("config", () => {
 				return Promise.resolve({ name: "mock-plugin" });
 			},
 		};
-		const config = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
-		expect(config).toBeInstanceOf(Promise);
-		expect((await config).getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
+		const promise = Config.fromObject([resolver], { plugins: ["mock-plugin"] });
+		expect(promise).toBeInstanceOf(Promise);
+		const config = await promise;
+		expect(config.getPlugins()).toEqual([expect.objectContaining({ name: "mock-plugin" })]);
 	});
 
 	it("should handle missing transform property", async () => {
 		expect.assertions(3);
-		expect((await Config.fromObject(resolvers, {})).getTransformers()).toEqual([]);
-		expect(
-			(await Config.fromObject(resolvers, { transform: undefined })).getTransformers(),
-		).toEqual([]);
-		expect((await Config.fromObject(resolvers, { transform: {} })).getTransformers()).toEqual([]);
+		const config1 = await Config.fromObject(resolvers, {});
+		const config2 = await Config.fromObject(resolvers, { transform: undefined });
+		const config3 = await Config.fromObject(resolvers, { transform: {} });
+		expect(config1.getTransformers()).toEqual([]);
+		expect(config2.getTransformers()).toEqual([]);
+		expect(config3.getTransformers()).toEqual([]);
 	});
 
 	describe("merge()", () => {
@@ -177,9 +182,10 @@ describe("config", () => {
 				rules: { bar: 1 },
 				plugins: ["mock-plugin"],
 			});
-			const merged = a.merge([resolver], b);
-			expect(merged).toBeInstanceOf(Promise);
-			expect((await merged).get()).toEqual(
+			const promise = a.merge([resolver], b);
+			expect(promise).toBeInstanceOf(Promise);
+			const config = await promise;
+			expect(config.get()).toEqual(
 				expect.objectContaining({
 					rules: {
 						foo: 1,

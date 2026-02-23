@@ -35,7 +35,8 @@ export async function dump(
 		default:
 			throw new Error(`Unknown mode "${String(mode)}"`);
 	}
-	const flat = (await Promise.all(lines)).flat();
+	const results = await Promise.all(lines);
+	const flat = results.flat();
 	output.write(flat.join("\n"));
 	output.write("\n");
 	return Promise.resolve(true);
