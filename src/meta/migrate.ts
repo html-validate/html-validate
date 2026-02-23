@@ -10,7 +10,7 @@ import { type HtmlElementLike } from "./html-element-like";
 import { type MetaAria } from "./meta-aria";
 
 function isSet(value?: unknown): boolean {
-	return typeof value !== "undefined";
+	return value !== undefined;
 }
 
 function flag(value?: boolean): true | undefined {
@@ -35,7 +35,7 @@ function migrateSingleAttribute(
 	result.omit = undefined;
 
 	const attr = src.attributes ? src.attributes[key] : undefined;
-	if (typeof attr === "undefined") {
+	if (attr === undefined) {
 		return stripUndefined(result);
 	}
 

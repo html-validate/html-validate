@@ -707,8 +707,8 @@ async function update() {
 					description: it.description ?? description,
 					selector: it.selector,
 					markup: it.markup,
-					role: typeof it.role !== "undefined" ? it.role : getRole(description, semantics),
-					naming: typeof it.naming !== "undefined" ? it.naming : getNaming(state),
+					role: it.role !== undefined ? it.role : getRole(description, semantics),
+					naming: it.naming !== undefined ? it.naming : getNaming(state),
 				};
 			});
 		} else {

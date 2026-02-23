@@ -14,10 +14,10 @@ interface RuleContext {
 
 function pick(attr: MetaAttribute): Pick<MetaAttribute, "enum" | "boolean"> {
 	const result: Pick<MetaAttribute, "enum" | "boolean"> = {};
-	if (typeof attr.enum !== "undefined") {
+	if (attr.enum !== undefined) {
 		result.enum = attr.enum;
 	}
-	if (typeof attr.boolean !== "undefined") {
+	if (attr.boolean !== undefined) {
 		result.boolean = attr.boolean;
 	}
 	return result;

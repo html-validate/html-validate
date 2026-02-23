@@ -55,21 +55,16 @@ export class Attribute {
 	 */
 	public constructor(
 		key: string,
-		value: string | DynamicValue | null,
+		value: string | DynamicValue | null | undefined,
 		keyLocation: Location,
 		valueLocation: Location | null,
 		originalAttribute?: string,
 	) {
 		this.key = key;
-		this.value = value;
+		this.value = value ?? null;
 		this.keyLocation = keyLocation;
 		this.valueLocation = valueLocation;
 		this.originalAttribute = originalAttribute;
-
-		/* force undefined to null */
-		if (typeof this.value === "undefined") {
-			this.value = null;
-		}
 	}
 
 	/**

@@ -788,8 +788,8 @@ export class Parser {
 	 * @param data - Event data
 	 */
 	public trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
-	public trigger(event: string, data: Event): void {
-		if (typeof data.location === "undefined") {
+	public trigger(event: string, data: Event | { location: undefined }): void {
+		if (data.location === undefined) {
 			throw new Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);

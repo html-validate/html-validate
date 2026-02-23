@@ -359,7 +359,7 @@ export class HtmlElement extends DOMNode {
 		this.metaElement ??= {} as MetaElement;
 		for (const key of MetaCopyableProperty) {
 			const value = meta[key];
-			if (typeof value !== "undefined") {
+			if (value !== undefined) {
 				setMetaProperty(this.metaElement, key, value);
 			} else {
 				/* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- technical debt */

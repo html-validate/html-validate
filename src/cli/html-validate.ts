@@ -226,7 +226,7 @@ if (argv._.length === 0) {
 }
 
 /* check that supplied config file exists before creating CLI */
-if (typeof argv.config !== "undefined") {
+if (argv.config !== undefined) {
 	const checkPath = path.resolve(argv.config);
 	if (!fs.existsSync(checkPath)) {
 		console.error(`The file "${argv.config}" was not found.`);

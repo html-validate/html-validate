@@ -38,6 +38,6 @@ function format(value: unknown, quote: boolean = false): string {
  */
 export function interpolate(text: string, data: Record<string, unknown>): string {
 	return text.replaceAll(/{{\s*([^\s{}]+)\s*}}/g, (match, key): string => {
-		return typeof data[key] !== "undefined" ? format(data[key]) : match;
+		return data[key] !== undefined ? format(data[key]) : match;
 	});
 }
