@@ -4,6 +4,6 @@ const pkg = new Package("marked", [require("../packages/nunjucks"), require("../
 
 /* override markdown renderer from dgeni nunjucks package to allow setting a
  * highlighter */
-pkg.factory(require("./services/renderMarkdown"));
+pkg.factory(require("./services/render-markdown"));
 
 module.exports = pkg;

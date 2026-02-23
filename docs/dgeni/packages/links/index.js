@@ -6,8 +6,8 @@ const Package = require("dgeni").Package;
 module.exports = new Package("links", [require("../jsdoc")])
 
 	.factory(require("./inline-tag-defs/link"))
-	.factory(require("./services/getDocFromAlias"))
-	.factory(require("./services/getLinkInfo"))
+	.factory(require("./services/get-doc-from-alias"))
+	.factory(require("./services/get-link-info"))
 
 	.config(function (inlineTagProcessor, linkInlineTagDef) {
 		inlineTagProcessor.inlineTagDefinitions.push(linkInlineTagDef);
