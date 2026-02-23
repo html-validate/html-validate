@@ -6,6 +6,6 @@ import { UserError } from "../error";
 export class ConfigError extends UserError {
 	public constructor(message: string, nested?: Error) {
 		super(message, nested);
-		this.name = ConfigError.name;
+		this.name = "ConfigError";
 	}
 }

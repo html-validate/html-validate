@@ -11,7 +11,7 @@ export class InheritError extends UserError {
 	public constructor({ tagName, inherit }: { tagName: string; inherit: string }) {
 		const message = `Element <${tagName}> cannot inherit from <${inherit}>: no such element`;
 		super(message);
-		this.name = InheritError.name;
+		this.name = "InheritError";
 		this.tagName = tagName;
 		this.inherit = inherit;
 		this.filename = null;

@@ -9,7 +9,7 @@ export class ImportResolveMissingError extends UserError {
 	public constructor() {
 		const message = `import.meta.resolve(..) is not available on this system`;
 		super(message);
-		this.name = ImportResolveMissingError.name;
+		this.name = "ImportResolveMissingError";
 	}
 
 	public override prettyFormat(): string {

@@ -45,6 +45,7 @@ export class InvalidTokenError extends Error {
 
 	public constructor(location: Location, message: string) {
 		super(message);
+		this.name = "InvalidTokenError";
 		this.location = location;
 	}
 }

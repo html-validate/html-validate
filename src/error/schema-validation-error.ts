@@ -33,6 +33,7 @@ export class SchemaValidationError extends UserError {
 		const summary = getSummary(schema, obj, errors);
 		super(`${message}: ${summary}`);
 
+		this.name = "SchemaValidationError";
 		this.filename = filename;
 		this.obj = obj;
 		this.schema = schema;

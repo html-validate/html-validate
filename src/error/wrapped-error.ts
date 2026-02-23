@@ -14,5 +14,6 @@ function stringify(value: unknown): string {
 export class WrappedError extends Error {
 	public constructor(message: unknown) {
 		super(stringify(message));
+		this.name = "WrappedError";
 	}
 }
