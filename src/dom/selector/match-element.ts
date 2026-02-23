@@ -65,7 +65,8 @@ export function matchElement(
 	compounds: Compound[],
 	context: SelectorContext,
 ): boolean {
-	const last = compounds[compounds.length - 1];
+	/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- there will always be at least one */
+	const last = compounds.at(-1)!;
 	if (!last.match(element, context)) {
 		return false;
 	}

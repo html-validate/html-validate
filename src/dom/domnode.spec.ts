@@ -195,7 +195,7 @@ describe("DOMNode", () => {
 			const last = new DOMNode(NodeType.ELEMENT_NODE, "last", location);
 			node.append(first);
 			node.append(last);
-			expect(node.lastChild.unique).toEqual(last.unique);
+			expect(node.lastChild!.unique).toEqual(last.unique);
 		});
 
 		it("should return null if no children present", () => {

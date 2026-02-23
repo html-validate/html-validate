@@ -46,8 +46,8 @@ for (let cycle = 0; cycle <= numCycles; cycle++) {
 	await iteration();
 	const { heapTotal, heapUsed } = process.memoryUsage();
 	if (cycle % bucketSize === 0) {
-		const previousTotal = journal.length > 0 ? journal[journal.length - 1].heapTotal : heapTotal;
-		const previousUsed = journal.length > 0 ? journal[journal.length - 1].heapUsed : heapUsed;
+		const previousTotal = journal.length > 0 ? journal.at(-1).heapTotal : heapTotal;
+		const previousUsed = journal.length > 0 ? journal.at(-1).heapUsed : heapUsed;
 		journal.push({
 			cycle,
 			heapUsed,

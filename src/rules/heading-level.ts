@@ -237,11 +237,13 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 	}
 
 	private getPrevRoot(): SectioningRoot {
-		return this.stack[this.stack.length - 2];
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
+		return this.stack.at(-2)!;
 	}
 
 	private getCurrentRoot(): SectioningRoot {
-		return this.stack[this.stack.length - 1];
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
+		return this.stack.at(-1)!;
 	}
 
 	private isSectioningRoot(node: HtmlElement): boolean {

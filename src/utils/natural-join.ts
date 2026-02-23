@@ -20,6 +20,8 @@ export function naturalJoin(values: string[], conjunction: string = "or"): strin
 		case 2:
 			return `${values[0]} ${conjunction} ${values[1]}`;
 		default:
-			return `${values.slice(0, -1).join(", ")} ${conjunction} ${values.slice(-1)[0]}`;
+			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we
+			 * know length will be greater than two so there must be an element */
+			return `${values.slice(0, -1).join(", ")} ${conjunction} ${values.at(-1)!}`;
 	}
 }

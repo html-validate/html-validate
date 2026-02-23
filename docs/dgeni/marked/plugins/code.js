@@ -77,7 +77,7 @@ function trimIndent(text, indent) {
 	}
 
 	// remove trailing
-	while (isEmpty(lines[lines.length - 1])) {
+	while (isEmpty(lines.at(-1))) {
 		lines.pop();
 	}
 

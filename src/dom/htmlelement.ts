@@ -624,7 +624,10 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get lastElementChild(): HtmlElement | null {
 		const children = this.childElements;
-		return children.length > 0 ? children[children.length - 1] : null;
+		return children.length > 0
+			? /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- it is checked right before this */
+				children.at(-1)!
+			: null;
 	}
 
 	public get siblings(): HtmlElement[] {

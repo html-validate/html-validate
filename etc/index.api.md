@@ -366,7 +366,7 @@ export class DOMNode {
     // (undocumented)
     isRootElement(): boolean;
     isSameNode(otherNode: DOMNode): boolean;
-    get lastChild(): DOMNode;
+    get lastChild(): DOMNode | null;
     // (undocumented)
     readonly location: Location_2;
     // (undocumented)
