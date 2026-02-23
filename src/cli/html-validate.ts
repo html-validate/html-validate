@@ -271,18 +271,26 @@ async function run(): Promise<void> {
 		}
 
 		let success: boolean;
-		if (mode === Mode.LINT) {
-			success = await lint(htmlvalidate, process.stdout, files, {
-				formatter,
-				maxWarnings,
-				stdinFilename: argv["stdin-filename"] ?? false,
-			});
-		} else if (mode === Mode.INIT) {
-			success = await init(cli, process.stdout, { cwd: process.cwd() });
-		} else if (mode === Mode.PRINT_CONFIG) {
-			success = await printConfig(htmlvalidate, process.stdout, files);
-		} else {
-			success = await dump(htmlvalidate, process.stdout, files, mode);
+		switch (mode) {
+			case Mode.LINT: {
+				success = await lint(htmlvalidate, process.stdout, files, {
+					formatter,
+					maxWarnings,
+					stdinFilename: argv["stdin-filename"] ?? false,
+				});
+				break;
+			}
+			case Mode.INIT: {
+				success = await init(cli, process.stdout, { cwd: process.cwd() });
+				break;
+			}
+			case Mode.PRINT_CONFIG: {
+				success = await printConfig(htmlvalidate, process.stdout, files);
+				break;
+			}
+			default: {
+				success = await dump(htmlvalidate, process.stdout, files, mode);
+			}
 		}
 		process.exit(success ? 0 : 1);
 	} catch (err) {
