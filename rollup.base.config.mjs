@@ -118,7 +118,7 @@ function jestChunks(rel) {
 function manualChunks(id) {
 	/** @type {string} */
 	const base = path.relative(rootDir, id).replaceAll("\\", "/");
-	if (entrypoints.find((it) => it.in === base)) {
+	if (entrypoints.some((it) => it.in === base)) {
 		return undefined;
 	}
 
