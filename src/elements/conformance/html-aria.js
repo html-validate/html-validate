@@ -5,8 +5,11 @@ async function update() {
 
 	const url = "https://www.w3.org/TR/html-aria";
 
-	const ignoredElements = ["el-autonomous-custom-element", "el-form-associated-custom-element"];
-	const voidElements = [
+	const ignoredElements = new Set([
+		"el-autonomous-custom-element",
+		"el-form-associated-custom-element",
+	]);
+	const voidElements = new Set([
 		"area",
 		"base",
 		"br",
@@ -21,7 +24,7 @@ async function update() {
 		"source",
 		"track",
 		"wbr",
-	];
+	]);
 
 	/** @type {Record<string, Array<{selector: string, markup: string, role?: string, description?: string, naming?: "allowed" | "prohibited"}>>} */
 	const elementMapping = {
@@ -710,7 +713,7 @@ async function update() {
 			});
 		} else {
 			const tag = description;
-			const markup = voidElements.includes(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
+			const markup = voidElements.has(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
 			const role = getRole(description, semantics);
 			const naming = getNaming(state);
 			return [{ description, selector: tag, markup, role, naming }];
@@ -723,7 +726,7 @@ async function update() {
 			const id = elementCell.id;
 
 			/* ignore as one is supposed to add the element metadata for custom elements */
-			if (ignoredElements.includes(id)) {
+			if (ignoredElements.has(id)) {
 				continue;
 			}
 

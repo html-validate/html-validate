@@ -1,13 +1,13 @@
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-const javascript = [
+const javascript = new Set([
 	"",
 	"application/ecmascript",
 	"application/javascript",
 	"text/ecmascript",
 	"text/javascript",
-];
+]);
 
 export default class ScriptType extends Rule {
 	public override documentation(): RuleDocumentation {
@@ -47,6 +47,6 @@ export default class ScriptType extends Rule {
 	private isJavascript(mime: string): boolean {
 		/* remove mime parameters, e.g. ";charset=utf-8" */
 		const type = mime.replace(/;.*/, "");
-		return javascript.includes(type);
+		return javascript.has(type);
 	}
 }

@@ -4,7 +4,7 @@ const enum State {
 	WHITESPACE,
 }
 
-const escapedCodepoints = ["\u0039", "\u0061", "\u0064"];
+const escapedCodepoints = new Set(["\u0039", "\u0061", "\u0064"]);
 
 /**
  * @internal
@@ -25,7 +25,7 @@ export function* splitSelectorElements(selector: string): Generator<string, void
 	}
 
 	function escapedState(ch: string): State {
-		if (escapedCodepoints.includes(ch)) {
+		if (escapedCodepoints.has(ch)) {
 			return State.ESCAPED;
 		}
 		return State.INITIAL;

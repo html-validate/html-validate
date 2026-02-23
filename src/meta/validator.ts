@@ -10,7 +10,7 @@ import {
 	type RequiredContent,
 } from "./element";
 
-const allowedKeys = ["exclude"];
+const allowedKeys = new Set(["exclude"]);
 
 /**
  * Helper class to validate elements against metadata rules.
@@ -331,7 +331,7 @@ export class Validator {
 
 function validateKeys(rule: PermittedGroup): void {
 	for (const key of Object.keys(rule)) {
-		if (!allowedKeys.includes(key)) {
+		if (!allowedKeys.has(key)) {
 			const str = JSON.stringify(rule);
 			throw new Error(`Permitted rule "${str}" contains unknown property "${key}"`);
 		}

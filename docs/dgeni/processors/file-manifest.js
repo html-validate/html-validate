@@ -3,10 +3,10 @@ const path = require("node:path");
 const isCI = require("is-ci");
 
 const self = path.relative(process.cwd(), __filename);
-const ignoreTypes = ["validate-spec", "validate-public"];
+const ignoreTypes = new Set(["validate-spec", "validate-public"]);
 
 function isRelevant(doc) {
-	return doc.outputPath && !ignoreTypes.includes(doc.docType);
+	return doc.outputPath && !ignoreTypes.has(doc.docType);
 }
 
 module.exports = function fileManifestProcessor(log) {

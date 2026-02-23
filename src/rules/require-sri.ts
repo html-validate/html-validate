@@ -21,20 +21,20 @@ const supportSri: Record<string, string> = {
 	link: "href",
 	script: "src",
 };
-const supportedRel = ["stylesheet", "preload", "modulepreload"];
-const supportedPreload = ["style", "script"];
+const supportedRel = new Set(["stylesheet", "preload", "modulepreload"]);
+const supportedPreload = new Set(["style", "script"]);
 
 function linkSupportsSri(node: HtmlElement): boolean {
 	const rel = node.getAttribute("rel");
 	if (typeof rel?.value !== "string") {
 		return false;
 	}
-	if (!supportedRel.includes(rel.value)) {
+	if (!supportedRel.has(rel.value)) {
 		return false;
 	}
 	if (rel.value === "preload") {
 		const as = node.getAttribute("as");
-		return typeof as?.value === "string" && supportedPreload.includes(as.value);
+		return typeof as?.value === "string" && supportedPreload.has(as.value);
 	}
 	return true;
 }

@@ -9,14 +9,13 @@ async function update() {
 	}
 	const html = await response.text();
 	const { document } = new JSDOM(html).window;
-	const nameFromProhibited = Array.from(
-		document.querySelectorAll("#namefromprohibited code"),
-		(it) => it.textContent,
+	const nameFromProhibited = new Set(
+		Array.from(document.querySelectorAll("#namefromprohibited code"), (it) => it.textContent),
 	);
 	const roles = Array.from(document.querySelectorAll("#role_definitions .role"), (it) => it.id);
 	const data = roles.map((it) => ({
 		role: it,
-		naming: nameFromProhibited.includes(it) ? "prohibited" : "allowed",
+		naming: nameFromProhibited.has(it) ? "prohibited" : "allowed",
 	}));
 	const serialized = JSON.stringify(data, null, "\t")
 		.replaceAll(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
