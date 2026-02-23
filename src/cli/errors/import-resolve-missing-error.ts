@@ -9,7 +9,6 @@ export class ImportResolveMissingError extends UserError {
 	public constructor() {
 		const message = `import.meta.resolve(..) is not available on this system`;
 		super(message);
-		Error.captureStackTrace(this, ImportResolveMissingError);
 		this.name = ImportResolveMissingError.name;
 	}
 
