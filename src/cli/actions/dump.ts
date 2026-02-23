@@ -35,7 +35,7 @@ export async function dump(
 		default:
 			throw new Error(`Unknown mode "${String(mode)}"`);
 	}
-	const flat = (await Promise.all(lines)).reduce((s: string[], c: string[]) => s.concat(c), []);
+	const flat = (await Promise.all(lines)).flat();
 	output.write(flat.join("\n"));
 	output.write("\n");
 	return Promise.resolve(true);
