@@ -162,7 +162,7 @@ export class Reporter {
 		const report: Report = {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
-				const messages = Array.from(this.result[filePath], freeze).sort(messageSort);
+				const messages = Array.from(this.result[filePath], freeze).toSorted(messageSort);
 				const source = (sources ?? []).find((source: Source) => filePath === source.filename);
 				return {
 					filePath,

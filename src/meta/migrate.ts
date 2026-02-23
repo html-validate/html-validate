@@ -67,7 +67,7 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 		...(src.requiredAttributes ?? []),
 		...(src.deprecatedAttributes ?? []),
 		/* eslint-disable-next-line sonarjs/no-alphabetical-sort -- not really needed in this case, this is a-z anyway */
-	].sort();
+	].toSorted();
 
 	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
 		return [key, migrateSingleAttribute(src, key)];

@@ -27,7 +27,7 @@ module.exports = function fileManifestProcessor(log) {
 				"",
 				"---",
 				"",
-				...relevantDocs.map((doc) => doc.outputPath).sort(),
+				...relevantDocs.map((doc) => doc.outputPath).toSorted(),
 			];
 			const content = lines.map((it) => `${it}\n`).join("");
 

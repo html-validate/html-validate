@@ -71,7 +71,7 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			result.push(fullpath);
 		}
 
-		return result.sort((a, b) => {
+		return result.toSorted((a, b) => {
 			const pa = a.split("/").length;
 			const pb = b.split("/").length;
 			if (pa !== pb) {

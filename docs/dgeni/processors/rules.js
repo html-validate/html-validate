@@ -85,7 +85,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 					return result;
 				}, {}),
 			}))
-			.sort(compareName);
+			.toSorted(compareName);
 
 		/* group rules into categories */
 		const categories = { all: rules };

@@ -125,7 +125,7 @@ export async function apiExtractor(patterns) {
 		console.log("Running API Extractor in local mode.");
 	}
 
-	const filenames = (await expandPatterns(patterns)).sort(cmp);
+	const filenames = (await expandPatterns(patterns)).toSorted(cmp);
 	const plural = filenames.length !== 1 ? "s" : "";
 	console.group("Processing", filenames.length, `configuration file${plural}:`);
 	for (const filename of filenames) {
