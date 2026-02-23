@@ -11,7 +11,7 @@ module.exports = new Package("inline-validate", [])
 	.processor(require("./processors/validate-generate-public"))
 	.processor(require("./processors/validate-generate-spec"))
 
-	.factory(require("./services/validateMap"))
+	.factory(require("./services/validate-map"))
 	.factory(require("./inline-tag-defs/inline-validation"))
 
 	.config(function (templateFinder) {

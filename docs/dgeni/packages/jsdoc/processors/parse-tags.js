@@ -1,5 +1,5 @@
-const Tag = require("../lib/Tag");
-const TagCollection = require("../lib/TagCollection");
+const Tag = require("../lib/tag");
+const TagCollection = require("../lib/tag-collection");
 
 /**
  * @dgProcessor parseTagsProcessor
