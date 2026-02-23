@@ -26,7 +26,7 @@ function parse(text: string, baseLocation: Location | null): Result {
 		}
 
 		/* extract token */
-		const token = text.substring(begin, end);
+		const token = text.slice(begin, end);
 		tokens.push(token);
 
 		/* extract location */

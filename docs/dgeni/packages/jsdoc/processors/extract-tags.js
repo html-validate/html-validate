@@ -182,7 +182,7 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 
 		doc.tags.badTags.forEach((badTag) => {
 			let description =
-				typeof badTag.description === "string" ? `${badTag.description.substr(0, 20)}...` : "";
+				typeof badTag.description === "string" ? `${badTag.description.slice(0, 20)}...` : "";
 			if (badTag.name) {
 				description = `${badTag.name} ${description}`;
 			}

@@ -61,7 +61,7 @@ module.exports = function getLinkInfo(getDocFromAlias, encodeCodeBlock, log) {
 			linkInfo.error = `Invalid link (does not match any doc): "${url}"`;
 		} else {
 			linkInfo.title =
-				title || (url.indexOf("#") === 0 ? url.substring(1) : path.basename(url, ".html"));
+				title || (url.indexOf("#") === 0 ? url.slice(1) : path.basename(url, ".html"));
 		}
 
 		return linkInfo;
