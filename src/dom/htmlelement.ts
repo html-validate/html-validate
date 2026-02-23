@@ -315,8 +315,7 @@ export class HtmlElement extends DOMNode {
 			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${String(index + 1)})`);
 		}
 
-		/* eslint-disable-next-line sonarjs/no-misleading-array-reverse -- technical debt */
-		return parts.reverse().join(" > ");
+		return parts.toReversed().join(" > ");
 	}
 
 	/**
