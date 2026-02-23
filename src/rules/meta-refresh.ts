@@ -87,7 +87,7 @@ function parseContent(text: string): { delay: number; url: string } | null {
 	const match = /^(\d+)(?:\s*;\s*url=(.*))?/i.exec(text);
 	if (match) {
 		return {
-			delay: parseInt(match[1], 10),
+			delay: Number.parseInt(match[1], 10),
 			url: match[2],
 		};
 	} else {

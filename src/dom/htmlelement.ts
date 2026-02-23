@@ -486,8 +486,8 @@ export class HtmlElement extends DOMNode {
 			return this.cacheSet(TABINDEX, 0);
 		}
 
-		const parsed = parseInt(tabindex.value, 10);
-		if (isNaN(parsed)) {
+		const parsed = Number.parseInt(tabindex.value, 10);
+		if (Number.isNaN(parsed)) {
 			return this.cacheSet(TABINDEX, null);
 		}
 

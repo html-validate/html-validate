@@ -244,11 +244,11 @@ async function run(): Promise<void> {
 	});
 	const mode = getMode(argv);
 	const formatter = await cli.getFormatter(argv.formatter);
-	const maxWarnings = parseInt(argv["max-warnings"] ?? "-1", 10);
+	const maxWarnings = Number.parseInt(argv["max-warnings"] ?? "-1", 10);
 	const htmlvalidate = await cli.getValidator();
 
 	/* sanity check: ensure maxWarnings has a valid value */
-	if (isNaN(maxWarnings)) {
+	if (Number.isNaN(maxWarnings)) {
 		console.error(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
 		process.exit(1);
 	}

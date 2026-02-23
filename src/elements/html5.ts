@@ -2477,7 +2477,7 @@ export default {
 				}
 				const size = node.getAttribute("size");
 				if (typeof size === "string") {
-					const parsed = parseInt(size, 10);
+					const parsed = Number.parseInt(size, 10);
 					if (parsed > 1) {
 						return "listbox";
 					}
