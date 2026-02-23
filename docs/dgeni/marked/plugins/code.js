@@ -28,6 +28,9 @@ const prettierConfig = prettier.resolveConfig(stubFilename, {
 	editorconfig: true,
 });
 
+/**
+ * @param {string} text
+ */
 function calcIndent(text) {
 	const MAX_INDENT = 9999;
 	const lines = text.split("\n");
@@ -49,12 +52,12 @@ function calcIndent(text) {
 			lines.shift();
 		}
 
-		lines.forEach((line) => {
+		for (const line of lines) {
 			if (!isEmpty(line)) {
 				const indent = line.match(/^\s*/)[0].length;
 				minIndent = Math.min(minIndent, indent);
 			}
-		});
+		}
 	}
 
 	return minIndent;

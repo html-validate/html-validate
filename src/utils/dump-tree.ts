@@ -31,11 +31,11 @@ export function dumpTree(root: HtmlElement): string[] {
 			lines.push("(root)");
 		}
 
-		node.childElements.forEach((child, index) => {
+		for (const [index, child] of node.childElements.entries()) {
 			const s = lastSibling ? " " : "│";
 			const i = level > 0 ? `${indent}${s}   ` : "";
 			writeNode(child, level + 1, i, index);
-		});
+		}
 	}
 
 	writeNode(root, 0, "", 0);

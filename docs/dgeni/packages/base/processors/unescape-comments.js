@@ -10,12 +10,11 @@ module.exports = function unescapeCommentsProcessor() {
 		$runAfter: ["docs-rendered"],
 		$runBefore: ["writing-files"],
 		$process(docs) {
-			docs.forEach(
-				(doc) =>
-					(doc.renderedContent = doc.renderedContent
-						.replaceAll("/&amp;#42;", "/*")
-						.replaceAll("&amp;#42;/", "*/")),
-			);
+			for (const doc of docs) {
+				doc.renderedContent = doc.renderedContent
+					.replaceAll("/&amp;#42;", "/*")
+					.replaceAll("&amp;#42;/", "*/");
+			}
 		},
 	};
 };

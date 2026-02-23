@@ -11,10 +11,10 @@ module.exports = function generateValidationsPublicProcessor(validateMap) {
 	};
 
 	function $process(docs) {
-		validateMap.forEach((validate) => {
+		for (const validate of validateMap.values()) {
 			const fileInfo = validate.doc.fileInfo;
 			docs.push(createDocument(fileInfo, validate));
-		});
+		}
 	}
 
 	function createDocument(fileInfo, validate) {

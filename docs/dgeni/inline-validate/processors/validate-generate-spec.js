@@ -13,7 +13,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 	function $process(docs) {
 		const specs = {};
 
-		validateMap.forEach((validation) => {
+		for (const validation of validateMap.values()) {
 			const key = validation.doc.fileInfo.relativePath;
 
 			if (!specs[key]) {
@@ -21,7 +21,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 			}
 
 			specs[key].push(validation);
-		});
+		}
 
 		for (const validations of Object.values(specs)) {
 			const fileInfo = validations[0].doc.fileInfo;

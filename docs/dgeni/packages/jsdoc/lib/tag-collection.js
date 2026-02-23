@@ -7,7 +7,9 @@ class TagCollection {
 		this.tagsByName = new Map();
 		this.badTags = [];
 		this.description = "";
-		(tags || []).forEach((tag) => this.addTag(tag));
+		for (const tag of tags || []) {
+			this.addTag(tag);
+		}
 	}
 
 	/**

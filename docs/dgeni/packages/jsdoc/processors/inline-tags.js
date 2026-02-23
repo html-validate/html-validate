@@ -38,7 +38,7 @@ module.exports = function inlineTagProcessor(log, createDocMessage) {
 			const definitionMap = getMap(definitions);
 
 			// Walk the docs and parse the inline-tags
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				if (doc.renderedContent) {
 					// This is a stack of start-end tag instances
 					// as a new start-end tag is found it is unshifted onto the front of this array
@@ -97,18 +97,20 @@ module.exports = function inlineTagProcessor(log, createDocMessage) {
 						return renderedContent + nextPart;
 					});
 				}
-			});
+			}
 		},
 	};
 };
 
 function getMap(objects) {
 	const map = new Map();
-	objects.forEach((object) => {
+	for (const object of objects) {
 		map.set(object.name, object);
 		if (object.aliases) {
-			object.aliases.forEach((alias) => map.set(alias, object));
+			for (const alias of object.aliases) {
+				map.set(alias, object);
+			}
 		}
-	});
+	}
 	return map;
 }

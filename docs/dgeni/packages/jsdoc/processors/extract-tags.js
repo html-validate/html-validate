@@ -16,10 +16,10 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 				parseTagsProcessor.tagDefinitions,
 				this.defaultTagTransforms,
 			);
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				log.debug(createDocMessage("extracting tags", doc));
 				tagExtractor(doc);
-			});
+			}
 		},
 	};
 
@@ -60,7 +60,7 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 
 		return function tagExtractor(doc) {
 			// Try to extract each of the tags defined in the tagDefs collection
-			tagDefs.forEach((tagDef) => {
+			for (const tagDef of tagDefs) {
 				log.silly(`extracting tags for: ${tagDef.name}`);
 
 				const docProperty = tagDef.docProperty || tagDef.name;
@@ -80,7 +80,7 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 				} else {
 					readTags(doc, docProperty, tagDef, tags);
 				}
-			});
+			}
 
 			if (doc.tags.badTags.length > 0) {
 				log.warn(formatBadTagErrorMessage(doc));
@@ -114,13 +114,13 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 		if (tagDef.multi) {
 			// We may have multiple tags for this tag def, so we put them into an array
 			doc[docProperty] = Array.isArray(doc[docProperty]) ? doc[docProperty] : [];
-			tags.forEach((tag) => {
+			for (const tag of tags) {
 				// Transform and add the tag to the array
 				const value = tagDef.getProperty(doc, tag);
 				if (value !== undefined) {
 					doc[docProperty].push(value);
 				}
-			});
+			}
 		} else {
 			// We only expect one tag for this tag def
 			if (tags.length > 1) {
@@ -156,7 +156,9 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 		if (Array.isArray(transforms)) {
 			// transform is an array then we will apply each in turn like a pipe-line
 			return (doc, tag, value) => {
-				transforms.forEach((transform) => (value = transform(doc, tag, value)));
+				for (const transform of transforms) {
+					value = transform(doc, tag, value);
+				}
 				return value;
 			};
 		}
@@ -180,7 +182,7 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 	function formatBadTagErrorMessage(doc) {
 		let message = `${createDocMessage("Invalid tags found", doc)}\n`;
 
-		doc.tags.badTags.forEach((badTag) => {
+		for (const badTag of doc.tags.badTags) {
 			let description =
 				typeof badTag.description === "string" ? `${badTag.description.slice(0, 20)}...` : "";
 			if (badTag.name) {
@@ -196,9 +198,11 @@ module.exports = function extractTagsProcessor(log, parseTagsProcessor, createDo
 			// field attached. This can happen when the tag does not have a tag definition at all.
 			// We only append more specific error messages if such concrete errors are available.
 			if (badTag.errors !== undefined) {
-				badTag.errors.forEach((error) => (message += `    * ${error}\n`));
+				for (const error of badTag.errors) {
+					message += `    * ${error}\n`;
+				}
 			}
-		});
+		}
 
 		return `${message}\n`;
 	}

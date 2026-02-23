@@ -36,7 +36,7 @@ function renderDocsProcessor(log, templateFinder, templateEngine, createDocMessa
 			const render = templateEngine.getRenderer();
 			const findTemplate = templateFinder.getFinder();
 
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				log.debug("Rendering doc:", doc.id || doc.name || doc.path);
 				try {
 					const data = { doc, docs, ...this.extraData, ...this.helpers };
@@ -47,7 +47,7 @@ function renderDocsProcessor(log, templateFinder, templateEngine, createDocMessa
 					log.debug(restOfDoc);
 					throw new Error(createDocMessage("Failed to render", doc, ex));
 				}
-			});
+			}
 		},
 	};
 }

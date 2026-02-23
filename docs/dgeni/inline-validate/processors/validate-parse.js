@@ -15,17 +15,17 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 	};
 
 	function $process(docs) {
-		docs.forEach((doc) => {
+		for (const doc of docs) {
 			try {
 				if (!doc.content) {
-					return;
+					continue;
 				}
 
 				doc.content = doc.content.replaceAll(VALIDATE_REGEX, processValidate.bind(undefined, doc));
 			} catch (error) {
 				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
 			}
-		});
+		}
 	}
 
 	function processValidate(doc, match, attributeText, validateMarkup) {

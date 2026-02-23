@@ -44,21 +44,21 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 		const ruleDocs = docs.filter(isRuleDocument);
 
 		/* compule rule source paths */
-		ruleDocs.forEach((doc) => {
+		for (const doc of ruleDocs) {
 			const docPath = doc.fileInfo.projectRelativePath;
 			doc.ruleSourcePath = docPath.replace("docs", "src").replace(/\.md$/, ".ts");
-		});
+		}
 
 		/* add missing fields */
-		ruleDocs.forEach((doc) => {
+		for (const doc of ruleDocs) {
 			if (!doc.title) {
 				doc.title = `${doc.summary} (${doc.name})`;
 				doc.standards = doc.standards ?? [];
 			}
-		});
+		}
 
 		/* split heading and other content */
-		ruleDocs.forEach((doc) => {
+		for (const doc of ruleDocs) {
 			const description = String(doc.description);
 			const match = description.match(/([^]*^# .*)$([^]*)/m);
 			if (!match) {
@@ -67,7 +67,7 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 			const [, preamble, content] = match;
 			doc.preamble = [preamble, "{@ruleInfo}"].join("\n\n");
 			doc.description = content;
-		});
+		}
 
 		/* find all available rules */
 		const rules = ruleDocs
@@ -89,13 +89,13 @@ module.exports = function rulesProcessor(renderDocsProcessor) {
 
 		/* group rules into categories */
 		const categories = { all: rules };
-		rules.forEach((rule) => {
+		for (const rule of rules) {
 			const category = rule.category || "other";
 			if (!(category in categories)) {
 				categories[category] = [];
 			}
 			categories[category].push(rule);
-		});
+		}
 
 		renderDocsProcessor.extraData.rules = categories;
 		renderDocsProcessor.extraData.presets = availablePresets;

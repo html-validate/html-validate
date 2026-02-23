@@ -33,12 +33,12 @@ function checkstyleFormatter(results: Result[]): string {
 	output += `<?xml version="1.0" encoding="utf-8"?>\n`;
 	output += `<checkstyle version="4.3">\n`;
 
-	results.forEach((result) => {
+	for (const result of results) {
 		const messages = result.messages;
 
 		output += `  <file name="${xmlescape(result.filePath)}">\n`;
 
-		messages.forEach((message) => {
+		for (const message of messages) {
 			const ruleId = xmlescape(`htmlvalidate.rules.${message.ruleId}`);
 			output += "    ";
 			output += [
@@ -49,10 +49,10 @@ function checkstyleFormatter(results: Result[]): string {
 				`source="${ruleId}" />`,
 			].join(" ");
 			output += "\n";
-		});
+		}
 
 		output += "  </file>\n";
-	});
+	}
 
 	output += "</checkstyle>\n";
 

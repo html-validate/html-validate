@@ -9,11 +9,11 @@ module.exports = function generateInlineValidationsProcessor(log, validateMap) {
 	};
 
 	function $process(docs) {
-		validateMap.forEach((validation) => {
+		for (const validation of validateMap.values()) {
 			const inlineValidationDoc = createInlineValidateDoc(validation);
 			docs.push(inlineValidationDoc);
 			validation.inlineValidationDoc = inlineValidationDoc;
-		});
+		}
 	}
 
 	function createInlineValidateDoc(validation) {
