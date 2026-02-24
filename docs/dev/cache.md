@@ -90,7 +90,7 @@ declare module "html-validate" {
 
 export function myFunction(node: HtmlElement): number {
   const cached = node.cacheGet(CACHE_KEY);
-  if (typeof cached !== "undefined") {
+  if (cached !== undefined) {
     return cached;
   }
   const value = expensiveComputation(node);

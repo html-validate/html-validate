@@ -231,10 +231,10 @@
   "devDependencies": {
     "@babel/code-frame": "7.29.0",
     "@html-validate/commitlint-config": "3.6.7",
-    "@html-validate/eslint-config": "6.16.1",
-    "@html-validate/eslint-config-jest": "6.16.0",
-    "@html-validate/eslint-config-typescript": "6.16.0",
-    "@html-validate/eslint-config-typescript-typeinfo": "6.16.0",
+    "@html-validate/eslint-config": "6.17.3",
+    "@html-validate/eslint-config-jest": "6.17.0",
+    "@html-validate/eslint-config-typescript": "6.17.0",
+    "@html-validate/eslint-config-typescript-typeinfo": "6.17.0",
     "@html-validate/jest-config": "3.13.1",
     "@html-validate/prettier-config": "3.1.15",
     "@html-validate/release-scripts": "7.1.0",
@@ -301,7 +301,7 @@
     }
   },
   "engines": {
-    "node": "^20.19.0 || >= 22.12.0"
+    "node": "^20.19.0 || >= 22.16.0"
   },
   "externalDependencies": [
     "@babel/code-frame",
