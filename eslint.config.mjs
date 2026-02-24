@@ -1,14 +1,10 @@
 /* This file is managed by @html-validate/eslint-config */
 /* Changes may be overwritten */
 
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import defaultConfig from "@html-validate/eslint-config";
 import jestConfig from "@html-validate/eslint-config-jest";
 import typescriptConfig from "@html-validate/eslint-config-typescript";
 import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-typeinfo";
-
-const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
 	{
@@ -36,7 +32,7 @@ export default [
 		files: ["src/**/*.{ts,cts,mts}"],
 		languageOptions: {
 			parserOptions: {
-				tsconfigRootDir: rootDir,
+				tsconfigRootDir: import.meta.dirname,
 				projectService: true,
 			},
 		},
@@ -103,9 +99,29 @@ export default [
 
 	{
 		name: "local/technical-debt",
-		files: ["**/*.ts"],
 		rules: {
 			"@typescript-eslint/no-explicit-any": "off",
+			"unicorn/better-regex": "off",
+			"unicorn/consistent-existence-index-check": "off",
+			"unicorn/consistent-function-scoping": "off",
+			"unicorn/error-message": "off",
+			"unicorn/explicit-length-check": "off",
+			"unicorn/new-for-builtins": "off",
+			"unicorn/no-anonymous-default-export": "off",
+			"unicorn/no-for-loop": "off",
+			"unicorn/no-hex-escape": "off",
+			"unicorn/prefer-structured-clone": "off",
+			"unicorn/no-lonely-if": "off",
+			"unicorn/no-new-array": "off",
+			"unicorn/no-object-as-default-parameter": "off",
+			"unicorn/no-useless-promise-resolve-reject": "off",
+			"unicorn/prefer-add-event-listener": "off",
+			"unicorn/prefer-code-point": "off",
+			"unicorn/prefer-import-meta-properties": "off",
+			"unicorn/prefer-query-selector": "off",
+			"unicorn/prefer-regexp-test": "off",
+			"unicorn/prefer-top-level-await": "off",
+			"unicorn/prefer-type-error": "off",
 		},
 	},
 ];
