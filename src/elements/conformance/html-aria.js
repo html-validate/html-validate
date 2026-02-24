@@ -5,8 +5,11 @@ async function update() {
 
 	const url = "https://www.w3.org/TR/html-aria";
 
-	const ignoredElements = ["el-autonomous-custom-element", "el-form-associated-custom-element"];
-	const voidElements = [
+	const ignoredElements = new Set([
+		"el-autonomous-custom-element",
+		"el-form-associated-custom-element",
+	]);
+	const voidElements = new Set([
 		"area",
 		"base",
 		"br",
@@ -21,7 +24,7 @@ async function update() {
 		"source",
 		"track",
 		"wbr",
-	];
+	]);
 
 	/** @type {Record<string, Array<{selector: string, markup: string, role?: string, description?: string, naming?: "allowed" | "prohibited"}>>} */
 	const elementMapping = {
@@ -660,7 +663,7 @@ async function update() {
 	);
 
 	function getText(element) {
-		return element.textContent.trim().replace(/\s+/g, " ");
+		return element.textContent.trim().replaceAll(/\s+/g, " ");
 	}
 
 	function hash(text) {
@@ -704,13 +707,13 @@ async function update() {
 					description: it.description ?? description,
 					selector: it.selector,
 					markup: it.markup,
-					role: typeof it.role !== "undefined" ? it.role : getRole(description, semantics),
-					naming: typeof it.naming !== "undefined" ? it.naming : getNaming(state),
+					role: it.role !== undefined ? it.role : getRole(description, semantics),
+					naming: it.naming !== undefined ? it.naming : getNaming(state),
 				};
 			});
 		} else {
 			const tag = description;
-			const markup = voidElements.includes(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
+			const markup = voidElements.has(tag) ? `<${tag}>` : `<${tag}></${tag}>`;
 			const role = getRole(description, semantics);
 			const naming = getNaming(state);
 			return [{ description, selector: tag, markup, role, naming }];
@@ -723,7 +726,7 @@ async function update() {
 			const id = elementCell.id;
 
 			/* ignore as one is supposed to add the element metadata for custom elements */
-			if (ignoredElements.includes(id)) {
+			if (ignoredElements.has(id)) {
 				continue;
 			}
 
@@ -748,9 +751,9 @@ async function update() {
 
 	const data = Array.from(generateData());
 	const serialized = JSON.stringify(data, null, "\t")
-		.replace(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
-		.replace(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
-		.replace(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
+		.replaceAll(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
+		.replaceAll(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
+		.replaceAll(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
 	const content = [
 		update.toString(),
 		`if (require.main === module) {\n\tupdate();\n}`,

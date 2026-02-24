@@ -5,11 +5,11 @@ function textFormatter(results: Result[]): string {
 	let output = "";
 	let total = 0;
 
-	results.forEach((result) => {
+	for (const result of results) {
 		const messages = result.messages;
 
 		if (messages.length === 0) {
-			return;
+			continue;
 		}
 
 		total += messages.length;
@@ -30,7 +30,7 @@ function textFormatter(results: Result[]): string {
 				return `${location}: ${messageType} [${message.ruleId}] ${message.message}\n`;
 			})
 			.join("");
-	});
+	}
 
 	return total > 0 ? output : "";
 }

@@ -13,7 +13,7 @@ declare module "../../dom/cache" {
 const defaultValue = "allowed";
 
 /* WAI ARIA 5.2.8.6 Roles which cannot be named (Name prohibited) */
-const prohibitedRoles = [
+const prohibitedRoles = new Set([
 	"caption",
 	"code",
 	"deletion",
@@ -25,10 +25,10 @@ const prohibitedRoles = [
 	"strong",
 	"subscript",
 	"superscript",
-];
+]);
 
 function byRole(role: string): "allowed" | "prohibited" {
-	return prohibitedRoles.includes(role) ? "prohibited" : "allowed";
+	return prohibitedRoles.has(role) ? "prohibited" : "allowed";
 }
 
 function byMeta(element: HtmlElement, meta: MetaElement): "allowed" | "prohibited" {

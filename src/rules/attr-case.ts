@@ -68,7 +68,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 				return;
 			}
 
-			const letters = event.key.replace(/[^a-z]+/gi, "");
+			const letters = event.key.replaceAll(/[^a-z]+/gi, "");
 			if (this.style.match(letters)) {
 				return;
 			}

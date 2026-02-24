@@ -10,7 +10,7 @@ import { type HtmlElementLike } from "./html-element-like";
 import { type MetaAria } from "./meta-aria";
 
 function isSet(value?: unknown): boolean {
-	return typeof value !== "undefined";
+	return value !== undefined;
 }
 
 function flag(value?: boolean): true | undefined {
@@ -35,7 +35,7 @@ function migrateSingleAttribute(
 	result.omit = undefined;
 
 	const attr = src.attributes ? src.attributes[key] : undefined;
-	if (typeof attr === "undefined") {
+	if (attr === undefined) {
 		return stripUndefined(result);
 	}
 
@@ -67,7 +67,7 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 		...(src.requiredAttributes ?? []),
 		...(src.deprecatedAttributes ?? []),
 		/* eslint-disable-next-line sonarjs/no-alphabetical-sort -- not really needed in this case, this is a-z anyway */
-	].sort();
+	].toSorted();
 
 	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
 		return [key, migrateSingleAttribute(src, key)];
@@ -106,9 +106,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
 	const result = {
 		...src,
-		...{
-			formAssociated: undefined as FormAssociated | undefined,
-		},
+		formAssociated: undefined as FormAssociated | undefined,
 		attributes: migrateAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,

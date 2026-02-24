@@ -45,6 +45,7 @@ export class InvalidTokenError extends Error {
 
 	public constructor(location: Location, message: string) {
 		super(message);
+		this.name = "InvalidTokenError";
 		this.location = location;
 	}
 }
@@ -186,16 +187,26 @@ export class Lexer {
 	private enter(context: Context, state: State, data: string[] | null): void {
 		/* script/style tags require a different content model */
 		if (state === State.TAG && data?.[0].startsWith("<")) {
-			if (data[0] === "<script") {
-				context.contentModel = ContentModel.SCRIPT;
-			} else if (data[0] === "<style") {
-				context.contentModel = ContentModel.STYLE;
-			} else if (data[0] === "<textarea") {
-				context.contentModel = ContentModel.TEXTAREA;
-			} else if (data[0] === "<title") {
-				context.contentModel = ContentModel.TITLE;
-			} else {
-				context.contentModel = ContentModel.TEXT;
+			switch (data[0]) {
+				case "<script": {
+					context.contentModel = ContentModel.SCRIPT;
+					break;
+				}
+				case "<style": {
+					context.contentModel = ContentModel.STYLE;
+					break;
+				}
+				case "<textarea": {
+					context.contentModel = ContentModel.TEXTAREA;
+					break;
+				}
+				case "<title": {
+					context.contentModel = ContentModel.TITLE;
+					break;
+				}
+				default: {
+					context.contentModel = ContentModel.TEXT;
+				}
 			}
 		}
 	}

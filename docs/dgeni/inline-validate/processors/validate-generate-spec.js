@@ -13,7 +13,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 	function $process(docs) {
 		const specs = {};
 
-		validateMap.forEach((validation) => {
+		for (const validation of validateMap.values()) {
 			const key = validation.doc.fileInfo.relativePath;
 
 			if (!specs[key]) {
@@ -21,7 +21,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 			}
 
 			specs[key].push(validation);
-		});
+		}
 
 		for (const validations of Object.values(specs)) {
 			const fileInfo = validations[0].doc.fileInfo;
@@ -37,7 +37,7 @@ module.exports = function generateValidationsSpecProcessor(log, validateMap) {
 				path: path.dirname(fileInfo.projectRelativePath),
 				file: path.basename(fileInfo.projectRelativePath),
 				fullpath: fileInfo.projectRelativePath,
-				docRoot: path.dirname(fileInfo.projectRelativePath).replace(/[^/]+/g, ".."),
+				docRoot: path.dirname(fileInfo.projectRelativePath).replaceAll(/[^/]+/g, ".."),
 			},
 			validations,
 			template: "spec-jest.ts.njk",

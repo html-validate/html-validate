@@ -347,8 +347,7 @@ export class HtmlValidate {
 			result.push(`Source ${source.filename}@${line}:${column} (offset: ${offset})`);
 			if (source.transformedBy) {
 				result.push("Transformed by:");
-				/* eslint-disable-next-line sonarjs/no-misleading-array-reverse -- technical debt */
-				result = result.concat(source.transformedBy.reverse().map((name) => ` - ${name}`));
+				result = result.concat(source.transformedBy.toReversed().map((name) => ` - ${name}`));
 			}
 			if (source.hooks && Object.keys(source.hooks).length > 0) {
 				result.push("Hooks");

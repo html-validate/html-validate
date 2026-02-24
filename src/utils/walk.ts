@@ -34,7 +34,9 @@ function depthFirst(
 	}
 
 	function visit(node: HtmlElement): void {
-		node.childElements.forEach(visit);
+		for (const child of node.childElements) {
+			visit(child);
+		}
 		if (!node.isRootElement()) {
 			callback(node);
 		}

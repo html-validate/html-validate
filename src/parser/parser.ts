@@ -236,7 +236,7 @@ export class Parser {
 		const tokens = Array.from(
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location),
 		);
-		const endToken = tokens.slice(-1)[0] as TagCloseToken;
+		const endToken = tokens.at(-1) as TagCloseToken;
 		const closeOptional = this.closeOptional(startToken);
 		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
 		const node = HtmlElement.fromTokens(
@@ -405,7 +405,7 @@ export class Parser {
 			const endTokens = Array.from(
 				this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, last.location),
 			);
-			endToken = endTokens.slice(-1)[0] as TagCloseToken;
+			endToken = endTokens.at(-1) as TagCloseToken;
 			const selfClosed = endToken.data[0] === "/>";
 
 			/* since foreign element may be nested keep a count for the number of
@@ -788,8 +788,8 @@ export class Parser {
 	 * @param data - Event data
 	 */
 	public trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
-	public trigger(event: string, data: Event): void {
-		if (typeof data.location === "undefined") {
+	public trigger(event: string, data: Event | { location: undefined }): void {
+		if (data.location === undefined) {
 			throw new Error("Triggered event must contain location");
 		}
 		this.event.trigger(event, data);

@@ -7,9 +7,9 @@ module.exports = function computePathsProcessor(log, createDocMessage) {
 		const pathTemplateMap = new Map();
 		const outputPathTemplateMap = new Map();
 
-		pathTemplates.forEach((template) => {
+		for (const template of pathTemplates) {
 			if (template.docTypes) {
-				template.docTypes.forEach((docType) => {
+				for (const docType of template.docTypes) {
 					if (template.getPath) {
 						pathTemplateMap[docType] = template.getPath;
 					} else if (template.pathTemplate) {
@@ -21,9 +21,9 @@ module.exports = function computePathsProcessor(log, createDocMessage) {
 					} else if (template.outputPathTemplate) {
 						throw new Error(`outputPathTemplate not supported, use getOutputPath() instead`);
 					}
-				});
+				}
 			}
-		});
+		}
 		return { pathTemplateMap, outputPathTemplateMap };
 	}
 
@@ -37,7 +37,7 @@ module.exports = function computePathsProcessor(log, createDocMessage) {
 		$process(docs) {
 			const { pathTemplateMap, outputPathTemplateMap } = initializeMaps(this.pathTemplates);
 
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				try {
 					if (!doc.path) {
 						const getPath = pathTemplateMap[doc.docType];
@@ -61,7 +61,7 @@ module.exports = function computePathsProcessor(log, createDocMessage) {
 				}
 
 				log.debug(createDocMessage(`path: ${doc.path}; outputPath: ${doc.outputPath}`, doc));
-			});
+			}
 		},
 	};
 };

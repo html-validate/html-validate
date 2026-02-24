@@ -68,7 +68,7 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 			text.push(context.documentation);
 		}
 		const doc: RuleDocumentation = {
-			description: text.map((cur) => cur.replace(/\$tagname/g, context.tagName)).join("\n\n"),
+			description: text.map((cur) => cur.replaceAll("$tagname", context.tagName)).join("\n\n"),
 			url: ruleDocumentationUrl(__filename),
 		};
 		return doc;

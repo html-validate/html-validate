@@ -16,11 +16,11 @@ const stubFilename = "docs/stub.js";
  */
 
 function removePreamble(code) {
-	return code.replace(/[^]*\/\* --- \*\/\n+/gm, "");
+	return code.replaceAll(/[^]*\/\* --- \*\/\n+/gm, "");
 }
 
 function stripEslintComments(code) {
-	return code.replace(/\/\* eslint-disable.*\n/g, "");
+	return code.replaceAll(/\/\* eslint-disable.*\n/g, "");
 }
 
 const isEmpty = RegExp.prototype.test.bind(/^\s*$/);
@@ -28,6 +28,9 @@ const prettierConfig = prettier.resolveConfig(stubFilename, {
 	editorconfig: true,
 });
 
+/**
+ * @param {string} text
+ */
 function calcIndent(text) {
 	const MAX_INDENT = 9999;
 	const lines = text.split("\n");
@@ -49,12 +52,12 @@ function calcIndent(text) {
 			lines.shift();
 		}
 
-		lines.forEach((line) => {
+		for (const line of lines) {
 			if (!isEmpty(line)) {
 				const indent = line.match(/^\s*/)[0].length;
 				minIndent = Math.min(minIndent, indent);
 			}
-		});
+		}
 	}
 
 	return minIndent;
@@ -77,7 +80,7 @@ function trimIndent(text, indent) {
 	}
 
 	// remove trailing
-	while (isEmpty(lines[lines.length - 1])) {
+	while (isEmpty(lines.at(-1))) {
 		lines.pop();
 	}
 

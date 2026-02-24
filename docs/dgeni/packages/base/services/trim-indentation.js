@@ -21,12 +21,12 @@ function calcIndent(text) {
 			lines.shift();
 		}
 
-		lines.forEach((line) => {
+		for (const line of lines) {
 			if (!isEmpty(line)) {
 				const indent = line.match(/^\s*/)[0].length;
 				minIndent = Math.min(minIndent, indent);
 			}
-		});
+		}
 	}
 
 	return minIndent;
@@ -36,7 +36,9 @@ function reindent(text, indent) {
 	const lines = text.split("\n");
 	const indentedLines = [];
 	const indentStr = new Array(indent + 1).join(" ");
-	lines.forEach((line) => indentedLines.push(indentStr + line));
+	for (const line of lines) {
+		indentedLines.push(indentStr + line);
+	}
 	return indentedLines.join("\n");
 }
 
@@ -56,7 +58,7 @@ function trimIndent(text, indent) {
 	}
 
 	// remove trailing
-	while (isEmpty(lines[lines.length - 1])) {
+	while (isEmpty(lines.at(-1))) {
 		lines.pop();
 	}
 

@@ -53,9 +53,9 @@ module.exports = function readFilesProcessor(log) {
 
 					log.debug(`Found ${files.length} files:\n`, files);
 
-					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
-					files.forEach((file) => {
+					for (const file of files) {
 						// Load up each file and extract documents using the appropriate fileReader
+						/* eslint-disable-next-line sonarjs/no-nested-functions -- inherited technical debt */
 						const docsPromise = readFile(file).then((content) => {
 							// Choose a file reader for this file
 							const fileReader = sourceInfo.fileReader
@@ -74,15 +74,15 @@ module.exports = function readFilesProcessor(log) {
 							const docs = fileReader.getDocs(fileInfo);
 
 							// Attach the fileInfo object to each doc
-							docs.forEach((doc) => {
+							for (const doc of docs) {
 								doc.fileInfo = fileInfo;
-							});
+							}
 
 							return docs;
 						});
 
 						docsPromises.push(docsPromise);
-					});
+					}
 					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 					return Promise.all(docsPromises).then((results) => results.flat());
 				});
@@ -107,7 +107,7 @@ function createFileInfo(file, content, sourceInfo, fileReader, basePath) {
 
 function getFileReaderMap(fileReaders) {
 	const fileReaderMap = new Map();
-	fileReaders.forEach((fileReader) => {
+	for (const fileReader of fileReaders) {
 		if (!fileReader.name) {
 			throw new Error("Invalid File Reader: It must have a name property");
 		}
@@ -116,7 +116,7 @@ function getFileReaderMap(fileReaders) {
 		}
 
 		fileReaderMap.set(fileReader.name, fileReader);
-	});
+	}
 	return fileReaderMap;
 }
 

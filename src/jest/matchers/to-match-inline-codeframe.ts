@@ -21,7 +21,7 @@ function toMatchInlineCodeframeImpl(
 	const results = getResults(filename, actual);
 	const enabled = kleur.enabled;
 	kleur.enabled = false;
-	const snapshot = codeframe(results, options).replace(/\s+$/gm, "");
+	const snapshot = codeframe(results, options).replaceAll(/\s+$/gm, "");
 	kleur.enabled = enabled;
 
 	/* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call --

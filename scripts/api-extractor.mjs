@@ -51,7 +51,7 @@ async function patchAugmentations(config) {
 	 * @returns {string}
 	 */
 	function rewriteImport(content) {
-		return content.replace(/from ".*";/g, 'from "./index"');
+		return content.replaceAll(/from ".*";/g, 'from "./index"');
 	}
 
 	/**
@@ -69,10 +69,11 @@ async function patchAugmentations(config) {
 	console.group("Patching module augmentations");
 	try {
 		const mainDir = path.dirname(mainEntryPointFilePath);
-		const pattern = `${mainDir.replace(/\\/g, "/")}/**/*.d.ts`;
+		const pattern = `${mainDir.replaceAll("\\", "/")}/**/*.d.ts`;
 		const files = await glob(pattern);
 		console.log("Searching", files.length, "declaration files in", mainDir);
-		const augmentations = (await Promise.all(files.map(extract))).flat();
+		const results = await Promise.all(files.map(extract));
+		const augmentations = results.flat();
 		console.log("Found", augmentations.length, "module augmentation(s) matching", target);
 		if (augmentations.length > 0) {
 			console.log("Writing", publicTrimmedFilePath);
@@ -125,7 +126,8 @@ export async function apiExtractor(patterns) {
 		console.log("Running API Extractor in local mode.");
 	}
 
-	const filenames = (await expandPatterns(patterns)).sort(cmp);
+	const expanded = await expandPatterns(patterns);
+	const filenames = expanded.toSorted(cmp);
 	const plural = filenames.length !== 1 ? "s" : "";
 	console.group("Processing", filenames.length, `configuration file${plural}:`);
 	for (const filename of filenames) {

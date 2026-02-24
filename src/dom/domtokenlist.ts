@@ -26,7 +26,7 @@ function parse(text: string, baseLocation: Location | null): Result {
 		}
 
 		/* extract token */
-		const token = text.substring(begin, end);
+		const token = text.slice(begin, end);
 		tokens.push(token);
 
 		/* extract location */
@@ -51,7 +51,7 @@ export class DOMTokenList extends Array<string> {
 	public constructor(value: string | DynamicValue | null, location: Location | null) {
 		if (value && typeof value === "string") {
 			/* replace all whitespace with a single space for easier parsing */
-			const normalized = value.replace(/[\t\r\n]/g, " ");
+			const normalized = value.replaceAll(/[\t\r\n]/g, " ");
 			const { tokens, locations } = parse(normalized, location);
 			super(...tokens);
 			this.locations = locations;

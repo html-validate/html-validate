@@ -8,9 +8,9 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
 		const getIdMap = new Map();
 		const getAliasesMap = new Map();
 
-		idTemplates.forEach((template) => {
+		for (const template of idTemplates) {
 			if (template.docTypes) {
-				template.docTypes.forEach((docType) => {
+				for (const docType of template.docTypes) {
 					if (template.getId) {
 						getIdMap.set(docType, template.getId);
 					} else if (template.idTemplate) {
@@ -20,9 +20,9 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
 					if (template.getAliases) {
 						getAliasesMap.set(docType, template.getAliases);
 					}
-				});
+				}
 			}
-		});
+		}
 
 		return { getIdMap, getAliasesMap };
 	}
@@ -37,7 +37,7 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
 		$process(docs) {
 			const { getIdMap, getAliasesMap } = initializeMaps(this.idTemplates);
 
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				try {
 					if (!doc.id) {
 						const getId = getIdMap.get(doc.docType);
@@ -63,7 +63,7 @@ module.exports = function computeIdsProcessor(log, aliasMap, createDocMessage) {
 				}
 
 				log.debug("computed id for:", `"${doc.id}" (${doc.docType})`);
-			});
+			}
 		},
 	};
 };

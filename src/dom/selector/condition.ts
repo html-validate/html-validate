@@ -9,7 +9,7 @@ import { type SelectorContext } from "./selector-context";
  * E.g. "foo\:bar" becomes "foo:bar"
  */
 function stripslashes(value: string): string {
-	return value.replace(/\\(.)/g, "$1");
+	return value.replaceAll(/\\(.)/g, "$1");
 }
 
 /**

@@ -22,13 +22,15 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 		},
 		$runAfter: ["writing-files"],
 		$runBefore: ["files-written"],
+
+		/* eslint-disable-next-line complexity -- inherited technical debt */
 		$process(docs) {
 			const allDocs = [];
 			const allValidReferences = {};
 
 			// Extract and store all the possible valid anchor reference that can be found
 			// in each doc to the allValidReferences hash for checking later
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				// Only check specified output files
 				if (this.checkDoc(doc)) {
 					// Make the path to the doc relative to the webRoot
@@ -41,7 +43,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 					linkInfo.doc = doc;
 					allDocs.push(linkInfo);
 
-					this.pathVariants.forEach((pathVariant) => {
+					for (const pathVariant of this.pathVariants) {
 						const docPathVariant = docPath + pathVariant;
 
 						// The straight doc path is a valid reference
@@ -49,42 +51,41 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 						// The path with a trailing hash is valid
 						allValidReferences[`${docPathVariant}#`] = true;
 						// The path referencing each name/id in the doc is valid
-						/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
-						linkInfo.names.forEach((name) => {
+
+						for (const name of linkInfo.names) {
 							allValidReferences[`${docPathVariant}#${name}`] = true;
-						});
-					});
+						}
+					}
 				}
-			});
+			}
 
 			let unmatchedLinkCount = 0;
 			const messages = [];
 
 			// Check that all anchor links in each doc point to valid
 			// references within the docs collection
-			allDocs.forEach((linkInfo) => {
+			for (const linkInfo of allDocs) {
 				log.silly("checking file", linkInfo);
 
 				const unmatchedLinks = [];
 
 				// Filter out links that should be ignored
-				linkInfo.hrefs
-					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
-					.filter((href) => this.ignoredLinks.every((rule) => !rule.test(href)))
-					.forEach((link) => {
-						const normalizedLink = path.join(
-							this.webRoot,
-							resolveUrl(linkInfo.path, decodeURIComponent(link), this.base),
-						);
-						if (
-							!this.pathVariants.some(
-								/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
-								(pathVariant) => allValidReferences[normalizedLink + pathVariant],
-							)
-						) {
-							unmatchedLinks.push(link);
-						}
-					});
+				const linksToCheck = linkInfo.hrefs.filter((href) =>
+					this.ignoredLinks.every((rule) => !rule.test(href)),
+				);
+				for (const link of linksToCheck) {
+					const normalizedLink = path.join(
+						this.webRoot,
+						resolveUrl(linkInfo.path, decodeURIComponent(link), this.base),
+					);
+					if (
+						!this.pathVariants.some(
+							(pathVariant) => allValidReferences[normalizedLink + pathVariant],
+						)
+					) {
+						unmatchedLinks.push(link);
+					}
+				}
 
 				if (unmatchedLinks.length) {
 					unmatchedLinkCount += unmatchedLinks.length;
@@ -94,7 +95,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 							.join("\n")}`,
 					);
 				}
-			});
+			}
 
 			if (unmatchedLinkCount) {
 				const plural = unmatchedLinkCount > 0 ? "s" : "";

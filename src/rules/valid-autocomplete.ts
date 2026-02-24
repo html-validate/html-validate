@@ -69,7 +69,7 @@ type TokenType = "section" | "hint" | "contact" | "field1" | "field2" | "webauth
 const expectedOrder: TokenType[] = ["section", "hint", "contact", "field1", "field2", "webauthn"];
 
 /* Field names which does not allow the optional contact token */
-const fieldNames1 = [
+const fieldNames1 = new Set([
 	"name",
 	"honorific-prefix",
 	"given-name",
@@ -114,10 +114,10 @@ const fieldNames1 = [
 	"sex",
 	"url",
 	"photo",
-];
+]);
 
 /* Field names which allows for the optional contact token */
-const fieldNames2 = [
+const fieldNames2 = new Set([
 	"tel",
 	"tel-country-code",
 	"tel-national",
@@ -128,7 +128,7 @@ const fieldNames2 = [
 	"tel-extension",
 	"email",
 	"impp",
-];
+]);
 
 /* Mapping between field names and which control group it requires */
 const fieldNameGroup: Record<string, ControlGroup> = {
@@ -199,7 +199,7 @@ function matchHint(token: string): boolean {
 }
 
 function matchFieldNames1(token: string): boolean {
-	return fieldNames1.includes(token);
+	return fieldNames1.has(token);
 }
 
 function matchContact(token: string): boolean {
@@ -208,7 +208,7 @@ function matchContact(token: string): boolean {
 }
 
 function matchFieldNames2(token: string): boolean {
-	return fieldNames2.includes(token);
+	return fieldNames2.has(token);
 }
 
 function matchWebauthn(token: string): boolean {

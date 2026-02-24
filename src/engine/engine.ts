@@ -159,7 +159,9 @@ export class Engine<T extends Parser = Parser> {
 			}
 			lines.push({ event, data });
 		});
-		source.forEach((src) => parser.parseHtml(src));
+		for (const src of source) {
+			parser.parseHtml(src);
+		}
 		return lines;
 	}
 

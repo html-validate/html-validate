@@ -5,6 +5,7 @@ export class ParserError extends Error {
 
 	public constructor(location: Location, message: string) {
 		super(message);
+		this.name = "ParserError";
 		this.location = location;
 	}
 }

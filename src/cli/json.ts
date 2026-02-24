@@ -1,6 +1,6 @@
 import { type EventDump, type Location } from "..";
 
-const jsonIgnored = [
+const jsonIgnored = new Set([
 	"annotation",
 	"blockedRules",
 	"cache",
@@ -10,8 +10,8 @@ const jsonIgnored = [
 	"nodeType",
 	"unique",
 	"voidElement",
-];
-const jsonFiltered = [
+]);
+const jsonFiltered = new Set([
 	"childNodes",
 	"children",
 	"data",
@@ -19,18 +19,18 @@ const jsonFiltered = [
 	"metaElement",
 	"originalData",
 	"parent",
-];
+]);
 
 function isLocation(key: string, value: unknown): value is Location {
 	return Boolean(value && (key === "location" || key.endsWith("Location")));
 }
 
 function isIgnored(key: string): boolean {
-	return key.startsWith("_") || jsonIgnored.includes(key);
+	return key.startsWith("_") || jsonIgnored.has(key);
 }
 
 function isFiltered(key: string, value: unknown): boolean {
-	return Boolean(value && jsonFiltered.includes(key));
+	return Boolean(value && jsonFiltered.has(key));
 }
 
 export function eventReplacer<T>(this: void, key: string, value: T): T | string | undefined {

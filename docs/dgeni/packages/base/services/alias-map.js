@@ -18,12 +18,12 @@ module.exports = function aliasMap() {
 
 			// We store references to this doc under all its id aliases in the map
 			// This map will be used to match references to docs
-			doc.aliases.forEach((alias) => {
+			for (const alias of doc.aliases) {
 				// Try to get a list of docs that match this alias
 				const matchedDocs = map.get(alias) || [];
 				matchedDocs.push(doc);
 				map.set(alias, matchedDocs);
-			});
+			}
 		},
 
 		/**
@@ -31,7 +31,7 @@ module.exports = function aliasMap() {
 		 * @param  {Object} doc The document to remove from the map
 		 */
 		removeDoc(doc) {
-			doc.aliases.forEach((alias) => {
+			for (const alias of doc.aliases) {
 				const matchedDocs = map.get(alias);
 				if (matchedDocs) {
 					// We have an array of docs so we need to remove the culprit
@@ -40,7 +40,7 @@ module.exports = function aliasMap() {
 						matchedDocs.splice(index, 1);
 					}
 				}
-			});
+			}
 		},
 
 		/**

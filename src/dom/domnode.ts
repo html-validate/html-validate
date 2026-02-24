@@ -208,8 +208,8 @@ export class DOMNode {
 	 * Returns a DOMNode representing the last direct child node or `null` if the
 	 * node has no children.
 	 */
-	public get lastChild(): DOMNode {
-		return this.childNodes[this.childNodes.length - 1] || null;
+	public get lastChild(): DOMNode | null {
+		return this.childNodes.at(-1) ?? null;
 	}
 
 	/**

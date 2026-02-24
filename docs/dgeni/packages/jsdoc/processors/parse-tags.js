@@ -18,7 +18,7 @@ function parseTagsProcessor(log, createDocMessage, backTickParserAdapter, htmlBl
 		$process(docs) {
 			const tagParser = createTagParser(this.tagDefinitions, this.parserAdapters);
 
-			docs.forEach((doc) => {
+			for (const doc of docs) {
 				try {
 					doc.tags = tagParser(doc.content || "", doc.startingLine);
 				} catch (e) {
@@ -26,7 +26,7 @@ function parseTagsProcessor(log, createDocMessage, backTickParserAdapter, htmlBl
 					log.error(message);
 					throw new Error(message);
 				}
-			});
+			}
 		},
 	};
 }
@@ -41,12 +41,14 @@ module.exports = parseTagsProcessor;
 function createTagDefMap(tagDefinitions) {
 	// Create a map of the tagDefinitions so that we can look up tagDefs based on name or alias
 	const map = new Map();
-	tagDefinitions.forEach((tagDefinition) => {
+	for (const tagDefinition of tagDefinitions) {
 		map.set(tagDefinition.name, tagDefinition);
 		if (tagDefinition.aliases) {
-			tagDefinition.aliases.forEach((alias) => map.set(alias, tagDefinition));
+			for (const alias of tagDefinition.aliases) {
+				map.set(alias, tagDefinition);
+			}
 		}
-	});
+	}
 	return map;
 }
 
@@ -124,11 +126,15 @@ function createTagParser(tagDefinitions, parserAdapters) {
 	};
 
 	function init(lines, tags) {
-		parserAdapters.forEach((adapter) => adapter.init(lines, tags));
+		for (const adapter of parserAdapters) {
+			adapter.init(lines, tags);
+		}
 	}
 
 	function nextLine(line, lineNumber) {
-		parserAdapters.forEach((adapter) => adapter.nextLine(line, lineNumber));
+		for (const adapter of parserAdapters) {
+			adapter.nextLine(line, lineNumber);
+		}
 	}
 
 	function parseForTags() {

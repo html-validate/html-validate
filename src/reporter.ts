@@ -93,16 +93,16 @@ export class Reporter {
 		}
 		const valid = reports.every((report) => report.valid);
 		const merged: Record<string, Result> = {};
-		reports.forEach((report: Report) => {
-			report.results.forEach((result: Result) => {
+		for (const report of reports) {
+			for (const result of report.results) {
 				const key = result.filePath;
 				if (key in merged) {
 					merged[key].messages = [...merged[key].messages, ...result.messages];
 				} else {
 					merged[key] = { ...result };
 				}
-			});
-		});
+			}
+		}
 		const results: Result[] = Object.values(merged).map((result: Result) => {
 			/* recalculate error- and warning-count */
 			result.errorCount = countErrors(result.messages);
@@ -162,7 +162,7 @@ export class Reporter {
 		const report: Report = {
 			valid: this.isValid(),
 			results: Object.keys(this.result).map((filePath) => {
-				const messages = Array.from(this.result[filePath], freeze).sort(messageSort);
+				const messages = Array.from(this.result[filePath], freeze).toSorted(messageSort);
 				const source = (sources ?? []).find((source: Source) => filePath === source.filename);
 				return {
 					filePath,

@@ -223,15 +223,15 @@ describe("configuration smoketest", () => {
 	/* extract only relevant rules from configuration to avoid bloat when new
 	 * rules are added to recommended config */
 	function filter(src: ConfigData): ConfigData {
-		const whitelisted = [
+		const whitelisted = new Set([
 			"no-self-closing",
 			"deprecated",
 			"element-permitted-content",
 			"void-content",
-		];
+		]);
 		const data = { rules: {}, ...src };
 		data.rules = Object.keys(data.rules)
-			.filter((key) => whitelisted.includes(key))
+			.filter((key) => whitelisted.has(key))
 			.reduce<RuleConfig>((dst, key) => {
 				dst[key] = data.rules[key];
 				return dst;

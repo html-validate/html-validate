@@ -12,7 +12,7 @@ const path = require("canonical-path");
  * @property {boolean} relativeLinks Whether we expect the links to be relative to the originating doc
  */
 module.exports = function getLinkInfo(getDocFromAlias, encodeCodeBlock, log) {
-	/* eslint-disable-next-line complexity -- techical debt */
+	/* eslint-disable-next-line complexity -- technical debt */
 	return function getLinkInfoImpl(url, title, currentDoc) {
 		let linkInfo = {
 			url,
@@ -55,13 +55,13 @@ module.exports = function getLinkInfo(getDocFromAlias, encodeCodeBlock, log) {
 			linkInfo = getLinkInfoImpl(pathAndHash[0], title, currentDoc);
 			linkInfo.url = `${linkInfo.url}#${pathAndHash[1]}`;
 			return linkInfo;
-		} else if (url.indexOf("/") === -1 && url.indexOf("#") !== 0) {
+		} else if (!url.includes("/") && url.indexOf("#") !== 0) {
 			linkInfo.valid = false;
 			linkInfo.errorType = "missing";
 			linkInfo.error = `Invalid link (does not match any doc): "${url}"`;
 		} else {
 			linkInfo.title =
-				title || (url.indexOf("#") === 0 ? url.substring(1) : path.basename(url, ".html"));
+				title || (url.indexOf("#") === 0 ? url.slice(1) : path.basename(url, ".html"));
 		}
 
 		return linkInfo;

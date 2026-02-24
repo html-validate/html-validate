@@ -6,8 +6,7 @@ import { NestedError } from "./nested-error";
 export class UserError extends NestedError {
 	public constructor(message: string, nested?: Error) {
 		super(message, nested);
-		Error.captureStackTrace(this, UserError);
-		this.name = UserError.name;
+		this.name = "UserError";
 
 		Object.defineProperty(this, "isUserError", {
 			value: true,

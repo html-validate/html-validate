@@ -12,7 +12,7 @@ export function ariaNaming(element: HtmlElement): "allowed" | "prohibited";
 
 // @public
 export class Attribute {
-    constructor(key: string, value: string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
+    constructor(key: string, value: string | DynamicValue | null | undefined, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
     get isDynamic(): boolean;
     get isStatic(): boolean;
     readonly key: string;
@@ -366,7 +366,7 @@ export class DOMNode {
     // (undocumented)
     isRootElement(): boolean;
     isSameNode(otherNode: DOMNode): boolean;
-    get lastChild(): DOMNode;
+    get lastChild(): DOMNode | null;
     // (undocumented)
     readonly location: Location_2;
     // (undocumented)

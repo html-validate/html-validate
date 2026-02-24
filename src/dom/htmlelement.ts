@@ -315,8 +315,7 @@ export class HtmlElement extends DOMNode {
 			parts.push(`${cur.tagName.toLowerCase()}:nth-child(${String(index + 1)})`);
 		}
 
-		/* eslint-disable-next-line sonarjs/no-misleading-array-reverse -- technical debt */
-		return parts.reverse().join(" > ");
+		return parts.toReversed().join(" > ");
 	}
 
 	/**
@@ -360,7 +359,7 @@ export class HtmlElement extends DOMNode {
 		this.metaElement ??= {} as MetaElement;
 		for (const key of MetaCopyableProperty) {
 			const value = meta[key];
-			if (typeof value !== "undefined") {
+			if (value !== undefined) {
 				setMetaProperty(this.metaElement, key, value);
 			} else {
 				/* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- technical debt */
@@ -486,8 +485,8 @@ export class HtmlElement extends DOMNode {
 			return this.cacheSet(TABINDEX, 0);
 		}
 
-		const parsed = parseInt(tabindex.value, 10);
-		if (isNaN(parsed)) {
+		const parsed = Number.parseInt(tabindex.value, 10);
+		if (Number.isNaN(parsed)) {
 			return this.cacheSet(TABINDEX, null);
 		}
 
@@ -624,7 +623,10 @@ export class HtmlElement extends DOMNode {
 	 */
 	public get lastElementChild(): HtmlElement | null {
 		const children = this.childElements;
-		return children.length > 0 ? children[children.length - 1] : null;
+		return children.length > 0
+			? /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- it is checked right before this */
+				children.at(-1)!
+			: null;
 	}
 
 	public get siblings(): HtmlElement[] {

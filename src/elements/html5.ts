@@ -62,7 +62,7 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 	}
 
 	/* only when rel matches one of these keywords it is body ok */
-	const bodyOk = [
+	const bodyOk = new Set([
 		"dns-prefetch",
 		"modulepreload",
 		"pingback",
@@ -70,9 +70,9 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 		"prefetch",
 		"preload",
 		"stylesheet",
-	];
+	]);
 	const tokens = rel.toLowerCase().split(/\s+/);
-	return tokens.some((keyword) => bodyOk.includes(keyword));
+	return tokens.some((keyword) => bodyOk.has(keyword));
 }
 
 export default {
@@ -171,7 +171,7 @@ export default {
 					if (!attr || attr === "" || typeof attr !== "string") {
 						return null;
 					}
-					const disallowed = [
+					const disallowed = new Set([
 						/* whatwg */
 						"canonical",
 						"dns-prefetch",
@@ -219,10 +219,10 @@ export default {
 						"stylesheet/less",
 						"token_endpoint",
 						"yandex-tableau-widget",
-					];
+					]);
 					const tokens = attr.toLowerCase().split(/\s+/);
 					for (const keyword of tokens) {
-						if (disallowed.includes(keyword)) {
+						if (disallowed.has(keyword)) {
 							return `<a> does not allow rel="${keyword}"`;
 						}
 						if (keyword.startsWith("dcterms.")) {
@@ -351,7 +351,7 @@ export default {
 					if (!attr || attr === "" || typeof attr !== "string") {
 						return null;
 					}
-					const disallowed = [
+					const disallowed = new Set([
 						/* whatwg */
 						"canonical",
 						"dns-prefetch",
@@ -399,10 +399,10 @@ export default {
 						"stylesheet/less",
 						"token_endpoint",
 						"yandex-tableau-widget",
-					];
+					]);
 					const tokens = attr.toLowerCase().split(/\s+/);
 					for (const keyword of tokens) {
-						if (disallowed.includes(keyword)) {
+						if (disallowed.has(keyword)) {
 							return `<area> does not allow rel="${keyword}"`;
 						}
 						if (keyword.startsWith("dcterms.")) {
@@ -1028,7 +1028,7 @@ export default {
 					if (!attr || attr === "" || typeof attr !== "string") {
 						return null;
 					}
-					const disallowed = [
+					const disallowed = new Set([
 						/* whatwg */
 						"alternate",
 						"canonical",
@@ -1047,10 +1047,10 @@ export default {
 						"stylesheet",
 						"tag",
 						"terms-of-service",
-					];
+					]);
 					const tokens = attr.toLowerCase().split(/\s+/);
 					for (const keyword of tokens) {
-						if (disallowed.includes(keyword)) {
+						if (disallowed.has(keyword)) {
 							return `<form> does not allow rel="${keyword}"`;
 						}
 					}
@@ -1828,7 +1828,7 @@ export default {
 					if (!attr || attr === "" || typeof attr !== "string") {
 						return null;
 					}
-					const disallowed = [
+					const disallowed = new Set([
 						/* whatwg */
 						"bookmark",
 						"external",
@@ -1843,10 +1843,10 @@ export default {
 						"entry-content",
 						"lightbox",
 						"lightvideo",
-					];
+					]);
 					const tokens = attr.toLowerCase().split(/\s+/);
 					for (const keyword of tokens) {
-						if (disallowed.includes(keyword)) {
+						if (disallowed.has(keyword)) {
 							return `<link> does not allow rel="${keyword}"`;
 						}
 					}
@@ -2477,7 +2477,7 @@ export default {
 				}
 				const size = node.getAttribute("size");
 				if (typeof size === "string") {
-					const parsed = parseInt(size, 10);
+					const parsed = Number.parseInt(size, 10);
 					if (parsed > 1) {
 						return "listbox";
 					}

@@ -23,10 +23,14 @@ module.exports = function templateEngine(templateFinder) {
 			const engine = new nunjucks.Environment(loader, this.config);
 
 			// Configure nunjucks with the custom filters
-			this.filters.forEach((filter) => engine.addFilter(filter.name, filter.process));
+			for (const filter of this.filters) {
+				engine.addFilter(filter.name, filter.process);
+			}
 
 			// Configure nunjucks with the custom tags
-			this.tags.forEach((tag) => engine.addExtension(tag.tags[0], tag));
+			for (const tag of this.tags) {
+				engine.addExtension(tag.tags[0], tag);
+			}
 
 			return function render(template, data) {
 				return engine.render(template, data);

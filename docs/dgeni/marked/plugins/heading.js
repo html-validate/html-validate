@@ -13,9 +13,9 @@ function isVersionNumber(value) {
 function generateId(value) {
 	const slug = value
 		.toLowerCase()
-		.replace(/\(.*?\)/g, "")
-		.replace(/[^\w]+/g, "-")
-		.replace(/(^-|-$)/g, "");
+		.replaceAll(/\(.*?\)/g, "")
+		.replaceAll(/[^\w]+/g, "-")
+		.replaceAll(/(^-|-$)/g, "");
 
 	if (isVersionNumber(value)) {
 		return `v${slug}`;
@@ -65,7 +65,7 @@ function plugin() {
 		renderer: {
 			heading({ depth, tokens }) {
 				const parsed = this.parser.parseInline(tokens, this.parser.textRenderer);
-				const raw = parsed.replace(/<([!/a-z].*?)>/gi, "$1");
+				const raw = parsed.replaceAll(/<([!/a-z].*?)>/gi, "$1");
 				const text = this.parser.parseInline(tokens);
 				return heading(text, depth, raw);
 			},

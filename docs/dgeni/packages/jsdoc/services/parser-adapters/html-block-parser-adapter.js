@@ -39,7 +39,7 @@ module.exports = function htmlBlockParserAdapter() {
 		nextLine(line, lineNumber) {
 			if (this.tagDepth === 0 && this.lines[lineNumber - 1] === "") {
 				const m = TAG_REGEXP.exec(line);
-				if (m && this.voidTags.indexOf(m[1]) === -1) {
+				if (m && !this.voidTags.includes(m[1])) {
 					this.currentTag = m[1];
 				}
 			}

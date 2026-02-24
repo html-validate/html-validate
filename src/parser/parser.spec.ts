@@ -102,14 +102,14 @@ class ExposedParser extends Parser {
 }
 
 describe("parser", () => {
-	const ignoredEvents = [
+	const ignoredEvents = new Set([
 		"dom:load",
 		"dom:ready",
 		"parse:begin",
 		"parse:end",
 		"token",
 		"whitespace",
-	];
+	]);
 
 	let events: any[];
 	let parser: ExposedParser;
@@ -118,7 +118,7 @@ describe("parser", () => {
 		events = [];
 		parser = new ExposedParser(await Config.empty().resolve());
 		parser.on("*", (event: string, data: any) => {
-			if (ignoredEvents.includes(event)) {
+			if (ignoredEvents.has(event)) {
 				return;
 			}
 			events.push(mergeEvent(event, data));

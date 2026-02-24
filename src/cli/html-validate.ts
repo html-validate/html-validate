@@ -226,7 +226,7 @@ if (argv._.length === 0) {
 }
 
 /* check that supplied config file exists before creating CLI */
-if (typeof argv.config !== "undefined") {
+if (argv.config !== undefined) {
 	const checkPath = path.resolve(argv.config);
 	if (!fs.existsSync(checkPath)) {
 		console.error(`The file "${argv.config}" was not found.`);
@@ -244,11 +244,11 @@ async function run(): Promise<void> {
 	});
 	const mode = getMode(argv);
 	const formatter = await cli.getFormatter(argv.formatter);
-	const maxWarnings = parseInt(argv["max-warnings"] ?? "-1", 10);
+	const maxWarnings = Number.parseInt(argv["max-warnings"] ?? "-1", 10);
 	const htmlvalidate = await cli.getValidator();
 
 	/* sanity check: ensure maxWarnings has a valid value */
-	if (isNaN(maxWarnings)) {
+	if (Number.isNaN(maxWarnings)) {
 		console.error(`Invalid value "${String(argv["max-warnings"])}" given to --max-warnings`);
 		process.exit(1);
 	}
@@ -271,18 +271,26 @@ async function run(): Promise<void> {
 		}
 
 		let success: boolean;
-		if (mode === Mode.LINT) {
-			success = await lint(htmlvalidate, process.stdout, files, {
-				formatter,
-				maxWarnings,
-				stdinFilename: argv["stdin-filename"] ?? false,
-			});
-		} else if (mode === Mode.INIT) {
-			success = await init(cli, process.stdout, { cwd: process.cwd() });
-		} else if (mode === Mode.PRINT_CONFIG) {
-			success = await printConfig(htmlvalidate, process.stdout, files);
-		} else {
-			success = await dump(htmlvalidate, process.stdout, files, mode);
+		switch (mode) {
+			case Mode.LINT: {
+				success = await lint(htmlvalidate, process.stdout, files, {
+					formatter,
+					maxWarnings,
+					stdinFilename: argv["stdin-filename"] ?? false,
+				});
+				break;
+			}
+			case Mode.INIT: {
+				success = await init(cli, process.stdout, { cwd: process.cwd() });
+				break;
+			}
+			case Mode.PRINT_CONFIG: {
+				success = await printConfig(htmlvalidate, process.stdout, files);
+				break;
+			}
+			default: {
+				success = await dump(htmlvalidate, process.stdout, files, mode);
+			}
 		}
 		process.exit(success ? 0 : 1);
 	} catch (err) {
