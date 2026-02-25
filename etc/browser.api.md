@@ -1000,18 +1000,26 @@ export { Report_2 as Report }
 
 // @public (undocumented)
 export class Reporter {
+    // @internal
     constructor();
-    // (undocumented)
-    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context: ContextType): void;
-    // (undocumented)
+    // @internal (undocumented)
+    add<ContextType, OptionsType>(options: {
+        rule: Rule<ContextType, OptionsType>;
+        message: string;
+        severity: number;
+        node: DOMNode | null;
+        location: Location_2;
+        context: ContextType;
+    }): void;
+    // @internal (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
-    // (undocumented)
+    // @internal (undocumented)
     protected isValid(): boolean;
     static merge(reports: Report_2[]): Report_2;
     static merge(reports: Promise<Report_2[]> | Array<Promise<Report_2>>): Promise<Report_2>;
-    // (undocumented)
+    // @internal (undocumented)
     protected result: Record<string, DeferredMessage[]>;
-    // (undocumented)
+    // @internal (undocumented)
     save(sources?: Source[]): Report_2;
 }
 

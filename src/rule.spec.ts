@@ -74,32 +74,32 @@ describe("rule base class", () => {
 			const node = HtmlElement.createElement("foo", location);
 			rule.setServerity(Severity.WARN);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.WARN,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.WARN,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				expect.anything(),
-				undefined,
-			);
+				location: expect.anything(),
+				context: undefined,
+			});
 		});
 
 		it('should add message with severity "error"', () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				expect.anything(),
-				undefined,
-			);
+				location: expect.anything(),
+				context: undefined,
+			});
 		});
 
 		it("should not add message when disabled", () => {
@@ -130,16 +130,16 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo", mockLocation);
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				mockLocation,
-				undefined,
-			);
+				location: mockLocation,
+				context: undefined,
+			});
 		});
 
 		it("should use event location if no explicit location", () => {
@@ -149,32 +149,32 @@ describe("rule base class", () => {
 			const callback = parserOn.mock.calls[0][1];
 			callback("event", mockEvent);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				mockEvent.location,
-				undefined,
-			);
+				location: mockEvent.location,
+				context: undefined,
+			});
 		});
 
 		it("should use node location if no node location", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", mockLocation);
 			rule.report(node, "foo");
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				mockLocation,
-				undefined,
-			);
+				location: mockLocation,
+				context: undefined,
+			});
 		});
 
 		it("should set context if provided", () => {
@@ -182,16 +182,16 @@ describe("rule base class", () => {
 			const context = { foo: "bar" };
 			const node = HtmlElement.createElement("foo", location);
 			rule.report(node, "foo", null, context);
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				expect.anything(),
-				{ foo: "bar" },
-			);
+				location: expect.anything(),
+				context: { foo: "bar" },
+			});
 		});
 
 		it("should not add message if node has disabled rule", () => {
@@ -208,16 +208,16 @@ describe("rule base class", () => {
 			const node = HtmlElement.createElement("foo", location);
 			const context: RuleContext = { foo: "bar" };
 			rule.report(node, "foo {{ foo }}", mockLocation, context);
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo bar",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo bar",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				mockLocation,
+				location: mockLocation,
 				context,
-			);
+			});
 		});
 
 		it("should trigger rule:error event", () => {
@@ -240,16 +240,16 @@ describe("rule base class", () => {
 				node,
 				message: "foo",
 			});
-			expect(reporter.add).toHaveBeenCalledWith(
+			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
-				"foo",
-				Severity.ERROR,
-				expect.objectContaining({
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				expect.anything(),
-				undefined,
-			);
+				location: expect.anything(),
+				context: undefined,
+			});
 		});
 	});
 

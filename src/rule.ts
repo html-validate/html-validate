@@ -315,7 +315,14 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		});
 		if (enabled && !blocked) {
 			const interpolated = interpolate(message, context ?? {});
-			this.reporter.add(this, interpolated, this.severity, node, where, context);
+			this.reporter.add({
+				rule: this,
+				message: interpolated,
+				severity: this.severity,
+				node,
+				location: where,
+				context,
+			});
 		}
 	}
 

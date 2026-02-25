@@ -60,8 +60,14 @@ export interface Report {
  * @public
  */
 export class Reporter {
+	/**
+	 * @internal
+	 */
 	protected result: Record<string, DeferredMessage[]>;
 
+	/**
+	 * @internal
+	 */
 	public constructor() {
 		this.result = {};
 	}
@@ -69,6 +75,7 @@ export class Reporter {
 	/**
 	 * Merge two or more reports into a single one.
 	 *
+	 * @public
 	 * @param reports- Reports to merge.
 	 * @returns A merged report.
 	 */
@@ -77,6 +84,7 @@ export class Reporter {
 	/**
 	 * Merge two or more reports into a single one.
 	 *
+	 * @public
 	 * @param reports- Reports to merge.
 	 * @returns A promise resolved with the merged report.
 	 */
@@ -117,15 +125,18 @@ export class Reporter {
 		};
 	}
 
-	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
-	public add<ContextType, OptionsType>(
-		rule: Rule<ContextType, OptionsType>,
-		message: string,
-		severity: number,
-		node: DOMNode | null,
-		location: Location,
-		context: ContextType,
-	): void {
+	/**
+	 * @internal
+	 */
+	public add<ContextType, OptionsType>(options: {
+		rule: Rule<ContextType, OptionsType>;
+		message: string;
+		severity: number;
+		node: DOMNode | null;
+		location: Location;
+		context: ContextType;
+	}): void {
+		const { rule, message, severity, node, location, context } = options;
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
 		}
@@ -151,6 +162,9 @@ export class Reporter {
 		this.result[location.filename].push(entry);
 	}
 
+	/**
+	 * @internal
+	 */
 	public addManual(filename: string, message: DeferredMessage): void {
 		if (!(filename in this.result)) {
 			this.result[filename] = [];
@@ -158,6 +172,9 @@ export class Reporter {
 		this.result[filename].push(message);
 	}
 
+	/**
+	 * @internal
+	 */
 	public save(sources?: Source[]): Report {
 		const report: Report = {
 			valid: this.isValid(),
@@ -180,6 +197,9 @@ export class Reporter {
 		return report;
 	}
 
+	/**
+	 * @internal
+	 */
 	protected isValid(): boolean {
 		const numErrors = Object.values(this.result).reduce((sum, messages) => {
 			return sum + countErrors(messages);
