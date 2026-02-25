@@ -128,15 +128,15 @@ export class Reporter {
 	/**
 	 * @internal
 	 */
-	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
-	public add<ContextType, OptionsType>(
-		rule: Rule<ContextType, OptionsType>,
-		message: string,
-		severity: number,
-		node: DOMNode | null,
-		location: Location,
-		context: ContextType,
-	): void {
+	public add<ContextType, OptionsType>(options: {
+		rule: Rule<ContextType, OptionsType>;
+		message: string;
+		severity: number;
+		node: DOMNode | null;
+		location: Location;
+		context: ContextType;
+	}): void {
+		const { rule, message, severity, node, location, context } = options;
 		if (!(location.filename in this.result)) {
 			this.result[location.filename] = [];
 		}

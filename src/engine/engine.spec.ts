@@ -581,14 +581,14 @@ describe("Engine", () => {
 					source: inline("<div></div>"),
 				};
 				parser.trigger("dom:load", event);
-				expect(add).toHaveBeenCalledWith(
-					expect.any(Rule),
-					"Definition for rule 'foobar' was not found",
-					Severity.ERROR,
-					null,
+				expect(add).toHaveBeenCalledWith({
+					rule: expect.any(Rule),
+					message: "Definition for rule 'foobar' was not found",
+					severity: Severity.ERROR,
+					node: null,
 					location,
-					undefined,
-				);
+					context: undefined,
+				});
 			});
 
 			it("should load from plugins", async () => {

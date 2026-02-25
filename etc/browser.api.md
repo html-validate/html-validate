@@ -1003,7 +1003,14 @@ export class Reporter {
     // @internal
     constructor();
     // @internal (undocumented)
-    add<ContextType, OptionsType>(rule: Rule<ContextType, OptionsType>, message: string, severity: number, node: DOMNode | null, location: Location_2, context: ContextType): void;
+    add<ContextType, OptionsType>(options: {
+        rule: Rule<ContextType, OptionsType>;
+        message: string;
+        severity: number;
+        node: DOMNode | null;
+        location: Location_2;
+        context: ContextType;
+    }): void;
     // @internal (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
     // @internal (undocumented)
