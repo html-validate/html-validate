@@ -127,6 +127,30 @@ describe("rule form-dup-name", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when <button> without type have same name (defaults to submit)", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<button name="foo" value="1"></button>
+				<button name="foo" value="2"></button>
+			</form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when mixing <button> without type and with type=submit", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<form>
+				<button name="foo" value="1"></button>
+				<button name="foo" value="2" type="submit"></button>
+			</form>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report when form control inside <template> have save name", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ `
@@ -318,6 +342,10 @@ describe("rule form-dup-name", () => {
 					<${tagName} name="foo" />
 				</form>
 			`;
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "form-dup-name": ["error", { shared: [] }] },
+			});
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toHaveError({
 				ruleId: "form-dup-name",

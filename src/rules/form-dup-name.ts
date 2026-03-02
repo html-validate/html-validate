@@ -60,8 +60,8 @@ function haveName(name: string | DynamicValue | null | undefined): name is strin
 }
 
 function allowSharedName(node: HtmlElement, shared: string[]): boolean {
-	const type = node.getAttribute("type");
-	return Boolean(type?.valueMatches(shared, false));
+	const type = getControlType(node);
+	return shared.includes(type);
 }
 
 function isInputHidden(element: HtmlElement): boolean {
@@ -70,6 +70,17 @@ function isInputHidden(element: HtmlElement): boolean {
 
 function isInputCheckbox(element: HtmlElement): boolean {
 	return element.is("input") && element.getAttributeValue("type") === "checkbox";
+}
+
+function getControlType(element: HtmlElement): string {
+	const type = element.getAttributeValue("type") ?? "";
+
+	/* implicit default for <button> */
+	if (element.is("button") && type === "") {
+		return "submit";
+	}
+
+	return type;
 }
 
 function isCheckboxWithDefault(
@@ -249,7 +260,7 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		const uniqueElements = this.getUniqueElements(group);
 		const sharedElements = this.getSharedElements(group);
 		/* istanbul ignore next: type will always be set or shared name wouldn't be allowed */
-		const type = control.getAttributeValue("type") ?? "";
+		const type = getControlType(control);
 		if (
 			uniqueElements.has(name) ||
 			(sharedElements.has(name) && sharedElements.get(name) !== type)

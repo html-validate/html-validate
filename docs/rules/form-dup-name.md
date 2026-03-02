@@ -131,12 +131,12 @@ Use two or more hidden or two or more checkboxes with the same name is still an 
 - type: `Array<"radio" | "checkbox" | "submit" | "button" | "reset">`
 - default: `["radio", "submit", "button", "reset"]`
 
-By default only `<input type="radio">` can have a shared common name.
+By default only `<input type="radio">` and each type of `<button>` elements can have a shared common name.
 This options lets you specify additional controls that may have a shared common name.
 
 - `"radio"` - applies to `<input type="radio">`.
 - `"checkbox"` - applies to `<input type="checkbox">`.
-- `"submit"` - applies to `<button type="submit">` and `<input type="submit">`.
+- `"submit"` - applies to `<button type="submit">` and `<input type="submit">` (omitting `type` has implicit `type="submit"`).
 - `"button"` - applies to `<button type="button">` and `<input type="button">`.
 - `"reset"` - applies to `<button type="reset">` and `<input type="reset">`.
 
@@ -187,6 +187,7 @@ export default defineMetadata({
 
 ## Version history
 
+- %version% - Rule handles implicit default button type (submit)
 - 10.1.2 - Rule ignores disabled inputs.
 - 8.19.0 - `allowCheckboxDefault` option added.
 - 8.18.1 - Track `<template>` elements separately.
