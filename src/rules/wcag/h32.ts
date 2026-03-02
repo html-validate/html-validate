@@ -17,13 +17,17 @@ export default class H32 extends Rule {
 		const formTags = this.getTagsWithProperty("form");
 		const formSelector = formTags.join(",");
 
+		/* query all tags that can be submit buttons */
+		const submitButtonTags = this.getTagsWithProperty("submitButton");
+		const submitButtonSelector = submitButtonTags.join(",");
+
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			const forms = document.querySelectorAll(formSelector);
 
 			for (const form of forms) {
 				/* find nested submit buttons */
-				if (hasNestedSubmit(form)) {
+				if (hasNestedSubmit(form, submitButtonSelector)) {
 					continue;
 				}
 
@@ -39,8 +43,8 @@ export default class H32 extends Rule {
 }
 
 function isSubmit(node: HtmlElement): boolean {
-	const type = node.getAttribute("type");
-	return !type || type.valueMatches(/submit|image/);
+	const meta = node.meta;
+	return Boolean(meta?.submitButton);
 }
 
 function isAssociated(id: string, node: HtmlElement): boolean {
@@ -48,9 +52,9 @@ function isAssociated(id: string, node: HtmlElement): boolean {
 	return Boolean(form?.valueMatches(id, true));
 }
 
-function hasNestedSubmit(form: HtmlElement): boolean {
+function hasNestedSubmit(form: HtmlElement, submitButtonSelector: string): boolean {
 	const matches = form
-		.querySelectorAll("button,input")
+		.querySelectorAll(submitButtonSelector)
 		.filter(isSubmit)
 		.filter((node) => !node.hasAttribute("form"));
 	return matches.length > 0;
