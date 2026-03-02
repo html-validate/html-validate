@@ -16,6 +16,7 @@ export {
 	type MetaFocusableCallback,
 	type MetaLabelableCallback,
 	type MetaLookupableProperty,
+	type MetaSubmitButtonCallback,
 	type Permitted,
 	type PermittedAttribute,
 	type PermittedEntry,

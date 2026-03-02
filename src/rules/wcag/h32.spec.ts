@@ -1,5 +1,6 @@
 import { HtmlValidate } from "../../htmlvalidate";
 import "../../jest";
+import { defineMetadata } from "../../meta";
 
 describe("wcag/h32", () => {
 	let htmlvalidate: HtmlValidate;
@@ -113,7 +114,7 @@ describe("wcag/h32", () => {
 		`);
 	});
 
-	it("should support custom elements", async () => {
+	it("should support custom form elements", async () => {
 		expect.assertions(2);
 		const markup = "<my-form></my-form>";
 		const report = await htmlvalidate.validateString(markup);
@@ -123,6 +124,72 @@ describe("wcag/h32", () => {
 			> 1 | <my-form></my-form>
 			    |  ^^^^^^^
 			Selector: my-form"
+		`);
+	});
+
+	it("should not report when form has nested custom submit button", async () => {
+		expect.assertions(1);
+		const customHtmlValidate = new HtmlValidate({
+			root: true,
+			elements: [
+				"html5",
+				{
+					"my-submit-button": {
+						submitButton: true,
+					},
+				},
+			],
+			rules: { "wcag/h32": "error" },
+		});
+		const markup = /* HTML */ `
+			<form>
+				<my-submit-button></my-submit-button>
+			</form>
+		`;
+		const report = await customHtmlValidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should support custom submit button with callback", async () => {
+		expect.assertions(2);
+		const customHtmlValidate = new HtmlValidate({
+			root: true,
+			elements: [
+				"html5",
+				defineMetadata({
+					"my-button": {
+						submitButton(node) {
+							const buttonType = node.getAttribute("button-type");
+							return buttonType === "submit";
+						},
+					},
+				}),
+			],
+			rules: { "wcag/h32": "error" },
+		});
+		const markup = /* HTML */ `
+			<!-- this should not yield an error, button is a submit button -->
+			<form>
+				<my-button button-type="submit"></my-button>
+			</form>
+
+			<!-- this should yield an error, button is not a submit button -->
+			<form>
+				<my-button button-type="button"></my-button>
+			</form>
+		`;
+		const report = await customHtmlValidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <form> element must have a submit button (wcag/h32) at inline:8:5:
+			   6 |
+			   7 | 			<!-- this should yield an error, button is not a submit button -->
+			>  8 | 			<form>
+			     | 			 ^^^^
+			   9 | 				<my-button button-type="button"></my-button>
+			  10 | 			</form>
+			  11 |
+			Selector: form:nth-child(2)"
 		`);
 	});
 

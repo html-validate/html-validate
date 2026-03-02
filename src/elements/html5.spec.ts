@@ -129,7 +129,81 @@ describe("HTML elements", () => {
 		});
 	});
 
+	describe("<button>", () => {
+		it("should be submit button when type is omitted", () => {
+			expect.assertions(1);
+			const markup = "<button></button>";
+			const button = getElement(markup, "button");
+			const meta = button.meta;
+			expect(meta?.submitButton).toBe(true);
+		});
+
+		it("should be submit button when type is submit", () => {
+			expect.assertions(1);
+			const markup = '<button type="submit"></button>';
+			const button = getElement(markup, "button");
+			const meta = button.meta;
+			expect(meta?.submitButton).toBe(true);
+		});
+
+		it("should not be submit button when type is button", () => {
+			expect.assertions(1);
+			const markup = '<button type="button"></button>';
+			const button = getElement(markup, "button");
+			const meta = button.meta;
+			expect(meta?.submitButton).toBe(false);
+		});
+
+		it("should not be submit button when type is reset", () => {
+			expect.assertions(1);
+			const markup = '<button type="reset"></button>';
+			const button = getElement(markup, "button");
+			const meta = button.meta;
+			expect(meta?.submitButton).toBe(false);
+		});
+	});
+
 	describe("<input>", () => {
+		it("should be submit button when type is submit", () => {
+			expect.assertions(1);
+			const markup = '<input type="submit">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.submitButton).toBe(true);
+		});
+
+		it("should be submit button when type is image", () => {
+			expect.assertions(1);
+			const markup = '<input type="image">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.submitButton).toBe(true);
+		});
+
+		it("should not be submit button when type is button", () => {
+			expect.assertions(1);
+			const markup = '<input type="button">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.submitButton).toBe(false);
+		});
+
+		it("should not be submit button when type is text", () => {
+			expect.assertions(1);
+			const markup = '<input type="text">';
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.submitButton).toBe(false);
+		});
+
+		it("should not be submit button when type is omitted", () => {
+			expect.assertions(1);
+			const markup = "<input>";
+			const input = getElement(markup, "input");
+			const meta = input.meta;
+			expect(meta?.submitButton).toBe(false);
+		});
+
 		it("should be focusable unless hidden", () => {
 			expect.assertions(1);
 			const markup = '<input type="text">';

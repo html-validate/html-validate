@@ -797,6 +797,7 @@ export interface MetaData {
     scriptSupporting?: boolean;
     // (undocumented)
     sectioning?: boolean | MetaCategoryCallback;
+    submitButton?: boolean | MetaSubmitButtonCallback;
     templateRoot?: boolean;
     // (undocumented)
     textContent?: TextContent | `${TextContent}`;
@@ -851,7 +852,10 @@ export type MetaImplicitRoleCallback = (node: HtmlElementLike) => string | null;
 export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
 
 // @public
-export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "focusable" | "form" | "formAssociated" | "labelable";
+export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "focusable" | "form" | "formAssociated" | "labelable" | "submitButton";
+
+// @public
+export type MetaSubmitButtonCallback = (node: HtmlElementLike) => boolean;
 
 // @public (undocumented)
 export class MetaTable {
