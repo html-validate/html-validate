@@ -646,6 +646,10 @@ export default {
 			listed: true,
 		},
 		labelable: true,
+		submitButton(node) {
+			const type = node.getAttribute("type");
+			return !type || type === "submit";
+		},
 		attributes: {
 			autofocus: {
 				boolean: true,
@@ -1438,6 +1442,10 @@ export default {
 		},
 		labelable(node) {
 			return node.getAttribute("type") !== "hidden";
+		},
+		submitButton(node) {
+			const type = node.getAttribute("type");
+			return type === "submit" || type === "image";
 		},
 		attributes: {
 			align: {
