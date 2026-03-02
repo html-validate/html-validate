@@ -26,6 +26,7 @@ const dynamicKeys = [
 	"embedded",
 	"interactive",
 	"labelable",
+	"submitButton",
 ] satisfies Array<keyof MetaElement>;
 
 const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();

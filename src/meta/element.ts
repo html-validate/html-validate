@@ -91,6 +91,17 @@ export type MetaFocusableCallback = (node: HtmlElementLike) => boolean;
 export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
 
 /**
+ * Callback for the `submitButton` property of `MetaData`. It takes a node and
+ * returns whenever the element is a submit button or not.
+ *
+ * @public
+ * @since %version%
+ * @param node - The node to determine if it is a submit button.
+ * @returns `true` if the node is a submit button.
+ */
+export type MetaSubmitButtonCallback = (node: HtmlElementLike) => boolean;
+
+/**
  * Callback for the `allowed` property of `MetaAttribute`. It takes a node and
  * should return `null` if there is no errors and a string with an error
  * description if there is an error.
@@ -229,6 +240,9 @@ export interface MetaData {
 	formAssociated?: Partial<FormAssociated>;
 	labelable?: boolean | MetaLabelableCallback;
 
+	/** Mark element as a submit button (i.e. it will submit the form it belongs to) */
+	submitButton?: boolean | MetaSubmitButtonCallback;
+
 	/**
 	 * Set to `true` if this element should have no impact on DOM
 	 * ancestry. Default `false`.
@@ -281,7 +295,8 @@ export type MetaLookupableProperty =
 	| "focusable"
 	| "form"
 	| "formAssociated"
-	| "labelable";
+	| "labelable"
+	| "submitButton";
 
 /**
  * Properties listed here can be copied (loaded) onto another element using
@@ -302,6 +317,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"form",
 	"formAssociated",
 	"labelable",
+	"submitButton",
 	"attributes",
 	"aria",
 	"permittedContent",

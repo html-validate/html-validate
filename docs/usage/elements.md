@@ -47,6 +47,7 @@ export interface MetaElement {
   form?: boolean;
   formAssociated?: FormAssociated;
   labelable?: boolean | MetaLabelableCallback;
+  submitButton?: boolean | MetaSubmitButtonCallback;
 
   /* ignore DOM ancestry */
   templateRoot?: boolean;
@@ -198,7 +199,6 @@ In plain HTML only the `<form>` element is considered a form but when using cust
 ```ts
 export interface FormAssociated {
   disablable?: boolean;
-
   listed?: boolean;
 }
 ```
@@ -219,6 +219,12 @@ Disablable elements can be disabled using the disabled attribute.
 This is typically elements input elements such as `<input>`.
 
 [whatwg-labelable]: https://html.spec.whatwg.org/multipage/forms.html#category-label
+
+### `submitButton`
+
+When set to `true` (or a callback evaluating to `true`) it marks that this element can submit forms.
+
+Notable examples are `<button type="submit">` and `<input type="submit">`.
 
 ### `templateRoot`
 
