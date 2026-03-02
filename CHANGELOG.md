@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## 10.10.0 (2026-03-02)
+
+### Features
+
+- **api:** make `Reporter` class internal ([78835fc](https://gitlab.com/html-validate/html-validate/commit/78835fcdc9bfdff332d3bf4a85da81c9256cde71))
+- **deps:** update dependency @html-validate/stylish to v5 ([e059c03](https://gitlab.com/html-validate/html-validate/commit/e059c035d01b0b498d9a5a0a70d06f7c44b0947d))
+- **html5:** update `<button>` and `<input>` elements to set new `submitButton` property ([43f8494](https://gitlab.com/html-validate/html-validate/commit/43f849440b6ce86d3bef3c320ab907f7f95595d0))
+- **meta:** add `submitButton` metadata property ([00e6843](https://gitlab.com/html-validate/html-validate/commit/00e6843dcf82c0980c922b7bc99b8909ad19e8c5))
+- **rules:** `wcag/h32` supports custom submit buttons via new `submitButton` property ([511bc2d](https://gitlab.com/html-validate/html-validate/commit/511bc2dce2c460e74ae861c12df34ee0b6ff73bb))
+
+### Bug Fixes
+
+- **rules:** `form-dup-name` handles implicit default button type ([e429a66](https://gitlab.com/html-validate/html-validate/commit/e429a661b21d4539665371cd68abaccbbd1915de)), closes [#323](https://gitlab.com/html-validate/html-validate/issues/323)
+
 ## 10.9.0 (2026-02-22)
 
 ### Features

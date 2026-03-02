@@ -95,7 +95,7 @@ export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
  * returns whenever the element is a submit button or not.
  *
  * @public
- * @since %version%
+ * @since 10.10.0
  * @param node - The node to determine if it is a submit button.
  * @returns `true` if the node is a submit button.
  */

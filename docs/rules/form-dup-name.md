@@ -187,7 +187,7 @@ export default defineMetadata({
 
 ## Version history
 
-- %version% - Rule handles implicit default button type (submit)
+- 10.10.0 - Rule handles implicit default button type (submit)
 - 10.1.2 - Rule ignores disabled inputs.
 - 8.19.0 - `allowCheckboxDefault` option added.
 - 8.18.1 - Track `<template>` elements separately.
