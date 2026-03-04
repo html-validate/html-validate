@@ -112,7 +112,9 @@ function getFileReaderMap(fileReaders) {
 			throw new Error("Invalid File Reader: It must have a name property");
 		}
 		if (typeof fileReader.getDocs !== "function") {
-			throw new Error(`Invalid File Reader: "${fileReader.name}": It must have a getDocs property`);
+			throw new TypeError(
+				`Invalid File Reader: "${fileReader.name}": It must have a getDocs property`,
+			);
 		}
 
 		fileReaderMap.set(fileReader.name, fileReader);

@@ -115,7 +115,6 @@ export default [
 			"unicorn/prefer-query-selector": "off",
 			"unicorn/prefer-regexp-test": "off",
 			"unicorn/prefer-top-level-await": "off",
-			"unicorn/prefer-type-error": "off",
 		},
 	},
 ];
