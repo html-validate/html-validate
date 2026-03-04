@@ -93,6 +93,80 @@ describe("rule no-redundant-role", () => {
 		expect(report).toBeValid();
 	});
 
+	describe("include", () => {
+		let htmlvalidateWithInclude: HtmlValidate;
+
+		beforeAll(() => {
+			htmlvalidateWithInclude = new HtmlValidate({
+				root: true,
+				rules: { "no-redundant-role": ["error", { include: ["listitem", "link"] }] },
+			});
+		});
+
+		it("should not report error when role isn't listed in include", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <button role="button"></button> `;
+			const report = await htmlvalidateWithInclude.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error when role is listed in include", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<ul>
+					<li role="listitem"></li>
+				</ul>
+			`;
+			const report = await htmlvalidateWithInclude.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Redundant role "listitem" on <li> (no-redundant-role) at inline:3:16:
+				  1 |
+				  2 | 				<ul>
+				> 3 | 					<li role="listitem"></li>
+				    | 					          ^^^^^^^^
+				  4 | 				</ul>
+				  5 |
+				Selector: ul > li"
+			`);
+		});
+	});
+
+	describe("exclude", () => {
+		let htmlvalidateWithExclude: HtmlValidate;
+
+		beforeAll(() => {
+			htmlvalidateWithExclude = new HtmlValidate({
+				root: true,
+				rules: { "no-redundant-role": ["error", { exclude: ["listitem", "link"] }] },
+			});
+		});
+
+		it("should not report error when role is listed in exclude", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<ul>
+					<li role="listitem"></li>
+				</ul>
+			`;
+			const report = await htmlvalidateWithExclude.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error when role isn't listed in exclude", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <button role="button"></button> `;
+			const report = await htmlvalidateWithExclude.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Redundant role "button" on <button> (no-redundant-role) at inline:1:16:
+				> 1 |  <button role="button"></button>
+				    |                ^^^^^^
+				Selector: button"
+			`);
+		});
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({

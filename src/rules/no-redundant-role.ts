@@ -1,18 +1,61 @@
 import { DynamicValue } from "../dom";
 import { type TagReadyEvent } from "../event";
-import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { type IncludeExcludeOptions } from "./helper";
 
 export interface RuleContext {
 	tagName: string;
 	role: string;
 }
 
-export default class NoRedundantRole extends Rule<RuleContext> {
+type RuleOptions = IncludeExcludeOptions;
+
+const defaults: RuleOptions = {
+	include: null,
+	exclude: null,
+};
+
+export default class NoRedundantRole extends Rule<RuleContext, RuleOptions> {
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
+	}
+
 	public override documentation(context: RuleContext): RuleDocumentation {
 		const { role, tagName } = context;
 		return {
 			description: `Using the \`${role}\` role is redundant as it is already implied by the \`<${tagName}>\` element.`,
 			url: ruleDocumentationUrl(__filename),
+		};
+	}
+
+	public static override schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
 		};
 	}
 
@@ -40,6 +83,11 @@ export default class NoRedundantRole extends Rule<RuleContext> {
 
 			/* ignore elements with non-redundant roles */
 			if (role.value !== implicitRole) {
+				return;
+			}
+
+			/* ignore roles configured to be ignored */
+			if (this.isKeywordIgnored(role.value)) {
 				return;
 			}
 

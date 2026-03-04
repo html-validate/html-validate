@@ -34,3 +34,32 @@ Examples of **correct** code for this rule:
     <li role="presentation">Lorem ipsum</li>
   </ul>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "include": null,
+  "exclude": null
+}
+```
+
+### `include`
+
+- type: `string[] | null`
+- default: `null`
+
+If set, only roles listed in this array generate errors.
+
+### `exclude`
+
+- type: `string[] | null`
+- default: `null`
+
+If set, roles listed in this array are ignored.
+
+## Version history
+
+- %version% - Added `include` and `exclude` options.
