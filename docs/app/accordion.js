@@ -108,10 +108,10 @@ export function accordion(element) {
 			onAnimationFinish(false);
 		};
 
-		animation.oncancel = () => {
+		animation.addEventListener("cancel", () => {
 			element.classList.remove(ClassNames.COLLAPSING);
 			isClosing = false;
-		};
+		});
 	}
 
 	function open() {
@@ -146,10 +146,10 @@ export function accordion(element) {
 			onAnimationFinish(true);
 		};
 
-		animation.oncancel = () => {
+		animation.addEventListener("cancel", () => {
 			element.classList.remove(ClassNames.EXPANDING);
 			isExpanding = false;
-		};
+		});
 	}
 
 	/**
