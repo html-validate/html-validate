@@ -66,7 +66,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 				}
 
 				/* workaround for templating <% ... %> etc */
-				if (matchTemplate.exec(child.textContent)) {
+				if (matchTemplate.test(child.textContent)) {
 					continue;
 				}
 

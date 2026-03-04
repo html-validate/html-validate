@@ -11,7 +11,7 @@ export interface RuleContext {
 }
 
 function isTagnameOnly(value: string): boolean {
-	return Boolean(/^[a-zA-Z0-9-]+$/.exec(value));
+	return /^[a-zA-Z0-9-]+$/.test(value);
 }
 
 function getRuleDescription(context: RuleContext): string[] {

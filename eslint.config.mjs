@@ -113,7 +113,6 @@ export default [
 			"unicorn/prefer-code-point": "off",
 			"unicorn/prefer-import-meta-properties": "off",
 			"unicorn/prefer-query-selector": "off",
-			"unicorn/prefer-regexp-test": "off",
 			"unicorn/prefer-top-level-await": "off",
 		},
 	},

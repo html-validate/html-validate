@@ -35,7 +35,7 @@ function fakeRequire(value, definition) {
  * @returns {string}
  */
 function forceModule(value, definition) {
-	if (definition.lang !== "ts" || value.match(/^export /)) {
+	if (definition.lang !== "ts" || value.startsWith("export ")) {
 		return value;
 	} else {
 		return `${value}\n\nexport {}\n`;

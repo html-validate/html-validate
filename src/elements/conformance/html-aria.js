@@ -690,7 +690,7 @@ async function update() {
 		if (state.includes("Naming Prohibited") || state.includes("No aria-* attributes")) {
 			return "prohibited";
 		}
-		if (state.match(/^No role or aria-\* attributes$/)) {
+		if (/^No role or aria-\* attributes$/.test(state)) {
 			return "prohibited";
 		}
 		return "allowed";
