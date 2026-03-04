@@ -35,7 +35,7 @@ function calcIndent(text) {
 function reindent(text, indent) {
 	const lines = text.split("\n");
 	const indentedLines = [];
-	const indentStr = new Array(indent + 1).join(" ");
+	const indentStr = Array.from({ length: indent + 1 }).join(" ");
 	for (const line of lines) {
 		indentedLines.push(indentStr + line);
 	}
