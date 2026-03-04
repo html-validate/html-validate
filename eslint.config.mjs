@@ -111,7 +111,6 @@ export default [
 			"unicorn/no-useless-promise-resolve-reject": "off",
 			"unicorn/prefer-add-event-listener": "off",
 			"unicorn/prefer-code-point": "off",
-			"unicorn/prefer-import-meta-properties": "off",
 			"unicorn/prefer-query-selector": "off",
 			"unicorn/prefer-top-level-await": "off",
 		},
