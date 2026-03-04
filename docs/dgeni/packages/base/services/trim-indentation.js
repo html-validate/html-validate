@@ -12,7 +12,7 @@ function calcIndent(text) {
 		emptyLinesRemoved = true;
 	}
 
-	if (lines.length) {
+	if (lines.length > 0) {
 		// ignore first line if it has no indentation and there is more than one line
 		// this is because sometimes our text starts in the middle of a line of other
 		// text that is indented and so doesn't appear to have an indent when it really does.
@@ -35,7 +35,7 @@ function calcIndent(text) {
 function reindent(text, indent) {
 	const lines = text.split("\n");
 	const indentedLines = [];
-	const indentStr = new Array(indent + 1).join(" ");
+	const indentStr = Array.from({ length: indent + 1 }).join(" ");
 	for (const line of lines) {
 		indentedLines.push(indentStr + line);
 	}

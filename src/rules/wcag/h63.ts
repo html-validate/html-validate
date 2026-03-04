@@ -57,11 +57,9 @@ export function isSimpleTable(table: HtmlElement): boolean {
 
 	const shape = getShape(cells);
 	const headersPerRow = cells.map((row) => row.reduce<number>((sum, cell) => sum + cell, 0));
-	const headersPerColumn = Array(shape.cols)
-		.fill(0)
-		.map((_, index) => {
-			return cells.reduce((sum, it) => sum + it[index], 0);
-		});
+	const headersPerColumn = new Array(shape.cols).fill(0).map((_, index) => {
+		return cells.reduce((sum, it) => sum + it[index], 0);
+	});
 
 	/* case 1: all th in first row */
 	const [firstRow, ...otherRows] = headersPerRow;

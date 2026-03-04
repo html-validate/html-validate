@@ -316,7 +316,7 @@ export class DOMNode {
 
 	private _removeChild(node: DOMNode): void {
 		const index = this.childNodes.findIndex((it) => it.isSameNode(node));
-		if (index >= 0) {
+		if (index !== -1) {
 			this.childNodes.splice(index, 1);
 		} else {
 			throw new Error("DOMException: _removeChild(..) could not find child to remove");
