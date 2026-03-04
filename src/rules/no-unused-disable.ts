@@ -26,7 +26,7 @@ export default class NoUnusedDisable extends Rule<RuleContext> {
 			const index = tokens.indexOf(ruleId);
 			/* istanbul ignore next: the token should be present or it wouldn't be
 			 * reported as unused, this is just a sanity check and fallback */
-			const tokenLocation = index >= 0 ? tokens.location(index) : location;
+			const tokenLocation = index !== -1 ? tokens.location(index) : location;
 			this.report({
 				node: null,
 				message: '"{{ ruleId }}" rule is disabled but no error was reported',

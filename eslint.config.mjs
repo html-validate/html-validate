@@ -102,7 +102,6 @@ export default [
 		rules: {
 			"@typescript-eslint/no-explicit-any": "off",
 			"unicorn/better-regex": "off",
-			"unicorn/consistent-existence-index-check": "off",
 			"unicorn/consistent-function-scoping": "off",
 			"unicorn/error-message": "off",
 			"unicorn/no-anonymous-default-export": "off",
