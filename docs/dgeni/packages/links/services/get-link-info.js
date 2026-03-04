@@ -35,7 +35,7 @@ module.exports = function getLinkInfo(getDocFromAlias, encodeCodeBlock, log) {
 					`${msg}\n  "${doc.id}" (${doc.docType}) : (${doc.path} / ${doc.fileInfo.relativePath})`,
 				"Matching docs: ",
 			)}`;
-		} else if (docs.length >= 1) {
+		} else if (docs.length > 0) {
 			linkInfo.url = docs[0].path;
 			linkInfo.title = title || encodeCodeBlock(docs[0].name, true);
 			linkInfo.type = "doc";

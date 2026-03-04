@@ -105,7 +105,6 @@ export default [
 			"unicorn/consistent-existence-index-check": "off",
 			"unicorn/consistent-function-scoping": "off",
 			"unicorn/error-message": "off",
-			"unicorn/explicit-length-check": "off",
 			"unicorn/no-anonymous-default-export": "off",
 			"unicorn/no-hex-escape": "off",
 			"unicorn/prefer-structured-clone": "off",

@@ -18,7 +18,7 @@ export default class PreferTbody extends Rule {
 				}
 
 				const tr = table.querySelectorAll("> tr");
-				if (tr.length >= 1) {
+				if (tr.length > 0) {
 					this.report(tr[0], "Prefer to wrap <tr> elements in <tbody>");
 				}
 			}

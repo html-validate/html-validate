@@ -242,7 +242,7 @@ export class HtmlElement extends DOMNode {
 			return attr.value;
 		}
 		const list = new DOMTokenList(attr.value, attr.valueLocation);
-		return list.length ? Array.from(list) : null;
+		return list.length > 0 ? Array.from(list) : null;
 	}
 
 	/**

@@ -12,7 +12,7 @@ function calcIndent(text) {
 		emptyLinesRemoved = true;
 	}
 
-	if (lines.length) {
+	if (lines.length > 0) {
 		// ignore first line if it has no indentation and there is more than one line
 		// this is because sometimes our text starts in the middle of a line of other
 		// text that is indented and so doesn't appear to have an indent when it really does.

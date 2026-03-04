@@ -87,7 +87,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 					}
 				}
 
-				if (unmatchedLinks.length) {
+				if (unmatchedLinks.length > 0) {
 					unmatchedLinkCount += unmatchedLinks.length;
 					messages.push(
 						`${createDocMessage("      ", linkInfo.doc)}\n${unmatchedLinks

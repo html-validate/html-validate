@@ -87,7 +87,7 @@ module.exports = function inlineTagProcessor(log, createDocMessage) {
 									nextPart = definition.handler(doc, definition.name, tagDescription, docs);
 								}
 							}
-						} else if (pendingTags.length) {
+						} else if (pendingTags.length > 0) {
 							// We have some plain content but we are inside a start-end tag
 							// Add this content to the current start-end tag
 							pendingTags[0].value.content += nextPart;
