@@ -108,7 +108,6 @@ export default [
 			"unicorn/explicit-length-check": "off",
 			"unicorn/new-for-builtins": "off",
 			"unicorn/no-anonymous-default-export": "off",
-			"unicorn/no-for-loop": "off",
 			"unicorn/no-hex-escape": "off",
 			"unicorn/prefer-structured-clone": "off",
 			"unicorn/no-new-array": "off",

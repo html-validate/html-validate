@@ -42,6 +42,11 @@ export function* splitSelectorElements(selector: string): Generator<string, void
 	}
 
 	let state = State.INITIAL;
+
+	/* eslint-disable-next-line unicorn/no-for-loop -- while it could be
+	 * replaced with for..of using `.split("").entries()` it doesn't really
+	 * seem more efficient or readable, and this is well covered by testcases
+	 * for off-by-one errors */
 	for (let p = 0; p < selector.length; p++) {
 		const ch = selector[p];
 		switch (state) {
