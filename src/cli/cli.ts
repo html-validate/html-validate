@@ -73,10 +73,9 @@ export class CLI {
 	 *
 	 * @public
 	 */
+	/* eslint-disable-next-line @typescript-eslint/require-await -- technical debt: expandFiles(..) should actually be async as well */
 	public async expandFiles(patterns: string[], options: ExpandOptions = {}): Promise<string[]> {
-		/* technical debt: expandFiles(..) should actually be async as well */
-		const files = expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
-		return Promise.resolve(files);
+		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
 	}
 
 	public getFormatter(formatters: string): Promise<(report: Report) => string> {

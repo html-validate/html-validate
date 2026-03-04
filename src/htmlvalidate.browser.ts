@@ -188,7 +188,7 @@ export class HtmlValidate {
 		const resolvers = this.configLoader.getResolvers();
 		const source = await transformFilename(resolvers, config, filename, fs);
 		const engine = new Engine(config, Parser);
-		return Promise.resolve(engine.lint(source));
+		return engine.lint(source);
 	}
 
 	/**

@@ -39,5 +39,5 @@ export async function dump(
 	const flat = results.flat();
 	output.write(flat.join("\n"));
 	output.write("\n");
-	return Promise.resolve(true);
+	return true;
 }

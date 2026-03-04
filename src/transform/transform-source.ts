@@ -47,7 +47,7 @@ export async function transformSource(
 		},
 	};
 	if (!transformer) {
-		return Promise.resolve([source]);
+		return [source];
 	}
 	const fn =
 		transformer.kind === "import"
