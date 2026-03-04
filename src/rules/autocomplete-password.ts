@@ -142,21 +142,19 @@ export default class AutocompletePassword extends Rule<RuleContext, RuleOptions>
 			}
 
 			/* if a preferred value is configured, yield error if it doesn't match the actual value */
-			if (preferred) {
-				if (value !== preferred) {
-					const context: RuleContext = {
-						kind: "preferred-mismatch",
-						value,
-						preferred,
-					};
-					this.report({
-						node: target,
-						message: `<input type="password"> should use autocomplete="${preferred}"`,
-						/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- location must be present if value is */
-						location: location!,
-						context,
-					});
-				}
+			if (preferred && value !== preferred) {
+				const context: RuleContext = {
+					kind: "preferred-mismatch",
+					value,
+					preferred,
+				};
+				this.report({
+					node: target,
+					message: `<input type="password"> should use autocomplete="${preferred}"`,
+					/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- location must be present if value is */
+					location: location!,
+					context,
+				});
 			}
 		});
 	}
