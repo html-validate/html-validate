@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.11.0 (2026-03-04)
+
+### Features
+
+- **rules:** add `include` and `exclude` options to `no-redundant-role` ([864314d](https://gitlab.com/html-validate/html-validate/commit/864314dfa2f8a15dacde98a8abedd233e4bcd28b)), closes [#328](https://gitlab.com/html-validate/html-validate/issues/328)
+
 ## 10.10.0 (2026-03-02)
 
 ### Features

@@ -62,4 +62,4 @@ If set, roles listed in this array are ignored.
 
 ## Version history
 
-- %version% - Added `include` and `exclude` options.
+- 10.11.0 - Added `include` and `exclude` options.
