@@ -53,3 +53,9 @@ it("should split on word ending with d (collides with \\\u0064 escape)", () => {
 	const result = Array.from(splitSelectorElements("food bar"));
 	expect(result).toEqual(["food", "bar"]);
 });
+
+it("should handle empty selector", () => {
+	expect.assertions(1);
+	const result = Array.from(splitSelectorElements(""));
+	expect(result).toEqual([]);
+});
