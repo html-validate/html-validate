@@ -80,6 +80,19 @@ it("should match simple selectors with adjacent sibling combinator", () => {
 	expect(new Selector("div + p").matchElement(p)).toBeFalsy();
 });
 
+it("should not match adjacent sibling when element is first child", () => {
+	expect.assertions(1);
+	const markup = /* HTML */ `
+		<div>
+			<p>first child</p>
+			<h2>second child</h2>
+		</div>
+	`;
+	const document = parser.parseHtml(markup);
+	const p = document.querySelector("p")!;
+	expect(new Selector("h1 + p").matchElement(p)).toBeFalsy();
+});
+
 it("should match simple selectors with general sibling combinator", () => {
 	expect.assertions(5);
 	const markup = /* HTML */ `
