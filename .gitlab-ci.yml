@@ -1,3 +1,10 @@
+spec:
+  inputs:
+    release:
+      description: "Trigger a release"
+      type: boolean
+      default: false
+---
 image: node:22
 
 include:
