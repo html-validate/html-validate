@@ -27,6 +27,18 @@ function findConfigurationFiles(fs: FSLike, directory: string): string[] {
 		.filter((filePath) => fs.existsSync(filePath));
 }
 
+/**
+ * Normalize filename for configuration resolution.
+ *
+ * When reading from stdin (`/dev/stdin`), returns a path based on the current
+ * working directory to enable proper configuration file discovery.
+ *
+ * @internal
+ */
+function normalizeFilename(filename: string): string {
+	return filename === "/dev/stdin" ? path.join(process.cwd(), "noop.html") : filename;
+}
+
 const defaultResolvers: Resolver[] = [esmResolver()];
 
 type ConstructorParametersDefault = [ConfigData?, Partial<FileSystemConfigLoaderOptions>?];
@@ -114,6 +126,9 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	/**
 	 * Get configuration for given filename.
 	 *
+	 * When reading from stdin (`/dev/stdin`), the configuration is searched
+	 * from the current working directory.
+	 *
 	 * @param filename - Filename to get configuration for.
 	 * @param configOverride - Configuration to merge final result with.
 	 */
@@ -121,13 +136,14 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		filename: string,
 		configOverride?: ConfigData,
 	): ResolvedConfig | Promise<ResolvedConfig> {
+		const normalizedFilename = normalizeFilename(filename);
 		const override = this.loadFromObject(configOverride ?? {});
 		if (isThenable(override)) {
 			return override.then((override) => {
-				return this._resolveAsync(filename, override);
+				return this._resolveAsync(normalizedFilename, override);
 			});
 		} else {
-			return this._resolveSync1(filename, override);
+			return this._resolveSync1(normalizedFilename, override);
 		}
 	}
 
@@ -139,6 +155,10 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	public override flushCache(filename?: string): void {
 		if (filename) {
 			this.cache.delete(filename);
+			const normalized = normalizeFilename(filename);
+			if (normalized !== filename) {
+				this.cache.delete(normalized);
+			}
 		} else {
 			this.cache.clear();
 		}
