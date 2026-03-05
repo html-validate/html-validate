@@ -500,6 +500,48 @@ describe("FileSystemConfigLoader", () => {
 				}),
 			);
 		});
+
+		it("should use cwd when filename is /dev/stdin (sync)", async () => {
+			expect.assertions(1);
+			const cwd = process.cwd();
+			volume = Volume.fromJSON({
+				[`${cwd}/.htmlvalidate.json`]: JSON.stringify({
+					rules: {
+						"stdin-rule": "error",
+					},
+				} satisfies ConfigData),
+			});
+			const loader = new ForcedSyncLoader(undefined, { fs: volume });
+			const config = await loader.getConfigFor("/dev/stdin");
+			expect(config.getConfigData()).toEqual(
+				expect.objectContaining({
+					rules: {
+						"stdin-rule": "error",
+					},
+				}),
+			);
+		});
+
+		it("should use cwd when filename is /dev/stdin (async)", async () => {
+			expect.assertions(1);
+			const cwd = process.cwd();
+			volume = Volume.fromJSON({
+				[`${cwd}/.htmlvalidate.json`]: JSON.stringify({
+					rules: {
+						"stdin-rule": "error",
+					},
+				} satisfies ConfigData),
+			});
+			const loader = new ForcedAsyncLoader(undefined, { fs: volume });
+			const config = await loader.getConfigFor("/dev/stdin");
+			expect(config.getConfigData()).toEqual(
+				expect.objectContaining({
+					rules: {
+						"stdin-rule": "error",
+					},
+				}),
+			);
+		});
 	});
 
 	describe("fromFilename()", () => {
@@ -1013,6 +1055,21 @@ describe("FileSystemConfigLoader", () => {
 			expect(cache.has("foo")).toBeFalsy();
 			expect(cache.has("bar")).toBeTruthy();
 			expect(cache.has("baz")).toBeTruthy();
+		});
+
+		it("should clear both original and normalized filename for stdin", () => {
+			expect.assertions(4);
+			const cache = loader._getInternalCache();
+			const cwd = process.cwd();
+			const normalizedPath = `${cwd}/noop.html`;
+			cache.set("/dev/stdin", null);
+			cache.set(normalizedPath, null);
+			cache.set("foo", null);
+			expect(cache.size).toBe(3);
+			loader.flushCache("/dev/stdin");
+			expect(cache.size).toBe(1);
+			expect(cache.has("/dev/stdin")).toBeFalsy();
+			expect(cache.has(normalizedPath)).toBeFalsy();
 		});
 	});
 });
