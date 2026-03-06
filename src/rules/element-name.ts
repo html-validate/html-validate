@@ -109,7 +109,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 
 			/* ignore elements in xml namespaces, they should be validated against a
 			 * DTD instead */
-			if (xmlns.exec(tagName)) {
+			if (xmlns.test(tagName)) {
 				return;
 			}
 
@@ -118,7 +118,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 				return;
 			}
 
-			if (!tagName.match(this.pattern)) {
+			if (!this.pattern.test(tagName)) {
 				this.report(target, `<${tagName}> is not a valid element name`, location, context);
 			}
 		});

@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import { builtinModules } from "node:module";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json"; //native solution coming: https://nodejs.org/docs/latest/api/esm.html#esm_json_modules
 import { nodeResolve } from "@rollup/plugin-node-resolve";
@@ -13,7 +12,7 @@ import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 import { legacyPlugin } from "@html-validate/rollup-plugin-legacy";
 import { packageJsonPlugin } from "@html-validate/rollup-plugin-packagejson";
 
-const rootDir = fileURLToPath(new URL(".", import.meta.url));
+const rootDir = import.meta.dirname;
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));
 const externalDependencies = packageJson.externalDependencies;
 const peerDependencies = Object.keys(packageJson.peerDependencies);

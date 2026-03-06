@@ -239,7 +239,7 @@ export class Validator {
 		return rule.enum.some((entry: string | RegExp) => {
 			if (entry instanceof RegExp) {
 				/* regular expressions are matched case-sensitive */
-				return !!value.match(entry);
+				return entry.test(value);
 			} else {
 				/* strings matched case-insensitive */
 				return caseInsensitiveValue === entry;

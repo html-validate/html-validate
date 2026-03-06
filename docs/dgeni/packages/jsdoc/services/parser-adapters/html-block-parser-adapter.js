@@ -64,6 +64,7 @@ function countTags(line, marker) {
 	const regexp = new RegExp(`${marker}\\b[\\s\\S]*?(/)?>`, "g");
 	let count = 0;
 
+	/* eslint-disable-next-line unicorn/prefer-regexp-test -- count all the matches */
 	while (regexp.exec(line)) {
 		count += 1;
 	}

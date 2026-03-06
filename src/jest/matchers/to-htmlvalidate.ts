@@ -49,7 +49,7 @@ function getMarkup(src: unknown): string {
 	if (typeof src === "string") {
 		return src;
 	} else {
-		throw new Error(`Failed to get markup from "${typeof src}" argument`);
+		throw new TypeError(`Failed to get markup from "${typeof src}" argument`);
 	}
 }
 

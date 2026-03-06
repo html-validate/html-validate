@@ -13,10 +13,12 @@ function cyrb53(str: string): number {
 	const seed = 0;
 	let h1 = 0xdeadbeef ^ seed;
 	let h2 = 0x41c6ce57 ^ seed;
-	for (let i = 0, ch; i < str.length; i++) {
-		ch = str.charCodeAt(i);
+	for (let i = 0, ch; i < str.length; ) {
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index will be in range */
+		ch = str.codePointAt(i)!;
 		h1 = Math.imul(h1 ^ ch, a);
 		h2 = Math.imul(h2 ^ ch, b);
+		i += ch > 0xffff ? 2 : 1;
 	}
 	h1 = Math.imul(h1 ^ (h1 >>> 16), c) ^ Math.imul(h2 ^ (h2 >>> 13), d);
 	h2 = Math.imul(h2 ^ (h2 >>> 16), c) ^ Math.imul(h1 ^ (h1 >>> 13), d);

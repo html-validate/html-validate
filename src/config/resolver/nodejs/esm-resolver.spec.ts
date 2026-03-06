@@ -12,12 +12,9 @@ const mockResolve = jest.spyOn(ResolveModule, "importResolve");
 const mockImport = ImportFunctionModule.importFunction as jest.Mock<unknown, [id: string]>; // mocked in jest.setup.js
 const resolver = esmResolver();
 
-function createMockedModule(
-	name: string,
-	content: unknown,
-	options: { default: boolean } = { default: true },
-): void {
-	if (options.default) {
+function createMockedModule(name: string, content: unknown, options?: { default: boolean }): void {
+	const { default: useDefault = true } = options ?? {};
+	if (useDefault) {
 		mockModules[name] = { default: content };
 	} else {
 		mockModules[name] = content;

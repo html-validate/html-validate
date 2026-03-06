@@ -1,5 +1,4 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
 /**
  * Returns a URL to the public website based on the filename. Do not call this
@@ -22,7 +21,7 @@ import { fileURLToPath } from "node:url";
  */
 export function getRuleUrl(filename, homepage = "https://html-validate.org") {
 	const parsed = path.parse(filename);
-	const url = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../rules");
+	const url = path.resolve(import.meta.dirname, "../rules");
 	const rel = path.relative(url, path.join(parsed.dir, parsed.name));
 	const normalized = rel.replaceAll("\\", "/");
 	return `${homepage}/rules/${normalized}.html`;

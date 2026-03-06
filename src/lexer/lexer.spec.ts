@@ -883,6 +883,16 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
 				expect(token.next().done).toBeTruthy();
 			});
+
+			it("with self-closing syntax", () => {
+				expect.assertions(4);
+				const markup = `<title/>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
 		});
 
 		it("comment", () => {
