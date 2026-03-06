@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.11.1 (2026-03-06)
+
+### Bug Fixes
+
+- fix config resolution from cwd when using `--stdin` ([5fc4ff7](https://gitlab.com/html-validate/html-validate/commit/5fc4ff7ba30f26013b4be6dd2038ed5eca340566)), closes [#344](https://gitlab.com/html-validate/html-validate/issues/344)
+
 ## 10.11.0 (2026-03-04)
 
 ### Features
