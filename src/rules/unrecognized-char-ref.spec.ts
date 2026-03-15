@@ -114,11 +114,21 @@ describe("rule unrecognized-char-ref", () => {
 			expect(report).toBeValid();
 		});
 
-		it("should not report error for raw ampersand", async () => {
+		it("should not report error for raw ampersand in querystrings", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
-				<a href="?foo&bar"></p>
-				<a href="foo?bar&baz"></p>
+				<a href="?foo&bar"></a>
+				<a href="foo?bar&baz"></a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report error for raw ampersand in hash", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<a href="#bar&baz"></a>
+				<a href="foo#bar&baz"></a>
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
@@ -128,6 +138,8 @@ describe("rule unrecognized-char-ref", () => {
 			expect.assertions(2);
 			const markup = /* HTML */ `
 				<p title="&spam;"></p>
+				<a href="&spam;?bar&baz"></a>
+				<a href="&spam;#bar&baz"></a>
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
@@ -136,8 +148,25 @@ describe("rule unrecognized-char-ref", () => {
 				  1 |
 				> 2 | 				<p title="&spam;"></p>
 				    | 				          ^^^^^^
-				  3 |
-				Selector: p"
+				  3 | 				<a href="&spam;?bar&baz"></a>
+				  4 | 				<a href="&spam;#bar&baz"></a>
+				  5 |
+				Selector: p
+				error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:3:14:
+				  1 |
+				  2 | 				<p title="&spam;"></p>
+				> 3 | 				<a href="&spam;?bar&baz"></a>
+				    | 				         ^^^^^^
+				  4 | 				<a href="&spam;#bar&baz"></a>
+				  5 |
+				Selector: a:nth-child(2)
+				error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:4:14:
+				  2 | 				<p title="&spam;"></p>
+				  3 | 				<a href="&spam;?bar&baz"></a>
+				> 4 | 				<a href="&spam;#bar&baz"></a>
+				    | 				         ^^^^^^
+				  5 |
+				Selector: a:nth-child(3)"
 			`);
 		});
 
