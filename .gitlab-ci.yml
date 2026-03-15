@@ -9,6 +9,8 @@ image: node:22
 
 include:
   - component: $CI_SERVER_FQDN/html-validate/gitlab-ci/release@master
+    inputs:
+      legacy: false
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
 
