@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 10.11.2 (2026-03-15)
+
+### Bug Fixes
+
+- **rules:** ignore unterminated character references in url fragments `#` ([dd73de2](https://gitlab.com/html-validate/html-validate/commit/dd73de230892f05071a2bc6d717c638939228cb5)), closes [#345](https://gitlab.com/html-validate/html-validate/issues/345)
+- **rules:** properly find unrecognized character reference before `?` or `#` ([8f124fa](https://gitlab.com/html-validate/html-validate/commit/8f124fa438c5e5729abffc0845c8efe5a5a50364))
+
 ## 10.11.1 (2026-03-06)
 
 ### Bug Fixes
