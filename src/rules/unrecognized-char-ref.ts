@@ -37,6 +37,21 @@ function isNumerical(entity: string): boolean {
 	return entity.startsWith("&#");
 }
 
+/**
+ * Check if a character reference appears after a query (`?`) or fragment (`#`) delimiter.
+ *
+ * Character references appearing after these delimiters are part of URL query strings
+ * or fragments and should allow unescaped ampersands.
+ *
+ * @param delimiterIndex - Index of the first `?` or `#` character, or -1 if none found
+ * @param match - The character reference match to check
+ * @returns `true` if the match appears after a query or fragment delimiter
+ */
+function isAfterQueryOrFragment(delimiterIndex: number, match: EntityMatch): boolean {
+	const matchIndex = match.match.index ?? 0;
+	return delimiterIndex !== -1 && matchIndex > delimiterIndex;
+}
+
 function getLocation(
 	location: Location | null,
 	entity: string,
@@ -137,29 +152,33 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		location: Location | null,
 		{ isAttribute }: { isAttribute: boolean },
 	): void {
-		const hasQueryOrFragment = isAttribute && (text.includes("?") || text.includes("#"));
+		const delimiter = text.search(/[?#]/);
 		for (const match of this.getMatches(text)) {
-			this.validateCharacterReference(node, location, match, { hasQueryOrFragment });
+			const allowUnterminated = isAttribute && isAfterQueryOrFragment(delimiter, match);
+			this.validateCharacterReference(node, location, match, {
+				allowUnterminated,
+			});
 		}
 	}
 
 	private validateCharacterReference(
 		node: HtmlElement,
 		location: Location | null,
-		foobar: EntityMatch,
-		{ hasQueryOrFragment }: { hasQueryOrFragment: boolean },
+		entityMatch: EntityMatch,
+		{ allowUnterminated }: { allowUnterminated: boolean },
 	): void {
 		const { requireSemicolon } = this.options;
-		const { match, entity, raw, terminated } = foobar;
+		const { match, entity, raw, terminated } = entityMatch;
 
 		/* assume numeric entities are valid for now */
 		if (isNumerical(entity)) {
 			return;
 		}
 
-		/* special case: when attributes use query parameters or URL fragments we skip checking
-		 * unterminated attributes */
-		if (hasQueryOrFragment && !terminated) {
+		/* special case: when attributes use query parameters (`?`) or URL fragments
+		 * "hash" (`#`) we skip checking unterminated character references that
+		 * appear after the delimiter */
+		if (!terminated && allowUnterminated) {
 			return;
 		}
 
