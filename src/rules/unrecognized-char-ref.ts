@@ -164,11 +164,11 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 	private validateCharacterReference(
 		node: HtmlElement,
 		location: Location | null,
-		foobar: EntityMatch,
+		entityMatch: EntityMatch,
 		{ allowUnterminated }: { allowUnterminated: boolean },
 	): void {
 		const { requireSemicolon } = this.options;
-		const { match, entity, raw, terminated } = foobar;
+		const { match, entity, raw, terminated } = entityMatch;
 
 		/* assume numeric entities are valid for now */
 		if (isNumerical(entity)) {
