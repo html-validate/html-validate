@@ -170,6 +170,42 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
+		it("should report error when url contains invalid character reference", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<p title="&section"></p>
+				<a href="&section?bar&baz"></a>
+				<a href="&section#bar&baz"></a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:2:15:
+				  1 |
+				> 2 | 				<p title="&section"></p>
+				    | 				          ^^^^^^^^
+				  3 | 				<a href="&section?bar&baz"></a>
+				  4 | 				<a href="&section#bar&baz"></a>
+				  5 |
+				Selector: p
+				error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:3:14:
+				  1 |
+				  2 | 				<p title="&section"></p>
+				> 3 | 				<a href="&section?bar&baz"></a>
+				    | 				         ^^^^^^^^
+				  4 | 				<a href="&section#bar&baz"></a>
+				  5 |
+				Selector: a:nth-child(2)
+				error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:4:14:
+				  2 | 				<p title="&section"></p>
+				  3 | 				<a href="&section?bar&baz"></a>
+				> 4 | 				<a href="&section#bar&baz"></a>
+				    | 				         ^^^^^^^^
+				  5 |
+				Selector: a:nth-child(3)"
+			`);
+		});
+
 		it("should handle boolean attributes", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <p id></p> `;
