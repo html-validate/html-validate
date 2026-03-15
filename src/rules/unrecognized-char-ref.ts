@@ -137,9 +137,9 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		location: Location | null,
 		{ isAttribute }: { isAttribute: boolean },
 	): void {
-		const isQuerystring = isAttribute && text.includes("?");
+		const hasQueryOrFragment = isAttribute && (text.includes("?") || text.includes("#"));
 		for (const match of this.getMatches(text)) {
-			this.validateCharacterReference(node, location, match, { isQuerystring });
+			this.validateCharacterReference(node, location, match, { hasQueryOrFragment });
 		}
 	}
 
@@ -147,7 +147,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		node: HtmlElement,
 		location: Location | null,
 		foobar: EntityMatch,
-		{ isQuerystring }: { isQuerystring: boolean },
+		{ hasQueryOrFragment }: { hasQueryOrFragment: boolean },
 	): void {
 		const { requireSemicolon } = this.options;
 		const { match, entity, raw, terminated } = foobar;
@@ -157,9 +157,9 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			return;
 		}
 
-		/* special case: when attributes use query parameters we skip checking
+		/* special case: when attributes use query parameters or URL fragments we skip checking
 		 * unterminated attributes */
-		if (isQuerystring && !terminated) {
+		if (hasQueryOrFragment && !terminated) {
 			return;
 		}
 
