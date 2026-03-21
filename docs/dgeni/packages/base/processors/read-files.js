@@ -1,6 +1,7 @@
 const fs = require("node:fs");
+/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- prefered over third-party library */
+const { matchesGlob } = require("node:path");
 const path = require("canonical-path");
-const { Minimatch } = require("minimatch");
 
 /**
  * @dgProcessor readFilesProcessor
@@ -162,9 +163,6 @@ function normalizeSourceInfo(basePath, sourceInfo) {
 }
 
 function getSourceFiles(sourceInfo) {
-	// Compute matchers for each of the exclusion patterns
-	const excludeMatchers = sourceInfo.exclude.map((exclude) => new Minimatch(exclude));
-
 	// Get a list of files to include
 	// Each call to glob will produce an array of file paths
 	const filesPromises = sourceInfo.include.map((include) => matchFiles(include));
@@ -175,7 +173,7 @@ function getSourceFiles(sourceInfo) {
 		.then((files) => {
 			// Filter the files on whether they match the `exclude` property and whether they are files
 			const filteredFilePromises = files.map((file) => {
-				if (excludeMatchers.some((excludeMatcher) => excludeMatcher.match(file))) {
+				if (sourceInfo.exclude.some((exclude) => matchesGlob(file, exclude))) {
 					// Return a promise for `null` if the path is excluded
 					// Doing this first - it is synchronous - saves us even making the isFile call if not needed
 					return Promise.resolve(null);
