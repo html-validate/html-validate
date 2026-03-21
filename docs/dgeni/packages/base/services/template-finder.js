@@ -1,5 +1,5 @@
+const fs = require("node:fs");
 const path = require("canonical-path");
-const glob = require("glob");
 
 /**
  * @dgService templateFinder
@@ -24,7 +24,7 @@ module.exports = function templateFinder(log, createDocMessage) {
 			// Traverse each templateFolder and store an index of the files found for later
 			const templateSets = this.templateFolders.map((templateFolder) => {
 				const templates = {};
-				for (const template of glob.sync("**/*", { cwd: templateFolder })) {
+				for (const template of fs.globSync("**/*", { cwd: templateFolder })) {
 					templates[template] = template;
 				}
 				return { templateFolder, templates };

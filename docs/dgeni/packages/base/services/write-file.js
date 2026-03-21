@@ -1,4 +1,4 @@
-const fs = require("node:fs");
+const fs = require("node:fs/promises");
 const path = require("canonical-path");
 /**
  * @dgService writeFile
@@ -7,7 +7,7 @@ const path = require("canonical-path");
  */
 module.exports = function writeFile() {
 	return async (file, content) => {
-		await fs.promises.mkdir(path.dirname(file), { recursive: true });
-		await fs.promises.writeFile(file, content);
+		await fs.mkdir(path.dirname(file), { recursive: true });
+		await fs.writeFile(file, content);
 	};
 };
