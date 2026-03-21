@@ -32,46 +32,46 @@
     ".": {
       "browser": {
         "types": "./dist/types/browser.d.ts",
-        "require": "./dist/cjs/browser.js",
-        "import": "./dist/esm/browser.js"
+        "import": "./dist/esm/browser.js",
+        "require": "./dist/cjs/browser.js"
       },
       "node": {
         "types": "./dist/types/index.d.ts",
-        "require": "./dist/cjs/index.js",
-        "import": "./dist/esm/index.js"
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
       },
       "default": {
         "types": "./dist/types/index.d.ts",
-        "require": "./dist/cjs/index.js",
-        "import": "./dist/esm/index.js"
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
       }
     },
     "./browser": {
       "types": "./dist/types/browser.d.ts",
-      "require": "./dist/cjs/browser.js",
-      "import": "./dist/esm/browser.js"
+      "import": "./dist/esm/browser.js",
+      "require": "./dist/cjs/browser.js"
     },
     "./node": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     },
     "./dist/schema/*": "./dist/schema/*",
     "./elements/html5": {
       "types": "./dist/types/html5.d.ts",
-      "require": "./dist/cjs/html5.js",
-      "import": "./dist/esm/html5.js"
+      "import": "./dist/esm/html5.js",
+      "require": "./dist/cjs/html5.js"
     },
     "./jest": {
       "types": "./dist/types/jest.d.ts",
-      "require": "./dist/cjs/jest.js",
-      "import": "./dist/esm/jest.js"
+      "import": "./dist/esm/jest.js",
+      "require": "./dist/cjs/jest.js"
     },
     "./package.json": "./package.json",
     "./test-utils": {
       "types": "./dist/types/test-utils.d.ts",
-      "require": "./dist/cjs/test-utils.js",
-      "import": "./dist/esm/test-utils.js"
+      "import": "./dist/esm/test-utils.js",
+      "require": "./dist/cjs/test-utils.js"
     },
     "./vitest": {
       "types": "./dist/types/vitest.d.ts",
