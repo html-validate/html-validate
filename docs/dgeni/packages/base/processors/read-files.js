@@ -1,4 +1,4 @@
-const fs = require("node:fs");
+const fs = require("node:fs/promises");
 /* eslint-disable-next-line n/no-unsupported-features/node-builtins -- prefered over third-party library */
 const { matchesGlob } = require("node:path");
 const path = require("canonical-path");
@@ -194,27 +194,14 @@ function getSourceFiles(sourceInfo) {
 }
 
 function readFile(file) {
-	return new Promise((resolve, reject) => {
-		fs.readFile(file, "utf-8", (err, data) => {
-			if (err) {
-				reject(err);
-			}
-			resolve(data);
-		});
-	});
+	return fs.readFile(file, "utf-8");
 }
 
-function isFile(file) {
-	return new Promise((resolve, reject) => {
-		fs.stat(file, (err, stat) => {
-			if (err) {
-				reject(err);
-			}
-			resolve(stat.isFile());
-		});
-	});
+async function isFile(file) {
+	const st = await fs.stat(file);
+	return st.isFile();
 }
 
 function matchFiles(pattern) {
-	return Array.fromAsync(fs.promises.glob(pattern));
+	return Array.fromAsync(fs.glob(pattern));
 }
