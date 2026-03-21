@@ -1,3 +1,21 @@
+/**
+ * @jest-environment jsdom
+ */
+
+/**
+ * Mock jsdom to avoid loading the real jsdom package which has transitive
+ * ESM-only dependencies that jest cannot handle.
+ */
+jest.mock("jsdom", () => {
+	class JSDOM {
+		constructor(html) {
+			const doc = new global.DOMParser().parseFromString(html, "text/html");
+			this.window = { document: doc, close() {} };
+		}
+	}
+	return { JSDOM };
+});
+
 import extractLinksService from "./extract-links";
 
 const extractLinks = extractLinksService();

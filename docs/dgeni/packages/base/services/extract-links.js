@@ -1,4 +1,4 @@
-const htmlparser = require("htmlparser2");
+const { JSDOM } = require("jsdom");
 
 /**
  * @dgService extractLinks
@@ -9,31 +9,25 @@ const htmlparser = require("htmlparser2");
 module.exports = function extractLinks() {
 	return (html) => {
 		const result = { hrefs: [], names: [] };
-		const parser = new htmlparser.Parser(
-			{
-				onopentag(name, attribs) {
-					// Parse anchor elements, extracting href and name
-					if (name === "a") {
-						if (attribs.href) {
-							result.hrefs.push(attribs.href);
-						}
-						if (attribs.name) {
-							result.names.push(attribs.name);
-						}
-					}
+		const dom = new JSDOM(html);
+		try {
+			const doc = dom.window.document;
 
-					// Extract id from other elements
-					if (attribs.id) {
-						result.names.push(attribs.id);
-					}
-				},
-			},
-			{
-				decodeEntities: true,
-			},
-		);
-		parser.write(html);
-		parser.end();
+			for (const el of doc.querySelectorAll("a[href]")) {
+				result.hrefs.push(el.getAttribute("href"));
+			}
+
+			for (const el of doc.querySelectorAll("a[name]")) {
+				result.names.push(el.getAttribute("name"));
+			}
+
+			for (const el of doc.querySelectorAll("[id]")) {
+				result.names.push(el.getAttribute("id"));
+			}
+		} finally {
+			dom.window.close();
+		}
+
 		return result;
 	};
 };
