@@ -270,7 +270,7 @@
     "jsdom": "29.0.1",
     "magic-string": "0.30.21",
     "memfs": "4.56.11",
-    "npm-pkg-lint": "4.5.3",
+    "npm-pkg-lint": "4.6.1",
     "npm-run-all2": "8.0.4",
     "rollup": "4.59.0",
     "rollup-plugin-esbuild": "6.2.1",
