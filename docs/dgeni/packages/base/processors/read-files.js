@@ -1,6 +1,5 @@
 const fs = require("node:fs");
 const path = require("canonical-path");
-const { glob } = require("glob");
 const { Minimatch } = require("minimatch");
 
 /**
@@ -219,5 +218,5 @@ function isFile(file) {
 }
 
 function matchFiles(pattern) {
-	return glob(pattern);
+	return Array.fromAsync(fs.promises.glob(pattern));
 }
