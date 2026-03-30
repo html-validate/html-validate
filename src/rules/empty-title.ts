@@ -25,16 +25,16 @@ export default class EmptyTitle extends Rule {
 
 			switch (classifyNodeText(node)) {
 				case TextClassification.DYNAMIC_TEXT:
-				case TextClassification.STATIC_TEXT:
+				case TextClassification.STATIC_TEXT: {
 					/* have some text content, consider ok */
 					break;
-				case TextClassification.EMPTY_TEXT:
+				}
+				case TextClassification.EMPTY_TEXT: {
 					/* no content or whitespace only */
-					{
-						const message = `<${node.tagName}> cannot be empty, must have text content`;
-						this.report(node, message, node.location);
-					}
+					const message = `<${node.tagName}> cannot be empty, must have text content`;
+					this.report(node, message, node.location);
 					break;
+				}
 			}
 		});
 	}

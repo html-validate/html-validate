@@ -16,8 +16,8 @@ const { enum: validScopes } = html5.th.attributes.scope;
 
 const joinedScopes = naturalJoin(validScopes);
 
-const td = 0;
-const th = 1;
+const td: number = 0;
+const th: number = 1;
 
 function getShape(cells: number[][]): { rows: number; cols: number } {
 	const rows = cells.length;
@@ -56,7 +56,7 @@ export function isSimpleTable(table: HtmlElement): boolean {
 	}
 
 	const shape = getShape(cells);
-	const headersPerRow = cells.map((row) => row.reduce<number>((sum, cell) => sum + cell, 0));
+	const headersPerRow = cells.map((row) => row.reduce((sum, cell) => sum + cell, 0));
 	const headersPerColumn = new Array(shape.cols).fill(0).map((_, index) => {
 		return cells.reduce((sum, it) => sum + it[index], 0);
 	});
