@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": "./src",
     "noEmit": true,
 
     "target": "es2019",
-    "lib": ["es2019"],
+    "lib": ["es2019", "dom"],
+    "types": ["node", "jest"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
 
     "allowJs": true,
     "checkJs": true,
