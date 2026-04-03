@@ -1,6 +1,9 @@
 {
   "extends": ["@tsconfig/strictest", "@tsconfig/node20", "@tsconfig/node-ts"],
   "compilerOptions": {
+    /* ts-jest hardcodes moduleResolution node10 which is deprecated */
+    "ignoreDeprecations": "6.0",
+
     "rootDir": "${configDir}/src",
     "outDir": "${configDir}/dist",
 
@@ -12,6 +15,8 @@
 
     "module": "esnext",
     "moduleResolution": "bundler",
+    "lib": ["es2023", "dom"],
+    "types": ["node", "jest"],
 
     "exactOptionalPropertyTypes": false, // does not work well with third-party libraries
     "forceConsistentCasingInFileNames": true,

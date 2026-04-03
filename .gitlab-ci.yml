@@ -237,6 +237,10 @@ Jest compat:
   script:
     - |
       sed 's#/src/browser.ts#/dist/cjs/browser.js#g' -i package.json
+      # invalid in earlier typescript versions
+      sed '/"ignoreDeprecations"/d' -i tsconfig.json
+      sed '/"lib"/s/, "dom"//' -i tsconfig.json
+      sed '/"lib"/s/"es2023"/"es2022"/' -i tsconfig.json
       # older jest/ts-jest versions doesn't work with bundler so use nodenext instead
       sed '/"moduleResolution"/s/bundler/nodenext/' -i tsconfig.json
       # remove options not supported by older typescript versions
