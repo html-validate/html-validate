@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 10.11.3 (2026-04-03)
+
+### Bug Fixes
+
+- jest support for explicitly importing `expect` from `@jest/globals` ([b9fd392](https://gitlab.com/html-validate/html-validate/commit/b9fd392e4c514a5af9bbaf378e5fbd65d59e469c))
+- prefer esm when importing `html-validate` as library ([0b96a73](https://gitlab.com/html-validate/html-validate/commit/0b96a73af8fb0db86289ba983e044ad9e5ce1793))
+
 ## 10.11.2 (2026-03-15)
 
 ### Bug Fixes
