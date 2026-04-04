@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
 import { type Location, type Source } from "../context";

@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { globSync } from "glob";
 import "./jest";
 import { StaticConfigLoader } from "./browser";

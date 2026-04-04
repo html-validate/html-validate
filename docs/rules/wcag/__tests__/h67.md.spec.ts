@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};

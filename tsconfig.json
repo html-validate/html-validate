@@ -16,7 +16,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "lib": ["es2023", "dom"],
-    "types": ["node", "jest"],
+    "types": ["node"],
 
     "exactOptionalPropertyTypes": false, // does not work well with third-party libraries
     "forceConsistentCasingInFileNames": true,

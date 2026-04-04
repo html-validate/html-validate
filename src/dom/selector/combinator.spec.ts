@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { Combinator, parseCombinator } from "./combinator";
 
 describe("DOM Combinator", () => {

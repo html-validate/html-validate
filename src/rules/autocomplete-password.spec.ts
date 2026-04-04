@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import { type RuleContext } from "./autocomplete-password";

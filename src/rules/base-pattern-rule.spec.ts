@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import Ajv from "ajv";
 import { type NamedPattern, type ParsedPattern, patternNamesValues } from "../pattern";
 import { ajvRegexpKeyword } from "../schema/keywords";

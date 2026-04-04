@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Source } from "../../../context";
 import * as ResolveModule from "../../../resolve";
 import { determineRootDir } from "./determine-root-dir";
@@ -9,7 +10,7 @@ import { type ImportError } from "./internal-import";
 
 let mockModules: Record<string, unknown>;
 const mockResolve = jest.spyOn(ResolveModule, "importResolve");
-const mockImport = ImportFunctionModule.importFunction as jest.Mock<unknown, [id: string]>; // mocked in jest.setup.js
+const mockImport = ImportFunctionModule.importFunction as jest.Mock<(id: string) => unknown>; // mocked in jest.setup.js
 const resolver = esmResolver();
 
 function createMockedModule(name: string, content: unknown, options?: { default: boolean }): void {

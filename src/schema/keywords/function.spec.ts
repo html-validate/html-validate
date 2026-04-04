@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import Ajv from "ajv";
 import { ajvFunctionKeyword } from "./function";
 

@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/no-dead-store -- has side-effects and in this case gives more consistent code */
 
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
 import { type Location, type Source } from "../context";
 import { type TagCloseToken, type TagOpenToken, type Token, TokenType } from "../lexer";
@@ -120,7 +121,7 @@ describe("HtmlElement", () => {
 			const table = new MetaTable();
 			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
-			expect(node.meta).toEqual(expect.objectContaining(foo));
+			expect(node.meta).toEqual(expect.objectContaining(foo as Record<string, unknown>));
 		});
 
 		it("should set closed for omitted end tag", () => {

@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../../config";
 import { type Location } from "../../context";
 import { HtmlElement } from "../../dom";

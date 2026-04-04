@@ -1,3 +1,4 @@
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type ConfigData, type ResolvedConfig, Config, ConfigLoader, Severity } from "./config";
 import { StaticConfigLoader } from "./config/loaders/static";
 import { cjsResolver } from "./config/resolver/nodejs";
@@ -10,7 +11,7 @@ import * as transform from "./transform/transform-filename";
 import { isThenable } from "./utils";
 
 const engine = {
-	lint: jest.fn(),
+	lint: jest.fn<(...args: unknown[]) => any>(),
 	dumpEvents: jest.fn(),
 	dumpTree: jest.fn(),
 	dumpTokens: jest.fn(),
@@ -74,7 +75,10 @@ describe("HtmlValidate", () => {
 	it("should support using a custom config loader", async () => {
 		expect.assertions(2);
 		const loader = new (class extends ConfigLoader {
-			public async getConfigFor(): Promise<ResolvedConfig> {
+			public async getConfigFor(
+				_handle: string,
+				_configOverride?: ConfigData,
+			): Promise<ResolvedConfig> {
 				const config = await Config.fromObject([], {
 					rules: {
 						foobar: "error",
@@ -1138,7 +1142,7 @@ describe("HtmlValidate", () => {
 	it("getParserFor() should create a parser for given filename", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate();
-		const config = Config.empty().resolve();
+		const config = Config.empty().resolve() as ResolvedConfig;
 		jest.spyOn(htmlvalidate, "getConfigFor").mockResolvedValue(config);
 		const source: Source = {
 			data: "foo",

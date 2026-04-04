@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { DynamicValue } from "../dynamic-value";
 import { parseCssDeclaration } from "./parse-css-declaration";
 

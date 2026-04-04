@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import { parsePattern } from "./pattern";
 
 afterEach(() => {
@@ -462,7 +463,7 @@ it("should support user-supplied regexp (RegExp object)", () => {
 
 it("should support user-supplied regexp (deprecated unwrapped string)", () => {
 	expect.assertions(5);
-	const spy = jest.spyOn(console, "warn").mockImplementation();
+	const spy = jest.spyOn(console, "warn").mockImplementation(() => undefined);
 	/* @ts-expect-error deprecated but should still work */
 	const pattern = parsePattern("^foo-[a-z]\\w+$");
 	expect("foo-bar").toMatch(pattern.regexp);

@@ -24,6 +24,12 @@ const typescript = {
 	30: "4.8",
 };
 
+const expect = {
+	28: "28.1.3",
+	29: "29.7.0",
+	30: "30.0.0",
+};
+
 if (!foundJest) {
 	process.stderr.write(`Failed to find a jest version that satisfies "${constraint}"\n`);
 	process.stderr.write(`The current peerDependency allows: "${jest}"\n`);
@@ -37,6 +43,9 @@ if (!typescript[constraint]) {
 
 switch (pkgname) {
 	case "":
+		break;
+	case "expect":
+		process.stdout.write(`${expect[constraint]}\n`);
 		break;
 	case "jest":
 		process.stdout.write(`${foundJest.version}\n`);

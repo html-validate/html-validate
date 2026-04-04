@@ -1,4 +1,5 @@
 import * as path from "node:path";
+import { expect, it } from "@jest/globals";
 import { FileSystemConfigLoader, HtmlValidate } from "../../src/index";
 import "../../src/jest";
 

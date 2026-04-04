@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Volume } from "memfs";
 import { isThenable } from "../../utils";
 import * as requireUncached from "../../utils/require-uncached";

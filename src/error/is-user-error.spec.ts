@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { InheritError } from "./inherit-error";
 import { isUserError } from "./is-user-error";
 import { UserError } from "./user-error";

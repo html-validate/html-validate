@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
@@ -282,7 +283,7 @@ describe("rule text-content", () => {
 				${"empty aria-label"}                  | ${'<text-accessible aria-label=""></text-accessible>'}
 				${"empty aria-label (child)"}          | ${'<text-accessible><span aria-label=""></span></text-accessible>'}
 				${"default text overwritten to empty"} | ${'<input type="submit" value="">'}
-			`("$description", async ({ markup }: { markup: string }) => {
+			`("$description", async ({ markup }) => {
 				expect.assertions(1);
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
@@ -345,7 +346,7 @@ describe("rule text-content", () => {
 				${"img with alt text"}                    | ${'<text-accessible><img alt="foobar"></img></text-accessible>'}
 				${'default text (<input type="submit">)'} | ${'<input type="submit">'}
 				${'default text (<input type="reset">)'}  | ${'<input type="reset">'}
-			`("$description", async ({ markup }: { markup: string }) => {
+			`("$description", async ({ markup }) => {
 				expect.assertions(1);
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeValid();

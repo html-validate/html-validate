@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Source } from "../../../context";
 import { esmResolver } from "./esm-resolver";
 import * as ImportFunctionModule from "./import-function";

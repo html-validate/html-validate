@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { type RuleContext } from "./unrecognized-char-ref";

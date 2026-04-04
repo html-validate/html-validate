@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { quote } from "./quote";
 
 it("should wrap value in double quotes by default", () => {

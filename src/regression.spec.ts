@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { globSync } from "glob";
 import { StaticConfigLoader, staticResolver } from "./browser";
 import { type Source } from "./context";

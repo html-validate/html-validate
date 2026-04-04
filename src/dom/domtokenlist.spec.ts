@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { type Location } from "../context";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";

@@ -1,4 +1,5 @@
 import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
 import { type Location, type ProcessElementContext, type Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
@@ -539,7 +540,7 @@ describe("parser", () => {
 				${"<% ... %>"}
 				${"<? ... ?>"}
 				${"<$ ... $>"}
-			`("$input", ({ input }: { input: string }) => {
+			`("$input", ({ input }) => {
 				expect.assertions(1);
 				const text = `lorem ${input} ipsum`;
 				const doc = parser.parseHtml(`<p>${text}</p>`);
@@ -1995,7 +1996,7 @@ describe("parser", () => {
 			it("by calling hook", () => {
 				expect.assertions(2);
 				let context: any;
-				const processElement = jest.fn(function (this: any) {
+				const processElement = jest.fn<(node: HtmlElement) => void>(function (this: any) {
 					context = this; // eslint-disable-line @typescript-eslint/no-this-alias -- hack
 				});
 				const source: Source = {

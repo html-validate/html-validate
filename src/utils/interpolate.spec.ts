@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { interpolate } from "./interpolate";
 
 it("should interpolate placeholder", () => {

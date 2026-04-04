@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";

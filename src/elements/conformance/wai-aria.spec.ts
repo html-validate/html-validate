@@ -4,6 +4,7 @@
  */
 
 import path from "node:path";
+import { describe, expect, it } from "@jest/globals";
 import { globSync } from "glob";
 import "../../jest";
 import { type Source } from "../../context";

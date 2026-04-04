@@ -197,6 +197,7 @@ Jest compat:
     - npm pkg delete workspaces
     - export TYPES_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "@types/jest")
     - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
+    - export EXPECT_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "expect")
     - export TS_JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "ts-jest")
     - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")
     - |
@@ -209,6 +210,7 @@ Jest compat:
       npm install --force
       @jest/core@${JEST_VERSION}
       @jest/expect@${JEST_VERSION}
+      @jest/globals@${JEST_VERSION}
       jest@${JEST_VERSION}
       jest-circus@${JEST_VERSION}
       jest-diff@${JEST_VERSION}
@@ -219,11 +221,14 @@ Jest compat:
       typescript@${TS_VERSION}
       @tsconfig/node16
       @types/jest@${TYPES_VERSION}
+      expect@${EXPECT_VERSION}
     - npm dedupe
     - >
       npm ls
       @jest/core
       @jest/expect
+      @jest/globals
+      expect
       jest
       jest-circus
       jest-diff

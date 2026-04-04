@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { type Location } from "../../context";
 import { HtmlElement } from "../htmlelement";
 import { firstChild } from "./first-child";

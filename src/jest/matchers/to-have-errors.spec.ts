@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { stripAnsi } from "../utils";
 import { reportError, reportErrorAsync, reportMultipleErrors } from "./__fixtures__";
 import "../jest";

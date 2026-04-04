@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { type Location } from "../../context";
 import { DynamicValue, HtmlElement } from "../../dom";
 import { hasAriaLabel } from "./has-aria-label";

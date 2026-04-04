@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { getRuleConfig } from "./get-rule-config";
 
 it("should parse rule:severity pair", () => {

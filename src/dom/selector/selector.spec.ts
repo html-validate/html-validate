@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
 import { Config } from "../../config";
 import { Parser } from "../../parser";
 import { reset as resetDOMCounter } from "../domnode";

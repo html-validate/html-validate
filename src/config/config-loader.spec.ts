@@ -1,3 +1,4 @@
+import { expect, it, jest } from "@jest/globals";
 import { UserError } from "../error";
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";

@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { memfs } from "memfs";
 import { type ResolvedConfigData, ResolvedConfig } from "../config";
 import { MetaTable } from "../meta";

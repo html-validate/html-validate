@@ -1,10 +1,11 @@
 import path from "node:path";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type ConfigData, Config, Severity } from "./config";
 import { type Location } from "./context";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
-import { type Event, type EventCallback } from "./event";
+import { type Event } from "./event";
 import { MetaTable } from "./meta";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";
@@ -30,7 +31,7 @@ const location: Location = {
 
 describe("rule base class", () => {
 	let parser: Parser;
-	let parserOn: jest.SpyInstance<() => void, [event: string, listener: EventCallback]>;
+	let parserOn: jest.SpiedFunction<Parser["on"]>;
 	let reporter: Reporter;
 	let meta: MetaTable;
 	let rule: MockRule;
@@ -156,7 +157,7 @@ describe("rule base class", () => {
 				node: expect.objectContaining({
 					unique: node.unique,
 				}),
-				location: mockEvent.location,
+				location: mockEvent.location!,
 				context: undefined,
 			});
 		});
@@ -369,16 +370,13 @@ describe("isEnabled()", () => {
 		${0}    | ${0}     | ${false}
 		${0}    | ${1}     | ${false}
 		${0}    | ${2}     | ${false}
-	`(
-		"enabled=$enabled, severity=$severity should be $result",
-		({ enabled, severity, result }: { enabled: number; severity: number; result: boolean }) => {
-			expect.assertions(1);
-			const rule = new MockRule();
-			rule.setEnabled(Boolean(enabled));
-			rule.setServerity(severity);
-			expect(rule.isEnabled()).toEqual(result);
-		},
-	);
+	`("enabled=$enabled, severity=$severity should be $result", ({ enabled, severity, result }) => {
+		expect.assertions(1);
+		const rule = new MockRule();
+		rule.setEnabled(Boolean(enabled));
+		rule.setServerity(severity as number);
+		expect(rule.isEnabled()).toEqual(result);
+	});
 });
 
 describe("isBlocked()", () => {

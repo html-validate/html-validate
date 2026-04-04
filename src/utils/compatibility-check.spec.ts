@@ -1,3 +1,4 @@
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import kleur from "kleur";
 import { compatibilityCheckImpl } from "./compatibility-check";
 

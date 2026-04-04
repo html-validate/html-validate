@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { Mode, modeToFlag } from "./mode";
 
 function isMode(value: string | Mode): value is Mode {

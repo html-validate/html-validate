@@ -4,6 +4,7 @@ jest.mock("../rules", () => {
 	};
 });
 
+import { expect, it, jest } from "@jest/globals";
 import { ruleExists } from "./rule-exists";
 
 it("should return true if rule exists", () => {
