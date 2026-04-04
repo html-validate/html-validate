@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { type Source } from "../context";
 import "../jest";
 import { Lexer } from "./lexer";
@@ -1189,7 +1190,7 @@ describe("lexer", () => {
 			${"<?\n...\n?>"} | ${"<? ... ?> (with newlines)"}
 			${"<$ ... $>"}   | ${"<$ ... $>"}
 			${"<$\n...\n$>"} | ${"<$ ... $> (with newlines)"}
-		`("$description", ({ input }: { input: string }) => {
+		`("$description", ({ input }) => {
 			expect.assertions(2);
 			const token = lexer.tokenize(inlineSource(input));
 			expect(token.next()).toBeToken({

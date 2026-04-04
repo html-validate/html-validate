@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { MetaTable } from "../meta";
 import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
 

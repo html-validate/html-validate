@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { isThenable } from "./is-thenable";
 
 it("should return true if passing a Promise", () => {

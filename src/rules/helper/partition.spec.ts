@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { partition } from "./partition";
 
 const numbers = [1, 2, 3, 4, 5, 6];

@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { stripAnsi } from "../../jest/utils";
 import { ImportResolveMissingError } from "./import-resolve-missing-error";
 

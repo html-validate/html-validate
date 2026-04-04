@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { type Token, TokenType } from "../../lexer";
 import { stripAnsi } from "../utils";
 import "../jest-internal";

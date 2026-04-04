@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { type CaseStyleName, CaseStyle } from "./case-style";
 
 it.each`
@@ -8,14 +9,11 @@ it.each`
 	${"camelcase"}  | ${"fooBar"}
 	${"pascalcase"} | ${"Foo"}
 	${"pascalcase"} | ${"FooBar"}
-`(
-	'style "$style" should match "$text"',
-	({ style, text }: { style: CaseStyleName; text: string }) => {
-		expect.assertions(1);
-		const cs = new CaseStyle(style, "test-case");
-		expect(cs.match(text)).toBeTruthy();
-	},
-);
+`('style "$style" should match "$text"', ({ style, text }) => {
+	expect.assertions(1);
+	const cs = new CaseStyle(style as CaseStyleName, "test-case");
+	expect(cs.match(text)).toBeTruthy();
+});
 
 it.each`
 	style           | text
@@ -25,14 +23,11 @@ it.each`
 	${"camelcase"}  | ${"FooBar"}
 	${"pascalcase"} | ${"foo"}
 	${"pascalcase"} | ${"fooBar"}
-`(
-	'style "$style" should not match "$text"',
-	({ style, text }: { style: CaseStyleName; text: string }) => {
-		expect.assertions(1);
-		const cs = new CaseStyle(style, "test-case");
-		expect(cs.match(text)).toBeFalsy();
-	},
-);
+`('style "$style" should not match "$text"', ({ style, text }) => {
+	expect.assertions(1);
+	const cs = new CaseStyle(style as CaseStyleName, "test-case");
+	expect(cs.match(text)).toBeFalsy();
+});
 
 it("should handle multiple patterns", () => {
 	expect.assertions(3);

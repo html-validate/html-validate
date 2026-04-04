@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { Severity, parseSeverity } from "./severity";
 
 describe("parseSeverity()", () => {

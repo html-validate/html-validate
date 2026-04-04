@@ -1,3 +1,4 @@
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config, ResolvedConfig } from "../config";
 import { type Location } from "../context";
 import { type HtmlElement, Attribute, DynamicValue } from "../dom";
@@ -567,30 +568,24 @@ describe("Meta validator", () => {
 			${/ba.*/} | ${"bar"}
 			${/.*/}   | ${"foo"}
 			${/.*/}   | ${""}
-		`(
-			"should match regexp $regex vs $value",
-			({ regex, value }: { regex: RegExp; value: string }) => {
-				expect.assertions(1);
-				const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
-				const attr = new Attribute("foo", value, location, location);
-				expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
-			},
-		);
+		`("should match regexp $regex vs $value", ({ regex, value }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex as RegExp] } };
+			const attr = new Attribute("foo", value as string | null, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
+		});
 
 		it.each`
 			regex     | value    | expected
 			${/ba.*/} | ${"car"} | ${false}
 			${/ba.*/} | ${null}  | ${false}
 			${/.*/}   | ${null}  | ${false}
-		`(
-			"should not match regexp $regex vs $value",
-			({ regex, value }: { regex: RegExp; value: string }) => {
-				expect.assertions(1);
-				const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
-				const attr = new Attribute("foo", value, location, location);
-				expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
-			},
-		);
+		`("should not match regexp $regex vs $value", ({ regex, value }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex as RegExp] } };
+			const attr = new Attribute("foo", value as string | null, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
+		});
 
 		it("should match string value", () => {
 			expect.assertions(2);
@@ -723,19 +718,16 @@ describe("Meta validator", () => {
 				${true}  | ${[]}   | ${""}   | ${true}
 				${true}  | ${[""]} | ${null} | ${true}
 				${true}  | ${[""]} | ${""}   | ${true}
-			`(
-				"omit: $omit enum: $enum value: ${$value}",
-				(options: Partial<MetaAttribute> & { value: string | null; expected: boolean }) => {
-					expect.assertions(1);
-					const { expected, value } = options;
-					expect.assertions(1);
-					const rules: Record<string, MetaAttribute> = {
-						foo: options,
-					};
-					const attr = new Attribute("foo", value, location, location);
-					expect(Validator.validateAttribute(attr, rules)).toEqual(expected);
-				},
-			);
+			`("omit: $omit enum: $enum value: ${$value}", (options) => {
+				expect.assertions(1);
+				const { expected, value } = options;
+				expect.assertions(1);
+				const rules: Record<string, MetaAttribute> = {
+					foo: options,
+				};
+				const attr = new Attribute("foo", value as string | null, location, location);
+				expect(Validator.validateAttribute(attr, rules)).toEqual(expected);
+			});
 		});
 
 		it("should normalize boolean attributes", () => {
@@ -762,17 +754,14 @@ describe("Meta validator", () => {
 			${"foo baz"}    | ${false}
 			${"foo    bar"} | ${true}
 			${"foo    baz"} | ${false}
-		`(
-			'should validate each token when using list: "$value"',
-			({ value, expected }: { value: string; expected: boolean }) => {
-				expect.assertions(1);
-				const rules: Record<string, MetaAttribute> = {
-					foo: { list: true, enum: ["foo", "bar"] },
-				};
-				const attr = new Attribute("foo", value, location, location);
-				expect(Validator.validateAttribute(attr, rules)).toBe(expected);
-			},
-		);
+		`('should validate each token when using list: "$value"', ({ value, expected }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { list: true, enum: ["foo", "bar"] },
+			};
+			const attr = new Attribute("foo", value as string | null, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBe(expected);
+		});
 	});
 });
 

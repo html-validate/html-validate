@@ -1,4 +1,5 @@
 import path from "node:path";
+import { expect, it } from "@jest/globals";
 import { expandRelativePath } from "./expand-relative-path";
 
 it("should expand ./foo", () => {

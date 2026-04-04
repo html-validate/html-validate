@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { type Location } from "../context";
 import { MetaTable } from "../meta";
 import { walk } from "../utils";
@@ -67,7 +68,7 @@ describe("DOMTree", () => {
 	it("find() should delegate call to root element", () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(tree.root, "find").mockReturnValue(node);
-		const cb = jest.fn().mockReturnValue(true);
+		const cb = jest.fn<(node: HtmlElement) => boolean>().mockReturnValue(true);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 		expect(tree.find(cb)).toBe(node);
 		expect(spy).toHaveBeenCalledWith(cb);

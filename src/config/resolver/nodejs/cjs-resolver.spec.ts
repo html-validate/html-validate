@@ -1,4 +1,5 @@
 import path from "node:path";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Source } from "../../../context";
 import * as resolve from "../../../resolve";
 import { type RequireError, cjsResolver } from "./cjs-resolver";

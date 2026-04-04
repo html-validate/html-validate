@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { Config } from "../config";
 import { Parser } from "../parser";
 import { dumpTree } from "./dump-tree";

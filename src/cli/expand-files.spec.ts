@@ -1,6 +1,7 @@
 jest.mock("fs");
 jest.mock("./is-ignored");
 
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { vol } from "memfs";
 import { CLI } from "./cli";
 

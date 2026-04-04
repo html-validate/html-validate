@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports -- technical debt */
 
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type ResolvedConfigData, type Resolver, ResolvedConfig, staticResolver } from "../config";
 import { type Source } from "../context";
 import { MetaTable } from "../meta";

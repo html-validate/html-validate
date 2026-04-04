@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
@@ -63,7 +64,7 @@ describe("rule allowed-links", () => {
 			${"<img src>"}    | ${'<img src="/foo">'}
 			${"<link href>"}  | ${'<link href="/foo">'}
 			${"<script src>"} | ${'<script src="/foo"></script>'}
-		`("$description", async ({ markup }: { markup: string }) => {
+		`("$description", async ({ markup }) => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,

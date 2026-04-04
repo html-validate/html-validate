@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
@@ -109,7 +110,7 @@ describe("rule aria-label-misuse", () => {
 			${'<th aria-labelledby="foobar"></th>'}             | ${"<th> (aria-labelledby)"}
 			${'<any aria-label="foobar"></any>'}                | ${"<any> (aria-label)"}
 			${'<any aria-labelledby="foobar"></any>'}           | ${"<any> (aria-labelledby)"}
-		`("$description", async ({ markup }: { markup: string }) => {
+		`("$description", async ({ markup }) => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();

@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { defineConfig } from "./define-config";
 
 it("should return itself", () => {

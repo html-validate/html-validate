@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { defineMetadata } from "../meta";
 import "../jest";

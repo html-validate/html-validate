@@ -1,4 +1,5 @@
 import path from "node:path";
+import { expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../src/htmlvalidate";
 import "../../src/jest";
 

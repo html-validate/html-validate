@@ -1,4 +1,6 @@
 /* @jest-environment jsdom */
+
+import { expect, it } from "@jest/globals";
 import html5 from "./html5";
 
 const markup = /* HTML */ `

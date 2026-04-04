@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { type MetaData } from "./element";
 import { type HtmlElementLike } from "./html-element-like";
 import { migrateElement } from "./migrate";

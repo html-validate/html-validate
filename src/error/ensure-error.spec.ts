@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { ensureError } from "./ensure-error";
 
 it("should return original value if value is Error", () => {

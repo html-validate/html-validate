@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { type Location } from "../context";
 import { type EventDump } from "../engine";
 import { eventFormatter, eventReplacer } from "./json";

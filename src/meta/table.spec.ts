@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require, @typescript-eslint/no-require-imports -- needed to load fixtues */
 
 import path from "node:path";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 /* mock ajv for easier testing of errors and to allow invalid values though the
  * validation to ensure the code works anyway */

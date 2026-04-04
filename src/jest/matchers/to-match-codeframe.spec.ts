@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
 import "../jest";
 

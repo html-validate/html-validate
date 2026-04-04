@@ -1,3 +1,4 @@
+import { beforeAll, expect, it } from "@jest/globals";
 import { Config } from "../../config";
 import { type HtmlElement } from "../../dom";
 import { Parser } from "../../parser";

@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type ResolvedConfig, type RuleOptions, Config, Severity } from "../config";
 import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
@@ -175,7 +176,6 @@ describe("Engine", () => {
 			const source: Source[] = [inline("<div>")];
 			const report = engine.lint(source);
 			expect(report).toBeInvalid();
-			/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 			expect(report).toHaveError("close-order", expect.any(String));
 		});
 
@@ -370,7 +370,6 @@ describe("Engine", () => {
 				const source: Source[] = [inline(markup)];
 				const report = engine.lint(source);
 				expect(report).toBeInvalid();
-				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 				expect(report).toHaveError("void-style", expect.any(String));
 			});
 
@@ -385,7 +384,6 @@ describe("Engine", () => {
 				const source: Source[] = [inline(markup)];
 				const report = engine.lint(source);
 				expect(report).toBeInvalid();
-				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- jest is typed this way */
 				expect(report).toHaveError("void-style", expect.any(String));
 			});
 		});

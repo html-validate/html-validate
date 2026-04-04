@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { definePlugin } from "./define-plugin";
 
 it("should pass thru object as is", () => {

@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 
@@ -15,7 +16,7 @@ describe("rule no-trailing-whitespace", () => {
 		newline   | description
 		${"\n"}   | ${"LR"}
 		${"\r\n"} | ${"CRLF"}
-	`("$description", ({ newline }: { newline: string }) => {
+	`("$description", ({ newline }) => {
 		it("should not report when there is no trailing whitespace", async () => {
 			expect.assertions(1);
 			const markup = /* RAW */ ` <div>${newline}  foo${newline}</div>`;

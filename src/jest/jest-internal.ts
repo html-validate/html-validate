@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import "./jest";
 
 import { type Location } from "../context";
@@ -6,17 +7,14 @@ import { toBeToken } from "./internal-matchers";
 
 interface TokenMatcher {
 	type: TokenType;
-	location?: Partial<Location>;
+	location?: Partial<Record<keyof Location, unknown>>;
 	data?: any;
 }
 
-declare global {
-	/* eslint-disable-next-line @typescript-eslint/no-namespace -- module augmentation */
-	namespace jest {
-		/* eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-unused-vars -- to match jest declaration */
-		interface Matchers<R, T = {}> {
-			toBeToken(expected: TokenMatcher): R;
-		}
+declare module "expect" {
+	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- to match jest declaration */
+	interface Matchers<R, T> {
+		toBeToken(expected: TokenMatcher): R;
 	}
 }
 

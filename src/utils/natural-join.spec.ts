@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { naturalJoin } from "./natural-join";
 
 it("should handle 0 elements", () => {

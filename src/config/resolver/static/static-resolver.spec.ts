@@ -1,3 +1,4 @@
+import { beforeEach, expect, it } from "@jest/globals";
 import { type Source } from "../../../context";
 import { type StaticResolver, staticResolver } from "./static-resolver";
 

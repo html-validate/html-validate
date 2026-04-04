@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 
@@ -81,38 +82,27 @@ describe("rule deprecated", () => {
 			${"source whatwg"}       | ${{ source: "whatwg" }}              | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated in HTML Living Standard and should not be used in new code."}
 			${"source non-standard"} | ${{ source: "non-standard" }}        | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated and non-standard and should not be used in new code."}
 			${"source lib"}          | ${{ source: "my-lib" }}              | ${"<my-element> is deprecated"}              | ${"The `<my-element>` element is deprecated by my-lib and should not be used in new code."}
-		`(
-			"$description",
-			async ({
-				deprecated,
-				message,
-				documentation,
-			}: {
-				deprecated: unknown;
-				message: string;
-				documentation: string;
-			}) => {
-				expect.assertions(2);
-				const htmlvalidate = new HtmlValidate({
-					rules: { deprecated: "error" },
-					elements: [
-						"html5",
-						{
-							"my-element": {
-								deprecated,
-							},
+		`("$description", async ({ deprecated, message, documentation }) => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				rules: { deprecated: "error" },
+				elements: [
+					"html5",
+					{
+						"my-element": {
+							deprecated,
 						},
-					],
-				});
-				const markup = /* HTML */ ` <my-element></my-element> `;
-				const report = await htmlvalidate.validateString(markup);
-				expect(report).toHaveError("deprecated", message);
-				const context = report.results[0].messages[0].context;
-				/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-				const doc = await htmlvalidate.getRuleDocumentation("deprecated", null, context);
-				expect(doc?.description).toEqual(documentation);
-			},
-		);
+					},
+				],
+			});
+			const markup = /* HTML */ ` <my-element></my-element> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toHaveError("deprecated", message as string);
+			const context = report.results[0].messages[0].context;
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
+			const doc = await htmlvalidate.getRuleDocumentation("deprecated", null, context);
+			expect(doc?.description).toEqual(documentation);
+		});
 	});
 
 	it("should contain documentation", async () => {

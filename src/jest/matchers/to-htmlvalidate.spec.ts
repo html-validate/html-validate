@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import { describe, expect, it, jest } from "@jest/globals";
 import { stripAnsi } from "../utils";
 import "../jest";
 
@@ -147,7 +148,7 @@ describe("toHTMLValidate()", () => {
 		try {
 			expect("<div>").not.toHTMLValidate({
 				ruleId: "wrong-error",
-				message: expect.stringContaining("Some other error"),
+				message: expect.stringContaining("Some other error") as unknown as string,
 			});
 		} catch (e: any) {
 			error = e;

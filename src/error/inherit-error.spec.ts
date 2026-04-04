@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { InheritError } from "./inherit-error";
 
 it("should format pretty error without filename", () => {

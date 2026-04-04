@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { createBlocker } from "./rule-blocker";
 
 it("should generate unique id", () => {

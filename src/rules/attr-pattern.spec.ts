@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 import { processAttribute } from "../transform/mocks/attribute";
@@ -45,7 +46,7 @@ describe("rule attr-pattern", () => {
 		it.each`
 			attr         | description
 			${"foo_bar"} | ${"underscore"}
-		`("should report error when attribute has $description", async ({ attr }: { attr: string }) => {
+		`("should report error when attribute has $description", async ({ attr }) => {
 			expect.assertions(2);
 			const markup = `<div ${attr}></div>`;
 			const report = await htmlvalidate.validateString(markup);

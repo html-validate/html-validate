@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type Location } from "../context";
 import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";

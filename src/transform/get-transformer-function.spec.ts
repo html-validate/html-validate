@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { cjsResolver } from "../config/resolver/nodejs";
 import { type Source } from "../context";
 import { type Plugin } from "../plugin";

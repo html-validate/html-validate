@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { expect, it, jest } from "@jest/globals";
 import { type Source } from "html-validate";
 import {
 	type Transformer,
@@ -105,7 +106,9 @@ it("transformSource() should support custom chaining", async () => {
 		offset: 3,
 		data: "source data",
 	};
-	const chain: (source: Source) => TransformerChainedResult = jest.fn((source) => [source]);
+	const chain = jest.fn<(source: Source, filename: string) => TransformerChainedResult>(
+		(source) => [source],
+	);
 	const transformer: Transformer = function mockTransformer(source) {
 		return this.chain(source, "chained.html");
 	};

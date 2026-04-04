@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { splitSelectorElements } from "./split-selector-elements";
 
 it("should split on space", () => {

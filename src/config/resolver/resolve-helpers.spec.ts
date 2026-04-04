@@ -1,3 +1,4 @@
+import { describe, expect, it, jest } from "@jest/globals";
 import { type Source } from "../../context";
 import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";

@@ -1,5 +1,6 @@
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import { WritableStreamBuffer } from "stream-buffers";
-import { Config, HtmlValidate } from "../..";
+import { type ResolvedConfig, Config, HtmlValidate } from "../..";
 import { printConfig } from "./print-config";
 
 let stdout: WritableStreamBuffer;
@@ -11,7 +12,7 @@ beforeEach(() => {
 it("should print config for given filename", async () => {
 	expect.assertions(3);
 	const htmlvalidate = new HtmlValidate();
-	const config = Config.defaultConfig().resolve();
+	const config = Config.defaultConfig().resolve() as ResolvedConfig;
 	const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor").mockResolvedValue(config);
 	const success = await printConfig(htmlvalidate, stdout, ["/path/to/my/file.html"]);
 	expect(success).toBeTruthy();

@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { splitCompound } from "./split-compound";
 
 describe("splitCompound()", () => {

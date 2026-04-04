@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { defineMetadata } from "./define-metadata";
 
 it("should pass thru object as is", () => {

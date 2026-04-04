@@ -1,9 +1,10 @@
-const prompts = jest.fn();
+const prompts = jest.fn<() => Promise<Record<string, unknown>>>();
 
 jest.mock("prompts", () => prompts);
 jest.mock("fs");
 
 import fs from "node:fs";
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import { vol } from "memfs";
 import { CLI } from "./cli";
 

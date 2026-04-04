@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
 
@@ -214,7 +215,7 @@ describe("rule no-raw-characters", () => {
 				${"<?\n&\n?>"} | ${"<? & ?> (with newlines)"}
 				${"<$ & $>"}   | ${"<$ & $>"}
 				${"<$\n&\n$>"} | ${"<$ & $> (with newlines)"}
-			`("$description", async ({ input }: { input: string }) => {
+			`("$description", async ({ input }) => {
 				expect.assertions(1);
 				const markup = /* HTML */ ` <p>lorem ${input} ipsum</p> `;
 				const report = await htmlvalidate.validateString(markup);

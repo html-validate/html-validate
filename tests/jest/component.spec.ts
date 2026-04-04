@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import { beforeAll, expect, it } from "@jest/globals";
 import { CLI, HtmlValidate } from "../../src";
 import "../../src/jest";
 
