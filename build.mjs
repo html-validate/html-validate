@@ -36,11 +36,6 @@ const sizeThresholds = {
 	error: 100 * 1024 /* 100 kB */,
 };
 
-const html5dts = [
-	`declare const value: import("html-validate").MetaDataTable;\n`,
-	`export default value;\n`,
-];
-
 /**
  * @param {number} bytes
  * @returns {string}
@@ -234,6 +229,11 @@ async function bundle(format) {
  * @returns {Promise<void>}
  */
 async function build() {
+	const html5dts = [
+		`declare const value: import("html-validate").MetaDataTable;\n`,
+		`export default value;\n`,
+	];
+
 	await bundle("es");
 	await bundle("cjs");
 	await apiExtractor(["entrypoints/api-extractor-*.json"]);
