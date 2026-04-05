@@ -1,6 +1,5 @@
 /* eslint-disable no-console -- expected to log */
 
-/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- developer script */
 import { styleText } from "node:util";
 import babar from "babar";
 import Table from "cli-table";
