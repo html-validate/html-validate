@@ -1,4 +1,12 @@
-/* this file is precompiled from jest.setup.js */
+jest.mock(
+	"./src/generated/package-json",
+	() => {
+		const pkg = require("./package.json");
+		return { name: pkg.name, version: pkg.version, homepage: pkg.homepage, bugs: pkg.bugs.url };
+	},
+	{ virtual: true },
+);
+
 jest.mock(
 	"./src/jest/worker/worker.ts?worker&url",
 	() => require.resolve("./temp/jest-worker.js"),

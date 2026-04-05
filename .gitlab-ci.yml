@@ -105,7 +105,6 @@ ESLint:
     - NPM
     - Build
   script:
-    - npm run codegen
     - npm run eslint -- --max-warnings 0
 
 Jest:
@@ -125,7 +124,6 @@ Jest:
         path: coverage/cobertura-coverage.xml
       junit: temp/jest.xml
   script:
-    - npm run codegen
     - npm test -- src/ tests/
 
 Prettier:
@@ -146,7 +144,6 @@ Docs:
       junit: temp/jest.xml
   script:
     - npm ci
-    - npm run codegen
     - npm run build
     - npm run docs
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
@@ -162,7 +159,6 @@ Docs:
   before_script:
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
-    - npm run codegen
     - npm run --if-present build
     - npm test -- --no-coverage --ci --testPathIgnorePatterns matchers --workerThreads 1 --logHeapUsage -- src tests/jest
     - npm run -w tests/vitest test
@@ -195,11 +191,11 @@ Jest compat:
     - npm ci --no-fund --no-audit --no-update-notifier
     - npm run build
     - npm pkg delete workspaces
-    - export TYPES_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "@types/jest")
-    - export JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "jest")
-    - export EXPECT_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "expect")
-    - export TS_JEST_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "ts-jest")
-    - export TS_VERSION=$(node scripts/get-min-version.js "${MATRIX}" "typescript")
+    - export TYPES_VERSION=$(node scripts/get-min-version.mjs "${MATRIX}" "@types/jest")
+    - export JEST_VERSION=$(node scripts/get-min-version.mjs "${MATRIX}" "jest")
+    - export EXPECT_VERSION=$(node scripts/get-min-version.mjs "${MATRIX}" "expect")
+    - export TS_JEST_VERSION=$(node scripts/get-min-version.mjs "${MATRIX}" "ts-jest")
+    - export TS_VERSION=$(node scripts/get-min-version.mjs "${MATRIX}" "typescript")
     - |
       echo "jest version: ${JEST_VERSION}"
       echo "typescript version: ${TS_VERSION}"

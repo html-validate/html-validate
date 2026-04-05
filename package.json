@@ -98,29 +98,25 @@
     "tests/vitest"
   ],
   "scripts": {
-    "prebuild": "run-s codegen && tsc",
-    "build": "run-s build:cjs build:esm build:script",
+    "prebuild": "tsc",
+    "build": "node build.mjs",
     "postbuild": "npm run --workspaces --if-present build",
-    "build:cjs": "rollup --config rollup.cjs.config.mjs",
-    "build:esm": "rollup --config rollup.esm.config.mjs",
-    "build:script": "node build.mjs",
     "clean": "rm -rf dist public",
-    "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
-    "docs": "node docs/build.js",
+    "docs": "node docs/build.mjs",
     "postdocs": "tsc -b docs/examples",
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
     "htmlvalidate": "node ./bin/html-validate.mjs",
     "prepack": "release-prepack --bundle",
     "postpack": "release-postpack",
-    "prepare": "husky && npm run codegen",
+    "prepare": "husky",
     "prepublishOnly": "release-prepublish --bundle",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "postpublish": "release-postpublish",
-    "start": "node docs/server.js",
+    "start": "node docs/server.mjs",
     "test": "jest --ci",
     "version": "scripts/version",
     "postversion": "npm run build"
@@ -189,7 +185,7 @@
       "!**/*.d.ts",
       "!**/__fixtures__/**"
     ],
-    "globalSetup": "<rootDir>/jest.global.js",
+    "globalSetup": "<rootDir>/jest.global.cjs",
     "moduleNameMapper": {
       "^html-validate/browser$": "<rootDir>/src/browser.ts"
     },
@@ -201,7 +197,7 @@
       "<rootDir>/tests"
     ],
     "setupFiles": [
-      "<rootDir>/jest.setup.js"
+      "<rootDir>/jest.setup.cjs"
     ],
     "testEnvironmentOptions": {
       "globalsCleanup": "on"

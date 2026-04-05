@@ -67,7 +67,7 @@ export default [
 
 	{
 		name: "local/docs",
-		files: ["docs/*.js", "docs/dgeni/**/*.js"],
+		files: ["docs/*.mjs", "docs/dgeni/**/*.js"],
 		rules: {
 			/* docs scripts are expected to log to console */
 			"no-console": "off",

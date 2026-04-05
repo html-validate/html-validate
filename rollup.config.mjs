@@ -19,6 +19,8 @@ const peerDependencies = Object.keys(packageJson.peerDependencies);
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
+ * @typedef {import('rollup').OutputOptions} OutputOptions
+ * @typedef {import('rollup').Plugin} RollupPlugin
  */
 
 /**
@@ -188,7 +190,36 @@ function generateResolved(format) {
 }
 
 /**
- * @returns {import("rollup").Plugin}
+ * @returns {RollupPlugin}
+ */
+function generatedPackageJsonPlugin() {
+	const virtualId = "\0virtual:generated/package-json";
+	return {
+		name: "html-validate:generated-package-json",
+		resolveId(id) {
+			if (id.endsWith("generated/package-json")) {
+				return virtualId;
+			} else {
+				return undefined;
+			}
+		},
+		load(id) {
+			if (id === virtualId) {
+				return [
+					`export const name = ${JSON.stringify(packageJson.name)};`,
+					`export const version = ${JSON.stringify(packageJson.version)};`,
+					`export const homepage = ${JSON.stringify(packageJson.homepage)};`,
+					`export const bugs = ${JSON.stringify(packageJson.bugs.url)};`,
+				].join("\n");
+			} else {
+				return undefined;
+			}
+		},
+	};
+}
+
+/**
+ * @returns {RollupPlugin}
  */
 function workerPlugin() {
 	const mapping = new Map();
@@ -251,28 +282,12 @@ function workerPlugin() {
 
 /**
  * @param {string} format
- * @returns {RollupOptions[]}
+ * @returns {{ inputOptions: RollupOptions, outputOptions: OutputOptions }}
  */
-export function build(format) {
-	return [
-		{
+export function getRollupConfig(format) {
+	return {
+		inputOptions: {
 			input: entrypoints.map((it) => it.in),
-			output: {
-				dir: `dist/${folders[format]}`,
-				format,
-				sourcemap: true,
-				manualChunks,
-				entryFileNames({ facadeModuleId }) {
-					const base = path.relative(rootDir, facadeModuleId).replaceAll("\\", "/");
-					const entrypoint = entrypoints.find((it) => it.in === base);
-					if (entrypoint?.out) {
-						return `${entrypoint.out}.js`;
-					}
-					return "[name].js";
-				},
-				chunkFileNames: "[name].js",
-				interop: "auto",
-			},
 			treeshake: {
 				preset: "smallest",
 			},
@@ -282,6 +297,7 @@ export function build(format) {
 				virtual({
 					"src/resolve": generateResolved(format),
 				}),
+				generatedPackageJsonPlugin(),
 				esbuild({
 					target: "node20",
 					platform: "node",
@@ -308,5 +324,21 @@ export function build(format) {
 				}),
 			],
 		},
-	];
+		outputOptions: {
+			dir: `dist/${folders[format]}`,
+			format,
+			sourcemap: true,
+			manualChunks,
+			entryFileNames({ facadeModuleId }) {
+				const base = path.relative(rootDir, facadeModuleId).replaceAll("\\", "/");
+				const entrypoint = entrypoints.find((it) => it.in === base);
+				if (entrypoint?.out) {
+					return `${entrypoint.out}.js`;
+				}
+				return "[name].js";
+			},
+			chunkFileNames: "[name].js",
+			interop: "auto",
+		},
+	};
 }

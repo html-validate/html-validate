@@ -47,7 +47,7 @@ export {
 	isUserError,
 } from "./error";
 export * from "./event";
-export { version } from "./generated/package";
+export { version } from "./generated/package-json";
 export {
 	type AttrNameToken,
 	type AttrValueToken,

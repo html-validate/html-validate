@@ -1,5 +1,5 @@
 import kleur from "kleur";
-import { version } from "../generated/package";
+import { version } from "../generated/package-json";
 import { type CompatibilityOptions, compatibilityCheckImpl } from "./compatibility-check";
 
 const defaults: CompatibilityOptions = {
