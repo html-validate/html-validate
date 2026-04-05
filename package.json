@@ -98,11 +98,10 @@
     "tests/vitest"
   ],
   "scripts": {
-    "prebuild": "run-s codegen && tsc",
+    "prebuild": "tsc",
     "build": "node build.mjs",
     "postbuild": "npm run --workspaces --if-present build",
     "clean": "rm -rf dist public",
-    "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
     "docs": "node docs/build.js",
@@ -112,7 +111,7 @@
     "htmlvalidate": "node ./bin/html-validate.mjs",
     "prepack": "release-prepack --bundle",
     "postpack": "release-postpack",
-    "prepare": "husky && npm run codegen",
+    "prepare": "husky",
     "prepublishOnly": "release-prepublish --bundle",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",

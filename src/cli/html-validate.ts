@@ -4,7 +4,7 @@ import path from "node:path";
 import kleur from "kleur";
 import minimist from "minimist";
 import { type UserErrorData, SchemaValidationError, isUserError } from "..";
-import { bugs as pkgBugs, name, version } from "../generated/package";
+import { bugs as pkgBugs, name, version } from "../generated/package-json";
 import { dump } from "./actions/dump";
 import { init } from "./actions/init";
 import { lint } from "./actions/lint";

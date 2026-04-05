@@ -10,5 +10,4 @@ node_modules/
 dist/
 coverage/
 public/
-src/generated/
 temp/
