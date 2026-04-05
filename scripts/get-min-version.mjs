@@ -1,6 +1,7 @@
-const { minSatisfying, minVersion } = require("semver");
-const { jest } = require("../package.json").peerDependencies;
+import { minSatisfying, minVersion } from "semver";
+import pkg from "../package.json" with { type: "json" };
 
+const { jest } = pkg.peerDependencies;
 const constraint = process.argv[2];
 const pkgname = process.argv[3] || "";
 const minRequiredJest = jest.split("||").map((it) => minVersion(it.trim()));
