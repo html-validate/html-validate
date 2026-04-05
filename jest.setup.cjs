@@ -1,4 +1,3 @@
-/* this file is precompiled from jest.setup.js */
 jest.mock(
 	"./src/generated/package-json",
 	() => {

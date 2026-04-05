@@ -185,7 +185,7 @@
       "!**/*.d.ts",
       "!**/__fixtures__/**"
     ],
-    "globalSetup": "<rootDir>/jest.global.js",
+    "globalSetup": "<rootDir>/jest.global.cjs",
     "moduleNameMapper": {
       "^html-validate/browser$": "<rootDir>/src/browser.ts"
     },
@@ -197,7 +197,7 @@
       "<rootDir>/tests"
     ],
     "setupFiles": [
-      "<rootDir>/jest.setup.js"
+      "<rootDir>/jest.setup.cjs"
     ],
     "testEnvironmentOptions": {
       "globalsCleanup": "on"

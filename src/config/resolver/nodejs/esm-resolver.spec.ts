@@ -10,7 +10,7 @@ import { type ImportError } from "./internal-import";
 
 let mockModules: Record<string, unknown>;
 const mockResolve = jest.spyOn(ResolveModule, "importResolve");
-const mockImport = ImportFunctionModule.importFunction as jest.Mock<(id: string) => unknown>; // mocked in jest.setup.js
+const mockImport = ImportFunctionModule.importFunction as jest.Mock<(id: string) => unknown>; // mocked in jest.setup.cjs
 const resolver = esmResolver();
 
 function createMockedModule(name: string, content: unknown, options?: { default: boolean }): void {
