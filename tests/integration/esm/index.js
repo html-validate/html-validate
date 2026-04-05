@@ -24,8 +24,10 @@ async function run() {
 	});
 }
 
-run().catch((err) => {
+try {
+	await run();
+} catch (err) {
 	/* eslint-disable-next-line no-console -- expected to log */
 	console.error(err);
 	process.exitCode = 1;
-});
+}

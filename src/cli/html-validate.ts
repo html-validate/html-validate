@@ -305,6 +305,7 @@ async function run(): Promise<void> {
 	}
 }
 
+/* eslint-disable-next-line unicorn/prefer-top-level-await -- technical debt, as long as we bundle and ship commonjs we cannot use TLA here */
 run().catch((err: unknown) => {
 	console.error(err);
 	process.exit(1);

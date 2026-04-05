@@ -765,6 +765,7 @@ async function update() {
 }
 
 if (require.main === module) {
+	/* eslint-disable-next-line unicorn/prefer-top-level-await -- technical debt, this script runs as commonjs */
 	update();
 }
 

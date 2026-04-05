@@ -108,7 +108,6 @@ export default [
 			"unicorn/no-hex-escape": "off",
 			"unicorn/prefer-structured-clone": "off",
 			"unicorn/prefer-query-selector": "off",
-			"unicorn/prefer-top-level-await": "off",
 		},
 	},
 ];
