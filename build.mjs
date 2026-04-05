@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { styleText } from "node:util";
 import { glob } from "glob";
-import kleur from "kleur";
 import { rollup } from "rollup";
 import { getRollupConfig } from "./rollup.config.mjs";
 import { apiExtractor } from "./scripts/api-extractor.mjs";
@@ -161,7 +160,7 @@ async function writeFile(dst, content) {
 	const dir = path.dirname(dst);
 	await fs.mkdir(dir, { recursive: true });
 	await fs.writeFile(dst, content, "utf8");
-	console.log("Writing", kleur.cyan(dst));
+	console.log("Writing", styleText("cyan", dst));
 }
 
 /**
@@ -172,7 +171,7 @@ async function writeFile(dst, content) {
 async function copyFile(src, dstDir) {
 	const dst = path.join(dstDir, path.basename(src));
 	await fs.copyFile(src, dst);
-	console.log(src, "->", kleur.cyan(dst));
+	console.log(src, "->", styleText("cyan", dst));
 }
 
 /**
