@@ -18,7 +18,7 @@ function unescapeCodepoint(value: string): string {
 		"\\\u0064 ": "\r",
 	};
 	return value.replaceAll(
-		/(\\[\u0039\u0061\u0064] )/g,
+		/(\\[9ad] )/g,
 		(_, codepoint: "\\\u0039 " | "\\\u0061 " | "\\\u0064 ") => replacement[codepoint],
 	);
 }
@@ -33,7 +33,7 @@ export function escapeSelectorComponent(text: string | DynamicValue): string {
 		"\n": "\\\u0061 ",
 		"\r": "\\\u0064 ",
 	};
-	return text.toString().replaceAll(/([\t\n\r]|[^a-z0-9_-])/gi, (_, ch: string) => {
+	return text.toString().replaceAll(/([\t\n\r]|[^\w-])/gi, (_, ch: string) => {
 		if (codepoints[ch]) {
 			return codepoints[ch];
 		} else {
@@ -104,7 +104,7 @@ export class Selector {
 	private static parse(selector: string): Compound[] {
 		/* strip whitespace before combinators, "ul > li" becomes "ul >li", for
 		 * easier parsing */
-		selector = selector.replaceAll(/([+~>]) /g, "$1");
+		selector = selector.replaceAll(/([+>~]) /g, "$1");
 
 		/* split string on whitespace (excluding escaped `\ `) */
 		return Array.from(splitSelectorElements(selector), (element) => {

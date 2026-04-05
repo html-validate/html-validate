@@ -12,7 +12,7 @@ export default class NoTrailingWhitespace extends Rule {
 
 	public setup(): void {
 		this.on("whitespace", (event: WhitespaceEvent) => {
-			if (/^[ \t]+\r?\n$/.test(event.text)) {
+			if (/^[\t ]+\r?\n$/.test(event.text)) {
 				this.report(null, "Trailing whitespace", event.location);
 			}
 		});

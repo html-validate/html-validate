@@ -14,7 +14,7 @@ function generateId(value) {
 	const slug = value
 		.toLowerCase()
 		.replaceAll(/\(.*?\)/g, "")
-		.replaceAll(/[^\w]+/g, "-")
+		.replaceAll(/\W+/g, "-")
 		.replaceAll(/(^-|-$)/g, "");
 
 	if (isVersionNumber(value)) {
@@ -30,7 +30,7 @@ function generateId(value) {
  * @returns {[text: string, id: string]}
  */
 function getHeadingId(text, raw) {
-	const hasId = /(?: +|^)\{#([a-z][\w-]*)\}(?: +|$)/i;
+	const hasId = /(?: +|^){#([a-z][\w-]*)}(?: +|$)/i;
 	const match = text.match(hasId);
 	if (match) {
 		return [text.replace(hasId, ""), match[1]];

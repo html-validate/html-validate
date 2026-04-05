@@ -5,7 +5,7 @@ export interface ConditionalComment {
 	location: Location;
 }
 
-const regexp = /<!(?:--)?\[(.*?)\](?:--)?>/g;
+const regexp = /<!(?:--)?\[(.*?)](?:--)?>/g;
 
 export function* parseConditionalComment(
 	comment: string,

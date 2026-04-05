@@ -1,4 +1,4 @@
-const INLINE_LINK = /(\S+)(?:\s+([\s\S]+))?/;
+const INLINE_LINK = /(\S+)(?:\s+([\S\s]+))?/;
 
 /**
  * @dgService linkInlineTagDef

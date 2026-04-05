@@ -28,7 +28,7 @@ function isRelevant(event: TagStartEvent): boolean {
 }
 
 function extractLevel(node: HtmlElement): number | null {
-	const match = /^[hH](\d)$/.exec(node.tagName);
+	const match = /^[Hh](\d)$/.exec(node.tagName);
 	if (match) {
 		return Number.parseInt(match[1], 10);
 	} else {

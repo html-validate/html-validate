@@ -13,8 +13,8 @@ const defaults: RuleOptions = {
 
 type RawCharacters = '"' | "&" | "'" | "<" | "=" | ">" | "`";
 
-const textRegexp = /([<>]|&(?![a-zA-Z0-9#]+;))/g;
-const unquotedAttrRegexp = /([<>"'=`]|&(?![a-zA-Z0-9#]+;))/g;
+const textRegexp = /([<>]|&(?![\d#A-Za-z]+;))/g;
+const unquotedAttrRegexp = /(["'<=>`]|&(?![\d#A-Za-z]+;))/g;
 const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/s;
 
 const replacementTable: Record<RawCharacters, string> = {

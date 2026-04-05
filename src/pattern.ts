@@ -50,14 +50,14 @@ export function parsePattern(pattern: Pattern | RegExp): ParsedPattern {
 
 	switch (pattern) {
 		case "kebabcase":
-			return { regexp: /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/, description: pattern };
+			return { regexp: /^[a-z][\da-z]*(?:-[\da-z]+)*$/, description: pattern };
 
 		case "camelcase":
-			return { regexp: /^[a-z][a-zA-Z0-9]*$/, description: pattern };
+			return { regexp: /^[a-z][\dA-Za-z]*$/, description: pattern };
 
 		case "snakecase":
 		case "underscore":
-			return { regexp: /^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$/, description: pattern };
+			return { regexp: /^[a-z][\da-z]*(?:_[\da-z]+)*$/, description: pattern };
 
 		case "bem": {
 			const block = "[a-z][a-z0-9]*(?:-[a-z0-9]+)*";
@@ -71,7 +71,7 @@ export function parsePattern(pattern: Pattern | RegExp): ParsedPattern {
 
 		case "tailwind": {
 			return {
-				regexp: /^!?(?:[-a-z[]|\d+xl:)[\w\-:./\\[\]()#'&>,!=%]*$/,
+				regexp: /^!?(?:[[a-z-]|\d+xl:)[\w!#%&'(),./:=>[\\\]-]*$/,
 				description: "tailwind",
 			};
 		}

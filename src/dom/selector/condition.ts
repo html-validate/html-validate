@@ -64,7 +64,7 @@ export class AttributeCondition extends Condition {
 
 	public constructor(attr: string) {
 		super();
-		const [, key, op, value] = /^(.+?)(?:([~^$*|]?=)"([^"]+?)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+		const [, key, op, value] = /^(.+?)(?:([$*^|~]?=)"([^"]+?)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 		this.key = key;
 		this.op = op;
 		this.value = typeof value === "string" ? stripslashes(value) : value;

@@ -15,7 +15,7 @@ function htmlEncode(str) {
 		return "";
 	}
 
-	return str.replaceAll(/[<>&"']/g, (m) => {
+	return str.replaceAll(/["&'<>]/g, (m) => {
 		return replacement[m];
 	});
 }

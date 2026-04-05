@@ -17,7 +17,7 @@ export class ImportResolveMissingError extends UserError {
 		const currentVersion = process.version;
 		const requiredVersion = engines.node
 			.split("||")
-			.map((it) => `v${it.replace(/^[^\d]+/, "").trim()}`);
+			.map((it) => `v${it.replace(/^\D+/, "").trim()}`);
 		return [
 			kleur.red(`Error: ${message}.`),
 			"",

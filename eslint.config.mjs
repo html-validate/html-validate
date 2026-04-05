@@ -101,7 +101,6 @@ export default [
 		name: "local/technical-debt",
 		rules: {
 			"@typescript-eslint/no-explicit-any": "off",
-			"unicorn/better-regex": "off",
 		},
 	},
 ];
