@@ -103,7 +103,6 @@ export default [
 			"@typescript-eslint/no-explicit-any": "off",
 			"unicorn/better-regex": "off",
 			"unicorn/consistent-function-scoping": "off",
-			"unicorn/error-message": "off",
 		},
 	},
 ];

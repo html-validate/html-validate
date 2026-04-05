@@ -48,7 +48,7 @@ function createMatcher(): ToMatchInlineCodeframeMatcher {
 			 * to determine where to write the inline snapshots. When resolving the
 			 * promise the original stack frames are lost and the snapshot will be
 			 * written in this files instaed. */
-			error: new Error(),
+			error: new Error("stacktrace"),
 		};
 
 		if (isThenable(actual)) {
