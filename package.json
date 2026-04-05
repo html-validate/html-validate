@@ -104,7 +104,7 @@
     "clean": "rm -rf dist public",
     "compatibility": "scripts/compatibility.sh",
     "debug": "node --inspect ./node_modules/.bin/jest --runInBand --watch --no-coverage",
-    "docs": "node docs/build.js",
+    "docs": "node docs/build.mjs",
     "postdocs": "tsc -b docs/examples",
     "eslint": "eslint --cache .",
     "eslint:fix": "eslint --cache --fix .",
@@ -116,7 +116,7 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "postpublish": "release-postpublish",
-    "start": "node docs/server.js",
+    "start": "node docs/server.mjs",
     "test": "jest --ci",
     "version": "scripts/version",
     "postversion": "npm run build"

@@ -1,8 +1,11 @@
-const fs = require("node:fs/promises");
-const browserify = require("browserify");
-const Dgeni = require("dgeni");
-const postcss = require("postcss");
-const sass = require("sass");
+import fs from "node:fs/promises";
+import autoprefixer from "autoprefixer";
+import browserify from "browserify";
+import cssnano from "cssnano";
+import Dgeni from "dgeni";
+import postcss from "postcss";
+import sass from "sass";
+import dgeniPackage from "./dgeni/index.js";
 
 async function assets() {
 	console.group("Copying assets");
@@ -48,7 +51,7 @@ async function stylesheets() {
 	console.group("Running Sass and PostCSS");
 	const src = "docs/app/docs.scss";
 	const dst = "public/assets/docs.min.css";
-	const plugins = [require("autoprefixer"), require("cssnano")];
+	const plugins = [autoprefixer, cssnano];
 	const compiled = sass.compile(src, {
 		loadPaths: [
 			"node_modules/@fortawesome/fontawesome-free/scss",
@@ -66,7 +69,7 @@ async function stylesheets() {
 async function docs() {
 	console.log("Running Dgeni");
 	try {
-		const dgeni = new Dgeni([require("./dgeni")]);
+		const dgeni = new Dgeni([dgeniPackage]);
 		await dgeni.generate();
 	} catch (err) {
 		throw new Error("Dgeni failed to generate docs", { cause: err });
@@ -82,15 +85,10 @@ async function build() {
 	await docs();
 }
 
-if (require.main === module) {
-	build()
-		.then(() => {
-			console.log("Build successful");
-		})
-		.catch((err) => {
-			console.error("Failed to build docs:", err);
-			process.exitCode = 1;
-		});
+try {
+	await build();
+	console.log("Build successful");
+} catch (err) {
+	console.error("Failed to build docs:", err);
+	process.exitCode = 1;
 }
-
-module.exports = { build };
