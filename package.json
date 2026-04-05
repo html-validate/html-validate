@@ -99,11 +99,8 @@
   ],
   "scripts": {
     "prebuild": "run-s codegen && tsc",
-    "build": "run-s build:cjs build:esm build:script",
+    "build": "node build.mjs",
     "postbuild": "npm run --workspaces --if-present build",
-    "build:cjs": "rollup --config rollup.cjs.config.mjs",
-    "build:esm": "rollup --config rollup.esm.config.mjs",
-    "build:script": "node build.mjs",
     "clean": "rm -rf dist public",
     "codegen": "node scripts/codegen.cjs",
     "compatibility": "scripts/compatibility.sh",

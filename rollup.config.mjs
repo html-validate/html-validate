@@ -19,6 +19,7 @@ const peerDependencies = Object.keys(packageJson.peerDependencies);
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
+ * @typedef {import('rollup').OutputOptions} OutputOptions
  */
 
 /**
@@ -251,28 +252,12 @@ function workerPlugin() {
 
 /**
  * @param {string} format
- * @returns {RollupOptions[]}
+ * @returns {{ inputOptions: RollupOptions, outputOptions: OutputOptions }}
  */
-export function build(format) {
-	return [
-		{
+export function getRollupConfig(format) {
+	return {
+		inputOptions: {
 			input: entrypoints.map((it) => it.in),
-			output: {
-				dir: `dist/${folders[format]}`,
-				format,
-				sourcemap: true,
-				manualChunks,
-				entryFileNames({ facadeModuleId }) {
-					const base = path.relative(rootDir, facadeModuleId).replaceAll("\\", "/");
-					const entrypoint = entrypoints.find((it) => it.in === base);
-					if (entrypoint?.out) {
-						return `${entrypoint.out}.js`;
-					}
-					return "[name].js";
-				},
-				chunkFileNames: "[name].js",
-				interop: "auto",
-			},
 			treeshake: {
 				preset: "smallest",
 			},
@@ -308,5 +293,21 @@ export function build(format) {
 				}),
 			],
 		},
-	];
+		outputOptions: {
+			dir: `dist/${folders[format]}`,
+			format,
+			sourcemap: true,
+			manualChunks,
+			entryFileNames({ facadeModuleId }) {
+				const base = path.relative(rootDir, facadeModuleId).replaceAll("\\", "/");
+				const entrypoint = entrypoints.find((it) => it.in === base);
+				if (entrypoint?.out) {
+					return `${entrypoint.out}.js`;
+				}
+				return "[name].js";
+			},
+			chunkFileNames: "[name].js",
+			interop: "auto",
+		},
+	};
 }
