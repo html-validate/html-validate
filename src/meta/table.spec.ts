@@ -238,7 +238,7 @@ describe("MetaTable", () => {
 			<foo id="second" interactive></foo>
 		`;
 		const dom = parser.parseHtml(markup);
-		const elements = dom.getElementsByTagName("foo");
+		const elements = dom.querySelectorAll("foo");
 		expect(elements[0].meta?.interactive).toBeFalsy();
 		expect(elements[1].meta?.interactive).toBeTruthy();
 	});

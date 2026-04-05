@@ -645,6 +645,7 @@ export class HtmlElement extends DOMNode {
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.childElements.reduce<HtmlElement[]>((matches, node) => {
+			/* eslint-disable-next-line unicorn/prefer-query-selector -- querySelectorAll() is less optimized here */
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}

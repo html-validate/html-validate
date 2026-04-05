@@ -74,6 +74,7 @@ export class DOMTree {
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
+		/* eslint-disable-next-line unicorn/prefer-query-selector -- implementation of getElementsByTagName() */
 		return this.root.getElementsByTagName(tagName);
 	}
 

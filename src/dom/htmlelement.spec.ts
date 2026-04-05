@@ -727,6 +727,7 @@ describe("HtmlElement", () => {
 	describe("getElementsByTagName()", () => {
 		it("should find elements", () => {
 			expect.assertions(3);
+			/* eslint-disable-next-line unicorn/prefer-query-selector -- testcases to ensure getElementsByTagName() works correctly */
 			const nodes = document.getElementsByTagName("li");
 			expect(nodes).toHaveLength(2);
 			expect(nodes[0].getAttributeValue("class")).toBe("foo");
@@ -735,6 +736,7 @@ describe("HtmlElement", () => {
 
 		it("should support universal selector", () => {
 			expect.assertions(2);
+			/* eslint-disable-next-line unicorn/prefer-query-selector -- testcases to ensure getElementsByTagName() works correctly */
 			const tagNames = document.getElementsByTagName("*").map((cur: HtmlElement) => cur.tagName);
 			expect(tagNames).toHaveLength(6);
 			expect(tagNames).toEqual(["div", "ul", "li", "li", "p", "span"]);

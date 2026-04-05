@@ -52,6 +52,7 @@ describe("DOMTree", () => {
 		const expected = [node];
 		const spy = jest.spyOn(tree.root, "getElementsByTagName").mockReturnValue(expected);
 		const tagName = "foo";
+		/* eslint-disable-next-line unicorn/prefer-query-selector -- testcases to ensure getElementsByTagName() works correctly */
 		expect(tree.getElementsByTagName(tagName)).toBe(expected);
 		expect(spy).toHaveBeenCalledWith(tagName);
 	});

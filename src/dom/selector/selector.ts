@@ -115,6 +115,7 @@ export class Selector {
 	private static findCandidates(root: HtmlElement, pattern: Compound): HtmlElement[] {
 		switch (pattern.combinator) {
 			case Combinator.DESCENDANT:
+				/* eslint-disable-next-line unicorn/prefer-query-selector -- this is part of the implementation of querySelectorAll() */
 				return root.getElementsByTagName(pattern.tagName);
 			case Combinator.CHILD:
 				return root.childElements.filter((node) => node.is(pattern.tagName));
