@@ -104,7 +104,6 @@ export default [
 			"unicorn/better-regex": "off",
 			"unicorn/consistent-function-scoping": "off",
 			"unicorn/error-message": "off",
-			"unicorn/no-anonymous-default-export": "off",
 		},
 	},
 ];

@@ -1,4 +1,4 @@
-export default function () {
+export default function description() {
 	return {
 		name: "description",
 		transforms(doc, tag, value) {
