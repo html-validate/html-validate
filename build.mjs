@@ -178,7 +178,8 @@ async function copyFile(src, dstDir) {
  * @returns {Promise<void>}
  */
 async function copySchema() {
-	console.group("Copying JSON schemas");
+	console.log("Copying JSON schemas");
+	console.group("");
 	try {
 		const dstDir = "dist/schema";
 		const mkdir = fs.mkdir(dstDir, { recursive: true });
