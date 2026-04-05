@@ -51,7 +51,7 @@ async function stylesheets() {
 	console.group("Running Sass and PostCSS");
 	const src = "docs/app/docs.scss";
 	const dst = "public/assets/docs.min.css";
-	const plugins = [autoprefixer, cssnano];
+	const plugins = [autoprefixer(), cssnano()];
 	const compiled = sass.compile(src, {
 		loadPaths: [
 			"node_modules/@fortawesome/fontawesome-free/scss",
