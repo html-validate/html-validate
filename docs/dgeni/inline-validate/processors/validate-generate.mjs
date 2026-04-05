@@ -1,6 +1,18 @@
 /**
  * @param {Map<string, unknown>} validateMap
  */
+function createInlineValidateDoc(validation) {
+	return {
+		id: `${validation.id}-inlineValidation`,
+		docType: "inlineValidation",
+		fileInfo: validation.doc.fileInfo,
+		startingLine: validation.doc.startingLine,
+		endingLine: validation.doc.endingLine,
+		validate: validation,
+		template: "inlineValidation.template.html",
+	};
+}
+
 export default function generateInlineValidationsProcessor(log, validateMap) {
 	return {
 		$runAfter: ["generateValidationResultsProcessor"],
@@ -14,17 +26,5 @@ export default function generateInlineValidationsProcessor(log, validateMap) {
 			docs.push(inlineValidationDoc);
 			validation.inlineValidationDoc = inlineValidationDoc;
 		}
-	}
-
-	function createInlineValidateDoc(validation) {
-		return {
-			id: `${validation.id}-inlineValidation`,
-			docType: "inlineValidation",
-			fileInfo: validation.doc.fileInfo,
-			startingLine: validation.doc.startingLine,
-			endingLine: validation.doc.endingLine,
-			validate: validation,
-			template: "inlineValidation.template.html",
-		};
 	}
 }

@@ -2,31 +2,31 @@
  * @dgProcessor computePathsProcessor
  * @description Compute the path and outputPath for docs that do not already have them from a set of templates
  */
-export default function computePathsProcessor(log, createDocMessage) {
-	function initializeMaps(pathTemplates) {
-		const pathTemplateMap = new Map();
-		const outputPathTemplateMap = new Map();
+function initializeMaps(pathTemplates) {
+	const pathTemplateMap = new Map();
+	const outputPathTemplateMap = new Map();
 
-		for (const template of pathTemplates) {
-			if (template.docTypes) {
-				for (const docType of template.docTypes) {
-					if (template.getPath) {
-						pathTemplateMap[docType] = template.getPath;
-					} else if (template.pathTemplate) {
-						throw new Error(`pathTemplate not supported, use getPath() instead`);
-					}
+	for (const template of pathTemplates) {
+		if (template.docTypes) {
+			for (const docType of template.docTypes) {
+				if (template.getPath) {
+					pathTemplateMap[docType] = template.getPath;
+				} else if (template.pathTemplate) {
+					throw new Error(`pathTemplate not supported, use getPath() instead`);
+				}
 
-					if (template.getOutputPath) {
-						outputPathTemplateMap[docType] = template.getOutputPath;
-					} else if (template.outputPathTemplate) {
-						throw new Error(`outputPathTemplate not supported, use getOutputPath() instead`);
-					}
+				if (template.getOutputPath) {
+					outputPathTemplateMap[docType] = template.getOutputPath;
+				} else if (template.outputPathTemplate) {
+					throw new Error(`outputPathTemplate not supported, use getOutputPath() instead`);
 				}
 			}
 		}
-		return { pathTemplateMap, outputPathTemplateMap };
 	}
+	return { pathTemplateMap, outputPathTemplateMap };
+}
 
+export default function computePathsProcessor(log, createDocMessage) {
 	return {
 		$validate: {
 			pathTemplates: { presence: true },

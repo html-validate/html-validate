@@ -16,6 +16,14 @@ async function expandPatterns(patterns) {
 }
 
 /**
+ * @param {string} content
+ * @returns {string}
+ */
+function rewriteImport(content) {
+	return content.replaceAll(/from ".*";/g, 'from "./index"');
+}
+
+/**
  * @param {import("@microsoft/api-extractor").ExtractorConfig} config
  * @returns {Promise<void>}
  */
@@ -44,14 +52,6 @@ async function patchAugmentations(config) {
 			filename: it[1].split(",").map((jt) => jt.trim()),
 			content: it[2],
 		})).filter((it) => it.filename.includes(target));
-	}
-
-	/**
-	 * @param {string} content
-	 * @returns {string}
-	 */
-	function rewriteImport(content) {
-		return content.replaceAll(/from ".*";/g, 'from "./index"');
 	}
 
 	/**

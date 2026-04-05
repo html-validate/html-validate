@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/consistent-function-scoping -- want everything self-contained within update() */
+
 async function update() {
 	const fs = require("node:fs/promises");
 	const crypto = require("node:crypto");

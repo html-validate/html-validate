@@ -1,4 +1,42 @@
 /**
+ * Create a function to transform from the tag to doc property
+ * @param  {function(doc, tag, value)|Array.<function(doc, tag, value)>} transform
+ *         The transformation to apply to the tag
+ * @return {function(doc, tag, value)} A single function that will do the transformation
+ */
+function getTransformationFn(transforms, tagDefName) {
+	if (typeof transforms === "function") {
+		// transform is a single function so just use that
+		return transforms;
+	}
+
+	if (Array.isArray(transforms)) {
+		// transform is an array then we will apply each in turn like a pipe-line
+		return (doc, tag, value) => {
+			for (const transform of transforms) {
+				value = transform(doc, tag, value);
+			}
+			return value;
+		};
+	}
+
+	if (!transforms) {
+		// No transform is specified so we just provide a default
+		return (doc, tag, value) => value;
+	}
+
+	if (tagDefName) {
+		throw new Error(
+			`Invalid transformFn in tag definition, ${tagDefName} - you must provide a function or an array of functions.`,
+		);
+	} else {
+		throw new Error(
+			"Invalid default transformFn - you must provide a function or an array of functions.",
+		);
+	}
+}
+
+/**
  * @dgProcessor
  * @description
  * Extract the information from the tags that were parsed
@@ -139,44 +177,6 @@ export default function extractTagsProcessor(log, parseTagsProcessor, createDocM
 			}
 		}
 		log.silly("	 - tag extracted: ", doc[docProperty]);
-	}
-
-	/**
-	 * Create a function to transform from the tag to doc property
-	 * @param  {function(doc, tag, value)|Array.<function(doc, tag, value)>} transform
-	 *         The transformation to apply to the tag
-	 * @return {function(doc, tag, value)} A single function that will do the transformation
-	 */
-	function getTransformationFn(transforms, tagDefName) {
-		if (typeof transforms === "function") {
-			// transform is a single function so just use that
-			return transforms;
-		}
-
-		if (Array.isArray(transforms)) {
-			// transform is an array then we will apply each in turn like a pipe-line
-			return (doc, tag, value) => {
-				for (const transform of transforms) {
-					value = transform(doc, tag, value);
-				}
-				return value;
-			};
-		}
-
-		if (!transforms) {
-			// No transform is specified so we just provide a default
-			return (doc, tag, value) => value;
-		}
-
-		if (tagDefName) {
-			throw new Error(
-				`Invalid transformFn in tag definition, ${tagDefName} - you must provide a function or an array of functions.`,
-			);
-		} else {
-			throw new Error(
-				"Invalid default transformFn - you must provide a function or an array of functions.",
-			);
-		}
 	}
 
 	function formatBadTagErrorMessage(doc) {

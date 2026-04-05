@@ -7,6 +7,69 @@ const _require = createRequire(import.meta.url);
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
 
+function readElements(fileInfo, filename) {
+	if (!filename) {
+		return filename;
+	}
+	const dir = path.dirname(fileInfo.filePath);
+	return _require(`${dir}/${filename}`);
+}
+
+function extractAttributes(attributeText) {
+	const attributes = {};
+	attributeText.replaceAll(ATTRIBUTE_REGEX, function (match, prop, val1, val2) {
+		attributes[prop] = val1 || val2;
+	});
+	return attributes;
+}
+
+/**
+ * @param {Map<string, unknown>} containerMap
+ */
+function uniqueName(containerMap, name) {
+	if (containerMap.has(name)) {
+		let index = 1;
+		while (containerMap.has(name + index)) {
+			index += 1;
+		}
+		name = name + index;
+	}
+	return name;
+}
+
+function generateConfig(rules, elements, attr) {
+	attr = { ...attr }; /* copy before modification */
+	delete attr.elements;
+	delete attr.name;
+	delete attr.rules;
+	const config = {};
+	if (elements) {
+		config.elements = ["html5", elements];
+	}
+	if (rules) {
+		config.rules = rules.reduce((dst, rule) => {
+			if (attr[rule]) {
+				dst[rule] = ["error", JSON.parse(attr[rule])];
+			} else {
+				dst[rule] = "error";
+			}
+			return dst;
+		}, {});
+	} else {
+		config.extends = ["html-validate:recommended"];
+	}
+	return config;
+}
+
+/**
+ * @param {string[]} data
+ * @returns {string}
+ */
+function getFingerprint(data) {
+	const hash = createHash("sha512").update(data.join(":")).digest("hex");
+	return hash.slice(0, 12);
+}
+
 /**
  * @param {Map<string, unknown>} validateMap
  */
@@ -61,69 +124,6 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 		validateMap.set(id, validate);
 
 		return `{@inlineValidation ${id}}`;
-	}
-
-	function readElements(fileInfo, filename) {
-		if (!filename) {
-			return filename;
-		}
-		const dir = path.dirname(fileInfo.filePath);
-		return _require(`${dir}/${filename}`);
-	}
-
-	function extractAttributes(attributeText) {
-		const attributes = {};
-		attributeText.replaceAll(ATTRIBUTE_REGEX, function (match, prop, val1, val2) {
-			attributes[prop] = val1 || val2;
-		});
-		return attributes;
-	}
-
-	/**
-	 * @param {Map<string, unknown>} containerMap
-	 */
-	function uniqueName(containerMap, name) {
-		if (containerMap.has(name)) {
-			let index = 1;
-			while (containerMap.has(name + index)) {
-				index += 1;
-			}
-			name = name + index;
-		}
-		return name;
-	}
-
-	function generateConfig(rules, elements, attr) {
-		attr = { ...attr }; /* copy before modification */
-		delete attr.elements;
-		delete attr.name;
-		delete attr.rules;
-		const config = {};
-		if (elements) {
-			config.elements = ["html5", elements];
-		}
-		if (rules) {
-			config.rules = rules.reduce((dst, rule) => {
-				if (attr[rule]) {
-					dst[rule] = ["error", JSON.parse(attr[rule])];
-				} else {
-					dst[rule] = "error";
-				}
-				return dst;
-			}, {});
-		} else {
-			config.extends = ["html-validate:recommended"];
-		}
-		return config;
-	}
-
-	/**
-	 * @param {string[]} data
-	 * @returns {string}
-	 */
-	function getFingerprint(data) {
-		const hash = createHash("sha512").update(data.join(":")).digest("hex");
-		return hash.slice(0, 12);
 	}
 }
 
