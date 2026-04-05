@@ -5,7 +5,7 @@ import cssnano from "cssnano";
 import Dgeni from "dgeni";
 import postcss from "postcss";
 import sass from "sass";
-import dgeniPackage from "./dgeni/index.js";
+import dgeniPackage from "./dgeni/index.mjs";
 
 async function assets() {
 	console.group("Copying assets");

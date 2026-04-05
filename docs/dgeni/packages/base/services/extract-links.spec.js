@@ -16,7 +16,7 @@ jest.mock("jsdom", () => {
 	return { JSDOM };
 });
 
-import extractLinksService from "./extract-links";
+import extractLinksService from "./extract-links.mjs";
 
 const extractLinks = extractLinksService();
 

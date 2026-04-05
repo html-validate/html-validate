@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import { plugin } from "./container";
+import { plugin } from "./container.mjs";
 
 marked.use(plugin());
 
