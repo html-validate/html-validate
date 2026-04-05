@@ -105,7 +105,6 @@ export default [
 			"unicorn/consistent-function-scoping": "off",
 			"unicorn/error-message": "off",
 			"unicorn/no-anonymous-default-export": "off",
-			"unicorn/no-hex-escape": "off",
 		},
 	},
 ];
