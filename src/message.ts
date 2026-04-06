@@ -36,5 +36,5 @@ export interface Message {
 	 *
 	 * This context can be passed to [[HtmlValidate#getRuleDocumentation]].
 	 */
-	context?: any;
+	context?: unknown;
 }

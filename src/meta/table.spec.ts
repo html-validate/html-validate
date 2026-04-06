@@ -7,12 +7,12 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
  * validation to ensure the code works anyway */
 interface Validate {
 	(): boolean;
-	errors: any[];
+	errors: unknown[];
 }
 const validate: Validate = (): boolean => {
 	return validate.errors.length === 0;
 };
-validate.errors = [] as any[];
+validate.errors = [] as unknown[];
 jest.mock("ajv", () => {
 	class MockAjv {
 		public compile(): () => boolean {
@@ -135,6 +135,7 @@ describe("MetaTable", () => {
 		expect.assertions(1);
 		const table = new MetaTable();
 		const data = { foo: {} };
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, addEntry should be public but internal */
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});
@@ -147,6 +148,7 @@ describe("MetaTable", () => {
 		expect.assertions(1);
 		const table = new MetaTable();
 		const data = { foo: {} };
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, addEntry should be public but internal */
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});

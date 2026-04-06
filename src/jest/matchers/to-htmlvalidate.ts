@@ -11,33 +11,31 @@ import {
 } from "../utils";
 import { type ValidateStringFn, createSyncFn, workerPath } from "../worker";
 
-function isMessage(arg: any): arg is Partial<Message> {
-	if (!arg) {
+function isMessage(arg: Arg1 | undefined): arg is Partial<Message> {
+	if (!arg || typeof arg !== "object") {
 		return false;
 	}
-	return Boolean(
-		arg.ruleId ??
-		arg.severity ??
-		arg.message ??
-		arg.offset ??
-		arg.line ??
-		arg.column ??
-		arg.size ??
-		arg.selector ??
-		arg.context,
-	);
+	return [
+		"ruleId",
+		"severity",
+		"message",
+		"offset",
+		"line",
+		"column",
+		"size",
+		"selector",
+		"context",
+	].some((key) => key in arg);
 }
 
-function isConfig(arg: any): arg is ConfigData {
-	if (!arg) {
+function isConfig(arg: Arg1 | undefined): arg is ConfigData {
+	if (!arg || typeof arg !== "object") {
 		return false;
 	}
-	return Boolean(
-		arg.root ?? arg.extends ?? arg.elements ?? arg.plugin ?? arg.transform ?? arg.rules,
-	);
+	return ["root", "extends", "elements", "plugin", "transform", "rules"].some((key) => key in arg);
 }
 
-function isString(arg: any): arg is string {
+function isString(arg: Arg1 | undefined): arg is string {
 	return typeof arg === "string";
 }
 

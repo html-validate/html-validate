@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
 import { type Location, type ProcessElementContext, type Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
-import { type EventCallback } from "../event";
+import { type EventCallback, type TriggerEventMap, type WhitespaceEvent } from "../event";
 import { HtmlValidate } from "../htmlvalidate";
 import {
 	type AttrNameToken,
@@ -66,6 +66,7 @@ function codeframe(source: string, location: Location): string {
 	return `${codeframePrefix}${codeframe}`;
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt */
 function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
 
@@ -97,7 +98,10 @@ class ExposedParser extends Parser {
 		yield* super.consumeUntil(tokenStream, search, errorLocation);
 	}
 
-	public override trigger(event: any, data: any): void {
+	public override trigger<K extends keyof TriggerEventMap>(
+		event: K,
+		data: TriggerEventMap[K],
+	): void {
 		super.trigger(event, data);
 	}
 }
@@ -112,13 +116,14 @@ describe("parser", () => {
 		"whitespace",
 	]);
 
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt */
 	let events: any[];
 	let parser: ExposedParser;
 
 	beforeEach(async () => {
 		events = [];
 		parser = new ExposedParser(await Config.empty().resolve());
-		parser.on("*", (event: string, data: any) => {
+		parser.on("*", (event: string, data: unknown) => {
 			if (ignoredEvents.has(event)) {
 				return;
 			}
@@ -1599,6 +1604,7 @@ describe("parser", () => {
 		let document: DOMTree;
 
 		beforeEach(() => {
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt */
 			callback = jest.fn((_event: string, data: any) => {
 				document = data.document;
 			});
@@ -1995,8 +2001,8 @@ describe("parser", () => {
 		describe("elements", () => {
 			it("by calling hook", () => {
 				expect.assertions(2);
-				let context: any;
-				const processElement = jest.fn<(node: HtmlElement) => void>(function (this: any) {
+				let context: unknown;
+				const processElement = jest.fn<(node: HtmlElement) => void>(function (this: unknown) {
 					context = this; // eslint-disable-line @typescript-eslint/no-this-alias -- hack
 				});
 				const source: Source = {
@@ -2209,6 +2215,7 @@ describe("parser", () => {
 
 	it("on() should delegate to eventhandler", () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 		const delegate = jest.spyOn((parser as any).event, "on");
 		parser.on("foo", () => null);
 		expect(delegate).toHaveBeenCalledWith("foo", expect.any(Function));
@@ -2216,6 +2223,7 @@ describe("parser", () => {
 
 	it("once() should delegate to eventhandler", () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 		const delegate = jest.spyOn((parser as any).event, "once");
 		parser.once("foo", () => null);
 		expect(delegate).toHaveBeenCalledWith("foo", expect.any(Function));
@@ -2225,10 +2233,12 @@ describe("parser", () => {
 		it("should push wildcard event on event queue", () => {
 			expect.assertions(2);
 			const cb = jest.fn();
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			(parser as any).event.once = jest.fn((event: string, fn: EventCallback) => {
 				fn(event, fn);
 			});
 			parser.defer(cb);
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			expect((parser as any).event.once).toHaveBeenCalledWith("*", cb);
 			expect(cb).toHaveBeenCalled();
 		});
@@ -2237,16 +2247,17 @@ describe("parser", () => {
 	describe("trigger()", () => {
 		it("should pass event to eventhandler", () => {
 			expect.assertions(1);
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			const trigger = jest.spyOn((parser as any).event, "trigger");
-			const event = { location: {} };
-			parser.trigger("foo", event);
-			expect(trigger).toHaveBeenCalledWith("foo", event);
+			const event: WhitespaceEvent = { location: {} as Location, text: " " };
+			parser.trigger("whitespace", event);
+			expect(trigger).toHaveBeenCalledWith("whitespace", event);
 		});
 
 		it("should throw error if event is missing location", () => {
 			expect.assertions(1);
 			expect(() => {
-				parser.trigger("foo", {});
+				parser.trigger("whitespace", {} as WhitespaceEvent);
 			}).toThrow("Triggered event must contain location");
 		});
 	});

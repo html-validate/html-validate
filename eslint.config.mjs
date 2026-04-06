@@ -96,11 +96,4 @@ export default [
 			"no-console": "off",
 		},
 	},
-
-	{
-		name: "local/technical-debt",
-		rules: {
-			"@typescript-eslint/no-explicit-any": "off",
-		},
-	},
 ];

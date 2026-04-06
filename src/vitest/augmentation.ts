@@ -5,6 +5,7 @@ import { type Message } from "../message";
 import "vitest";
 
 declare module "vitest" {
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- to match upstream */
 	interface Assertion<T = any> {
 		/**
 		 * @since 8.5.0
@@ -24,7 +25,7 @@ declare module "vitest" {
 		/**
 		 * @since 8.5.0
 		 */
-		toHaveError(ruleId: string, message: string, context?: any): T;
+		toHaveError(ruleId: string, message: string, context?: unknown): T;
 
 		/**
 		 * @since 8.5.0

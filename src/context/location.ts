@@ -30,7 +30,10 @@ export interface Location {
 	readonly size: number;
 }
 
-interface LocationRW {
+/**
+ * @internal
+ */
+export interface LocationRW {
 	filename: string;
 	offset: number;
 	line: number;

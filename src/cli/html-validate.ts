@@ -33,7 +33,7 @@ interface ParsedArgs {
 	version: boolean;
 }
 
-function getMode(argv: Record<string, any>): Mode {
+function getMode(argv: Record<string, unknown>): Mode {
 	if (argv["init"]) {
 		return Mode.INIT;
 	}

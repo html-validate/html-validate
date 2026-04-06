@@ -402,6 +402,7 @@ describe("Plugin", () => {
 			};
 			const setup = jest.spyOn(mockRule, "setup");
 			const engine = new Engine(await config.resolve(), Parser);
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();

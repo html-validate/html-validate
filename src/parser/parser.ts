@@ -470,7 +470,7 @@ export class Parser {
 		/* handle deprecated callbacks */
 		let iterator: Iterable<AttributeData>;
 		const legacy = processAttribute.call({}, attrData);
-		if (typeof (legacy as any)[Symbol.iterator] !== "function") {
+		if (typeof legacy[Symbol.iterator] !== "function") {
 			/* AttributeData */
 			iterator = [attrData];
 		} else {

@@ -1,12 +1,13 @@
 /**
  * @internal
  */
-export type AnyFn<R = any, T extends any[] = any[]> = (...args: T) => R;
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- must be any */
+export type AnyFn<R = unknown, T extends any[] = any[]> = (...args: T) => R;
 
 /**
  * @internal
  */
-export type AnyAsyncFn<T = any> = AnyFn<Promise<T>>;
+export type AnyAsyncFn<T = unknown> = AnyFn<Promise<T>>;
 
 /**
  * @internal

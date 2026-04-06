@@ -43,6 +43,7 @@ export interface RuleDocumentation {
  * @public
  */
 export interface RuleConstructor<T, U> {
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 	new (options?: any): Rule<T, U>;
 	schema(): SchemaObject | null | undefined;
 }

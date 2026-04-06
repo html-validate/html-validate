@@ -32,17 +32,16 @@ describe("toHaveErrors()", () => {
 
 	it("should fail if error any missing", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect(reportMultipleErrors()).toHaveErrors([
 				["my-rule", "mock message"],
 				["spam", "spam"],
 			]);
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 });

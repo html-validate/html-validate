@@ -47,6 +47,7 @@ export interface TokenEvent extends Event {
 	type: TokenType;
 
 	/** @deprecated use token property which is typesafe */
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- deprecated, leaving it as is */
 	data?: any;
 
 	token: Token;

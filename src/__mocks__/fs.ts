@@ -17,7 +17,7 @@ const fs = {
 };
 
 const proxy = new Proxy(fs, {
-	get(target, prop, receiver): any {
+	get(target, prop, receiver): unknown {
 		if (prop === "default") {
 			return proxy;
 		}

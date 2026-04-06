@@ -503,6 +503,7 @@ describe("Engine", () => {
 			};
 
 			/* mock loading of plugins */
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
@@ -520,6 +521,7 @@ describe("Engine", () => {
 			};
 
 			/* mock loading of plugins */
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 			(config as any).plugins = [plugin];
 
 			const source = inline("");
@@ -534,7 +536,7 @@ describe("Engine", () => {
 		describe("loadRule()", () => {
 			let parser: MockParser;
 			let reporter: Reporter;
-			let mockRule: any;
+			let mockRule: Rule;
 
 			beforeEach(async () => {
 				parser = new MockParser(await config.resolve());
@@ -542,13 +544,12 @@ describe("Engine", () => {
 				mockRule = {
 					init: jest.fn(),
 					setup: jest.fn(),
-				};
+				} as unknown as Rule;
 			});
 
 			it("should load and initialize rule", async () => {
 				expect.assertions(4);
 				const resolvedConfig = await config.resolve();
-				/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
 				const rule = engine.loadRule("void", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBe(mockRule);
@@ -598,6 +599,7 @@ describe("Engine", () => {
 				}
 
 				/* mock loading of plugins */
+				/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 				(config as any).plugins = [
 					{
 						rules: {
@@ -624,6 +626,7 @@ describe("Engine", () => {
 				expect.assertions(1);
 
 				/* mock loading of plugins */
+				/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 				(config as any).plugins = [
 					{
 						rules: {
@@ -645,6 +648,7 @@ describe("Engine", () => {
 				class MyRule extends Rule {}
 
 				/* mock loading of plugins */
+				/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 				(config as any).plugins = [
 					{
 						rules: {
@@ -669,6 +673,7 @@ describe("Engine", () => {
 			it("should handle plugin without rules", async () => {
 				expect.assertions(1);
 				/* mock loading of plugins */
+				/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 				(config as any).plugins = [{}];
 				const resolvedConfig = await config.resolve();
 				expect(() => new ExposedEngine(resolvedConfig, MockParser)).not.toThrow();

@@ -8,6 +8,7 @@ import H63 from "./h63";
 import H67 from "./h67";
 import H71 from "./h71";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"wcag/h30": H30,
 	"wcag/h32": H32,

@@ -579,7 +579,7 @@ export class Config {
 				 * to augment the runtime with additional keys so it is a bit of lying
 				 * to typescript */
 				const key = raw as keyof MetaElement;
-				if ((schema as any).copyable && !MetaCopyableProperty.includes(key)) {
+				if ((schema as { copyable?: boolean }).copyable && !MetaCopyableProperty.includes(key)) {
 					MetaCopyableProperty.push(key);
 				}
 			}

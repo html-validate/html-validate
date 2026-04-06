@@ -11,7 +11,7 @@ import * as transform from "./transform/transform-filename";
 import { isThenable } from "./utils";
 
 const engine = {
-	lint: jest.fn<(...args: unknown[]) => any>(),
+	lint: jest.fn<(sources: Source[]) => Report>(),
 	dumpEvents: jest.fn(),
 	dumpTree: jest.fn(),
 	dumpTokens: jest.fn(),
@@ -112,7 +112,7 @@ describe("HtmlValidate", () => {
 		it("should validate given string", async () => {
 			expect.assertions(2);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const str = "foobar";
 			const report = await htmlvalidate.validateString(str);
@@ -140,7 +140,7 @@ describe("HtmlValidate", () => {
 		it("should load configuration if filename is given", async () => {
 			expect.assertions(1);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const spy = jest.spyOn(htmlvalidate, "getConfigFor");
 			const str = "foobar";
@@ -151,7 +151,7 @@ describe("HtmlValidate", () => {
 		it("should allow overriding configuration", async () => {
 			expect.assertions(1);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const spy = jest.spyOn(htmlvalidate, "getConfigFor");
 			const str = "foobar";
@@ -174,7 +174,7 @@ describe("HtmlValidate", () => {
 
 			beforeEach(() => {
 				htmlvalidate = new HtmlValidate();
-				engine.lint.mockReturnValue(report);
+				engine.lint.mockReturnValue(report as unknown as Report);
 			});
 
 			it("str", async () => {
@@ -302,7 +302,7 @@ describe("HtmlValidate", () => {
 		it("should validate given string", () => {
 			expect.assertions(2);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const str = "foobar";
 			const report = htmlvalidate.validateStringSync(str);
@@ -321,7 +321,7 @@ describe("HtmlValidate", () => {
 		it("should load configuration if filename is given", () => {
 			expect.assertions(1);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const spy = jest.spyOn(htmlvalidate, "getConfigForSync");
 			const str = "foobar";
@@ -332,7 +332,7 @@ describe("HtmlValidate", () => {
 		it("should allow overriding configuration", () => {
 			expect.assertions(1);
 			const mockReport = "mock-report";
-			engine.lint.mockReturnValue(mockReport);
+			engine.lint.mockReturnValue(mockReport as unknown as Report);
 			const htmlvalidate = new HtmlValidate();
 			const spy = jest.spyOn(htmlvalidate, "getConfigForSync");
 			const str = "foobar";
@@ -355,7 +355,7 @@ describe("HtmlValidate", () => {
 
 			beforeEach(() => {
 				htmlvalidate = new HtmlValidate();
-				engine.lint.mockReturnValue(report);
+				engine.lint.mockReturnValue(report as unknown as Report);
 			});
 
 			it("str", () => {
@@ -482,7 +482,7 @@ describe("HtmlValidate", () => {
 	it("validateSource() should lint given source", async () => {
 		expect.assertions(2);
 		const mockReport = "mock-report";
-		engine.lint.mockResolvedValue(mockReport);
+		engine.lint.mockReturnValue(mockReport as unknown as Report);
 		const htmlvalidate = new HtmlValidate();
 		const source: Source = {
 			data: "foo",
@@ -499,7 +499,7 @@ describe("HtmlValidate", () => {
 	it("validateSourceSync() should lint given source", () => {
 		expect.assertions(2);
 		const mockReport = "mock-report";
-		engine.lint.mockReturnValue(mockReport);
+		engine.lint.mockReturnValue(mockReport as unknown as Report);
 		const htmlvalidate = new HtmlValidate();
 		const source: Source = {
 			data: "foo",
@@ -516,7 +516,7 @@ describe("HtmlValidate", () => {
 	it("validateFile() should lint given file", async () => {
 		expect.assertions(2);
 		const mockReport = "mock-report";
-		engine.lint.mockReturnValue(mockReport);
+		engine.lint.mockReturnValue(mockReport as unknown as Report);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
@@ -536,7 +536,7 @@ describe("HtmlValidate", () => {
 	it("validateFileSync() should lint given file", () => {
 		expect.assertions(2);
 		const mockReport = "mock-report";
-		engine.lint.mockReturnValue(mockReport);
+		engine.lint.mockReturnValue(mockReport as unknown as Report);
 		const htmlvalidate = new HtmlValidate();
 		const filename = "foo.html";
 		jest.spyOn(htmlvalidate, "getConfigForSync").mockImplementation(mockConfigSync);
@@ -1159,6 +1159,7 @@ describe("HtmlValidate", () => {
 	it("flushConfigCache() should delegate to configLoader", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 		const flushCache = jest.spyOn((htmlvalidate as any).configLoader as ConfigLoader, "flushCache");
 		htmlvalidate.flushConfigCache("foo");
 		expect(flushCache).toHaveBeenCalledWith("foo");

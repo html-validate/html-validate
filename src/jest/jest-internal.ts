@@ -8,7 +8,7 @@ import { toBeToken } from "./internal-matchers";
 interface TokenMatcher {
 	type: TokenType;
 	location?: Partial<Record<keyof Location, unknown>>;
-	data?: any;
+	data?: unknown;
 }
 
 declare module "expect" {
