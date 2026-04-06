@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config, ResolvedConfig } from "../config";
-import { type Location } from "../context";
 import { type HtmlElement, Attribute, DynamicValue } from "../dom";
+import { type Location } from "../location";
 import { Parser } from "../parser";
 import { type MetaAttribute, type PermittedEntry } from "./element";
 import { type MetaData, MetaTable, Validator } from ".";

@@ -1,6 +1,6 @@
-import { sliceLocation } from "../context";
 import { type TokenEvent } from "../event";
 import { TokenType } from "../lexer";
+import { sliceLocation } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 const whitespace = /(\s+)/;

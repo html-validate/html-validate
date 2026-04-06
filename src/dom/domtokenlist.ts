@@ -1,4 +1,4 @@
-import { type Location, sliceLocation } from "../context";
+import { type Location, sliceLocation } from "../location";
 import { DynamicValue } from "./dynamic-value";
 
 interface Result {

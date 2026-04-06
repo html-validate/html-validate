@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { Config } from "../../config";
-import { type Location } from "../../context";
 import { DynamicValue } from "../../dom";
+import { type Location } from "../../location";
 import { Parser } from "../../parser";
 import { TextClassification, classifyNodeText, getCachekey } from "./text";
 

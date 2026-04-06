@@ -1,5 +1,5 @@
-import { type Location, sliceLocation } from "../context";
 import { type TagCloseToken, type TagOpenToken } from "../lexer";
+import { type Location, sliceLocation } from "../location";
 import { type MetaElement, MetaCopyableProperty, setMetaProperty } from "../meta/element";
 import { type HtmlElementLike } from "../meta/html-element-like";
 import { type MetaTable } from "../meta/table";

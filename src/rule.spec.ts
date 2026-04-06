@@ -1,11 +1,11 @@
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type ConfigData, Config, Severity } from "./config";
-import { type Location } from "./context";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
 import { type Event } from "./event";
+import { type Location } from "./location";
 import { MetaTable } from "./meta";
 import { Parser } from "./parser";
 import { Reporter } from "./reporter";

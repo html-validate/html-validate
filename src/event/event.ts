@@ -1,8 +1,9 @@
 import { type ResolvedConfig } from "../config";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { type DOMTree, type DynamicValue, type HtmlElement } from "../dom";
 import { type RuleBlocker } from "../engine/rule-blocker";
 import { type Token, type TokenType } from "../lexer";
+import { type Location } from "../location";
 import { type MetaAttribute } from "../meta";
 import { type Rule } from "../rule";
 

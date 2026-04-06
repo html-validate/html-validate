@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { type LocationRW, sliceLocation } from "./location";
+import { type LocationRW } from "./location";
+import { sliceLocation } from "./slice-location";
 
 describe("sliceLocation()", () => {
 	let location: LocationRW;

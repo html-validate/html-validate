@@ -1,4 +1,4 @@
-import { type Location } from "../context";
+import { type Location } from "../location";
 
 export class ParserError extends Error {
 	public location: Location;

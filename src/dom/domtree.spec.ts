@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { type Location } from "../context";
+import { type Location } from "../location";
 import { MetaTable } from "../meta";
 import { walk } from "../utils";
 import { DOMTree } from "./domtree";

@@ -1,5 +1,5 @@
-import { type Location } from "../context";
 import { type RuleBlocker } from "../engine";
+import { type Location } from "../location";
 import { type DOMNodeCache } from "./cache";
 import { NodeType } from "./nodetype";
 

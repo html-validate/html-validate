@@ -1,5 +1,5 @@
 import { type ResolvedConfig, type RuleOptions, Severity } from "../config";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { type DOMInternalID } from "../dom/domnode";
 import {
 	type ConfigReadyEvent,
@@ -10,6 +10,7 @@ import {
 	type TagStartEvent,
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
+import { type Location } from "../location";
 import { type Message } from "../message";
 import { type Parser, ParserError } from "../parser";
 import { type Report, Reporter } from "../reporter";

@@ -1,7 +1,7 @@
 import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
-import { type Location, type ProcessElementContext, type Source } from "../context";
+import { type ProcessElementContext, type Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { type EventCallback, type TriggerEventMap, type WhitespaceEvent } from "../event";
 import { HtmlValidate } from "../htmlvalidate";
@@ -16,6 +16,7 @@ import {
 	InvalidTokenError,
 	TokenType,
 } from "../lexer";
+import { type Location } from "../location";
 import "../jest";
 import { dumpTree } from "../utils";
 import { type AttributeData } from "./attribute-data";

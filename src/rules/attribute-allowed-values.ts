@@ -1,6 +1,6 @@
-import { type Location } from "../context";
 import { type Attribute, type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
+import { type Location } from "../location";
 import { type MetaAttribute, Validator } from "../meta";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 import { walk } from "../utils/walk";

@@ -1,6 +1,6 @@
 import { expect, it } from "@jest/globals";
-import { type Location } from "../../context";
 import { DynamicValue, HtmlElement } from "../../dom";
+import { type Location } from "../../location";
 import { hasAriaLabel } from "./has-aria-label";
 
 const location: Location = {

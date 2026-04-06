@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
-import { type Location } from "../context";
 import { DOMTree, HtmlElement } from "../dom";
+import { type Location } from "../location";
 import { MetaTable } from "../meta";
 import { walk } from "./walk";
 

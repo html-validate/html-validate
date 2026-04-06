@@ -1,6 +1,7 @@
 import { Severity } from "./config";
-import { type Location, type Source } from "./context";
+import { type Source } from "./context";
 import { type DOMNode } from "./dom";
+import { type Location } from "./location";
 import { type Message } from "./message";
 import { type Rule } from "./rule";
 import { isThenable } from "./utils";

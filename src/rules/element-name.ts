@@ -1,5 +1,5 @@
-import { sliceLocation } from "../context";
 import { type TagStartEvent } from "../event";
+import { sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Context {

@@ -1,4 +1,4 @@
-import { type Location, sliceLocation } from "../context";
+import { type Location, sliceLocation } from "../location";
 
 export interface ConditionalComment {
 	expression: string;

@@ -1,6 +1,6 @@
-import { type Location, sliceLocation } from "../context";
 import { type DOMNode, NodeType } from "../dom";
 import { type AttributeEvent, type ElementReadyEvent } from "../event";
+import { type Location, sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {

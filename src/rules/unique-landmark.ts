@@ -1,6 +1,6 @@
-import { type Location } from "../context";
 import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../dom";
 import { type DOMReadyEvent } from "../event";
+import { type Location } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 const roles = ["complementary", "contentinfo", "form", "banner", "main", "navigation", "region"];

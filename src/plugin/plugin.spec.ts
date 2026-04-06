@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { HtmlElement } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
+import { type Location } from "../location";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
 import { type Transformer, TRANSFORMER_API, transformSource } from "../transform";

@@ -2,8 +2,9 @@
 
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { type TagCloseToken, type TagOpenToken, type Token, TokenType } from "../lexer";
+import { type Location } from "../location";
 import { type MetaData, type MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
