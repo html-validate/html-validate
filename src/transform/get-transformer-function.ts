@@ -2,7 +2,7 @@ import { ConfigError } from "../config/error";
 import { type Resolver } from "../config/resolver";
 import { ensureError } from "../error";
 import { type Plugin } from "../plugin";
-import { isThenable } from "../utils";
+import { isThenable } from "../utils/is-thenable";
 import { getNamedTransformerFromPlugin } from "./get-named-transformer-from-plugin";
 import { getTransformerFromModule } from "./get-transformer-from-module";
 import { getUnnamedTransformerFromPlugin } from "./get-unnamed-transformer-from-plugin";

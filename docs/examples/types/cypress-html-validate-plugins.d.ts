@@ -12,6 +12,7 @@ declare module "cypress-html-validate/plugin" {
 	}
 
 	export function install(
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- we dont have the actual types and this is only used for documentation examples */
 		on: (action: "task", arg: Record<string, (value: any) => any>) => void,
 		userConfig?: ConfigData,
 		userOptions?: Partial<CypressHtmlValidateOptions>,

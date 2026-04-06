@@ -1,5 +1,20 @@
 import path from "node:path";
 
+function createSpec(fileInfo, validations) {
+	return {
+		docType: "validate-spec",
+		id: `${fileInfo.relativePath}/spec`,
+		fileInfo: {
+			path: path.dirname(fileInfo.projectRelativePath),
+			file: path.basename(fileInfo.projectRelativePath),
+			fullpath: fileInfo.projectRelativePath,
+			docRoot: path.dirname(fileInfo.projectRelativePath).replaceAll(/[^/]+/g, ".."),
+		},
+		validations,
+		template: "spec-jest.ts.njk",
+	};
+}
+
 /**
  * @param {Map<string, unknown>} validateMap
  */
@@ -27,20 +42,5 @@ export default function generateValidationsSpecProcessor(log, validateMap) {
 			const fileInfo = validations[0].doc.fileInfo;
 			docs.push(createSpec(fileInfo, validations));
 		}
-	}
-
-	function createSpec(fileInfo, validations) {
-		return {
-			docType: "validate-spec",
-			id: `${fileInfo.relativePath}/spec`,
-			fileInfo: {
-				path: path.dirname(fileInfo.projectRelativePath),
-				file: path.basename(fileInfo.projectRelativePath),
-				fullpath: fileInfo.projectRelativePath,
-				docRoot: path.dirname(fileInfo.projectRelativePath).replaceAll(/[^/]+/g, ".."),
-			},
-			validations,
-			template: "spec-jest.ts.njk",
-		};
 	}
 }

@@ -1,6 +1,6 @@
-import { type Location } from "../context";
 import { type DOMInternalID, type HtmlElement, NodeClosed } from "../dom";
 import { type TagEndEvent } from "../event";
+import { type Location } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 /**

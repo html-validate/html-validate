@@ -11,7 +11,7 @@ import bundledRules from "../rules";
 import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import { type TransformerEntry } from "../transform";
-import { isThenable } from "../utils";
+import { isThenable } from "../utils/is-thenable";
 import {
 	type ConfigData,
 	type RuleConfig,
@@ -579,7 +579,7 @@ export class Config {
 				 * to augment the runtime with additional keys so it is a bit of lying
 				 * to typescript */
 				const key = raw as keyof MetaElement;
-				if ((schema as any).copyable && !MetaCopyableProperty.includes(key)) {
+				if ((schema as { copyable?: boolean }).copyable && !MetaCopyableProperty.includes(key)) {
 					MetaCopyableProperty.push(key);
 				}
 			}

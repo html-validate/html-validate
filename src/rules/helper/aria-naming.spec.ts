@@ -1,6 +1,6 @@
 import { expect, it, jest } from "@jest/globals";
-import { type Location } from "../../context";
 import { DynamicValue, HtmlElement } from "../../dom";
+import { type Location } from "../../location";
 import { MetaTable } from "../../meta";
 import { ariaNaming } from "./aria-naming";
 

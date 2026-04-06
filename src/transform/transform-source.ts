@@ -1,7 +1,7 @@
 import { type ResolvedConfig, type Resolver } from "../config";
 import { type Source } from "../context";
 import { NestedError, UserError, ensureError } from "../error";
-import { isThenable } from "../utils";
+import { isThenable } from "../utils/is-thenable";
 import { type TransformContext } from "./context";
 import { getCachedTransformerFunction } from "./get-transformer-function";
 

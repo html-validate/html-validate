@@ -621,7 +621,7 @@ describe("config", () => {
 				["rules with severity", { rules: { a: "off", b: "warn", c: "error" } }],
 				["rules with missing options", { rules: { foo: ["error"] } }],
 				["rules with options", { rules: { foo: ["error", { spam: "ham" }] } }],
-			] as Array<[string, any]>)("%s", (_, config: ConfigData) => {
+			] as Array<[string, ConfigData]>)("%s", (_, config: ConfigData) => {
 				expect.assertions(1);
 				expect(() => {
 					Config.validate(config);
@@ -643,7 +643,7 @@ describe("config", () => {
 				["rules with invalid numeric severity", { rules: { foo: -1, bar: 3 } }],
 				["rules with invalid severity", { rules: { foo: "spam" } }],
 				["additional property", { foo: "bar" }],
-			] as Array<[string, any]>)("%s", (_, config: unknown) => {
+			] as Array<[string, ConfigData]>)("%s", (_, config: unknown) => {
 				expect.assertions(1);
 				expect(() => {
 					Config.validate(config as ConfigData);

@@ -25,7 +25,7 @@ export default class NoButtonsRule extends Rule {
     this.on("dom:ready", (event: DOMReadyEvent) => {
       /* do something with the DOM tree */
       const { document } = event;
-      const buttons = document.getElementsByTagName("button");
+      const buttons = document.querySelectorAll("button");
 
       /* report errors */
       for (const button of buttons) {

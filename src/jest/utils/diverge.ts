@@ -2,7 +2,7 @@ import { isThenable } from "./is-thenable";
 import { type MatcherContext } from "./matcher-context";
 import { type MatcherResult } from "./matcher-result";
 
-type SyncCallback<T, TArgs extends any[]> = (
+type SyncCallback<T, TArgs extends unknown[]> = (
 	this: MatcherContext,
 	actual: T,
 	...args: TArgs
@@ -11,7 +11,7 @@ type SyncCallback<T, TArgs extends any[]> = (
 /**
  * @internal
  */
-export interface MaybeAsyncCallback<TActual, TArgs extends any[]> {
+export interface MaybeAsyncCallback<TActual, TArgs extends unknown[]> {
 	(this: MatcherContext, actual: TActual, ...args: TArgs): MatcherResult;
 	(this: MatcherContext, actual: Promise<TActual>, ...args: TArgs): Promise<MatcherResult>;
 }
@@ -28,7 +28,7 @@ export interface MaybeAsyncCallback<TActual, TArgs extends any[]> {
  *
  * @internal
  */
-export function diverge<T, TArgs extends any[]>(
+export function diverge<T, TArgs extends unknown[]>(
 	fn: SyncCallback<T, TArgs>,
 ): MaybeAsyncCallback<T, TArgs> {
 	function diverged(this: MatcherContext, actual: T, ...args: TArgs): MatcherResult;

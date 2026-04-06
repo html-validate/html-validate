@@ -33,13 +33,14 @@ function changeVariant(key) {
 	}
 }
 
+const panelId = (idPrefix, index) => `${idPrefix}-panel-${index + 1}`;
+const tabId = (idPrefix, index) => `${idPrefix}-tab-${index + 1}`;
+
 let id = 1;
 const configurations = Array.from(document.querySelectorAll(".config-tabs"));
 
 for (const element of configurations) {
 	const idPrefix = `config-${id++}`;
-	const panelId = (index) => `${idPrefix}-panel-${index + 1}`;
-	const tabId = (index) => `${idPrefix}-tab-${index + 1}`;
 	const panels = Array.from(element.querySelectorAll("pre"));
 
 	/** {@type HTMLElement} */
@@ -59,16 +60,16 @@ for (const element of configurations) {
 		const { key, label } = panel.dataset;
 
 		panel.setAttribute("role", "tabpanel");
-		panel.setAttribute("aria-labelledby", tabId(index));
-		panel.id = panelId(index);
+		panel.setAttribute("aria-labelledby", tabId(idPrefix, index));
+		panel.id = panelId(idPrefix, index);
 
 		const tab = document.createElement("li");
 		tab.setAttribute("role", "tab");
 		tab.setAttribute("aria-selected", "false");
-		tab.setAttribute("aria-controls", panelId(index));
+		tab.setAttribute("aria-controls", panelId(idPrefix, index));
 		tab.setAttribute("tabindex", "-1");
 		tab.className = "config-tabs__tab";
-		tab.id = tabId(index);
+		tab.id = tabId(idPrefix, index);
 		tab.textContent = label;
 		tab.dataset.key = key;
 

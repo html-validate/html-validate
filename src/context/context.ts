@@ -1,4 +1,4 @@
-import { type Location } from "./location";
+import { type Location } from "../location";
 import { type Source } from "./source";
 import { State } from "./state";
 

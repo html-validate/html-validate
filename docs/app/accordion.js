@@ -35,7 +35,7 @@ function getElements(element) {
 		const control = element.querySelector("[data-accordion-control]");
 		/** @type {HTMLElement} */
 		const summary = element.querySelector("[data-accordion-summary]");
-		const content = document.getElementById(element.dataset.accordion);
+		const content = document.querySelector(`#${element.dataset.accordion}`);
 		summary.setAttribute("aria-expanded", control.checked ? "true" : "false");
 		summary.setAttribute("aria-controls", content.id);
 		return {

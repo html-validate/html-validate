@@ -11,7 +11,7 @@ const entities: Record<string, string> = {
 };
 
 function xmlescape(src: string | number): string {
-	return src.toString().replaceAll(/[><'"&]/g, (match: string) => {
+	return src.toString().replaceAll(/["&'<>]/g, (match: string) => {
 		return entities[match];
 	});
 }

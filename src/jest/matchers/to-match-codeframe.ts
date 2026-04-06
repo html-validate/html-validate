@@ -30,7 +30,7 @@ function createMatcher(): MaybeAsyncCallback<Report | string, [Array<string | ob
 		const snapshot = codeframe(results, options).replaceAll(/\s+$/gm, "");
 		kleur.enabled = enabled;
 
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call --
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call --
 		 * the implementation works but the declarations doesn't allow it */
 		return (toMatchSnapshot as any).call(this, snapshot, ...rest);
 	}

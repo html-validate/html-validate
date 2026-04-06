@@ -2,11 +2,11 @@ import Ajv, { type ErrorObject, type SchemaObject, type ValidateFunction } from 
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import { type ConfigData } from "./config/config-data";
 import { Severity } from "./config/severity";
-import { type Location } from "./context";
 import { type DOMNode } from "./dom";
 import { type RuleBlocker } from "./engine/rule-blocker";
 import { SchemaValidationError } from "./error";
 import { type Event, type ListenEventMap } from "./event";
+import { type Location } from "./location";
 import { type MetaElement, type MetaLookupableProperty, type MetaTable } from "./meta";
 import { type Parser } from "./parser";
 import { type Reporter } from "./reporter";
@@ -43,6 +43,7 @@ export interface RuleDocumentation {
  * @public
  */
 export interface RuleConstructor<T, U> {
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 	new (options?: any): Rule<T, U>;
 	schema(): SchemaObject | null | undefined;
 }

@@ -1,4 +1,4 @@
-import { type Location } from "../context";
+import { type Location } from "../location";
 import { DynamicValue } from "./dynamic-value";
 
 interface StaticAttribute {

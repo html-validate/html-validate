@@ -24,61 +24,57 @@ describe("toHaveError()", () => {
 
 	it("should fail if expected error is missing", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect(reportError()).toHaveError("asdf", "asdf");
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 
 	it("should fail if error has mismatched context", async () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 			await expect(reportError()).toHaveError("my-rule", "mock message", {
 				foo: "spam",
 			});
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 
 	it("should fail if expected async error is missing", async () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 			await expect(reportErrorAsync()).toHaveError("asdf", "asdf");
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 
 	it("should handle passing object as expected error", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect(reportError()).toHaveError({
 				ruleId: "asdf",
 				line: 3,
 				size: 12,
 			});
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 });

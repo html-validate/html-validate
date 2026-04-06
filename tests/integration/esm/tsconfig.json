@@ -4,6 +4,7 @@
     "checkJs": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
     "types": ["node"]

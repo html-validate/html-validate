@@ -299,7 +299,7 @@ export class DOMNode {
     cacheExists(key: string | number | symbol): boolean;
     cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
     // (undocumented)
-    cacheGet(key: string | number | symbol): any | undefined;
+    cacheGet(key: string | number | symbol): unknown;
     cacheRemove(key: string | number | symbol): boolean;
     cacheSet<K extends keyof DOMNodeCache>(key: K, value: DOMNodeCache[K]): DOMNodeCache[K];
     // (undocumented)
@@ -453,7 +453,7 @@ export type EventCallback = (event: string, data: any) => void;
 // @internal (undocumented)
 export interface EventDump {
     // (undocumented)
-    data: any;
+    data: unknown;
     // (undocumented)
     event: string;
 }
@@ -704,7 +704,7 @@ export { Location_2 as Location }
 // @public
 export interface Message {
     column: number;
-    context?: any;
+    context?: unknown;
     line: number;
     message: string;
     offset: number;

@@ -8,7 +8,7 @@ declare module "expect" {
 		toBeValid(): R;
 		toBeInvalid(): R;
 		toHaveError(error: Partial<Message>): R;
-		toHaveError(ruleId: string, message: unknown, context?: any): R;
+		toHaveError(ruleId: string, message: unknown, context?: unknown): R;
 		toHaveErrors(errors: Array<[string, unknown] | Record<string, unknown>>): R;
 
 		/**
@@ -47,7 +47,7 @@ declare global {
 			toBeValid(): R;
 			toBeInvalid(): R;
 			toHaveError(error: Partial<Message>): R;
-			toHaveError(ruleId: string, message: unknown, context?: any): R;
+			toHaveError(ruleId: string, message: unknown, context?: unknown): R;
 			toHaveErrors(errors: Array<[string, unknown] | Record<string, unknown>>): R;
 
 			/**

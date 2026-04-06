@@ -10,8 +10,13 @@ let htmlvalidate: HtmlValidate;
 
 function stripAnsi(text: string): string {
 	/* eslint-disable-next-line no-control-regex -- expected to match control characters */
-	return text.replaceAll(/\u001B\[[0-9;]*m/g, "");
+	return text.replaceAll(/\u001B\[[\d;]*m/g, "");
 }
+
+globalThis.structuredClone = function mockStructuredClone<T>(obj: T): T {
+	/* eslint-disable-next-line unicorn/prefer-structured-clone -- this version of jsdom does not support structuredClone */
+	return JSON.parse(JSON.stringify(obj));
+};
 
 expect.addSnapshotSerializer({
 	serialize(val: string): string {

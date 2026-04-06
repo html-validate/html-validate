@@ -96,19 +96,4 @@ export default [
 			"no-console": "off",
 		},
 	},
-
-	{
-		name: "local/technical-debt",
-		rules: {
-			"@typescript-eslint/no-explicit-any": "off",
-			"unicorn/better-regex": "off",
-			"unicorn/consistent-function-scoping": "off",
-			"unicorn/error-message": "off",
-			"unicorn/no-anonymous-default-export": "off",
-			"unicorn/no-hex-escape": "off",
-			"unicorn/prefer-structured-clone": "off",
-			"unicorn/prefer-query-selector": "off",
-			"unicorn/prefer-top-level-await": "off",
-		},
-	},
 ];

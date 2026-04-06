@@ -1,7 +1,7 @@
-import { type Location, sliceLocation } from "../context";
 import { type HtmlElement, type SelectorContext, Compound } from "../dom";
 import { type DOMInternalID } from "../dom/domnode";
 import { type TagEndEvent, type TagReadyEvent, type TagStartEvent } from "../event";
+import { type Location, sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {
@@ -28,7 +28,7 @@ function isRelevant(event: TagStartEvent): boolean {
 }
 
 function extractLevel(node: HtmlElement): number | null {
-	const match = /^[hH](\d)$/.exec(node.tagName);
+	const match = /^[Hh](\d)$/.exec(node.tagName);
 	if (match) {
 		return Number.parseInt(match[1], 10);
 	} else {

@@ -15,7 +15,7 @@ export default class H30 extends Rule {
 
 	public setup(): void {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
-			const links = event.document.getElementsByTagName("a");
+			const links = event.document.querySelectorAll("a");
 			for (const link of links) {
 				/* ignore links missing the href attribute */
 				if (!link.hasAttribute("href")) {

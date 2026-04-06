@@ -122,14 +122,13 @@ export {
 	keywordPatternMatcher,
 } from "./rules/helper";
 export {
-	type Location,
 	type ProcessAttributeCallback,
 	type ProcessElementCallback,
 	type ProcessElementContext,
 	type Source,
 	type SourceHooks,
-	sliceLocation,
 } from "./context";
+export { type Location, sliceLocation } from "./location";
 export { type DeferredMessage, type Report, type Result, Reporter } from "./reporter";
 export {
 	type TransformContext,
@@ -141,4 +140,6 @@ export {
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
-export { type CompatibilityOptions, type Walk, ruleExists, walk } from "./utils";
+export { type CompatibilityOptions } from "./utils/compatibility-check";
+export { ruleExists } from "./utils/rule-exists";
+export { type Walk, walk } from "./utils/walk";

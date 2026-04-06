@@ -32,14 +32,14 @@ beforeEach(() => {
 	mockModules = {};
 	mockResolve.mockReset().mockImplementation((name: string) => {
 		if (mockModules[name]) {
-			return new URL(`file:///\x00${name}`);
+			return new URL(`file:///\u0000${name}`);
 		} else {
 			moduleNotFound(name);
 		}
 	});
 	mockImport.mockReset().mockImplementation((name: string) => {
 		name = fileURLToPath(name);
-		if (name.startsWith("/\x00")) {
+		if (name.startsWith("/\u0000")) {
 			name = name.slice(2);
 		}
 		if (mockModules[name]) {

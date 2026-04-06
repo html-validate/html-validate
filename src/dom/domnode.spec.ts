@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { Config } from "../config";
-import { type Location } from "../context";
+import { type Location } from "../location";
 import { Parser } from "../parser";
 import { DOMNode } from "./domnode";
 import { HtmlElement } from "./htmlelement";

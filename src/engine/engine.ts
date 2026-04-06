@@ -1,5 +1,5 @@
 import { type ResolvedConfig, type RuleOptions, Severity } from "../config";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { type DOMInternalID } from "../dom/domnode";
 import {
 	type ConfigReadyEvent,
@@ -10,13 +10,14 @@ import {
 	type TagStartEvent,
 } from "../event";
 import { InvalidTokenError, Lexer, TokenType } from "../lexer";
+import { type Location } from "../location";
 import { type Message } from "../message";
 import { type Parser, ParserError } from "../parser";
 import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import bundledRules from "../rules";
 import type NoUnusedDisable from "../rules/no-unused-disable";
-import { dumpTree } from "../utils";
+import { dumpTree } from "../utils/dump-tree";
 import { createBlocker } from "./rule-blocker";
 
 /**
@@ -24,7 +25,7 @@ import { createBlocker } from "./rule-blocker";
  */
 export interface EventDump {
 	event: string;
-	data: any;
+	data: unknown;
 }
 
 /**
@@ -372,6 +373,7 @@ export class Engine<T extends Parser = Parser> {
 	 * Initialize all plugins. This should only be done once for all sessions.
 	 */
 	private initPlugins(config: ResolvedConfig): {
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 		availableRules: Record<string, RuleConstructor<any, any>>;
 	} {
 		for (const plugin of config.getPlugins()) {
@@ -389,7 +391,9 @@ export class Engine<T extends Parser = Parser> {
 	 * Initializes all rules from plugins and returns an object with a mapping
 	 * between rule name and its constructor.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 	private initRules(config: ResolvedConfig): Record<string, RuleConstructor<any, any>> {
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {

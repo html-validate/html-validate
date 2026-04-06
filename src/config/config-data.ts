@@ -1,5 +1,5 @@
 import { type Plugin } from "../plugin";
-import { type Transformer } from "../transform";
+import { type Transformer } from "../transform/transformer";
 
 /**
  * @public
@@ -9,6 +9,7 @@ export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;
 /**
  * @public
  */
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 export type RuleOptions = string | number | Record<string, any>;
 
 /**

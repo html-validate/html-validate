@@ -87,6 +87,7 @@ import VoidContent from "./void-content";
 import VoidStyle from "./void-style";
 import WCAG from "./wcag";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
 	"area-alt": AreaAlt,

@@ -1,4 +1,4 @@
-import { isThenable } from "../../utils";
+import { isThenable } from "../../utils/is-thenable";
 import { type Config } from "../config";
 import { type ConfigData } from "../config-data";
 import { ConfigLoader } from "../config-loader";

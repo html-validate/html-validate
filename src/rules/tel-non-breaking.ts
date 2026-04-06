@@ -1,6 +1,6 @@
-import { sliceLocation } from "../context";
 import { type HtmlElement, type TextNode, isElementNode, isTextNode } from "../dom";
 import { type ElementReadyEvent } from "../event";
+import { sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface Character {

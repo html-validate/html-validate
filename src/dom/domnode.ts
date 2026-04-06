@@ -1,5 +1,5 @@
-import { type Location } from "../context";
 import { type RuleBlocker } from "../engine";
+import { type Location } from "../location";
 import { type DOMNodeCache } from "./cache";
 import { NodeType } from "./nodetype";
 
@@ -40,7 +40,7 @@ export class DOMNode {
 	 */
 	public readonly unique: DOMInternalID;
 
-	private cache: null | Map<string | number | symbol, any>;
+	private cache: null | Map<string | number | symbol, unknown>;
 
 	/**
 	 * Set of disabled rules for this node.
@@ -96,8 +96,8 @@ export class DOMNode {
 	 * @returns value or `undefined` if the value doesn't exist.
 	 */
 	public cacheGet<K extends keyof DOMNodeCache>(key: K): DOMNodeCache[K] | undefined;
-	public cacheGet(key: string | number | symbol): any | undefined;
-	public cacheGet(key: string | number | symbol): any | undefined {
+	public cacheGet(key: string | number | symbol): unknown;
+	public cacheGet(key: string | number | symbol): unknown {
 		if (this.cache) {
 			return this.cache.get(key);
 		} else {

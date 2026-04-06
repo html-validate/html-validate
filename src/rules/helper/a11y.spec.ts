@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../../config";
-import { type Location } from "../../context";
 import { HtmlElement } from "../../dom";
+import { type Location } from "../../location";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import {

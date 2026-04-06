@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Volume } from "memfs";
-import { isThenable } from "../../utils";
+import { isThenable } from "../../utils/is-thenable";
 import * as requireUncached from "../../utils/require-uncached";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";

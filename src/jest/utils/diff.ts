@@ -17,7 +17,7 @@ export interface DiffOptions {
 /**
  * @internal
  */
-export type DiffFunction = (a: any, b: any, options?: DiffOptions) => string | null;
+export type DiffFunction = (a: unknown, b: unknown, options?: DiffOptions) => string | null;
 
 /* ignore typing for compatibility so it will seem "impossible" but different
  * version will yield different source */

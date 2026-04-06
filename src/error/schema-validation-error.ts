@@ -2,7 +2,7 @@ import betterAjvErrors from "@sidvind/better-ajv-errors";
 import { type ErrorObject, type SchemaObject } from "ajv";
 import { UserError } from "./user-error";
 
-function getSummary(schema: any, obj: any, errors: ErrorObject[]): string {
+function getSummary(schema: SchemaObject, obj: unknown, errors: ErrorObject[]): string {
 	const output = betterAjvErrors(schema, obj, errors, {
 		format: "js",
 	});

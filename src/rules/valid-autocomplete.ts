@@ -1,6 +1,6 @@
-import { type Location } from "../context";
 import { type HtmlElement, DOMTokenList, DynamicValue } from "../dom";
 import { type DOMReadyEvent } from "../event";
+import { type Location } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export const enum MessageID {

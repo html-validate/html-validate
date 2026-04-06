@@ -24,6 +24,7 @@ async function run() {
 	});
 }
 
+/* eslint-disable-next-line unicorn/prefer-top-level-await -- technical debt, this script runs as commonjs */
 run().catch((err) => {
 	/* eslint-disable-next-line no-console -- expected to log */
 	console.error(err);

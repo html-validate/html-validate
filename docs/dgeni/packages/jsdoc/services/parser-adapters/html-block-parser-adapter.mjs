@@ -1,4 +1,4 @@
-const TAG_REGEXP = /^<([a-z-A-Z]+)\b[^>]*>/;
+const TAG_REGEXP = /^<([A-Za-z-]+)\b[^>]*>/;
 const VOID_TAGS = [
 	"area",
 	"base",

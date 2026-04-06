@@ -69,7 +69,7 @@ describe("BasePatternRule", () => {
 			type: "object",
 			properties: BasePatternRule.schema(),
 		});
-		const regexp = /^[a-z][a-z0-9-]*$/;
+		const regexp = /^[a-z][\da-z-]*$/;
 		const config = { pattern: regexp } as const;
 		expect(validator(config)).toBeTruthy();
 		expect(validator.errors).toBeNull();
@@ -82,7 +82,7 @@ describe("BasePatternRule", () => {
 		});
 		const patterns = rule.getPatterns();
 		expect(patterns).toHaveLength(1);
-		expect(patterns[0].description).toBe("/^[a-z][a-z0-9-]*$/");
+		expect(patterns[0].description).toBe("/^[a-z][\\da-z-]*$/");
 		expect(patterns[0].regexp).toBe(regexp);
 		expect(patterns[0].regexp.test("foo-bar")).toBeTruthy();
 	});

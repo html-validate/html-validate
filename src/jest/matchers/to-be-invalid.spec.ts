@@ -16,11 +16,11 @@ describe("toBeInvalid()", () => {
 
 	it("should fail if report is valid", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect(reportOk()).toBeInvalid();
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
 		expect(error?.message).toMatchSnapshot();
@@ -28,12 +28,12 @@ describe("toBeInvalid()", () => {
 
 	it("should fail if async report is valid", async () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			/* eslint-disable-next-line @typescript-eslint/await-thenable, @typescript-eslint/no-confusing-void-expression -- the types are wrong here, it does return a promise */
 			await expect(reportOkAsync()).toBeInvalid();
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
 		expect(error?.message).toMatchSnapshot();

@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { type Location, sliceLocation } from "./location";
+import { type LocationRW } from "./location";
+import { sliceLocation } from "./slice-location";
 
 describe("sliceLocation()", () => {
-	let location: Location;
+	let location: LocationRW;
 
 	beforeEach(() => {
 		location = {
@@ -66,7 +67,8 @@ describe("sliceLocation()", () => {
 
 	it("should handle missing size", () => {
 		expect.assertions(1);
-		(location as any).size = null;
+		/* @ts-expect-error -- typing does not allow this but want to ensure it still works */
+		location.size = null;
 		expect(sliceLocation(location, 1)).toEqual({
 			filename: "-",
 			offset: 1,
@@ -79,7 +81,7 @@ describe("sliceLocation()", () => {
 	it("should wrap line/column when newlines are present", () => {
 		expect.assertions(2);
 		const text = "foo\nbar baz\nspam";
-		(location as any).size = text.length;
+		location.size = text.length;
 		expect(sliceLocation(location, 8, 11, text)).toEqual({
 			filename: "-",
 			offset: 8,

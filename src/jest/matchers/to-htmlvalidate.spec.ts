@@ -25,15 +25,14 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup is invalid", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		const markup = `<a href=""><button>`;
 		try {
 			expect(markup).toHTMLValidate();
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(`
 			"Expected HTML to be valid but had the following errors:
 
@@ -48,14 +47,13 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup is valid but negated", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect("<p></p>").not.toHTMLValidate();
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(
 			`"HTML is valid when an error was expected"`,
 		);
@@ -144,17 +142,16 @@ describe("toHTMLValidate()", () => {
 
 	it("should fail if markup has wrong error", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect("<div>").not.toHTMLValidate({
 				ruleId: "wrong-error",
 				message: expect.stringContaining("Some other error") as unknown as string,
 			});
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchInlineSnapshot(`
 			"expect(received).not.toHTMLValidate(expected) // expected error
 

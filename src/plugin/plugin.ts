@@ -62,6 +62,7 @@ export interface Plugin {
 	/**
 	 * List of new rules present.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 	rules?: Record<string, RuleConstructor<any, any> | null> | null;
 
 	/**

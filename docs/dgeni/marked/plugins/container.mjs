@@ -12,7 +12,7 @@ function plugin() {
 					return src.match(/:::/)?.index;
 				},
 				tokenizer(src) {
-					const pattern = /^:::([^\n]*)\n([\s\S]*?)\n:::/;
+					const pattern = /^:::([^\n]*)\n([\S\s]*?)\n:::/;
 					const match = src.match(pattern);
 					if (match) {
 						const [raw, infostring, content] = match;

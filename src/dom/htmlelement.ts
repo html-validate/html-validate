@@ -1,5 +1,5 @@
-import { type Location, sliceLocation } from "../context";
 import { type TagCloseToken, type TagOpenToken } from "../lexer";
+import { type Location, sliceLocation } from "../location";
 import { type MetaElement, MetaCopyableProperty, setMetaProperty } from "../meta/element";
 import { type HtmlElementLike } from "../meta/html-element-like";
 import { type MetaTable } from "../meta/table";
@@ -645,6 +645,7 @@ export class HtmlElement extends DOMNode {
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		return this.childElements.reduce<HtmlElement[]>((matches, node) => {
+			/* eslint-disable-next-line unicorn/prefer-query-selector -- querySelectorAll() is less optimized here */
 			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
 		}, []);
 	}

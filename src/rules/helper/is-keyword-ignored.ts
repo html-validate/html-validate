@@ -9,7 +9,7 @@ export interface IncludeExcludeOptions {
 const patternCache = new Map<string, RegExp>();
 
 function compileStringPattern(pattern: string): RegExp {
-	const regexp = pattern.replaceAll(/[*]+/g, ".+");
+	const regexp = pattern.replaceAll(/\*+/g, ".+");
 	/* eslint-disable-next-line security/detect-non-literal-regexp -- technical debt, should do input sanitation and precompilation */
 	return new RegExp(`^${regexp}$`);
 }

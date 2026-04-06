@@ -1,6 +1,7 @@
 /**
  * @public
  */
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should be made typesafe */
 export type EventCallback = (event: string, data: any) => void;
 
 /**
@@ -61,6 +62,7 @@ export class EventHandler {
 	 * @param event - Event name.
 	 * @param data - Event data.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should be made typesafe */
 	public trigger(event: string, data: any): void {
 		for (const listener of this.getCallbacks(event)) {
 			listener.call(null, event, data);

@@ -114,17 +114,18 @@ function buildTree(files) {
 }
 
 /**
+ * @param {TreeNode} node
+ * @returns {number}
+ */
+function sortKey(node) {
+	return node.type === "file" && node.kind === "chunk" && node.isEntry ? 0 : 1;
+}
+
+/**
  * @param {TreeNode[]} nodes
  * @param {string} [prefix]
  */
 function printTree(nodes, prefix = " ") {
-	/**
-	 * @param {TreeNode} node
-	 * @returns {number}
-	 */
-	function sortKey(node) {
-		return node.type === "file" && node.kind === "chunk" && node.isEntry ? 0 : 1;
-	}
 	const sorted = nodes.toSorted((a, b) => {
 		const ka = sortKey(a);
 		const kb = sortKey(b);

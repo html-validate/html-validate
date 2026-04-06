@@ -18,24 +18,24 @@ import {
 	transformSource,
 	transformSourceSync,
 } from "./transform";
-import { isThenable } from "./utils";
+import { isThenable } from "./utils/is-thenable";
 
 const defaultFS: TransformFS = {
 	readFileSync: fs.readFileSync,
 };
 
-function isSourceHooks(value: any): value is SourceHooks {
-	if (!value || typeof value === "string") {
+function isSourceHooks(value: string | SourceHooks | ConfigData | undefined): value is SourceHooks {
+	if (!value || typeof value !== "object") {
 		return false;
 	}
-	return Boolean(value.processAttribute ?? value.processElement);
+	return ["processAttribute", "processElement"].some((key) => key in value);
 }
 
-function isConfigData(value: any): value is ConfigData {
-	if (!value || typeof value === "string") {
+function isConfigData(value: string | SourceHooks | ConfigData | undefined): value is ConfigData {
+	if (!value || typeof value !== "object") {
 		return false;
 	}
-	return !(value.processAttribute ?? value.processElement);
+	return !["processAttribute", "processElement"].some((key) => key in value);
 }
 
 /**

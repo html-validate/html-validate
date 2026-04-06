@@ -1,5 +1,5 @@
-import { type Location } from "../context";
 import { type HtmlElement } from "../dom";
+import { type Location } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleOptions {

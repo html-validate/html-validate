@@ -7,14 +7,14 @@
  * - `:` - begins a pseudo class or element selector
  */
 function isDelimiter(ch: string): boolean {
-	return /[.#[:]/.test(ch);
+	return /[#.:[]/.test(ch);
 }
 
 /**
  * Returns true if the character is a quotation mark.
  */
 function isQuotationMark(ch: string): ch is '"' | "'" {
-	return /['"]/.test(ch);
+	return /["']/.test(ch);
 }
 
 function isPseudoElement(ch: string, buffer: string): boolean {

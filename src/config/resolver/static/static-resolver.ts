@@ -1,6 +1,6 @@
 import { type MetaDataTable } from "../../../meta";
 import { type Plugin } from "../../../plugin";
-import { type Transformer } from "../../../transform";
+import { type Transformer } from "../../../transform/transformer";
 import { type ConfigData } from "../../config-data";
 import { type Resolver } from "../resolver";
 

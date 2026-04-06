@@ -1,6 +1,6 @@
-import { type Location, sliceLocation } from "../context";
 import { type HtmlElement } from "../dom";
 import { type TagStartEvent } from "../event";
+import { type Location, sliceLocation } from "../location";
 import { type DeprecatedElement } from "../meta/element";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 

@@ -1,5 +1,5 @@
 import { expect, it } from "@jest/globals";
-import { type Location } from "../../context";
+import { type Location } from "../../location";
 import { HtmlElement } from "../htmlelement";
 import { type SelectorContext } from "../selector";
 import { scope } from "./scope";

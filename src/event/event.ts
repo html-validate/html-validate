@@ -1,8 +1,9 @@
 import { type ResolvedConfig } from "../config";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { type DOMTree, type DynamicValue, type HtmlElement } from "../dom";
 import { type RuleBlocker } from "../engine/rule-blocker";
 import { type Token, type TokenType } from "../lexer";
+import { type Location } from "../location";
 import { type MetaAttribute } from "../meta";
 import { type Rule } from "../rule";
 
@@ -47,6 +48,7 @@ export interface TokenEvent extends Event {
 	type: TokenType;
 
 	/** @deprecated use token property which is typesafe */
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- deprecated, leaving it as is */
 	data?: any;
 
 	token: Token;

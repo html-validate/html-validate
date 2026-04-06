@@ -23,7 +23,7 @@ function moduleNotFound(name: string): never {
 beforeEach(() => {
 	mockModules = {};
 	mockImport.mockReset().mockImplementation((name: string) => {
-		if (name.startsWith("/\x00")) {
+		if (name.startsWith("/\u0000")) {
 			name = name.slice(2);
 		}
 		if (mockModules[name]) {

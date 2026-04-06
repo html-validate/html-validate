@@ -45,7 +45,7 @@ function createMatcher(
 	diff: DiffFunction | undefined,
 ):
 	| MaybeAsyncCallback<Report, [Partial<Message>]>
-	| MaybeAsyncCallback<Report, [string, string, any?]> {
+	| MaybeAsyncCallback<Report, [string, string, unknown?]> {
 	function toHaveError(
 		this: MatcherContext,
 		actual: Report,
@@ -56,14 +56,14 @@ function createMatcher(
 		actual: Report,
 		ruleId: string,
 		message: string,
-		context?: any,
+		context?: unknown,
 	): MatcherResult;
 	function toHaveError(
 		this: MatcherContext,
 		actual: Report,
 		arg1: string | Partial<Message>,
 		arg2?: string,
-		arg3?: any,
+		arg3?: unknown,
 	): MatcherResult {
 		if (typeof arg1 === "string") {
 			const expected: Partial<Message> = {
@@ -71,7 +71,6 @@ function createMatcher(
 				message: arg2,
 			};
 			if (arg3) {
-				/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is supposed to accept anything */
 				expected.context = arg3;
 			}
 			return toHaveErrorImpl(this, expect, diff, actual, expected);

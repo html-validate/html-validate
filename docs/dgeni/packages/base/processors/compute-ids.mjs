@@ -3,30 +3,30 @@
  * @description
  * Compute the id property of each doc based on the tags and other meta-data from a set of templates
  */
-export default function computeIdsProcessor(log, aliasMap, createDocMessage) {
-	function initializeMaps(idTemplates) {
-		const getIdMap = new Map();
-		const getAliasesMap = new Map();
+function initializeMaps(idTemplates) {
+	const getIdMap = new Map();
+	const getAliasesMap = new Map();
 
-		for (const template of idTemplates) {
-			if (template.docTypes) {
-				for (const docType of template.docTypes) {
-					if (template.getId) {
-						getIdMap.set(docType, template.getId);
-					} else if (template.idTemplate) {
-						throw new Error(`idTemplate not supported, use getId() instead`);
-					}
+	for (const template of idTemplates) {
+		if (template.docTypes) {
+			for (const docType of template.docTypes) {
+				if (template.getId) {
+					getIdMap.set(docType, template.getId);
+				} else if (template.idTemplate) {
+					throw new Error(`idTemplate not supported, use getId() instead`);
+				}
 
-					if (template.getAliases) {
-						getAliasesMap.set(docType, template.getAliases);
-					}
+				if (template.getAliases) {
+					getAliasesMap.set(docType, template.getAliases);
 				}
 			}
 		}
-
-		return { getIdMap, getAliasesMap };
 	}
 
+	return { getIdMap, getAliasesMap };
+}
+
+export default function computeIdsProcessor(log, aliasMap, createDocMessage) {
 	return {
 		$runAfter: ["computing-ids"],
 		$runBefore: ["ids-computed"],

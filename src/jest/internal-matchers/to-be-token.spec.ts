@@ -25,16 +25,15 @@ describe("toBeToken()", () => {
 
 	it("should fail if token doesn't match", () => {
 		expect.assertions(3);
-		let error: any;
+		let error: Error | undefined;
 		try {
 			expect({ value: token }).toBeToken({
 				type: TokenType.TAG_CLOSE,
 			});
-		} catch (e: any) {
-			error = e;
+		} catch (e: unknown) {
+			error = e as Error;
 		}
 		expect(error).toBeDefined();
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt */
 		expect(stripAnsi(error?.message ?? "")).toMatchSnapshot();
 	});
 });

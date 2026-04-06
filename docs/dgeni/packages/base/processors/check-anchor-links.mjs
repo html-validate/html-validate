@@ -7,7 +7,7 @@ import path from "canonical-path";
  */
 function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessage) {
 	return {
-		ignoredLinks: [/^http(?:s)?:\/\//, /^mailto:/, /^chrome:/],
+		ignoredLinks: [/^https?:\/\//, /^mailto:/, /^chrome:/],
 		pathVariants: ["", "/", ".html", "/index.html"],
 		checkDoc(doc) {
 			return doc.path && doc.outputPath && path.extname(doc.outputPath) === ".html";

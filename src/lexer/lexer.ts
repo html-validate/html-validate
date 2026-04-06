@@ -1,4 +1,5 @@
-import { type Location, type Source, ContentModel, Context, State } from "../context";
+import { type Source, ContentModel, Context, State } from "../context";
+import { type Location } from "../location";
 import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;
@@ -11,20 +12,20 @@ export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape -- false positives */
 const MATCH_UNICODE_BOM = /^\uFEFF/;
-const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[ \t]+(?:\r\n|\r|\n)?)/;
-const MATCH_DOCTYPE_OPEN = /^<!(DOCTYPE)\s/i;
+const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[\t ]+(?:\r\n|\r|\n)?)/;
+const MATCH_DOCTYPE_OPEN = /^<!(doctype)\s/i;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
 const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\s+/;
-const MATCH_TAG_OPEN = /^<(\/?)([a-zA-Z0-9\-_:]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
+const MATCH_TAG_OPEN = /^<(\/?)([\w:\-]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
-const MATCH_TEXT = /^[^]*?(?=(?:[ \t]*(?:\r\n|\r|\n)|<[^ ]|$))/;
+const MATCH_TEXT = /^[^]*?(?=(?:[\t ]*(?:\r\n|\r|\n)|<[^ ]|$))/;
 const MATCH_TEMPLATING = /^(?:<%.*?%>|<\?.*?\?>|<\$.*?\$>)/s;
 const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
-const MATCH_ATTR_START = /^([^\t\r\n\f \/><"'=]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
+const MATCH_ATTR_START = /^([^\t\n\f\r "'/<=>]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
 const MATCH_ATTR_SINGLE = /^(\s*=\s*)'([^']*?)(')/;
 const MATCH_ATTR_DOUBLE = /^(\s*=\s*)"([^"]*?)(")/;
-const MATCH_ATTR_UNQUOTED = /^(\s*=\s*)([^\t\r\n\f "'<>][^\t\r\n\f <>]*)/;
+const MATCH_ATTR_UNQUOTED = /^(\s*=\s*)([^\t\n\f\r "'<>][^\t\n\f\r <>]*)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[^]*?]]>/;
 const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
@@ -35,9 +36,9 @@ const MATCH_TEXTAREA_DATA = /^[^]*?(?=<\/textarea)/;
 const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
 const MATCH_TITLE_DATA = /^[^]*?(?=<\/title)/;
 const MATCH_TITLE_END = /^<(\/)(title)/;
-const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
+const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)(.*?)(]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
-const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
+const MATCH_CONDITIONAL = /^<!\[([^\]]*?)]>/;
 /* eslint-enable no-useless-escape */
 
 export class InvalidTokenError extends Error {

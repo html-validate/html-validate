@@ -1,7 +1,7 @@
-import { type Location, sliceLocation } from "../context";
 import { type HtmlElement, NodeType } from "../dom";
 import entities from "../elements/entities.json";
 import { type AttributeEvent, type ElementReadyEvent } from "../event";
+import { type Location, sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 export interface RuleContext {
@@ -30,7 +30,7 @@ const defaults: RuleOptions = {
 	requireSemicolon: true,
 };
 
-const regexp = /&(?:[a-z0-9]+|#x?[0-9a-f]+)(;|[^a-z0-9]|$)/gi;
+const regexp = /&(?:[\da-z]+|#x?[\da-f]+)(;|[^\da-z]|$)/gi;
 const lowercaseEntities = entities.map((it) => it.toLowerCase());
 
 function isNumerical(entity: string): boolean {
@@ -152,7 +152,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		location: Location | null,
 		{ isAttribute }: { isAttribute: boolean },
 	): void {
-		const delimiter = text.search(/[?#]/);
+		const delimiter = text.search(/[#?]/);
 		for (const match of this.getMatches(text)) {
 			const allowUnterminated = isAttribute && isAfterQueryOrFragment(delimiter, match);
 			this.validateCharacterReference(node, location, match, {

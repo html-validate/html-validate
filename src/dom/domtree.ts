@@ -1,4 +1,4 @@
-import { type Location } from "../context";
+import { type Location } from "../location";
 import { type MetaTable } from "../meta";
 import { walk } from "../utils/walk";
 import { HtmlElement } from "./htmlelement";
@@ -74,6 +74,7 @@ export class DOMTree {
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
+		/* eslint-disable-next-line unicorn/prefer-query-selector -- implementation of getElementsByTagName() */
 		return this.root.getElementsByTagName(tagName);
 	}
 

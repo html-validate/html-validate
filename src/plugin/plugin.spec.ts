@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { type Resolver, Config, staticResolver } from "../config";
 import { ConfigError } from "../config/error";
-import { type Location, type Source } from "../context";
+import { type Source } from "../context";
 import { HtmlElement } from "../dom";
 import { Engine } from "../engine";
 import { EventHandler } from "../event";
+import { type Location } from "../location";
 import { Parser } from "../parser";
 import { Rule } from "../rule";
 import { type Transformer, TRANSFORMER_API, transformSource } from "../transform";
@@ -402,6 +403,7 @@ describe("Plugin", () => {
 			};
 			const setup = jest.spyOn(mockRule, "setup");
 			const engine = new Engine(await config.resolve(), Parser);
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);
 			expect(setup).toHaveBeenCalledWith();

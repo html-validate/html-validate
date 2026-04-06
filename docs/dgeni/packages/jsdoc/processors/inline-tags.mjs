@@ -1,6 +1,6 @@
-const INLINE_TAG = /(\{@[^\s}]+[^}]*\})/;
+const INLINE_TAG = /({@[^\s}]+[^}]*})/;
 //  11111111     22222222
-const INLINE_TAG_DETAIL = /\{@([^\s]+)\s*([^}]*)\}/;
+const INLINE_TAG_DETAIL = /{@(\S+)\s*([^}]*)}/;
 
 /**
  * @dgProcessor inlineTagProcessor

@@ -33,7 +33,7 @@ interface ParsedArgs {
 	version: boolean;
 }
 
-function getMode(argv: Record<string, any>): Mode {
+function getMode(argv: Record<string, unknown>): Mode {
 	if (argv["init"]) {
 		return Mode.INIT;
 	}
@@ -305,6 +305,7 @@ async function run(): Promise<void> {
 	}
 }
 
+/* eslint-disable-next-line unicorn/prefer-top-level-await -- technical debt, as long as we bundle and ship commonjs we cannot use TLA here */
 run().catch((err: unknown) => {
 	console.error(err);
 	process.exit(1);

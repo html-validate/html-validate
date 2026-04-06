@@ -10,7 +10,9 @@ import {
 	diverge,
 } from "../utils";
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
 function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<any, [any]> {
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
 	function toBeToken(this: MatcherContext, actual: any, expected: any): MatcherResult {
 		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, this should be refactored and made typesafe */
 		const token = actual.value;
