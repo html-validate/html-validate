@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
-import { createRequire } from "node:module";
+import fs from "node:fs";
 import path from "node:path";
-
-const _require = createRequire(import.meta.url);
 
 const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
@@ -12,7 +10,9 @@ function readElements(fileInfo, filename) {
 		return filename;
 	}
 	const dir = path.dirname(fileInfo.filePath);
-	return _require(`${dir}/${filename}`);
+	const filePath = `${dir}/${filename}`;
+	const content = fs.readFileSync(filePath, "utf8");
+	return JSON.parse(content);
 }
 
 function extractAttributes(attributeText) {
@@ -87,7 +87,12 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 					continue;
 				}
 
-				doc.content = doc.content.replaceAll(VALIDATE_REGEX, processValidate.bind(undefined, doc));
+				doc.content = doc.content.replaceAll(
+					VALIDATE_REGEX,
+					(match, attributeText, validateMarkup) => {
+						return processValidate(doc, match, attributeText, validateMarkup);
+					},
+				);
 			} catch (error) {
 				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
 			}
