@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { isThenable } from "../../utils";
+import { isThenable } from "../../utils/is-thenable";
 import { Config } from "../config";
 import { type ConfigData } from "../config-data";
 import recommended from "../presets/recommended";

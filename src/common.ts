@@ -140,4 +140,6 @@ export {
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
-export { type CompatibilityOptions, type Walk, ruleExists, walk } from "./utils";
+export { type CompatibilityOptions } from "./utils/compatibility-check";
+export { ruleExists } from "./utils/rule-exists";
+export { type Walk, walk } from "./utils/walk";

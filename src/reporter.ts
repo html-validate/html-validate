@@ -4,7 +4,7 @@ import { type DOMNode } from "./dom";
 import { type Location } from "./location";
 import { type Message } from "./message";
 import { type Rule } from "./rule";
-import { isThenable } from "./utils";
+import { isThenable } from "./utils/is-thenable";
 
 /**
  * @public

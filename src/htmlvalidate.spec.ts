@@ -8,7 +8,7 @@ import { HtmlValidate } from "./htmlvalidate";
 import { type Message } from "./message";
 import { Parser } from "./parser";
 import * as transform from "./transform/transform-filename";
-import { isThenable } from "./utils";
+import { isThenable } from "./utils/is-thenable";
 
 const engine = {
 	lint: jest.fn<(sources: Source[]) => Report>(),

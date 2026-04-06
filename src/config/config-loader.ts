@@ -1,5 +1,5 @@
 import { UserError } from "../error";
-import { isThenable } from "../utils";
+import { isThenable } from "../utils/is-thenable";
 import { Config } from "./config";
 import { type ConfigData } from "./config-data";
 import { type ResolvedConfig } from "./resolved-config";

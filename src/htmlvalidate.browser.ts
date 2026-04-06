@@ -17,7 +17,7 @@ import {
 	transformSource,
 	transformSourceSync,
 } from "./transform";
-import { isThenable } from "./utils";
+import { isThenable } from "./utils/is-thenable";
 
 function isSourceHooks(value: string | SourceHooks | ConfigData | undefined): value is SourceHooks {
 	if (!value || typeof value !== "object") {

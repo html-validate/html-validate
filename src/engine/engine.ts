@@ -17,7 +17,7 @@ import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import bundledRules from "../rules";
 import type NoUnusedDisable from "../rules/no-unused-disable";
-import { dumpTree } from "../utils";
+import { dumpTree } from "../utils/dump-tree";
 import { createBlocker } from "./rule-blocker";
 
 /**

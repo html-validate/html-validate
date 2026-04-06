@@ -11,7 +11,7 @@ import bundledRules from "../rules";
 import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import { type TransformerEntry } from "../transform";
-import { isThenable } from "../utils";
+import { isThenable } from "../utils/is-thenable";
 import {
 	type ConfigData,
 	type RuleConfig,

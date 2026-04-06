@@ -3,7 +3,7 @@ import { type MetaDataTable } from "../../../meta";
 import { type Plugin } from "../../../plugin";
 import { legacyRequire } from "../../../resolve";
 import { type Transformer } from "../../../transform";
-import { requireUncached } from "../../../utils";
+import { requireUncached } from "../../../utils/require-uncached";
 import { type ConfigData } from "../../config-data";
 import { ConfigError } from "../../error";
 import { type Resolver, type ResolverOptions } from "../resolver";

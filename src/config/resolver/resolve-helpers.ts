@@ -1,8 +1,8 @@
 import { UserError } from "../../error";
 import { type MetaDataTable } from "../../meta";
 import { type Plugin } from "../../plugin";
-import { type Transformer } from "../../transform";
-import { isThenable } from "../../utils";
+import { type Transformer } from "../../transform/transformer";
+import { isThenable } from "../../utils/is-thenable";
 import { type ConfigData } from "../config-data";
 import { type Resolver, type ResolverOptions } from "./resolver";
 

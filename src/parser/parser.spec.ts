@@ -18,7 +18,7 @@ import {
 } from "../lexer";
 import { type Location } from "../location";
 import "../jest";
-import { dumpTree } from "../utils";
+import { dumpTree } from "../utils/dump-tree";
 import { type AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
 

@@ -1,5 +1,5 @@
 import { type Plugin } from "../plugin";
-import { type Transformer } from "../transform";
+import { type Transformer } from "../transform/transformer";
 
 /**
  * @public
