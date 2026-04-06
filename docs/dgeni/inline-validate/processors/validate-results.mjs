@@ -1,11 +1,5 @@
-import { createRequire } from "node:module";
-import { HtmlValidate, formatterFactory } from "../../../../dist/cjs/index.js";
-
-/* Use createRequire so we get the same CJS module-cache instance of kleur that
-   dist/cjs/index.js uses internally. Setting kleur.enabled = false on an ESM
-   wrapper would be a different object and would have no effect on the formatter. */
-const _require = createRequire(import.meta.url);
-const kleur = _require("kleur");
+import kleur from "kleur";
+import { HtmlValidate, formatterFactory } from "../../../../dist/esm/index.js";
 
 const codeframe = formatterFactory("codeframe");
 
