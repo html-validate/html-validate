@@ -1,32 +1,7 @@
 import { type Message } from "../../message";
 import { type Result } from "../../reporter";
 import { codeFrameColumns } from "../../utils/code-frame-columns";
-
-interface Location {
-	line: number;
-	column: number;
-}
-
-function getStartLocation(message: Message): Location {
-	return {
-		line: message.line,
-		column: message.column,
-	};
-}
-
-function getEndLocation(message: Message, source: string): Location {
-	let line = message.line;
-	let column = message.column;
-	for (let i = 0; i < message.size; i++) {
-		if (source.charAt(message.offset + i) === "\n") {
-			line++;
-			column = 0;
-		} else {
-			column++;
-		}
-	}
-	return { line, column };
-}
+import { getEndLocation, getStartLocation } from "../../utils/message-location";
 
 /**
  * Gets the formatted output for a given message.
