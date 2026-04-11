@@ -31,6 +31,16 @@ const dynamicKeys = [
 
 const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
 
+function clone<T>(value: T): T {
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- jsdom (e.g. jest) does not have this function */
+	if (globalThis.structuredClone) {
+		return globalThis.structuredClone(value);
+	} else {
+		/* eslint-disable-next-line unicorn/prefer-structured-clone -- structuredClone is used if present, this is only the fallback */
+		return JSON.parse(JSON.stringify(value)) as T;
+	}
+}
+
 function overwriteMerge<T>(_a: T[], b: T[]): T[] {
 	return b;
 }
@@ -48,7 +58,7 @@ export class MetaTable {
 	 */
 	public constructor() {
 		this.elements = {};
-		this.schema = structuredClone(schema);
+		this.schema = clone(schema);
 	}
 
 	/**

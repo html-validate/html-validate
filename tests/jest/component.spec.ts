@@ -13,11 +13,6 @@ function stripAnsi(text: string): string {
 	return text.replaceAll(/\u001B\[[\d;]*m/g, "");
 }
 
-globalThis.structuredClone = function mockStructuredClone<T>(obj: T): T {
-	/* eslint-disable-next-line unicorn/prefer-structured-clone -- this version of jsdom does not support structuredClone */
-	return JSON.parse(JSON.stringify(obj));
-};
-
 expect.addSnapshotSerializer({
 	serialize(val: string): string {
 		return stripAnsi(val);
