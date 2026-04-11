@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.12.1 (2026-04-11)
+
+### Bug Fixes
+
+- **jest:** handle when `structuredClone()` is missing ([93c4d86](https://gitlab.com/html-validate/html-validate/commit/93c4d8603426ad70941d65a408aa7cf6573ccb2d))
+
 ## 10.12.0 (2026-04-11)
 
 ### Features
