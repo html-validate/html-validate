@@ -48,6 +48,14 @@ describe("codeframe formatter", () => {
 		expect(codeframe(regular, options)).toMatchSnapshot();
 	});
 
+	it("should support disabling file path", () => {
+		expect.assertions(1);
+		const options: Partial<CodeframeOptions> = {
+			showFilePath: false,
+		};
+		expect(codeframe(regular, options)).toMatchSnapshot();
+	});
+
 	it("should support disabling summary", () => {
 		expect.assertions(1);
 		const options: Partial<CodeframeOptions> = {

@@ -5,6 +5,7 @@ const codeframe = formatterFactory("codeframe");
 
 const formatterOptions = {
 	showLink: false,
+	showFilePath: false,
 };
 
 /**

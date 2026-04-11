@@ -10,12 +10,14 @@ interface Location {
 
 export interface CodeframeOptions {
 	showLink: boolean;
+	showFilePath: boolean;
 	showSummary: boolean;
 	showSelector: boolean;
 }
 
 const defaults: CodeframeOptions = {
 	showLink: true,
+	showFilePath: true,
 	showSummary: true,
 	showSelector: false,
 };
@@ -83,16 +85,10 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
 	const ruleId = kleur.dim(`(${message.ruleId})`);
 	const filePath = formatFilePath(parentResult.filePath, message.line, message.column);
 	const sourceCode = parentResult.source;
+	const filePathPart = options.showFilePath ? `at ${filePath}:` : null;
 
 	/* istanbul ignore next: safety check from original implementation */
-	const firstLine = [
-		`${type}:`,
-		msg,
-		ruleId ? ruleId : "",
-		sourceCode ? `at ${filePath}:` : `at ${filePath}`,
-	]
-		.filter(String)
-		.join(" ");
+	const firstLine = [`${type}:`, msg, ruleId ? ruleId : "", filePathPart].filter(Boolean).join(" ");
 
 	const result = [firstLine];
 
