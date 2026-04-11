@@ -18,7 +18,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 |  <link rel="stylesheet" href=".." />
 				    |   ^^^^
 				Selector: link"
@@ -31,7 +31,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 |  <link rel="preload" as="style" href=".." />
 				    |   ^^^^
 				Selector: link"
@@ -44,7 +44,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 |  <link rel="preload" as="script" href=".." />
 				    |   ^^^^
 				Selector: link"
@@ -57,7 +57,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:3:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 |  <link rel="modulepreload" href=".." />
 				    |   ^^^^
 				Selector: link"
@@ -70,7 +70,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <script> element (require-sri)
 				> 1 | <script src=".."></script>
 				    |  ^^^^^^
 				Selector: script"
@@ -168,7 +168,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 | <link rel="stylesheet" href="/foo.css" />
 				    |  ^^^^
 				Selector: link"
@@ -181,11 +181,11 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-					"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
-					> 1 | <script src="./foo.js"></script>
-					    |  ^^^^^^
-					Selector: script"
-				`);
+				"error: SRI "integrity" attribute is required on <script> element (require-sri)
+				> 1 | <script src="./foo.js"></script>
+				    |  ^^^^^^
+				Selector: script"
+			`);
 		});
 
 		it("should report error when integrity attribute is missing on <link> with crossorigin", async () => {
@@ -194,7 +194,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 | <link rel="stylesheet" href="https://example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
@@ -207,7 +207,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <script> element (require-sri)
 				> 1 | <script src="//example.net/foo.js"></script>
 				    |  ^^^^^^
 				Selector: script"
@@ -242,7 +242,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 | <link rel="stylesheet" href="https://example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
@@ -255,7 +255,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <script> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <script> element (require-sri)
 				> 1 | <script src="//example.net/foo.js"></script>
 				    |  ^^^^^^
 				Selector: script"
@@ -292,7 +292,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 | <link rel="stylesheet" href="//include.example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"
@@ -322,7 +322,7 @@ describe("rule require-sri", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: SRI "integrity" attribute is required on <link> element (require-sri) at inline:1:2:
+				"error: SRI "integrity" attribute is required on <link> element (require-sri)
 				> 1 | <link rel="stylesheet" href="//domain.example.net/foo.css" />
 				    |  ^^^^
 				Selector: link"

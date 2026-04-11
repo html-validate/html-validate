@@ -50,7 +50,7 @@ describe("rule h37", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				> 1 |  <img />
 				    |   ^^^
 				Selector: img"
@@ -61,7 +61,7 @@ describe("rule h37", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:3:2:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				  1 | <img alt="..">
 				  2 | <img alt="">
 				> 3 | <img translate-attr="..">
@@ -70,7 +70,7 @@ describe("rule h37", () => {
 				  5 |
 				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
 				Selector: img:nth-child(3)
-				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				error: <img> is missing required "alt" attribute (wcag/h37)
 				  2 | <img alt="">
 				  3 | <img translate-attr="..">
 				> 4 | <img>
@@ -104,7 +104,7 @@ describe("rule h37", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
+				"error: <img> cannot have empty "alt" attribute (wcag/h37)
 				> 1 |  <img alt="" />
 				    |       ^^^
 				Selector: img"
@@ -117,7 +117,7 @@ describe("rule h37", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> cannot have empty "alt" attribute (wcag/h37) at inline:1:7:
+				"error: <img> cannot have empty "alt" attribute (wcag/h37)
 				> 1 |  <img alt />
 				    |       ^^^
 				Selector: img"
@@ -130,7 +130,7 @@ describe("rule h37", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				> 1 |  <img />
 				    |   ^^^
 				Selector: img"
@@ -141,7 +141,7 @@ describe("rule h37", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> cannot have empty "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:2:6:
+				"error: <img> cannot have empty "alt" attribute (wcag/h37)
 				  1 | <img alt="..">
 				> 2 | <img alt="">
 				    |      ^^^
@@ -149,7 +149,7 @@ describe("rule h37", () => {
 				  4 | <img>
 				  5 |
 				Selector: img:nth-child(2)
-				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:3:2:
+				error: <img> is missing required "alt" attribute (wcag/h37)
 				  1 | <img alt="..">
 				  2 | <img alt="">
 				> 3 | <img translate-attr="..">
@@ -158,7 +158,7 @@ describe("rule h37", () => {
 				  5 |
 				  6 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
 				Selector: img:nth-child(3)
-				error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				error: <img> is missing required "alt" attribute (wcag/h37)
 				  2 | <img alt="">
 				  3 | <img translate-attr="..">
 				> 4 | <img>
@@ -192,7 +192,7 @@ describe("rule h37", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at inline:1:3:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				> 1 |  <img />
 				    |   ^^^
 				Selector: img"
@@ -203,7 +203,7 @@ describe("rule h37", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				  2 | <img alt="">
 				  3 | <img translate-attr="..">
 				> 4 | <img>
@@ -235,7 +235,7 @@ describe("rule h37", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/wcag/h37.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <img> is missing required "alt" attribute (wcag/h37) at test-files/rules/wcag/h37.html:4:2:
+				"error: <img> is missing required "alt" attribute (wcag/h37)
 				  2 | <img alt="">
 				  3 | <img translate-attr="..">
 				> 4 | <img>

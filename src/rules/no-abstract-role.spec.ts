@@ -45,11 +45,11 @@ describe("rule no-abstract-role", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-				"error: Role "input" is abstract and must not be used (no-abstract-role) at inline:1:12:
-				> 1 | <div role="input"></div>
-				    |            ^^^^^
-				Selector: div"
-			`);
+			"error: Role "input" is abstract and must not be used (no-abstract-role)
+			> 1 | <div role="input"></div>
+			    |            ^^^^^
+			Selector: div"
+		`);
 	});
 
 	it("should report error for each abstract role", async () => {
@@ -58,11 +58,11 @@ describe("rule no-abstract-role", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Role "window" is abstract and must not be used (no-abstract-role) at inline:1:12:
+			"error: Role "window" is abstract and must not be used (no-abstract-role)
 			> 1 | <div role="window none widget"></div>
 			    |            ^^^^^^
 			Selector: div
-			error: Role "widget" is abstract and must not be used (no-abstract-role) at inline:1:24:
+			error: Role "widget" is abstract and must not be used (no-abstract-role)
 			> 1 | <div role="window none widget"></div>
 			    |                        ^^^^^^
 			Selector: div"

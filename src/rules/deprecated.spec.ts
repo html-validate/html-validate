@@ -61,7 +61,7 @@ describe("rule deprecated", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/deprecated.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <marquee> is deprecated (deprecated) at test-files/rules/deprecated.html:2:2:
+			"error: <marquee> is deprecated (deprecated)
 			  1 | <p>lorem ipsum</p>
 			> 2 | <marquee>foobar</marquee>
 			    |  ^^^^^^^

@@ -41,7 +41,7 @@ describe("rule prefer-tbody", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Prefer to wrap <tr> elements in <tbody> (prefer-tbody) at inline:3:6:
+			"error: Prefer to wrap <tr> elements in <tbody> (prefer-tbody)
 			  1 |
 			  2 | 			<table>
 			> 3 | 				<tr></tr>

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`rule no-raw-characters default options smoketest 1`] = `
-"error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:2:9:
+"error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   1 | <!-- Should not be allowed -->
 > 2 | <p>Fred & Barney</p>
     |         ^
@@ -9,7 +9,7 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
   4 | <p>Fred < Barney</p>
   5 | <p class=foo's></p>
 Selector: p:nth-child(1)
-error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:3:9:
+error: Raw ">" must be encoded as "&gt;" (no-raw-characters)
   1 | <!-- Should not be allowed -->
   2 | <p>Fred & Barney</p>
 > 3 | <p>Fred > Barney</p>
@@ -18,7 +18,7 @@ error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at test-files/rules
   5 | <p class=foo's></p>
   6 | <p class=foo"s></p>
 Selector: p:nth-child(2)
-error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:4:9:
+error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
   2 | <p>Fred & Barney</p>
   3 | <p>Fred > Barney</p>
 > 4 | <p>Fred < Barney</p>
@@ -27,7 +27,7 @@ error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules
   6 | <p class=foo"s></p>
   7 | <p class=foo\`s></p>
 Selector: p:nth-child(3)
-error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rules/no-raw-characters.html:5:13:
+error: Raw "'" must be encoded as "&apos;" (no-raw-characters)
   3 | <p>Fred > Barney</p>
   4 | <p>Fred < Barney</p>
 > 5 | <p class=foo's></p>
@@ -36,7 +36,7 @@ error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rul
   7 | <p class=foo\`s></p>
   8 | <p class=foo&s></p>
 Selector: p:nth-child(4)
-error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rules/no-raw-characters.html:6:13:
+error: Raw """ must be encoded as "&quot;" (no-raw-characters)
   4 | <p>Fred < Barney</p>
   5 | <p class=foo's></p>
 > 6 | <p class=foo"s></p>
@@ -45,7 +45,7 @@ error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rul
   8 | <p class=foo&s></p>
   9 |
 Selector: p:nth-child(5)
-error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at test-files/rules/no-raw-characters.html:7:13:
+error: Raw "\`" must be encoded as "&grave;" (no-raw-characters)
    5 | <p class=foo's></p>
    6 | <p class=foo"s></p>
 >  7 | <p class=foo\`s></p>
@@ -54,7 +54,7 @@ error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at test-files/r
    9 |
   10 | <!-- Should be allowed -->
 Selector: p:nth-child(6)
-error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:8:13:
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
    6 | <p class=foo"s></p>
    7 | <p class=foo\`s></p>
 >  8 | <p class=foo&s></p>
@@ -63,7 +63,7 @@ error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rule
   10 | <!-- Should be allowed -->
   11 | <p>Fred &amp; Barney</p>
 Selector: p:nth-child(7)
-error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:19:2:
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   17 | <!-- Non-ambiguous ampersands -->
   18 | <p>
 > 19 | 	&
@@ -72,7 +72,7 @@ error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rule
   21 | 	&amp;
   22 | </p>
 Selector: p:nth-child(13)
-error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:20:2:
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   18 | <p>
   19 | 	&
 > 20 | 	&foo
@@ -81,7 +81,7 @@ error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rule
   22 | </p>
   23 | <p id=foo&bar></p>
 Selector: p:nth-child(13)
-error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:23:10:
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   21 | 	&amp;
   22 | </p>
 > 23 | <p id=foo&bar></p>
@@ -90,7 +90,7 @@ error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rule
   25 | <p id="foo&bar"></p>
   26 | <p id="foo&"></p>
 Selector: p:nth-child(14)
-error: Raw "&" must be encoded as "&amp;" (no-raw-characters) at test-files/rules/no-raw-characters.html:24:10:
+error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   22 | </p>
   23 | <p id=foo&bar></p>
 > 24 | <p id=foo&></p>
@@ -102,7 +102,7 @@ Selector: p:nth-child(15)"
 `;
 
 exports[`rule no-raw-characters relaxed smoketest 1`] = `
-"error: Raw ">" must be encoded as "&gt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:3:9:
+"error: Raw ">" must be encoded as "&gt;" (no-raw-characters)
   1 | <!-- Should not be allowed -->
   2 | <p>Fred & Barney</p>
 > 3 | <p>Fred > Barney</p>
@@ -111,7 +111,7 @@ exports[`rule no-raw-characters relaxed smoketest 1`] = `
   5 | <p class=foo's></p>
   6 | <p class=foo"s></p>
 Selector: p:nth-child(2)
-error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules/no-raw-characters.html:4:9:
+error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
   2 | <p>Fred & Barney</p>
   3 | <p>Fred > Barney</p>
 > 4 | <p>Fred < Barney</p>
@@ -120,7 +120,7 @@ error: Raw "<" must be encoded as "&lt;" (no-raw-characters) at test-files/rules
   6 | <p class=foo"s></p>
   7 | <p class=foo\`s></p>
 Selector: p:nth-child(3)
-error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rules/no-raw-characters.html:5:13:
+error: Raw "'" must be encoded as "&apos;" (no-raw-characters)
   3 | <p>Fred > Barney</p>
   4 | <p>Fred < Barney</p>
 > 5 | <p class=foo's></p>
@@ -129,7 +129,7 @@ error: Raw "'" must be encoded as "&apos;" (no-raw-characters) at test-files/rul
   7 | <p class=foo\`s></p>
   8 | <p class=foo&s></p>
 Selector: p:nth-child(4)
-error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rules/no-raw-characters.html:6:13:
+error: Raw """ must be encoded as "&quot;" (no-raw-characters)
   4 | <p>Fred < Barney</p>
   5 | <p class=foo's></p>
 > 6 | <p class=foo"s></p>
@@ -138,7 +138,7 @@ error: Raw """ must be encoded as "&quot;" (no-raw-characters) at test-files/rul
   8 | <p class=foo&s></p>
   9 |
 Selector: p:nth-child(5)
-error: Raw "\`" must be encoded as "&grave;" (no-raw-characters) at test-files/rules/no-raw-characters.html:7:13:
+error: Raw "\`" must be encoded as "&grave;" (no-raw-characters)
    5 | <p class=foo's></p>
    6 | <p class=foo"s></p>
 >  7 | <p class=foo\`s></p>

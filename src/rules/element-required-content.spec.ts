@@ -53,7 +53,7 @@ describe("rule element-required-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <html> element must have <head> as content (element-required-content) at inline:2:5:
+			"error: <html> element must have <head> as content (element-required-content)
 			  1 |
 			> 2 | 			<html>
 			    | 			 ^^^^
@@ -70,11 +70,11 @@ describe("rule element-required-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <html> element must have <head> as content (element-required-content) at inline:1:3:
+			"error: <html> element must have <head> as content (element-required-content)
 			> 1 |  <html></html>
 			    |   ^^^^
 			Selector: html
-			error: <html> element must have <body> as content (element-required-content) at inline:1:3:
+			error: <html> element must have <body> as content (element-required-content)
 			> 1 |  <html></html>
 			    |   ^^^^
 			Selector: html"
@@ -89,14 +89,14 @@ describe("rule element-required-content", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <with-tagname> element must have <p> as content (element-required-content) at inline:2:5:
+			"error: <with-tagname> element must have <p> as content (element-required-content)
 			  1 |
 			> 2 | 			<with-tagname></with-tagname>
 			    | 			 ^^^^^^^^^^^^
 			  3 | 			<with-category></with-category>
 			  4 |
 			Selector: with-tagname
-			error: <with-category> element must have heading element as content (element-required-content) at inline:3:5:
+			error: <with-category> element must have heading element as content (element-required-content)
 			  1 |
 			  2 | 			<with-tagname></with-tagname>
 			> 3 | 			<with-category></with-category>

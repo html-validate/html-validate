@@ -91,7 +91,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-none> must not have text content (text-content) at inline:1:2:
+				"error: <text-none> must not have text content (text-content)
 				> 1 | <text-none>foobar</text-none>
 				    |  ^^^^^^^^^
 				Selector: text-none"
@@ -106,7 +106,7 @@ describe("rule text-content", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-none> must not have text content (text-content) at inline:1:3:
+				"error: <text-none> must not have text content (text-content)
 				> 1 |  <text-none bind-text="dynamic"></text-none>
 				    |   ^^^^^^^^^
 				Selector: text-none"
@@ -119,7 +119,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-none> must not have text content (text-content) at inline:1:2:
+				"error: <text-none> must not have text content (text-content)
 				> 1 | <text-none><span>foobar</span></text-none>
 				    |  ^^^^^^^^^
 				Selector: text-none"
@@ -134,7 +134,7 @@ describe("rule text-content", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-none> must not have text content (text-content) at inline:1:2:
+				"error: <text-none> must not have text content (text-content)
 				> 1 | <text-none><span bind-text="dynamic"></span></text-none>
 				    |  ^^^^^^^^^
 				Selector: text-none"
@@ -186,7 +186,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-required> must have text content (text-content) at inline:1:2:
+				"error: <text-required> must have text content (text-content)
 				> 1 | <text-required></text-required>
 				    |  ^^^^^^^^^^^^^
 				Selector: text-required"
@@ -199,7 +199,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-required> must have text content (text-content) at inline:1:2:
+				"error: <text-required> must have text content (text-content)
 				> 1 | <text-required>
 				    |  ^^^^^^^^^^^^^
 				  2 | </text-required>
@@ -243,7 +243,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-accessible> must have accessible text (text-content) at inline:1:2:
+				"error: <text-accessible> must have accessible text (text-content)
 				> 1 | <text-accessible></text-accessible>
 				    |  ^^^^^^^^^^^^^^^
 				Selector: text-accessible"
@@ -256,7 +256,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-accessible> must have accessible text (text-content) at inline:1:2:
+				"error: <text-accessible> must have accessible text (text-content)
 				> 1 | <text-accessible>
 				    |  ^^^^^^^^^^^^^^^
 				  2 | </text-accessible>
@@ -270,7 +270,7 @@ describe("rule text-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <text-accessible> must have accessible text (text-content) at inline:1:2:
+				"error: <text-accessible> must have accessible text (text-content)
 				> 1 | <text-accessible><span aria-hidden="true">foobar</span></text-accessible>
 				    |  ^^^^^^^^^^^^^^^
 				Selector: text-accessible"

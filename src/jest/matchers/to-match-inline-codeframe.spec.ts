@@ -21,7 +21,7 @@ describe("toMatchInlineCodeframe()", () => {
 	it("should match invalid report", () => {
 		expect.assertions(1);
 		expect(reportError()).toMatchInlineCodeframe(`
-			"error: mock message (my-rule) at inline:4:8:
+			"error: mock message (my-rule)
 			  2 | 		<header id="foo">
 			  3 | 			<div>
 			> 4 | 				<p>lorem ipsum</p>
@@ -36,7 +36,7 @@ describe("toMatchInlineCodeframe()", () => {
 	it("should match invalid async report", () => {
 		expect.assertions(1);
 		expect(reportErrorAsync()).toMatchInlineCodeframe(`
-			"error: mock message (my-rule) at inline:4:8:
+			"error: mock message (my-rule)
 			  2 | 		<header id="foo">
 			  3 | 			<div>
 			> 4 | 				<p>lorem ipsum</p>
@@ -51,7 +51,7 @@ describe("toMatchInlineCodeframe()", () => {
 	it("should match invalid string", () => {
 		expect.assertions(1);
 		expect("<div>").toMatchInlineCodeframe(`
-			"error: Unclosed element '<div>' (close-order) at inline:1:2:
+			"error: Unclosed element '<div>' (close-order)
 			> 1 | <div>
 			    |  ^^^
 			Selector: div"

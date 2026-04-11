@@ -25,7 +25,7 @@ describe("wcag/h71", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <fieldset> must have a <legend> as the first child (wcag/h71) at inline:1:3:
+			"error: <fieldset> must have a <legend> as the first child (wcag/h71)
 			> 1 |  <fieldset></fieldset>
 			    |   ^^^^^^^^
 			Selector: fieldset"
@@ -38,7 +38,7 @@ describe("wcag/h71", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom> must have a <legend> as the first child (wcag/h71) at inline:1:3:
+			"error: <custom> must have a <legend> as the first child (wcag/h71)
 			> 1 |  <custom></custom>
 			    |   ^^^^^^
 			Selector: custom"

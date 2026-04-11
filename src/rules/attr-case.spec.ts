@@ -34,7 +34,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "FOO" should be lowercase (attr-case) at inline:1:6:
+				"error: Attribute "FOO" should be lowercase (attr-case)
 				> 1 | <div FOO="bar"></div>
 				    |      ^^^
 				Selector: div"
@@ -47,7 +47,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "clAss" should be lowercase (attr-case) at inline:1:6:
+				"error: Attribute "clAss" should be lowercase (attr-case)
 				> 1 | <div clAss="bar"></div>
 				    |      ^^^^^
 				Selector: div"
@@ -58,14 +58,14 @@ describe("rule attr-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "ID" should be lowercase (attr-case) at test-files/rules/attr-case.html:2:4:
+				"error: Attribute "ID" should be lowercase (attr-case)
 				  1 | <p id="foo">foo</p>
 				> 2 | <p ID="bar">bar</p>
 				    |    ^^
 				  3 | <p clAss="baz">baz</p>
 				  4 |
 				Selector: #bar
-				error: Attribute "clAss" should be lowercase (attr-case) at test-files/rules/attr-case.html:3:4:
+				error: Attribute "clAss" should be lowercase (attr-case)
 				  1 | <p id="foo">foo</p>
 				  2 | <p ID="bar">bar</p>
 				> 3 | <p clAss="baz">baz</p>
@@ -90,7 +90,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo" should be uppercase (attr-case) at inline:1:6:
+				"error: Attribute "foo" should be uppercase (attr-case)
 				> 1 | <div foo="bar"></div>
 				    |      ^^^
 				Selector: div"
@@ -117,7 +117,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "clAss" should be uppercase (attr-case) at inline:1:6:
+				"error: Attribute "clAss" should be uppercase (attr-case)
 				> 1 | <div clAss="bar"></div>
 				    |      ^^^^^
 				Selector: div"
@@ -128,14 +128,14 @@ describe("rule attr-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "id" should be uppercase (attr-case) at test-files/rules/attr-case.html:1:4:
+				"error: Attribute "id" should be uppercase (attr-case)
 				> 1 | <p id="foo">foo</p>
 				    |    ^^
 				  2 | <p ID="bar">bar</p>
 				  3 | <p clAss="baz">baz</p>
 				  4 |
 				Selector: #foo
-				error: Attribute "clAss" should be uppercase (attr-case) at test-files/rules/attr-case.html:3:4:
+				error: Attribute "clAss" should be uppercase (attr-case)
 				  1 | <p id="foo">foo</p>
 				  2 | <p ID="bar">bar</p>
 				> 3 | <p clAss="baz">baz</p>
@@ -174,7 +174,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foobar" should be PascalCase (attr-case) at inline:1:6:
+				"error: Attribute "foobar" should be PascalCase (attr-case)
 				> 1 | <div foobar="baz"></div>
 				    |      ^^^^^^
 				Selector: div"
@@ -187,7 +187,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "fooBar" should be PascalCase (attr-case) at inline:1:6:
+				"error: Attribute "fooBar" should be PascalCase (attr-case)
 				> 1 | <div fooBar="baz"></div>
 				    |      ^^^^^^
 				Selector: div"
@@ -198,14 +198,14 @@ describe("rule attr-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "id" should be PascalCase (attr-case) at test-files/rules/attr-case.html:1:4:
+				"error: Attribute "id" should be PascalCase (attr-case)
 				> 1 | <p id="foo">foo</p>
 				    |    ^^
 				  2 | <p ID="bar">bar</p>
 				  3 | <p clAss="baz">baz</p>
 				  4 |
 				Selector: #foo
-				error: Attribute "clAss" should be PascalCase (attr-case) at test-files/rules/attr-case.html:3:4:
+				error: Attribute "clAss" should be PascalCase (attr-case)
 				  1 | <p id="foo">foo</p>
 				  2 | <p ID="bar">bar</p>
 				> 3 | <p clAss="baz">baz</p>
@@ -244,7 +244,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "FOOBAR" should be camelCase (attr-case) at inline:1:6:
+				"error: Attribute "FOOBAR" should be camelCase (attr-case)
 				> 1 | <div FOOBAR="baz"></div>
 				    |      ^^^^^^
 				Selector: div"
@@ -257,7 +257,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "FooBar" should be camelCase (attr-case) at inline:1:6:
+				"error: Attribute "FooBar" should be camelCase (attr-case)
 				> 1 | <div FooBar="baz"></div>
 				    |      ^^^^^^
 				Selector: div"
@@ -268,7 +268,7 @@ describe("rule attr-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/attr-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "ID" should be camelCase (attr-case) at test-files/rules/attr-case.html:2:4:
+				"error: Attribute "ID" should be camelCase (attr-case)
 				  1 | <p id="foo">foo</p>
 				> 2 | <p ID="bar">bar</p>
 				    |    ^^
@@ -309,7 +309,7 @@ describe("rule attr-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "viewBox" should be lowercase (attr-case) at inline:1:6:
+				"error: Attribute "viewBox" should be lowercase (attr-case)
 				> 1 | <svg viewBox="" />
 				    |      ^^^^^^^
 				Selector: svg"
@@ -328,7 +328,7 @@ describe("rule attr-case", () => {
 		expect(await htmlvalidate.validateString("<div foo-bar></div>")).toBeValid();
 		expect(await htmlvalidate.validateString("<div fooBar></div>")).toBeValid();
 		expect(await htmlvalidate.validateString("<div FooBar></div>")).toMatchInlineCodeframe(`
-			"error: Attribute "FooBar" should be lowercase or camelCase (attr-case) at inline:1:6:
+			"error: Attribute "FooBar" should be lowercase or camelCase (attr-case)
 			> 1 | <div FooBar></div>
 			    |      ^^^^^^
 			Selector: div"
@@ -347,7 +347,7 @@ describe("rule attr-case", () => {
 		});
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "dynamic-fooBar" should be lowercase (attr-case) at inline:1:8:
+			"error: Attribute "dynamic-fooBar" should be lowercase (attr-case)
 			> 1 | <input dynamic-fooBar="foo" />
 			    |        ^^^^^^^^^^^^^^
 			Selector: input"

@@ -86,7 +86,7 @@ describe("rule empty-heading", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
+			"error: <h1> cannot be empty, must have text content (empty-heading)
 			> 1 |  <h1></h1>
 			    |   ^^
 			Selector: h1"
@@ -99,7 +99,7 @@ describe("rule empty-heading", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
+			"error: <h1> cannot be empty, must have text content (empty-heading)
 			> 1 |  <h1><span></span></h1>
 			    |   ^^
 			Selector: h1"
@@ -112,7 +112,7 @@ describe("rule empty-heading", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:1:3:
+			"error: <h1> cannot be empty, must have text content (empty-heading)
 			> 1 |  <h1></h1>
 			    |   ^^
 			Selector: h1"
@@ -129,7 +129,7 @@ describe("rule empty-heading", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:2:5:
+			"error: <h1> cannot be empty, must have text content (empty-heading)
 			  1 |
 			> 2 | 			<h1>
 			    | 			 ^^
@@ -151,7 +151,7 @@ describe("rule empty-heading", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h1> cannot be empty, must have text content (empty-heading) at inline:2:5:
+			"error: <h1> cannot be empty, must have text content (empty-heading)
 			  1 |
 			> 2 | 			<h1 hidden></h1>
 			    | 			 ^^
@@ -159,7 +159,7 @@ describe("rule empty-heading", () => {
 			  4 | 				<h2></h2>
 			  5 | 			</div>
 			Selector: h1
-			error: <h2> cannot be empty, must have text content (empty-heading) at inline:4:6:
+			error: <h2> cannot be empty, must have text content (empty-heading)
 			  2 | 			<h1 hidden></h1>
 			  3 | 			<div hidden>
 			> 4 | 				<h2></h2>
@@ -184,14 +184,14 @@ describe("rule empty-heading", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/empty-heading.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <h2> cannot be empty, must have text content (empty-heading) at test-files/rules/empty-heading.html:2:2:
+			"error: <h2> cannot be empty, must have text content (empty-heading)
 			  1 | <h1>Lorem ipsum</h1>
 			> 2 | <h2></h2>
 			    |  ^^
 			  3 | <h3> </h3>
 			  4 |
 			Selector: h2
-			error: <h3> cannot be empty, must have text content (empty-heading) at test-files/rules/empty-heading.html:3:2:
+			error: <h3> cannot be empty, must have text content (empty-heading)
 			  1 | <h1>Lorem ipsum</h1>
 			  2 | <h2></h2>
 			> 3 | <h3> </h3>

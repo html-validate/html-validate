@@ -37,7 +37,7 @@ describe("rule class-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "fooBar" does not match the configured pattern "kebabcase" (class-pattern) at inline:1:20:
+			"error: class "fooBar" does not match the configured pattern "kebabcase" (class-pattern)
 			> 1 |  <p class="foo-bar fooBar spam"></p>
 			    |                    ^^^^^^
 			Selector: p"
@@ -54,7 +54,7 @@ describe("rule class-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (class-pattern) at inline:1:12:
+			"error: class "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (class-pattern)
 			> 1 |  <p class="foo-bar"></p>
 			    |            ^^^^^^^
 			Selector: p"
@@ -72,7 +72,7 @@ describe("rule class-pattern", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/class-pattern.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "foo_bar" does not match the configured pattern "kebabcase" (class-pattern) at test-files/rules/class-pattern.html:3:17:
+			"error: class "foo_bar" does not match the configured pattern "kebabcase" (class-pattern)
 			  1 | <div class="foo foo-bar bar"></div>
 			  2 |
 			> 3 | <div class="foo foo_bar bar"></div>
@@ -81,7 +81,7 @@ describe("rule class-pattern", () => {
 			  5 | <div class="foo fooBar bar"></div>
 			  6 |
 			Selector: div:nth-child(2)
-			error: class "fooBar" does not match the configured pattern "kebabcase" (class-pattern) at test-files/rules/class-pattern.html:5:17:
+			error: class "fooBar" does not match the configured pattern "kebabcase" (class-pattern)
 			  3 | <div class="foo foo_bar bar"></div>
 			  4 |
 			> 5 | <div class="foo fooBar bar"></div>

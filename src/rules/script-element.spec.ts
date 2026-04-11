@@ -23,7 +23,7 @@ describe("rule script-element", () => {
 		const markup = /* HTML */ ` <script /> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: End tag for <script> must not be omitted (script-element) at inline:1:10:
+			"error: End tag for <script> must not be omitted (script-element)
 			> 1 |  <script />
 			    |          ^^
 			Selector: script"

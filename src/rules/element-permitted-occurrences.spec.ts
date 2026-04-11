@@ -27,7 +27,7 @@ describe("rule element-permitted-occurrences", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences) at inline:6:6:
+			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences)
 			  4 | 					1
 			  5 | 				</caption>
 			> 6 | 				<caption>
@@ -76,7 +76,7 @@ describe("rule element-permitted-occurrences", () => {
 			"test-files/rules/element-permitted-occurrences.html",
 		);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences) at test-files/rules/element-permitted-occurrences.html:3:3:
+			"error: Element <caption> can only appear once under <table> (element-permitted-occurrences)
 			  1 | <table>
 			  2 | 	<caption>1</caption>
 			> 3 | 	<caption>2</caption>

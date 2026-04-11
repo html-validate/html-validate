@@ -68,7 +68,7 @@ describe("rule empty-title", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			"error: <title> cannot be empty, must have text content (empty-title)
 			> 1 |  <title></title>
 			    |   ^^^^^
 			Selector: title"
@@ -81,7 +81,7 @@ describe("rule empty-title", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <title> cannot be empty, must have text content (empty-title) at inline:1:3:
+			"error: <title> cannot be empty, must have text content (empty-title)
 			> 1 |  <title> </title>
 			    |   ^^^^^
 			Selector: title"
@@ -92,14 +92,14 @@ describe("rule empty-title", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/empty-title.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <title> cannot be empty, must have text content (empty-title) at test-files/rules/empty-title.html:2:2:
+			"error: <title> cannot be empty, must have text content (empty-title)
 			  1 | <title>Lorem ipsum</title>
 			> 2 | <title></title>
 			    |  ^^^^^
 			  3 | <title> </title>
 			  4 |
 			Selector: title:nth-child(2)
-			error: <title> cannot be empty, must have text content (empty-title) at test-files/rules/empty-title.html:3:2:
+			error: <title> cannot be empty, must have text content (empty-title)
 			  1 | <title>Lorem ipsum</title>
 			  2 | <title></title>
 			> 3 | <title> </title>

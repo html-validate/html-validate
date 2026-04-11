@@ -31,7 +31,7 @@ describe("rule attr-delimiter", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter)
 			> 1 | <i foo ="1"></i>
 			    |       ^^
 			Selector: -"
@@ -44,7 +44,7 @@ describe("rule attr-delimiter", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter)
 			> 1 | <i foo= "1"></i>
 			    |       ^^
 			Selector: -"
@@ -57,7 +57,7 @@ describe("rule attr-delimiter", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter)
 			> 1 | <i foo = '1'></i>
 			    |       ^^^
 			Selector: -"
@@ -70,7 +70,7 @@ describe("rule attr-delimiter", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute value must not be delimited by whitespace (attr-delimiter) at inline:1:7:
+			"error: Attribute value must not be delimited by whitespace (attr-delimiter)
 			> 1 | <i foo = bar></i>
 			    |       ^^^
 			Selector: -"

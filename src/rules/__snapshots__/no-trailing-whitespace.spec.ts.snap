@@ -8,7 +8,7 @@ exports[`rule no-trailing-whitespace should contain documentation 1`] = `
 `;
 
 exports[`rule no-trailing-whitespace smoketest 1`] = `
-"error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:5:6:
+"error: Trailing whitespace (no-trailing-whitespace)
   3 | </foo>
   4 |
 > 5 | <bar>
@@ -19,7 +19,7 @@ exports[`rule no-trailing-whitespace smoketest 1`] = `
   8 |   baz
   9 | </bar>
 Selector: -
-error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:6:6:
+error: Trailing whitespace (no-trailing-whitespace)
    4 |
    5 | <bar>
 >  6 |   bar
@@ -30,7 +30,7 @@ error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trail
    9 | </bar>
   10 |
 Selector: -
-error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:7:1:
+error: Trailing whitespace (no-trailing-whitespace)
    5 | <bar>
    6 |   bar
 >  7 |
@@ -41,7 +41,7 @@ error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trail
   10 |
   11 | <baz>
 Selector: -
-error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:8:6:
+error: Trailing whitespace (no-trailing-whitespace)
    6 |   bar
    7 |
 >  8 |   baz
@@ -52,7 +52,7 @@ error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trail
   11 | <baz>
   12 |   spam
 Selector: -
-error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:12:7:
+error: Trailing whitespace (no-trailing-whitespace)
   10 |
   11 | <baz>
 > 12 |   spam
@@ -63,7 +63,7 @@ error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trail
   15 |
   16 | </baz>
 Selector: -
-error: Trailing whitespace (no-trailing-whitespace) at test-files/rules/no-trailing-whitespace.html:15:1:
+error: Trailing whitespace (no-trailing-whitespace)
   13 |
   14 |   ham
 > 15 |

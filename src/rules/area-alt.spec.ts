@@ -67,7 +67,7 @@ describe("rule area-alt", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:3:11:
+			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 			  1 |
 			  2 | 			<map>
 			> 3 | 				<area href="target" />
@@ -88,7 +88,7 @@ describe("rule area-alt", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:3:25:
+			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 			  1 |
 			  2 | 			<map>
 			> 3 | 				<area href="target" alt />
@@ -109,7 +109,7 @@ describe("rule area-alt", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:3:25:
+			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 			  1 |
 			  2 | 			<map>
 			> 3 | 				<area href="target" alt="" />
@@ -130,7 +130,7 @@ describe("rule area-alt", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "alt" attribute cannot be used unless the "href" attribute is present (area-alt) at inline:3:11:
+			"error: "alt" attribute cannot be used unless the "href" attribute is present (area-alt)
 			  1 |
 			  2 | 			<map>
 			> 3 | 				<area alt="lorem ipsum" />
@@ -153,7 +153,7 @@ describe("rule area-alt", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:3:22:
+			"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 			  1 |
 			  2 | 			<map>
 			> 3 | 				<area href="foo" alt="" />
@@ -162,7 +162,7 @@ describe("rule area-alt", () => {
 			  5 | 				<area href="bar" alt="lorem ipsum" />
 			  6 | 			</map>
 			Selector: map > area:nth-child(1)
-			error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:4:22:
+			error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 			  2 | 			<map>
 			  3 | 				<area href="foo" alt="" />
 			> 4 | 				<area href="foo" alt="" />
@@ -193,7 +193,7 @@ describe("rule area-alt", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt) at inline:3:23:
+				"error: "alt" attribute must be set and non-empty when the "href" attribute is present (area-alt)
 				  1 |
 				  2 | 				<map>
 				> 3 | 					<area href="foo" alt="" />

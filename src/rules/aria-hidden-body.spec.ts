@@ -54,7 +54,7 @@ describe("rule aria-hidden-body", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden must not be used on <body> (aria-hidden-body) at inline:1:8:
+			"error: aria-hidden must not be used on <body> (aria-hidden-body)
 			> 1 |  <body aria-hidden="true"></body>
 			    |        ^^^^^^^^^^^
 			Selector: body"
@@ -69,7 +69,7 @@ describe("rule aria-hidden-body", () => {
 		});
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden must not be used on <body> (aria-hidden-body) at inline:1:8:
+			"error: aria-hidden must not be used on <body> (aria-hidden-body)
 			> 1 |  <body dynamic-aria-hidden="foo"></body>
 			    |        ^^^^^^^^^^^^^^^^^^^
 			Selector: body"

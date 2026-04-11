@@ -32,7 +32,7 @@ describe("rule doctype-html", () => {
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: doctype should be "html" (doctype-html) at inline:1:11:
+			"error: doctype should be "html" (doctype-html)
 			> 1 | <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 			    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			Selector: -"
@@ -45,7 +45,7 @@ describe("rule doctype-html", () => {
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: doctype should be "html" (doctype-html) at inline:1:11:
+			"error: doctype should be "html" (doctype-html)
 			> 1 | <!DOCTYPE html SYSTEM "about:legacy-compat">
 			    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			Selector: -"

@@ -3,7 +3,7 @@
 exports[`toMatchCodeframe() should handle hint: foobar 1`] = `""`;
 
 exports[`toMatchCodeframe() should match invalid async report 1`] = `
-"error: mock message (my-rule) at inline:4:8:
+"error: mock message (my-rule)
   2 | 		<header id="foo">
   3 | 			<div>
 > 4 | 				<p>lorem ipsum</p>
@@ -15,7 +15,7 @@ Selector: #foo > div"
 `;
 
 exports[`toMatchCodeframe() should match invalid report 1`] = `
-"error: mock message (my-rule) at inline:4:8:
+"error: mock message (my-rule)
   2 | 		<header id="foo">
   3 | 			<div>
 > 4 | 				<p>lorem ipsum</p>
@@ -27,7 +27,7 @@ Selector: #foo > div"
 `;
 
 exports[`toMatchCodeframe() should match invalid string 1`] = `
-"error: Unclosed element '<div>' (close-order) at inline:1:2:
+"error: Unclosed element '<div>' (close-order)
 > 1 | <div>
     |  ^^^
 Selector: div"

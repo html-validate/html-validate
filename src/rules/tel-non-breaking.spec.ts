@@ -68,7 +68,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:19:
+			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:">foo bar</a>
 			    |                   ^
 			Selector: a"
@@ -81,7 +81,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number (tel-non-breaking) at inline:1:19:
+			"error: "-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:">foo-bar</a>
 			    |                   ^
 			Selector: a"
@@ -94,7 +94,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
+			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:" style="white-space: normal">foo ba</a>
 			    |                                               ^
 			Selector: a"
@@ -118,7 +118,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:47:
+			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:" style="white-space: nowrap">foo bar</a>
 			    |                                               ^
 			Selector: a"
@@ -131,7 +131,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:43:
+			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:" style="background: red">foo ba</a>
 			    |                                           ^
 			Selector: a"
@@ -144,7 +144,7 @@ describe("rule tel-non-breaking", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking) at inline:1:25:
+			"error: " " should be replaced with "&nbsp;" (non-breaking space) in telephone number (tel-non-breaking)
 			> 1 | <a href="tel:"><span>foo bar</span></a>
 			    |                         ^
 			Selector: a"

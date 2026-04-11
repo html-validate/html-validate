@@ -21,7 +21,7 @@ describe("rule element-name", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <foobar> is not a valid element name (element-name) at inline:1:3:
+				"error: <foobar> is not a valid element name (element-name)
 				> 1 |  <foobar></foobar>
 				    |   ^^^^^^
 				Selector: foobar"
@@ -34,7 +34,7 @@ describe("rule element-name", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <1-foo> is not a valid element name (element-name) at inline:1:3:
+				"error: <1-foo> is not a valid element name (element-name)
 				> 1 |  <1-foo></1-foo>
 				    |   ^^^^^
 				Selector: 1-foo"
@@ -72,7 +72,7 @@ describe("rule element-name", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <foo> is not a valid element name (element-name) at test-files/rules/element-name.html:30:2:
+				"error: <foo> is not a valid element name (element-name)
 				  28 |
 				  29 | <!-- invalid custom names -->
 				> 30 | <foo></foo>
@@ -80,7 +80,7 @@ describe("rule element-name", () => {
 				  31 | <1-bar></1-bar>
 				  32 |
 				Selector: foo
-				error: <1-bar> is not a valid element name (element-name) at test-files/rules/element-name.html:31:2:
+				error: <1-bar> is not a valid element name (element-name)
 				  29 | <!-- invalid custom names -->
 				  30 | <foo></foo>
 				> 31 | <1-bar></1-bar>
@@ -105,7 +105,7 @@ describe("rule element-name", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <spam-ham> is not a valid element name (element-name) at inline:1:3:
+				"error: <spam-ham> is not a valid element name (element-name)
 				> 1 |  <spam-ham></spam-ham>
 				    |   ^^^^^^^^
 				Selector: spam-ham"
@@ -143,7 +143,7 @@ describe("rule element-name", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/element-name.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: <spam-ham> is not a valid element name (element-name) at test-files/rules/element-name.html:27:2:
+				"error: <spam-ham> is not a valid element name (element-name)
 				  25 | <!-- allowed custom names -->
 				  26 | <foo-bar></foo-bar>
 				> 27 | <spam-ham></spam-ham>
@@ -152,7 +152,7 @@ describe("rule element-name", () => {
 				  29 | <!-- invalid custom names -->
 				  30 | <foo></foo>
 				Selector: spam-ham
-				error: <foo> is not a valid element name (element-name) at test-files/rules/element-name.html:30:2:
+				error: <foo> is not a valid element name (element-name)
 				  28 |
 				  29 | <!-- invalid custom names -->
 				> 30 | <foo></foo>
@@ -160,7 +160,7 @@ describe("rule element-name", () => {
 				  31 | <1-bar></1-bar>
 				  32 |
 				Selector: foo
-				error: <1-bar> is not a valid element name (element-name) at test-files/rules/element-name.html:31:2:
+				error: <1-bar> is not a valid element name (element-name)
 				  29 | <!-- invalid custom names -->
 				  30 | <foo></foo>
 				> 31 | <1-bar></1-bar>
@@ -191,7 +191,7 @@ describe("rule element-name", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <foo-bar> element is blacklisted (element-name) at inline:1:3:
+			"error: <foo-bar> element is blacklisted (element-name)
 			> 1 |  <foo-bar></foo-bar>
 			    |   ^^^^^^^
 			Selector: foo-bar"

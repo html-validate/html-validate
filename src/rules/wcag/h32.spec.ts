@@ -69,7 +69,7 @@ describe("wcag/h32", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at inline:1:2:
+			"error: <form> element must have a submit button (wcag/h32)
 			> 1 | <form></form>
 			    |  ^^^^
 			Selector: form"
@@ -82,7 +82,7 @@ describe("wcag/h32", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at inline:1:2:
+			"error: <form> element must have a submit button (wcag/h32)
 			> 1 | <form><button type="button"></button></form>
 			    |  ^^^^
 			Selector: form"
@@ -95,7 +95,7 @@ describe("wcag/h32", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at inline:1:2:
+			"error: <form> element must have a submit button (wcag/h32)
 			> 1 | <form id="foo"></form><button form="foo" type="button"></button>
 			    |  ^^^^
 			Selector: #foo"
@@ -108,7 +108,7 @@ describe("wcag/h32", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at inline:1:2:
+			"error: <form> element must have a submit button (wcag/h32)
 			> 1 | <form id="foo"><button form="bar" type="submit"></button></form>
 			    |  ^^^^
 			Selector: #foo"
@@ -121,7 +121,7 @@ describe("wcag/h32", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <my-form> element must have a submit button (wcag/h32) at inline:1:2:
+			"error: <my-form> element must have a submit button (wcag/h32)
 			> 1 | <my-form></my-form>
 			    |  ^^^^^^^
 			Selector: my-form"
@@ -182,7 +182,7 @@ describe("wcag/h32", () => {
 		const report = await customHtmlValidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at inline:8:5:
+			"error: <form> element must have a submit button (wcag/h32)
 			   6 |
 			   7 | 			<!-- this should yield an error, button is not a submit button -->
 			>  8 | 			<form>
@@ -198,7 +198,7 @@ describe("wcag/h32", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h32.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <form> element must have a submit button (wcag/h32) at test-files/rules/wcag/h32.html:17:2:
+			"error: <form> element must have a submit button (wcag/h32)
 			  15 |
 			  16 | <!-- should yield error: no submit button present -->
 			> 17 | <form id="missing-submit" aria-label="Missing submit button">

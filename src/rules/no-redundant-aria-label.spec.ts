@@ -47,7 +47,7 @@ describe("rule no-redundant-aria-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label) at inline:3:20:
+			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label)
 			  1 |
 			  2 | 			<label for="foo"> lorem ipsum </label>
 			> 3 | 			<input id="foo" aria-label="lorem ipsum" />
@@ -66,7 +66,7 @@ describe("rule no-redundant-aria-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label) at inline:3:23:
+			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label)
 			  1 |
 			  2 | 			<label for="foo"> lorem ipsum </label>
 			> 3 | 			<textarea id="foo" aria-label="lorem ipsum"></textarea>
@@ -85,7 +85,7 @@ describe("rule no-redundant-aria-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label) at inline:3:21:
+			"error: aria-label is redundant when label containing same text exists (no-redundant-aria-label)
 			  1 |
 			  2 | 			<label for="foo"> lorem ipsum </label>
 			> 3 | 			<select id="foo" aria-label="lorem ipsum"></select>

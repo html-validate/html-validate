@@ -63,7 +63,7 @@ describe("rule no-redundant-role", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Redundant role "listitem" on <li> (no-redundant-role) at inline:3:15:
+			"error: Redundant role "listitem" on <li> (no-redundant-role)
 			  1 |
 			  2 | 			<ul>
 			> 3 | 				<li role="listitem"></li>
@@ -80,7 +80,7 @@ describe("rule no-redundant-role", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Redundant role "link" on <a> (no-redundant-role) at inline:1:16:
+			"error: Redundant role "link" on <a> (no-redundant-role)
 			> 1 |  <a href role="link"></a>
 			    |                ^^^^
 			Selector: a"
@@ -121,7 +121,7 @@ describe("rule no-redundant-role", () => {
 			const report = await htmlvalidateWithInclude.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Redundant role "listitem" on <li> (no-redundant-role) at inline:3:16:
+				"error: Redundant role "listitem" on <li> (no-redundant-role)
 				  1 |
 				  2 | 				<ul>
 				> 3 | 					<li role="listitem"></li>
@@ -160,7 +160,7 @@ describe("rule no-redundant-role", () => {
 			const report = await htmlvalidateWithExclude.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Redundant role "button" on <button> (no-redundant-role) at inline:1:16:
+				"error: Redundant role "button" on <button> (no-redundant-role)
 				> 1 |  <button role="button"></button>
 				    |                ^^^^^^
 				Selector: button"

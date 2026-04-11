@@ -105,7 +105,7 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing" (no-missing-references) at inline:1:14:
+			"error: Element references missing id "missing" (no-missing-references)
 			> 1 |  <label for="missing"></label>
 			    |              ^^^^^^^
 			Selector: label"
@@ -118,7 +118,7 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing" (no-missing-references) at inline:1:15:
+			"error: Element references missing id "missing" (no-missing-references)
 			> 1 |  <input list="missing" />
 			    |               ^^^^^^^
 			Selector: input"
@@ -131,7 +131,7 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing id" (no-missing-references) at inline:1:30:
+			"error: Element references missing id "missing id" (no-missing-references)
 			> 1 |  <div aria-activedescendant="missing id"></div>
 			    |                              ^^^^^^^^^^
 			Selector: div"
@@ -144,11 +144,11 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing" (no-missing-references) at inline:1:24:
+			"error: Element references missing id "missing" (no-missing-references)
 			> 1 |  <div aria-labelledby="missing id"></div>
 			    |                        ^^^^^^^
 			Selector: div
-			error: Element references missing id "id" (no-missing-references) at inline:1:32:
+			error: Element references missing id "id" (no-missing-references)
 			> 1 |  <div aria-labelledby="missing id"></div>
 			    |                                ^^
 			Selector: div"
@@ -161,11 +161,11 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing" (no-missing-references) at inline:1:25:
+			"error: Element references missing id "missing" (no-missing-references)
 			> 1 |  <div aria-describedby="missing id"></div>
 			    |                         ^^^^^^^
 			Selector: div
-			error: Element references missing id "id" (no-missing-references) at inline:1:33:
+			error: Element references missing id "id" (no-missing-references)
 			> 1 |  <div aria-describedby="missing id"></div>
 			    |                                 ^^
 			Selector: div"
@@ -178,11 +178,11 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing" (no-missing-references) at inline:1:22:
+			"error: Element references missing id "missing" (no-missing-references)
 			> 1 |  <div aria-controls="missing id"></div>
 			    |                      ^^^^^^^
 			Selector: div
-			error: Element references missing id "id" (no-missing-references) at inline:1:30:
+			error: Element references missing id "id" (no-missing-references)
 			> 1 |  <div aria-controls="missing id"></div>
 			    |                              ^^
 			Selector: div"
@@ -195,7 +195,7 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing id" (no-missing-references) at inline:1:21:
+			"error: Element references missing id "missing id" (no-missing-references)
 			> 1 |  <div aria-details="missing id"></div>
 			    |                     ^^^^^^^^^^
 			Selector: div"
@@ -208,7 +208,7 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "missing id" (no-missing-references) at inline:1:26:
+			"error: Element references missing id "missing id" (no-missing-references)
 			> 1 |  <div aria-errormessage="missing id"></div>
 			    |                          ^^^^^^^^^^
 			Selector: div"
@@ -224,14 +224,14 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "foo" (no-missing-references) at inline:2:22:
+			"error: Element references missing id "foo" (no-missing-references)
 			  1 |
 			> 2 | 			<div aria-flowto="foo bar baz"></div>
 			    | 			                  ^^^
 			  3 | 			<span id="bar"></span>
 			  4 |
 			Selector: div
-			error: Element references missing id "baz" (no-missing-references) at inline:2:30:
+			error: Element references missing id "baz" (no-missing-references)
 			  1 |
 			> 2 | 			<div aria-flowto="foo bar baz"></div>
 			    | 			                          ^^^
@@ -250,14 +250,14 @@ describe("rule no-missing-references", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element references missing id "foo" (no-missing-references) at inline:2:20:
+			"error: Element references missing id "foo" (no-missing-references)
 			  1 |
 			> 2 | 			<div aria-owns="foo bar baz"></div>
 			    | 			                ^^^
 			  3 | 			<span id="bar"></span>
 			  4 |
 			Selector: div
-			error: Element references missing id "baz" (no-missing-references) at inline:2:28:
+			error: Element references missing id "baz" (no-missing-references)
 			  1 |
 			> 2 | 			<div aria-owns="foo bar baz"></div>
 			    | 			                        ^^^

@@ -85,7 +85,7 @@ describe("rule multiple-labeled-controls", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <label> is associated with multiple controls (multiple-labeled-controls) at inline:2:5:
+			"error: <label> is associated with multiple controls (multiple-labeled-controls)
 			  1 |
 			> 2 | 			<label>
 			    | 			 ^^^^^
@@ -107,7 +107,7 @@ describe("rule multiple-labeled-controls", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <label> is associated with multiple controls (multiple-labeled-controls) at inline:2:5:
+			"error: <label> is associated with multiple controls (multiple-labeled-controls)
 			  1 |
 			> 2 | 			<label for="bar">
 			    | 			 ^^^^^

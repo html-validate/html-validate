@@ -29,7 +29,7 @@ describe("rule no-implicit-close", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at inline:3:6:
+			"error: Element <li> is implicitly closed by parent </ul> (no-implicit-close)
 			  1 |
 			  2 | 			<ul>
 			> 3 | 				<li>foo
@@ -51,7 +51,7 @@ describe("rule no-implicit-close", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element <li> is implicitly closed by sibling (no-implicit-close) at inline:3:6:
+			"error: Element <li> is implicitly closed by sibling (no-implicit-close)
 			  1 |
 			  2 | 			<ul>
 			> 3 | 				<li>foo
@@ -60,7 +60,7 @@ describe("rule no-implicit-close", () => {
 			  5 | 			</ul>
 			  6 |
 			Selector: ul > li:nth-child(1)
-			error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at inline:4:6:
+			error: Element <li> is implicitly closed by parent </ul> (no-implicit-close)
 			  2 | 			<ul>
 			  3 | 				<li>foo
 			> 4 | 				<li>bar
@@ -80,7 +80,7 @@ describe("rule no-implicit-close", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Element <p> is implicitly closed by adjacent <div> (no-implicit-close) at inline:2:5:
+			"error: Element <p> is implicitly closed by adjacent <div> (no-implicit-close)
 			  1 |
 			> 2 | 			<p>foo
 			    | 			 ^
@@ -98,13 +98,13 @@ describe("rule no-implicit-close", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-		"error: Element <p> is implicitly closed by document ending (no-implicit-close) at inline:2:5:
-		  1 |
-		> 2 | 			<p>foo
-		    | 			 ^
-		  3 |
-		Selector: p"
-	`);
+			"error: Element <p> is implicitly closed by document ending (no-implicit-close)
+			  1 |
+			> 2 | 			<p>foo
+			    | 			 ^
+			  3 |
+			Selector: p"
+		`);
 	});
 
 	it("smoketest", async () => {

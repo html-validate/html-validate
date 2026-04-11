@@ -27,7 +27,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style="color: red; background: green"></p>
 				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -42,7 +42,7 @@ describe("rule no-inline-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p dynamic-style=""></p>
 				    |     ^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -55,7 +55,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style=" color: red"></p>
 				    |     ^^^^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -68,7 +68,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style="color: red; "></p>
 				    |     ^^^^^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -81,7 +81,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style=" "></p>
 				    |     ^^^^^^^^^
 				Selector: p"
@@ -103,7 +103,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style=""></p>
 				    |     ^^^^^^^^
 				Selector: p"
@@ -143,7 +143,7 @@ describe("rule no-inline-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p dynamic-style=""></p>
 				    |     ^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -173,7 +173,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style="color: red; background: green;"></p>
 				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -190,7 +190,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style="color: red; background: green;"></p>
 				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 				Selector: p"
@@ -207,7 +207,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style></p>
 				    |     ^^^^^
 				Selector: p"
@@ -224,7 +224,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style=""></p>
 				    |     ^^^^^^^^
 				Selector: p"
@@ -241,7 +241,7 @@ describe("rule no-inline-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Inline style is not allowed (no-inline-style) at inline:1:5:
+				"error: Inline style is not allowed (no-inline-style)
 				> 1 |  <p style="color"></p>
 				    |     ^^^^^^^^^^^^^
 				Selector: p"
@@ -268,7 +268,7 @@ describe("rule no-inline-style", () => {
 		});
 		const report = await htmlvalidate.validateFile("test-files/rules/no-inline-style.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Inline style is not allowed (no-inline-style) at test-files/rules/no-inline-style.html:1:4:
+			"error: Inline style is not allowed (no-inline-style)
 			> 1 | <p style="color: red"></p>
 			    |    ^^^^^^^^^^^^^^^^^^
 			  2 | <p></p>

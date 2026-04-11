@@ -19,7 +19,7 @@ describe("rule long-title", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: title text cannot be longer than 70 characters (long-title) at inline:5:11:
+			"error: title text cannot be longer than 70 characters (long-title)
 			  3 | 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 			  4 | 				labore et dolore magna aliqua.
 			> 5 | 			</title>
@@ -59,7 +59,7 @@ describe("rule long-title", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: title text cannot be longer than 10 characters (long-title) at inline:1:42:
+			"error: title text cannot be longer than 10 characters (long-title)
 			> 1 |  <title>lorem ipsum dolor sit amet</title>
 			    |                                          ^
 			Selector: title"

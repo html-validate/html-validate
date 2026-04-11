@@ -39,7 +39,7 @@ describe("rule attribute-empty-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "download" should omit value (attribute-empty-style) at inline:1:5:
+				"error: Attribute "download" should omit value (attribute-empty-style)
 				> 1 |  <a download=""></a>
 				    |     ^^^^^^^^
 				Selector: a"
@@ -99,7 +99,7 @@ describe("rule attribute-empty-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "download" value should be empty string (attribute-empty-style) at inline:1:5:
+				"error: Attribute "download" value should be empty string (attribute-empty-style)
 				> 1 |  <a download></a>
 				    |     ^^^^^^^^
 				Selector: a"

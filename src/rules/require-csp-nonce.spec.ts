@@ -17,7 +17,7 @@ describe("rule require-csp-nonce", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: required CSP nonce is missing (require-csp-nonce) at inline:1:2:
+			"error: required CSP nonce is missing (require-csp-nonce)
 			> 1 | <script></script>
 			    |  ^^^^^^
 			Selector: script"
@@ -30,7 +30,7 @@ describe("rule require-csp-nonce", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: required CSP nonce is missing (require-csp-nonce) at inline:1:2:
+			"error: required CSP nonce is missing (require-csp-nonce)
 			> 1 | <style></style>
 			    |  ^^^^^
 			Selector: style"

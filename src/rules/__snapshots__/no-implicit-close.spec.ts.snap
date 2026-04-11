@@ -10,7 +10,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 `;
 
 exports[`rule no-implicit-close smoketest 1`] = `
-"error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:6:3:
+"error: Element <li> is implicitly closed by sibling (no-implicit-close)
   4 |
   5 | <ul>
 > 6 | 	<li>foo
@@ -19,7 +19,7 @@ exports[`rule no-implicit-close smoketest 1`] = `
   8 | 	<li>baz
   9 | </ul>
 Selector: ul:nth-child(2) > li:nth-child(1)
-error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:7:3:
+error: Element <li> is implicitly closed by sibling (no-implicit-close)
    5 | <ul>
    6 | 	<li>foo
 >  7 | 	<li>bar
@@ -28,7 +28,7 @@ error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-
    9 | </ul>
   10 |
 Selector: ul:nth-child(2) > li:nth-child(2)
-error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:8:3:
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close)
    6 | 	<li>foo
    7 | 	<li>bar
 >  8 | 	<li>baz
@@ -37,7 +37,7 @@ error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at 
   10 |
   11 | <ul>
 Selector: ul:nth-child(2) > li:nth-child(3)
-error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:12:3:
+error: Element <li> is implicitly closed by sibling (no-implicit-close)
   10 |
   11 | <ul>
 > 12 | 	<li class="foo">foo
@@ -46,7 +46,7 @@ error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-
   14 | 	<li class="baz">baz
   15 | </ul>
 Selector: ul:nth-child(3) > li:nth-child(1)
-error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:13:3:
+error: Element <li> is implicitly closed by sibling (no-implicit-close)
   11 | <ul>
   12 | 	<li class="foo">foo
 > 13 | 	<li class="bar">bar
@@ -55,7 +55,7 @@ error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-
   15 | </ul>
   16 |
 Selector: ul:nth-child(3) > li:nth-child(2)
-error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:14:3:
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close)
   12 | 	<li class="foo">foo
   13 | 	<li class="bar">bar
 > 14 | 	<li class="baz">baz
@@ -64,7 +64,7 @@ error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at 
   16 |
   17 | <ul>
 Selector: ul:nth-child(3) > li:nth-child(3)
-error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:18:3:
+error: Element <li> is implicitly closed by sibling (no-implicit-close)
   16 |
   17 | <ul>
 > 18 | 	<li>foo<strong>bar</strong>
@@ -73,7 +73,7 @@ error: Element <li> is implicitly closed by sibling (no-implicit-close) at test-
   20 | </ul>
   21 |
 Selector: ul:nth-child(4) > li:nth-child(1)
-error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at test-files/rules/no-implicit-close.html:19:3:
+error: Element <li> is implicitly closed by parent </ul> (no-implicit-close)
   17 | <ul>
   18 | 	<li>foo<strong>bar</strong>
 > 19 | 	<li>foo <input>
@@ -82,7 +82,7 @@ error: Element <li> is implicitly closed by parent </ul> (no-implicit-close) at 
   21 |
   22 | <dl>
 Selector: ul:nth-child(4) > li:nth-child(2)
-error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at test-files/rules/no-implicit-close.html:23:3:
+error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close)
   21 |
   22 | <dl>
 > 23 | 	<dt>title
@@ -91,7 +91,7 @@ error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at
   25 | 	<dd>definition 2
   26 | 	<dt>fred
 Selector: dl > dt:nth-child(1)
-error: Element <dd> is implicitly closed by sibling (no-implicit-close) at test-files/rules/no-implicit-close.html:24:3:
+error: Element <dd> is implicitly closed by sibling (no-implicit-close)
   22 | <dl>
   23 | 	<dt>title
 > 24 | 	<dd>definition 1
@@ -100,7 +100,7 @@ error: Element <dd> is implicitly closed by sibling (no-implicit-close) at test-
   26 | 	<dt>fred
   27 | 	<dd>flintstone
 Selector: dl > dd:nth-child(2)
-error: Element <dd> is implicitly closed by adjacent <dt> (no-implicit-close) at test-files/rules/no-implicit-close.html:25:3:
+error: Element <dd> is implicitly closed by adjacent <dt> (no-implicit-close)
   23 | 	<dt>title
   24 | 	<dd>definition 1
 > 25 | 	<dd>definition 2
@@ -109,7 +109,7 @@ error: Element <dd> is implicitly closed by adjacent <dt> (no-implicit-close) at
   27 | 	<dd>flintstone
   28 | </dl>
 Selector: dl > dd:nth-child(3)
-error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at test-files/rules/no-implicit-close.html:26:3:
+error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close)
   24 | 	<dd>definition 1
   25 | 	<dd>definition 2
 > 26 | 	<dt>fred
@@ -118,7 +118,7 @@ error: Element <dt> is implicitly closed by adjacent <dd> (no-implicit-close) at
   28 | </dl>
   29 |
 Selector: dl > dt:nth-child(4)
-error: Element <dd> is implicitly closed by parent </dl> (no-implicit-close) at test-files/rules/no-implicit-close.html:27:3:
+error: Element <dd> is implicitly closed by parent </dl> (no-implicit-close)
   25 | 	<dd>definition 2
   26 | 	<dt>fred
 > 27 | 	<dd>flintstone
@@ -127,7 +127,7 @@ error: Element <dd> is implicitly closed by parent </dl> (no-implicit-close) at 
   29 |
   30 | <p>
 Selector: dl > dd:nth-child(5)
-error: Element <p> is implicitly closed by adjacent <address> (no-implicit-close) at test-files/rules/no-implicit-close.html:30:2:
+error: Element <p> is implicitly closed by adjacent <address> (no-implicit-close)
   28 | </dl>
   29 |
 > 30 | <p>

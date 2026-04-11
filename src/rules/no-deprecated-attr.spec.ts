@@ -44,7 +44,7 @@ describe("rule no-deprecated-attr", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr) at inline:1:8:
+			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr)
 			> 1 |  <body bgcolor="red"></body>
 			    |        ^^^^^^^
 			Selector: body"
@@ -57,7 +57,7 @@ describe("rule no-deprecated-attr", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "BGCOLOR" is deprecated on <body> element (no-deprecated-attr) at inline:1:8:
+			"error: Attribute "BGCOLOR" is deprecated on <body> element (no-deprecated-attr)
 			> 1 |  <body BGCOLOR="red"></body>
 			    |        ^^^^^^^
 			Selector: body"
@@ -68,7 +68,7 @@ describe("rule no-deprecated-attr", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/no-deprecated-attr.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:2:7:
+			"error: Attribute "bgcolor" is deprecated on <body> element (no-deprecated-attr)
 			  1 | <body></body>
 			> 2 | <body bgcolor="red"></body>
 			    |       ^^^^^^^
@@ -76,7 +76,7 @@ describe("rule no-deprecated-attr", () => {
 			  4 | <body bgColor="red"></body>
 			  5 |
 			Selector: body:nth-child(2)
-			error: Attribute "BGCOLOR" is deprecated on <body> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:3:7:
+			error: Attribute "BGCOLOR" is deprecated on <body> element (no-deprecated-attr)
 			  1 | <body></body>
 			  2 | <body bgcolor="red"></body>
 			> 3 | <body BGCOLOR="red"></body>
@@ -85,7 +85,7 @@ describe("rule no-deprecated-attr", () => {
 			  5 |
 			  6 | <table valign="top">
 			Selector: body:nth-child(3)
-			error: Attribute "bgColor" is deprecated on <body> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:4:7:
+			error: Attribute "bgColor" is deprecated on <body> element (no-deprecated-attr)
 			  2 | <body bgcolor="red"></body>
 			  3 | <body BGCOLOR="red"></body>
 			> 4 | <body bgColor="red"></body>
@@ -94,7 +94,7 @@ describe("rule no-deprecated-attr", () => {
 			  6 | <table valign="top">
 			  7 | 	<tr background="blue">
 			Selector: body:nth-child(4)
-			error: Attribute "background" is deprecated on <tr> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:7:6:
+			error: Attribute "background" is deprecated on <tr> element (no-deprecated-attr)
 			   5 |
 			   6 | <table valign="top">
 			>  7 | 	<tr background="blue">
@@ -103,7 +103,7 @@ describe("rule no-deprecated-attr", () => {
 			   9 | 	</tr>
 			  10 | </table>
 			Selector: table > tr
-			error: Attribute "align" is deprecated on <td> element (no-deprecated-attr) at test-files/rules/no-deprecated-attr.html:8:7:
+			error: Attribute "align" is deprecated on <td> element (no-deprecated-attr)
 			   6 | <table valign="top">
 			   7 | 	<tr background="blue">
 			>  8 | 		<td align="right">foo</td>

@@ -51,7 +51,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "" must not be empty (valid-id) at inline:1:6:
+				"error: element id "" must not be empty (valid-id)
 				> 1 | <div id=""></div>
 				    |      ^^^^^
 				Selector: div"
@@ -64,7 +64,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id " foobar" must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id " foobar" must not contain whitespace (valid-id)
 				> 1 | <div id=" foobar"></div>
 				    |          ^^^^^^^
 				Selector: #\\ foobar"
@@ -77,7 +77,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "foobar " must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foobar " must not contain whitespace (valid-id)
 				> 1 | <div id="foobar "></div>
 				    |          ^^^^^^^
 				Selector: #foobar\\"
@@ -90,7 +90,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "foo bar" must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foo bar" must not contain whitespace (valid-id)
 				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\ bar"
@@ -103,7 +103,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "123" must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "123" must begin with a letter (valid-id)
 				> 1 | <div id="123"></div>
 				    |          ^^^
 				Selector: [id="123"]"
@@ -116,7 +116,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "123foo" must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "123foo" must begin with a letter (valid-id)
 				> 1 | <div id="123foo"></div>
 				    |          ^^^^^^
 				Selector: [id="123foo"]"
@@ -129,7 +129,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "-foo" must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "-foo" must begin with a letter (valid-id)
 				> 1 | <div id="-foo"></div>
 				    |          ^^^^
 				Selector: #-foo"
@@ -142,7 +142,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "_foo" must begin with a letter (valid-id) at inline:1:10:
+				"error: element id "_foo" must begin with a letter (valid-id)
 				> 1 | <div id="_foo"></div>
 				    |          ^^^^
 				Selector: #_foo"
@@ -155,7 +155,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "foo!bar" must only contain letters, digits, dash and underscore characters (valid-id) at inline:1:10:
+				"error: element id "foo!bar" must only contain letters, digits, dash and underscore characters (valid-id)
 				> 1 | <div id="foo!bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\!bar"
@@ -213,7 +213,7 @@ describe("rule valid-id", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: element id "foo bar" must not contain whitespace (valid-id) at inline:1:10:
+				"error: element id "foo bar" must not contain whitespace (valid-id)
 				> 1 | <div id="foo bar"></div>
 				    |          ^^^^^^^
 				Selector: #foo\\ bar"

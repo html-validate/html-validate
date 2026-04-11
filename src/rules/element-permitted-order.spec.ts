@@ -24,15 +24,15 @@ describe("rule element-permitted-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-		"error: Element <caption> must be used before <thead> in this context (element-permitted-order) at inline:4:6:
-		  2 | 			<table>
-		  3 | 				<thead></thead>
-		> 4 | 				<caption></caption>
-		    | 				 ^^^^^^^
-		  5 | 			</table>
-		  6 |
-		Selector: table > caption"
-	`);
+			"error: Element <caption> must be used before <thead> in this context (element-permitted-order)
+			  2 | 			<table>
+			  3 | 				<thead></thead>
+			> 4 | 				<caption></caption>
+			    | 				 ^^^^^^^
+			  5 | 			</table>
+			  6 |
+			Selector: table > caption"
+		`);
 	});
 
 	it("should not report error when child is used in right order", async () => {
@@ -128,7 +128,7 @@ describe("rule element-permitted-order", () => {
 		expect(report1).toBeValid();
 		expect(report2).toBeInvalid();
 		expect(report2).toMatchInlineCodeframe(`
-			"error: Element <foo> must be used before <baz> in this context (element-permitted-order) at inline:5:6:
+			"error: Element <foo> must be used before <baz> in this context (element-permitted-order)
 			  3 | 				<bar></bar>
 			  4 | 				<baz></baz>
 			> 5 | 				<foo></foo>
@@ -137,7 +137,7 @@ describe("rule element-permitted-order", () => {
 			  7 |
 			  8 | 			<element>
 			Selector: element:nth-child(1) > foo
-			error: Element <foo> must be used before <bar> in this context (element-permitted-order) at inline:11:6:
+			error: Element <foo> must be used before <bar> in this context (element-permitted-order)
 			   9 | 				<baz></baz>
 			  10 | 				<bar></bar>
 			> 11 | 				<foo></foo>
@@ -146,7 +146,7 @@ describe("rule element-permitted-order", () => {
 			  13 |
 			  14 | 			<element>
 			Selector: element:nth-child(2) > foo
-			error: Element <foo> must be used before <bar> in this context (element-permitted-order) at inline:16:6:
+			error: Element <foo> must be used before <bar> in this context (element-permitted-order)
 			  14 | 			<element>
 			  15 | 				<bar></bar>
 			> 16 | 				<foo></foo>

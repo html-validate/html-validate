@@ -46,7 +46,7 @@ describe("wcag/h67", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at inline:1:7:
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67)
 			> 1 |  <img title="bar" />
 			    |       ^^^^^
 			Selector: img"
@@ -59,7 +59,7 @@ describe("wcag/h67", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at inline:1:14:
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67)
 			> 1 |  <img alt="" title="bar" />
 			    |              ^^^^^
 			Selector: img"
@@ -70,7 +70,7 @@ describe("wcag/h67", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h67.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <img> with empty alt text cannot have title attribute (wcag/h67) at test-files/rules/wcag/h67.html:5:6:
+			"error: <img> with empty alt text cannot have title attribute (wcag/h67)
 			  3 | <img alt="foo" title="bar">
 			  4 | <img title="">
 			> 5 | <img title="bar">
@@ -79,7 +79,7 @@ describe("wcag/h67", () => {
 			  7 |
 			  8 | <!-- regression #33 (https://gitlab.com/html-validate/html-validate/issues/33) -->
 			Selector: img:nth-child(5)
-			error: <img> with empty alt text cannot have title attribute (wcag/h67) at test-files/rules/wcag/h67.html:6:13:
+			error: <img> with empty alt text cannot have title attribute (wcag/h67)
 			  4 | <img title="">
 			  5 | <img title="bar">
 			> 6 | <img alt="" title="bar">

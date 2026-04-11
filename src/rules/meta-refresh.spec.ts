@@ -66,7 +66,7 @@ describe("rule meta-refresh", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Don't use instant meta refresh to reload the page (meta-refresh) at inline:1:38:
+			"error: Don't use instant meta refresh to reload the page (meta-refresh)
 			> 1 |  <meta http-equiv="refresh" content="0" />
 			    |                                      ^
 			Selector: meta"
@@ -79,7 +79,7 @@ describe("rule meta-refresh", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Don't use instant meta refresh to reload the page (meta-refresh) at inline:1:38:
+			"error: Don't use instant meta refresh to reload the page (meta-refresh)
 			> 1 |  <meta http-equiv="refresh" content="0;url=" />
 			    |                                      ^^^^^^
 			Selector: meta"
@@ -92,7 +92,7 @@ describe("rule meta-refresh", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Malformed meta refresh directive (meta-refresh) at inline:1:38:
+			"error: Malformed meta refresh directive (meta-refresh)
 			> 1 |  <meta http-equiv="refresh" content="foobar" />
 			    |                                      ^^^^^^
 			Selector: meta"
@@ -126,7 +126,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="1;url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -139,7 +139,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="1; url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -152,7 +152,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="72000;url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -173,7 +173,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="72001" />
 				    |                                      ^^^^^
 				Selector: meta"
@@ -186,7 +186,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="72001;url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -199,7 +199,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="1;url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -212,7 +212,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="1; url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^^
 				Selector: meta"
@@ -225,7 +225,7 @@ describe("rule meta-refresh", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Meta refresh must be instant (0 second delay) (meta-refresh) at inline:1:38:
+				"error: Meta refresh must be instant (0 second delay) (meta-refresh)
 				> 1 |  <meta http-equiv="refresh" content="72000;url=target.html" />
 				    |                                      ^^^^^^^^^^^^^^^^^^^^^
 				Selector: meta"

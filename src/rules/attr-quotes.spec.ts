@@ -34,7 +34,7 @@ describe("rule attr-quotes", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo" used ' instead of expected " (attr-quotes) at inline:1:7:
+				"error: Attribute "foo" used ' instead of expected " (attr-quotes)
 				> 1 |  <div foo='bar'></div>
 				    |       ^^^^^^^^^
 				Selector: div"
@@ -55,7 +55,7 @@ describe("rule attr-quotes", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo" used " instead of expected ' (attr-quotes) at inline:1:7:
+				"error: Attribute "foo" used " instead of expected ' (attr-quotes)
 				> 1 |  <div foo="bar"></div>
 				    |       ^^^^^^^^^
 				Selector: div"
@@ -97,7 +97,7 @@ describe("rule attr-quotes", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo" used ' instead of expected " (attr-quotes) at inline:1:7:
+				"error: Attribute "foo" used ' instead of expected " (attr-quotes)
 				> 1 |  <div foo='bar'></div>
 				    |       ^^^^^^^^^
 				Selector: div"
@@ -180,7 +180,7 @@ describe("rule attr-quotes", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo" using unquoted value (attr-quotes) at inline:1:7:
+				"error: Attribute "foo" using unquoted value (attr-quotes)
 				> 1 |  <div foo=5></div>
 				    |       ^^^^^
 				Selector: div"
@@ -197,7 +197,7 @@ describe("rule attr-quotes", () => {
 			processAttribute,
 		});
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "dynamic-foo" used ' instead of expected " (attr-quotes) at inline:2:7:
+			"error: Attribute "dynamic-foo" used ' instead of expected " (attr-quotes)
 			  1 |
 			> 2 | 			<p dynamic-foo='primary'></p>
 			    | 			   ^^^^^^^^^^^^^^^^^^^^^

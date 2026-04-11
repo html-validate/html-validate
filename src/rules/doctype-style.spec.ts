@@ -25,7 +25,7 @@ describe("rule doctype-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: DOCTYPE should be uppercase (doctype-style) at inline:1:1:
+				"error: DOCTYPE should be uppercase (doctype-style)
 				> 1 | <!doctype html>
 				    | ^^^^^^^^^^
 				Selector: -"
@@ -38,7 +38,7 @@ describe("rule doctype-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: DOCTYPE should be uppercase (doctype-style) at inline:1:1:
+				"error: DOCTYPE should be uppercase (doctype-style)
 				> 1 | <!DoCTyPe html>
 				    | ^^^^^^^^^^
 				Selector: -"
@@ -76,7 +76,7 @@ describe("rule doctype-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: DOCTYPE should be lowercase (doctype-style) at inline:1:1:
+				"error: DOCTYPE should be lowercase (doctype-style)
 				> 1 | <!DOCTYPE html>
 				    | ^^^^^^^^^^
 				Selector: -"
@@ -89,7 +89,7 @@ describe("rule doctype-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: DOCTYPE should be lowercase (doctype-style) at inline:1:1:
+				"error: DOCTYPE should be lowercase (doctype-style)
 				> 1 | <!DoCTyPe html>
 				    | ^^^^^^^^^^
 				Selector: -"

@@ -24,7 +24,7 @@ describe("rule no-style-tag", () => {
 		const report = await htmlvalidate.validateString(html);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag) at inline:1:1:
+			"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag)
 			> 1 | <style>foo</style>
 			    | ^^^^^^
 			Selector: style"
@@ -55,7 +55,7 @@ describe("rule no-style-tag", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag) at inline:4:7:
+				"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag)
 				  2 | 				<template>
 				  3 | 					<div>
 				> 4 | 						<style></style>
@@ -87,7 +87,7 @@ describe("rule no-style-tag", () => {
 			const report = await htmlvalidateNoTemplate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag) at inline:3:6:
+				"error: Use external stylesheet with <link> instead of <style> tag (no-style-tag)
 				  1 |
 				  2 | 				<template>
 				> 3 | 					<style></style>
