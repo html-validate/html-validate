@@ -1,5 +1,14 @@
 # html-validate changelog
 
+## 10.12.0 (2026-04-11)
+
+### Features
+
+- **deps:** update @htmlva-validate/stylish to v5.2.0 ([455da34](https://gitlab.com/html-validate/html-validate/commit/455da3428a4f3eee26f026c6e3f38f007b3256f0))
+- drop support for nodejs v23 (v20, v22 and v24 or greater still supported) ([41ea9d6](https://gitlab.com/html-validate/html-validate/commit/41ea9d6232f7249d1b87db055262a6bfc7c84a7d))
+- **formatters:** option to enable/disable filename in `codeframe` formatter when using API ([cb37548](https://gitlab.com/html-validate/html-validate/commit/cb375482ea0d0518381d241215def318c1ca3d3d))
+- **jest:** remove redundant filename from codeframe snapshots ([5878b12](https://gitlab.com/html-validate/html-validate/commit/5878b12c55fd99a0b0efbe160b55d4bc25831ff4))
+
 ## 10.11.3 (2026-04-03)
 
 ### Bug Fixes
