@@ -1,3 +1,4 @@
+export { codeframe } from "./codeframe";
 export { type DiffFunction, type DiffOptions, diff } from "./diff";
 export { type MaybeAsyncCallback, diverge } from "./diverge";
 export { flattenMessages } from "./flatten-messages";
