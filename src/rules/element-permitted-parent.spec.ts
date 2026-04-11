@@ -51,7 +51,7 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <base> element requires a <head> element as parent (element-permitted-parent) at inline:3:6:
+			"error: <base> element requires a <head> element as parent (element-permitted-parent)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<base />
@@ -82,7 +82,7 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element cannot have <custom-parent> element as parent (element-permitted-parent) at inline:3:6:
+			"error: <custom-element> element cannot have <custom-parent> element as parent (element-permitted-parent)
 			  1 |
 			  2 | 			<custom-parent>
 			> 3 | 				<custom-element></custom-element>
@@ -102,7 +102,7 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <li> element requires a <ul>, <ol>, <menu> or <template> element as parent (element-permitted-parent) at inline:3:6:
+			"error: <li> element requires a <ul>, <ol>, <menu> or <template> element as parent (element-permitted-parent)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<li>lorem ipsum</li>
@@ -133,7 +133,7 @@ describe("rule element-permitted-parent", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element requires a phrasing or interactive element as parent (element-permitted-parent) at inline:3:6:
+			"error: <custom-element> element requires a phrasing or interactive element as parent (element-permitted-parent)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<custom-element></custom-element>

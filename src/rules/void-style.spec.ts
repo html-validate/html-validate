@@ -26,7 +26,7 @@ describe("rule void-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style) at inline:1:9:
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style)
 				> 1 |  <input />
 				    |         ^^
 				Selector: input"
@@ -82,7 +82,7 @@ describe("rule void-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style) at inline:1:9:
+				"error: Expected omitted end tag <input> instead of self-closing element <input/> (void-style)
 				> 1 |  <input />
 				    |         ^^
 				Selector: input"
@@ -103,7 +103,7 @@ describe("rule void-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Expected self-closing element <input/> instead of omitted end-tag <input> (void-style) at inline:1:8:
+				"error: Expected self-closing element <input/> instead of omitted end-tag <input> (void-style)
 				> 1 |  <input>
 				    |        ^
 				Selector: input"

@@ -94,7 +94,7 @@ describe("wcag/h30", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			"error: Anchor link must have a text describing its purpose (wcag/h30)
 			> 1 | <a href></a>
 			    |  ^
 			Selector: a"
@@ -107,7 +107,7 @@ describe("wcag/h30", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			"error: Anchor link must have a text describing its purpose (wcag/h30)
 			> 1 | <a href><img /></a>
 			    |  ^
 			Selector: a"
@@ -120,7 +120,7 @@ describe("wcag/h30", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Anchor link must have a text describing its purpose (wcag/h30) at inline:1:2:
+			"error: Anchor link must have a text describing its purpose (wcag/h30)
 			> 1 | <a href><img alt="" /></a>
 			    |  ^
 			Selector: a"
@@ -143,7 +143,7 @@ describe("wcag/h30", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/wcag/h30.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:8:2:
+			"error: Anchor link must have a text describing its purpose (wcag/h30)
 			   6 |
 			   7 | <!-- invalid cases -->
 			>  8 | <a href><img></a>
@@ -152,7 +152,7 @@ describe("wcag/h30", () => {
 			  10 | <a href><img alt=""></a>
 			  11 |
 			Selector: a:nth-child(5)
-			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:9:2:
+			error: Anchor link must have a text describing its purpose (wcag/h30)
 			   7 | <!-- invalid cases -->
 			   8 | <a href><img></a>
 			>  9 | <a href><img alt></a>
@@ -160,7 +160,7 @@ describe("wcag/h30", () => {
 			  10 | <a href><img alt=""></a>
 			  11 |
 			Selector: a:nth-child(6)
-			error: Anchor link must have a text describing its purpose (wcag/h30) at test-files/rules/wcag/h30.html:10:2:
+			error: Anchor link must have a text describing its purpose (wcag/h30)
 			   8 | <a href><img></a>
 			   9 | <a href><img alt></a>
 			> 10 | <a href><img alt=""></a>

@@ -61,7 +61,7 @@ describe("rule unrecognized-char-ref", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:8:
+				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p>&spam;</p>
 				    | 				   ^^^^^^
@@ -78,19 +78,19 @@ describe("rule unrecognized-char-ref", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&foo;" (unrecognized-char-ref) at inline:2:8:
+				"error: Unrecognized character reference "&foo;" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				   ^^^^^
 				  3 |
 				Selector: p
-				error: Unrecognized character reference "&bar;" (unrecognized-char-ref) at inline:2:14:
+				error: Unrecognized character reference "&bar;" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				         ^^^^^
 				  3 |
 				Selector: p
-				error: Unrecognized character reference "&baz;" (unrecognized-char-ref) at inline:2:20:
+				error: Unrecognized character reference "&baz;" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p>&foo; &bar; &baz;</p>
 				    | 				               ^^^^^
@@ -145,7 +145,7 @@ describe("rule unrecognized-char-ref", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:2:15:
+				"error: Unrecognized character reference "&spam;" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p title="&spam;"></p>
 				    | 				          ^^^^^^
@@ -153,7 +153,7 @@ describe("rule unrecognized-char-ref", () => {
 				  4 | 				<a href="&spam;#bar&baz"></a>
 				  5 |
 				Selector: p
-				error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:3:14:
+				error: Unrecognized character reference "&spam;" (unrecognized-char-ref)
 				  1 |
 				  2 | 				<p title="&spam;"></p>
 				> 3 | 				<a href="&spam;?bar&baz"></a>
@@ -161,7 +161,7 @@ describe("rule unrecognized-char-ref", () => {
 				  4 | 				<a href="&spam;#bar&baz"></a>
 				  5 |
 				Selector: a:nth-child(2)
-				error: Unrecognized character reference "&spam;" (unrecognized-char-ref) at inline:4:14:
+				error: Unrecognized character reference "&spam;" (unrecognized-char-ref)
 				  2 | 				<p title="&spam;"></p>
 				  3 | 				<a href="&spam;?bar&baz"></a>
 				> 4 | 				<a href="&spam;#bar&baz"></a>
@@ -181,7 +181,7 @@ describe("rule unrecognized-char-ref", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:2:15:
+				"error: Unrecognized character reference "&section" (unrecognized-char-ref)
 				  1 |
 				> 2 | 				<p title="&section"></p>
 				    | 				          ^^^^^^^^
@@ -189,7 +189,7 @@ describe("rule unrecognized-char-ref", () => {
 				  4 | 				<a href="&section#bar&baz"></a>
 				  5 |
 				Selector: p
-				error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:3:14:
+				error: Unrecognized character reference "&section" (unrecognized-char-ref)
 				  1 |
 				  2 | 				<p title="&section"></p>
 				> 3 | 				<a href="&section?bar&baz"></a>
@@ -197,7 +197,7 @@ describe("rule unrecognized-char-ref", () => {
 				  4 | 				<a href="&section#bar&baz"></a>
 				  5 |
 				Selector: a:nth-child(2)
-				error: Unrecognized character reference "&section" (unrecognized-char-ref) at inline:4:14:
+				error: Unrecognized character reference "&section" (unrecognized-char-ref)
 				  2 | 				<p title="&section"></p>
 				  3 | 				<a href="&section?bar&baz"></a>
 				> 4 | 				<a href="&section#bar&baz"></a>
@@ -227,7 +227,7 @@ describe("rule unrecognized-char-ref", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&NBSP;" (unrecognized-char-ref) at inline:3:22:
+				"error: Unrecognized character reference "&NBSP;" (unrecognized-char-ref)
 				  1 |
 				  2 | 			<p id="lowercase">&nbsp;</p>
 				> 3 | 			<p id="uppercase">&NBSP;</p>
@@ -236,7 +236,7 @@ describe("rule unrecognized-char-ref", () => {
 				  5 | 			<p id="pascalcase">&ApplyFunction;</p>
 				  6 |
 				Selector: #uppercase
-				error: Unrecognized character reference "&nBSp;" (unrecognized-char-ref) at inline:4:22:
+				error: Unrecognized character reference "&nBSp;" (unrecognized-char-ref)
 				  2 | 			<p id="lowercase">&nbsp;</p>
 				  3 | 			<p id="uppercase">&NBSP;</p>
 				> 4 | 			<p id="mixedcase">&nBSp;</p>
@@ -265,7 +265,7 @@ describe("rule unrecognized-char-ref", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&UnKnOwN;" (unrecognized-char-ref) at inline:1:5:
+				"error: Unrecognized character reference "&UnKnOwN;" (unrecognized-char-ref)
 				> 1 |  <p>&UnKnOwN;</p>
 				    |     ^^^^^^^^^
 				Selector: p"
@@ -283,14 +283,14 @@ describe("rule unrecognized-char-ref", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Character reference "&copy" must be terminated by a semicolon (unrecognized-char-ref) at inline:3:30:
+				"error: Character reference "&copy" must be terminated by a semicolon (unrecognized-char-ref)
 				  1 |
 				  2 | 			<p id="with-semicolon">&copy; &COPY;</p>
 				> 3 | 			<p id="without-semicolon">&copy &COPY</p>
 				    | 			                          ^^^^^
 				  4 |
 				Selector: #without-semicolon
-				error: Character reference "&COPY" must be terminated by a semicolon (unrecognized-char-ref) at inline:3:36:
+				error: Character reference "&COPY" must be terminated by a semicolon (unrecognized-char-ref)
 				  1 |
 				  2 | 			<p id="with-semicolon">&copy; &COPY;</p>
 				> 3 | 			<p id="without-semicolon">&copy &COPY</p>
@@ -317,7 +317,7 @@ describe("rule unrecognized-char-ref", () => {
 			const markup = /* HTML */ ` <p>&star</p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&star" (unrecognized-char-ref) at inline:1:5:
+				"error: Unrecognized character reference "&star" (unrecognized-char-ref)
 				> 1 |  <p>&star</p>
 				    |     ^^^^^
 				Selector: p"

@@ -54,7 +54,7 @@ describe("rule script-type", () => {
 		const markup = /* HTML */ ` <script type=""></script> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			"error: "type" attribute is unnecessary for javascript resources (script-type)
 			> 1 |  <script type=""></script>
 			    |          ^^^^
 			Selector: script"
@@ -66,7 +66,7 @@ describe("rule script-type", () => {
 		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			"error: "type" attribute is unnecessary for javascript resources (script-type)
 			> 1 |  <script type="text/javascript"></script>
 			    |          ^^^^
 			Selector: script"
@@ -78,7 +78,7 @@ describe("rule script-type", () => {
 		const markup = '<script type="text/javascript;charset=utf-8"></script>';
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:9:
+			"error: "type" attribute is unnecessary for javascript resources (script-type)
 			> 1 | <script type="text/javascript;charset=utf-8"></script>
 			    |         ^^^^
 			Selector: script"
@@ -90,7 +90,7 @@ describe("rule script-type", () => {
 		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: "type" attribute is unnecessary for javascript resources (script-type) at inline:1:10:
+			"error: "type" attribute is unnecessary for javascript resources (script-type)
 			> 1 |  <script type="text/javascript"></script>
 			    |          ^^^^
 			Selector: script"

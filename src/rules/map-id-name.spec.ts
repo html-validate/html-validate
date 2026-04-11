@@ -68,7 +68,7 @@ describe("rule map-id-name", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:1:22:
+			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name)
 			> 1 |  <map name="foo" id="bar"></map>
 			    |                      ^^^
 			Selector: #bar"
@@ -84,14 +84,14 @@ describe("rule map-id-name", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:2:18:
+			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name)
 			  1 |
 			> 2 | 			<map name id="foo"></map>
 			    | 			              ^^^
 			  3 | 			<map name="" id="bar"></map>
 			  4 |
 			Selector: #foo
-			error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:3:21:
+			error: "id" and "name" attribute must be the same on <map> elements (map-id-name)
 			  1 |
 			  2 | 			<map name id="foo"></map>
 			> 3 | 			<map name="" id="bar"></map>
@@ -110,14 +110,14 @@ describe("rule map-id-name", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:2:15:
+			"error: "id" and "name" attribute must be the same on <map> elements (map-id-name)
 			  1 |
 			> 2 | 			<map name="foo" id></map>
 			    | 			           ^^^
 			  3 | 			<map name="bar" id=""></map>
 			  4 |
 			Selector: map:nth-child(1)
-			error: "id" and "name" attribute must be the same on <map> elements (map-id-name) at inline:3:15:
+			error: "id" and "name" attribute must be the same on <map> elements (map-id-name)
 			  1 |
 			  2 | 			<map name="foo" id></map>
 			> 3 | 			<map name="bar" id=""></map>

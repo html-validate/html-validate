@@ -28,7 +28,7 @@ describe("rule element-required-attributes", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <img> is missing required "src" attribute (element-required-attributes) at inline:1:3:
+			"error: <img> is missing required "src" attribute (element-required-attributes)
 			> 1 |  <img />
 			    |   ^^^
 			Selector: img"
@@ -127,7 +127,7 @@ describe("rule element-required-attributes", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <foo> is missing required "a" attribute (element-required-attributes) at inline:3:5:
+			"error: <foo> is missing required "a" attribute (element-required-attributes)
 			  1 |
 			  2 | 			<!-- should yield error -->
 			> 3 | 			<foo></foo>
@@ -136,7 +136,7 @@ describe("rule element-required-attributes", () => {
 			  5 | 			<!-- should not yield error -->
 			  6 | 			<foo a b true></foo>
 			Selector: foo:nth-child(1)
-			error: <foo> requires either "b" or "condition" attribute (element-required-attributes) at inline:3:5:
+			error: <foo> requires either "b" or "condition" attribute (element-required-attributes)
 			  1 |
 			  2 | 			<!-- should yield error -->
 			> 3 | 			<foo></foo>
@@ -145,7 +145,7 @@ describe("rule element-required-attributes", () => {
 			  5 | 			<!-- should not yield error -->
 			  6 | 			<foo a b true></foo>
 			Selector: foo:nth-child(1)
-			error: <foo> is missing required "true" attribute (element-required-attributes) at inline:3:5:
+			error: <foo> is missing required "true" attribute (element-required-attributes)
 			  1 |
 			  2 | 			<!-- should yield error -->
 			> 3 | 			<foo></foo>
@@ -163,7 +163,7 @@ describe("rule element-required-attributes", () => {
 			"test-files/rules/element-required-attributes.html",
 		);
 		expect(report).toMatchInlineCodeframe(`
-			"error: <img> is missing required "src" attribute (element-required-attributes) at test-files/rules/element-required-attributes.html:1:2:
+			"error: <img> is missing required "src" attribute (element-required-attributes)
 			> 1 | <img>
 			    |  ^^^
 			  2 | <img src>

@@ -55,7 +55,7 @@ describe("wcag/h36", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: image used as submit button must have non-empty alt text (wcag/h36) at inline:1:3:
+			"error: image used as submit button must have non-empty alt text (wcag/h36)
 			> 1 |  <input type="image" />
 			    |   ^^^^^
 			Selector: input"
@@ -68,7 +68,7 @@ describe("wcag/h36", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: image used as submit button must have non-empty alt text (wcag/h36) at inline:1:22:
+			"error: image used as submit button must have non-empty alt text (wcag/h36)
 			> 1 |  <input type="image" alt="" />
 			    |                      ^^^
 			Selector: input"

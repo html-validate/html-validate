@@ -50,7 +50,7 @@ describe("rule no-multiple-main", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Multiple <main> elements present in document (no-multiple-main) at inline:1:16:
+			"error: Multiple <main> elements present in document (no-multiple-main)
 			> 1 | <main>a</main><main>b</main>
 			    |                ^^^^
 			Selector: main:nth-child(2)"

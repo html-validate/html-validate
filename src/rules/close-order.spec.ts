@@ -85,7 +85,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Stray end tag '</div>' (close-order) at inline:3:5:
+			"error: Stray end tag '</div>' (close-order)
 			  1 |
 			  2 | 				<label></label>
 			> 3 | 			</div>
@@ -106,7 +106,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Stray end tag '</div>' (close-order) at inline:4:6:
+			"error: Stray end tag '</div>' (close-order)
 			  2 | 			<main>
 			  3 | 					<label></label>
 			> 4 | 				</div>
@@ -126,14 +126,14 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<div>' (close-order) at inline:2:5:
+			"error: Unclosed element '<div>' (close-order)
 			  1 |
 			> 2 | 			<div>
 			    | 			 ^^^
 			  3 | 				<h1>Lorem <em>ipsum</em>
 			  4 |
 			Selector: div
-			error: Unclosed element '<h1>' (close-order) at inline:3:6:
+			error: Unclosed element '<h1>' (close-order)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<h1>Lorem <em>ipsum</em>
@@ -154,7 +154,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<div>' (close-order) at inline:3:6:
+			"error: Unclosed element '<div>' (close-order)
 			  1 |
 			  2 | 			<main>
 			> 3 | 				<div>
@@ -163,7 +163,7 @@ describe("rule close-order", () => {
 			  5 | 			</main>
 			  6 |
 			Selector: main > div
-			error: Unclosed element '<h1>' (close-order) at inline:4:7:
+			error: Unclosed element '<h1>' (close-order)
 			  2 | 			<main>
 			  3 | 				<div>
 			> 4 | 					<h1>Lorem <em>ipsum</em>
@@ -171,7 +171,7 @@ describe("rule close-order", () => {
 			  5 | 			</main>
 			  6 |
 			Selector: main > div > h1
-			error: End tag '</main>' seen but there were open elements (close-order) at inline:5:5:
+			error: End tag '</main>' seen but there were open elements (close-order)
 			  3 | 				<div>
 			  4 | 					<h1>Lorem <em>ipsum</em>
 			> 5 | 			</main>
@@ -191,7 +191,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<h1>' (close-order) at inline:2:5:
+			"error: Unclosed element '<h1>' (close-order)
 			  1 |
 			> 2 | 			<h1>
 			    | 			 ^^
@@ -199,7 +199,7 @@ describe("rule close-order", () => {
 			  4 | 			</div>
 			  5 |
 			Selector: h1
-			error: Stray end tag '</div>' (close-order) at inline:4:5:
+			error: Stray end tag '</div>' (close-order)
 			  2 | 			<h1>
 			  3 | 				lorem ipsum <em></em>
 			> 4 | 			</div>
@@ -221,7 +221,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<h1>' (close-order) at inline:3:6:
+			"error: Unclosed element '<h1>' (close-order)
 			  1 |
 			  2 | 			<main>
 			> 3 | 				<h1>
@@ -230,7 +230,7 @@ describe("rule close-order", () => {
 			  5 | 				</div>
 			  6 | 			</main>
 			Selector: main > h1
-			error: Stray end tag '</div>' (close-order) at inline:5:6:
+			error: Stray end tag '</div>' (close-order)
 			  3 | 				<h1>
 			  4 | 					lorem ipsum <em></em>
 			> 5 | 				</div>
@@ -238,7 +238,7 @@ describe("rule close-order", () => {
 			  6 | 			</main>
 			  7 |
 			Selector: -
-			error: End tag '</main>' seen but there were open elements (close-order) at inline:6:5:
+			error: End tag '</main>' seen but there were open elements (close-order)
 			  4 | 					lorem ipsum <em></em>
 			  5 | 				</div>
 			> 6 | 			</main>
@@ -259,7 +259,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<label>' (close-order) at inline:3:6:
+			"error: Unclosed element '<label>' (close-order)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<label>
@@ -268,7 +268,7 @@ describe("rule close-order", () => {
 			  5 | 				</label>
 			  6 |
 			Selector: div > label
-			error: End tag '</div>' seen but there were open elements (close-order) at inline:4:5:
+			error: End tag '</div>' seen but there were open elements (close-order)
 			  2 | 			<div>
 			  3 | 				<label>
 			> 4 | 			</div>
@@ -292,7 +292,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unclosed element '<label>' (close-order) at inline:4:7:
+			"error: Unclosed element '<label>' (close-order)
 			  2 | 			<main>
 			  3 | 				<div>
 			> 4 | 					<label>
@@ -301,7 +301,7 @@ describe("rule close-order", () => {
 			  6 | 					</label>
 			  7 | 			</main>
 			Selector: main > div > label
-			error: End tag '</div>' seen but there were open elements (close-order) at inline:5:6:
+			error: End tag '</div>' seen but there were open elements (close-order)
 			  3 | 				<div>
 			  4 | 					<label>
 			> 5 | 				</div>
@@ -310,7 +310,7 @@ describe("rule close-order", () => {
 			  7 | 			</main>
 			  8 |
 			Selector: -
-			error: End tag '</main>' seen but there were open elements (close-order) at inline:7:5:
+			error: End tag '</main>' seen but there were open elements (close-order)
 			  5 | 				</div>
 			  6 | 					</label>
 			> 7 | 			</main>
@@ -331,7 +331,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Stray end tag '</p>' (close-order) at inline:5:5:
+			"error: Stray end tag '</p>' (close-order)
 			  3 | 				<address></address>
 			  4 | 				<address></address>
 			> 5 | 			</p>
@@ -354,7 +354,7 @@ describe("rule close-order", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Stray end tag '</p>' (close-order) at inline:6:6:
+			"error: Stray end tag '</p>' (close-order)
 			  4 | 					<address></address>
 			  5 | 					<address></address>
 			> 6 | 				</p>
@@ -369,7 +369,7 @@ describe("rule close-order", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/close-order.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Stray end tag '</div>' (close-order) at test-files/rules/close-order.html:6:16:
+			"error: Stray end tag '</div>' (close-order)
 			  4 | 	<input>
 			  5 | </div>
 			> 6 | <p>Lorem ipsum</div>
@@ -378,7 +378,7 @@ describe("rule close-order", () => {
 			  8 | <ul>
 			  9 | 	<li>lorem ipsum
 			Selector: -
-			error: Stray end tag '</li>' (close-order) at test-files/rules/close-order.html:12:2:
+			error: Stray end tag '</li>' (close-order)
 			  10 | 	<li>dolor sit amet
 			  11 | </ul>
 			> 12 | </li>

@@ -284,7 +284,7 @@ describe("Parser error handling", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unknown directive "unknown-directive" (parser-error) at inline:2:10:
+			"error: Unknown directive "unknown-directive" (parser-error)
 			  1 |
 			> 2 | 			<!-- [html-validate-unknown-directive foo] -->
 			    | 			      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -292,7 +292,7 @@ describe("Parser error handling", () => {
 			  4 | 			<div></div>
 			  5 |
 			Selector: -
-			error: Unknown directive "another-unknown" (parser-error) at inline:3:9:
+			error: Unknown directive "another-unknown" (parser-error)
 			  1 |
 			  2 | 			<!-- [html-validate-unknown-directive foo] -->
 			> 3 | 			<!-- html-validate-another-unknown bar -->
@@ -313,7 +313,7 @@ describe("Parser error handling", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->" (parser-error) at inline:2:9:
+			"error: Missing end bracket "]" on directive "<!-- [html-validate-disable-next foo -- bar -->" (parser-error)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next foo -- bar -->
 			    | 			     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -321,7 +321,7 @@ describe("Parser error handling", () => {
 			  4 | 			<div></div>
 			  5 |
 			Selector: -
-			error: Missing end bracket "]" on directive "<!-- [html-validate-enable baz -- qux -->" (parser-error) at inline:3:9:
+			error: Missing end bracket "]" on directive "<!-- [html-validate-enable baz -- qux -->" (parser-error)
 			  1 |
 			  2 | 			<!-- [html-validate-disable-next foo -- bar -->
 			> 3 | 			<!-- [html-validate-enable baz -- qux -->

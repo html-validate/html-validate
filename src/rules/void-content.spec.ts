@@ -65,7 +65,7 @@ describe("rule void-content", () => {
 		const markup = /* RAW */ ` <input></input> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: End tag for <input> must be omitted (void-content) at inline:1:10:
+			"error: End tag for <input> must be omitted (void-content)
 			> 1 |  <input></input>
 			    |          ^^^^^^
 			Selector: -"

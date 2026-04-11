@@ -53,7 +53,7 @@ describe("rule heading-level", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Heading level can only increase by one, expected <h2> but got <h3> (heading-level) at inline:3:5:
+			"error: Heading level can only increase by one, expected <h2> but got <h3> (heading-level)
 			  1 |
 			  2 | 			<h1>heading 1</h1>
 			> 3 | 			<h3>heading 2</h3>
@@ -69,7 +69,7 @@ describe("rule heading-level", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Initial heading level must be <h1> but got <h2> (heading-level) at inline:1:2:
+			"error: Initial heading level must be <h1> but got <h2> (heading-level)
 			> 1 | <h2>heading 2</h2>
 			    |  ^^
 			Selector: h2"
@@ -85,7 +85,7 @@ describe("rule heading-level", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Multiple <h1> are not allowed (heading-level) at inline:3:5:
+			"error: Multiple <h1> are not allowed (heading-level)
 			  1 |
 			  2 | 			<h1>heading 1</h1>
 			> 3 | 			<h1>heading 1</h1>
@@ -162,7 +162,7 @@ describe("rule heading-level", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Initial heading level for sectioning root must be between <h1> and <h4> but got <h5> (heading-level) at inline:6:7:
+				"error: Initial heading level for sectioning root must be between <h1> and <h4> but got <h5> (heading-level)
 				  4 | 				<h3>heading 2</h3>
 				  5 | 				<div role="dialog">
 				> 6 | 					<h5>modal header</h5>
@@ -184,7 +184,7 @@ describe("rule heading-level", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Initial heading level for sectioning root must be <h1> but got <h5> (heading-level) at inline:3:7:
+				"error: Initial heading level for sectioning root must be <h1> but got <h5> (heading-level)
 				  1 |
 				  2 | 				<div role="dialog">
 				> 3 | 					<h5>modal header</h5>
@@ -223,7 +223,7 @@ describe("rule heading-level", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Initial heading level must be <h2> or higher rank but got <h3> (heading-level) at inline:2:6:
+				"error: Initial heading level must be <h2> or higher rank but got <h3> (heading-level)
 				  1 |
 				> 2 | 				<h3>heading 3</h3>
 				    | 				 ^^
@@ -288,14 +288,14 @@ describe("rule heading-level", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/heading-level.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Initial heading level must be <h1> but got <h2> (heading-level) at test-files/rules/heading-level.html:1:2:
+			"error: Initial heading level must be <h1> but got <h2> (heading-level)
 			> 1 | <h2>foo</h2>
 			    |  ^^
 			  2 | <h3>spam</h3>
 			  3 | <p>lorem ipsum</p>
 			  4 | <h3>ham</h3>
 			Selector: h2:nth-child(1)
-			error: Heading level can only increase by one, expected <h3> but got <h4> (heading-level) at test-files/rules/heading-level.html:6:2:
+			error: Heading level can only increase by one, expected <h3> but got <h4> (heading-level)
 			  4 | <h3>ham</h3>
 			  5 | <H2>bar</H2>
 			> 6 | <h4>baz</h4>

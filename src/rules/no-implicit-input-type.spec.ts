@@ -56,7 +56,7 @@ describe("rule no-implicit-input-type", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> is missing recommended "type" attribute (no-implicit-input-type) at inline:1:3:
+			"error: <input> is missing recommended "type" attribute (no-implicit-input-type)
 			> 1 |  <input />
 			    |   ^^^^^
 			Selector: input"

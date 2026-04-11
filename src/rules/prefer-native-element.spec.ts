@@ -50,7 +50,7 @@ describe("rule prefer-native-element", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Prefer to use the native <main> element (prefer-native-element) at inline:1:7:
+				"error: Prefer to use the native <main> element (prefer-native-element)
 				> 1 |  <div role="main"></div>
 				    |       ^^^^^^^^^^^
 				Selector: div"
@@ -63,7 +63,7 @@ describe("rule prefer-native-element", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Prefer to use the native <main> element (prefer-native-element) at inline:1:7:
+				"error: Prefer to use the native <main> element (prefer-native-element)
 				> 1 |  <div role=main></div>
 				    |       ^^^^^^^^^
 				Selector: div"

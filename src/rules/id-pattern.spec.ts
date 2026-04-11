@@ -50,7 +50,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: id "fooBar" does not match the configured pattern "kebabcase" (id-pattern) at inline:1:9:
+			"error: id "fooBar" does not match the configured pattern "kebabcase" (id-pattern)
 			> 1 |  <p id="fooBar"></p>
 			    |         ^^^^^^
 			Selector: #fooBar"
@@ -67,7 +67,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: id "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (id-pattern) at inline:1:9:
+			"error: id "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (id-pattern)
 			> 1 |  <p id="foo-bar"></p>
 			    |         ^^^^^^^
 			Selector: #foo-bar"
@@ -80,7 +80,7 @@ describe("rule id-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: id "" does not match the configured pattern "kebabcase" (id-pattern) at inline:1:5:
+			"error: id "" does not match the configured pattern "kebabcase" (id-pattern)
 			> 1 |  <p id=""></p>
 			    |     ^^^^^
 			Selector: p"
@@ -105,7 +105,7 @@ describe("rule id-pattern", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/id-pattern.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: id "foo_bar" does not match the configured pattern "kebabcase" (id-pattern) at test-files/rules/id-pattern.html:3:10:
+			"error: id "foo_bar" does not match the configured pattern "kebabcase" (id-pattern)
 			  1 | <div id="foo-bar"></div>
 			  2 |
 			> 3 | <div id="foo_bar"></div>
@@ -114,7 +114,7 @@ describe("rule id-pattern", () => {
 			  5 | <div id="fooBar"></div>
 			  6 |
 			Selector: #foo_bar
-			error: id "fooBar" does not match the configured pattern "kebabcase" (id-pattern) at test-files/rules/id-pattern.html:5:10:
+			error: id "fooBar" does not match the configured pattern "kebabcase" (id-pattern)
 			  3 | <div id="foo_bar"></div>
 			  4 |
 			> 5 | <div id="fooBar"></div>

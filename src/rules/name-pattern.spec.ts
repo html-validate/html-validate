@@ -71,7 +71,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "foo-bar" does not match the configured pattern "camelcase" (name-pattern) at inline:1:15:
+			"error: name "foo-bar" does not match the configured pattern "camelcase" (name-pattern)
 			> 1 |  <input name="foo-bar" />
 			    |               ^^^^^^^
 			Selector: input"
@@ -84,7 +84,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "foo-bar" does not match the configured pattern "camelcase" (name-pattern) at inline:1:15:
+			"error: name "foo-bar" does not match the configured pattern "camelcase" (name-pattern)
 			> 1 |  <input name="foo-bar[]" />
 			    |               ^^^^^^^^^
 			Selector: input"
@@ -101,7 +101,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (name-pattern) at inline:1:15:
+			"error: name "foo-bar" does not match either of the configured patterns: "camelcase", "underscore" or "/^spam-/" (name-pattern)
 			> 1 |  <input name="foo-bar" />
 			    |               ^^^^^^^
 			Selector: input"
@@ -114,7 +114,7 @@ describe("rule name-pattern", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: name "" does not match the configured pattern "camelcase" (name-pattern) at inline:1:9:
+			"error: name "" does not match the configured pattern "camelcase" (name-pattern)
 			> 1 |  <input name="" />
 			    |         ^^^^^^^
 			Selector: input"

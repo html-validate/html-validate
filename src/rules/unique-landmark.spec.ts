@@ -130,14 +130,14 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:5:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			> 2 | 			<nav></nav>
 			    | 			 ^^^
 			  3 | 			<nav></nav>
 			  4 |
 			Selector: nav:nth-child(1)
-			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:5:
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			  2 | 			<nav></nav>
 			> 3 | 			<nav></nav>
@@ -156,7 +156,7 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:9:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			  2 | 			<nav aria-label="primary"></nav>
 			> 3 | 			<nav aria-label=""></nav>
@@ -177,7 +177,7 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:5:9:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  3 | 			<nav aria-labelledby="primary-heading"></nav>
 			  4 | 			<h2 id="secondary-heading"></h2>
 			> 5 | 			<nav aria-labelledby="secondary-heading"></nav>
@@ -196,14 +196,14 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:9:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			> 2 | 			<nav aria-labelledby="missing-reference"></nav>
 			    | 			     ^^^^^^^^^^^^^^^
 			  3 | 			<nav aria-labelledby="missing-reference"></nav>
 			  4 |
 			Selector: nav:nth-child(1)
-			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:9:
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			  2 | 			<nav aria-labelledby="missing-reference"></nav>
 			> 3 | 			<nav aria-labelledby="missing-reference"></nav>
@@ -222,14 +222,14 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:10:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			> 2 | 			<form aria-label="lorem ipsum"></form>
 			    | 			      ^^^^^^^^^^
 			  3 | 			<form aria-label="lorem ipsum"></form>
 			  4 |
 			Selector: form:nth-child(1)
-			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:10:
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			  2 | 			<form aria-label="lorem ipsum"></form>
 			> 3 | 			<form aria-label="lorem ipsum"></form>
@@ -248,14 +248,14 @@ describe("rule unique-landmark", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:2:13:
+			"error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			> 2 | 			<section aria-label="lorem ipsum"></section>
 			    | 			         ^^^^^^^^^^
 			  3 | 			<section aria-label="lorem ipsum"></section>
 			  4 |
 			Selector: section:nth-child(1)
-			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark) at inline:3:13:
+			error: Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby) (unique-landmark)
 			  1 |
 			  2 | 			<section aria-label="lorem ipsum"></section>
 			> 3 | 			<section aria-label="lorem ipsum"></section>

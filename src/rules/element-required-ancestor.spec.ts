@@ -36,7 +36,7 @@ describe("rule element-required-ancestor", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element requires a <main> ancestor (element-required-ancestor) at inline:3:6:
+			"error: <custom-element> element requires a <main> ancestor (element-required-ancestor)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<custom-element></custom-element>
@@ -70,7 +70,7 @@ describe("rule element-required-ancestor", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element requires a "main > div" ancestor (element-required-ancestor) at inline:3:6:
+			"error: <custom-element> element requires a "main > div" ancestor (element-required-ancestor)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<custom-element></custom-element>
@@ -104,7 +104,7 @@ describe("rule element-required-ancestor", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element requires a <main> or "main > div" ancestor (element-required-ancestor) at inline:3:6:
+			"error: <custom-element> element requires a <main> or "main > div" ancestor (element-required-ancestor)
 			  1 |
 			  2 | 			<div>
 			> 3 | 				<custom-element></custom-element>

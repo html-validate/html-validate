@@ -115,7 +115,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Link destination must not be external url (allowed-links) at inline:1:11:
+				"error: Link destination must not be external url (allowed-links)
 				> 1 |  <a href="//example.net/foo"></a>
 				    |           ^^^^^^^^^^^^^^^^^
 				Selector: a"
@@ -128,7 +128,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Link destination must not be external url (allowed-links) at inline:1:11:
+				"error: Link destination must not be external url (allowed-links)
 				> 1 |  <a href="http://example.net/foo"></a>
 				    |           ^^^^^^^^^^^^^^^^^^^^^^
 				Selector: a"
@@ -192,7 +192,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Link destination must not be relative url (allowed-links) at inline:1:11:
+				"error: Link destination must not be relative url (allowed-links)
 				> 1 |  <a href="./foo"></a>
 				    |           ^^^^^
 				Selector: a"
@@ -205,7 +205,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Link destination must not be relative url (allowed-links) at inline:1:11:
+				"error: Link destination must not be relative url (allowed-links)
 				> 1 |  <a href="foo"></a>
 				    |           ^^^
 				Selector: a"
@@ -255,7 +255,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Relative links must be relative to current folder (allowed-links) at inline:1:11:
+				"error: Relative links must be relative to current folder (allowed-links)
 				> 1 |  <a href="foo"></a>
 				    |           ^^^
 				Selector: a"
@@ -291,7 +291,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Link destination must not be absolute url (allowed-links) at inline:1:11:
+				"error: Link destination must not be absolute url (allowed-links)
 				> 1 |  <a href="/foo"></a>
 				    |           ^^^^
 				Selector: a"
@@ -336,7 +336,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: External link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				"error: External link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <a href="//example.org/foo"></a>
 				    |          ^^^^^^^^^^^^^^^^^
 				Selector: a"
@@ -349,7 +349,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <img src="../foo.jpg">
 				    |           ^^^^^^^^^^
 				Selector: img"
@@ -362,7 +362,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <img src="foo.jpg">
 				    |           ^^^^^^^
 				Selector: img"
@@ -375,7 +375,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Absolute link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				"error: Absolute link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <a href="/folder"></a>
 				    |          ^^^^^^^
 				Selector: a"
@@ -434,7 +434,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: External link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				"error: External link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <a href="//example.net/foo"></a>
 				    |          ^^^^^^^^^^^^^^^^^
 				Selector: a"
@@ -447,7 +447,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <img src="../foo.png">
 				    |           ^^^^^^^^^^
 				Selector: img"
@@ -460,7 +460,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Relative link to this destination is not allowed by current configuration (allowed-links) at inline:1:11:
+				"error: Relative link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <img src="foo.png">
 				    |           ^^^^^^^
 				Selector: img"
@@ -473,7 +473,7 @@ describe("rule allowed-links", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Absolute link to this destination is not allowed by current configuration (allowed-links) at inline:1:10:
+				"error: Absolute link to this destination is not allowed by current configuration (allowed-links)
 				> 1 | <a href="/foobar/baz"></a>
 				    |          ^^^^^^^^^^^
 				Selector: a"

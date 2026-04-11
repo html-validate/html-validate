@@ -41,7 +41,7 @@ describe("rule svg-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <svg> is missing required "focusable" attribute (svg-focusable) at inline:1:3:
+			"error: <svg> is missing required "focusable" attribute (svg-focusable)
 			> 1 |  <svg></svg>
 			    |   ^^^
 			Selector: svg"

@@ -18,7 +18,7 @@ describe("rule missing-doctype", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Document is missing doctype (missing-doctype) at inline:1:1:
+			"error: Document is missing doctype (missing-doctype)
 			> 1 |  <html></html>
 			    | ^
 			Selector: -"
@@ -49,7 +49,7 @@ describe("rule missing-doctype", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/missing-doctype.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Document is missing doctype (missing-doctype) at test-files/rules/missing-doctype.html:1:1:
+			"error: Document is missing doctype (missing-doctype)
 			> 1 | <html>
 			    | ^
 			  2 | 	<head></head>

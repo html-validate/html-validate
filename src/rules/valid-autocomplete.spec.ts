@@ -187,14 +187,14 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "on" cannot be used on <input type="hidden"> (valid-autocomplete) at inline:2:39:
+			"error: "on" cannot be used on <input type="hidden"> (valid-autocomplete)
 			  1 |
 			> 2 | 			<input type="hidden" autocomplete="on" />
 			    | 			                                   ^^
 			  3 | 			<input type="hidden" autocomplete="off" />
 			  4 |
 			Selector: input:nth-child(1)
-			error: "off" cannot be used on <input type="hidden"> (valid-autocomplete) at inline:3:39:
+			error: "off" cannot be used on <input type="hidden"> (valid-autocomplete)
 			  1 |
 			  2 | 			<input type="hidden" autocomplete="on" />
 			> 3 | 			<input type="hidden" autocomplete="off" />
@@ -210,7 +210,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "foobar" is not a valid autocomplete token or field name (valid-autocomplete) at inline:1:34:
+			"error: "foobar" is not a valid autocomplete token or field name (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="foobar" />
 			    |                                  ^^^^^^
 			Selector: input"
@@ -236,7 +236,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "tel" cannot be used on <form> (valid-autocomplete) at inline:1:21:
+			"error: "tel" cannot be used on <form> (valid-autocomplete)
 			> 1 | <form autocomplete="tel"></form>
 			    |                     ^^^
 			Selector: form"
@@ -252,14 +252,14 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "on" cannot be combined with "tel" (valid-autocomplete) at inline:2:37:
+			"error: "on" cannot be combined with "tel" (valid-autocomplete)
 			  1 |
 			> 2 | 			<input type="text" autocomplete="on tel" />
 			    | 			                                 ^^
 			  3 | 			<input type="text" autocomplete="tel off" />
 			  4 |
 			Selector: input:nth-child(1)
-			error: "off" cannot be combined with "tel" (valid-autocomplete) at inline:3:41:
+			error: "off" cannot be combined with "tel" (valid-autocomplete)
 			  1 |
 			  2 | 			<input type="text" autocomplete="on tel" />
 			> 3 | 			<input type="text" autocomplete="tel off" />
@@ -275,7 +275,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "current-password" cannot be used on <input type="number"> (valid-autocomplete) at inline:1:36:
+			"error: "current-password" cannot be used on <input type="number"> (valid-autocomplete)
 			> 1 | <input type="number" autocomplete="current-password" />
 			    |                                    ^^^^^^^^^^^^^^^^
 			Selector: input"
@@ -295,7 +295,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "new-password" cannot be combined with "username" (valid-autocomplete) at inline:3:46:
+			"error: "new-password" cannot be combined with "username" (valid-autocomplete)
 			  1 |
 			  2 | 			<!-- names from list 1 -->
 			> 3 | 			<input type="text" autocomplete="username new-password" />
@@ -304,7 +304,7 @@ describe("rule autocomplete", () => {
 			  5 | 			<input type="text" autocomplete="tel email" />
 			  6 | 			<!-- names from both list 1 and 2 -->
 			Selector: input:nth-child(1)
-			error: "email" cannot be combined with "tel" (valid-autocomplete) at inline:5:41:
+			error: "email" cannot be combined with "tel" (valid-autocomplete)
 			  3 | 			<input type="text" autocomplete="username new-password" />
 			  4 | 			<!-- names from list 2 -->
 			> 5 | 			<input type="text" autocomplete="tel email" />
@@ -313,7 +313,7 @@ describe("rule autocomplete", () => {
 			  7 | 			<input type="text" autocomplete="username email" />
 			  8 |
 			Selector: input:nth-child(2)
-			error: "email" cannot be combined with "username" (valid-autocomplete) at inline:7:46:
+			error: "email" cannot be combined with "username" (valid-autocomplete)
 			  5 | 			<input type="text" autocomplete="tel email" />
 			  6 | 			<!-- names from both list 1 and 2 -->
 			> 7 | 			<input type="text" autocomplete="username email" />
@@ -329,7 +329,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: autocomplete attribute is missing field name (valid-autocomplete) at inline:1:20:
+			"error: autocomplete attribute is missing field name (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="section-foobar" />
 			    |                    ^^^^^^^^^^^^
 			Selector: input"
@@ -342,7 +342,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "section-foobar" must appear before "username" (valid-autocomplete) at inline:1:43:
+			"error: "section-foobar" must appear before "username" (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="username section-foobar" />
 			    |                                           ^^^^^^^^^^^^^^
 			Selector: input"
@@ -355,7 +355,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "shipping" must appear before "street-address" (valid-autocomplete) at inline:1:40:
+			"error: "shipping" must appear before "street-address" (valid-autocomplete)
 			> 1 | <textarea autocomplete="street-address shipping"></textarea>
 			    |                                        ^^^^^^^^
 			Selector: textarea"
@@ -368,7 +368,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "username" must appear before "webauthn" (valid-autocomplete) at inline:1:43:
+			"error: "username" must appear before "webauthn" (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="webauthn username" />
 			    |                                           ^^^^^^^^
 			Selector: input"
@@ -381,7 +381,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "home" must appear before "tel" (valid-autocomplete) at inline:1:38:
+			"error: "home" must appear before "tel" (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="tel home" />
 			    |                                      ^^^^
 			Selector: input"
@@ -394,7 +394,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "work" cannot be combined with "username" (valid-autocomplete) at inline:1:34:
+			"error: "work" cannot be combined with "username" (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="work username" />
 			    |                                  ^^^^
 			Selector: input"
@@ -407,7 +407,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "street-address" cannot be used on <input type="text"> (valid-autocomplete) at inline:1:34:
+			"error: "street-address" cannot be used on <input type="text"> (valid-autocomplete)
 			> 1 | <input type="text" autocomplete="street-address" />
 			    |                                  ^^^^^^^^^^^^^^
 			Selector: input"
@@ -420,7 +420,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "street-address" cannot be used on <input type="search"> (valid-autocomplete) at inline:1:36:
+			"error: "street-address" cannot be used on <input type="search"> (valid-autocomplete)
 			> 1 | <input type="search" autocomplete="street-address" />
 			    |                                    ^^^^^^^^^^^^^^
 			Selector: input"
@@ -447,7 +447,7 @@ describe("rule autocomplete", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "name" cannot be used on <input type="invalid"> (valid-autocomplete) at inline:1:38:
+			"error: "name" cannot be used on <input type="invalid"> (valid-autocomplete)
 			> 1 |  <input type="invalid" autocomplete="name" />
 			    |                                      ^^^^
 			Selector: input"

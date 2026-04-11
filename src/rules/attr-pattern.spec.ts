@@ -79,7 +79,7 @@ describe("rule attr-pattern", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo-2000" should match /[a-z]+/ (attr-pattern) at inline:1:6:
+				"error: Attribute "foo-2000" should match /[a-z]+/ (attr-pattern)
 				> 1 | <div foo-2000></div>
 				    |      ^^^^^^^^
 				Selector: div"
@@ -108,7 +108,7 @@ describe("rule attr-pattern", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/] (attr-pattern) at inline:1:6:
+				"error: Attribute "foo-123" should match one of [/[a-z]+/, /[0-9]+/] (attr-pattern)
 				> 1 | <div foo-123></div>
 				    |      ^^^^^^^
 				Selector: div"
@@ -146,7 +146,7 @@ describe("rule attr-pattern", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "foo_bar" should match /[a-z0-9-:]+/ (attr-pattern) at inline:1:6:
+				"error: Attribute "foo_bar" should match /[a-z0-9-:]+/ (attr-pattern)
 				> 1 | <svg foo_bar/>
 				    |      ^^^^^^^
 				Selector: svg"
@@ -166,7 +166,7 @@ describe("rule attr-pattern", () => {
 		});
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "dynamic-foo_bar" should match /[a-z0-9-:]+/ (attr-pattern) at inline:1:8:
+			"error: Attribute "dynamic-foo_bar" should match /[a-z0-9-:]+/ (attr-pattern)
 			> 1 | <input dynamic-foo_bar="foo">
 			    |        ^^^^^^^^^^^^^^^
 			Selector: input"

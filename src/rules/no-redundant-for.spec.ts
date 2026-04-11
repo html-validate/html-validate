@@ -77,7 +77,7 @@ describe("rule no-redundant-for", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Redundant "for" attribute (no-redundant-for) at inline:2:11:
+			"error: Redundant "for" attribute (no-redundant-for)
 			  1 |
 			> 2 | 			<label for="foo">
 			    | 			       ^^^
@@ -98,15 +98,15 @@ describe("rule no-redundant-for", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-		"error: Redundant "for" attribute (no-redundant-for) at inline:2:11:
-		  1 |
-		> 2 | 			<label for="foo,-bar">
-		    | 			       ^^^
-		  3 | 				<input id="foo,-bar" />
-		  4 | 			</label>
-		  5 |
-		Selector: label"
-	`);
+			"error: Redundant "for" attribute (no-redundant-for)
+			  1 |
+			> 2 | 			<label for="foo,-bar">
+			    | 			       ^^^
+			  3 | 				<input id="foo,-bar" />
+			  4 | 			</label>
+			  5 |
+			Selector: label"
+		`);
 	});
 
 	it("should contain documentation", async () => {

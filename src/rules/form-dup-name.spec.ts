@@ -238,7 +238,7 @@ describe("rule form-dup-name", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			"error: Duplicate form control name "foo" (form-dup-name)
 			  2 | 			<form>
 			  3 | 				<input name="foo" />
 			> 4 | 				<input name="foo" />
@@ -257,7 +257,7 @@ describe("rule form-dup-name", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate form control name "foo" (form-dup-name) at inline:3:17:
+			"error: Duplicate form control name "foo" (form-dup-name)
 			  1 |
 			  2 | 			<input name="foo" />
 			> 3 | 			<input name="foo" />
@@ -277,7 +277,7 @@ describe("rule form-dup-name", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			"error: Duplicate form control name "foo" (form-dup-name)
 			  2 | 			<template>
 			  3 | 				<input name="foo" />
 			> 4 | 				<input name="foo" />
@@ -304,7 +304,7 @@ describe("rule form-dup-name", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate form control name "foo" (form-dup-name) at inline:4:18:
+			"error: Duplicate form control name "foo" (form-dup-name)
 			  2 | 			<form>
 			  3 | 				<input name="foo" />
 			> 4 | 				<input name="foo" type="checkbox" />
@@ -313,7 +313,7 @@ describe("rule form-dup-name", () => {
 			  6 | 			<template>
 			  7 | 				<input name="bar" />
 			Selector: form > input:nth-child(2)
-			error: Duplicate form control name "bar" (form-dup-name) at inline:8:18:
+			error: Duplicate form control name "bar" (form-dup-name)
 			   6 | 			<template>
 			   7 | 				<input name="bar" />
 			>  8 | 				<input name="bar" type="checkbox" />
@@ -322,7 +322,7 @@ describe("rule form-dup-name", () => {
 			  10 | 			<input name="baz" />
 			  11 | 			<input name="baz" type="checkbox" />
 			Selector: template > input:nth-child(2)
-			error: Duplicate form control name "baz" (form-dup-name) at inline:11:17:
+			error: Duplicate form control name "baz" (form-dup-name)
 			   9 | 			</template>
 			  10 | 			<input name="baz" />
 			> 11 | 			<input name="baz" type="checkbox" />
@@ -400,7 +400,7 @@ describe("rule form-dup-name", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Duplicate form control name "foo[]" (form-dup-name) at inline:4:19:
+				"error: Duplicate form control name "foo[]" (form-dup-name)
 				  2 | 				<form>
 				  3 | 					<input name="foo[]" />
 				> 4 | 					<input name="foo[]" />
@@ -429,7 +429,7 @@ describe("rule form-dup-name", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Cannot mix "foo[]" and "foo" (form-dup-name) at inline:4:19:
+				"error: Cannot mix "foo[]" and "foo" (form-dup-name)
 				  2 | 				<form>
 				  3 | 					<input name="foo[]" />
 				> 4 | 					<input name="foo" />
@@ -438,7 +438,7 @@ describe("rule form-dup-name", () => {
 				  6 | 				<form>
 				  7 | 					<input name="bar" />
 				Selector: form:nth-child(1) > input:nth-child(2)
-				error: Cannot mix "bar[]" and "bar" (form-dup-name) at inline:8:19:
+				error: Cannot mix "bar[]" and "bar" (form-dup-name)
 				   6 | 				<form>
 				   7 | 					<input name="bar" />
 				>  8 | 					<input name="bar[]" />
@@ -447,7 +447,7 @@ describe("rule form-dup-name", () => {
 				  10 | 				<template>
 				  11 | 					<input name="baz" />
 				Selector: form:nth-child(2) > input:nth-child(2)
-				error: Cannot mix "baz[]" and "baz" (form-dup-name) at inline:12:19:
+				error: Cannot mix "baz[]" and "baz" (form-dup-name)
 				  10 | 				<template>
 				  11 | 					<input name="baz" />
 				> 12 | 					<input name="baz[]" />
@@ -495,7 +495,7 @@ describe("rule form-dup-name", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					"error: Duplicate form control name "foo" (form-dup-name)
 					  2 | 					<form id="dup-hidden">
 					  3 | 						<input name="foo" type="hidden" value="0" />
 					> 4 | 						<input name="foo" type="hidden" value="1" />
@@ -504,7 +504,7 @@ describe("rule form-dup-name", () => {
 					  6 | 					</form>
 					  7 | 					<form id="dup-checkbox">
 					Selector: #dup-hidden > input:nth-child(2)
-					error: Duplicate form control name "foo" (form-dup-name) at inline:10:20:
+					error: Duplicate form control name "foo" (form-dup-name)
 					   8 | 						<input name="foo" type="hidden" value="0" />
 					   9 | 						<input name="foo" type="checkbox" value="1" />
 					> 10 | 						<input name="foo" type="checkbox" value="2" />
@@ -526,7 +526,7 @@ describe("rule form-dup-name", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					"error: Duplicate form control name "foo" (form-dup-name)
 					  2 | 					<form>
 					  3 | 						<input name="foo" type="hidden" value="0" />
 					> 4 | 						<input name="foo" type="text" value="1" />
@@ -555,7 +555,7 @@ describe("rule form-dup-name", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: Duplicate form control name "foo" (form-dup-name) at inline:4:20:
+					"error: Duplicate form control name "foo" (form-dup-name)
 					  2 | 					<form>
 					  3 | 						<input name="foo" type="hidden" value="0" />
 					> 4 | 						<input name="foo" type="checkbox" value="1" />
@@ -585,7 +585,7 @@ describe("rule form-dup-name", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Duplicate form control name "foo" (form-dup-name) at inline:4:19:
+				"error: Duplicate form control name "foo" (form-dup-name)
 				  2 | 				<form>
 				  3 | 					<input name="foo" type="text" />
 				> 4 | 					<input name="foo" type="text" />
@@ -594,7 +594,7 @@ describe("rule form-dup-name", () => {
 				  6 | 				<template>
 				  7 | 					<input name="bar" type="text" />
 				Selector: form > input:nth-child(2)
-				error: Duplicate form control name "bar" (form-dup-name) at inline:8:19:
+				error: Duplicate form control name "bar" (form-dup-name)
 				   6 | 				<template>
 				   7 | 					<input name="bar" type="text" />
 				>  8 | 					<input name="bar" type="text" />
@@ -603,7 +603,7 @@ describe("rule form-dup-name", () => {
 				  10 | 				<input name="baz" type="checkbox" />
 				  11 | 				<input name="baz" type="checkbox" />
 				Selector: template > input:nth-child(2)
-				error: Duplicate form control name "baz" (form-dup-name) at inline:11:18:
+				error: Duplicate form control name "baz" (form-dup-name)
 				   9 | 				</template>
 				  10 | 				<input name="baz" type="checkbox" />
 				> 11 | 				<input name="baz" type="checkbox" />
@@ -655,7 +655,7 @@ describe("rule form-dup-name", () => {
 			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Duplicate form control name "foo" (form-dup-name) at inline:4:19:
+				"error: Duplicate form control name "foo" (form-dup-name)
 				  2 | 				<form>
 				  3 | 					<input name="foo" type="checkbox" />
 				> 4 | 					<input name="foo" type="radio" />
@@ -664,7 +664,7 @@ describe("rule form-dup-name", () => {
 				  6 | 				<template>
 				  7 | 					<input name="bar" type="checkbox" />
 				Selector: form > input:nth-child(2)
-				error: Duplicate form control name "bar" (form-dup-name) at inline:8:19:
+				error: Duplicate form control name "bar" (form-dup-name)
 				   6 | 				<template>
 				   7 | 					<input name="bar" type="checkbox" />
 				>  8 | 					<input name="bar" type="radio" />
@@ -673,7 +673,7 @@ describe("rule form-dup-name", () => {
 				  10 | 				<input name="baz" type="checkbox" />
 				  11 | 				<input name="baz" type="radio" />
 				Selector: template > input:nth-child(2)
-				error: Duplicate form control name "baz" (form-dup-name) at inline:11:18:
+				error: Duplicate form control name "baz" (form-dup-name)
 				   9 | 				</template>
 				  10 | 				<input name="baz" type="checkbox" />
 				> 11 | 				<input name="baz" type="radio" />

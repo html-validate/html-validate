@@ -133,14 +133,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:7:
+			"error: "aria-label" cannot be used on this element (aria-label-misuse)
 			  1 |
 			> 2 | 			<p aria-label="foobar"></p>
 			    | 			   ^^^^^^^^^^
 			  3 | 			<p aria-labelledby="foobar"></p>
 			  4 |
 			Selector: p:nth-child(1)
-			error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:7:
+			error: "aria-labelledby" cannot be used on this element (aria-label-misuse)
 			  1 |
 			  2 | 			<p aria-label="foobar"></p>
 			> 3 | 			<p aria-labelledby="foobar"></p>
@@ -159,14 +159,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:25:
+			"error: "aria-label" cannot be used on this element (aria-label-misuse)
 			  1 |
 			> 2 | 			<input type="hidden" aria-label="foobar" />
 			    | 			                     ^^^^^^^^^^
 			  3 | 			<input type="hidden" aria-labelledby="foobar" />
 			  4 |
 			Selector: input:nth-child(1)
-			error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:25:
+			error: "aria-labelledby" cannot be used on this element (aria-label-misuse)
 			  1 |
 			  2 | 			<input type="hidden" aria-label="foobar" />
 			> 3 | 			<input type="hidden" aria-labelledby="foobar" />
@@ -185,14 +185,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:2:23:
+			"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse)
 			  1 |
 			> 2 | 			<custom-disallowed aria-label="foobar"></custom-disallowed>
 			    | 			                   ^^^^^^^^^^
 			  3 | 			<custom-disallowed aria-labelledby="foobar"></custom-disallowed>
 			  4 |
 			Selector: custom-disallowed:nth-child(1)
-			error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:3:23:
+			error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse)
 			  1 |
 			  2 | 			<custom-disallowed aria-label="foobar"></custom-disallowed>
 			> 3 | 			<custom-disallowed aria-labelledby="foobar"></custom-disallowed>
@@ -211,14 +211,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:7:
+			"error: "aria-label" cannot be used on this element (aria-label-misuse)
 			  1 |
 			> 2 | 			<p dynamic-aria-label="foobar"></p>
 			    | 			   ^^^^^^^^^^^^^^^^^^
 			  3 | 			<p dynamic-aria-labelledby="foobar"></p>
 			  4 |
 			Selector: p:nth-child(1)
-			error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:7:
+			error: "aria-labelledby" cannot be used on this element (aria-label-misuse)
 			  1 |
 			  2 | 			<p dynamic-aria-label="foobar"></p>
 			> 3 | 			<p dynamic-aria-labelledby="foobar"></p>
@@ -237,14 +237,14 @@ describe("rule aria-label-misuse", () => {
 		const report = await htmlvalidate.validateString(markup, { processAttribute });
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:7:
+			"error: "aria-label" cannot be used on this element (aria-label-misuse)
 			  1 |
 			> 2 | 			<p aria-label="{{ interpolated }}"></p>
 			    | 			   ^^^^^^^^^^
 			  3 | 			<p aria-labelledby="{{ interpolated }}"></p>
 			  4 |
 			Selector: p:nth-child(1)
-			error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:7:
+			error: "aria-labelledby" cannot be used on this element (aria-label-misuse)
 			  1 |
 			  2 | 			<p aria-label="{{ interpolated }}"></p>
 			> 3 | 			<p aria-labelledby="{{ interpolated }}"></p>
@@ -282,14 +282,14 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:2:11:
+				"error: "aria-label" cannot be used on this element (aria-label-misuse)
 				  1 |
 				> 2 | 				<span aria-label="lorem ipsum">spam</span>
 				    | 				      ^^^^^^^^^^
 				  3 | 				<span aria-labelledby="lorem ipsum">spam</span>
 				  4 |
 				Selector: span:nth-child(1)
-				error: "aria-labelledby" cannot be used on this element (aria-label-misuse) at inline:3:11:
+				error: "aria-labelledby" cannot be used on this element (aria-label-misuse)
 				  1 |
 				  2 | 				<span aria-label="lorem ipsum">spam</span>
 				> 3 | 				<span aria-labelledby="lorem ipsum">spam</span>
@@ -314,14 +314,14 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:2:9:
+				"error: "aria-label" is strictly allowed but is not recommended to be used on this element (aria-label-misuse)
 				  1 |
 				> 2 | 				<h1 aria-label="lorem ipsum">spam</h1>
 				    | 				    ^^^^^^^^^^
 				  3 | 				<h1 aria-labelledby="lorem ipsum">spam</h1>
 				  4 |
 				Selector: h1:nth-child(1)
-				error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse) at inline:3:9:
+				error: "aria-labelledby" is strictly allowed but is not recommended to be used on this element (aria-label-misuse)
 				  1 |
 				  2 | 				<h1 aria-label="lorem ipsum">spam</h1>
 				> 3 | 				<h1 aria-labelledby="lorem ipsum">spam</h1>
@@ -374,7 +374,7 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+				"error: "aria-label" cannot be used on this element (aria-label-misuse)
 				> 1 |  <p aria-label="foobar"></p>
 				    |     ^^^^^^^^^^
 				Selector: p"
@@ -422,7 +422,7 @@ describe("rule aria-label-misuse", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: "aria-label" cannot be used on this element (aria-label-misuse) at inline:1:5:
+				"error: "aria-label" cannot be used on this element (aria-label-misuse)
 				> 1 |  <p aria-label="foobar"></p>
 				    |     ^^^^^^^^^^
 				Selector: p"

@@ -39,7 +39,7 @@ describe("rule no-dup-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Class "foo" duplicated (no-dup-class) at inline:1:20:
+			"error: Class "foo" duplicated (no-dup-class)
 			> 1 |  <p class="foo bar foo"></p>
 			    |                    ^^^
 			Selector: p"
@@ -50,7 +50,7 @@ describe("rule no-dup-class", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-class.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Class "foo" duplicated (no-dup-class) at test-files/rules/no-dup-class.html:5:21:
+			"error: Class "foo" duplicated (no-dup-class)
 			  3 | <div class="foo bar"></div>
 			  4 |
 			> 5 | <div class="foo bar foo"></div>

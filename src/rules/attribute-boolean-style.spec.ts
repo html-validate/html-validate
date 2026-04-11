@@ -67,7 +67,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should omit value (attribute-boolean-style)
 				> 1 |  <input required="" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -80,7 +80,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should omit value (attribute-boolean-style)
 				> 1 |  <input required="required" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -95,7 +95,7 @@ describe("rule attribute-boolean-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should omit value (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should omit value (attribute-boolean-style)
 				> 1 |  <input required="{{ dynamic }}" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -117,7 +117,7 @@ describe("rule attribute-boolean-style", () => {
 				"test-files/rules/attribute-boolean-style.html",
 			);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:2:8:
+				"error: Attribute "disabled" should omit value (attribute-boolean-style)
 				  1 | <input disabled>
 				> 2 | <input disabled="">
 				    |        ^^^^^^^^
@@ -125,7 +125,7 @@ describe("rule attribute-boolean-style", () => {
 				  4 | <input disabled="foobar">
 				  5 |
 				Selector: input:nth-child(2)
-				error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				error: Attribute "disabled" should omit value (attribute-boolean-style)
 				  1 | <input disabled>
 				  2 | <input disabled="">
 				> 3 | <input disabled="required">
@@ -133,7 +133,7 @@ describe("rule attribute-boolean-style", () => {
 				  4 | <input disabled="foobar">
 				  5 |
 				Selector: input:nth-child(3)
-				error: Attribute "disabled" should omit value (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				error: Attribute "disabled" should omit value (attribute-boolean-style)
 				  2 | <input disabled="">
 				  3 | <input disabled="required">
 				> 4 | <input disabled="foobar">
@@ -158,7 +158,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" value should be empty string (attribute-boolean-style)
 				> 1 |  <input required />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -178,7 +178,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" value should be empty string (attribute-boolean-style)
 				> 1 |  <input required="required" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -193,7 +193,7 @@ describe("rule attribute-boolean-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" value should be empty string (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" value should be empty string (attribute-boolean-style)
 				> 1 |  <input required="{{ dynamic }}" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -206,14 +206,14 @@ describe("rule attribute-boolean-style", () => {
 				"test-files/rules/attribute-boolean-style.html",
 			);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:1:8:
+				"error: Attribute "disabled" value should be empty string (attribute-boolean-style)
 				> 1 | <input disabled>
 				    |        ^^^^^^^^
 				  2 | <input disabled="">
 				  3 | <input disabled="required">
 				  4 | <input disabled="foobar">
 				Selector: input:nth-child(1)
-				error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				error: Attribute "disabled" value should be empty string (attribute-boolean-style)
 				  1 | <input disabled>
 				  2 | <input disabled="">
 				> 3 | <input disabled="required">
@@ -221,7 +221,7 @@ describe("rule attribute-boolean-style", () => {
 				  4 | <input disabled="foobar">
 				  5 |
 				Selector: input:nth-child(3)
-				error: Attribute "disabled" value should be empty string (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				error: Attribute "disabled" value should be empty string (attribute-boolean-style)
 				  2 | <input disabled="">
 				  3 | <input disabled="required">
 				> 4 | <input disabled="foobar">
@@ -246,7 +246,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style)
 				> 1 |  <input required />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -259,7 +259,7 @@ describe("rule attribute-boolean-style", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style)
 				> 1 |  <input required="" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -281,7 +281,7 @@ describe("rule attribute-boolean-style", () => {
 			});
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "required" should be set to required="required" (attribute-boolean-style) at inline:1:9:
+				"error: Attribute "required" should be set to required="required" (attribute-boolean-style)
 				> 1 |  <input required="{{ dynamic }}" />
 				    |         ^^^^^^^^
 				Selector: input"
@@ -294,14 +294,14 @@ describe("rule attribute-boolean-style", () => {
 				"test-files/rules/attribute-boolean-style.html",
 			);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:1:8:
+				"error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style)
 				> 1 | <input disabled>
 				    |        ^^^^^^^^
 				  2 | <input disabled="">
 				  3 | <input disabled="required">
 				  4 | <input disabled="foobar">
 				Selector: input:nth-child(1)
-				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:2:8:
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style)
 				  1 | <input disabled>
 				> 2 | <input disabled="">
 				    |        ^^^^^^^^
@@ -309,7 +309,7 @@ describe("rule attribute-boolean-style", () => {
 				  4 | <input disabled="foobar">
 				  5 |
 				Selector: input:nth-child(2)
-				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:3:8:
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style)
 				  1 | <input disabled>
 				  2 | <input disabled="">
 				> 3 | <input disabled="required">
@@ -317,7 +317,7 @@ describe("rule attribute-boolean-style", () => {
 				  4 | <input disabled="foobar">
 				  5 |
 				Selector: input:nth-child(3)
-				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style) at test-files/rules/attribute-boolean-style.html:4:8:
+				error: Attribute "disabled" should be set to disabled="disabled" (attribute-boolean-style)
 				  2 | <input disabled="">
 				  3 | <input disabled="required">
 				> 4 | <input disabled="foobar">

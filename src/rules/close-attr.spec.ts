@@ -43,7 +43,7 @@ describe("rule close-attr", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Close tags cannot have attributes (close-attr) at inline:2:11:
+			"error: Close tags cannot have attributes (close-attr)
 			  1 |
 			> 2 | 			<p></p foo="bar">
 			    | 			       ^^^
@@ -51,7 +51,7 @@ describe("rule close-attr", () => {
 			  4 | 			<p></p foo>
 			  5 |
 			Selector: -
-			error: Close tags cannot have attributes (close-attr) at inline:3:11:
+			error: Close tags cannot have attributes (close-attr)
 			  1 |
 			  2 | 			<p></p foo="bar">
 			> 3 | 			<p></p foo='bar'>
@@ -59,7 +59,7 @@ describe("rule close-attr", () => {
 			  4 | 			<p></p foo>
 			  5 |
 			Selector: -
-			error: Close tags cannot have attributes (close-attr) at inline:4:11:
+			error: Close tags cannot have attributes (close-attr)
 			  2 | 			<p></p foo="bar">
 			  3 | 			<p></p foo='bar'>
 			> 4 | 			<p></p foo>
@@ -80,7 +80,7 @@ describe("rule close-attr", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/close-attr.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Close tags cannot have attributes (close-attr) at test-files/rules/close-attr.html:3:12:
+			"error: Close tags cannot have attributes (close-attr)
 			  1 | <input foo>
 			  2 | <hr bar/>
 			> 3 | <div></div baz>

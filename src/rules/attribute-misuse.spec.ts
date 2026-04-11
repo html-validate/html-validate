@@ -45,7 +45,7 @@ describe("rule attribute-misuse", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "need-other" attribute cannot be used on <any> in this context: reason (attribute-misuse) at inline:1:7:
+			"error: "need-other" attribute cannot be used on <any> in this context: reason (attribute-misuse)
 			> 1 |  <any need-other />
 			    |       ^^^^^^^^^^
 			Selector: any"

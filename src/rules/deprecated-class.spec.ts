@@ -171,7 +171,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p"
@@ -200,7 +200,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated: This class causes performance issues (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated: This class causes performance issues (deprecated-class)
 			> 1 |  <p class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p"
@@ -232,11 +232,11 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class legacy-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p
-			error: class "legacy-class" is deprecated: Use new-class instead (deprecated-class) at inline:1:22:
+			error: class "legacy-class" is deprecated: Use new-class instead (deprecated-class)
 			> 1 |  <p class="old-class legacy-class"></p>
 			    |                      ^^^^^^^^^^^^
 			Selector: p"
@@ -264,7 +264,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:1:16:
+			"error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="foo old-class bar"></p>
 			    |                ^^^^^^^^^
 			Selector: p"
@@ -296,7 +296,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:2:16:
+			"error: class "old-class" is deprecated (deprecated-class)
 			  1 |
 			> 2 | 			<div class="old-class">
 			    | 			            ^^^^^^^^^
@@ -304,7 +304,7 @@ describe("rule deprecated-class", () => {
 			  4 | 			</div>
 			  5 |
 			Selector: div
-			error: class "old-class" is deprecated (deprecated-class) at inline:3:18:
+			error: class "old-class" is deprecated (deprecated-class)
 			  1 |
 			  2 | 			<div class="old-class">
 			> 3 | 				<span class="old-class"></span>
@@ -336,7 +336,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "hover:text-red" is deprecated (deprecated-class) at inline:1:12:
+			"error: class "hover:text-red" is deprecated (deprecated-class)
 			> 1 |  <p class="hover:text-red"></p>
 			    |            ^^^^^^^^^^^^^^
 			Selector: p"
@@ -365,7 +365,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated and replaced with "new-class" (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated and replaced with "new-class" (deprecated-class)
 			> 1 |  <p class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p"
@@ -395,7 +395,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated and replaced with "new-class": This class has performance issues (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated and replaced with "new-class": This class has performance issues (deprecated-class)
 			> 1 |  <p class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p"
@@ -424,7 +424,7 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated and replaced with "new-class" or "alternative-class" (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated and replaced with "new-class" or "alternative-class" (deprecated-class)
 			> 1 |  <p class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p"
@@ -474,11 +474,11 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p
-			error: class "old-class" is deprecated (deprecated-class) at inline:1:22:
+			error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class old-class"></p>
 			    |                      ^^^^^^^^^
 			Selector: p"
@@ -506,11 +506,11 @@ describe("rule deprecated-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: class "old-class" is deprecated (deprecated-class) at inline:1:12:
+			"error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class" class="old-class"></p>
 			    |            ^^^^^^^^^
 			Selector: p
-			error: class "old-class" is deprecated (deprecated-class) at inline:1:30:
+			error: class "old-class" is deprecated (deprecated-class)
 			> 1 |  <p class="old-class" class="old-class"></p>
 			    |                              ^^^^^^^^^
 			Selector: p"

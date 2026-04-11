@@ -69,7 +69,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password) at inline:1:3:
+				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password)
 				> 1 |  <input type="password" />
 				    |   ^^^^^
 				Selector: input
@@ -82,7 +82,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should not use autocomplete="off" (autocomplete-password) at inline:1:39:
+				error: <input type="password"> should not use autocomplete="off" (autocomplete-password)
 				> 1 |  <input type="password" autocomplete="off" />
 				    |                                       ^^^
 				Selector: input
@@ -95,7 +95,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should not use autocomplete="off" (autocomplete-password) at inline:1:39:
+				error: <input type="password"> should not use autocomplete="off" (autocomplete-password)
 				> 1 |  <input type="password" autocomplete="OFF" />
 				    |                                       ^^^
 				Selector: input
@@ -108,7 +108,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password) at inline:1:3:
+				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password)
 				> 1 |  <input type="PASSWORD" />
 				    |   ^^^^^
 				Selector: input
@@ -144,7 +144,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password) at inline:1:39:
+				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password)
 				> 1 |  <input type="password" autocomplete="current-password" />
 				    |                                       ^^^^^^^^^^^^^^^^
 				Selector: input
@@ -157,7 +157,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should not use autocomplete="off" (autocomplete-password) at inline:1:39:
+				error: <input type="password"> should not use autocomplete="off" (autocomplete-password)
 				> 1 |  <input type="password" autocomplete="off" />
 				    |                                       ^^^
 				Selector: input
@@ -170,7 +170,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password) at inline:1:3:
+				error: <input type="password"> is missing required "autocomplete" attribute (autocomplete-password)
 				> 1 |  <input type="password" />
 				    |   ^^^^^
 				Selector: input
@@ -210,7 +210,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password) at inline:2:55:
+				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password)
 				  1 |
 				> 2 | 				<input type="password" autocomplete="section-test current-password" />
 				    | 				                                                  ^^^^^^^^^^^^^^^^
@@ -234,7 +234,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password) at inline:2:51:
+				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password)
 				  1 |
 				> 2 | 				<input type="password" autocomplete="shipping current-password" />
 				    | 				                                              ^^^^^^^^^^^^^^^^
@@ -258,7 +258,7 @@ describe("rule autocomplete-password", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password) at inline:2:50:
+				error: <input type="password"> should use autocomplete="new-password" (autocomplete-password)
 				  1 |
 				> 2 | 				<input type="password" autocomplete="billing current-password" />
 				    | 				                                             ^^^^^^^^^^^^^^^^

@@ -106,7 +106,7 @@ describe("rule no-unused-disable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:3:39:
+			"error: "direct" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			  2 | 			<main>
 			> 3 | 				<!-- [html-validate-disable-block direct, indirect] -->
@@ -115,7 +115,7 @@ describe("rule no-unused-disable", () => {
 			  5 | 			</main>
 			  6 |
 			Selector: -
-			error: "indirect" rule is disabled but no error was reported (no-unused-disable) at inline:3:47:
+			error: "indirect" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			  2 | 			<main>
 			> 3 | 				<!-- [html-validate-disable-block direct, indirect] -->
@@ -124,14 +124,14 @@ describe("rule no-unused-disable", () => {
 			  5 | 			</main>
 			  6 |
 			Selector: -
-			error: cannot use <div> elements (indirect) at inline:8:5:
+			error: cannot use <div> elements (indirect)
 			  6 |
 			  7 | 			<!-- these errors should still be reported but not affect the above disable -->
 			> 8 | 			<div attr></div>
 			    | 			 ^^^
 			  9 |
 			Selector: div
-			error: cannot use attribute (direct) at inline:8:9:
+			error: cannot use attribute (direct)
 			  6 |
 			  7 | 			<!-- these errors should still be reported but not affect the above disable -->
 			> 8 | 			<div attr></div>
@@ -153,7 +153,7 @@ describe("rule no-unused-disable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:2:37:
+			"error: "direct" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next direct, indirect] -->
 			    | 			                                 ^^^^^^
@@ -161,7 +161,7 @@ describe("rule no-unused-disable", () => {
 			  4 |
 			  5 | 			<!-- these errors should still be reported but not affect the above disable -->
 			Selector: -
-			error: "indirect" rule is disabled but no error was reported (no-unused-disable) at inline:2:45:
+			error: "indirect" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next direct, indirect] -->
 			    | 			                                         ^^^^^^^^
@@ -169,14 +169,14 @@ describe("rule no-unused-disable", () => {
 			  4 |
 			  5 | 			<!-- these errors should still be reported but not affect the above disable -->
 			Selector: -
-			error: cannot use <div> elements (indirect) at inline:6:5:
+			error: cannot use <div> elements (indirect)
 			  4 |
 			  5 | 			<!-- these errors should still be reported but not affect the above disable -->
 			> 6 | 			<div attr></div>
 			    | 			 ^^^
 			  7 |
 			Selector: div
-			error: cannot use attribute (direct) at inline:6:9:
+			error: cannot use attribute (direct)
 			  4 |
 			  5 | 			<!-- these errors should still be reported but not affect the above disable -->
 			> 6 | 			<div attr></div>
@@ -195,21 +195,21 @@ describe("rule no-unused-disable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: "direct" rule is disabled but no error was reported (no-unused-disable) at inline:2:37:
+			"error: "direct" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
 			    | 			                                 ^^^^^^
 			  3 | 			<p></p>
 			  4 |
 			Selector: -
-			error: "indirect" rule is disabled but no error was reported (no-unused-disable) at inline:2:45:
+			error: "indirect" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
 			    | 			                                         ^^^^^^^^
 			  3 | 			<p></p>
 			  4 |
 			Selector: -
-			error: "element-case" rule is disabled but no error was reported (no-unused-disable) at inline:2:55:
+			error: "element-case" rule is disabled but no error was reported (no-unused-disable)
 			  1 |
 			> 2 | 			<!-- [html-validate-disable-next direct, indirect, element-case] -->
 			    | 			                                                   ^^^^^^^^^^^^

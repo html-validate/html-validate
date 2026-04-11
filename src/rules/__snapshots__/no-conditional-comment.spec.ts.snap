@@ -8,7 +8,7 @@ exports[`rule no-conditional-comment should contain documentation 1`] = `
 `;
 
 exports[`rule no-conditional-comment smoketest 1`] = `
-"error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:4:2:
+"error: Use of conditional comments are deprecated (no-conditional-comment)
   2 | 	<!-- examples from MSDN documentation -->
   3 |
 > 4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
@@ -17,7 +17,7 @@ exports[`rule no-conditional-comment smoketest 1`] = `
   6 |
   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:4:53:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   2 | 	<!-- examples from MSDN documentation -->
   3 |
 > 4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
@@ -26,7 +26,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   6 |
   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:5:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   3 |
   4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
 > 5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
@@ -35,7 +35,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:5:56:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   3 |
   4 | 	<!--[if IE]><p>You are using Internet Explorer.</p><![endif]-->
 > 5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
@@ -44,7 +44,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
   8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:7:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
    6 |
 >  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
@@ -53,7 +53,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
    9 |
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:7:54:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    5 | 	<![if !IE]><p>You are not using Internet Explorer.</p><![endif]>
    6 |
 >  7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
@@ -62,7 +62,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
    9 |
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:8:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    6 |
    7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
 >  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
@@ -71,7 +71,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:8:54:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    6 |
    7 | 	<!--[if IE 7]><p>Welcome to Internet Explorer 7!</p><![endif]-->
 >  8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
@@ -80,7 +80,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:10:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
    9 |
 > 10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
@@ -89,7 +89,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:10:57:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    8 | 	<!--[if !(IE 7)]><p>You are not using version 7.</p><![endif]-->
    9 |
 > 10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
@@ -98,7 +98,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:11:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    9 |
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
 > 11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
@@ -107,7 +107,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
   14 |
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:11:58:
+error: Use of conditional comments are deprecated (no-conditional-comment)
    9 |
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
 > 11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
@@ -116,7 +116,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
   14 |
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:12:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
 > 12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
@@ -125,7 +125,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   14 |
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:12:70:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   10 | 	<!--[if gte IE 7]><p>You are using IE 7 or greater.</p><![endif]-->
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
 > 12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
@@ -134,7 +134,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   14 |
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:13:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
   12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
 > 13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
@@ -143,7 +143,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:13:77:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   11 | 	<!--[if (IE 5)]><p>You are using IE 5 (any version).</p><![endif]-->
   12 | 	<!--[if (gte IE 5.5)&(lt IE 7)]><p>You are using IE 5.5 or IE 6.</p><![endif]-->
 > 13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
@@ -152,7 +152,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:15:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
   14 |
 > 15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
@@ -161,7 +161,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   17 |
   18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:15:58:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   13 | 	<!--[if lt IE 5.5]><p>Please upgrade your version of Internet Explorer.</p><![endif]-->
   14 |
 > 15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
@@ -170,7 +170,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   17 |
   18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:16:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   14 |
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
 > 16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
@@ -179,7 +179,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
   19 | </body>
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:16:58:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   14 |
   15 | 	<!--[if true]>You are using an <em>uplevel</em> browser.<![endif]-->
 > 16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
@@ -188,7 +188,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
   19 | </body>
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:2:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
   17 |
 > 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
@@ -196,7 +196,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   19 | </body>
   20 |
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:16:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
   17 |
 > 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
@@ -204,7 +204,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   19 | </body>
   20 |
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:76:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
   17 |
 > 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
@@ -212,7 +212,7 @@ error: Use of conditional comments are deprecated (no-conditional-comment) at te
   19 | </body>
   20 |
 Selector: body
-error: Use of conditional comments are deprecated (no-conditional-comment) at test-files/rules/no-conditional-comment.html:18:86:
+error: Use of conditional comments are deprecated (no-conditional-comment)
   16 | 	<![if false]>You are using a <em>downlevel</em> browser.<![endif]>
   17 |
 > 18 | 	<!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->

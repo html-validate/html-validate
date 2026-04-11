@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`rule prefer-native-element default config smoketest 1`] = `
-"error: Prefer to use the native <article> element (prefer-native-element) at test-files/rules/prefer-native-element.html:3:6:
+"error: Prefer to use the native <article> element (prefer-native-element)
   1 | <div role="unknown"></div>
   2 |
 > 3 | <div role="article"></div>
@@ -10,7 +10,7 @@ exports[`rule prefer-native-element default config smoketest 1`] = `
   5 | <div role="button"></div>
   6 | <div role="cell"></div>
 Selector: div:nth-child(2)
-error: Prefer to use the native <header> element (prefer-native-element) at test-files/rules/prefer-native-element.html:4:6:
+error: Prefer to use the native <header> element (prefer-native-element)
   2 |
   3 | <div role="article"></div>
 > 4 | <div role="banner"></div>
@@ -19,7 +19,7 @@ error: Prefer to use the native <header> element (prefer-native-element) at test
   6 | <div role="cell"></div>
   7 | <div role="checkbox"></div>
 Selector: div:nth-child(3)
-error: Prefer to use the native <button> element (prefer-native-element) at test-files/rules/prefer-native-element.html:5:6:
+error: Prefer to use the native <button> element (prefer-native-element)
   3 | <div role="article"></div>
   4 | <div role="banner"></div>
 > 5 | <div role="button"></div>
@@ -28,7 +28,7 @@ error: Prefer to use the native <button> element (prefer-native-element) at test
   7 | <div role="checkbox"></div>
   8 | <div role="complementary"></div>
 Selector: div:nth-child(4)
-error: Prefer to use the native <td> element (prefer-native-element) at test-files/rules/prefer-native-element.html:6:6:
+error: Prefer to use the native <td> element (prefer-native-element)
   4 | <div role="banner"></div>
   5 | <div role="button"></div>
 > 6 | <div role="cell"></div>
@@ -37,7 +37,7 @@ error: Prefer to use the native <td> element (prefer-native-element) at test-fil
   8 | <div role="complementary"></div>
   9 | <div role="contentinfo"></div>
 Selector: div:nth-child(5)
-error: Prefer to use the native <input> element (prefer-native-element) at test-files/rules/prefer-native-element.html:7:6:
+error: Prefer to use the native <input> element (prefer-native-element)
    5 | <div role="button"></div>
    6 | <div role="cell"></div>
 >  7 | <div role="checkbox"></div>
@@ -46,7 +46,7 @@ error: Prefer to use the native <input> element (prefer-native-element) at test-
    9 | <div role="contentinfo"></div>
   10 | <div role="figure"></div>
 Selector: div:nth-child(6)
-error: Prefer to use the native <aside> element (prefer-native-element) at test-files/rules/prefer-native-element.html:8:6:
+error: Prefer to use the native <aside> element (prefer-native-element)
    6 | <div role="cell"></div>
    7 | <div role="checkbox"></div>
 >  8 | <div role="complementary"></div>
@@ -55,7 +55,7 @@ error: Prefer to use the native <aside> element (prefer-native-element) at test-
   10 | <div role="figure"></div>
   11 | <div role="form"></div>
 Selector: div:nth-child(7)
-error: Prefer to use the native <footer> element (prefer-native-element) at test-files/rules/prefer-native-element.html:9:6:
+error: Prefer to use the native <footer> element (prefer-native-element)
    7 | <div role="checkbox"></div>
    8 | <div role="complementary"></div>
 >  9 | <div role="contentinfo"></div>
@@ -64,7 +64,7 @@ error: Prefer to use the native <footer> element (prefer-native-element) at test
   11 | <div role="form"></div>
   12 | <div role="heading"></div>
 Selector: div:nth-child(8)
-error: Prefer to use the native <figure> element (prefer-native-element) at test-files/rules/prefer-native-element.html:10:6:
+error: Prefer to use the native <figure> element (prefer-native-element)
    8 | <div role="complementary"></div>
    9 | <div role="contentinfo"></div>
 > 10 | <div role="figure"></div>
@@ -73,7 +73,7 @@ error: Prefer to use the native <figure> element (prefer-native-element) at test
   12 | <div role="heading"></div>
   13 | <div role="input"></div>
 Selector: div:nth-child(9)
-error: Prefer to use the native <form> element (prefer-native-element) at test-files/rules/prefer-native-element.html:11:6:
+error: Prefer to use the native <form> element (prefer-native-element)
    9 | <div role="contentinfo"></div>
   10 | <div role="figure"></div>
 > 11 | <div role="form"></div>
@@ -82,7 +82,7 @@ error: Prefer to use the native <form> element (prefer-native-element) at test-f
   13 | <div role="input"></div>
   14 | <div role="link"></div>
 Selector: div:nth-child(10)
-error: Prefer to use the native <hN> element (prefer-native-element) at test-files/rules/prefer-native-element.html:12:6:
+error: Prefer to use the native <hN> element (prefer-native-element)
   10 | <div role="figure"></div>
   11 | <div role="form"></div>
 > 12 | <div role="heading"></div>
@@ -91,7 +91,7 @@ error: Prefer to use the native <hN> element (prefer-native-element) at test-fil
   14 | <div role="link"></div>
   15 | <div role="list"></div>
 Selector: div:nth-child(11)
-error: Prefer to use the native <input> element (prefer-native-element) at test-files/rules/prefer-native-element.html:13:6:
+error: Prefer to use the native <input> element (prefer-native-element)
   11 | <div role="form"></div>
   12 | <div role="heading"></div>
 > 13 | <div role="input"></div>
@@ -100,7 +100,7 @@ error: Prefer to use the native <input> element (prefer-native-element) at test-
   15 | <div role="list"></div>
   16 | <div role="listbox"></div>
 Selector: div:nth-child(12)
-error: Prefer to use the native <a> element (prefer-native-element) at test-files/rules/prefer-native-element.html:14:6:
+error: Prefer to use the native <a> element (prefer-native-element)
   12 | <div role="heading"></div>
   13 | <div role="input"></div>
 > 14 | <div role="link"></div>
@@ -109,7 +109,7 @@ error: Prefer to use the native <a> element (prefer-native-element) at test-file
   16 | <div role="listbox"></div>
   17 | <div role="listitem"></div>
 Selector: div:nth-child(13)
-error: Prefer to use the native <ul> element (prefer-native-element) at test-files/rules/prefer-native-element.html:15:6:
+error: Prefer to use the native <ul> element (prefer-native-element)
   13 | <div role="input"></div>
   14 | <div role="link"></div>
 > 15 | <div role="list"></div>
@@ -118,7 +118,7 @@ error: Prefer to use the native <ul> element (prefer-native-element) at test-fil
   17 | <div role="listitem"></div>
   18 | <div role="main"></div>
 Selector: div:nth-child(14)
-error: Prefer to use the native <select> element (prefer-native-element) at test-files/rules/prefer-native-element.html:16:6:
+error: Prefer to use the native <select> element (prefer-native-element)
   14 | <div role="link"></div>
   15 | <div role="list"></div>
 > 16 | <div role="listbox"></div>
@@ -127,7 +127,7 @@ error: Prefer to use the native <select> element (prefer-native-element) at test
   18 | <div role="main"></div>
   19 | <div role="navigation"></div>
 Selector: div:nth-child(15)
-error: Prefer to use the native <li> element (prefer-native-element) at test-files/rules/prefer-native-element.html:17:6:
+error: Prefer to use the native <li> element (prefer-native-element)
   15 | <div role="list"></div>
   16 | <div role="listbox"></div>
 > 17 | <div role="listitem"></div>
@@ -136,7 +136,7 @@ error: Prefer to use the native <li> element (prefer-native-element) at test-fil
   19 | <div role="navigation"></div>
   20 | <div role="progressbar"></div>
 Selector: div:nth-child(16)
-error: Prefer to use the native <main> element (prefer-native-element) at test-files/rules/prefer-native-element.html:18:6:
+error: Prefer to use the native <main> element (prefer-native-element)
   16 | <div role="listbox"></div>
   17 | <div role="listitem"></div>
 > 18 | <div role="main"></div>
@@ -145,7 +145,7 @@ error: Prefer to use the native <main> element (prefer-native-element) at test-f
   20 | <div role="progressbar"></div>
   21 | <div role="radio"></div>
 Selector: div:nth-child(17)
-error: Prefer to use the native <nav> element (prefer-native-element) at test-files/rules/prefer-native-element.html:19:6:
+error: Prefer to use the native <nav> element (prefer-native-element)
   17 | <div role="listitem"></div>
   18 | <div role="main"></div>
 > 19 | <div role="navigation"></div>
@@ -154,7 +154,7 @@ error: Prefer to use the native <nav> element (prefer-native-element) at test-fi
   21 | <div role="radio"></div>
   22 | <div role="region"></div>
 Selector: div:nth-child(18)
-error: Prefer to use the native <progress> element (prefer-native-element) at test-files/rules/prefer-native-element.html:20:6:
+error: Prefer to use the native <progress> element (prefer-native-element)
   18 | <div role="main"></div>
   19 | <div role="navigation"></div>
 > 20 | <div role="progressbar"></div>
@@ -163,7 +163,7 @@ error: Prefer to use the native <progress> element (prefer-native-element) at te
   22 | <div role="region"></div>
   23 | <div role="table"></div>
 Selector: div:nth-child(19)
-error: Prefer to use the native <input> element (prefer-native-element) at test-files/rules/prefer-native-element.html:21:6:
+error: Prefer to use the native <input> element (prefer-native-element)
   19 | <div role="navigation"></div>
   20 | <div role="progressbar"></div>
 > 21 | <div role="radio"></div>
@@ -172,7 +172,7 @@ error: Prefer to use the native <input> element (prefer-native-element) at test-
   23 | <div role="table"></div>
   24 | <div role="textbox"></div>
 Selector: div:nth-child(20)
-error: Prefer to use the native <section> element (prefer-native-element) at test-files/rules/prefer-native-element.html:22:6:
+error: Prefer to use the native <section> element (prefer-native-element)
   20 | <div role="progressbar"></div>
   21 | <div role="radio"></div>
 > 22 | <div role="region"></div>
@@ -181,7 +181,7 @@ error: Prefer to use the native <section> element (prefer-native-element) at tes
   24 | <div role="textbox"></div>
   25 |
 Selector: div:nth-child(21)
-error: Prefer to use the native <table> element (prefer-native-element) at test-files/rules/prefer-native-element.html:23:6:
+error: Prefer to use the native <table> element (prefer-native-element)
   21 | <div role="radio"></div>
   22 | <div role="region"></div>
 > 23 | <div role="table"></div>
@@ -189,7 +189,7 @@ error: Prefer to use the native <table> element (prefer-native-element) at test-
   24 | <div role="textbox"></div>
   25 |
 Selector: div:nth-child(22)
-error: Prefer to use the native <textarea> element (prefer-native-element) at test-files/rules/prefer-native-element.html:24:6:
+error: Prefer to use the native <textarea> element (prefer-native-element)
   22 | <div role="region"></div>
   23 | <div role="table"></div>
 > 24 | <div role="textbox"></div>

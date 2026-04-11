@@ -144,7 +144,7 @@ describe("rule valid-for", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:3:18:
+					"error: <label> "for" attribute must reference a labelable form control (valid-for)
 					  1 |
 					  2 | 					<custom-element id="custom"></custom-element>
 					> 3 | 					<label for="custom">Label</label>
@@ -173,7 +173,7 @@ describe("rule valid-for", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:3:18:
+					"error: <label> "for" attribute must reference a labelable form control (valid-for)
 					  1 |
 					  2 | 					<custom-element id="custom"></custom-element>
 					> 3 | 					<label for="custom">Label</label>
@@ -204,7 +204,7 @@ describe("rule valid-for", () => {
 				const report = await htmlvalidate.validateString(markup);
 				expect(report).toBeInvalid();
 				expect(report).toMatchInlineCodeframe(`
-					"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:3:18:
+					"error: <label> "for" attribute must reference a labelable form control (valid-for)
 					  1 |
 					  2 | 					<custom-element id="custom"></custom-element>
 					> 3 | 					<label for="custom">Label</label>
@@ -222,7 +222,7 @@ describe("rule valid-for", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:1:14:
+			"error: <label> "for" attribute must reference a labelable form control (valid-for)
 			> 1 |  <label for="self" id="self">Label</label>
 			    |              ^^^^
 			Selector: #self"
@@ -238,7 +238,7 @@ describe("rule valid-for", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:3:16:
+			"error: <label> "for" attribute must reference a labelable form control (valid-for)
 			  1 |
 			  2 | 			<p id="paragraph">Text</p>
 			> 3 | 			<label for="paragraph">Label</label>
@@ -257,7 +257,7 @@ describe("rule valid-for", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <label> "for" attribute must reference a labelable form control (valid-for) at inline:3:16:
+			"error: <label> "for" attribute must reference a labelable form control (valid-for)
 			  1 |
 			  2 | 			<input type="hidden" id="hidden-field" />
 			> 3 | 			<label for="hidden-field">Label</label>

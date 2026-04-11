@@ -7,22 +7,6 @@ interface Location {
 	column: number;
 }
 
-/**
- * Gets a formatted relative file path from an absolute path and a line/column in the file.
- * @param filePath - The absolute file path to format.
- * @param line - The line from the file to use for formatting.
- * @param column -The column from the file to use for formatting.
- * @returns The formatted file path.
- */
-function formatFilePath(filePath: string, line: number, column: number): string {
-	/* istanbul ignore next: safety check from original implementation */
-	if (line && column) {
-		filePath += `:${String(line)}:${String(column)}`;
-	}
-
-	return filePath;
-}
-
 function getStartLocation(message: Message): Location {
 	return {
 		line: message.line,
@@ -54,19 +38,8 @@ function formatMessage(message: Message, parentResult: Result): string {
 	const type = message.severity === 2 ? "error" : "warning";
 	const msg = message.message.replace(/([^ ])\.$/, "$1");
 	const ruleId = `(${message.ruleId})`;
-	const filePath = formatFilePath(parentResult.filePath, message.line, message.column);
 	const sourceCode = parentResult.source;
-
-	/* istanbul ignore next: safety check from original implementation */
-	const firstLine = [
-		`${type}:`,
-		msg,
-		ruleId ? ruleId : "",
-		sourceCode ? `at ${filePath}:` : `at ${filePath}`,
-	]
-		.filter(String)
-		.join(" ");
-
+	const firstLine = [`${type}:`, msg, ruleId].join(" ");
 	const result = [firstLine];
 
 	/* istanbul ignore next: safety check from original implementation */

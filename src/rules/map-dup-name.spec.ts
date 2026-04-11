@@ -56,7 +56,7 @@ describe("rule map-dup-name", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <map> name must be unique (map-dup-name) at inline:3:9:
+			"error: <map> name must be unique (map-dup-name)
 			  1 |
 			  2 | 			<map name="foo"></map>
 			> 3 | 			<map name="foo"></map>

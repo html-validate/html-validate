@@ -86,7 +86,7 @@ describe("rule no-dup-id", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate ID "foo" (no-dup-id) at inline:3:11:
+			"error: Duplicate ID "foo" (no-dup-id)
 			  1 |
 			  2 | 			<p id="foo"></p>
 			> 3 | 			<p id="foo"></p>
@@ -95,7 +95,7 @@ describe("rule no-dup-id", () => {
 			  5 | 				<p id="bar"></p>
 			  6 | 				<p id="bar"></p>
 			Selector: p:nth-child(2)
-			error: Duplicate ID "bar" (no-dup-id) at inline:6:12:
+			error: Duplicate ID "bar" (no-dup-id)
 			  4 | 			<template>
 			  5 | 				<p id="bar"></p>
 			> 6 | 				<p id="bar"></p>
@@ -110,7 +110,7 @@ describe("rule no-dup-id", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-id.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Duplicate ID "foo" (no-dup-id) at test-files/rules/no-dup-id.html:3:10:
+			"error: Duplicate ID "foo" (no-dup-id)
 			  1 | <div id="foo"></div>
 			  2 | <div id="bar"></div>
 			> 3 | <div id="foo"></div>

@@ -35,7 +35,7 @@ describe("rule no-dup-attr", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "foo" duplicated (no-dup-attr) at inline:1:15:
+			"error: Attribute "foo" duplicated (no-dup-attr)
 			> 1 |  <p foo="bar" foo="baz"></p></p>
 			    |               ^^^
 			Selector: p"
@@ -48,7 +48,7 @@ describe("rule no-dup-attr", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "foo" duplicated (no-dup-attr) at inline:1:15:
+			"error: Attribute "foo" duplicated (no-dup-attr)
 			> 1 |  <p foo="bar" FOO="baz"></p></p>
 			    |               ^^^
 			Selector: p"
@@ -63,7 +63,7 @@ describe("rule no-dup-attr", () => {
 		});
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "dynamic-class" duplicated (no-dup-attr) at inline:1:29:
+			"error: Attribute "dynamic-class" duplicated (no-dup-attr)
 			> 1 |  <input dynamic-class="foo" dynamic-class="bar" />
 			    |                             ^^^^^^^^^^^^^
 			Selector: input"
@@ -74,7 +74,7 @@ describe("rule no-dup-attr", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-attr.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "id" duplicated (no-dup-attr) at test-files/rules/no-dup-attr.html:2:26:
+			"error: Attribute "id" duplicated (no-dup-attr)
 			  1 | <div>
 			> 2 | 	<p id="foo" class="bar" id="baz"></p>
 			    | 	                        ^^

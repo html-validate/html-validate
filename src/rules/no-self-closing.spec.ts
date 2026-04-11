@@ -53,7 +53,7 @@ describe("rule no-self-closing", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <div> must not be self-closed (no-self-closing) at inline:1:7:
+				"error: <div> must not be self-closed (no-self-closing)
 				> 1 |  <div />
 				    |       ^^
 				Selector: div"
@@ -65,7 +65,7 @@ describe("rule no-self-closing", () => {
 			const markup = /* HTML */ ` <custom-element /> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: <custom-element> must not be self-closed (no-self-closing) at inline:1:18:
+				"error: <custom-element> must not be self-closed (no-self-closing)
 				> 1 |  <custom-element />
 				    |                  ^^
 				Selector: custom-element"
@@ -86,7 +86,7 @@ describe("rule no-self-closing", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <svg> must not be self-closed (no-self-closing) at inline:1:7:
+				"error: <svg> must not be self-closed (no-self-closing)
 				> 1 |  <svg />
 				    |       ^^
 				Selector: svg"
@@ -107,7 +107,7 @@ describe("rule no-self-closing", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <xi:include> must not be self-closed (no-self-closing) at inline:1:14:
+				"error: <xi:include> must not be self-closed (no-self-closing)
 				> 1 |  <xi:include />
 				    |              ^^
 				Selector: xi:include"

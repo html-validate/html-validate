@@ -24,7 +24,7 @@ describe("rule no-unknown-elements", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Unknown element <my-element> (no-unknown-elements) at inline:1:2:
+			"error: Unknown element <my-element> (no-unknown-elements)
 			> 1 |  <my-element></my-element>
 			    |  ^^^^^^^^^^^
 			Selector: my-element"
@@ -61,7 +61,7 @@ describe("rule no-unknown-elements", () => {
 		const invalid = await htmlvalidate.validateString("<bar-element></bar-element>");
 		expect(valid).toMatchInlineCodeframe(`""`);
 		expect(invalid).toMatchInlineCodeframe(`
-			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:
+			"error: Unknown element <bar-element> (no-unknown-elements)
 			> 1 | <bar-element></bar-element>
 			    | ^^^^^^^^^^^^
 			Selector: bar-element"
@@ -84,7 +84,7 @@ describe("rule no-unknown-elements", () => {
 		const invalid = await htmlvalidate.validateString("<bar-element></bar-element>");
 		expect(valid).toMatchInlineCodeframe(`""`);
 		expect(invalid).toMatchInlineCodeframe(`
-			"error: Unknown element <bar-element> (no-unknown-elements) at inline:1:1:
+			"error: Unknown element <bar-element> (no-unknown-elements)
 			> 1 | <bar-element></bar-element>
 			    | ^^^^^^^^^^^^
 			Selector: bar-element"

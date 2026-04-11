@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`validator test-files abstract-roles-prohibited.html 1`] = `
-"error: Role "command" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:10:16:
+"error: Role "command" is abstract and must not be used (no-abstract-role)
    8 |     ROLES: https://www.w3.org/TR/wai-aria-1.2/#abstract_roles
    9 |     -->
 > 10 |     <div role="command" id="abstract-role-command">command</div>
@@ -10,7 +10,7 @@ exports[`validator test-files abstract-roles-prohibited.html 1`] = `
   12 |     <div role="input" id="abstract-role-input">input</div>
   13 |     <div role="landmark" id="abstract-role-landmark">landmark</div>
 Selector: #abstract-role-command
-error: Role "composite" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:11:16:
+error: Role "composite" is abstract and must not be used (no-abstract-role)
    9 |     -->
   10 |     <div role="command" id="abstract-role-command">command</div>
 > 11 |     <div role="composite" id="abstract-role-composite">composite</div>
@@ -19,7 +19,7 @@ error: Role "composite" is abstract and must not be used (no-abstract-role) at t
   13 |     <div role="landmark" id="abstract-role-landmark">landmark</div>
   14 |     <div role="range" id="abstract-role-range">range</div>
 Selector: #abstract-role-composite
-error: Role "input" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:12:16:
+error: Role "input" is abstract and must not be used (no-abstract-role)
   10 |     <div role="command" id="abstract-role-command">command</div>
   11 |     <div role="composite" id="abstract-role-composite">composite</div>
 > 12 |     <div role="input" id="abstract-role-input">input</div>
@@ -28,7 +28,7 @@ error: Role "input" is abstract and must not be used (no-abstract-role) at test-
   14 |     <div role="range" id="abstract-role-range">range</div>
   15 |     <div role="roletype" id="abstract-role-roletype">roletype</div>
 Selector: #abstract-role-input
-error: Role "landmark" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:13:16:
+error: Role "landmark" is abstract and must not be used (no-abstract-role)
   11 |     <div role="composite" id="abstract-role-composite">composite</div>
   12 |     <div role="input" id="abstract-role-input">input</div>
 > 13 |     <div role="landmark" id="abstract-role-landmark">landmark</div>
@@ -37,7 +37,7 @@ error: Role "landmark" is abstract and must not be used (no-abstract-role) at te
   15 |     <div role="roletype" id="abstract-role-roletype">roletype</div>
   16 |     <div role="section" id="abstract-role-section">section</div>
 Selector: #abstract-role-landmark
-error: Role "range" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:14:16:
+error: Role "range" is abstract and must not be used (no-abstract-role)
   12 |     <div role="input" id="abstract-role-input">input</div>
   13 |     <div role="landmark" id="abstract-role-landmark">landmark</div>
 > 14 |     <div role="range" id="abstract-role-range">range</div>
@@ -46,7 +46,7 @@ error: Role "range" is abstract and must not be used (no-abstract-role) at test-
   16 |     <div role="section" id="abstract-role-section">section</div>
   17 |     <div role="sectionhead" id="abstract-role-sectionhead">sectionhead</div>
 Selector: #abstract-role-range
-error: Role "roletype" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:15:16:
+error: Role "roletype" is abstract and must not be used (no-abstract-role)
   13 |     <div role="landmark" id="abstract-role-landmark">landmark</div>
   14 |     <div role="range" id="abstract-role-range">range</div>
 > 15 |     <div role="roletype" id="abstract-role-roletype">roletype</div>
@@ -55,7 +55,7 @@ error: Role "roletype" is abstract and must not be used (no-abstract-role) at te
   17 |     <div role="sectionhead" id="abstract-role-sectionhead">sectionhead</div>
   18 |     <div role="select" id="abstract-role-select">select</div>
 Selector: #abstract-role-roletype
-error: Role "section" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:16:16:
+error: Role "section" is abstract and must not be used (no-abstract-role)
   14 |     <div role="range" id="abstract-role-range">range</div>
   15 |     <div role="roletype" id="abstract-role-roletype">roletype</div>
 > 16 |     <div role="section" id="abstract-role-section">section</div>
@@ -64,7 +64,7 @@ error: Role "section" is abstract and must not be used (no-abstract-role) at tes
   18 |     <div role="select" id="abstract-role-select">select</div>
   19 |     <div role="structure" id="abstract-role-structure">structure</div>
 Selector: #abstract-role-section
-error: Role "sectionhead" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:17:16:
+error: Role "sectionhead" is abstract and must not be used (no-abstract-role)
   15 |     <div role="roletype" id="abstract-role-roletype">roletype</div>
   16 |     <div role="section" id="abstract-role-section">section</div>
 > 17 |     <div role="sectionhead" id="abstract-role-sectionhead">sectionhead</div>
@@ -73,7 +73,7 @@ error: Role "sectionhead" is abstract and must not be used (no-abstract-role) at
   19 |     <div role="structure" id="abstract-role-structure">structure</div>
   20 |     <div role="widget" id="abstract-role-widget">widget</div>
 Selector: #abstract-role-sectionhead
-error: Role "select" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:18:16:
+error: Role "select" is abstract and must not be used (no-abstract-role)
   16 |     <div role="section" id="abstract-role-section">section</div>
   17 |     <div role="sectionhead" id="abstract-role-sectionhead">sectionhead</div>
 > 18 |     <div role="select" id="abstract-role-select">select</div>
@@ -82,7 +82,7 @@ error: Role "select" is abstract and must not be used (no-abstract-role) at test
   20 |     <div role="widget" id="abstract-role-widget">widget</div>
   21 |     <div role="window" id="abstract-role-window">window</div>
 Selector: #abstract-role-select
-error: Role "structure" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:19:16:
+error: Role "structure" is abstract and must not be used (no-abstract-role)
   17 |     <div role="sectionhead" id="abstract-role-sectionhead">sectionhead</div>
   18 |     <div role="select" id="abstract-role-select">select</div>
 > 19 |     <div role="structure" id="abstract-role-structure">structure</div>
@@ -91,7 +91,7 @@ error: Role "structure" is abstract and must not be used (no-abstract-role) at t
   21 |     <div role="window" id="abstract-role-window">window</div>
   22 |   </body>
 Selector: #abstract-role-structure
-error: Role "widget" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:20:16:
+error: Role "widget" is abstract and must not be used (no-abstract-role)
   18 |     <div role="select" id="abstract-role-select">select</div>
   19 |     <div role="structure" id="abstract-role-structure">structure</div>
 > 20 |     <div role="widget" id="abstract-role-widget">widget</div>
@@ -100,7 +100,7 @@ error: Role "widget" is abstract and must not be used (no-abstract-role) at test
   22 |   </body>
   23 | </html>
 Selector: #abstract-role-widget
-error: Role "window" is abstract and must not be used (no-abstract-role) at test-files/wai-aria/abstract-roles-prohibited.html:21:16:
+error: Role "window" is abstract and must not be used (no-abstract-role)
   19 |     <div role="structure" id="abstract-role-structure">structure</div>
   20 |     <div role="widget" id="abstract-role-widget">widget</div>
 > 21 |     <div role="window" id="abstract-role-window">window</div>

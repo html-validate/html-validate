@@ -67,7 +67,7 @@ describe("rule no-implicit-button-type", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <button> is missing recommended "type" attribute (no-implicit-button-type) at inline:1:3:
+			"error: <button> is missing recommended "type" attribute (no-implicit-button-type)
 			> 1 |  <button></button>
 			    |   ^^^^^^
 			Selector: button"

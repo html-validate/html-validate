@@ -33,7 +33,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "FOO" should be lowercase (element-case) at inline:1:3:
+				"error: Element "FOO" should be lowercase (element-case)
 				> 1 |  <FOO></FOO>
 				    |   ^^^
 				Selector: foo"
@@ -46,7 +46,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "fOo" should be lowercase (element-case) at inline:1:3:
+				"error: Element "fOo" should be lowercase (element-case)
 				> 1 |  <fOo></fOo>
 				    |   ^^^
 				Selector: foo"
@@ -57,14 +57,14 @@ describe("rule element-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/element-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "DIV" should be lowercase (element-case) at test-files/rules/element-case.html:2:2:
+				"error: Element "DIV" should be lowercase (element-case)
 				  1 | <div></div>
 				> 2 | <DIV></DIV>
 				    |  ^^^
 				  3 | <dIV></dIV>
 				  4 |
 				Selector: div:nth-child(2)
-				error: Element "dIV" should be lowercase (element-case) at test-files/rules/element-case.html:3:2:
+				error: Element "dIV" should be lowercase (element-case)
 				  1 | <div></div>
 				  2 | <DIV></DIV>
 				> 3 | <dIV></dIV>
@@ -89,7 +89,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "foo" should be uppercase (element-case) at inline:1:3:
+				"error: Element "foo" should be uppercase (element-case)
 				> 1 |  <foo></foo>
 				    |   ^^^
 				Selector: foo"
@@ -116,7 +116,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "fOo" should be uppercase (element-case) at inline:1:3:
+				"error: Element "fOo" should be uppercase (element-case)
 				> 1 |  <fOo></fOo>
 				    |   ^^^
 				Selector: foo"
@@ -127,14 +127,14 @@ describe("rule element-case", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("test-files/rules/element-case.html");
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "div" should be uppercase (element-case) at test-files/rules/element-case.html:1:2:
+				"error: Element "div" should be uppercase (element-case)
 				> 1 | <div></div>
 				    |  ^^^
 				  2 | <DIV></DIV>
 				  3 | <dIV></dIV>
 				  4 |
 				Selector: div:nth-child(1)
-				error: Element "dIV" should be uppercase (element-case) at test-files/rules/element-case.html:3:2:
+				error: Element "dIV" should be uppercase (element-case)
 				  1 | <div></div>
 				  2 | <DIV></DIV>
 				> 3 | <dIV></dIV>
@@ -159,7 +159,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "foo-bar" should be PascalCase (element-case) at inline:1:3:
+				"error: Element "foo-bar" should be PascalCase (element-case)
 				> 1 |  <foo-bar></foo-bar>
 				    |   ^^^^^^^
 				Selector: foo-bar"
@@ -188,7 +188,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Element "FooBar" should be camelCase (element-case) at inline:1:3:
+				"error: Element "FooBar" should be camelCase (element-case)
 				> 1 |  <FooBar></FooBar>
 				    |   ^^^^^^
 				Selector: foobar"
@@ -214,7 +214,7 @@ describe("rule element-case", () => {
 		expect(await htmlvalidate.validateString("<foo-bar></foo-bar>")).toBeValid();
 		expect(await htmlvalidate.validateString("<FooBar></FooBar>")).toBeValid();
 		expect(await htmlvalidate.validateString("<fooBar></fooBar>")).toMatchInlineCodeframe(`
-			"error: Element "fooBar" should be lowercase or PascalCase (element-case) at inline:1:2:
+			"error: Element "fooBar" should be lowercase or PascalCase (element-case)
 			> 1 | <fooBar></fooBar>
 			    |  ^^^^^^
 			Selector: foobar"
@@ -242,7 +242,7 @@ describe("rule element-case", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Start and end tag must not differ in casing (element-case) at inline:1:12:
+			"error: Start and end tag must not differ in casing (element-case)
 			> 1 |  <foo-Bar></foo-bar>
 			    |            ^^^^^^^^
 			Selector: foo-bar"

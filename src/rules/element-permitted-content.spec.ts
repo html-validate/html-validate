@@ -34,7 +34,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:1:9:
+			"error: <div> element is not permitted as content under <span> (element-permitted-content)
 			> 1 |  <span><div></div></span>
 			    |         ^^^
 			Selector: span > div"
@@ -58,7 +58,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element is not permitted as content under <custom-link> (element-permitted-content) at inline:1:16:
+			"error: <custom-element> element is not permitted as content under <custom-link> (element-permitted-content)
 			> 1 |  <custom-link><custom-element></custom-element></custom-link>
 			    |                ^^^^^^^^^^^^^^
 			Selector: custom-link > custom-element"
@@ -75,7 +75,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content) at inline:3:12:
+			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content)
 			  1 |
 			  2 | 			<a>
 			> 3 | 				<span><button></button></span>
@@ -107,7 +107,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <custom-element> element is not permitted as a descendant of <custom-link> (element-permitted-content) at inline:3:12:
+			"error: <custom-element> element is not permitted as a descendant of <custom-link> (element-permitted-content)
 			  1 |
 			  2 | 			<custom-link>
 			> 3 | 				<span><custom-element></custom-element></span>
@@ -128,7 +128,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content) at inline:3:22:
+			"error: <button> element is not permitted as a descendant of <a> (element-permitted-content)
 			  1 |
 			  2 | 			<a>
 			> 3 | 				<custom-element><button></button></custom-element>
@@ -165,7 +165,7 @@ describe("rule element-permitted-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:4:8:
+				"error: <div> element is not permitted as content under <span> (element-permitted-content)
 				  2 | 				<span>
 				  3 | 					<a>
 				> 4 | 						<div></div>
@@ -201,7 +201,7 @@ describe("rule element-permitted-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <div> element is not permitted as content under <span> (element-permitted-content) at inline:4:8:
+				"error: <div> element is not permitted as content under <span> (element-permitted-content)
 				  2 | 				<span>
 				  3 | 					<transparent-element>
 				> 4 | 						<div></div>
@@ -274,7 +274,7 @@ describe("rule element-permitted-content", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <div> element is not permitted as content under <label> (element-permitted-content) at inline:3:6:
+			"error: <div> element is not permitted as content under <label> (element-permitted-content)
 			  1 |
 			  2 | 			<label>
 			> 3 | 				<div>foobar</div>
@@ -344,7 +344,7 @@ describe("rule element-permitted-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content) at inline:6:9:
+				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content)
 				  4 | 						Some content
 				  5 | 						<span>
 				> 6 | 							<a href="">Other content</a>
@@ -379,7 +379,7 @@ describe("rule element-permitted-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content) at inline:4:8:
+				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content)
 				  2 | 				<a href="">
 				  3 | 					<template>
 				> 4 | 						<a href=""></a>
@@ -414,7 +414,7 @@ describe("rule element-permitted-content", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content) at inline:4:8:
+				"error: <a> element is not permitted as a descendant of <a> (element-permitted-content)
 				  2 | 				<a href="">
 				  3 | 					<template>
 				> 4 | 						<a href=""></a>

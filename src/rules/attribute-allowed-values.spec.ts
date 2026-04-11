@@ -34,7 +34,7 @@ describe("rule attribute-allowed-values", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values) at inline:1:15:
+			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values)
 			> 1 |  <input type="foobar" />
 			    |               ^^^^^^
 			Selector: input"
@@ -47,7 +47,7 @@ describe("rule attribute-allowed-values", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "type" is missing value (attribute-allowed-values) at inline:1:9:
+			"error: Attribute "type" is missing value (attribute-allowed-values)
 			> 1 |  <input type />
 			    |         ^^^^
 			Selector: input"
@@ -60,7 +60,7 @@ describe("rule attribute-allowed-values", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "required" has invalid value "foobar" (attribute-allowed-values) at inline:1:19:
+			"error: Attribute "required" has invalid value "foobar" (attribute-allowed-values)
 			> 1 |  <input required="foobar" />
 			    |                   ^^^^^^
 			Selector: input"
@@ -73,7 +73,7 @@ describe("rule attribute-allowed-values", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "non-empty" has invalid value "" (attribute-allowed-values) at inline:1:16:
+			"error: Attribute "non-empty" has invalid value "" (attribute-allowed-values)
 			> 1 |  <mock-element non-empty=""></mock-element>
 			    |                ^^^^^^^^^
 			Selector: mock-element"
@@ -158,7 +158,7 @@ describe("rule attribute-allowed-values", () => {
 			"test-files/rules/attribute-allowed-values.html",
 		);
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values) at test-files/rules/attribute-allowed-values.html:3:14:
+			"error: Attribute "type" has invalid value "foobar" (attribute-allowed-values)
 			  1 | <input>
 			  2 | <input type="text">
 			> 3 | <input type="foobar">

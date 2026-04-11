@@ -25,7 +25,7 @@ describe("rule no-conditional-comment", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Use of conditional comments are deprecated (no-conditional-comment) at inline:1:2:
+			"error: Use of conditional comments are deprecated (no-conditional-comment)
 			> 1 |  <!--[if foo]-->
 			    |  ^^^^^^^^^^^^^^^
 			Selector: -"
@@ -38,7 +38,7 @@ describe("rule no-conditional-comment", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Use of conditional comments are deprecated (no-conditional-comment) at inline:1:11:
+			"error: Use of conditional comments are deprecated (no-conditional-comment)
 			> 1 |  <!-- foo <![if bar]> baz -->
 			    |           ^^^^^^^^^^^
 			Selector: -"

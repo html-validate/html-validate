@@ -190,7 +190,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element does not have a <label> (input-missing-label) at inline:1:3:
+			"error: <input> element does not have a <label> (input-missing-label)
 			> 1 |  <input />
 			    |   ^^^^^
 			Selector: input"
@@ -206,7 +206,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> has no text (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo"></label>
 			> 3 | 			<input id="foo" />
@@ -222,11 +222,11 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-		"error: <input> element has aria-label but label has no text (input-missing-label) at inline:1:3:
-		> 1 |  <input aria-label="" />
-		    |   ^^^^^
-		Selector: input"
-	`);
+			"error: <input> element has aria-label but label has no text (input-missing-label)
+			> 1 |  <input aria-label="" />
+			    |   ^^^^^
+			Selector: input"
+		`);
 	});
 
 	it("should report when <input> has reference to empty element", async () => {
@@ -238,14 +238,14 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-		"error: <input> element has aria-labelledby but referenced element has no text (input-missing-label) at inline:3:5:
-		  1 |
-		  2 | 			<p id="foo"></p>
-		> 3 | 			<input aria-labelledby="foo" />
-		    | 			 ^^^^^
-		  4 |
-		Selector: input"
-	`);
+			"error: <input> element has aria-labelledby but referenced element has no text (input-missing-label)
+			  1 |
+			  2 | 			<p id="foo"></p>
+			> 3 | 			<input aria-labelledby="foo" />
+			    | 			 ^^^^^
+			  4 |
+			Selector: input"
+		`);
 	});
 
 	it("should report when input is nested inside label with empty aria-label", async () => {
@@ -258,7 +258,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:3:6:
+			"error: <input> element has <label> but <label> has no text (input-missing-label)
 			  1 |
 			  2 | 			<label aria-label="">
 			> 3 | 				<input />
@@ -280,7 +280,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> has no text (input-missing-label) at inline:4:6:
+			"error: <input> element has <label> but <label> has no text (input-missing-label)
 			  2 | 			<p id="foo"></p>
 			  3 | 			<label aria-labelledby="foo">
 			> 4 | 				<input />
@@ -302,7 +302,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <select> element does not have a <label> (input-missing-label) at inline:2:5:
+			"error: <select> element does not have a <label> (input-missing-label)
 			  1 |
 			> 2 | 			<select>
 			    | 			 ^^^^^^
@@ -319,7 +319,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <textarea> element does not have a <label> (input-missing-label) at inline:1:3:
+			"error: <textarea> element does not have a <label> (input-missing-label)
 			> 1 |  <textarea>lorem ipsum</textarea>
 			    |   ^^^^^^^^
 			Selector: textarea"
@@ -335,7 +335,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo" hidden> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
@@ -354,7 +354,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo" inert> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
@@ -373,7 +373,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo" aria-hidden="true"> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
@@ -392,7 +392,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo" style="display: none"> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
@@ -411,7 +411,7 @@ describe("rule input-missing-label", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element has <label> but <label> element is hidden (input-missing-label) at inline:3:5:
+			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
 			  2 | 			<label for="foo" style="visibility: hidden"> lorem ipsum </label>
 			> 3 | 			<input id="foo" />
@@ -425,7 +425,7 @@ describe("rule input-missing-label", () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/input-missing-label.html");
 		expect(report).toMatchInlineCodeframe(`
-			"error: <input> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:17:3:
+			"error: <input> element does not have a <label> (input-missing-label)
 			  15 | <!-- missing labels -->
 			  16 | <div class="form-group">
 			> 17 | 	<input />
@@ -434,7 +434,7 @@ describe("rule input-missing-label", () => {
 			  19 | 	<select>
 			  20 | 		<option>lorem ipsum</option>
 			Selector: div:nth-child(3) > input
-			error: <select> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:19:3:
+			error: <select> element does not have a <label> (input-missing-label)
 			  17 | 	<input />
 			  18 |
 			> 19 | 	<select>
@@ -443,7 +443,7 @@ describe("rule input-missing-label", () => {
 			  21 | 	</select>
 			  22 |
 			Selector: div:nth-child(3) > select
-			error: <textarea> element does not have a <label> (input-missing-label) at test-files/rules/input-missing-label.html:23:3:
+			error: <textarea> element does not have a <label> (input-missing-label)
 			  21 | 	</select>
 			  22 |
 			> 23 | 	<textarea>foobar</textarea>

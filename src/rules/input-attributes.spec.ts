@@ -33,7 +33,7 @@ describe("rule input-attributes", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "step" is not allowed on <input type="text"> (input-attributes) at inline:1:21:
+			"error: Attribute "step" is not allowed on <input type="text"> (input-attributes)
 			> 1 |  <input type="text" step="5" />
 			    |                     ^^^^
 			Selector: input"

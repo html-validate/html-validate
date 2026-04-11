@@ -97,7 +97,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:1:14:
+			"error: aria-hidden cannot be used on focusable elements (hidden-focusable)
 			> 1 |  <a href="#" aria-hidden="true"></a>
 			    |              ^^^^^^^^^^^
 			Selector: a"
@@ -110,7 +110,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:1:18:
+			"error: aria-hidden cannot be used on focusable elements (hidden-focusable)
 			> 1 |  <p tabindex="0" aria-hidden="true"></p>
 			    |                  ^^^^^^^^^^^
 			Selector: p"
@@ -123,7 +123,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden by ancestor element) (hidden-focusable) at inline:1:27:
+			"error: aria-hidden cannot be used on focusable elements (hidden by ancestor element) (hidden-focusable)
 			> 1 |  <div aria-hidden="true"><a href="#"></a></div>
 			    |                           ^
 			Selector: div > a"
@@ -136,7 +136,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden by ancestor element) (hidden-focusable) at inline:1:27:
+			"error: aria-hidden cannot be used on focusable elements (hidden by ancestor element) (hidden-focusable)
 			> 1 |  <div aria-hidden="true"><p tabindex="0"></p></div>
 			    |                           ^
 			Selector: div > p"
@@ -149,7 +149,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:1:20:
+			"error: aria-hidden cannot be used on focusable elements (hidden-focusable)
 			> 1 |  <any tabindex="0" aria-hidden="true"></any>
 			    |                    ^^^^^^^^^^^
 			Selector: any"
@@ -168,7 +168,7 @@ describe("rule hidden-focusable", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: aria-hidden cannot be used on focusable elements (hidden-focusable) at inline:6:20:
+			"error: aria-hidden cannot be used on focusable elements (hidden-focusable)
 			  4 |
 			  5 | 			<!-- should yield error: interactive -->
 			> 6 | 			<video controls aria-hidden="true"></video>

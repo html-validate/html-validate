@@ -80,7 +80,7 @@ describe("rule deprecated-rule", () => {
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Usage of deprecated rule "custom/deprecated" (deprecated-rule) at inline:1:1:
+			"error: Usage of deprecated rule "custom/deprecated" (deprecated-rule)
 			> 1 |  <div></div>
 			    | ^
 			Selector: -"
