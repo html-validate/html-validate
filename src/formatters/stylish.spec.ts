@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it } from "@jest/globals";
+import type * as util from "node:util";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import {
 	edgeCases,
 	emptyMessages,
@@ -8,6 +9,16 @@ import {
 	regular,
 } from "./__fixtures__";
 import { type stylish as fn } from "./stylish";
+
+jest.mock("node:util", (): typeof util => {
+	const actual = jest.requireActual<typeof util>("node:util");
+	return {
+		...actual,
+		styleText(format, text, options): string {
+			return actual.styleText(format, text, { ...options, validateStream: false });
+		},
+	};
+});
 
 let stylish: typeof fn;
 
