@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.12.2 (2026-04-14)
+
+### Bug Fixes
+
+- treat `<html>`, `<head>`, and `<body>` end tags as optional ([ababe68](https://gitlab.com/html-validate/html-validate/commit/ababe684fcb02c242ce147aa42731c70de08168a))
+
 ## 10.12.1 (2026-04-11)
 
 ### Bug Fixes
