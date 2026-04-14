@@ -76,6 +76,47 @@ describe("rule close-order", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for element with optional end tag", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting </html>, </head>, and </body> */
+		const markup = `
+			<html>
+				<head>
+					<title>test</title>
+				<body>
+					<p>content</p>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when `</html>` end tag is omitted", async () => {
+		expect.assertions(1);
+		const markup = `
+			<html>
+				<head>
+					<title>test</title>
+				</head>
+				<body>
+					<p>content</p>
+				</body>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when `</body>` end tag is omitted", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<html>
+				<head><title>test</title></head>
+				<body><p>content</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when element is missing opening tag (root)", async () => {
 		expect.assertions(2);
 		const markup = `

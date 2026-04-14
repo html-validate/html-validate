@@ -874,6 +874,7 @@ export interface MetaData {
     labelable?: boolean | MetaLabelableCallback;
     // (undocumented)
     metadata?: boolean | MetaCategoryCallback;
+    optionalEnd?: boolean;
     // (undocumented)
     permittedContent?: Permitted;
     // (undocumented)

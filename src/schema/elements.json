@@ -90,6 +90,12 @@
           "items": { "type": "string" }
         },
 
+        "optionalEnd": {
+          "title": "Mark element as having an optional end tag",
+          "description": "Elements whose end tag may be omitted per the HTML spec. Such an element is treated as implicitly closed at end-of-document and when a parent’s explicit end tag is encountered while it is still open.",
+          "type": "boolean"
+        },
+
         "implicitRole": {
           "title": "Implicit ARIA role for this element",
           "description": "Some elements have implicit ARIA roles.",

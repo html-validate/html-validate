@@ -28,6 +28,19 @@ describe("rule element-permitted-content", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when `<body>` follows `<head>` without `</head>`", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting </head> — <body> implicitly closes <head> */
+		const markup = /* HTML */ `
+			<html>
+				<head><title>test</title>
+				<body><p>content</p></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when @flow is child of @phrasing", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <span><div></div></span> `;

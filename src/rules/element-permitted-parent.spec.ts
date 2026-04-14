@@ -24,6 +24,19 @@ describe("rule element-permitted-parent", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when `<body>` follows `<head>` without `</head>`", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `</head>`—`<body>` implicitly closes `<head>`, making `<html>` its parent */
+		const markup = /* HTML */ `
+			<html>
+				<head><title>test</title>
+				<body><p>content</p></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error for root element", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <base /> `;
