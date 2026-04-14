@@ -36,6 +36,20 @@ describe("rule element-required-content", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when `</head>` end tag is omitted before `<body>`", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `</head>`—`<body>` implicitly closes <head> */
+		const markup = /* HTML */ `
+			<html>
+				<head>
+					<title></title>
+				<body></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should handle unknown elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <missing-meta></missing-meta> `;

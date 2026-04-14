@@ -151,21 +151,22 @@ export class Parser {
 	 * stack when is allowed to omit.
 	 */
 	private closeOptional(token: TagOpenToken): boolean {
+		const active = this.dom.getActive();
+
 		/* if the element doesn't have metadata it cannot have optional end
 		 * tags. Period. */
-		const active = this.dom.getActive();
-		if (!active.meta?.implicitClosed) {
+		if (!active.meta) {
 			return false;
 		}
 
 		const tagName = token.data[2];
 		const open = !token.data[1];
-		const meta = active.meta.implicitClosed;
+		const implicitClosed = active.meta.implicitClosed;
 
 		if (open) {
 			/* a new element is opened, check if the new element should close the
 			 * previous */
-			return meta.includes(tagName);
+			return Boolean(implicitClosed?.includes(tagName));
 		} else {
 			/* if we are explicitly closing the active element, ignore implicit */
 			if (active.is(tagName)) {
@@ -173,8 +174,12 @@ export class Parser {
 			}
 
 			/* the parent element is closed, check if the active element would be
-			 * implicitly closed when parent is. */
-			return Boolean(active.parent && active.parent.is(tagName) && meta.includes(active.tagName));
+			 * implicitly closed when parent is; this covers two cases:
+			 * 1. `implicitClosed` lists the element’s own `tagName` (e.g. `<li>` inside `<ul>`)
+			 * 2. `optionalEnd` is set, meaning the end tag may always be omitted */
+			const canOmitEnd =
+				Boolean(implicitClosed?.includes(active.tagName)) || Boolean(active.meta.optionalEnd);
+			return Boolean(active.parent && active.parent.is(tagName) && canOmitEnd);
 		}
 	}
 
@@ -817,7 +822,7 @@ export class Parser {
 		const documentElement = this.dom.root;
 		let active = this.dom.getActive();
 		while (!active.isRootElement()) {
-			if (active.meta?.implicitClosed) {
+			if (active.meta?.implicitClosed || active.meta?.optionalEnd) {
 				active.closed = NodeClosed.ImplicitClosed;
 				this.closeElement(source, documentElement, active, location);
 			} else {

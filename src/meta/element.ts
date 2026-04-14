@@ -232,6 +232,14 @@ export interface MetaData {
 	void?: boolean;
 	transparent?: boolean | string[];
 	implicitClosed?: string[];
+	/**
+	 * Set to `true` if this element’s end tag is optional per the HTML spec.
+	 * Such an element is treated as implicitly closed in two situations:
+	 * - When the document ends with this element still open (EOF).
+	 * - When a parent’s explicit end tag is encountered while this element is
+	 *   still open (e.g. `</html>` implicitly closing an open `<body>`).
+	 */
+	optionalEnd?: boolean;
 	scriptSupporting?: boolean;
 	/** Mark element as able to receive focus (without explicit `tabindex`) */
 	focusable?: boolean | MetaFocusableCallback;

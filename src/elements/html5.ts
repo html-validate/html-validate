@@ -576,6 +576,7 @@ export default {
 	},
 
 	body: {
+		optionalEnd: true,
 		permittedContent: ["@flow"],
 		permittedParent: ["html"],
 		attributes: {
@@ -1186,6 +1187,8 @@ export default {
 	},
 
 	head: {
+		implicitClosed: ["body"],
+		optionalEnd: true,
 		permittedContent: ["base?", "title?", "@meta"],
 		permittedParent: ["html"],
 		requiredContent: ["title"],
@@ -1258,6 +1261,7 @@ export default {
 	},
 
 	html: {
+		optionalEnd: true,
 		permittedContent: ["head?", "body?"],
 		permittedOrder: ["head", "body"],
 		requiredContent: ["head", "body"],
