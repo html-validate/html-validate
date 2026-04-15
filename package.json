@@ -214,7 +214,7 @@
   },
   "dependencies": {
     "@html-validate/stylish": "^5.2.0",
-    "@sidvind/better-ajv-errors": "4.0.1",
+    "@sidvind/better-ajv-errors": "5.0.0",
     "ajv": "^8.0.0",
     "deepmerge": "4.3.1",
     "glob": "^13.0.0",
