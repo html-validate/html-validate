@@ -14696,8 +14696,8 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "tagName": "<link>",
         },
         "line": 60,
-        "message": "<link> requires "imagesizes" attribute when "imagesrcset" attribute is set",
-        "offset": 2209,
+        "message": "<link> requires "imagesizes" attribute when "imagesrcset" uses width descriptors",
+        "offset": 2221,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
         "selector": "html > head > link:nth-child(30)",
@@ -14713,7 +14713,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 63,
         "message": ""imagesrcset" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
-        "offset": 2340,
+        "offset": 2378,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(31)",
@@ -14729,7 +14729,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 63,
         "message": ""imagesizes" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
-        "offset": 2355,
+        "offset": 2393,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(31)",
@@ -14745,7 +14745,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 64,
         "message": ""imagesrcset" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
-        "offset": 2404,
+        "offset": 2442,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(32)",
@@ -14761,7 +14761,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 64,
         "message": ""imagesizes" attribute cannot be used on <link> in this context: "rel" attribute must be "preload"",
-        "offset": 2419,
+        "offset": 2457,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(32)",
@@ -14777,7 +14777,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 65,
         "message": ""imagesrcset" attribute cannot be used on <link> in this context: "as" attribute must be "image"",
-        "offset": 2467,
+        "offset": 2505,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(33)",
@@ -14793,7 +14793,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 65,
         "message": ""imagesizes" attribute cannot be used on <link> in this context: "as" attribute must be "image"",
-        "offset": 2482,
+        "offset": 2520,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "html > head > link:nth-child(33)",
@@ -14809,7 +14809,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 70,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2593,
+        "offset": 2631,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(1)",
@@ -14825,7 +14825,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         },
         "line": 71,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2616,
+        "offset": 2654,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(2)",
@@ -14891,8 +14891,8 @@ exports[`HTML elements <link> invalid markup 1`] = `
 		<!-- should handle disallowed keywords in a list of many -->
 		<link href="my-url" rel="alternate external canonical">
 
-		<!-- should require imagesizes when imagesrcset is present -->
-		<link rel="preload" as="image" imagesrcset="">
+		<!-- should require imagesizes when imagesrcset uses width descriptors -->
+		<link rel="preload" as="image" imagesrcset="foo.png 400w, bar.png 800w">
 
 		<!-- imagesrcset and imagesizes requires rel="preload" and as="image" -->
 		<link imagesrcset="" imagesizes="">

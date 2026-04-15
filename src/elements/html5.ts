@@ -1,6 +1,7 @@
 import { type MetaDataTable } from "../meta";
 import { metadataHelper } from "../meta/helper";
 import { type HtmlElementLike } from "../meta/html-element-like";
+import { parseImageCandidateString } from "../utils/parse-image-candidate-string";
 
 const {
 	allowedIfAttributeIsPresent,
@@ -41,6 +42,10 @@ function isInsideLandmark(node: HtmlElementLike): boolean {
 		'[role="region"]',
 	];
 	return Boolean(node.closest(selectors.join(",")));
+}
+
+function hasWidthDescriptor(srcset: string): boolean {
+	return parseImageCandidateString(srcset).some((it) => it.descriptor === "width");
 }
 
 function linkBodyOk(node: HtmlElementLike): boolean {
@@ -1816,11 +1821,13 @@ export default {
 					return null;
 				},
 				required(node) {
-					/* "If the imagesrcset attribute is present [..], the imagesizes
+					/* "If the imagesrcset attribute is present and has any image
+					 * candidate strings using a width descriptor, the imagesizes
 					 * attribute must also be present"
-					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
-					if (node.hasAttribute("imagesrcset")) {
-						return `{{ tagName }} requires "{{ attr }}" attribute when "imagesrcset" attribute is set`;
+					 * 2026-04-15- https://html.spec.whatwg.org/multipage/semantics.html */
+					const imagesrcset = node.getAttribute("imagesrcset");
+					if (typeof imagesrcset === "string" && hasWidthDescriptor(imagesrcset)) {
+						return `{{ tagName }} requires "{{ attr }}" attribute when "imagesrcset" uses width descriptors`;
 					}
 					return false;
 				},
