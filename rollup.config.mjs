@@ -150,7 +150,7 @@ function manualChunks(id) {
 
 	if (rel.startsWith("utils")) {
 		const parsed = path.parse(rel);
-		const split = ["natural-join"];
+		const split = ["natural-join", "parse-image-candidate-string"];
 		if (split.includes(parsed.name)) {
 			return `utils/${parsed.name}`;
 		} else {
