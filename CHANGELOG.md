@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 10.13.0 (2026-04-15)
+
+### Features
+
+- **deps:** update dependency @sidvind/better-ajv-errors to v5 ([f1cea88](https://gitlab.com/html-validate/html-validate/commit/f1cea885f1fe399f1eb3d4b5a4aac1987391718b))
+
+### Bug Fixes
+
+- **html5:** `imagesizes` is only required if `imagesrcset` contains width descriptors ([6805381](https://gitlab.com/html-validate/html-validate/commit/6805381a1a51ce4bda9994df1f4a5332fcfd5919)), closes [#346](https://gitlab.com/html-validate/html-validate/issues/346)
+
 ## 10.12.2 (2026-04-14)
 
 ### Bug Fixes
