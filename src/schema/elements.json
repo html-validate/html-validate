@@ -85,9 +85,33 @@
 
         "implicitClosed": {
           "title": "List of elements which implicitly closes this element",
-          "description": "Some elements are automatically closed when another start tag occurs",
+          "description": "Some elements are automatically closed when another start tag occurs. Entries may be explicit tag names or @category strings (e.g. \"@flow\").",
           "type": "array",
           "items": { "type": "string" }
+        },
+
+        "implicitOpen": {
+          "title": "Implicit-open rules for child elements",
+          "description": "Describes intermediary elements (e.g. <head> or <body>) that should be implicitly opened when a child of a given category or tag is inserted directly under this element without a matching container being present.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["for", "open"],
+            "additionalProperties": false,
+            "properties": {
+              "for": {
+                "title": "Selector list",
+                "description": "Tag names or @category strings (e.g. \"@flow\") that trigger the implicit open.",
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "open": {
+                "title": "Element to open",
+                "description": "Tag name of the element to implicitly open.",
+                "type": "string"
+              }
+            }
+          }
         },
 
         "optionalEnd": {

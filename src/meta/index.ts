@@ -6,6 +6,7 @@ export {
 	type DeprecatedElement,
 	type ElementTable,
 	type FormAssociated,
+	type ImplicitOpenEntry,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
 	type MetaAttributeRequiredCallback,

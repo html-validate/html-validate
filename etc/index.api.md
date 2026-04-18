@@ -718,6 +718,12 @@ export class HtmlValidate {
     validateStringSync(str: string, filename: string, options: ConfigData, hooks: SourceHooks): Report_2;
 }
 
+// @public
+export interface ImplicitOpenEntry {
+    for: string[];
+    open: string;
+}
+
 // @public (undocumented)
 export interface IncludeExcludeOptions {
     // (undocumented)
@@ -864,6 +870,7 @@ export interface MetaData {
     heading?: boolean | MetaCategoryCallback;
     // (undocumented)
     implicitClosed?: string[];
+    implicitOpen?: ImplicitOpenEntry[];
     // @deprecated (undocumented)
     implicitRole?: MetaImplicitRoleCallback;
     // (undocumented)

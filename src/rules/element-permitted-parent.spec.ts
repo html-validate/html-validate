@@ -37,6 +37,34 @@ describe("rule element-permitted-parent", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when `<head>` start tag is omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `<head>`—metadata elements implicitly open it */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<body>
+					<p>content</p>
+				</body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when both `<head>` and `<body>` start tags are omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting both `<head>` and `<body>` start tags */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<p>content</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should not report error for root element", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <base /> `;

@@ -117,6 +117,34 @@ describe("rule close-order", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when `<head>` start tag is omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `<head>`—it is implicitly opened for metadata content */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<body>
+					<p>content</p>
+				</body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when both `<head>` and `<body>` start tags are omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting both start tags entirely */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<p>content</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error when element is missing opening tag (root)", async () => {
 		expect.assertions(2);
 		const markup = `

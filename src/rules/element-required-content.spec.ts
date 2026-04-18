@@ -50,6 +50,32 @@ describe("rule element-required-content", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error when `<head>` start tag is omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `<head>`—it is implicitly opened for metadata content */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<body></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when both `<head>` and `<body>` start tags are omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting both start tags */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<p>content</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should handle unknown elements", async () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <missing-meta></missing-meta> `;

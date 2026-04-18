@@ -1600,6 +1600,85 @@ describe("parser", () => {
 		});
 	});
 
+	describe("should handle optional start tags", () => {
+		it("should implicitly open <head> when metadata content appears directly under <html>", () => {
+			expect.assertions(12);
+			/* no lang attribute to keep event count predictable */
+			parser.parseHtml(`<html><title>test</title></html>`);
+
+			expect(events.shift()).toEqual({ event: "tag:start", target: "html" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "html" });
+			/* implicit <head> opened before <title> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "head" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "head" });
+			/* <title> under implicit <head> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "title" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "title" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "title", previous: "title" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "title" });
+			/* implicit <head> closed when </html> is encountered */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "head" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "head" });
+			/* <html> closed */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "html" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "html" });
+		});
+
+		it("should implicitly open <body> when flow-only content appears directly under <html>", () => {
+			expect.assertions(12);
+			parser.parseHtml(`<html><p>content</p></html>`);
+
+			expect(events.shift()).toEqual({ event: "tag:start", target: "html" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "html" });
+			/* implicit <body> opened before <p> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "body" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "body" });
+			/* <p> under implicit <body> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "p", previous: "p" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "p" });
+			/* implicit <body> closed when </html> is encountered */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "body" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "body" });
+			/* <html> closed */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "html" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "html" });
+		});
+
+		it("should implicitly open <head> then close it and open <body> when flow-only content follows metadata", () => {
+			expect.assertions(20);
+			parser.parseHtml(`<html><title>test</title><p>content</p></html>`);
+
+			expect(events.shift()).toEqual({ event: "tag:start", target: "html" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "html" });
+			/* implicit <head> opened before <title> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "head" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "head" });
+			expect(events.shift()).toEqual({ event: "tag:start", target: "title" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "title" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "title", previous: "title" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "title" });
+			/* <p> triggers implicit close of <head> */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "p", previous: "head" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "head" });
+			/* implicit <body> opened before <p> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "body" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "body" });
+			/* <p> under implicit <body> */
+			expect(events.shift()).toEqual({ event: "tag:start", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:ready", target: "p" });
+			expect(events.shift()).toEqual({ event: "tag:end", target: "p", previous: "p" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "p" });
+			/* implicit <body> closed when </html> is encountered */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "body" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "body" });
+			/* <html> closed */
+			expect(events.shift()).toEqual({ event: "tag:end", target: "html", previous: "html" });
+			expect(events.shift()).toEqual({ event: "element:ready", target: "html" });
+		});
+	});
+
 	describe("dom:ready", () => {
 		let callback: EventCallback;
 		let document: DOMTree;

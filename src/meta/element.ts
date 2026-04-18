@@ -211,6 +211,25 @@ export interface FormAssociated {
 }
 
 /**
+ * Describes a single implicit-open rule for a parent element.
+ *
+ * When a child element matching one of the `for` selectors would be inserted
+ * directly under the parent but is not permitted there, the element named by
+ * `open` is implicitly opened first, making it the new insertion point.
+ *
+ * Selectors may be explicit tag names (e.g., `title`) or content-category
+ * shorthand strings prefixed with `@` (e.g., `@meta`, `@flow`).
+ *
+ * @public
+ */
+export interface ImplicitOpenEntry {
+	/** Tags or `@category` selectors that trigger the implicit open. */
+	for: string[];
+	/** Tag name of the element to implicitly open. */
+	open: string;
+}
+
+/**
  * @public
  */
 export interface MetaData {
@@ -240,6 +259,17 @@ export interface MetaData {
 	 *   still open (e.g. `</html>` implicitly closing an open `<body>`).
 	 */
 	optionalEnd?: boolean;
+	/**
+	 * Describes elements that should be implicitly opened when a child element
+	 * that would otherwise be inserted directly under this element matches one of
+	 * the given selectors but is not permitted here.
+	 *
+	 * This handles the HTML5 optional start-tag algorithm for `<head>` and
+	 * `<body>`: when a metadata element arrives directly under `<html>`, the
+	 * parser implicitly opens `<head>`; when a flow element arrives, it implicitly
+	 * opens `<body>` (first closing any open `<head>`).
+	 */
+	implicitOpen?: ImplicitOpenEntry[];
 	scriptSupporting?: boolean;
 	/** Mark element as able to receive focus (without explicit `tabindex`) */
 	focusable?: boolean | MetaFocusableCallback;
