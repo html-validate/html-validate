@@ -3893,11 +3893,11 @@ exports[`HTML elements <embed> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attr": "src",
+          "attr": "title",
           "tagName": "<embed>",
         },
         "line": 5,
-        "message": "<embed> is missing required "src" attribute",
+        "message": "<embed> is missing required "title" attribute",
         "offset": 136,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
@@ -3908,11 +3908,11 @@ exports[`HTML elements <embed> invalid markup 1`] = `
       {
         "column": 2,
         "context": {
-          "attr": "title",
+          "attr": "src",
           "tagName": "<embed>",
         },
         "line": 5,
-        "message": "<embed> is missing required "title" attribute",
+        "message": "<embed> is missing required "src" attribute",
         "offset": 136,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
@@ -20449,7 +20449,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `[]`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 [
   {
-    "errorCount": 16,
+    "errorCount": 28,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": [
       {
@@ -20769,7 +20769,278 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "offset": 524,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "div",
+        "selector": "div:nth-child(14)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 20,
+        "context": {
+          "allowed": {
+            "enum": [
+              "off",
+              "none",
+              "on",
+              "sentences",
+              "words",
+              "characters",
+            ],
+          },
+          "attribute": "autocapitalize",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 29,
+        "message": "Attribute "autocapitalize" has invalid value "invalid"",
+        "offset": 598,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(15)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              "on",
+              "off",
+            ],
+          },
+          "attribute": "autocorrect",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 32,
+        "message": "Attribute "autocorrect" has invalid value "invalid"",
+        "offset": 664,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(16)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "boolean": true,
+          },
+          "attribute": "autofocus",
+          "element": "p",
+          "value": "foobar",
+        },
+        "line": 35,
+        "message": "Attribute "autofocus" has invalid value "foobar"",
+        "offset": 746,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(17)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 18,
+        "context": {
+          "allowed": {
+            "enum": [
+              "enter",
+              "done",
+              "go",
+              "next",
+              "previous",
+              "search",
+              "send",
+            ],
+          },
+          "attribute": "enterkeyhint",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 38,
+        "message": "Attribute "enterkeyhint" has invalid value "invalid"",
+        "offset": 813,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(18)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[0-8\\]\\$/,
+            ],
+          },
+          "attribute": "headingoffset",
+          "element": "p",
+          "value": "9",
+        },
+        "line": 41,
+        "message": "Attribute "headingoffset" has invalid value "9"",
+        "offset": 897,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(19)",
+        "severity": 2,
+        "size": 1,
+      },
+      {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[0-8\\]\\$/,
+            ],
+          },
+          "attribute": "headingoffset",
+          "element": "p",
+          "value": "-1",
+        },
+        "line": 42,
+        "message": "Attribute "headingoffset" has invalid value "-1"",
+        "offset": 923,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(20)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\[0-8\\]\\$/,
+            ],
+          },
+          "attribute": "headingoffset",
+          "element": "p",
+          "value": "foobar",
+        },
+        "line": 43,
+        "message": "Attribute "headingoffset" has invalid value "foobar"",
+        "offset": 950,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(21)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 18,
+        "context": {
+          "allowed": {
+            "boolean": true,
+          },
+          "attribute": "headingreset",
+          "element": "p",
+          "value": "foobar",
+        },
+        "line": 46,
+        "message": "Attribute "headingreset" has invalid value "foobar"",
+        "offset": 1037,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(22)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              "none",
+              "text",
+              "decimal",
+              "numeric",
+              "tel",
+              "search",
+              "email",
+              "url",
+            ],
+          },
+          "attribute": "inputmode",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 49,
+        "message": "Attribute "inputmode" has invalid value "invalid"",
+        "offset": 1098,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(23)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              "auto",
+              "hint",
+              "manual",
+            ],
+          },
+          "attribute": "popover",
+          "element": "div",
+          "value": "invalid",
+        },
+        "line": 52,
+        "message": "Attribute "popover" has invalid value "invalid"",
+        "offset": 1158,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "div:nth-child(24)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              "yes",
+              "no",
+            ],
+          },
+          "attribute": "translate",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 55,
+        "message": "Attribute "translate" has invalid value "invalid"",
+        "offset": 1222,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(25)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 24,
+        "context": {
+          "allowed": {
+            "enum": [
+              "true",
+              "false",
+            ],
+          },
+          "attribute": "writingsuggestions",
+          "element": "p",
+          "value": "invalid",
+        },
+        "line": 58,
+        "message": "Attribute "writingsuggestions" has invalid value "invalid"",
+        "offset": 1302,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "p:nth-child(26)",
         "severity": 2,
         "size": 7,
       },
@@ -20800,10 +21071,222 @@ exports[`HTML elements global attributes invalid markup 1`] = `
 
 <!-- invalid value -->
 <div spellcheck="invalid"></div>
+
+<!-- invalid autocapitalize value -->
+<p autocapitalize="invalid"></p>
+
+<!-- invalid autocorrect value -->
+<p autocorrect="invalid"></p>
+
+<!-- invalid autofocus value (boolean attribute) -->
+<p autofocus="foobar"></p>
+
+<!-- invalid enterkeyhint value -->
+<p enterkeyhint="invalid"></p>
+
+<!-- headingoffset out of range or non-numeric -->
+<p headingoffset="9"></p>
+<p headingoffset="-1"></p>
+<p headingoffset="foobar"></p>
+
+<!-- invalid headingreset value (boolean attribute) -->
+<p headingreset="foobar"></p>
+
+<!-- invalid inputmode value -->
+<p inputmode="invalid"></p>
+
+<!-- invalid popover value -->
+<div popover="invalid"></div>
+
+<!-- invalid translate value -->
+<p translate="invalid"></p>
+
+<!-- invalid writingsuggestions value -->
+<p writingsuggestions="invalid"></p>
 ",
     "warningCount": 0,
   },
 ]
 `;
 
-exports[`HTML elements global attributes valid markup 1`] = `[]`;
+exports[`HTML elements global attributes valid markup 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "test-files/elements/global-attributes-valid.html",
+    "messages": [
+      {
+        "column": 4,
+        "context": {
+          "replacement": "button",
+          "role": "button",
+        },
+        "line": 121,
+        "message": "Prefer to use the native <button> element",
+        "offset": 2453,
+        "ruleId": "prefer-native-element",
+        "ruleUrl": "https://html-validate.org/rules/prefer-native-element.html",
+        "selector": "p:nth-child(79)",
+        "severity": 2,
+        "size": 13,
+      },
+      {
+        "column": 4,
+        "line": 128,
+        "message": "Inline style is not allowed",
+        "offset": 2562,
+        "ruleId": "no-inline-style",
+        "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
+        "selector": "p:nth-child(82)",
+        "severity": 2,
+        "size": 19,
+      },
+    ],
+    "source": "<p contenteditable></p>
+<p contenteditable=""></p>
+<p contenteditable="true"></p>
+<p contenteditable="false"></p>
+<p dir="ltr"></p>
+<p dir="rtl"></p>
+<p dir="auto"></p>
+<p draggable="true"></p>
+<p draggable="false"></p>
+<p id="foo"></p>
+<p id="foo_123-bar"></p>
+<p inert></p>
+<p hidden></p>
+<p hidden=""></p>
+<p hidden="hidden"></p>
+<p hidden="until-found"></p>
+<p tabindex="0"></p>
+<p tabindex="12"></p>
+<p tabindex="-1"></p>
+<div spellcheck=""></div>
+<div spellcheck="true"></div>
+<div spellcheck="false"></div>
+
+<!-- accesskey -->
+<p accesskey="a"></p>
+<p accesskey="b c"></p>
+
+<!-- autocapitalize -->
+<p autocapitalize="off"></p>
+<p autocapitalize="none"></p>
+<p autocapitalize="on"></p>
+<p autocapitalize="sentences"></p>
+<p autocapitalize="words"></p>
+<p autocapitalize="characters"></p>
+
+<!-- autocorrect (empty = on) -->
+<p autocorrect></p>
+<p autocorrect=""></p>
+<p autocorrect="on"></p>
+<p autocorrect="off"></p>
+
+<!-- autofocus -->
+<p autofocus></p>
+<p autofocus=""></p>
+
+<!-- class -->
+<p class="foo"></p>
+<p class="foo bar"></p>
+
+<!-- enterkeyhint -->
+<p enterkeyhint="enter"></p>
+<p enterkeyhint="done"></p>
+<p enterkeyhint="go"></p>
+<p enterkeyhint="next"></p>
+<p enterkeyhint="previous"></p>
+<p enterkeyhint="search"></p>
+<p enterkeyhint="send"></p>
+
+<!-- exportparts -->
+<p exportparts="foo"></p>
+<p exportparts="foo, bar"></p>
+
+<!-- headingoffset -->
+<p headingoffset="0"></p>
+<p headingoffset="1"></p>
+<p headingoffset="8"></p>
+
+<!-- headingreset -->
+<p headingreset></p>
+<p headingreset=""></p>
+
+<!-- inputmode -->
+<p inputmode="none"></p>
+<p inputmode="text"></p>
+<p inputmode="decimal"></p>
+<p inputmode="numeric"></p>
+<p inputmode="tel"></p>
+<p inputmode="search"></p>
+<p inputmode="email"></p>
+<p inputmode="url"></p>
+
+<!-- is -->
+<p is="my-element"></p>
+
+<!-- itemid -->
+<div itemscope itemid="https://example.com/item"></div>
+
+<!-- itemprop -->
+<p itemprop="name"></p>
+<p itemprop="name age"></p>
+
+<!-- itemref -->
+<div itemscope itemref="id1 id2"></div>
+
+<!-- itemscope -->
+<div itemscope></div>
+<div itemscope=""></div>
+
+<!-- itemtype -->
+<div itemscope itemtype="https://schema.org/Person"></div>
+
+<!-- lang -->
+<p lang="en"></p>
+<p lang="en-US"></p>
+
+<!-- nonce -->
+<p nonce="abc123"></p>
+
+<!-- part -->
+<p part="foo"></p>
+<p part="foo bar"></p>
+
+<!-- popover (empty = auto) -->
+<div popover></div>
+<div popover=""></div>
+<div popover="auto"></div>
+<div popover="hint"></div>
+<div popover="manual"></div>
+
+<!-- role -->
+<p role="button"></p>
+<p role="presentation none"></p>
+
+<!-- slot -->
+<p slot="my-slot"></p>
+
+<!-- style -->
+<p style="color: red;"></p>
+
+<!-- title -->
+<p title="My tooltip"></p>
+
+<!-- translate (empty = yes) -->
+<p translate></p>
+<p translate=""></p>
+<p translate="yes"></p>
+<p translate="no"></p>
+
+<!-- writingsuggestions (empty = true) -->
+<p writingsuggestions></p>
+<p writingsuggestions=""></p>
+<p writingsuggestions="true"></p>
+<p writingsuggestions="false"></p>
+",
+    "warningCount": 0,
+  },
+]
+`;

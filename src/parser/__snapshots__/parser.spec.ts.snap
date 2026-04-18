@@ -7,9 +7,36 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "naming": [Function],
   },
   "attributes": {
+    "accesskey": {
+      "enum": [
+        /\\./u,
+      ],
+      "list": true,
+    },
     "align": {
       "deprecated": true,
     },
+    "autocapitalize": {
+      "enum": [
+        "off",
+        "none",
+        "on",
+        "sentences",
+        "words",
+        "characters",
+      ],
+    },
+    "autocorrect": {
+      "enum": [
+        "on",
+        "off",
+      ],
+      "omit": true,
+    },
+    "autofocus": {
+      "boolean": true,
+    },
+    "class": {},
     "contenteditable": {
       "enum": [
         "true",
@@ -42,6 +69,26 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
         "false",
       ],
     },
+    "enterkeyhint": {
+      "enum": [
+        "enter",
+        "done",
+        "go",
+        "next",
+        "previous",
+        "search",
+        "send",
+      ],
+    },
+    "exportparts": {},
+    "headingoffset": {
+      "enum": [
+        /\\^\\[0-8\\]\\$/,
+      ],
+    },
+    "headingreset": {
+      "boolean": true,
+    },
     "hidden": {
       "enum": [
         "hidden",
@@ -57,6 +104,39 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "inert": {
       "boolean": true,
     },
+    "inputmode": {
+      "enum": [
+        "none",
+        "text",
+        "decimal",
+        "numeric",
+        "tel",
+        "search",
+        "email",
+        "url",
+      ],
+    },
+    "is": {},
+    "itemid": {},
+    "itemprop": {},
+    "itemref": {},
+    "itemscope": {
+      "boolean": true,
+    },
+    "itemtype": {},
+    "lang": {},
+    "nonce": {},
+    "part": {},
+    "popover": {
+      "enum": [
+        "auto",
+        "hint",
+        "manual",
+      ],
+      "omit": true,
+    },
+    "role": {},
+    "slot": {},
     "spellcheck": {
       "enum": [
         "true",
@@ -64,10 +144,26 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
       ],
       "omit": true,
     },
+    "style": {},
     "tabindex": {
       "enum": [
         /\\^-\\?\\\\d\\+\\$/,
       ],
+    },
+    "title": {},
+    "translate": {
+      "enum": [
+        "yes",
+        "no",
+      ],
+      "omit": true,
+    },
+    "writingsuggestions": {
+      "enum": [
+        "true",
+        "false",
+      ],
+      "omit": true,
     },
   },
   "flow": true,
@@ -90,6 +186,33 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     "naming": [Function],
   },
   "attributes": {
+    "accesskey": {
+      "enum": [
+        /\\./u,
+      ],
+      "list": true,
+    },
+    "autocapitalize": {
+      "enum": [
+        "off",
+        "none",
+        "on",
+        "sentences",
+        "words",
+        "characters",
+      ],
+    },
+    "autocorrect": {
+      "enum": [
+        "on",
+        "off",
+      ],
+      "omit": true,
+    },
+    "autofocus": {
+      "boolean": true,
+    },
+    "class": {},
     "contenteditable": {
       "enum": [
         "true",
@@ -113,6 +236,26 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
         "false",
       ],
     },
+    "enterkeyhint": {
+      "enum": [
+        "enter",
+        "done",
+        "go",
+        "next",
+        "previous",
+        "search",
+        "send",
+      ],
+    },
+    "exportparts": {},
+    "headingoffset": {
+      "enum": [
+        /\\^\\[0-8\\]\\$/,
+      ],
+    },
+    "headingreset": {
+      "boolean": true,
+    },
     "hidden": {
       "enum": [
         "hidden",
@@ -128,6 +271,39 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     "inert": {
       "boolean": true,
     },
+    "inputmode": {
+      "enum": [
+        "none",
+        "text",
+        "decimal",
+        "numeric",
+        "tel",
+        "search",
+        "email",
+        "url",
+      ],
+    },
+    "is": {},
+    "itemid": {},
+    "itemprop": {},
+    "itemref": {},
+    "itemscope": {
+      "boolean": true,
+    },
+    "itemtype": {},
+    "lang": {},
+    "nonce": {},
+    "part": {},
+    "popover": {
+      "enum": [
+        "auto",
+        "hint",
+        "manual",
+      ],
+      "omit": true,
+    },
+    "role": {},
+    "slot": {},
     "spellcheck": {
       "enum": [
         "true",
@@ -135,10 +311,26 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
       ],
       "omit": true,
     },
+    "style": {},
     "tabindex": {
       "enum": [
         /\\^-\\?\\\\d\\+\\$/,
       ],
+    },
+    "title": {},
+    "translate": {
+      "enum": [
+        "yes",
+        "no",
+      ],
+      "omit": true,
+    },
+    "writingsuggestions": {
+      "enum": [
+        "true",
+        "false",
+      ],
+      "omit": true,
     },
   },
   "flow": true,
