@@ -943,7 +943,7 @@ describe("parser", () => {
 				value: "foo bar baz",
 				quote: '"',
 				target: "div",
-				meta: null,
+				meta: {},
 				location: expect.objectContaining({
 					line: 1,
 					column: 6,

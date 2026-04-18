@@ -83,6 +83,21 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 export default {
 	"*": {
 		attributes: {
+			accesskey: {
+				enum: [/./u],
+				list: true,
+			},
+			autocapitalize: {
+				enum: ["off", "none", "on", "sentences", "words", "characters"],
+			},
+			autocorrect: {
+				omit: true,
+				enum: ["on", "off"],
+			},
+			autofocus: {
+				boolean: true,
+			},
+			class: {},
 			contenteditable: {
 				omit: true,
 				enum: ["true", "false"],
@@ -96,6 +111,17 @@ export default {
 			draggable: {
 				enum: ["true", "false"],
 			},
+			enterkeyhint: {
+				enum: ["enter", "done", "go", "next", "previous", "search", "send"],
+			},
+			/* css-shadow */
+			exportparts: {},
+			headingoffset: {
+				enum: ["/^[0-8]$/"],
+			},
+			headingreset: {
+				boolean: true,
+			},
 			hidden: {
 				omit: true,
 				enum: ["hidden", "until-found"],
@@ -106,12 +132,49 @@ export default {
 			inert: {
 				boolean: true,
 			},
+			inputmode: {
+				enum: ["none", "text", "decimal", "numeric", "tel", "search", "email", "url"],
+			},
+			is: {},
+			/* microdata */
+			itemid: {},
+			/* microdata */
+			itemprop: {},
+			/* microdata */
+			itemref: {},
+			/* microdata */
+			itemscope: {
+				boolean: true,
+			},
+			/* microdata */
+			itemtype: {},
+			lang: {},
+			nonce: {},
+			/* css-shadow */
+			part: {},
+			popover: {
+				omit: true,
+				enum: ["auto", "hint", "manual"],
+			},
+			/* wai-aria */
+			role: {},
+			slot: {},
 			spellcheck: {
 				omit: true,
 				enum: ["true", "false"],
 			},
+			style: {},
 			tabindex: {
 				enum: ["/-?\\d+/"],
+			},
+			title: {},
+			translate: {
+				omit: true,
+				enum: ["yes", "no"],
+			},
+			writingsuggestions: {
+				omit: true,
+				enum: ["true", "false"],
 			},
 		},
 	},
