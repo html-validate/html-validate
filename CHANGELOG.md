@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.13.1 (2026-04-18)
+
+### Bug Fixes
+
+- **parser:** add support for implicit `<head>` and `<body>` ([e63b1bf](https://gitlab.com/html-validate/html-validate/commit/e63b1bf58341a8cb7774e1309bc42355a23b31c1))
+
 ## 10.13.0 (2026-04-15)
 
 ### Features
