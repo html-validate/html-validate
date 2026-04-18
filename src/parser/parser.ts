@@ -32,6 +32,50 @@ import { type AttributeData } from "./attribute-data";
 import { parseConditionalComment } from "./conditional-comment";
 import { ParserError } from "./parser-error";
 
+/**
+ * Returns `true` if the element described by `meta` statically (i.e.
+ * unconditionally) belongs to the given content category.
+ *
+ * Elements whose category membership depends on runtime attribute values
+ * (function-valued properties) are conservatively treated as not belonging
+ * to the category, since we cannot know at parse time which attributes will
+ * be present.
+ *
+ * In addition to the standard `@category` selectors, the following composite
+ * selectors are supported for use in `implicitClosed`:
+ *
+ * - `@flow-not-meta`: Statically flow content that is not also metadata
+ *   content. Used to determine when `<head>` should implicitly close: a `<p>`
+ *   or `<div>` triggers the close, but `<script>` or `<style>` (which are
+ *   both flow and metadata) do not.
+ */
+function isStaticTrue(value: unknown): boolean {
+	return value === true;
+}
+
+function matchesContentCategory(meta: MetaElement, category: string): boolean {
+	switch (category) {
+		case "@meta":
+			return isStaticTrue(meta.metadata);
+		case "@flow":
+			return isStaticTrue(meta.flow);
+		case "@flow-not-meta":
+			return isStaticTrue(meta.flow) && !isStaticTrue(meta.metadata);
+		case "@sectioning":
+			return isStaticTrue(meta.sectioning);
+		case "@heading":
+			return isStaticTrue(meta.heading);
+		case "@phrasing":
+			return isStaticTrue(meta.phrasing);
+		case "@embedded":
+			return isStaticTrue(meta.embedded);
+		case "@interactive":
+			return isStaticTrue(meta.interactive);
+		default:
+			return false;
+	}
+}
+
 function isAttrValueToken(token?: Token): token is AttrValueToken {
 	return token?.type === TokenType.ATTR_VALUE;
 }
@@ -165,8 +209,17 @@ export class Parser {
 
 		if (open) {
 			/* a new element is opened, check if the new element should close the
-			 * previous */
-			return Boolean(implicitClosed?.includes(tagName));
+			 * previous; entries may be explicit tag names or @category strings */
+			if (!implicitClosed) {
+				return false;
+			}
+			const incomingMeta = this.metaTable.getMetaFor(tagName);
+			return implicitClosed.some((entry) => {
+				if (!entry.startsWith("@")) {
+					return entry === tagName;
+				}
+				return incomingMeta ? matchesContentCategory(incomingMeta, entry) : false;
+			});
 		} else {
 			/* if we are explicitly closing the active element, ignore implicit */
 			if (active.is(tagName)) {
@@ -181,6 +234,47 @@ export class Parser {
 				Boolean(implicitClosed?.includes(active.tagName)) || Boolean(active.meta.optionalEnd);
 			return Boolean(active.parent && active.parent.is(tagName) && canOmitEnd);
 		}
+	}
+
+	/**
+	 * Check whether an intermediary element (e.g. `<head>` or `<body>`) should
+	 * be implicitly opened before the incoming element is inserted under
+	 * `parent`.
+	 *
+	 * If the parent's metadata defines an `implicitOpen` rule that matches the
+	 * incoming element, a new `HtmlElement` for the intermediary is created and
+	 * returned (with `parent` as its parent). The caller is responsible for
+	 * pushing it onto the active stack and firing the relevant events.
+	 *
+	 * Returns `null` when no implicit open is required.
+	 */
+	private peekImplicitOpen(token: TagOpenToken, parent: HtmlElement | null): HtmlElement | null {
+		if (!parent?.meta?.implicitOpen) {
+			return null;
+		}
+
+		const tagName = token.data[2];
+		const incomingMeta = this.metaTable.getMetaFor(tagName);
+
+		for (const entry of parent.meta.implicitOpen) {
+			const matches = entry.for.some((selector) => {
+				if (!selector.startsWith("@")) {
+					return selector === tagName;
+				}
+				return incomingMeta ? matchesContentCategory(incomingMeta, selector) : false;
+			});
+
+			if (matches) {
+				const intermediaryMeta = this.metaTable.getMetaFor(entry.open);
+				return HtmlElement.createElement(entry.open, token.location, {
+					closed: NodeClosed.Open,
+					meta: intermediaryMeta,
+					parent,
+				});
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -243,8 +337,21 @@ export class Parser {
 			this.consumeUntil(tokenStream, TokenType.TAG_CLOSE, startToken.location),
 		);
 		const endToken = tokens.at(-1) as TagCloseToken;
+		const isStartTag = !startToken.data[1];
 		const closeOptional = this.closeOptional(startToken);
-		const parent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
+
+		/* baseParent is the parent as determined by the optional-close logic.
+		 * For start tags we may later replace this with an implicitly opened
+		 * intermediary (e.g. <head> or <body>). */
+		const baseParent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
+
+		/* for start tags, pre-create any intermediary element that should be
+		 * implicitly opened (e.g. <head>/<body> under <html>).  This must happen
+		 * before the actual node is created so that the node's parent is set
+		 * correctly from the start. */
+		const implicitParent = isStartTag ? this.peekImplicitOpen(startToken, baseParent) : null;
+		const parent = implicitParent ?? baseParent;
+
 		const node = HtmlElement.fromTokens(
 			startToken,
 			endToken,
@@ -252,7 +359,6 @@ export class Parser {
 			this.metaTable,
 			this.currentNamespace,
 		);
-		const isStartTag = !startToken.data[1];
 		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
 		const isForeign = node.meta?.foreign;
 
@@ -266,6 +372,20 @@ export class Parser {
 		}
 
 		if (isStartTag) {
+			/* push the implicitly opened intermediary before the actual element;
+			 * use the incoming token's location as a proxy since the implicit
+			 * element has no tag of its own */
+			if (implicitParent) {
+				this.dom.pushActive(implicitParent);
+				this.trigger("tag:start", {
+					target: implicitParent,
+					location: startToken.location,
+				});
+				this.trigger("tag:ready", {
+					target: implicitParent,
+					location: startToken.location,
+				});
+			}
 			this.dom.pushActive(node);
 			this.trigger("tag:start", {
 				target: node,

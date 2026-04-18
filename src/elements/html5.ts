@@ -1192,7 +1192,7 @@ export default {
 	},
 
 	head: {
-		implicitClosed: ["body"],
+		implicitClosed: ["body", "@flow-not-meta"],
 		optionalEnd: true,
 		permittedContent: ["base?", "title?", "@meta"],
 		permittedParent: ["html"],
@@ -1266,6 +1266,10 @@ export default {
 	},
 
 	html: {
+		implicitOpen: [
+			{ for: ["@meta"], open: "head" },
+			{ for: ["@flow-not-meta"], open: "body" },
+		],
 		optionalEnd: true,
 		permittedContent: ["head?", "body?"],
 		permittedOrder: ["head", "body"],

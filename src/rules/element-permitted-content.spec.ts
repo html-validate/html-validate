@@ -30,11 +30,39 @@ describe("rule element-permitted-content", () => {
 
 	it("should not report error when `<body>` follows `<head>` without `</head>`", async () => {
 		expect.assertions(1);
-		/* HTML allows omitting </head> — <body> implicitly closes <head> */
+		/* HTML allows omitting `</head>`—`<body>` implicitly closes `<head>` */
 		const markup = /* HTML */ `
 			<html>
 				<head><title>test</title>
 				<body><p>content</p></body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when `<head>` start tag is omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting `<head>`—metadata elements implicitly open it */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<body>
+					<p>content</p>
+				</body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error when both `<head>` and `<body>` start tags are omitted", async () => {
+		expect.assertions(1);
+		/* HTML allows omitting both `<head>` and `<body>` start tags */
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>test</title>
+				<p>content</p>
 			</html>
 		`;
 		const report = await htmlvalidate.validateString(markup);

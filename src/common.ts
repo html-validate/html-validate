@@ -77,6 +77,7 @@ export {
 	type DeprecatedElement,
 	type FormAssociated,
 	type HtmlElementLike,
+	type ImplicitOpenEntry,
 	type MetaAria,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
