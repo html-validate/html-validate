@@ -264,6 +264,57 @@ describe("configuration smoketest", () => {
 	});
 });
 
+describe("optional start tags", () => {
+	let htmlvalidate: HtmlValidate;
+
+	beforeAll(() => {
+		htmlvalidate = new HtmlValidate({
+			root: true,
+			extends: ["html-validate:standard"],
+		});
+	});
+
+	it("should accept document with both <head> and <body> omitted", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>foo</title>
+				<p>lorem ipsum</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should accept document with <head> omitted", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<html lang="en">
+				<title>foo</title>
+				<body>
+					<p>lorem ipsum</p>
+				</body>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should accept document with <body> omitted", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<html lang="en">
+				<head>
+					<title>foo</title>
+				</head>
+				<p>lorem ipsum</p>
+			</html>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+});
+
 describe("Parser error handling", () => {
 	let htmlvalidate: HtmlValidate;
 
