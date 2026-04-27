@@ -255,6 +255,7 @@ export class MetaTable {
 		/* special handling when removing attributes by setting them to null
 		 * resulting in the deletion flag being set */
 		const filteredAttrs = Object.entries(
+			/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive, we need `{ delete?: ... }` or we cannot try to access/delete it */
 			merged.attributes as Record<string, MetaAttribute & InternalAttributeFlags>,
 		).filter(([, attr]) => {
 			const val = !attr.delete;

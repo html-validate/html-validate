@@ -570,7 +570,7 @@ describe("Meta validator", () => {
 			${/.*/}   | ${""}
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
-			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex as RegExp] } };
+			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
 			const attr = new Attribute("foo", value as string | null, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});

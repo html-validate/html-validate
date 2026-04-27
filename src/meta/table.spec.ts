@@ -40,7 +40,7 @@ jest.mock(
 import { ResolvedConfig } from "../config";
 import { InheritError, SchemaValidationError } from "../error";
 import { Parser } from "../parser";
-import { type MetaData, type MetaDataTable } from "./element";
+import { type MetaData } from "./element";
 import { MetaTable } from "./table";
 
 describe("MetaTable", () => {
@@ -135,7 +135,7 @@ describe("MetaTable", () => {
 		expect.assertions(1);
 		const table = new MetaTable();
 		const data = { foo: {} };
-		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, addEntry should be public but internal */
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unnecessary-type-assertion -- technical debt, addEntry should be public but internal */
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});
@@ -148,7 +148,7 @@ describe("MetaTable", () => {
 		expect.assertions(1);
 		const table = new MetaTable();
 		const data = { foo: {} };
-		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, addEntry should be public but internal */
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unnecessary-type-assertion -- technical debt, addEntry should be public but internal */
 		jest.spyOn(table as unknown as any, "addEntry").mockImplementation(() => {
 			throw new Error("Mock error");
 		});
@@ -165,7 +165,7 @@ describe("MetaTable", () => {
 			foo: {
 				flow: true,
 			},
-		} as unknown as MetaDataTable);
+		});
 		expect(table.getMetaFor("foo")).toBeDefined();
 		expect(table.getMetaFor("$schema")).toBeNull();
 	});
