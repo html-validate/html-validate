@@ -52,6 +52,8 @@ export function generateIdSelector(id: string): string {
 
 /**
  * DOM Selector.
+ *
+ * @internal
  */
 export class Selector {
 	private readonly pattern: Compound[];
