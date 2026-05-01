@@ -1,3 +1,5 @@
 export { Compound } from "./compound";
-export { Selector, escapeSelectorComponent, generateIdSelector } from "./selector";
+export { escapeSelectorComponent } from "./escape-selector-component";
+export { generateIdSelector } from "./generate-id-selector";
+export { Selector } from "./selector";
 export { type SelectorContext } from "./selector-context";
