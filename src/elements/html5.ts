@@ -773,6 +773,8 @@ export default {
 	},
 
 	caption: {
+		implicitClosed: ["colgroup", "thead", "tfoot", "tbody", "tr"],
+		optionalEnd: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["table"] }],
 		attributes: {
@@ -841,7 +843,7 @@ export default {
 	},
 
 	colgroup: {
-		implicitClosed: ["colgroup"],
+		implicitClosed: ["colgroup", "caption", "thead", "tbody", "tfoot", "tr"],
 		attributes: {
 			span: {
 				enum: ["/\\d+/"],
@@ -2827,7 +2829,7 @@ export default {
 
 	td: {
 		flow: true,
-		implicitClosed: ["td", "th"],
+		implicitClosed: ["td", "th", "tr", "tbody", "tfoot"],
 		attributes: {
 			align: {
 				deprecated: true,
@@ -2952,6 +2954,7 @@ export default {
 
 	tfoot: {
 		implicitClosed: ["tbody"],
+		optionalEnd: true,
 		permittedContent: ["@script", "tr"],
 		attributes: {
 			align: {
@@ -2977,7 +2980,7 @@ export default {
 
 	th: {
 		flow: true,
-		implicitClosed: ["td", "th"],
+		implicitClosed: ["td", "th", "tr", "tbody", "tfoot"],
 		attributes: {
 			align: {
 				deprecated: true,
@@ -3043,6 +3046,7 @@ export default {
 
 	thead: {
 		implicitClosed: ["tbody", "tfoot"],
+		optionalEnd: true,
 		permittedContent: ["@script", "tr"],
 		attributes: {
 			align: {
@@ -3086,7 +3090,7 @@ export default {
 	},
 
 	tr: {
-		implicitClosed: ["tr"],
+		implicitClosed: ["tr", "tbody", "tfoot"],
 		permittedContent: ["@script", "td", "th"],
 		attributes: {
 			align: {

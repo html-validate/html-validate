@@ -194,6 +194,45 @@ export class Parser {
 	 * valid). The parser handles this by checking if the element on top of the
 	 * stack when is allowed to omit.
 	 */
+	/**
+	 * Check whether a given element would be implicitly closed by an incoming
+	 * start tag. Used both in `closeOptional` and in the multi-level lookahead.
+	 */
+	private wouldCloseElement(token: TagOpenToken, element: HtmlElement): boolean {
+		if (!element.meta) {
+			return false;
+		}
+		const implicitClosed = element.meta.implicitClosed;
+		if (!implicitClosed) {
+			return false;
+		}
+		const tagName = token.data[2];
+		const incomingMeta = this.metaTable.getMetaFor(tagName);
+		return implicitClosed.some((entry) => {
+			if (!entry.startsWith("@")) {
+				return entry === tagName;
+			}
+			return incomingMeta ? matchesContentCategory(incomingMeta, entry) : false;
+		});
+	}
+
+	/**
+	 * Walk up the active stack to find the parent element that will remain
+	 * after all multi-level implicit closes triggered by the incoming start tag.
+	 * For a single-level close this is equivalent to `getActive().parent`.
+	 */
+	private getParentAfterImplicitClose(token: TagOpenToken): HtmlElement {
+		let current = this.dom.getActive();
+		while (!current.isRootElement() && this.wouldCloseElement(token, current)) {
+			const { parent } = current;
+			if (!parent) {
+				break;
+			}
+			current = parent;
+		}
+		return current;
+	}
+
 	private closeOptional(token: TagOpenToken): boolean {
 		const active = this.dom.getActive();
 
@@ -203,37 +242,59 @@ export class Parser {
 			return false;
 		}
 
-		const tagName = token.data[2];
 		const open = !token.data[1];
-		const implicitClosed = active.meta.implicitClosed;
 
 		if (open) {
 			/* a new element is opened, check if the new element should close the
 			 * previous; entries may be explicit tag names or @category strings */
-			if (!implicitClosed) {
-				return false;
-			}
-			const incomingMeta = this.metaTable.getMetaFor(tagName);
-			return implicitClosed.some((entry) => {
-				if (!entry.startsWith("@")) {
-					return entry === tagName;
-				}
-				return incomingMeta ? matchesContentCategory(incomingMeta, entry) : false;
-			});
+			return this.wouldCloseElement(token, active);
 		} else {
-			/* if we are explicitly closing the active element, ignore implicit */
-			if (active.is(tagName)) {
+			return this.closeOptionalEndTag(token, active);
+		}
+	}
+
+	/**
+	 * Returns `true` if the element’s end tag may be omitted, either because
+	 * its `implicitClosed` list includes its own tag name (e.g. `<li>`, `<td>`)
+	 * or because `optionalEnd` is set.
+	 */
+	private canOmitEndTag(element: HtmlElement): boolean {
+		if (!element.meta) {
+			return false;
+		}
+		const { implicitClosed, optionalEnd } = element.meta;
+		return Boolean(implicitClosed?.includes(element.tagName)) || Boolean(optionalEnd);
+	}
+
+	/**
+	 * Check whether the active element can be implicitly closed by an incoming
+	 * end tag. The end tag may close a direct parent or any ancestor, as long as
+	 * every intermediate element can also have its end tag omitted.
+	 * This handles cases like `</table>` implicitly closing `<td>`, `<tr>`, `<tbody>`.
+	 */
+	private closeOptionalEndTag(token: TagOpenToken, active: HtmlElement): boolean {
+		const tagName = token.data[2];
+
+		/* if we are explicitly closing the active element, ignore implicit */
+		if (active.is(tagName)) {
+			return false;
+		}
+
+		if (!this.canOmitEndTag(active)) {
+			return false;
+		}
+
+		let ancestor = active.parent;
+		while (ancestor && !ancestor.isRootElement()) {
+			if (ancestor.is(tagName)) {
+				return true;
+			}
+			if (!this.canOmitEndTag(ancestor)) {
 				return false;
 			}
-
-			/* the parent element is closed, check if the active element would be
-			 * implicitly closed when parent is; this covers two cases:
-			 * 1. `implicitClosed` lists the element’s own `tagName` (e.g. `<li>` inside `<ul>`)
-			 * 2. `optionalEnd` is set, meaning the end tag may always be omitted */
-			const canOmitEnd =
-				Boolean(implicitClosed?.includes(active.tagName)) || Boolean(active.meta.optionalEnd);
-			return Boolean(active.parent && active.parent.is(tagName) && canOmitEnd);
+			ancestor = ancestor.parent;
 		}
+		return false;
 	}
 
 	/**
@@ -338,12 +399,27 @@ export class Parser {
 		);
 		const endToken = tokens.at(-1) as TagCloseToken;
 		const isStartTag = !startToken.data[1];
-		const closeOptional = this.closeOptional(startToken);
 
 		/* baseParent is the parent as determined by the optional-close logic.
-		 * For start tags we may later replace this with an implicitly opened
-		 * intermediary (e.g. <head> or <body>). */
-		const baseParent = closeOptional ? this.dom.getActive().parent : this.dom.getActive();
+		 * For start tags we walk up through all levels that will be implicitly
+		 * closed (multi-level), so the node is created with the correct parent
+		 * from the outset. For close tags we walk up to the element being
+		 * explicitly closed (the matching tagName ancestor). */
+		let baseParent: HtmlElement;
+		if (isStartTag) {
+			baseParent = this.getParentAfterImplicitClose(startToken);
+		} else {
+			const tagName = startToken.data[2];
+			let cur = this.dom.getActive();
+			while (!cur.isRootElement() && !cur.is(tagName)) {
+				const { parent } = cur;
+				if (!parent) {
+					break;
+				}
+				cur = parent;
+			}
+			baseParent = cur;
+		}
 
 		/* for start tags, pre-create any intermediary element that should be
 		 * implicitly opened (e.g. <head>/<body> under <html>).  This must happen
@@ -362,9 +438,11 @@ export class Parser {
 		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
 		const isForeign = node.meta?.foreign;
 
-		/* if the previous tag to be implicitly closed by the current tag we close
-		 * it and pop it from the stack before continuing processing this tag */
-		if (closeOptional) {
+		/* Close any elements that are implicitly closed by the incoming tag before
+		 * continuing to process it. Loops to handle multi-level chains, e.g.:
+		 * - start tag `<tbody>` implicitly closes `<th>`, `<tr>`, `<thead>` in sequence
+		 * - end tag `</table>` implicitly closes `<td>`, `<tr>`, `<tbody>` in sequence */
+		while (this.closeOptional(startToken)) {
 			const active = this.dom.getActive();
 			active.closed = NodeClosed.ImplicitClosed;
 			this.closeElement(source, node, active, startToken.location);
