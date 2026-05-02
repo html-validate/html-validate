@@ -3,6 +3,7 @@ import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "../jest";
+import { type MetaDataTable } from "../meta";
 import { type Parser } from "../parser";
 import metadata from "./html5";
 
@@ -276,6 +277,16 @@ describe("HTML elements", () => {
 		const slug = tagName.replace(":", "_");
 		const filename = (variant: string): string => `${fileDirectory}/${slug}-${variant}.html`;
 
+		const hasImplicitOpen = (tagName: string): boolean => {
+			const table = metadata as MetaDataTable;
+			return (table[tagName].implicitOpen?.length ?? 0) > 0;
+		};
+
+		const hasOptionalEnd = (tagName: string): boolean => {
+			const table = metadata as MetaDataTable;
+			return table[tagName].optionalEnd === true;
+		};
+
 		describe(`<${tagName}>`, () => {
 			it("valid markup", async () => {
 				expect.assertions(1);
@@ -288,6 +299,22 @@ describe("HTML elements", () => {
 				const report = await htmlvalidate.validateFile(filename("invalid"));
 				expect(report.results).toMatchSnapshot();
 			});
+
+			if (hasImplicitOpen(tagName)) {
+				it(`start tag may be omitted`, async () => {
+					expect.assertions(1);
+					const report = await htmlvalidate.validateFile(filename("implicit-open"));
+					expect(report).toBeValid();
+				});
+			}
+
+			if (hasOptionalEnd(tagName)) {
+				it(`end tag may be omitted`, async () => {
+					expect.assertions(1);
+					const report = await htmlvalidate.validateFile(filename("omitted-end"));
+					expect(report).toBeValid();
+				});
+			}
 		});
 	}
 });
