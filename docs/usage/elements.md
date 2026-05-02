@@ -42,6 +42,9 @@ export interface MetaElement {
   foreign?: boolean;
   void?: boolean;
   transparent?: boolean | string[];
+  implicitClosed?: string[];
+  optionalEnd?: boolean;
+  implicitOpen?: ImplicitOpenEntry[];
   scriptSupporting?: boolean;
   focusable?: boolean | MetaFocusableCallback;
   form?: boolean;
@@ -62,6 +65,7 @@ export interface MetaElement {
   permittedContent?: Permitted;
   permittedDescendants?: Permitted;
   permittedOrder?: PermittedOrder;
+  permittedParent?: Permitted;
   requiredAncestors?: string[];
   requiredContent?: string[];
   textContent?: "none" | "default" | "required" | "accessible";
@@ -73,6 +77,11 @@ export interface MetaElement {
 export interface MetaAria {
   implicitRole?: string | ((node: HtmlElementLike) => string | null);
   naming?: "allowed" | "prohibited" | ((node: HtmlElementLike) => "allowed" | "prohibited");
+}
+
+export interface ImplicitOpenEntry {
+  for: string[];
+  open: string;
 }
 ```
 
@@ -174,6 +183,53 @@ flow.
 
 When set to `true` all children are checked.
 When set to array only the listed tagnames or content categories are checked.
+
+### `implicitClosed`
+
+A list of tagnames and content-categories that, when encountered as a new start tag while this element is still open, cause this element to be implicitly closed first.
+
+```html
+<ul>
+  <li>foo</li>
+  <li>bar</li>
+</ul>
+```
+
+```json
+{
+  "li": {
+    "implicitClosed": ["li"]
+  }
+}
+```
+
+### `optionalEnd`
+
+Set to `true` if this element's end tag is optional.
+
+An element with an optional end tag is treated as implicitly closed in two situations:
+
+- When the document ends (EOF) with this element still open.
+- When a parent's explicit closing tag is encountered while this element is
+  still open (e.g. `</html>` implicitly closes any open `<body>`).
+
+### `implicitOpen`
+
+Describes elements that the parser should implicitly open when a child element that would otherwise be inserted directly under this element matches one of the given selectors but is not permitted there.
+
+Each entry opens the tag specified by `open` for elements matching the tags or categories listed in `for`.
+Entries are processed in order; the first matching entry is used.
+
+```json
+{
+  "html": {
+    "implicitOpen": [
+      { "for": ["@meta"], "open": "head" },
+      { "for": ["@flow"], "open": "body" }
+    ]
+  }
+}
+```
 
 ### `scriptSupporting`
 
@@ -624,6 +680,23 @@ A selector list can be specified to allow each element in the selector list to a
 This will require `<button>` to be come before `<option>` and `<optgroup>` but `<option>` and `<optgroup>` can otherwise appear in any order.
 
 This is used by [element-permitted-order](/rules/element-permitted-order.html) rule.
+
+### `permittedParent`
+
+Restricts which parent elements this element may be a direct child of.
+Uses the same format as `permittedContent` (tagnames, content-category selectors, and `exclude` groups).
+
+```json
+{
+  "li": {
+    "permittedParent": ["ul", "ol", "menu", "template"]
+  }
+}
+```
+
+Prefer to use `permittedContent` where possible.
+
+This is used by the [element-permitted-parent](/rules/element-permitted-parent.html) rule.
 
 ### `requiredAncestors`
 
