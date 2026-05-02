@@ -1598,6 +1598,83 @@ describe("parser", () => {
 			});
 			expect(events.shift()).toBeUndefined();
 		});
+
+		/* @todo add more comprehensive tests for multi-level implicit close chains */
+
+		it("<tr> implicitly closes open <td> and <tr>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`<table><tr><td>first<tr><td>second</td></tr></table>`);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    ├── tr
+			    │   └── td
+			    └── tr
+			        └── td
+		`);
+		});
+
+		it("<tbody> implicitly closes open <td>, <tr>, and <tbody>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(
+				`<table><tbody><tr><td>first<tbody><tr><td>second</td></tr></tbody></table>`,
+			);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    ├── tbody
+			    │   └── tr
+			    │       └── td
+			    └── tbody
+			        └── tr
+			            └── td
+		`);
+		});
+
+		it("</table> implicitly closes open <td>, <tr>, and <tbody>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`<table><tbody><tr><td>data</table>`);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    └── tbody
+			        └── tr
+			            └── td
+		`);
+		});
+
+		it("<tbody> implicitly closes open <thead> section", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(
+				`<table><thead><tr><th>header<tbody><tr><td>data</td></tr></tbody></table>`,
+			);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    ├── thead
+			    │   └── tr
+			    │       └── th
+			    └── tbody
+			        └── tr
+			            └── td
+		`);
+		});
+
+		it("<tbody> implicitly closes open <colgroup>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(
+				`<table><colgroup><col><tbody><tr><td>data</td></tr></tbody></table>`,
+			);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    ├── colgroup
+			    │   └── col
+			    └── tbody
+			        └── tr
+			            └── td
+		`);
+		});
 	});
 
 	describe("should handle optional start tags", () => {
