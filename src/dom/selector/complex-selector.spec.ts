@@ -4,8 +4,8 @@ import { Parser } from "../../parser";
 import { reset as resetDOMCounter } from "../domnode";
 import { type HtmlElement } from "../htmlelement";
 import { type NodeType } from "../nodetype";
+import { ComplexSelector } from "./complex-selector";
 import { generateIdSelector } from "./generate-id-selector";
-import { Selector } from "./selector";
 
 interface StrippedHtmlElement {
 	id: string | null;
@@ -62,7 +62,7 @@ describe("Selector", () => {
 
 	it("should match tagName (foo)", () => {
 		expect.assertions(1);
-		const selector = new Selector("foo");
+		const selector = ComplexSelector.fromString("foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
 			expect.objectContaining({ tagName: "foo", testId: "foo-2" }),
@@ -73,7 +73,7 @@ describe("Selector", () => {
 
 	it("should match descendant (bar foo)", () => {
 		expect.assertions(1);
-		const selector = new Selector("bar foo");
+		const selector = ComplexSelector.fromString("bar foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
@@ -82,7 +82,7 @@ describe("Selector", () => {
 
 	it("should match child (bar > foo)", () => {
 		expect.assertions(1);
-		const selector = new Selector("bar > foo");
+		const selector = ComplexSelector.fromString("bar > foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -90,7 +90,7 @@ describe("Selector", () => {
 
 	it("should match adjacent sibling (baz + foo)", () => {
 		expect.assertions(1);
-		const selector = new Selector("baz + foo");
+		const selector = ComplexSelector.fromString("baz + foo");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -98,7 +98,7 @@ describe("Selector", () => {
 
 	it("should match general sibling (foo ~ baz)", () => {
 		expect.assertions(1);
-		const selector = new Selector("foo ~ baz");
+		const selector = ComplexSelector.fromString("foo ~ baz");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "baz", testId: "baz-2" }),
 		]);
@@ -106,7 +106,7 @@ describe("Selector", () => {
 
 	it("should match class (.fred)", () => {
 		expect.assertions(1);
-		const selector = new Selector(".fred");
+		const selector = ComplexSelector.fromString(".fred");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-2" }),
 			expect.objectContaining({ tagName: "baz", testId: "baz-1" }),
@@ -115,7 +115,7 @@ describe("Selector", () => {
 
 	it("should match id (#barney)", () => {
 		expect.assertions(1);
-		const selector = new Selector("#barney");
+		const selector = ComplexSelector.fromString("#barney");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
 		]);
@@ -126,7 +126,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo:"></div>`);
-		const selector = new Selector("#foo\\:");
+		const selector = ComplexSelector.fromString("#foo\\:");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -135,7 +135,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo "></div>`);
-		const selector = new Selector("#foo\\ ");
+		const selector = ComplexSelector.fromString("#foo\\ ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -144,7 +144,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\t"></div>`);
-		const selector = new Selector("#foo\\9 ");
+		const selector = ComplexSelector.fromString("#foo\\9 ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -153,7 +153,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\n"></div>`);
-		const selector = new Selector("#foo\\a ");
+		const selector = ComplexSelector.fromString("#foo\\a ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -162,7 +162,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo\r"></div>`);
-		const selector = new Selector("#foo\\d ");
+		const selector = ComplexSelector.fromString("#foo\\d ");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -171,7 +171,7 @@ describe("Selector", () => {
 		const resolvedConfig = await Config.empty().resolve();
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo[bar]"></div>`);
-		const selector = new Selector("#foo\\[bar\\]");
+		const selector = ComplexSelector.fromString("#foo\\[bar\\]");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
@@ -181,7 +181,7 @@ describe("Selector", () => {
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="1foo"></div>`);
 		const text = generateIdSelector("1foo");
-		const selector = new Selector(text);
+		const selector = ComplexSelector.fromString(text);
 		expect(text).toBe('[id="1foo"]');
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
@@ -192,7 +192,7 @@ describe("Selector", () => {
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="foo,bar"></div>`);
 		const text = generateIdSelector("foo,bar");
-		const selector = new Selector(text);
+		const selector = ComplexSelector.fromString(text);
 		expect(text).toBe("#foo\\,bar");
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
@@ -203,14 +203,14 @@ describe("Selector", () => {
 		const parser = new Parser(resolvedConfig);
 		const document = parser.parseHtml(`<div id="1foo,bar"></div>`);
 		const text = generateIdSelector("1foo,bar");
-		const selector = new Selector(text);
+		const selector = ComplexSelector.fromString(text);
 		expect(text).toBe('[id="1foo\\,bar"]');
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
 	it("should match having attribute ([wilma])", () => {
 		expect.assertions(1);
-		const selector = new Selector("[wilma]");
+		const selector = ComplexSelector.fromString("[wilma]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 			expect.objectContaining({ tagName: "spam", testId: "spam-1" }),
@@ -219,7 +219,7 @@ describe("Selector", () => {
 
 	it("should match having boolean attribute ([boolean])", () => {
 		expect.assertions(1);
-		const selector = new Selector("[boolean]");
+		const selector = ComplexSelector.fromString("[boolean]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "spam", testId: "spam-1" }),
 		]);
@@ -227,7 +227,7 @@ describe("Selector", () => {
 
 	it("should match having attribute with dashes and numbers ([lorem-123-ipsum])", () => {
 		expect.assertions(1);
-		const selector = new Selector("[lorem-123-ipsum]");
+		const selector = ComplexSelector.fromString("[lorem-123-ipsum]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -235,7 +235,7 @@ describe("Selector", () => {
 
 	it('should match attribute value ([wilma="flintstone"])', () => {
 		expect.assertions(1);
-		const selector = new Selector('[wilma="flintstone"]');
+		const selector = ComplexSelector.fromString('[wilma="flintstone"]');
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -248,7 +248,7 @@ describe("Selector", () => {
 		doc = parser.parseHtml(/* HTML */ ` <label id="#r1:"> lorem ipsum </label> `);
 		const element = doc.querySelector("label")!;
 		const id = element.id;
-		const selector = new Selector('[id="#r1:"]');
+		const selector = ComplexSelector.fromString('[id="#r1:"]');
 		expect(Array.from(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "label", id }),
 		]);
@@ -256,7 +256,7 @@ describe("Selector", () => {
 
 	it('should match attribute value with special characters ([lorem-123-ipsum="dolor-sit-amet"])', () => {
 		expect.assertions(1);
-		const selector = new Selector('[lorem-123-ipsum="dolor-sit-amet"]');
+		const selector = ComplexSelector.fromString('[lorem-123-ipsum="dolor-sit-amet"]');
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -264,8 +264,8 @@ describe("Selector", () => {
 
 	it("should match attribute value on duplicated attributes", () => {
 		expect.assertions(2);
-		const selectorA = new Selector('[class="a"]');
-		const selectorB = new Selector('[class="b"]');
+		const selectorA = ComplexSelector.fromString('[class="a"]');
+		const selectorB = ComplexSelector.fromString('[class="b"]');
 		expect(fetch(selectorA.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "baz", testId: "baz-1" }),
 		]);
@@ -276,7 +276,7 @@ describe("Selector", () => {
 
 	it("should match multiple attributes ([wilma][lorem-123-ipsum])", () => {
 		expect.assertions(1);
-		const selector = new Selector("[wilma][lorem-123-ipsum]");
+		const selector = ComplexSelector.fromString("[wilma][lorem-123-ipsum]");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -284,7 +284,7 @@ describe("Selector", () => {
 
 	it("should match pseudo-classes", () => {
 		expect.assertions(1);
-		const selector = new Selector("foo:first-child");
+		const selector = ComplexSelector.fromString("foo:first-child");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
 			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
@@ -293,7 +293,7 @@ describe("Selector", () => {
 
 	it("should match pseudo-classes with arguments", () => {
 		expect.assertions(1);
-		const selector = new Selector("foo:nth-child(1)");
+		const selector = ComplexSelector.fromString("foo:nth-child(1)");
 		expect(fetch(selector.match(doc))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-1" }),
 			expect.objectContaining({ tagName: "foo", testId: "foo-3" }),
@@ -303,7 +303,7 @@ describe("Selector", () => {
 	it("should match with :scope", () => {
 		expect.assertions(1);
 		const element = doc.querySelector("bar")!;
-		const selector = new Selector(":scope > foo");
+		const selector = ComplexSelector.fromString(":scope > foo");
 		expect(fetch(selector.match(element))).toEqual([
 			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
 		]);
@@ -311,14 +311,14 @@ describe("Selector", () => {
 
 	it("should throw error for missing pseudo-class", () => {
 		expect.assertions(1);
-		expect(() => new Selector("foo:")).toThrow(
+		expect(() => ComplexSelector.fromString("foo:")).toThrow(
 			'Missing pseudo-class after colon in selector pattern "foo:"',
 		);
 	});
 
 	it("should throw error for invalid pseudo-classes", () => {
 		expect.assertions(1);
-		const selector = new Selector("foo:missing");
+		const selector = ComplexSelector.fromString("foo:missing");
 		expect(() => fetch(selector.match(doc))).toThrow('Pseudo-class "missing" is not implemented');
 	});
 });

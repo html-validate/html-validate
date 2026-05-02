@@ -9,7 +9,7 @@ import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
 import { NodeType } from "./nodetype";
-import { Selector, generateIdSelector } from "./selector";
+import { generateIdSelector, parseSelector } from "./selector";
 import { TextNode } from "./text";
 
 const CHILD_ELEMENTS = Symbol("childElements");
@@ -383,7 +383,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public matches(selectorList: string): boolean {
 		return selectorList.split(",").some((it) => {
-			const selector = new Selector(it.trim());
+			const selector = parseSelector(it.trim());
 			return selector.matchElement(this);
 		});
 	}
@@ -677,9 +677,9 @@ export class HtmlElement extends DOMNode {
 		if (!selectorList) {
 			return;
 		}
-		for (const selector of selectorList.split(/(?<!\\),\s*/)) {
-			const pattern = new Selector(selector);
-			yield* pattern.match(this);
+		for (const selectorString of selectorList.split(/(?<!\\),\s*/)) {
+			const selector = parseSelector(selectorString);
+			yield* selector.match(this);
 		}
 	}
 

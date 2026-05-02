@@ -47,7 +47,7 @@ export interface AttributeCondition {
 export interface PseudoClassCondition {
 	readonly kind: "pseudo";
 	readonly name: string;
-	readonly args: string;
+	readonly args: string | undefined;
 	match(node: HtmlElement, context: SelectorContext): boolean;
 }
 
@@ -125,7 +125,8 @@ export function createPseudoClassCondition(
 	if (!match) {
 		throw new Error(`Missing pseudo-class after colon in selector pattern "${context}"`);
 	}
-	const [, name, args] = match;
+	const name = match[1];
+	const args = match[2] as string | undefined; // optional capture group
 	return {
 		kind: "pseudo",
 		name,

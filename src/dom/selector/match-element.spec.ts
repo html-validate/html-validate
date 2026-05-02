@@ -1,7 +1,7 @@
 import { beforeAll, expect, it } from "@jest/globals";
 import { Config } from "../../config";
 import { Parser } from "../../parser";
-import { Selector } from "./selector";
+import { ComplexSelector } from "./complex-selector";
 
 let parser: Parser;
 
@@ -16,14 +16,14 @@ it("should match simple selector", () => {
 	const document = parser.parseHtml(markup);
 	const p = document.querySelector("p")!;
 	const em = document.querySelector("em")!;
-	expect(new Selector("p").matchElement(p)).toBeTruthy();
-	expect(new Selector("p").matchElement(em)).toBeFalsy();
-	expect(new Selector("em").matchElement(p)).toBeFalsy();
-	expect(new Selector("em").matchElement(em)).toBeTruthy();
-	expect(new Selector("div").matchElement(p)).toBeFalsy();
-	expect(new Selector("div").matchElement(em)).toBeFalsy();
-	expect(new Selector(".foo").matchElement(p)).toBeTruthy();
-	expect(new Selector(".foo").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("p").matchElement(p)).toBeTruthy();
+	expect(ComplexSelector.fromString("p").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("em").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("div").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("div").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString(".foo").matchElement(p)).toBeTruthy();
+	expect(ComplexSelector.fromString(".foo").matchElement(em)).toBeFalsy();
 });
 
 it("should match simple selectors with descendant combinator", () => {
@@ -37,11 +37,11 @@ it("should match simple selectors with descendant combinator", () => {
 	`;
 	const document = parser.parseHtml(markup);
 	const em = document.querySelector("p > em")!;
-	expect(new Selector("p em").matchElement(em)).toBeTruthy();
-	expect(new Selector("div em").matchElement(em)).toBeTruthy();
-	expect(new Selector("div p em").matchElement(em)).toBeTruthy();
-	expect(new Selector("h1 em").matchElement(em)).toBeFalsy();
-	expect(new Selector("h2 em").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("p em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("div em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("div p em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("h1 em").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("h2 em").matchElement(em)).toBeFalsy();
 });
 
 it("should match simple selectors with child combinator", () => {
@@ -55,11 +55,11 @@ it("should match simple selectors with child combinator", () => {
 	`;
 	const document = parser.parseHtml(markup);
 	const em = document.querySelector("p > em")!;
-	expect(new Selector("p > em").matchElement(em)).toBeTruthy();
-	expect(new Selector("div > em").matchElement(em)).toBeFalsy();
-	expect(new Selector("div > p > em").matchElement(em)).toBeTruthy();
-	expect(new Selector("h1 > em").matchElement(em)).toBeFalsy();
-	expect(new Selector("h2 > em").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("p > em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("div > em").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("div > p > em").matchElement(em)).toBeTruthy();
+	expect(ComplexSelector.fromString("h1 > em").matchElement(em)).toBeFalsy();
+	expect(ComplexSelector.fromString("h2 > em").matchElement(em)).toBeFalsy();
 });
 
 it("should match simple selectors with adjacent sibling combinator", () => {
@@ -74,11 +74,11 @@ it("should match simple selectors with adjacent sibling combinator", () => {
 	const document = parser.parseHtml(markup);
 	const p = document.querySelector("p")!;
 	const h2 = document.querySelector("h2")!;
-	expect(new Selector("h1 + p").matchElement(p)).toBeTruthy();
-	expect(new Selector("p + h2").matchElement(h2)).toBeTruthy();
-	expect(new Selector("h2 + p").matchElement(p)).toBeFalsy();
-	expect(new Selector("h1 + h2").matchElement(h2)).toBeFalsy();
-	expect(new Selector("div + p").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("h1 + p").matchElement(p)).toBeTruthy();
+	expect(ComplexSelector.fromString("p + h2").matchElement(h2)).toBeTruthy();
+	expect(ComplexSelector.fromString("h2 + p").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("h1 + h2").matchElement(h2)).toBeFalsy();
+	expect(ComplexSelector.fromString("div + p").matchElement(p)).toBeFalsy();
 });
 
 it("should not match adjacent sibling when element is first child", () => {
@@ -91,7 +91,7 @@ it("should not match adjacent sibling when element is first child", () => {
 	`;
 	const document = parser.parseHtml(markup);
 	const p = document.querySelector("p")!;
-	expect(new Selector("h1 + p").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("h1 + p").matchElement(p)).toBeFalsy();
 });
 
 it("should match simple selectors with general sibling combinator", () => {
@@ -106,9 +106,9 @@ it("should match simple selectors with general sibling combinator", () => {
 	const document = parser.parseHtml(markup);
 	const p = document.querySelector("p")!;
 	const h2 = document.querySelector("h2")!;
-	expect(new Selector("h1 ~ p").matchElement(p)).toBeTruthy();
-	expect(new Selector("p ~ h2").matchElement(h2)).toBeTruthy();
-	expect(new Selector("h2 ~ p").matchElement(p)).toBeFalsy();
-	expect(new Selector("h1 ~ h2").matchElement(h2)).toBeTruthy();
-	expect(new Selector("div ~ p").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("h1 ~ p").matchElement(p)).toBeTruthy();
+	expect(ComplexSelector.fromString("p ~ h2").matchElement(h2)).toBeTruthy();
+	expect(ComplexSelector.fromString("h2 ~ p").matchElement(p)).toBeFalsy();
+	expect(ComplexSelector.fromString("h1 ~ h2").matchElement(h2)).toBeTruthy();
+	expect(ComplexSelector.fromString("div ~ p").matchElement(p)).toBeFalsy();
 });
