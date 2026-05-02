@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## 10.14.0 (2026-05-02)
+
+### Features
+
+- **html5:** add support for more global attributes ([db89087](https://gitlab.com/html-validate/html-validate/commit/db8908722575a7f51e96280fd399df6e0b68cd37))
+
+### Bug Fixes
+
+- **parser:** improve handling of implicit tag closures ([9070a61](https://gitlab.com/html-validate/html-validate/commit/9070a6156eab328e9a89e845d662d65fad8ef10f))
+
+### Performance Improvements
+
+- improve performance by caching child elements ([cc938fb](https://gitlab.com/html-validate/html-validate/commit/cc938fbd8978e243225f750404ba1530dbaea22b))
+
 ## 10.13.1 (2026-04-18)
 
 ### Bug Fixes
