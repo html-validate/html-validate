@@ -12,11 +12,13 @@ import { NodeType } from "./nodetype";
 import { Selector, generateIdSelector } from "./selector";
 import { TextNode } from "./text";
 
+const CHILD_ELEMENTS = Symbol("childElements");
 const ROLE = Symbol("role");
 const TABINDEX = Symbol("tabindex");
 
 declare module "./cache" {
 	export interface DOMNodeCache {
+		[CHILD_ELEMENTS]: HtmlElement[];
 		[ROLE]: string;
 		[TABINDEX]: number | null;
 	}
@@ -249,7 +251,11 @@ export class HtmlElement extends DOMNode {
 	 * Similar to childNodes but only elements.
 	 */
 	public get childElements(): HtmlElement[] {
-		return this.childNodes.filter(isElementNode);
+		const cached = this.cacheGet(CHILD_ELEMENTS);
+		if (cached !== undefined) {
+			return cached;
+		}
+		return this.cacheSet(CHILD_ELEMENTS, this.childNodes.filter(isElementNode));
 	}
 
 	/**
@@ -734,12 +740,27 @@ export class HtmlElement extends DOMNode {
 		return visit(this);
 	}
 
+	public override append(node: DOMNode): void {
+		super.append(node);
+		this.cacheRemove(CHILD_ELEMENTS);
+	}
+
+	public override insertBefore(node: DOMNode, reference: DOMNode | null): void {
+		super.insertBefore(node, reference);
+		this.cacheRemove(CHILD_ELEMENTS);
+	}
+
+	public override removeChild<T extends DOMNode>(node: T): T {
+		return super.removeChild(node);
+	}
+
 	/**
 	 * @internal
 	 */
 	public override _setParent(node: DOMNode | null): DOMNode | null {
 		const oldParent = this._parent;
 		this._parent = node instanceof HtmlElement ? node : null;
+		oldParent?.cacheRemove(CHILD_ELEMENTS);
 		return oldParent;
 	}
 }

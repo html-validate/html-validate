@@ -477,6 +477,8 @@ export class HtmlElement extends DOMNode {
     // @internal (undocumented)
     readonly _adapter: HtmlElementLike;
     get annotatedName(): string;
+    // (undocumented)
+    append(node: DOMNode): void;
     appendText(text: string | DynamicValue, location: Location_2): void;
     get ariaLabelledby(): string[] | DynamicValue | null;
     // (undocumented)
@@ -511,6 +513,8 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     hasAttribute(key: string): boolean;
     get id(): string | null;
+    // (undocumented)
+    insertBefore(node: DOMNode, reference: DOMNode | null): void;
     is(tagName: string): boolean;
     get lastElementChild(): HtmlElement | null;
     loadMeta(meta: MetaElement): void;
@@ -527,6 +531,8 @@ export class HtmlElement extends DOMNode {
     querySelector(selector: string): HtmlElement | null;
     // (undocumented)
     querySelectorAll(selector: string): HtmlElement[];
+    // (undocumented)
+    removeChild<T extends DOMNode>(node: T): T;
     get role(): string | DynamicValue | null;
     // @internal (undocumented)
     static rootNode(location: Location_2): HtmlElement;
