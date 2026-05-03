@@ -8,8 +8,8 @@ export { DynamicValue } from "./dynamic-value";
 export { NodeType } from "./nodetype";
 export {
 	type SelectorContext,
+	ComplexSelector,
 	Compound,
-	Selector,
 	escapeSelectorComponent,
 	generateIdSelector,
 } from "./selector";
