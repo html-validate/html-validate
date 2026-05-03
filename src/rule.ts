@@ -9,6 +9,7 @@ import { type Event, type ListenEventMap } from "./event";
 import { type Location } from "./location";
 import { type MetaElement, type MetaLookupableProperty, type MetaTable } from "./meta";
 import { type Parser } from "./parser";
+import { type PerformanceTracker } from "./performance";
 import { type Reporter } from "./reporter";
 import { type IncludeExcludeOptions, isKeywordIgnored } from "./rules/helper";
 import { ajvRegexpKeyword } from "./schema/keywords";
@@ -106,6 +107,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	private blockers: RuleBlocker[];
 	private severity: Severity; // rule severity
 	private event: Event;
+	private tracker: PerformanceTracker | null;
 
 	/**
 	 * Rule name. Defaults to filename without extension but can be overwritten by
@@ -130,6 +132,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.blockers = [];
 		this.severity = Severity.DISABLED;
 		this.name = "";
+		this.tracker = null;
 	}
 
 	public getSeverity(): Severity {
@@ -378,7 +381,15 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		return this.parser.on(event, (_event: string, data: Event) => {
 			if (this.isEnabled() && filter(data)) {
 				this.event = data;
-				callback(data);
+				const { tracker } = this;
+				if (tracker) {
+					const start = performance.now();
+					callback(data);
+					const end = performance.now();
+					tracker.trackRule(this.name, end - start);
+				} else {
+					callback(data);
+				}
 			}
 		});
 	}
@@ -395,6 +406,15 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.reporter = reporter;
 		this.severity = severity;
 		this.meta = meta;
+	}
+
+	/**
+	 * Set (or clear) the performance tracker.
+	 *
+	 * @internal
+	 */
+	public setTracker(tracker: PerformanceTracker | null): void {
+		this.tracker = tracker;
 	}
 
 	/**

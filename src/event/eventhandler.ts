@@ -1,3 +1,5 @@
+import { type PerformanceTracker } from "../performance";
+
 /**
  * @public
  */
@@ -9,9 +11,11 @@ export type EventCallback = (event: string, data: any) => void;
  */
 export class EventHandler {
 	private listeners: Record<string, EventCallback[] | undefined>;
+	private tracker: PerformanceTracker | null;
 
 	public constructor() {
 		this.listeners = {};
+		this.tracker = null;
 	}
 
 	/**
@@ -57,6 +61,15 @@ export class EventHandler {
 	}
 
 	/**
+	 * Set (or clear) the performance tracker.
+	 *
+	 * @internal
+	 */
+	public setTracker(tracker: PerformanceTracker | null): void {
+		this.tracker = tracker;
+	}
+
+	/**
 	 * Trigger event causing all listeners to be called.
 	 *
 	 * @param event - Event name.
@@ -64,8 +77,18 @@ export class EventHandler {
 	 */
 	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should be made typesafe */
 	public trigger(event: string, data: any): void {
-		for (const listener of this.getCallbacks(event)) {
-			listener.call(null, event, data);
+		const { tracker } = this;
+		if (tracker) {
+			const start = performance.now();
+			for (const listener of this.getCallbacks(event)) {
+				listener.call(null, event, data);
+			}
+			const end = performance.now();
+			tracker.trackEvent(event, end - start);
+		} else {
+			for (const listener of this.getCallbacks(event)) {
+				listener.call(null, event, data);
+			}
 		}
 	}
 

@@ -349,13 +349,13 @@ describe("Plugin", () => {
 		it("Engine should handle missing plugin callbacks", async () => {
 			expect.assertions(1);
 			const resolvedConfig = await config.resolve();
-			expect(() => new Engine(resolvedConfig, Parser)).not.toThrow();
+			expect(() => new Engine(resolvedConfig, Parser, { tracker: null })).not.toThrow();
 		});
 
 		it("Engine should call plugin init callback", async () => {
 			expect.assertions(1);
 			mockPlugin.init = jest.fn();
-			const engine = new Engine(await config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			engine.lint([source]);
 			expect(mockPlugin.init).toHaveBeenCalledWith();
 		});
@@ -363,7 +363,7 @@ describe("Plugin", () => {
 		it("Engine should call plugin setup callback", async () => {
 			expect.assertions(1);
 			mockPlugin.setup = jest.fn();
-			const engine = new Engine(await config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			engine.lint([source]);
 			expect(mockPlugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
@@ -374,7 +374,7 @@ describe("Plugin", () => {
 			mockPlugin.setup = (_source: Source, eventhandler: EventHandler) => {
 				eventhandler.on("dom:ready", handler);
 			};
-			const engine = new Engine(await config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			engine.lint([source]);
 			expect(handler).toHaveBeenCalledWith("dom:ready", expect.anything());
 		});
@@ -402,7 +402,7 @@ describe("Plugin", () => {
 				"mock-rule": null /* instantiateRule is mocked, this can be anything */,
 			};
 			const setup = jest.spyOn(mockRule, "setup");
-			const engine = new Engine(await config.resolve(), Parser);
+			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			jest.spyOn(engine as any, "instantiateRule").mockImplementation(() => mockRule);
 			engine.lint([source]);

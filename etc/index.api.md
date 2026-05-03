@@ -511,7 +511,18 @@ export class EventHandler {
     constructor();
     on(event: string, callback: EventCallback): () => void;
     once(event: string, callback: EventCallback): () => void;
+    // @internal
+    setTracker(tracker: PerformanceTracker | null): void;
     trigger(event: string, data: any): void;
+}
+
+// @internal (undocumented)
+export interface EventPerformanceEntry {
+    // (undocumented)
+    count: number;
+    // (undocumented)
+    event: string;
+    time: number;
 }
 
 // @public (undocumented)
@@ -690,6 +701,10 @@ export class HtmlValidate {
     // @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
     setConfigLoader(loader: ConfigLoader): void;
+    // @internal
+    startPerformance(): void;
+    // @internal
+    stopPerformance(): PerformanceResult;
     validateFile(filename: string, fs?: TransformFS): Promise<Report_2>;
     validateFileSync(filename: string, fs?: TransformFS): Report_2;
     validateMultipleFiles(filenames: string[], fs?: TransformFS): Promise<Report_2>;
@@ -1070,6 +1085,27 @@ export class Parser {
     trigger<K extends keyof TriggerEventMap>(event: K, data: TriggerEventMap[K]): void;
 }
 
+// @internal (undocumented)
+export interface PerformanceResult {
+    configTime: number;
+    // (undocumented)
+    events: EventPerformanceEntry[];
+    // (undocumented)
+    rules: RulePerformanceEntry[];
+    totalTime: number;
+    transformTime: number;
+}
+
+// @internal
+export class PerformanceTracker {
+    constructor();
+    getResult(): PerformanceResult;
+    trackConfig(time: number): void;
+    trackEvent(name: string, time: number): void;
+    trackRule(ruleName: string, time: number): void;
+    trackTransform(time: number): void;
+}
+
 // @public (undocumented)
 export type Permitted = PermittedEntry[];
 
@@ -1250,6 +1286,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     setEnabled(enabled: boolean): void;
     // (undocumented)
     setServerity(severity: Severity): void;
+    // @internal
+    setTracker(tracker: PerformanceTracker | null): void;
     abstract setup(): void;
     // @internal
     unblock(id: RuleBlocker): void;
@@ -1294,6 +1332,15 @@ export function ruleExists(ruleId: string): boolean;
 
 // @public (undocumented)
 export type RuleOptions = string | number | Record<string, any>;
+
+// @internal (undocumented)
+export interface RulePerformanceEntry {
+    // (undocumented)
+    count: number;
+    // (undocumented)
+    rule: string;
+    time: number;
+}
 
 // @public (undocumented)
 export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;

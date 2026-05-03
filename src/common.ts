@@ -141,6 +141,12 @@ export {
 } from "./transform";
 export { type Plugin, type SchemaValidationPatch, definePlugin } from "./plugin";
 export { Parser } from "./parser";
+export {
+	type EventPerformanceEntry,
+	type PerformanceResult,
+	type RulePerformanceEntry,
+	PerformanceTracker,
+} from "./performance";
 export { type CompatibilityOptions } from "./utils/compatibility-check";
 export { ruleExists } from "./utils/rule-exists";
 export { type Walk, walk } from "./utils/walk";

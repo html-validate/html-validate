@@ -128,6 +128,12 @@ Instead of validating file print the DOM tree generated.
 
     html-validate --dump-tree file.html
 
+### `--performance`
+
+Output a performance summary after validation showing time spent in different phases:
+
+    html-validate --performance file.html
+
 ## Miscellaneous options
 
 ### `-c`, `--config`

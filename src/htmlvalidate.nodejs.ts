@@ -8,6 +8,7 @@ import { type EventDump, type TokenDump, Engine } from "./engine";
 import { UserError } from "./error";
 import { type Message } from "./message";
 import { Parser } from "./parser";
+import { type PerformanceResult, PerformanceTracker } from "./performance";
 import { type Report, Reporter } from "./reporter";
 import { type RuleDocumentation } from "./rule";
 import configurationSchema from "./schema/config.json";
@@ -47,6 +48,7 @@ function isConfigData(value: string | SourceHooks | ConfigData | undefined): val
  */
 export class HtmlValidate {
 	protected configLoader: ConfigLoader;
+	private _performanceTracker: PerformanceTracker | null;
 
 	/**
 	 * Create a new validator.
@@ -61,6 +63,34 @@ export class HtmlValidate {
 	public constructor(arg?: ConfigLoader | ConfigData) {
 		const [loader, config] = arg instanceof ConfigLoader ? [arg, undefined] : [undefined, arg];
 		this.configLoader = loader ?? new StaticConfigLoader(config);
+		this._performanceTracker = null;
+	}
+
+	/**
+	 * Start recording performance data.
+	 *
+	 * When active, performance data is accumulated across all subsequent calls to
+	 * `validateString()`, `validateFile()` and similar methods until
+	 * {@link HtmlValidate.stopPerformance} is called.
+	 *
+	 * @internal
+	 */
+	public startPerformance(): void {
+		this._performanceTracker = new PerformanceTracker();
+	}
+
+	/**
+	 * Stop recording performance data and return the result.
+	 *
+	 * @internal
+	 */
+	public stopPerformance(): PerformanceResult {
+		if (!this._performanceTracker) {
+			return { events: [], rules: [], configTime: 0, transformTime: 0, totalTime: 0 };
+		}
+		const result = this._performanceTracker.getResult();
+		this._performanceTracker = null;
+		return result;
 	}
 
 	/**
@@ -157,11 +187,17 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public async validateSource(input: Source, configOverride?: ConfigData): Promise<Report> {
+		const tracker = this._performanceTracker;
 		const source = normalizeSource(input);
+		const t0 = performance.now();
 		const config = await this.getConfigFor(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
+		const t1 = performance.now();
+		tracker?.trackConfig(t1 - t0);
 		const transformedSource = await transformSource(resolvers, config, source);
-		const engine = new Engine(config, Parser);
+		const t2 = performance.now();
+		tracker?.trackTransform(t2 - t1);
+		const engine = new Engine(config, Parser, { tracker });
 		return engine.lint(transformedSource);
 	}
 
@@ -174,10 +210,15 @@ export class HtmlValidate {
 	 */
 	public validateSourceSync(input: Source, configOverride?: ConfigData): Report {
 		const source = normalizeSource(input);
+		const t0 = performance.now();
 		const config = this.getConfigForSync(source.filename, configOverride);
 		const resolvers = this.configLoader.getResolvers();
+		const t1 = performance.now();
+		this._performanceTracker?.trackConfig(t1 - t0);
 		const transformedSource = transformSourceSync(resolvers, config, source);
-		const engine = new Engine(config, Parser);
+		const t2 = performance.now();
+		this._performanceTracker?.trackTransform(t2 - t1);
+		const engine = new Engine(config, Parser, { tracker: this._performanceTracker });
 		return engine.lint(transformedSource);
 	}
 
@@ -189,10 +230,16 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public async validateFile(filename: string, fs: TransformFS = defaultFS): Promise<Report> {
+		const tracker = this._performanceTracker;
+		const t0 = performance.now();
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
+		const t1 = performance.now();
+		tracker?.trackConfig(t1 - t0);
 		const source = await transformFilename(resolvers, config, filename, fs);
-		const engine = new Engine(config, Parser);
+		const t2 = performance.now();
+		tracker?.trackTransform(t2 - t1);
+		const engine = new Engine(config, Parser, { tracker });
 		return engine.lint(source);
 	}
 
@@ -204,10 +251,15 @@ export class HtmlValidate {
 	 * @returns Report output.
 	 */
 	public validateFileSync(filename: string, fs: TransformFS = defaultFS): Report {
+		const t0 = performance.now();
 		const config = this.getConfigForSync(filename);
 		const resolvers = this.configLoader.getResolvers();
+		const t1 = performance.now();
+		this._performanceTracker?.trackConfig(t1 - t0);
 		const source = transformFilenameSync(resolvers, config, filename, fs);
-		const engine = new Engine(config, Parser);
+		const t2 = performance.now();
+		this._performanceTracker?.trackTransform(t2 - t1);
+		const engine = new Engine(config, Parser, { tracker: this._performanceTracker });
 		return engine.lint(source);
 	}
 
@@ -289,7 +341,7 @@ export class HtmlValidate {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
 		const source = await transformFilename(resolvers, config, filename, fs);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config, Parser, { tracker: null });
 		return engine.dumpTokens(source);
 	}
 
@@ -306,7 +358,7 @@ export class HtmlValidate {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
 		const source = await transformFilename(resolvers, config, filename, fs);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config, Parser, { tracker: null });
 		return engine.dumpEvents(source);
 	}
 
@@ -323,7 +375,7 @@ export class HtmlValidate {
 		const config = await this.getConfigFor(filename);
 		const resolvers = this.configLoader.getResolvers();
 		const source = await transformFilename(resolvers, config, filename, fs);
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config, Parser, { tracker: null });
 		return engine.dumpTree(source);
 	}
 
@@ -461,7 +513,7 @@ export class HtmlValidate {
 			typeof filenameOrConfig === "string"
 				? await this.getConfigFor(filenameOrConfig)
 				: await filenameOrConfig;
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config, Parser, { tracker: null });
 		return engine.getRuleDocumentation(message);
 	}
 
@@ -527,7 +579,7 @@ export class HtmlValidate {
 			typeof filenameOrConfig === "string"
 				? this.getConfigForSync(filenameOrConfig)
 				: filenameOrConfig;
-		const engine = new Engine(config, Parser);
+		const engine = new Engine(config, Parser, { tracker: null });
 		return engine.getRuleDocumentation(message);
 	}
 
@@ -561,7 +613,7 @@ export class HtmlValidate {
 		context: unknown | null = null,
 	): Promise<RuleDocumentation | null> {
 		const c = config ?? this.getConfigFor("inline");
-		const engine = new Engine(await c, Parser);
+		const engine = new Engine(await c, Parser, { tracker: null });
 		return engine.getRuleDocumentation({ ruleId, context });
 	}
 
@@ -595,7 +647,7 @@ export class HtmlValidate {
 		context: unknown | null = null,
 	): RuleDocumentation | null {
 		const c = config ?? this.getConfigForSync("inline");
-		const engine = new Engine(c, Parser);
+		const engine = new Engine(c, Parser, { tracker: null });
 		return engine.getRuleDocumentation({ ruleId, context });
 	}
 

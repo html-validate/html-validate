@@ -8,6 +8,7 @@ import { type Event } from "./event";
 import { type Location } from "./location";
 import { MetaTable } from "./meta";
 import { Parser } from "./parser";
+import { PerformanceTracker } from "./performance";
 import { Reporter } from "./reporter";
 import { type SchemaObject, Rule, ruleDocumentationUrl } from "./rule";
 
@@ -323,6 +324,43 @@ describe("rule base class", () => {
 				filterResult = false;
 				callback("event", mockEvent);
 				expect(delivered).toBeFalsy();
+			});
+		});
+
+		describe("tracker", () => {
+			it("should record rule timing when tracker is set", () => {
+				expect.assertions(1);
+				const tracker = new PerformanceTracker();
+				rule.setTracker(tracker);
+				rule.on("*", jest.fn());
+				callback = parserOn.mock.calls[0][1];
+				callback("event", mockEvent);
+				const { rules } = tracker.getResult();
+				expect(rules).toHaveLength(1);
+			});
+
+			it("should not record timing when rule is disabled", () => {
+				expect.assertions(1);
+				const tracker = new PerformanceTracker();
+				rule.setTracker(tracker);
+				rule.setEnabled(false);
+				rule.on("*", jest.fn());
+				callback = parserOn.mock.calls[0][1];
+				callback("event", mockEvent);
+				const { rules } = tracker.getResult();
+				expect(rules).toHaveLength(0);
+			});
+
+			it("should accumulate timings across multiple invocations", () => {
+				expect.assertions(1);
+				const tracker = new PerformanceTracker();
+				rule.setTracker(tracker);
+				rule.on("*", jest.fn());
+				callback = parserOn.mock.calls[0][1];
+				callback("event", mockEvent);
+				callback("event", mockEvent);
+				const { rules } = tracker.getResult();
+				expect(rules[0].count).toBe(2);
 			});
 		});
 	});

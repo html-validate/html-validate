@@ -97,7 +97,7 @@ describe("Engine", () => {
 			},
 		});
 		resolvedConfig = await config.resolve();
-		engine = new ExposedEngine(resolvedConfig, MockParser);
+		engine = new ExposedEngine(resolvedConfig, MockParser, { tracker: null });
 	});
 
 	describe("lint()", () => {
@@ -508,7 +508,7 @@ describe("Engine", () => {
 
 			const source = inline("");
 			const resolvedConfig = await config.resolve();
-			const engine = new ExposedEngine(resolvedConfig, MockParser);
+			const engine = new ExposedEngine(resolvedConfig, MockParser, { tracker: null });
 			engine.lint([source]);
 			expect(plugin.init).toHaveBeenCalledWith();
 		});
@@ -526,7 +526,7 @@ describe("Engine", () => {
 
 			const source = inline("");
 			const resolvedConfig = await config.resolve();
-			const engine = new ExposedEngine(resolvedConfig, MockParser);
+			const engine = new ExposedEngine(resolvedConfig, MockParser, { tracker: null });
 			engine.lint([source]);
 			expect(plugin.setup).toHaveBeenCalledWith(source, expect.any(EventHandler));
 		});
@@ -544,6 +544,7 @@ describe("Engine", () => {
 				mockRule = {
 					init: jest.fn(),
 					setup: jest.fn(),
+					setTracker: jest.fn(),
 				} as unknown as Rule;
 			});
 
@@ -609,7 +610,7 @@ describe("Engine", () => {
 				];
 
 				const resolvedConfig = await config.resolve();
-				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser, { tracker: null });
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					resolvedConfig,
@@ -636,7 +637,7 @@ describe("Engine", () => {
 				];
 
 				const resolvedConfig = await config.resolve();
-				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser, { tracker: null });
 				const missingRule = jest.spyOn(engine, "missingRule");
 				engine.loadRule("custom/my-rule", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(missingRule).toHaveBeenCalledWith("custom/my-rule");
@@ -658,7 +659,7 @@ describe("Engine", () => {
 				];
 
 				const resolvedConfig = await config.resolve();
-				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser);
+				const engine = new ExposedEngine<Parser>(resolvedConfig, MockParser, { tracker: null });
 				const rule = engine.loadRule(
 					"custom/my-rule",
 					resolvedConfig,
@@ -676,7 +677,9 @@ describe("Engine", () => {
 				/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should not test internal properties */
 				(config as any).plugins = [{}];
 				const resolvedConfig = await config.resolve();
-				expect(() => new ExposedEngine(resolvedConfig, MockParser)).not.toThrow();
+				expect(
+					() => new ExposedEngine(resolvedConfig, MockParser, { tracker: null }),
+				).not.toThrow();
 			});
 		});
 	});
