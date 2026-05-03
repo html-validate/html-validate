@@ -41,10 +41,6 @@ function clone<T>(value: T): T {
 	}
 }
 
-function overwriteMerge<T>(_a: T[], b: T[]): T[] {
-	return b;
-}
-
 /**
  * @public
  */
@@ -250,18 +246,30 @@ export class MetaTable {
 	}
 
 	private mergeElement(a: Partial<MetaElement>, b: MetaElement): MetaElement {
-		const merged = deepmerge(a, b, { arrayMerge: overwriteMerge });
+		const merged: MetaElement = { ...a, ...b };
+
+		/* merge attributes from both sources, with b taking precedence entirely */
+		const mergedAttrs: Record<string, MetaAttribute & InternalAttributeFlags> = {
+			...(a.attributes as Record<string, MetaAttribute & InternalAttributeFlags>),
+			...(b.attributes as Record<string, MetaAttribute & InternalAttributeFlags>),
+		};
 
 		/* special handling when removing attributes by setting them to null
 		 * resulting in the deletion flag being set */
-		const filteredAttrs = Object.entries(
-			merged.attributes as Record<string, MetaAttribute & InternalAttributeFlags>,
-		).filter(([, attr]) => {
-			const val = !attr.delete;
-			delete attr.delete;
-			return val;
-		});
-		merged.attributes = Object.fromEntries(filteredAttrs);
+		for (const [name, attr] of Object.entries(mergedAttrs)) {
+			if (attr.delete) {
+				/* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- technically user data but the attribute must have been added by the user already */
+				delete mergedAttrs[name];
+			} else {
+				delete attr.delete;
+			}
+		}
+		merged.attributes = mergedAttrs;
+
+		/* merge aria (shallow merge suffices as all properties are scalar or function) */
+		if (a.aria) {
+			merged.aria = { ...a.aria, ...b.aria };
+		}
 
 		return merged;
 	}
