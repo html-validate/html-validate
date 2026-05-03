@@ -211,6 +211,7 @@ export default new Package("html-validate-docs", [
 	.config(function (checkAnchorLinksProcessor) {
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/$/);
 		checkAnchorLinksProcessor.ignoredLinks.push(/^\/changelog$/);
+		checkAnchorLinksProcessor.ignoredLinks.push(/^\/chat$/);
 		checkAnchorLinksProcessor.checkDoc = (doc) => {
 			return (
 				doc.path &&
