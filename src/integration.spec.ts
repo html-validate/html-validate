@@ -383,3 +383,46 @@ describe("Parser error handling", () => {
 		`);
 	});
 });
+
+describe("startPerformance() / stopPerformance()", () => {
+	it("should return performance data after validation", async () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate();
+		htmlvalidate.startPerformance();
+		await htmlvalidate.validateString("<br/>");
+		const result = htmlvalidate.stopPerformance();
+		expect(result.events.length).toBeGreaterThan(0);
+		expect(result.rules.length).toBeGreaterThan(0);
+	});
+
+	it("stopPerformance() should reset tracker", async () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate();
+		htmlvalidate.startPerformance();
+		await htmlvalidate.validateString("<br/>");
+		const result = htmlvalidate.stopPerformance();
+		expect(result.events.length).toBeGreaterThan(0);
+		/* after stopping, subsequent calls return empty result */
+		const result2 = htmlvalidate.stopPerformance();
+		expect(result2).toEqual({
+			events: [],
+			rules: [],
+			configTime: 0,
+			transformTime: 0,
+			totalTime: 0,
+		});
+	});
+
+	it("stopPerformance() without startPerformance() should return empty result", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate();
+		const result = htmlvalidate.stopPerformance();
+		expect(result).toEqual({
+			events: [],
+			rules: [],
+			configTime: 0,
+			transformTime: 0,
+			totalTime: 0,
+		});
+	});
+});

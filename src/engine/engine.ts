@@ -13,6 +13,7 @@ import { InvalidTokenError, Lexer, TokenType } from "../lexer";
 import { type Location } from "../location";
 import { type Message } from "../message";
 import { type Parser, ParserError } from "../parser";
+import { type PerformanceTracker } from "../performance";
 import { type Report, Reporter } from "../reporter";
 import { type RuleConstructor, type RuleDocumentation, Rule } from "../rule";
 import bundledRules from "../rules";
@@ -45,16 +46,29 @@ interface DirectiveContext {
 /**
  * @internal
  */
+export interface EngineOptions {
+	tracker: PerformanceTracker | null;
+}
+
+/**
+ * @internal
+ */
 export class Engine<T extends Parser = Parser> {
 	private report: Reporter;
 	private config: ResolvedConfig;
 	private ParserClass: new (config: ResolvedConfig) => T;
 	private availableRules: Record<string, RuleConstructor<unknown, unknown> | undefined>;
+	private tracker: PerformanceTracker | null;
 
-	public constructor(config: ResolvedConfig, ParserClass: new (config: ResolvedConfig) => T) {
+	public constructor(
+		config: ResolvedConfig,
+		ParserClass: new (config: ResolvedConfig) => T,
+		options: EngineOptions,
+	) {
 		this.report = new Reporter();
 		this.config = config;
 		this.ParserClass = ParserClass;
+		this.tracker = options.tracker;
 
 		/* initialize plugins and rules */
 		const result = this.initPlugins(this.config);
@@ -74,6 +88,11 @@ export class Engine<T extends Parser = Parser> {
 		for (const source of sources) {
 			/* create parser for source */
 			const parser = this.instantiateParser();
+
+			/* set performance tracker on event handler if enabled */
+			if (this.tracker) {
+				parser.getEventHandler().setTracker(this.tracker);
+			}
 
 			/* setup plugins and rules */
 			const { rules } = this.setupPlugins(source, this.config, parser);
@@ -458,6 +477,7 @@ export class Engine<T extends Parser = Parser> {
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = ruleId;
 		rule.init(parser, report, severity, meta);
+		rule.setTracker(this.tracker);
 
 		/* call setup callback if present */
 

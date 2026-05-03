@@ -25,6 +25,7 @@ interface ParsedArgs {
 	help: boolean;
 	init: boolean;
 	"max-warnings"?: string;
+	performance: boolean;
 	preset?: string;
 	"print-config": boolean;
 	rule?: string;
@@ -133,6 +134,7 @@ const argv = minimist<ParsedArgs>(process.argv.slice(2), {
 		"dump-tree",
 		"h",
 		"help",
+		"performance",
 		"print-config",
 		"stdin",
 		"version",
@@ -184,6 +186,7 @@ Debugging options:
       --dump-source              output post-transformed source data.
       --dump-tokens              output tokens from lexing stage.
       --dump-tree                output nodes from the dom tree.
+      --performance              output performance data after validation.
 
 Formatters:
 
@@ -273,9 +276,10 @@ async function run(): Promise<void> {
 		let success: boolean;
 		switch (mode) {
 			case Mode.LINT: {
-				success = await lint(htmlvalidate, process.stdout, files, {
+				success = await lint(htmlvalidate, process.stdout, process.stderr, files, {
 					formatter,
 					maxWarnings,
+					performance: argv.performance,
 					stdinFilename: argv["stdin-filename"] ?? false,
 				});
 				break;

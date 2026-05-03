@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { PerformanceTracker } from "../performance";
 import { EventHandler } from "./eventhandler";
 
 describe("eventhandler", () => {
@@ -86,6 +87,52 @@ describe("eventhandler", () => {
 			deregister();
 			eventhandler.trigger("foo", { bar: true });
 			expect(callback).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("setTracker / trigger", () => {
+		it("should track event time when tracker is set", () => {
+			expect.assertions(1);
+			const tracker = new PerformanceTracker();
+			eventhandler.setTracker(tracker);
+			eventhandler.on("tag:start", () => {
+				/* do nothing */
+			});
+			eventhandler.trigger("tag:start", {});
+			eventhandler.trigger("tag:start", {});
+			const { events } = tracker.getResult();
+			expect(events).toHaveLength(1);
+		});
+
+		it("should accumulate counts across multiple triggers", () => {
+			expect.assertions(1);
+			const tracker = new PerformanceTracker();
+			eventhandler.setTracker(tracker);
+			eventhandler.trigger("tag:start", {});
+			eventhandler.trigger("tag:start", {});
+			const { events } = tracker.getResult();
+			expect(events[0].count).toBe(2);
+		});
+
+		it("should not track events when no tracker is set", () => {
+			expect.assertions(1);
+			const callback = jest.fn();
+			eventhandler.on("tag:start", callback);
+			eventhandler.trigger("tag:start", {});
+			/* just verify listeners still fire without a tracker */
+			expect(callback).toHaveBeenCalledTimes(1);
+		});
+
+		it("should stop tracking after setTracker(null)", () => {
+			expect.assertions(1);
+			const tracker = new PerformanceTracker();
+			eventhandler.setTracker(tracker);
+			eventhandler.trigger("tag:start", {});
+			eventhandler.setTracker(null);
+			eventhandler.trigger("tag:start", {});
+			const { events } = tracker.getResult();
+			/* only the first trigger should have been recorded */
+			expect(events[0].count).toBe(1);
 		});
 	});
 });
