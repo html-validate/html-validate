@@ -2,10 +2,10 @@ import { type HtmlElement } from "../htmlelement";
 import { type Combinator, parseCombinator } from "./combinator";
 import {
 	type Condition,
-	AttributeCondition,
-	ClassCondition,
-	IdCondition,
-	PseudoClassCondition,
+	createAttributeCondition,
+	createClassCondition,
+	createIdCondition,
+	createPseudoClassCondition,
 } from "./condition";
 import { type SelectorContext } from "./selector-context";
 import { splitCompound } from "./split-compound";
@@ -39,13 +39,13 @@ export class Compound {
 	private createCondition(pattern: string): Condition {
 		switch (pattern[0]) {
 			case ".":
-				return new ClassCondition(pattern.slice(1));
+				return createClassCondition(pattern.slice(1));
 			case "#":
-				return new IdCondition(pattern.slice(1));
+				return createIdCondition(pattern.slice(1));
 			case "[":
-				return new AttributeCondition(pattern.slice(1, -1));
+				return createAttributeCondition(pattern.slice(1, -1));
 			case ":":
-				return new PseudoClassCondition(pattern.slice(1), this.selector);
+				return createPseudoClassCondition(pattern.slice(1), this.selector);
 			default:
 				/* istanbul ignore next: fallback solution, the switch cases should cover
 				 * everything and there is no known way to trigger this fallback */
