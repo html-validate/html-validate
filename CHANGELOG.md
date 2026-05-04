@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 10.15.0 (2026-05-04)
+
+### Features
+
+- **cli:** add `--performance` to help debug performance issues ([1451915](https://gitlab.com/html-validate/html-validate/commit/1451915963b36bd94c818f4c2a0f2b24a3d50712))
+
+### Performance Improvements
+
+- optimize loading global attributes onto element metadata ([11228b8](https://gitlab.com/html-validate/html-validate/commit/11228b8ae2716e5395b5bb99fa4f95d2c7c19331))
+
 ## 10.14.0 (2026-05-02)
 
 ### Features
