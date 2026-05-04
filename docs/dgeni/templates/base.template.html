@@ -46,6 +46,10 @@
 							<li>{@link about About}</li>
 						</ul>
 						<p class="navbar-text navbar-right hidden-xs hidden-sm">{{ pkg.name }}-{{ pkg.version }}</p>
+						<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+							<li><a href="https://gitlab.com/html-validate/html-validate" rel="external" class="navbar-gitlab" title="GitLab" aria-label="GitLab"><span class="navbar-gitlab__icon" aria-hidden="true"></span></a></li>
+							<li><a href="/chat" rel="external" class="navbar-discord" title="Discord" aria-label="Discord"><span class="navbar-discord__icon" aria-hidden="true"></span></a></li>
+						</ul>
 					</div>
 				</div>
 			</nav>
@@ -81,6 +85,8 @@
 		{%- if doc.fileInfo.projectRelativePath and doc.docType != 'error' %}
 		<footer>
 			<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="button button--footer"><i class="fa-solid fa-pencil">&nbsp;</i>Edit this page</a>
+			<a href="https://gitlab.com/html-validate/html-validate" rel="external" class="button button--footer"><i class="fa-brands fa-gitlab">&nbsp;</i>GitLab</a>
+			<a href="/chat" rel="external" class="button button--footer"><i class="fa-brands fa-discord">&nbsp;</i> Discord</a>
 			{%- block footer %}
 			{%- endblock %}
 		</footer>

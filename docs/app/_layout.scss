@@ -93,3 +93,23 @@ footer {
 	padding: 3rem 1rem;
 	margin: 0 auto;
 }
+
+.navbar-gitlab {
+	padding: 13px 5px !important; // override bootstrap padding
+
+	&__icon {
+		@include fa-icon-brands($fa-var-gitlab);
+
+		font-size: 20px;
+	}
+}
+
+.navbar-discord {
+	padding: 13px 5px !important; // override bootstrap padding
+
+	&__icon {
+		@include fa-icon-brands($fa-var-discord);
+
+		font-size: 20px;
+	}
+}
