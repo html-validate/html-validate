@@ -200,6 +200,24 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			return;
 		}
 
+		/* when not terminated and not found, only flag if the entity name would be
+		 * valid with a semicolon—otherwise it is plain text with an ampersand
+		 * (e.g. “Q&A”, “&c.”, etc.) rather than an attempted character reference */
+		if (!terminated) {
+			const foundWithSemicolon = this.entities.includes(entity + ";");
+			if (!foundWithSemicolon) {
+				return;
+			}
+			const entityLocation = getLocation(location, entity, match);
+			const message = `Character reference "{{ entity }}" must be terminated by a semicolon`;
+			const context: RuleContext = {
+				entity: raw,
+				terminated: false,
+			};
+			this.report(node, message, entityLocation, context);
+			return;
+		}
+
 		const entityLocation = getLocation(location, entity, match);
 		const message = `Unrecognized character reference "{{ entity }}"`;
 		const context: RuleContext = {

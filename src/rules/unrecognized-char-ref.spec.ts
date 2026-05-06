@@ -27,6 +27,14 @@ describe("rule unrecognized-char-ref", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report error for plain text with ampersand that is not an entity name", async () => {
+			expect.assertions(1);
+			/* “&c.” (abbreviation “etc.”) and “&A” (as in “Q&A”) are not entity names */
+			const markup = /* HTML */ ` <p>quality &c. — Q&A</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should not report error for <script>", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ `
@@ -171,37 +179,50 @@ describe("rule unrecognized-char-ref", () => {
 			`);
 		});
 
-		it("should report error when url contains invalid character reference", async () => {
-			expect.assertions(2);
+		it("should not report error for plain text ampersand that is not a character reference", async () => {
+			expect.assertions(1);
+			/* &section is not a known entity name even with semicolon — just plain text */
 			const markup = /* HTML */ `
 				<p title="&section"></p>
 				<a href="&section?bar&baz"></a>
 				<a href="&section#bar&baz"></a>
 			`;
 			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error when url contains a known entity missing semicolon", async () => {
+			expect.assertions(2);
+			/* &star is a known entity (&star;) — missing semicolon before the URL delimiter */
+			const markup = /* HTML */ `
+				<p title="&star"></p>
+				<a href="&star?bar&baz"></a>
+				<a href="&star#bar&baz"></a>
+			`;
+			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&section" (unrecognized-char-ref)
+				"error: Character reference "&star" must be terminated by a semicolon (unrecognized-char-ref)
 				  1 |
-				> 2 | 				<p title="&section"></p>
-				    | 				          ^^^^^^^^
-				  3 | 				<a href="&section?bar&baz"></a>
-				  4 | 				<a href="&section#bar&baz"></a>
+				> 2 | 				<p title="&star"></p>
+				    | 				          ^^^^^
+				  3 | 				<a href="&star?bar&baz"></a>
+				  4 | 				<a href="&star#bar&baz"></a>
 				  5 |
 				Selector: p
-				error: Unrecognized character reference "&section" (unrecognized-char-ref)
+				error: Character reference "&star" must be terminated by a semicolon (unrecognized-char-ref)
 				  1 |
-				  2 | 				<p title="&section"></p>
-				> 3 | 				<a href="&section?bar&baz"></a>
-				    | 				         ^^^^^^^^
-				  4 | 				<a href="&section#bar&baz"></a>
+				  2 | 				<p title="&star"></p>
+				> 3 | 				<a href="&star?bar&baz"></a>
+				    | 				         ^^^^^
+				  4 | 				<a href="&star#bar&baz"></a>
 				  5 |
 				Selector: a:nth-child(2)
-				error: Unrecognized character reference "&section" (unrecognized-char-ref)
-				  2 | 				<p title="&section"></p>
-				  3 | 				<a href="&section?bar&baz"></a>
-				> 4 | 				<a href="&section#bar&baz"></a>
-				    | 				         ^^^^^^^^
+				error: Character reference "&star" must be terminated by a semicolon (unrecognized-char-ref)
+				  2 | 				<p title="&star"></p>
+				  3 | 				<a href="&star?bar&baz"></a>
+				> 4 | 				<a href="&star#bar&baz"></a>
+				    | 				         ^^^^^
 				  5 |
 				Selector: a:nth-child(3)"
 			`);
@@ -317,7 +338,7 @@ describe("rule unrecognized-char-ref", () => {
 			const markup = /* HTML */ ` <p>&star</p> `;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toMatchInlineCodeframe(`
-				"error: Unrecognized character reference "&star" (unrecognized-char-ref)
+				"error: Character reference "&star" must be terminated by a semicolon (unrecognized-char-ref)
 				> 1 |  <p>&star</p>
 				    |     ^^^^^
 				Selector: p"
