@@ -133,7 +133,7 @@ Selector: p:nth-child(5)"
 
 exports[`rule no-raw-characters should contain documentation 1`] = `
 {
-  "description": "Some characters such as \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
+  "description": "Some characters such as \`<\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (HTML entity).",
   "url": "https://html-validate.org/rules/no-raw-characters.html",
 }
 `;
