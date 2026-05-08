@@ -10,7 +10,7 @@
     "html-validate": "*"
   },
   "devDependencies": {
-    "@jest/globals": "30.3.0",
+    "@jest/globals": "30.4.0",
     "esbuild": "0.28.0"
   }
 }
