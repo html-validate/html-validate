@@ -21,6 +21,6 @@ export function requireUncached(require: NodeJS.Require, moduleId: string): unkn
 	/* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- needed to perform its function */
 	delete require.cache[filename];
 
-	/* eslint-disable-next-line import/no-dynamic-require, security/detect-non-literal-require -- as expected but should be moved to upcoming resolver class */
+	/* eslint-disable-next-line import-x/no-dynamic-require, security/detect-non-literal-require -- as expected but should be moved to upcoming resolver class */
 	return require(filename);
 }

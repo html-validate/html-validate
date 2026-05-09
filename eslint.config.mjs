@@ -49,7 +49,7 @@ export default [
 	{
 		name: "local",
 		rules: {
-			"import/extensions": "off",
+			"import-x/extensions": "off",
 			"security/detect-unsafe-regex": "off",
 			"sonarjs/no-hardcoded-passwords": "off",
 			"sonarjs/slow-regex": "off",
@@ -88,9 +88,9 @@ export default [
 		rules: {
 			"@eslint-community/eslint-comments/require-description": "off",
 			"@typescript-eslint/no-require-imports": "off",
-			"import/no-duplicates": "off",
-			"import/no-extraneous-dependencies": "off",
-			"import/no-unresolved": "off",
+			"import-x/no-duplicates": "off",
+			"import-x/no-extraneous-dependencies": "off",
+			"import-x/no-unresolved": "off",
 			"n/no-extraneous-import": ["error", { allowModules: ["html-validate"] }],
 			"tsdoc/syntax": "off",
 			"no-console": "off",
