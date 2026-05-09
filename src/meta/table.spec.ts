@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, @typescript-eslint/no-require-imports -- needed to load fixtues */
+/* eslint-disable import-x/no-dynamic-require, @typescript-eslint/no-require-imports -- needed to load fixtues */
 
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
