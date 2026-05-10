@@ -28,6 +28,7 @@ const defaults: RuleOptions = {
 const allowlist = new Set([
 	"main",
 	"nav",
+	"search",
 	"table",
 	"td",
 	"th",
