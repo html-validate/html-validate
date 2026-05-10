@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 10.16.0 (2026-05-10)
+
+### Features
+
+- **rules:** option to allow css-variables with `no-inline-style` ([bb68031](https://gitlab.com/html-validate/html-validate/commit/bb6803168717567963360c1c11f294bd8e9ea780))
+
+### Bug Fixes
+
+- adjust rules specifically around `<p>` validation, “>”, and character sequences starting with “&” ([29d1ded](https://gitlab.com/html-validate/html-validate/commit/29d1deddef0c0fd5925fc7cf748a6f9cc4d64735))
+- **rules:** allow `aria-label` on `<search>` ([0f4fb51](https://gitlab.com/html-validate/html-validate/commit/0f4fb51d82d29568ca96d8ae2411cb9c72703db3)), closes [#359](https://gitlab.com/html-validate/html-validate/issues/359)
+
 ## 10.15.0 (2026-05-04)
 
 ### Features

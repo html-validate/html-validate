@@ -82,4 +82,4 @@ Setting this option to `false` disallows CSS variables as well:
 
 ## Version history
 
-- %version% - `allowVariables` option added
+- 10.16.0 - `allowVariables` option added
