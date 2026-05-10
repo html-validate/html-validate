@@ -156,7 +156,12 @@ describe("rule no-inline-style", () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: ["color", "background"] }] },
+				rules: {
+					"no-inline-style": [
+						"error",
+						{ allowedProperties: ["color", "background"], allowVariables: false },
+					],
+				},
 			});
 			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -167,7 +172,9 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+				rules: {
+					"no-inline-style": ["error", { allowedProperties: ["color"], allowVariables: false }],
+				},
 			});
 			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -184,7 +191,7 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: [] }] },
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: false }] },
 			});
 			const markup = /* HTML */ ` <p style="color: red; background: green;"></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -201,7 +208,9 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+				rules: {
+					"no-inline-style": ["error", { allowedProperties: ["color"], allowVariables: false }],
+				},
 			});
 			const markup = /* HTML */ ` <p style></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -218,7 +227,9 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: ["color"] }] },
+				rules: {
+					"no-inline-style": ["error", { allowedProperties: ["color"], allowVariables: false }],
+				},
 			});
 			const markup = /* HTML */ ` <p style=""></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -235,7 +246,12 @@ describe("rule no-inline-style", () => {
 			expect.assertions(2);
 			htmlvalidate = new HtmlValidate({
 				root: true,
-				rules: { "no-inline-style": ["error", { allowedProperties: ["background"] }] },
+				rules: {
+					"no-inline-style": [
+						"error",
+						{ allowedProperties: ["background"], allowVariables: false },
+					],
+				},
 			});
 			const markup = /* HTML */ ` <p style="color"></p> `;
 			const report = await htmlvalidate.validateString(markup);
@@ -260,6 +276,53 @@ describe("rule no-inline-style", () => {
 		});
 	});
 
+	describe("allowVariables", () => {
+		it("when enabled, should not report when style attribute sets only CSS variables", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: true }] },
+			});
+			const markup = /* HTML */ ` <p style="--my-color: red; --other: 1px"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("when disabled, should report when style attribute sets CSS variables", async () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: false }] },
+			});
+			const markup = /* HTML */ ` <p style="--my-color: red"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style)
+				> 1 |  <p style="--my-color: red"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
+		});
+
+		it("should report when style attribute sets regular properties alongside CSS variables", async () => {
+			expect.assertions(2);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: true }] },
+			});
+			const markup = /* HTML */ ` <p style="--my-color: red; color: red"></p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Inline style is not allowed (no-inline-style)
+				> 1 |  <p style="--my-color: red; color: red"></p>
+				    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				Selector: p"
+			`);
+		});
+	});
+
 	it("smoketest", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
@@ -277,14 +340,89 @@ describe("rule no-inline-style", () => {
 		`);
 	});
 
-	it("should contain documentation", async () => {
-		expect.assertions(1);
-		htmlvalidate = new HtmlValidate({
-			root: true,
-			rules: { "no-inline-style": "error" },
+	describe("should contain contextual documentation", () => {
+		it("with no options enabled", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: false }] },
+			});
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "no-inline-style",
+			});
+			expect(docs?.description).toMatchInlineSnapshot(`
+				"Inline style is not allowed.
+
+				Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.
+				"
+			`);
 		});
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-		const docs = await htmlvalidate.getRuleDocumentation("no-inline-style");
-		expect(docs).toMatchSnapshot();
+
+		it("with allowedProperties enabled", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: {
+					"no-inline-style": ["error", { allowedProperties: ["color"], allowVariables: false }],
+				},
+			});
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "no-inline-style",
+			});
+			expect(docs?.description).toMatchInlineSnapshot(`
+				"Inline style is not allowed.
+
+				Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.
+
+				Under the current configuration the following CSS properties are allowed:
+
+				- \`color\`"
+			`);
+		});
+
+		it("with allowVariables enabled", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-inline-style": ["error", { allowedProperties: [], allowVariables: true }] },
+			});
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "no-inline-style",
+			});
+			expect(docs?.description).toMatchInlineSnapshot(`
+				"Inline style is not allowed.
+
+				Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.
+
+				Under the current configuration the following CSS properties are allowed:
+
+				- CSS variables (custom properties starting with \`--\`).
+				"
+			`);
+		});
+
+		it("with both options enabled", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: {
+					"no-inline-style": ["error", { allowedProperties: ["color"], allowVariables: true }],
+				},
+			});
+			const docs = await htmlvalidate.getContextualDocumentation({
+				ruleId: "no-inline-style",
+			});
+			expect(docs?.description).toMatchInlineSnapshot(`
+				"Inline style is not allowed.
+
+				Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.
+
+				Under the current configuration the following CSS properties are allowed:
+
+				- \`color\`
+				- CSS variables (custom properties starting with \`--\`).
+				"
+			`);
+		});
 	});
 });

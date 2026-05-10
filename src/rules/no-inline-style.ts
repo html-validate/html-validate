@@ -6,12 +6,14 @@ export interface RuleOptions {
 	include: string[] | null;
 	exclude: string[] | null;
 	allowedProperties: string[];
+	allowVariables: boolean;
 }
 
 const defaults: RuleOptions = {
 	include: null,
 	exclude: null,
 	allowedProperties: ["display"],
+	allowVariables: true,
 };
 
 export default class NoInlineStyle extends Rule<void, RuleOptions> {
@@ -53,17 +55,26 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 				},
 				type: "array",
 			},
+			allowVariables: {
+				type: "boolean",
+			},
 		};
 	}
 
 	public override documentation(): RuleDocumentation {
+		const { allowVariables, allowedProperties } = this.options;
 		const text = [
 			"Inline style is not allowed.\n",
 			"Inline style is a sign of unstructured CSS. Use class or ID with a separate stylesheet.\n",
 		];
-		if (this.options.allowedProperties.length > 0) {
+		if (allowedProperties.length > 0 || allowVariables) {
 			text.push("Under the current configuration the following CSS properties are allowed:\n");
-			text.push(this.options.allowedProperties.map((it) => `- \`${it}\``).join("\n"));
+		}
+		if (allowedProperties.length > 0) {
+			text.push(allowedProperties.map((it) => `- \`${it}\``).join("\n"));
+		}
+		if (allowVariables) {
+			text.push("- CSS variables (custom properties starting with `--`).\n");
 		}
 		return {
 			description: text.join("\n"),
@@ -109,10 +120,10 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 	}
 
 	private allPropertiesAllowed(value: string | DynamicValue | null): boolean {
-		const allowProperties = this.options.allowedProperties;
+		const { allowedProperties, allowVariables } = this.options;
 
-		/* quick path: no properties are allowed, no need to check each one individually */
-		if (allowProperties.length === 0) {
+		/* quick path: no properties are allowed and variables are not allowed, no need to check each one individually */
+		if (allowedProperties.length === 0 && !allowVariables) {
 			return false;
 		}
 
@@ -120,7 +131,10 @@ export default class NoInlineStyle extends Rule<void, RuleOptions> {
 		return (
 			declarations.length > 0 &&
 			declarations.every((it) => {
-				return allowProperties.includes(it);
+				if (allowVariables && it.startsWith("--")) {
+					return true;
+				}
+				return allowedProperties.includes(it);
 			})
 		);
 	}

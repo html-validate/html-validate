@@ -32,7 +32,8 @@ This rule takes an optional object:
 {
   "include": [],
   "exclude": [],
-  "allowedProperties": ["display"]
+  "allowedProperties": ["display"],
+  "allowVariables": true
 }
 ```
 
@@ -63,3 +64,22 @@ By default `display` is allowed.
 <validate name="allowed-properties" rules="no-inline-style">
     <p style="display: none"></p>
 </validate>
+
+### `allowVariables`
+
+When `true` (default), CSS custom properties (variables) are allowed in the `style` attribute.
+CSS variables are properties whose names start with `--`.
+
+<validate name="allow-variables" rules="no-inline-style">
+    <p style="--my-color: red"></p>
+</validate>
+
+Setting this option to `false` disallows CSS variables as well:
+
+<validate name="disallow-variables" rules="no-inline-style" no-inline-style='{"allowVariables": false}'>
+    <p style="--my-color: red"></p>
+</validate>
+
+## Version history
+
+- %version% - `allowVariables` option added
