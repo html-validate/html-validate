@@ -82,6 +82,8 @@ describe("rule aria-label-misuse", () => {
 			${'<input type="text" aria-labelledby="foobar">'}   | ${"Labelable elements (aria-labelledby)"}
 			${'<main aria-label="foobar"></main>'}              | ${"Landmark elements (aria-label)"}
 			${'<main aria-labelledby="foobar"></main>'}         | ${"Landmark elements (aria-labelledby)"}
+			${'<search aria-label="foobar"></search>'}          | ${"<search> (aria-label)"}
+			${'<search aria-labelledby="foobar"></search>'}     | ${"<search> (aria-labelledby)"}
 			${'<p role="widget" aria-label="foobar">'}          | ${'[role=".."] (aria-label)'}
 			${'<p role="widget" aria-labelledby="foobar">'}     | ${'[role=".."] (aria-labelledby)'}
 			${'<p tabindex="0" aria-label="foobar"></p>'}       | ${"[tabindex] (aria-label)"}
