@@ -7,8 +7,7 @@
 	--max-width: 1440px;
 
 	/* width of sidenav */
-	--sidenav-width-small: 20rem;
-	--sidenav-width-large: 25rem;
+	--sidenav-width-small: 27rem;
 
 	/* gap between sidebar and content */
 	--column-gap-small: 5rem;
@@ -27,6 +26,10 @@ main {
 	margin: 0 auto;
 	overflow: hidden;
 
+	@media (width > bootstrap.$screen-lg-min) {
+		width: var(--max-width);
+	}
+
 	&.without-sidenav {
 		padding: 0 2rem;
 	}
@@ -34,6 +37,7 @@ main {
 	@media screen {
 		&.with-sidenav {
 			display: grid;
+			align-content: start;
 			grid-template-areas:
 				"sidenav"
 				"content";
@@ -89,9 +93,11 @@ main {
 }
 
 footer {
-	max-width: var(--max-width);
-	padding: 3rem 1rem;
-	margin: 0 auto;
+	.footer__inner {
+		max-width: var(--max-width);
+		padding: 3rem 1rem;
+		margin: 0 auto;
+	}
 
 	.footer__links {
 		margin-bottom: 1rem;

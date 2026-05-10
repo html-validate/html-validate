@@ -41,6 +41,12 @@ $fa-font-path: "fonts";
 @import "markdown";
 @import "rule-info";
 
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+}
+
 a {
 	text-decoration: underline;
 	text-underline-offset: 4px;
@@ -69,6 +75,7 @@ h1 {
 }
 
 main {
+	flex: 1;
 	padding-bottom: 3rem;
 }
 
@@ -88,6 +95,7 @@ header {
 }
 
 footer {
+	background-color: bootstrap.$navbar-default-bg;
 	border-top: 1px solid bootstrap.$navbar-default-border;
 
 	a {
