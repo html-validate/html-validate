@@ -84,11 +84,16 @@
 
 		{%- if doc.fileInfo.projectRelativePath and doc.docType != 'error' %}
 		<footer>
-			<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="button button--footer"><i class="fa-solid fa-pencil">&nbsp;</i>Edit this page</a>
-			<a href="https://gitlab.com/html-validate/html-validate" rel="external" class="button button--footer"><i class="fa-brands fa-gitlab">&nbsp;</i>GitLab</a>
-			<a href="/chat" rel="external" class="button button--footer"><i class="fa-brands fa-discord">&nbsp;</i> Discord</a>
-			{%- block footer %}
-			{%- endblock %}
+			<div class="footer__links">
+				<a href="https://gitlab.com/html-validate/html-validate/edit/master/{{ doc.fileInfo.projectRelativePath }}" class="button button--footer"><i class="fa-solid fa-pencil">&nbsp;</i>Edit this page</a>
+				<a href="https://gitlab.com/html-validate/html-validate" rel="external" class="button button--footer"><i class="fa-brands fa-gitlab">&nbsp;</i>GitLab</a>
+				<a href="/chat" rel="external" class="button button--footer"><i class="fa-brands fa-discord">&nbsp;</i> Discord</a>
+				{%- block footer %}
+				{%- endblock %}
+			</div>
+			<div class="footer__copyright">
+				<p>Copyright &copy; {{ year }} HTML-Validate and HTML-Validate contributors. Released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+			</div>
 		</footer>
 		{%- endif %}
 

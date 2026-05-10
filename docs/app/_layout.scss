@@ -92,6 +92,10 @@ footer {
 	max-width: var(--max-width);
 	padding: 3rem 1rem;
 	margin: 0 auto;
+
+	.footer__links {
+		margin-bottom: 1rem;
+	}
 }
 
 .navbar-gitlab {
