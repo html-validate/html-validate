@@ -5,7 +5,6 @@ import copySchemaService from "./services/copy-schema.mjs";
 
 const { Package } = Dgeni;
 
-/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- nodejs v22 is needed to build docs but the eslint rule does not know that */
 const packagePath = import.meta.dirname;
 
 export default new Package("schema", [])

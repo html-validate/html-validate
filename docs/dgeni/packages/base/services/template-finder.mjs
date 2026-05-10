@@ -24,7 +24,6 @@ export default function templateFinder(log, createDocMessage) {
 			// Traverse each templateFolder and store an index of the files found for later
 			const templateSets = this.templateFolders.map((templateFolder) => {
 				const templates = {};
-				/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- nodejs v22 is needed to build docs but the eslint rule does not know that */
 				for (const template of fs.globSync("**/*", { cwd: templateFolder })) {
 					templates[template] = template;
 				}

@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import isCI from "is-ci";
 
-/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- nodejs v22 is needed to build docs but the eslint rule does not know that */
 const self = path.relative(process.cwd(), import.meta.filename);
 const ignoreTypes = new Set(["validate-spec", "validate-public"]);
 

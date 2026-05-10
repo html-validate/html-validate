@@ -203,6 +203,5 @@ async function isFile(file) {
 }
 
 function matchFiles(pattern) {
-	/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- nodejs v22 is needed to build docs but the eslint rule does not know that */
 	return Array.fromAsync(fs.glob(pattern));
 }
