@@ -26,25 +26,28 @@ const defaults: RuleOptions = {
 };
 
 const allowlist = new Set([
+	/* landmark elements */
+	"article",
+	"aside",
+	"footer",
+	"form",
+	"header",
 	"main",
 	"nav",
 	"search",
+	"section",
+
+	/* other allowed elements */
+	"area",
+	"dialog",
+	"fieldset",
+	"figure",
+	"iframe",
+	"img",
+	"summary",
 	"table",
 	"td",
 	"th",
-	"aside",
-	"header",
-	"footer",
-	"section",
-	"article",
-	"dialog",
-	"form",
-	"iframe",
-	"img",
-	"area",
-	"fieldset",
-	"summary",
-	"figure",
 ]);
 
 function isValidUsage(target: HtmlElement, meta: MetaElement): boolean {
