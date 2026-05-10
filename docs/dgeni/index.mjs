@@ -41,6 +41,7 @@ export default new Package("html-validate-docs", [
 	.config(function (renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = pkg;
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
+		renderDocsProcessor.extraData.year = new Date().getFullYear();
 	})
 
 	/* configure roadmap */

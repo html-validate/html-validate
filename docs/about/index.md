@@ -28,4 +28,4 @@ new issue](https://gitlab.com/html-validate/html-validate/issues/new).
 For questions about the project feel free to contact the project owner at
 [contact@html-validate.org](mailto:contact@html-validate.org).
 
-Support is also available at IRC libera.chat [#html-validate](https://kiwiirc.com/client/irc.libera.chat/#html-validate).
+Support is also available on [Discord](/chat).

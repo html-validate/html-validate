@@ -50,6 +50,7 @@ Some guidelines:
 - Mention the issue in the MR and/or relevant commits, preferably using the
   "Fixes #123" syntax.
 - Prefer to use one of the merge request templates.
+- If you used AI tools to generate or assist with your contribution, please read the [AI Policy](https://html-validate.org/about/ai-policy.html).
 
 Merge requests with a failing pipeline will **not** be merged.
 

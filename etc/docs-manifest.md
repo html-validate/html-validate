@@ -5,6 +5,7 @@
 ---
 
 404.html
+about/ai-policy.html
 about/index.html
 about/roadmap.html
 about/sponsoring.html
@@ -142,6 +143,7 @@ usage/elements.html
 usage/grunt.html
 usage/index.html
 usage/inline-config.html
+usage/plugins.html
 usage/protractor.html
 usage/transformers.html
 usage/vscode.html
