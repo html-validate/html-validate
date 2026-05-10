@@ -259,7 +259,7 @@
     "esbuild": "0.28.0",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
-    "jest": "30.4.1",
+    "jest": "30.4.2",
     "jest-diff": "30.4.1",
     "jest-environment-jsdom": "30.4.1",
     "jest-snapshot": "30.4.1",
