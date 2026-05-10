@@ -94,7 +94,9 @@ function parseValidatesProcessor(log, validateMap, trimIndentation, createDocMes
 					},
 				);
 			} catch (error) {
-				throw new Error(createDocMessage("Failed to parse inline validation", doc, error));
+				throw new Error(createDocMessage("Failed to parse inline validation", doc, error), {
+					cause: error,
+				});
 			}
 		}
 	}

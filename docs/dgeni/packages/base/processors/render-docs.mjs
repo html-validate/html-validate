@@ -45,7 +45,7 @@ function renderDocsProcessor(log, templateFinder, templateEngine, createDocMessa
 				} catch (ex) {
 					const { content, moduleDoc, components, serviceDoc, providerDoc, ...restOfDoc } = doc;
 					log.debug(restOfDoc);
-					throw new Error(createDocMessage("Failed to render", doc, ex));
+					throw new Error(createDocMessage("Failed to render", doc, ex), { cause: ex });
 				}
 			}
 		},

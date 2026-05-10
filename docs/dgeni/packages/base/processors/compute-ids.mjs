@@ -59,7 +59,9 @@ export default function computeIdsProcessor(log, aliasMap, createDocMessage) {
 
 					aliasMap.addDoc(doc);
 				} catch (err) {
-					throw new Error(createDocMessage("Failed to compute ids/aliases for doc", doc, err));
+					throw new Error(createDocMessage("Failed to compute ids/aliases for doc", doc, err), {
+						cause: err,
+					});
 				}
 
 				log.debug("computed id for:", `"${doc.id}" (${doc.docType})`);

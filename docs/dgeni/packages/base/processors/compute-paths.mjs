@@ -57,7 +57,9 @@ export default function computePathsProcessor(log, createDocMessage) {
 						}
 					}
 				} catch (err) {
-					throw new Error(createDocMessage("Failed to compute paths for doc", doc, err));
+					throw new Error(createDocMessage("Failed to compute paths for doc", doc, err), {
+						cause: err,
+					});
 				}
 
 				log.debug(createDocMessage(`path: ${doc.path}; outputPath: ${doc.outputPath}`, doc));
