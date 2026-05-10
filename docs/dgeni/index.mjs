@@ -15,6 +15,7 @@ import basePackage from "./packages/base/index.mjs";
 import linksPackage from "./packages/links/index.mjs";
 import fileManifest from "./processors/file-manifest.mjs";
 import rules from "./processors/rules.mjs";
+import roadmapPackage from "./roadmap/index.mjs";
 import schemaPackage from "./schema/index.mjs";
 import tagDefs from "./tag-defs/index.mjs";
 
@@ -30,6 +31,7 @@ export default new Package("html-validate-docs", [
 	navigationPackage,
 	basePackage,
 	linksPackage,
+	roadmapPackage,
 	schemaPackage,
 ])
 
@@ -39,6 +41,17 @@ export default new Package("html-validate-docs", [
 	.config(function (renderDocsProcessor) {
 		renderDocsProcessor.extraData.pkg = pkg;
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
+	})
+
+	/* configure roadmap */
+	.config(function (roadmapConfig) {
+		roadmapConfig.hiddenLabels = ["good first issue", "hacktoberfest"];
+		roadmapConfig.componentIcons = {
+			core: "screwdriver-wrench",
+			cli: "terminal",
+			documentation: "book-open",
+			vscode: "code",
+		};
 	})
 
 	/* configure markdown syntax highlighting */

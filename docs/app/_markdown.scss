@@ -1,0 +1,37 @@
+@use "bootstrap/variables" as bootstrap;
+
+.markdown-body {
+	details {
+		padding: 0.5rem 1rem;
+		margin-bottom: 1rem;
+
+		&[open] > summary {
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	summary {
+		cursor: pointer;
+		font-weight: bold;
+		list-style: none;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		user-select: none;
+
+		&::before {
+			content: "▶";
+			font-size: 0.65em;
+			transition: transform 0.15s ease;
+			flex-shrink: 0;
+		}
+
+		&::-webkit-details-marker {
+			display: none;
+		}
+	}
+
+	details[open] > summary::before {
+		transform: rotate(90deg);
+	}
+}
