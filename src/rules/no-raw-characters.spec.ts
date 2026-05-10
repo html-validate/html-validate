@@ -72,10 +72,6 @@ describe("rule no-raw-characters", () => {
 					error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
 					> 1 |  <p>< & ></p>
 					    |       ^
-					Selector: p
-					error: Raw ">" must be encoded as "&gt;" (no-raw-characters)
-					> 1 |  <p>< & ></p>
-					    |         ^
 					Selector: p"
 				`);
 			});

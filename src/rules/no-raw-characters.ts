@@ -13,7 +13,7 @@ const defaults: RuleOptions = {
 
 type RawCharacters = '"' | "&" | "'" | "<" | "=" | ">" | "`";
 
-const textRegexp = /([<>]|&(?![\d#A-Za-z]+;))/g;
+const textRegexp = /(<|&(?![\d#A-Za-z]+;))/g;
 const unquotedAttrRegexp = /(["'<=>`]|&(?![\d#A-Za-z]+;))/g;
 const matchTemplate = /^(<%.*?%>|<\?.*?\?>|<\$.*?\$>)$/s;
 
@@ -45,7 +45,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 
 	public override documentation(): RuleDocumentation {
 		return {
-			description: `Some characters such as \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).`,
+			description: `Some characters such as \`<\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (HTML entity).`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}

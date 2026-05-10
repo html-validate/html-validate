@@ -9,3 +9,23 @@
 	<p>bar
 	<p>baz
 </div>
+
+<!-- block elements should implicitly close `p` (spec: optional end tag omission) -->
+<div>
+	<p>foo
+	<figure><figcaption>bar</figcaption></figure>
+	<p>baz
+	<details><summary>qux</summary></details>
+</div>
+
+<!-- list items should implicitly close `p` (HTML parsing: generate implied end tags) -->
+<ol>
+	<li><p>foo
+	<li><p>bar
+</ol>
+<dl>
+	<dt>foo
+	<dd><p>bar
+	<dt>baz
+	<dd><p>qux
+</dl>

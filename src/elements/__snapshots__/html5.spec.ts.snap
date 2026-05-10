@@ -16229,23 +16229,23 @@ exports[`HTML elements <p> invalid markup 1`] = `
       {
         "column": 3,
         "context": {
-          "child": "<figure>",
+          "child": "<summary>",
           "kind": "content",
           "parent": "<p>",
         },
         "line": 3,
-        "message": "<figure> element is not permitted as content under <p>",
-        "offset": 45,
+        "message": "<summary> element is not permitted as content under <p>",
+        "offset": 53,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "p > figure",
+        "selector": "p > summary",
         "severity": 2,
-        "size": 6,
+        "size": 7,
       },
     ],
-    "source": "<!-- should not allow flow content -->
+    "source": "<!-- should not allow non-phrasing content -->
 <p>
-	<figure>foo</figure>
+	<summary>foo</summary>
 </p>
 ",
     "warningCount": 0,
@@ -18702,7 +18702,7 @@ exports[`HTML elements <template> valid markup 1`] = `[]`;
 exports[`HTML elements <textarea> invalid markup 1`] = `
 [
   {
-    "errorCount": 19,
+    "errorCount": 18,
     "filePath": "test-files/elements/textarea-invalid.html",
     "messages": [
       {
@@ -18710,17 +18710,6 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         "line": 2,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 45,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "textarea:nth-child(1)",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 18,
-        "line": 2,
-        "message": "Raw ">" must be encoded as "&gt;"",
-        "offset": 50,
         "ruleId": "no-raw-characters",
         "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
         "selector": "textarea:nth-child(1)",
@@ -19738,7 +19727,7 @@ exports[`HTML elements <title> invalid markup 1`] = `
 exports[`HTML elements <title> valid markup 1`] = `
 [
   {
-    "errorCount": 4,
+    "errorCount": 2,
     "filePath": "test-files/elements/title-valid.html",
     "messages": [
       {
@@ -19753,32 +19742,10 @@ exports[`HTML elements <title> valid markup 1`] = `
         "size": 1,
       },
       {
-        "column": 17,
-        "line": 8,
-        "message": "Raw ">" must be encoded as "&gt;"",
-        "offset": 183,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "head:nth-child(2) > title",
-        "severity": 2,
-        "size": 1,
-      },
-      {
         "column": 21,
         "line": 8,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 187,
-        "ruleId": "no-raw-characters",
-        "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
-        "selector": "head:nth-child(2) > title",
-        "severity": 2,
-        "size": 1,
-      },
-      {
-        "column": 27,
-        "line": 8,
-        "message": "Raw ">" must be encoded as "&gt;"",
-        "offset": 193,
         "ruleId": "no-raw-characters",
         "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
         "selector": "head:nth-child(2) > title",

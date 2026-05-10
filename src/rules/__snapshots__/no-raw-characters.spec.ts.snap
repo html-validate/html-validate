@@ -5,64 +5,55 @@ exports[`rule no-raw-characters default options smoketest 1`] = `
   1 | <!-- Should not be allowed -->
 > 2 | <p>Fred & Barney</p>
     |         ^
-  3 | <p>Fred > Barney</p>
-  4 | <p>Fred < Barney</p>
-  5 | <p class=foo's></p>
+  3 | <p>Fred < Barney</p>
+  4 | <p class=foo's></p>
+  5 | <p class=foo"s></p>
 Selector: p:nth-child(1)
-error: Raw ">" must be encoded as "&gt;" (no-raw-characters)
+error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
   1 | <!-- Should not be allowed -->
   2 | <p>Fred & Barney</p>
-> 3 | <p>Fred > Barney</p>
+> 3 | <p>Fred < Barney</p>
     |         ^
-  4 | <p>Fred < Barney</p>
-  5 | <p class=foo's></p>
-  6 | <p class=foo"s></p>
+  4 | <p class=foo's></p>
+  5 | <p class=foo"s></p>
+  6 | <p class=foo\`s></p>
 Selector: p:nth-child(2)
-error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
-  2 | <p>Fred & Barney</p>
-  3 | <p>Fred > Barney</p>
-> 4 | <p>Fred < Barney</p>
-    |         ^
-  5 | <p class=foo's></p>
-  6 | <p class=foo"s></p>
-  7 | <p class=foo\`s></p>
-Selector: p:nth-child(3)
 error: Raw "'" must be encoded as "&apos;" (no-raw-characters)
-  3 | <p>Fred > Barney</p>
-  4 | <p>Fred < Barney</p>
-> 5 | <p class=foo's></p>
+  2 | <p>Fred & Barney</p>
+  3 | <p>Fred < Barney</p>
+> 4 | <p class=foo's></p>
     |             ^
-  6 | <p class=foo"s></p>
-  7 | <p class=foo\`s></p>
-  8 | <p class=foo&s></p>
-Selector: p:nth-child(4)
+  5 | <p class=foo"s></p>
+  6 | <p class=foo\`s></p>
+  7 | <p class=foo&s></p>
+Selector: p:nth-child(3)
 error: Raw """ must be encoded as "&quot;" (no-raw-characters)
-  4 | <p>Fred < Barney</p>
-  5 | <p class=foo's></p>
-> 6 | <p class=foo"s></p>
+  3 | <p>Fred < Barney</p>
+  4 | <p class=foo's></p>
+> 5 | <p class=foo"s></p>
     |             ^
-  7 | <p class=foo\`s></p>
-  8 | <p class=foo&s></p>
-  9 |
-Selector: p:nth-child(5)
+  6 | <p class=foo\`s></p>
+  7 | <p class=foo&s></p>
+  8 |
+Selector: p:nth-child(4)
 error: Raw "\`" must be encoded as "&grave;" (no-raw-characters)
-   5 | <p class=foo's></p>
-   6 | <p class=foo"s></p>
->  7 | <p class=foo\`s></p>
-     |             ^
-   8 | <p class=foo&s></p>
-   9 |
-  10 | <!-- Should be allowed -->
-Selector: p:nth-child(6)
+  4 | <p class=foo's></p>
+  5 | <p class=foo"s></p>
+> 6 | <p class=foo\`s></p>
+    |             ^
+  7 | <p class=foo&s></p>
+  8 |
+  9 | <!-- Should be allowed -->
+Selector: p:nth-child(5)
 error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
-   6 | <p class=foo"s></p>
-   7 | <p class=foo\`s></p>
->  8 | <p class=foo&s></p>
+   5 | <p class=foo"s></p>
+   6 | <p class=foo\`s></p>
+>  7 | <p class=foo&s></p>
      |             ^
-   9 |
-  10 | <!-- Should be allowed -->
-  11 | <p>Fred &amp; Barney</p>
-Selector: p:nth-child(7)
+   8 |
+   9 | <!-- Should be allowed -->
+  10 | <p>Fred &amp; Barney</p>
+Selector: p:nth-child(6)
 error: Raw "&" must be encoded as "&amp;" (no-raw-characters)
   17 | <!-- Non-ambiguous ampersands -->
   18 | <p>
@@ -102,56 +93,47 @@ Selector: p:nth-child(15)"
 `;
 
 exports[`rule no-raw-characters relaxed smoketest 1`] = `
-"error: Raw ">" must be encoded as "&gt;" (no-raw-characters)
+"error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
   1 | <!-- Should not be allowed -->
   2 | <p>Fred & Barney</p>
-> 3 | <p>Fred > Barney</p>
+> 3 | <p>Fred < Barney</p>
     |         ^
-  4 | <p>Fred < Barney</p>
-  5 | <p class=foo's></p>
-  6 | <p class=foo"s></p>
+  4 | <p class=foo's></p>
+  5 | <p class=foo"s></p>
+  6 | <p class=foo\`s></p>
 Selector: p:nth-child(2)
-error: Raw "<" must be encoded as "&lt;" (no-raw-characters)
-  2 | <p>Fred & Barney</p>
-  3 | <p>Fred > Barney</p>
-> 4 | <p>Fred < Barney</p>
-    |         ^
-  5 | <p class=foo's></p>
-  6 | <p class=foo"s></p>
-  7 | <p class=foo\`s></p>
-Selector: p:nth-child(3)
 error: Raw "'" must be encoded as "&apos;" (no-raw-characters)
-  3 | <p>Fred > Barney</p>
-  4 | <p>Fred < Barney</p>
-> 5 | <p class=foo's></p>
+  2 | <p>Fred & Barney</p>
+  3 | <p>Fred < Barney</p>
+> 4 | <p class=foo's></p>
     |             ^
-  6 | <p class=foo"s></p>
-  7 | <p class=foo\`s></p>
-  8 | <p class=foo&s></p>
-Selector: p:nth-child(4)
+  5 | <p class=foo"s></p>
+  6 | <p class=foo\`s></p>
+  7 | <p class=foo&s></p>
+Selector: p:nth-child(3)
 error: Raw """ must be encoded as "&quot;" (no-raw-characters)
-  4 | <p>Fred < Barney</p>
-  5 | <p class=foo's></p>
-> 6 | <p class=foo"s></p>
+  3 | <p>Fred < Barney</p>
+  4 | <p class=foo's></p>
+> 5 | <p class=foo"s></p>
     |             ^
-  7 | <p class=foo\`s></p>
-  8 | <p class=foo&s></p>
-  9 |
-Selector: p:nth-child(5)
+  6 | <p class=foo\`s></p>
+  7 | <p class=foo&s></p>
+  8 |
+Selector: p:nth-child(4)
 error: Raw "\`" must be encoded as "&grave;" (no-raw-characters)
-   5 | <p class=foo's></p>
-   6 | <p class=foo"s></p>
->  7 | <p class=foo\`s></p>
-     |             ^
-   8 | <p class=foo&s></p>
-   9 |
-  10 | <!-- Should be allowed -->
-Selector: p:nth-child(6)"
+  4 | <p class=foo's></p>
+  5 | <p class=foo"s></p>
+> 6 | <p class=foo\`s></p>
+    |             ^
+  7 | <p class=foo&s></p>
+  8 |
+  9 | <!-- Should be allowed -->
+Selector: p:nth-child(5)"
 `;
 
 exports[`rule no-raw-characters should contain documentation 1`] = `
 {
-  "description": "Some characters such as \`<\`, \`>\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (html entity).",
+  "description": "Some characters such as \`<\` and \`&\` hold special meaning in HTML and must be escaped using a character reference (HTML entity).",
   "url": "https://html-validate.org/rules/no-raw-characters.html",
 }
 `;
