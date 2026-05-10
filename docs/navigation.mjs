@@ -91,6 +91,7 @@ export default {
 		title: "About",
 		items: [
 			{ title: "About HTML-validate", target: "about" },
+			{ title: "AI Policy", target: "about/ai-policy" },
 			{ title: "Roadmap", target: "about/roadmap" },
 			{ title: "Sponsoring", target: "about/sponsoring" },
 		],

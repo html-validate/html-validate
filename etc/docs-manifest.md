@@ -5,6 +5,7 @@
 ---
 
 404.html
+about/ai-policy.html
 about/index.html
 about/roadmap.html
 about/sponsoring.html
