@@ -24,7 +24,7 @@ function parseTagsProcessor(log, createDocMessage, backTickParserAdapter, htmlBl
 				} catch (e) {
 					const message = createDocMessage("Error parsing tags", doc, e);
 					log.error(message);
-					throw new Error(message);
+					throw new Error(message, { cause: e });
 				}
 			}
 		},

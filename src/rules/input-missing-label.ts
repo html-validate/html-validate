@@ -53,7 +53,7 @@ export default class InputMissingLabel extends Rule {
 			return;
 		}
 
-		let label: HtmlElement[] = [];
+		let label: HtmlElement[];
 
 		/* try to find label by id */
 		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
