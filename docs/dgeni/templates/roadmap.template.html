@@ -1,0 +1,89 @@
+{% extends "base.template.html" %}
+
+{% block content %}
+{% macro renderLabel(label) %}{%- if label.prefix -%}<span class="roadmap-label roadmap-label--scoped" style="--label-color: {{ label.color | escape }}; --label-text-color: {{ label.textColor | escape }}"><span class="roadmap-label__prefix">{{- label.prefix | escape -}}</span><span class="roadmap-label__suffix">{{- label.suffix | escape -}}</span></span>{%- else -%}<span class="roadmap-label" style="--label-color: {{ label.color | escape }}; --label-text-color: {{ label.textColor | escape }}">{{- label.title | escape -}}</span>{%- endif -%}{% endmacro %}
+{{ doc.description | marked }}
+
+{% if not roadmap or roadmap.length === 0 %}
+<p class="text-muted">No open epics at this time. Check back later!</p>
+{% else %}
+
+<ul class="roadmap-grid list-unstyled">
+	{% for epic in roadmap %}
+	<li class="roadmap-card" style="--epic-color: {{ epic.color | escape }}">
+		<div class="roadmap-card__body">
+			<p class="roadmap-card__title">
+				<a href="#epic-{{ epic.iid | escape }}">{{ epic.title | escape }}</a>
+				{%- if epic.icon %}<span class="fa-solid fa-{{ epic.icon | escape }} roadmap-card__icon" aria-hidden="true"></span>{%- endif %}
+			</p>
+			{% if epic.excerpt %}
+			<p class="roadmap-card__excerpt">{{ epic.excerpt | escape }}</p>
+			{% endif %}
+		</div>
+		{% if epic.dueDate %}
+		<p class="roadmap-card__due">
+			<span class="fa-regular fa-calendar" aria-hidden="true"></span>
+			Due: <time datetime="{{ epic.dueDate | escape }}">{{ epic.dueDate | escape }}</time>
+		</p>
+		{% endif %}
+		<div class="roadmap-card__footer">
+			{%- for label in epic.labels -%}
+			{%- if label.prefix == "component" -%}
+			<span class="roadmap-card__component">{{- label.suffix | escape -}}</span>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+	</li>
+	{% endfor %}
+</ul>
+
+<section class="roadmap-details">
+	{% for epic in roadmap %}
+	<div class="roadmap-detail" id="epic-{{ epic.iid | escape }}">
+		<h2>{{ epic.title | escape }}</h2>
+		<p class="roadmap-detail__meta">
+			<a href="{{ epic.webUrl | escape }}" rel="external">Tracked in issue #{{ epic.iid | escape }}</a>
+			<span class="roadmap-detail__labels">
+				{%- for label in epic.labels %}
+				{{ renderLabel(label) }}
+				{%- endfor %}
+			</span>
+		</p>
+		{% if epic.description %}
+		<div class="roadmap-detail__description markdown-body">
+		{{ epic.description | marked }}
+		</div>
+		{% endif %}
+		{% if epic.children.length > 0 %}
+		<h3>Issues</h3>
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Issue</th>
+					<th scope="col">Status</th>
+					<th scope="col">Title</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for child in epic.children %}
+				<tr>
+					<td><a href="{{ child.webUrl | escape }}" rel="external">#{{ child.iid | escape }}</a></td>
+					<td>
+						{% if child.state == "OPEN" %}
+						<span class="label label-success">open</span>
+						{% else %}
+						<span class="label label-default">closed</span>
+						{% endif %}
+					</td>
+					<td>{{ child.title | escape }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+	</div>
+	{% endfor %}
+</section>
+
+{% endif %}
+{% endblock %}

@@ -7,7 +7,8 @@ node_modules/
 .eslintcache
 .nyc_output/
 .tscache/
-dist/
 coverage/
+dist/
+docs/dgeni/**/cache/
 public/
 temp/
