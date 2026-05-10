@@ -1,8 +1,34 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`docs/rules/no-inline-style.md inline validation: allow-variables 1`] = `[]`;
+
 exports[`docs/rules/no-inline-style.md inline validation: allowed-properties 1`] = `[]`;
 
 exports[`docs/rules/no-inline-style.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/no-inline-style.md inline validation: disallow-variables 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 4,
+        "line": 1,
+        "message": "Inline style is not allowed",
+        "offset": 3,
+        "ruleId": "no-inline-style",
+        "ruleUrl": "https://html-validate.org/rules/no-inline-style.html",
+        "selector": "p",
+        "severity": 2,
+        "size": 23,
+      },
+    ],
+    "source": "<p style="--my-color: red"></p>",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`docs/rules/no-inline-style.md inline validation: incorrect 1`] = `
 [
