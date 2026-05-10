@@ -142,6 +142,7 @@ usage/elements.html
 usage/grunt.html
 usage/index.html
 usage/inline-config.html
+usage/plugins.html
 usage/protractor.html
 usage/transformers.html
 usage/vscode.html

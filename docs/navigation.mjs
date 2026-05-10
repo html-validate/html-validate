@@ -17,6 +17,7 @@ export default {
 				children: [
 					{ title: "Elements", target: "usage/elements" },
 					{ title: "Transformers", target: "usage/transformers" },
+					{ title: "Plugins", target: "usage/plugins" },
 				],
 			},
 			{
