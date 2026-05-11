@@ -102,8 +102,7 @@ function normalizeAriaNaming(
 }
 
 export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
-	/* eslint-disable-next-line @typescript-eslint/no-deprecated -- should handle deprecated property for now */
-	const implicitRole = normalizeAriaImplicitRole(src.implicitRole ?? src.aria?.implicitRole);
+	const implicitRole = normalizeAriaImplicitRole(src.aria?.implicitRole);
 	const result = {
 		...src,
 		formAssociated: undefined as FormAssociated | undefined,

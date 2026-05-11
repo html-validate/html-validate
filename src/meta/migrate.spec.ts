@@ -242,18 +242,6 @@ describe("aria.implicitRole", () => {
 		const naming = result.aria.implicitRole(mockNode);
 		expect(naming).toBe("generic");
 	});
-
-	it("should migrate deprecated implicitRole", () => {
-		expect.assertions(1);
-		const src: MetaData = {
-			implicitRole() {
-				return "button";
-			},
-		};
-		const result = migrateElement(src);
-		const naming = result.aria.implicitRole(mockNode);
-		expect(naming).toBe("button");
-	});
 });
 
 describe("aria.named", () => {

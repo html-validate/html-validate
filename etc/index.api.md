@@ -888,8 +888,6 @@ export interface MetaData {
     // (undocumented)
     implicitClosed?: string[];
     implicitOpen?: ImplicitOpenEntry[];
-    // @deprecated (undocumented)
-    implicitRole?: MetaImplicitRoleCallback;
     // (undocumented)
     inherit?: string;
     // (undocumented)
@@ -955,8 +953,6 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     focusable: boolean | MetaFocusableCallback;
     // (undocumented)
     formAssociated?: FormAssociated;
-    // @deprecated (undocumented)
-    implicitRole: MetaImplicitRoleCallback;
     // (undocumented)
     tagName: string;
     templateRoot: boolean;
