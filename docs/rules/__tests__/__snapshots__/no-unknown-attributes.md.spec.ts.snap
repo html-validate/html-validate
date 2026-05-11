@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`docs/rules/no-unknown-attributes.md inline validation: correct 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 20,
+        "context": {
+          "attr": "name",
+          "tagName": "input",
+        },
+        "line": 2,
+        "message": "Attribute "name" is not allowed on <input> element",
+        "offset": 59,
+        "ruleId": "no-unknown-attributes",
+        "ruleUrl": "https://html-validate.org/rules/no-unknown-attributes.html",
+        "selector": "input",
+        "severity": 2,
+        "size": 4,
+      },
+    ],
+    "source": "<div id="foo" class="bar" hidden></div>
+<input type="text" name="username" />",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`docs/rules/no-unknown-attributes.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "messages": [
+      {
+        "column": 6,
+        "context": {
+          "attr": "unknown",
+          "tagName": "div",
+        },
+        "line": 1,
+        "message": "Attribute "unknown" is not allowed on <div> element",
+        "offset": 5,
+        "ruleId": "no-unknown-attributes",
+        "ruleUrl": "https://html-validate.org/rules/no-unknown-attributes.html",
+        "selector": "div",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "<div unknown="value"></div>",
+    "warningCount": 0,
+  },
+]
+`;

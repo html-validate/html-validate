@@ -104,6 +104,7 @@ rules/no-redundant-role.html
 rules/no-self-closing.html
 rules/no-style-tag.html
 rules/no-trailing-whitespace.html
+rules/no-unknown-attributes.html
 rules/no-unknown-elements.html
 rules/no-unused-disable.html
 rules/no-utf8-bom.html

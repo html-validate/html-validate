@@ -65,6 +65,7 @@ import NoRedundantRole from "./no-redundant-role";
 import NoSelfClosing from "./no-self-closing";
 import NoStyleTag from "./no-style-tag";
 import NoTrailingWhitespace from "./no-trailing-whitespace";
+import NoUnknownAttributes from "./no-unknown-attributes";
 import NoUnknownElements from "./no-unknown-elements";
 import NoUnusedDisable from "./no-unused-disable";
 import NoUtf8Bom from "./no-utf8-bom";
@@ -155,6 +156,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"no-self-closing": NoSelfClosing,
 	"no-style-tag": NoStyleTag,
 	"no-trailing-whitespace": NoTrailingWhitespace,
+	"no-unknown-attributes": NoUnknownAttributes,
 	"no-unknown-elements": NoUnknownElements,
 	"no-unused-disable": NoUnusedDisable,
 	"no-utf8-bom": NoUtf8Bom,
