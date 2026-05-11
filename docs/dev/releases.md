@@ -106,8 +106,8 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Vitest</td>
-      <td><code>v1.x || v2.x || v3.x || v4.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v3.x || v4.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Vue 2.x</td>

@@ -258,8 +258,6 @@ Vitest compat:
   parallel:
     matrix:
       - VERSION:
-          - 1
-          - 2
           - 3
           - 4
   before_script:
