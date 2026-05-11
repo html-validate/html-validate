@@ -1008,22 +1008,26 @@ const Node_2: {
     readonly DOCUMENT_NODE: 9 & {
         NODE_TYPE: 9;
     };
+    readonly CLOSED_OPEN: 0 & {
+        CLOSED: 0;
+    };
+    readonly CLOSED_END_TAG: 1 & {
+        CLOSED: 1;
+    };
+    readonly CLOSED_VOID_OMITTED: 2 & {
+        CLOSED: 2;
+    };
+    readonly CLOSED_VOID_SELF_CLOSED: 3 & {
+        CLOSED: 3;
+    };
+    readonly CLOSED_IMPLICIT_CLOSED: 4 & {
+        CLOSED: 4;
+    };
 };
 export { Node_2 as Node }
 
 // @public (undocumented)
-export enum NodeClosed {
-    // (undocumented)
-    EndTag = 1,//            element wasn't closed
-    // (undocumented)
-    ImplicitClosed = 4,//          element closed with end tag <p>...</p>
-    // (undocumented)
-    Open = 0,//     void element with omitted end tag <input>
-    // (undocumented)
-    VoidOmitted = 2,//  self-closed void element <input/>
-    // (undocumented)
-    VoidSelfClosed = 3
-}
+export type NodeClosed = typeof Node_2.CLOSED_OPEN | typeof Node_2.CLOSED_END_TAG | typeof Node_2.CLOSED_VOID_OMITTED | typeof Node_2.CLOSED_VOID_SELF_CLOSED | typeof Node_2.CLOSED_IMPLICIT_CLOSED;
 
 // @public (undocumented)
 export type NodeType = typeof Node_2.ELEMENT_NODE | typeof Node_2.TEXT_NODE | typeof Node_2.DOCUMENT_NODE;

@@ -1,4 +1,4 @@
-import { NodeClosed } from "../dom";
+import { Node } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -29,7 +29,7 @@ export default class VoidContent extends Rule<RuleContext> {
 				return;
 			}
 
-			if (node.closed === NodeClosed.EndTag) {
+			if (node.closed === Node.CLOSED_END_TAG) {
 				this.report(
 					null,
 					`End tag for <${node.tagName}> must be omitted`,

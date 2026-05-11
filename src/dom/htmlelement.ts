@@ -8,7 +8,7 @@ import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
-import { type NodeType, Node } from "./nodetype";
+import { type NodeType, type NodeClosed, Node } from "./nodetype";
 import { generateIdSelector, parseSelector } from "./selector";
 import { TextNode } from "./text";
 
@@ -36,17 +36,6 @@ interface HtmlElementDetails {
 interface HtmlElementRootDetails {
 	nodeType: typeof Node.DOCUMENT_NODE;
 	location: Location;
-}
-
-/**
- * @public
- */
-export enum NodeClosed {
-	Open = 0, //            element wasn't closed
-	EndTag = 1, //          element closed with end tag <p>...</p>
-	VoidOmitted = 2, //     void element with omitted end tag <input>
-	VoidSelfClosed = 3, //  self-closed void element <input/>
-	ImplicitClosed = 4, //  element with optional end tag <li>foo<li>bar
 }
 
 /**
@@ -105,7 +94,7 @@ export class HtmlElement extends DOMNode {
 			nodeType,
 			tagName,
 			parent = null,
-			closed = NodeClosed.EndTag,
+			closed = Node.CLOSED_END_TAG,
 			meta = null,
 			location,
 		} = details;
@@ -156,7 +145,7 @@ export class HtmlElement extends DOMNode {
 		location: Location,
 		details: { closed?: NodeClosed; meta?: MetaElement | null; parent?: HtmlElement } = {},
 	): HtmlElement {
-		const { closed = NodeClosed.EndTag, meta = null, parent = null } = details;
+		const { closed = Node.CLOSED_END_TAG, meta = null, parent = null } = details;
 		return new HtmlElement({
 			nodeType: Node.ELEMENT_NODE,
 			tagName,
@@ -766,14 +755,14 @@ export class HtmlElement extends DOMNode {
 }
 
 function isClosed(endToken: TagCloseToken, meta: MetaElement | null): NodeClosed {
-	let closed = NodeClosed.Open;
+	let closed: NodeClosed = Node.CLOSED_OPEN;
 
 	if (meta?.void) {
-		closed = NodeClosed.VoidOmitted;
+		closed = Node.CLOSED_VOID_OMITTED;
 	}
 
 	if (endToken.data[0] === "/>") {
-		closed = NodeClosed.VoidSelfClosed;
+		closed = Node.CLOSED_VOID_SELF_CLOSED;
 	}
 
 	return closed;

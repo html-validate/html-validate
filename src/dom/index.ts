@@ -1,11 +1,11 @@
 export { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
 export { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
-export { HtmlElement, NodeClosed, isElementNode } from "./htmlelement";
+export { HtmlElement, isElementNode } from "./htmlelement";
 export { type DOMInternalID, DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";
-export { type NodeType, Node } from "./nodetype";
+export { type NodeType, type NodeClosed, Node } from "./nodetype";
 export {
 	type SelectorContext,
 	ComplexSelector,
