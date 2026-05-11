@@ -601,9 +601,9 @@ export class HtmlValidate {
     getElementsSchemaSync(filename?: string): SchemaObject;
     // @internal
     getParserFor(source: Source): Promise<Parser>;
-    // @deprecated
+    // @internal @deprecated
     getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
-    // @deprecated
+    // @internal @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
     setConfigLoader(loader: ConfigLoader): void;
     // @internal

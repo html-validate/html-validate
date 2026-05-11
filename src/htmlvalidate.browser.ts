@@ -591,7 +591,7 @@ export class HtmlValidate {
 	 * }
 	 * ```
 	 *
-	 * @public
+	 * @internal
 	 * @deprecated Deprecated since 8.0.0, use [[getContextualDocumentation]] instead.
 	 * @param ruleId - Rule to get documentation for.
 	 * @param config - If set it provides more accurate description by using the
@@ -625,7 +625,7 @@ export class HtmlValidate {
 	 * }
 	 * ```
 	 *
-	 * @public
+	 * @internal
 	 * @deprecated Deprecated since 8.0.0, use [[getContextualDocumentationSync]] instead.
 	 * @param ruleId - Rule to get documentation for.
 	 * @param config - If set it provides more accurate description by using the
