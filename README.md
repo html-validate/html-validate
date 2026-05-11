@@ -82,7 +82,7 @@ See [running in browser](https://html-validate.org/dev/running-in-browser.html) 
 
 ### Prerequisites
 
-- Node.js 20
+- Node.js 22.16, 24.0 or later.
 - NPM 10
 
 ### Test

@@ -12,7 +12,6 @@ import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 import { legacyPlugin } from "@html-validate/rollup-plugin-legacy";
 import { packageJsonPlugin } from "@html-validate/rollup-plugin-packagejson";
 
-/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- not used in production and nodejs v20 support will be removed soon */
 const rootDir = import.meta.dirname;
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8"));
 const externalDependencies = packageJson.externalDependencies;
@@ -300,7 +299,7 @@ export function getRollupConfig(format) {
 				}),
 				generatedPackageJsonPlugin(),
 				esbuild({
-					target: "node20",
+					target: "node22",
 					platform: "node",
 				}),
 				legacyPlugin(),

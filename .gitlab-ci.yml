@@ -169,10 +169,10 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - "20.19"
-          - "20"
           - "22.12"
           - "22"
+          - "24.0"
+          - "24"
   variables:
     NODE_OPTIONS: "--max_old_space_size=4096"
   image: node:${VERSION}
