@@ -1715,17 +1715,6 @@ export interface UserErrorData extends Error {
     prettyFormat(): string | undefined;
 }
 
-// @public
-export class Validator {
-    static validateAncestors(node: HtmlElement, rules: RequiredAncestors | null): boolean;
-    static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute | undefined>): boolean;
-    static validateOccurrences(children: HtmlElement[], rules: Permitted | null, cb: (node: HtmlElement, category: string) => void): boolean;
-    static validateOrder(children: HtmlElement[], rules: PermittedOrder | null, cb: (node: HtmlElement, prev: HtmlElement) => void): boolean;
-    static validatePermitted(node: HtmlElement, rules: Permitted | null): boolean;
-    static validatePermittedCategory(node: HtmlElement, category: string, defaultMatch: boolean): boolean;
-    static validateRequiredContent(node: HtmlElement, rules: RequiredContent | null): CategoryOrTag[];
-}
-
 // @public (undocumented)
 export const version: string;
 

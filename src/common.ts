@@ -103,7 +103,6 @@ export {
 	MetaCopyableProperty,
 	MetaTable,
 	TextContent,
-	Validator,
 	defineMetadata,
 	metadataHelper,
 } from "./meta";
