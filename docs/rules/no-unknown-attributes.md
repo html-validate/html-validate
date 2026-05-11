@@ -45,4 +45,4 @@ Currently this rule ignores:
 
 ## Version history
 
-- %version% - Rule added.
+- 10.17.0 - Rule added.

@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 10.17.0 (2026-05-11)
+
+### Features
+
+- **rules:** new experimental rule `no-unknown-attributes` ([9180e2e](https://gitlab.com/html-validate/html-validate/commit/9180e2ef9e9dcccd00340ab856b0f8ab8da73da5)), closes [#362](https://gitlab.com/html-validate/html-validate/issues/362)
+
 ## 10.16.0 (2026-05-10)
 
 ### Features
