@@ -56,15 +56,6 @@ describe("DOMTree", () => {
 		expect(spy).toHaveBeenCalledWith(tagName);
 	});
 
-	it("find() should delegate call to root element", () => {
-		expect.assertions(2);
-		const spy = jest.spyOn(tree.root, "find").mockReturnValue(node);
-		const cb = jest.fn<(node: HtmlElement) => boolean>().mockReturnValue(true);
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
-		expect(tree.find(cb)).toBe(node);
-		expect(spy).toHaveBeenCalledWith(cb);
-	});
-
 	it("querySelector() should delegate call to root element", () => {
 		expect.assertions(2);
 		const spy = jest.spyOn(tree.root, "querySelector").mockReturnValue(node);

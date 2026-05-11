@@ -377,8 +377,6 @@ export class DOMTree {
     constructor(location: Location_2);
     // (undocumented)
     doctype: string | null;
-    // @deprecated (undocumented)
-    find(callback: (node: HtmlElement) => boolean): HtmlElement | null;
     // @internal (undocumented)
     getActive(): HtmlElement;
     // (undocumented)
