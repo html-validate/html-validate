@@ -1019,14 +1019,6 @@ export enum NodeClosed {
     VoidSelfClosed = 3
 }
 
-// @public @deprecated
-export type NodeJSResolver = Required<Resolver>;
-
-// @public @deprecated
-export function nodejsResolver(options?: {
-    rootDir?: string;
-}): NodeJSResolver;
-
 // @public (undocumented)
 export enum NodeType {
     // (undocumented)
