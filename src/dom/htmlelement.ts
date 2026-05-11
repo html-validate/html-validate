@@ -8,7 +8,7 @@ import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
-import { NodeType } from "./nodetype";
+import { type NodeType, Node } from "./nodetype";
 import { generateIdSelector, parseSelector } from "./selector";
 import { TextNode } from "./text";
 
@@ -25,7 +25,7 @@ declare module "./cache" {
 }
 
 interface HtmlElementDetails {
-	nodeType: typeof NodeType.ELEMENT_NODE;
+	nodeType: typeof Node.ELEMENT_NODE;
 	tagName: string;
 	parent: HtmlElement | null;
 	closed: NodeClosed;
@@ -34,7 +34,7 @@ interface HtmlElementDetails {
 }
 
 interface HtmlElementRootDetails {
-	nodeType: typeof NodeType.DOCUMENT_NODE;
+	nodeType: typeof Node.DOCUMENT_NODE;
 	location: Location;
 }
 
@@ -55,7 +55,7 @@ export enum NodeClosed {
  * @public
  */
 export function isElementNode(node: DOMNode | null | undefined): node is HtmlElement {
-	return node?.nodeType === NodeType.ELEMENT_NODE;
+	return node?.nodeType === Node.ELEMENT_NODE;
 }
 
 function isInvalidTagName(tagName: string | undefined): tagName is "" | "*" {
@@ -158,7 +158,7 @@ export class HtmlElement extends DOMNode {
 	): HtmlElement {
 		const { closed = NodeClosed.EndTag, meta = null, parent = null } = details;
 		return new HtmlElement({
-			nodeType: NodeType.ELEMENT_NODE,
+			nodeType: Node.ELEMENT_NODE,
 			tagName,
 			parent,
 			closed,
@@ -172,7 +172,7 @@ export class HtmlElement extends DOMNode {
 	 */
 	public static rootNode(location: Location): HtmlElement {
 		const root = new HtmlElement({
-			nodeType: NodeType.DOCUMENT_NODE,
+			nodeType: Node.DOCUMENT_NODE,
 			location,
 		});
 		root.setAnnotation("#document");
@@ -205,7 +205,7 @@ export class HtmlElement extends DOMNode {
 		const location = sliceLocation(startToken.location, 1);
 
 		return new HtmlElement({
-			nodeType: NodeType.ELEMENT_NODE,
+			nodeType: Node.ELEMENT_NODE,
 			tagName,
 			parent: open ? parent : null,
 			closed,

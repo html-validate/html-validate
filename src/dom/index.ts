@@ -5,7 +5,7 @@ export { type DOMInternalID, DOMNode } from "./domnode";
 export { DOMTokenList } from "./domtokenlist";
 export { DOMTree } from "./domtree";
 export { DynamicValue } from "./dynamic-value";
-export { NodeType } from "./nodetype";
+export { type NodeType, Node } from "./nodetype";
 export {
 	type SelectorContext,
 	ComplexSelector,

@@ -4,7 +4,7 @@ import { type Location } from "../location";
 import { Parser } from "../parser";
 import { DOMNode } from "./domnode";
 import { HtmlElement } from "./htmlelement";
-import { NodeType } from "./nodetype";
+import { Node } from "./nodetype";
 import { TextNode } from "./text";
 
 const location: Location = {
@@ -18,15 +18,15 @@ const location: Location = {
 describe("DOMNode", () => {
 	it("should set nodeName and nodeType", () => {
 		expect.assertions(2);
-		const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+		const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 		expect(node.nodeName).toBe("foo");
-		expect(node.nodeType).toEqual(NodeType.ELEMENT_NODE);
+		expect(node.nodeType).toEqual(Node.ELEMENT_NODE);
 	});
 
 	it("should be assigned a unique id", () => {
 		expect.assertions(3);
-		const n1 = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
-		const n2 = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+		const n1 = new DOMNode(Node.ELEMENT_NODE, "foo", location);
+		const n2 = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 		expect(n1.unique).toEqual(expect.any(Number));
 		expect(n2.unique).toEqual(expect.any(Number));
 		expect(n1.unique === n2.unique).toBeFalsy();
@@ -34,9 +34,9 @@ describe("DOMNode", () => {
 
 	it("root element", () => {
 		expect.assertions(2);
-		const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document", location);
+		const node = new DOMNode(Node.DOCUMENT_NODE, "#document", location);
 		expect(node.nodeName).toBe("#document");
-		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
+		expect(node.nodeType).toEqual(Node.DOCUMENT_NODE);
 	});
 
 	describe("append()", () => {
@@ -146,19 +146,19 @@ describe("DOMNode", () => {
 	describe("isRootElement()", () => {
 		it("should return true for root element", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.DOCUMENT_NODE, "#document", location);
+			const node = new DOMNode(Node.DOCUMENT_NODE, "#document", location);
 			expect(node.isRootElement()).toBeTruthy();
 		});
 		it("should false true for other element", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 			expect(node.isRootElement()).toBeFalsy();
 		});
 	});
 
 	describe("isSameNode()", () => {
-		const a = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
-		const b = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+		const a = new DOMNode(Node.ELEMENT_NODE, "div", location);
+		const b = new DOMNode(Node.ELEMENT_NODE, "div", location);
 
 		it("should return true if the element references the same node", () => {
 			expect.assertions(1);
@@ -174,16 +174,16 @@ describe("DOMNode", () => {
 	describe("firstChild", () => {
 		it("should return first child if present", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
-			const first = new DOMNode(NodeType.ELEMENT_NODE, "first", location);
-			const last = new DOMNode(NodeType.ELEMENT_NODE, "last", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "root", location);
+			const first = new DOMNode(Node.ELEMENT_NODE, "first", location);
+			const last = new DOMNode(Node.ELEMENT_NODE, "last", location);
 			node.append(first);
 			node.append(last);
 			expect(node.firstChild.unique).toEqual(first.unique);
 		});
 		it("should return null if no children present", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "root", location);
 			expect(node.firstChild).toBeNull();
 		});
 	});
@@ -191,9 +191,9 @@ describe("DOMNode", () => {
 	describe("lastChild", () => {
 		it("should return first child if present", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
-			const first = new DOMNode(NodeType.ELEMENT_NODE, "first", location);
-			const last = new DOMNode(NodeType.ELEMENT_NODE, "last", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "root", location);
+			const first = new DOMNode(Node.ELEMENT_NODE, "first", location);
+			const last = new DOMNode(Node.ELEMENT_NODE, "last", location);
 			node.append(first);
 			node.append(last);
 			expect(node.lastChild!.unique).toEqual(last.unique);
@@ -201,7 +201,7 @@ describe("DOMNode", () => {
 
 		it("should return null if no children present", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "root", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "root", location);
 			expect(node.lastChild).toBeNull();
 		});
 	});
@@ -286,20 +286,20 @@ describe("DOMNode", () => {
 	describe("disabled rules", () => {
 		it("rules should default to enabled", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 			expect(node.ruleEnabled("my-rule")).toBeTruthy();
 		});
 
 		it("disableRule() should disable rule", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 			node.disableRule("my-rule");
 			expect(node.ruleEnabled("my-rule")).toBeFalsy();
 		});
 
 		it("enableRule() should enable rule", () => {
 			expect.assertions(2);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "foo", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
 			node.disableRule("my-rule");
 			expect(node.ruleEnabled("my-rule")).toBeFalsy();
 			node.enableRule("my-rule");
@@ -310,7 +310,7 @@ describe("DOMNode", () => {
 	describe("generateSelector()", () => {
 		it("should default to return null", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.TEXT_NODE, "#text", location);
+			const node = new DOMNode(Node.TEXT_NODE, "#text", location);
 			expect(node.generateSelector()).toBeNull();
 		});
 	});
@@ -318,21 +318,21 @@ describe("DOMNode", () => {
 	describe("cache", () => {
 		it("should not cache until enabled", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheSet("foo", 1);
 			expect(node.cacheGet("foo")).toBeUndefined();
 		});
 
 		it("cacheGet() should return undefined when no value is cached", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			expect(node.cacheGet("foo")).toBeUndefined();
 		});
 
 		it("cacheGet() should get value set with cacheSet()", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			expect(node.cacheGet("foo")).toBe(1);
@@ -340,14 +340,14 @@ describe("DOMNode", () => {
 
 		it("cacheSet() should return value", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			expect(node.cacheSet("foo", 1)).toBe(1);
 		});
 
 		it("cacheSet() should overwrite previous value", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			node.cacheSet("foo", 2);
@@ -356,8 +356,8 @@ describe("DOMNode", () => {
 
 		it("should cache values per instance", () => {
 			expect.assertions(4);
-			const a = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
-			const b = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const a = new DOMNode(Node.ELEMENT_NODE, "div", location);
+			const b = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			a.cacheEnable();
 			b.cacheEnable();
 			expect(a.cacheGet("foo")).toBeUndefined();
@@ -370,7 +370,7 @@ describe("DOMNode", () => {
 
 		it("cacheRemove() should remove value from cache", () => {
 			expect.assertions(4);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			expect(node.cacheExists("foo")).toBeTruthy();
@@ -382,7 +382,7 @@ describe("DOMNode", () => {
 
 		it("cacheRemove() should return true if value existed", () => {
 			expect.assertions(3);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			expect(node.cacheRemove("foo")).toBeTruthy();
@@ -392,14 +392,14 @@ describe("DOMNode", () => {
 
 		it("cacheRemove() should return false if cache is disabled", () => {
 			expect.assertions(1);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheSet("foo", 1);
 			expect(node.cacheRemove("foo")).toBeFalsy();
 		});
 
 		it("cacheExists() should return true if value is cached", () => {
 			expect.assertions(2);
-			const node = new DOMNode(NodeType.ELEMENT_NODE, "div", location);
+			const node = new DOMNode(Node.ELEMENT_NODE, "div", location);
 			node.cacheEnable();
 			node.cacheSet("foo", 1);
 			expect(node.cacheExists("foo")).toBeTruthy();

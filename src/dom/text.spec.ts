@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import { type Location } from "../location";
 import { DynamicValue } from "./dynamic-value";
 import { HtmlElement } from "./htmlelement";
-import { NodeType } from "./nodetype";
+import { Node } from "./nodetype";
 import { TextNode, isTextNode } from "./text";
 
 const location: Location = {
@@ -17,7 +17,7 @@ describe("TextNode", () => {
 	it("should be a text node", () => {
 		expect.assertions(3);
 		const node = new TextNode("lorem ipsum", location);
-		expect(node.nodeType).toEqual(NodeType.TEXT_NODE);
+		expect(node.nodeType).toEqual(Node.TEXT_NODE);
 		expect(node.nodeName).toBe("#text");
 		expect(node.isRootElement()).toBeFalsy();
 	});

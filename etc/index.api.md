@@ -998,6 +998,20 @@ export class NestedError extends Error {
 }
 
 // @public (undocumented)
+const Node_2: {
+    readonly ELEMENT_NODE: 1 & {
+        NODE_TYPE: 1;
+    };
+    readonly TEXT_NODE: 3 & {
+        NODE_TYPE: 3;
+    };
+    readonly DOCUMENT_NODE: 9 & {
+        NODE_TYPE: 9;
+    };
+};
+export { Node_2 as Node }
+
+// @public (undocumented)
 export enum NodeClosed {
     // (undocumented)
     EndTag = 1,//            element wasn't closed
@@ -1012,14 +1026,7 @@ export enum NodeClosed {
 }
 
 // @public (undocumented)
-export enum NodeType {
-    // (undocumented)
-    DOCUMENT_NODE = 9,
-    // (undocumented)
-    ELEMENT_NODE = 1,
-    // (undocumented)
-    TEXT_NODE = 3
-}
+export type NodeType = typeof Node_2.ELEMENT_NODE | typeof Node_2.TEXT_NODE | typeof Node_2.DOCUMENT_NODE;
 
 // @public
 export interface NormalizedMetaAria {

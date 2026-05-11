@@ -1,4 +1,4 @@
-import { type HtmlElement, NodeType } from "../dom";
+import { type HtmlElement, Node } from "../dom";
 import entities from "../elements/entities.json";
 import { type AttributeEvent, type ElementReadyEvent } from "../event";
 import { type Location, sliceLocation } from "../location";
@@ -117,7 +117,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 
 			/* only iterate over direct descendants */
 			for (const child of node.childNodes) {
-				if (child.nodeType !== NodeType.TEXT_NODE) {
+				if (child.nodeType !== Node.TEXT_NODE) {
 					continue;
 				}
 				this.findCharacterReferences(node, child.textContent, child.location, {

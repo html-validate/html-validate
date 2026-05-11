@@ -9,7 +9,7 @@ import { type MetaData, type MetaElement, MetaTable } from "../meta";
 import { Parser } from "../parser";
 import { processAttribute } from "../transform/mocks/attribute";
 import { DynamicValue } from "./dynamic-value";
-import { Attribute, HtmlElement, NodeClosed, NodeType } from ".";
+import { Attribute, HtmlElement, Node, NodeClosed } from ".";
 
 interface LocationSpec {
 	column: number;
@@ -223,7 +223,7 @@ describe("HtmlElement", () => {
 		expect.assertions(4);
 		const node = HtmlElement.rootNode(location);
 		expect(node.isRootElement()).toBeTruthy();
-		expect(node.nodeType).toEqual(NodeType.DOCUMENT_NODE);
+		expect(node.nodeType).toEqual(Node.DOCUMENT_NODE);
 		expect(node.nodeName).toBe("#document");
 		expect(node.tagName).toBe("#document");
 	});

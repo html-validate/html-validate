@@ -27,14 +27,15 @@ export {
 	type CSSStyleDeclaration,
 	type DOMInternalID,
 	type DOMNodeCache,
+	type NodeType,
 	Attribute,
 	DOMNode,
 	DOMTokenList,
 	DOMTree,
 	DynamicValue,
 	HtmlElement,
+	Node,
 	NodeClosed,
-	NodeType,
 	TextNode,
 } from "./dom";
 export { type EventDump, type RuleBlocker, type TokenDump } from "./engine";
