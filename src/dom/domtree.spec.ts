@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { type Location } from "../location";
 import { MetaTable } from "../meta";
-import { walk } from "../utils/walk";
 import { DOMTree } from "./domtree";
 import { HtmlElement } from "./htmlelement";
 
@@ -55,15 +54,6 @@ describe("DOMTree", () => {
 		/* eslint-disable-next-line unicorn/prefer-query-selector -- testcases to ensure getElementsByTagName() works correctly */
 		expect(tree.getElementsByTagName(tagName)).toBe(expected);
 		expect(spy).toHaveBeenCalledWith(tagName);
-	});
-
-	it("deprecated visitDepthFirst() should delegate to helper function", () => {
-		expect.assertions(1);
-		const spy = jest.spyOn(walk, "depthFirst");
-		const cb = jest.fn();
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
-		tree.visitDepthFirst(cb);
-		expect(spy).toHaveBeenCalledWith(tree, cb);
 	});
 
 	it("find() should delegate call to root element", () => {

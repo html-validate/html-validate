@@ -396,8 +396,6 @@ export class DOMTree {
     resolveMeta(table: MetaTable): void;
     // (undocumented)
     readonly root: HtmlElement;
-    // @deprecated (undocumented)
-    visitDepthFirst(callback: (node: HtmlElement) => void): void;
 }
 
 // @public (undocumented)
