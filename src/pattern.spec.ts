@@ -461,16 +461,12 @@ it("should support user-supplied regexp (RegExp object)", () => {
 	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
 });
 
-it("should support user-supplied regexp (deprecated unwrapped string)", () => {
-	expect.assertions(5);
-	const spy = jest.spyOn(console, "warn").mockImplementation(() => undefined);
-	/* @ts-expect-error deprecated but should still work */
-	const pattern = parsePattern("^foo-[a-z]\\w+$");
-	expect("foo-bar").toMatch(pattern.regexp);
-	expect("bar-foo").not.toMatch(pattern.regexp);
-	expect(pattern.description).toBe("/^foo-[a-z]\\w+$/");
-	expect(spy).toHaveBeenCalledTimes(1);
-	expect(spy).toHaveBeenCalledWith(
-		'Custom pattern "^foo-[a-z]\\w+$" should be wrapped in forward slashes, e.g., "/^foo-[a-z]\\w+$/". Support for unwrapped patterns is deprecated and will be removed in a future version.',
+it("should throw error if support user-supplied regexp isn't wrapped in forward slashes", () => {
+	expect.assertions(1);
+	expect(() => {
+		/* @ts-expect-error deprecated but should still work */
+		parsePattern("^foo-[a-z]\\w+$");
+	}).toThrowErrorMatchingInlineSnapshot(
+		`"Custom pattern "^foo-[a-z]\\w+$" must be wrapped in forward slashes, i.e. "/^foo-[a-z]\\w+$/""`,
 	);
 });
