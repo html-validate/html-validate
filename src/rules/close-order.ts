@@ -1,4 +1,4 @@
-import { type DOMInternalID, type HtmlElement, NodeClosed } from "../dom";
+import { type DOMInternalID, type HtmlElement, Node } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type Location } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
@@ -91,7 +91,7 @@ export default class CloseOrder extends Rule {
 
 			/* if the active element is implicitly closed when the parent is closed
 			 * (such as a <li> by </ul>) no error should be reported. */
-			if (active.closed === NodeClosed.ImplicitClosed) {
+			if (active.closed === Node.CLOSED_IMPLICIT_CLOSED) {
 				return;
 			}
 

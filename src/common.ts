@@ -27,14 +27,15 @@ export {
 	type CSSStyleDeclaration,
 	type DOMInternalID,
 	type DOMNodeCache,
+	type NodeClosed,
+	type NodeType,
 	Attribute,
 	DOMNode,
 	DOMTokenList,
 	DOMTree,
 	DynamicValue,
 	HtmlElement,
-	NodeClosed,
-	NodeType,
+	Node,
 	TextNode,
 } from "./dom";
 export { type EventDump, type RuleBlocker, type TokenDump } from "./engine";
@@ -103,7 +104,6 @@ export {
 	MetaCopyableProperty,
 	MetaTable,
 	TextContent,
-	Validator,
 	defineMetadata,
 	metadataHelper,
 } from "./meta";

@@ -1,7 +1,7 @@
 import { type RuleBlocker } from "../engine";
 import { type Location } from "../location";
 import { type DOMNodeCache } from "./cache";
-import { NodeType } from "./nodetype";
+import { type NodeType, Node } from "./nodetype";
 
 /**
  * @public
@@ -184,7 +184,7 @@ export class DOMNode {
 	}
 
 	public isRootElement(): boolean {
-		return this.nodeType === NodeType.DOCUMENT_NODE;
+		return this.nodeType === Node.DOCUMENT_NODE;
 	}
 
 	/**

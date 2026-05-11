@@ -423,8 +423,6 @@ export class DOMTree {
     constructor(location: Location_2);
     // (undocumented)
     doctype: string | null;
-    // @deprecated (undocumented)
-    find(callback: (node: HtmlElement) => boolean): HtmlElement | null;
     // @internal (undocumented)
     getActive(): HtmlElement;
     // (undocumented)
@@ -442,8 +440,6 @@ export class DOMTree {
     resolveMeta(table: MetaTable): void;
     // (undocumented)
     readonly root: HtmlElement;
-    // @deprecated (undocumented)
-    visitDepthFirst(callback: (node: HtmlElement) => void): void;
 }
 
 // @public (undocumented)
@@ -696,9 +692,9 @@ export class HtmlValidate {
     getElementsSchemaSync(filename?: string): SchemaObject;
     // @internal
     getParserFor(source: Source): Promise<Parser>;
-    // @deprecated
+    // @internal @deprecated
     getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
-    // @deprecated
+    // @internal @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
     setConfigLoader(loader: ConfigLoader): void;
     // @internal
@@ -892,8 +888,6 @@ export interface MetaData {
     // (undocumented)
     implicitClosed?: string[];
     implicitOpen?: ImplicitOpenEntry[];
-    // @deprecated (undocumented)
-    implicitRole?: MetaImplicitRoleCallback;
     // (undocumented)
     inherit?: string;
     // (undocumented)
@@ -959,8 +953,6 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     focusable: boolean | MetaFocusableCallback;
     // (undocumented)
     formAssociated?: FormAssociated;
-    // @deprecated (undocumented)
-    implicitRole: MetaImplicitRoleCallback;
     // (undocumented)
     tagName: string;
     templateRoot: boolean;
@@ -1006,36 +998,39 @@ export class NestedError extends Error {
 }
 
 // @public (undocumented)
-export enum NodeClosed {
-    // (undocumented)
-    EndTag = 1,//            element wasn't closed
-    // (undocumented)
-    ImplicitClosed = 4,//          element closed with end tag <p>...</p>
-    // (undocumented)
-    Open = 0,//     void element with omitted end tag <input>
-    // (undocumented)
-    VoidOmitted = 2,//  self-closed void element <input/>
-    // (undocumented)
-    VoidSelfClosed = 3
-}
-
-// @public @deprecated
-export type NodeJSResolver = Required<Resolver>;
-
-// @public @deprecated
-export function nodejsResolver(options?: {
-    rootDir?: string;
-}): NodeJSResolver;
+const Node_2: {
+    readonly ELEMENT_NODE: 1 & {
+        NODE_TYPE: 1;
+    };
+    readonly TEXT_NODE: 3 & {
+        NODE_TYPE: 3;
+    };
+    readonly DOCUMENT_NODE: 9 & {
+        NODE_TYPE: 9;
+    };
+    readonly CLOSED_OPEN: 0 & {
+        CLOSED: 0;
+    };
+    readonly CLOSED_END_TAG: 1 & {
+        CLOSED: 1;
+    };
+    readonly CLOSED_VOID_OMITTED: 2 & {
+        CLOSED: 2;
+    };
+    readonly CLOSED_VOID_SELF_CLOSED: 3 & {
+        CLOSED: 3;
+    };
+    readonly CLOSED_IMPLICIT_CLOSED: 4 & {
+        CLOSED: 4;
+    };
+};
+export { Node_2 as Node }
 
 // @public (undocumented)
-export enum NodeType {
-    // (undocumented)
-    DOCUMENT_NODE = 9,
-    // (undocumented)
-    ELEMENT_NODE = 1,
-    // (undocumented)
-    TEXT_NODE = 3
-}
+export type NodeClosed = typeof Node_2.CLOSED_OPEN | typeof Node_2.CLOSED_END_TAG | typeof Node_2.CLOSED_VOID_OMITTED | typeof Node_2.CLOSED_VOID_SELF_CLOSED | typeof Node_2.CLOSED_IMPLICIT_CLOSED;
+
+// @public (undocumented)
+export type NodeType = typeof Node_2.ELEMENT_NODE | typeof Node_2.TEXT_NODE | typeof Node_2.DOCUMENT_NODE;
 
 // @public
 export interface NormalizedMetaAria {
@@ -1713,17 +1708,6 @@ export class UserError extends NestedError {
 // @public
 export interface UserErrorData extends Error {
     prettyFormat(): string | undefined;
-}
-
-// @public
-export class Validator {
-    static validateAncestors(node: HtmlElement, rules: RequiredAncestors | null): boolean;
-    static validateAttribute(attr: Attribute, rules: Record<string, MetaAttribute | undefined>): boolean;
-    static validateOccurrences(children: HtmlElement[], rules: Permitted | null, cb: (node: HtmlElement, category: string) => void): boolean;
-    static validateOrder(children: HtmlElement[], rules: PermittedOrder | null, cb: (node: HtmlElement, prev: HtmlElement) => void): boolean;
-    static validatePermitted(node: HtmlElement, rules: Permitted | null): boolean;
-    static validatePermittedCategory(node: HtmlElement, category: string, defaultMatch: boolean): boolean;
-    static validateRequiredContent(node: HtmlElement, rules: RequiredContent | null): CategoryOrTag[];
 }
 
 // @public (undocumented)

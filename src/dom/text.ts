@@ -1,7 +1,7 @@
 import { type Location } from "../location";
 import { DOMNode } from "./domnode";
 import { DynamicValue } from "./dynamic-value";
-import { NodeType } from "./nodetype";
+import { Node } from "./nodetype";
 
 const TEXT_NODE_NAME = "#text";
 
@@ -11,7 +11,7 @@ const TEXT_NODE_NAME = "#text";
  * @public
  */
 export function isTextNode(node: DOMNode | null | undefined): node is TextNode {
-	return node?.nodeType === NodeType.TEXT_NODE;
+	return node?.nodeType === Node.TEXT_NODE;
 }
 
 /**
@@ -31,7 +31,7 @@ export class TextNode extends DOMNode {
 	 * @param location - Source code location of this node.
 	 */
 	public constructor(text: string | DynamicValue, location: Location) {
-		super(NodeType.TEXT_NODE, TEXT_NODE_NAME, location);
+		super(Node.TEXT_NODE, TEXT_NODE_NAME, location);
 		this.text = text;
 	}
 

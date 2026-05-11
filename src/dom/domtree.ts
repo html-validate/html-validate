@@ -78,20 +78,6 @@ export class DOMTree {
 		return this.root.getElementsByTagName(tagName);
 	}
 
-	/**
-	 * @deprecated use utility function `walk.depthFirst(..)` instead (since 8.21.0).
-	 */
-	public visitDepthFirst(callback: (node: HtmlElement) => void): void {
-		walk.depthFirst(this, callback);
-	}
-
-	/**
-	 * @deprecated use `querySelector(..)` instead (since 8.21.0)
-	 */
-	public find(callback: (node: HtmlElement) => boolean): HtmlElement | null {
-		return this.root.find(callback);
-	}
-
 	public querySelector(selector: string): HtmlElement | null {
 		return this.root.querySelector(selector);
 	}

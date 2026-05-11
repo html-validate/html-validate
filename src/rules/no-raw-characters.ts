@@ -1,4 +1,4 @@
-import { type DOMNode, NodeType } from "../dom";
+import { type DOMNode, Node } from "../dom";
 import { type AttributeEvent, type ElementReadyEvent } from "../event";
 import { type Location, sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
@@ -61,7 +61,7 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 
 			/* only iterate over direct descendants */
 			for (const child of node.childNodes) {
-				if (child.nodeType !== NodeType.TEXT_NODE) {
+				if (child.nodeType !== Node.TEXT_NODE) {
 					continue;
 				}
 

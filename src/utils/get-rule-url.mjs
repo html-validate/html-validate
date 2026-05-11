@@ -21,7 +21,7 @@ import path from "node:path";
  */
 export function getRuleUrl(filename, homepage = "https://html-validate.org") {
 	const parsed = path.parse(filename);
-	/* eslint-disable-next-line n/no-unsupported-features/node-builtins -- this is not used in production build and nodejs v20 is going away soon anyway */
+
 	const url = path.resolve(import.meta.dirname, "../rules");
 	const rel = path.relative(url, path.join(parsed.dir, parsed.name));
 	const normalized = rel.replaceAll("\\", "/");

@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/strictest", "@tsconfig/node20", "@tsconfig/node-ts"],
+  "extends": ["@tsconfig/strictest", "@tsconfig/node22", "@tsconfig/node-ts"],
   "compilerOptions": {
     /* ts-jest hardcodes moduleResolution node10 which is deprecated */
     "ignoreDeprecations": "6.0",

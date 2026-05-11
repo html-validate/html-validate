@@ -15,7 +15,7 @@ const allowedKeys = new Set(["exclude"]);
 /**
  * Helper class to validate elements against metadata rules.
  *
- * @public
+ * @internal
  */
 /* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- technical debt, should probably be plain functions maybe in an object */
 export class Validator {

@@ -21,20 +21,26 @@ Older major versions is generally supported for two year after the succeeding ve
   </thead>
   <tbody>
     <tr class="release-active">
-      <td>10.x</td>
+      <td>11.x</td>
       <td>Active</td>
+      <td>2026-05-11</td>
+      <td>-</td>
+    </tr>
+    <tr class="release-maintenance">
+      <td>10.x</td>
+      <td>Maintenance</td>
       <td>2025-08-09</td>
       <td>-</td>
     </tr>
-    <tr class="release-active">
+    <tr class="release-maintenance">
       <td>9.x</td>
-      <td>Active</td>
+      <td>Maintenance</td>
       <td>2024-12-23</td>
       <td>2027-08-31</td>
     </tr>
-    <tr class="release-active">
+    <tr class="release-maintenance">
       <td>8.x</td>
-      <td>Active</td>
+      <td>Maintenance</td>
       <td>2023-06-04</td>
       <td>2026-12-31</td>
     </tr>
@@ -90,18 +96,18 @@ Some exceptions occur, refer to the following table:
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>v28.x || v29.x || v30.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v29.x || v30.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>v12.x || v13.x || v14.x || v15.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v13.x || v14.x || v15.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Vitest</td>
-      <td><code>v1.x || v2.x || v3.x || v4.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v3.x || v4.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Vue 2.x</td>

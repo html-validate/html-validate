@@ -1,4 +1,4 @@
-import { NodeClosed } from "../dom";
+import { Node } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -23,7 +23,7 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 				return;
 			}
 
-			if (closed.closed !== NodeClosed.ImplicitClosed) {
+			if (closed.closed !== Node.CLOSED_IMPLICIT_CLOSED) {
 				return;
 			}
 

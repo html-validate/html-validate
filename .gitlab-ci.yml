@@ -169,10 +169,10 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - "20.19"
-          - "20"
           - "22.12"
           - "22"
+          - "24.0"
+          - "24"
   variables:
     NODE_OPTIONS: "--max_old_space_size=4096"
   image: node:${VERSION}
@@ -184,7 +184,6 @@ Jest compat:
   parallel:
     matrix:
       - MATRIX:
-          - 28
           - 29
           - 30
   before_script:
@@ -259,8 +258,6 @@ Vitest compat:
   parallel:
     matrix:
       - VERSION:
-          - 1
-          - 2
           - 3
           - 4
   before_script:

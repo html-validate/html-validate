@@ -34,15 +34,6 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
 export type CommonJSResolver = Required<Resolver>;
 
 /**
- * CommonJS resolver.
- *
- * @public
- * @deprecated Deprecated alias for [[CommonJSResolver]].
- * @since 8.0.0
- */
-export type NodeJSResolver = Required<Resolver>;
-
-/**
  * Create a new resolver for NodeJS packages using `require(..)`.
  *
  * If the module name contains `<rootDir>` (e.g. `<rootDir/foo`) it will be
@@ -132,22 +123,4 @@ export function cjsResolver(options: { rootDir?: string } = {}): CommonJSResolve
 			throw new ConfigError(`Module "${id}" is not a valid transformer.`);
 		},
 	};
-}
-
-/**
- * Create a new resolver for NodeJS packages using `require(..)`.
- *
- * If the module name contains `<rootDir>` (e.g. `<rootDir/foo`) it will be
- * expanded relative to the root directory either explicitly set by the
- * `rootDir` parameter or determined automatically by the closest `package.json`
- * file (starting at the current working directory).
- *
- * @public
- * @deprecated Deprecated alias for [[commonjsResolver]].
- * @since 8.0.0
- */
-/* istanbul ignore next -- deprecated alias */
-/* eslint-disable-next-line @typescript-eslint/no-deprecated -- deprecated but should still work */
-export function nodejsResolver(options: { rootDir?: string } = {}): NodeJSResolver {
-	return cjsResolver(options);
 }

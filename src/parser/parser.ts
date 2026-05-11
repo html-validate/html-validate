@@ -1,7 +1,7 @@
 import { type ResolvedConfig } from "../config";
 import { type Source } from "../context";
 import { type ProcessAttributeCallback, type ProcessElementContext } from "../context/source";
-import { DOMTree, HtmlElement, NodeClosed } from "../dom";
+import { DOMTree, HtmlElement, Node } from "../dom";
 import {
 	type AttributeEvent,
 	type Event,
@@ -328,7 +328,7 @@ export class Parser {
 			if (matches) {
 				const intermediaryMeta = this.metaTable.getMetaFor(entry.open);
 				return HtmlElement.createElement(entry.open, token.location, {
-					closed: NodeClosed.Open,
+					closed: Node.CLOSED_OPEN,
 					meta: intermediaryMeta,
 					parent,
 				});
@@ -435,7 +435,7 @@ export class Parser {
 			this.metaTable,
 			this.currentNamespace,
 		);
-		const isClosing = !isStartTag || node.closed !== NodeClosed.Open;
+		const isClosing = !isStartTag || node.closed !== Node.CLOSED_OPEN;
 		const isForeign = node.meta?.foreign;
 
 		/* Close any elements that are implicitly closed by the incoming tag before
@@ -444,7 +444,7 @@ export class Parser {
 		 * - end tag `</table>` implicitly closes `<td>`, `<tr>`, `<tbody>` in sequence */
 		while (this.closeOptional(startToken)) {
 			const active = this.dom.getActive();
-			active.closed = NodeClosed.ImplicitClosed;
+			active.closed = Node.CLOSED_IMPLICIT_CLOSED;
 			this.closeElement(source, node, active, startToken.location);
 			this.dom.popActive();
 		}
@@ -496,7 +496,7 @@ export class Parser {
 			/* if this is not an open tag it is a close tag and thus we force it to be
 			 * one, in case it is detected as void */
 			if (!isStartTag) {
-				node.closed = NodeClosed.EndTag;
+				node.closed = Node.CLOSED_END_TAG;
 			}
 
 			this.closeElement(source, node, active, endToken.location);
@@ -539,7 +539,7 @@ export class Parser {
 		};
 		this.trigger("tag:end", event);
 
-		if (node && node.tagName !== active.tagName && active.closed !== NodeClosed.ImplicitClosed) {
+		if (node && node.tagName !== active.tagName && active.closed !== Node.CLOSED_IMPLICIT_CLOSED) {
 			return;
 		}
 
@@ -1021,7 +1021,7 @@ export class Parser {
 		let active = this.dom.getActive();
 		while (!active.isRootElement()) {
 			if (active.meta?.implicitClosed || active.meta?.optionalEnd) {
-				active.closed = NodeClosed.ImplicitClosed;
+				active.closed = Node.CLOSED_IMPLICIT_CLOSED;
 				this.closeElement(source, documentElement, active, location);
 			} else {
 				this.closeElement(source, null, active, location);

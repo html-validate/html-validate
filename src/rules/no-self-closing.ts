@@ -1,4 +1,4 @@
-import { type HtmlElement, NodeClosed } from "../dom";
+import { type HtmlElement, Node } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
@@ -51,7 +51,7 @@ export default class NoSelfClosing extends Rule<RuleContext, RuleOptions> {
 	}
 
 	private validateElement(node: HtmlElement): void {
-		if (node.closed !== NodeClosed.VoidSelfClosed) {
+		if (node.closed !== Node.CLOSED_VOID_SELF_CLOSED) {
 			return;
 		}
 

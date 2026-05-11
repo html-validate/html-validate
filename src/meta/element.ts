@@ -1,6 +1,6 @@
 import { type DynamicValue } from "../dom";
 import { type HtmlElementLike } from "./html-element-like";
-import { type MetaAria, type MetaImplicitRoleCallback, type NormalizedMetaAria } from "./meta-aria";
+import { type MetaAria, type NormalizedMetaAria } from "./meta-aria";
 
 /**
  * @public
@@ -290,9 +290,6 @@ export interface MetaData {
 	 */
 	templateRoot?: boolean;
 
-	/** @deprecated use {@link MetaAria.implicitRole} instead */
-	implicitRole?: MetaImplicitRoleCallback;
-
 	/** WAI-ARIA attributes */
 	aria?: MetaAria;
 
@@ -384,9 +381,6 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	 * does not directly affect the DOM tree.
 	 */
 	templateRoot: boolean;
-
-	/** @deprecated Use {@link MetaAria.implicitRole} instead */
-	implicitRole: MetaImplicitRoleCallback;
 
 	/** WAI-ARIA attributes */
 	aria: NormalizedMetaAria;
