@@ -101,8 +101,8 @@ Some exceptions occur, refer to the following table:
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>v12.x || v13.x || v14.x || v15.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v13.x || v14.x || v15.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Vitest</td>
