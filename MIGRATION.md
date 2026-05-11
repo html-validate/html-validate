@@ -1,5 +1,95 @@
 # Migration guide
 
+## Upgrading to v11
+
+### Dependency changes {#v11-dependency-changes}
+
+NodeJS v22 or later is now required.
+
+Support for third-party tools has changed:
+
+- Jest v28 support has been removed. Jest v29 or later is now required.
+- Vitest v1 and v2 support has been removed. Vitest v3 or later is now required.
+
+### Configuration changes {#v11-configuration-changes}
+
+#### Raw regex patterns removed from pattern rules {#v11-raw-regex}
+
+Support for unwrapped regular expressions as strings in the `class-pattern`, `id-pattern` and `name-pattern` rules has been removed.
+If you have configured one of these rules with a regular expression not wrapped in forward slashes `/` you need to add them.
+Named patterns and `RegExp` objects are unaffected.
+
+```diff
+ {
+   "id-pattern": ["error", {
+-    "pattern": ["foo-.+"]
++    "pattern": ["/foo-.+/"]
+   }]
+ }
+```
+
+### Metadata changes {#v11-metadata-changes}
+
+#### `implicitRole` property removed {#v11-implicit-role}
+
+The deprecated `implicitRole` meta property has been removed and is replaced by `aria.implicitRole`.
+If you are using this property in your custom element metadata update it with the new property:
+
+```diff
+-implicitRole: "button",
++aria: {
++  implicitRole: "button",
++}
+```
+
+### API changes {#v11-api-changes}
+
+#### `NodeType` enum replaced with `Node` constants {#v11-nodetype}
+
+The `NodeType` enum has been replaced with named constants on a new `Node` object, mirroring the browser DOM API.
+
+```diff
+-if (child.nodeType === NodeType.ELEMENT_NODE) {
++if (child.nodeType === Node.ELEMENT_NODE) {
+```
+
+#### `NodeClosed` enum replaced with `Node` constants {#v11-nodeclosed}
+
+The `NodeClosed` enum has been replaced with named constants on the same `Node` object.
+
+```diff
+-if (node.nodeClosed === NodeClosed.EndTag) {
++if (node.nodeClosed === Node.CLOSED_END_TAG) {
+```
+
+#### `nodejsResolver` alias removed {#v11-nodejs-resolver}
+
+The deprecated `nodejsResolver` alias has been removed. Use `cjsResolver` instead.
+
+```diff
+-import { nodejsResolver } from "html-validate";
++import { cjsResolver } from "html-validate";
+```
+
+#### `DOMTree.visitDepthFirst()` removed {#v11-domtree-visitdepthfirst}
+
+The deprecated `DOMTree.visitDepthFirst()` method has been removed. Use the `walk.depthFirst()` helper instead.
+
+#### `DOMTree.find()` removed {#v11-domtree-find}
+
+The deprecated `DOMTree.find()` method has been removed. Use `DOMTree.querySelector()` instead.
+
+#### `HtmlValidate.getRuleDocumentation()` removed {#v11-getrule-documentation}
+
+The deprecated `HtmlValidate.getRuleDocumentation()` and `HtmlValidate.getRuleDocumentationSync()` methods have been removed.
+Use `HtmlValidate.getContextualDocumentation()` and `HtmlValidate.getContextualDocumentationSync()` instead.
+
+#### `Validator` class no longer exported {#v11-validator}
+
+The `Validator` class has been removed from the public API surface.
+This API was never intended for public consumption.
+If you rely on it, file an issue describing your use-case - there is no replacement.
+
 ## Upgrading to v10
 
 ### Dependency changes {#v10-dependency-changes}

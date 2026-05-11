@@ -8,7 +8,7 @@ import { type CSSStyleDeclaration, parseCssDeclaration } from "./css";
 import { DOMNode } from "./domnode";
 import { DOMTokenList } from "./domtokenlist";
 import { DynamicValue } from "./dynamic-value";
-import { type NodeType, type NodeClosed, Node } from "./nodetype";
+import { type NodeClosed, type NodeType, Node } from "./nodetype";
 import { generateIdSelector, parseSelector } from "./selector";
 import { TextNode } from "./text";
 
