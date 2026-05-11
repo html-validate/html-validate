@@ -1,5 +1,88 @@
 # html-validate changelog
 
+## 11.0.0 (2026-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- **api:** If you used the `NodeClosed` enum it has been replaced with
+  constants in a new `Node` object.
+
+```diff
+-if (node.nodeClosed === NodeClosed.EndTag) {
++if (child.nodeType === Node.CLOSED_END_TAG) {
+```
+
+- **api:** If you used the `NodeType` enum it has been replaced with
+  constants in a new `Node` object. This better mimics the DOM API.
+
+```diff
+-if (child.nodeType === NodeType.ELEMENT_NODE) {
++if (child.nodeType === Node.ELEMENT_NODE) {
+```
+
+- **config:** Remove support for unwrapped regular expressions as strings for pattern
+  rules. If you have configured one of the affected rules with a regular
+  expressing not wrapped with forward slashes `/` you need to wrap them. If you
+  passed in a named pattern or a `RegExp` object you do not have to change anything.
+
+The affected rules are:
+
+- `class-pattern`
+- `id-pattern`
+- `name-pattern`
+
+```diff
+ {
+   "id-pattern": ["error", {
+-    "pattern": ["foo-.+"]
++    "pattern": ["/foo-.+/"]
+   }]
+ }
+```
+
+- **meta:** The deprecated `implicitRole` meta property has been removed
+  and is replaced by `aria.implicitRole`. If you are using this property in your
+  custom element metadata update it with the new property:
+
+```diff
+-implicitRole: "button",
++aria: {
++  implicitRole: "button",
++}
+```
+
+- **api:** The deprecated `HtmlValidate.getRuleDocumentation()` and
+  `HtmlValidate.getRuleDocumentationSync()` methods has been removed and is
+  replaced with `HtmlValidate.getContextualDocumentation()` and
+  `HtmlValidate.getContextualDocumentationSync()`.
+- **api:** The deprecated `DOMTree.find()` method has been removed and is
+  replaced by `DOMTree.querySelector()`.
+- **api:** The deprecated `DOMTree.visitDepthFirst()` method has been
+  removed and is replaced by the `walk.depthFirst()` helper.
+- **api:** The deprecated alias `nodejsResolver` has been removed. Use
+  `cjsResolver` instead.
+- **api:** This API was never meant for public consumption and has now
+  been removed from the public API surface. If you need this API file an issue
+  describing your use-case. There is no replacement API.
+- **deps:** drop support for vitest v1 and v2
+- **deps:** drop support for jest v28
+- **deps:** NodeJS v22 or later is now required.
+
+### Features
+
+- **api:** remove deprecated `DOMTree.find()` ([4451453](https://gitlab.com/html-validate/html-validate/commit/4451453a1b3e4bc92fd482eb1a547b643fa2ce6e))
+- **api:** remove deprecated `DOMTree.visitDepthFirst()` ([b06710b](https://gitlab.com/html-validate/html-validate/commit/b06710bd911a3f52bd9a790c0bc0ed38fd4c8786))
+- **api:** remove deprecated `HtmlValidate.getRuleDocumentation()` method ([f5343c3](https://gitlab.com/html-validate/html-validate/commit/f5343c36baddf6e4975ee624eb6636e0a2e2b38a))
+- **api:** remove deprecated `nodejsResolver` alias ([ecacb8a](https://gitlab.com/html-validate/html-validate/commit/ecacb8a561b442621b2bc2af802a42f2728aaab7))
+- **api:** replace `NodeClosed` enum with constants ([de55ed9](https://gitlab.com/html-validate/html-validate/commit/de55ed91e95f1df777092b0fd119499c1a6960b8))
+- **api:** replace `NodeType` enum with named constants ([d33419c](https://gitlab.com/html-validate/html-validate/commit/d33419cb2a1acc7bb26aff4f5a54d80de5a5ed01))
+- **api:** the `Validator` class is no longer exported ([f14de27](https://gitlab.com/html-validate/html-validate/commit/f14de27973bfb3a19c5628bcfd98c5d9648bbe44))
+- **config:** remove support for raw custom pattern regex ([692d074](https://gitlab.com/html-validate/html-validate/commit/692d07470f571a0192431570d8c06e761087c80d))
+- **deps:** drop support for jest v28 ([b1d9b0e](https://gitlab.com/html-validate/html-validate/commit/b1d9b0eed0218462561e50039b9260f5e40b3b44))
+- **deps:** drop support for vitest v1 and v2 ([2949863](https://gitlab.com/html-validate/html-validate/commit/29498638b01a0424240c29463b270d97e0454473))
+- **deps:** require nodejs v22 or later ([e16c27f](https://gitlab.com/html-validate/html-validate/commit/e16c27f483ae0fad5f84627eb06089abe0124e0a))
+- **meta:** remove deprecated `implicitRole` property ([63689b5](https://gitlab.com/html-validate/html-validate/commit/63689b574e646ec942dbd1d8fc8cbcc6f535e5dd))
+
 ## 10.17.0 (2026-05-11)
 
 ### Features
