@@ -96,8 +96,8 @@ Some exceptions occur, refer to the following table:
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>v28.x || v29.x || v30.x</code></td>
-      <td>Last 3 majors</td>
+      <td><code>v29.x || v30.x</code></td>
+      <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Cypress</td>

@@ -184,7 +184,6 @@ Jest compat:
   parallel:
     matrix:
       - MATRIX:
-          - 28
           - 29
           - 30
   before_script:
