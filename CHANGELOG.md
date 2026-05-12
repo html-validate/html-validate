@@ -1,5 +1,14 @@
 # html-validate changelog
 
+## 11.1.0 (2026-05-12)
+
+### Features
+
+- **deps:** replace dependency `glob` with native function ([5a2be0d](https://gitlab.com/html-validate/html-validate/commit/5a2be0d13f69c3b71c10d361c44cdfb221b14b6a))
+- **deps:** replace dependency `minimist` with native function ([cfe3a57](https://gitlab.com/html-validate/html-validate/commit/cfe3a57b7f360db37d74ae607855df922660f943))
+- **deps:** update dependency @html-validate/stylish to v6 ([a8f6df1](https://gitlab.com/html-validate/html-validate/commit/a8f6df1dd9f9635edf4072762a7dc3867c18f7ff))
+- **deps:** update dependency @sidvind/better-ajv-errors to v6 ([1aca06c](https://gitlab.com/html-validate/html-validate/commit/1aca06cbbcbecd8556d79388c11805a54ab0e033))
+
 ## 11.0.0 (2026-05-11)
 
 ### ⚠ BREAKING CHANGES
