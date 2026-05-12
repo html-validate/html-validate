@@ -1,8 +1,8 @@
 /* eslint-disable no-console, n/no-process-exit -- as expected from a cli app */
 import fs from "node:fs";
 import path from "node:path";
+import { parseArgs } from "node:util";
 import kleur from "kleur";
-import minimist from "minimist";
 import { type UserErrorData, SchemaValidationError, isUserError } from "..";
 import { bugs as pkgBugs, name, version } from "../generated/package-json";
 import { dump } from "./actions/dump";
@@ -13,26 +13,6 @@ import { CLI } from "./cli";
 import { ImportResolveMissingError, handleSchemaValidationError } from "./errors";
 import { haveImportMetaResolve } from "./have-import-meta-resolve";
 import { Mode, modeToFlag } from "./mode";
-
-interface ParsedArgs {
-	config?: string;
-	"dump-events": boolean;
-	"dump-source": boolean;
-	"dump-tokens": boolean;
-	"dump-tree": boolean;
-	ext: string;
-	formatter: string;
-	help: boolean;
-	init: boolean;
-	"max-warnings"?: string;
-	performance: boolean;
-	preset?: string;
-	"print-config": boolean;
-	rule?: string;
-	stdin: boolean;
-	"stdin-filename"?: string;
-	version: boolean;
-}
 
 function getMode(argv: Record<string, unknown>): Mode {
 	if (argv["init"]) {
@@ -113,50 +93,37 @@ function handleUnknownError(err: unknown): void {
 	);
 }
 
-const argv = minimist<ParsedArgs>(process.argv.slice(2), {
-	string: [
-		"c",
-		"config",
-		"ext",
-		"f",
-		"formatter",
-		"max-warnings",
-		"p",
-		"preset",
-		"rule",
-		"stdin-filename",
-	],
-	boolean: [
-		"init",
-		"dump-events",
-		"dump-source",
-		"dump-tokens",
-		"dump-tree",
-		"h",
-		"help",
-		"performance",
-		"print-config",
-		"stdin",
-		"version",
-	],
-	alias: {
-		c: "config",
-		f: "formatter",
-		p: "preset",
-		h: "help",
-	},
-	default: {
-		ext: "html",
-		formatter: "stylish",
-	},
-	unknown: (opt: string) => {
-		if (opt.startsWith("-")) {
-			process.stderr.write(`unknown option ${opt}\n`);
-			process.exit(1);
-		}
-		return true;
-	},
-});
+const { values: argv, positionals } = (() => {
+	try {
+		return parseArgs({
+			args: process.argv.slice(2),
+			options: {
+				config: { type: "string" as const, short: "c" },
+				"dump-events": { type: "boolean" as const, default: false },
+				"dump-source": { type: "boolean" as const, default: false },
+				"dump-tokens": { type: "boolean" as const, default: false },
+				"dump-tree": { type: "boolean" as const, default: false },
+				ext: { type: "string" as const, default: "html" },
+				formatter: { type: "string" as const, short: "f", default: "stylish" },
+				help: { type: "boolean" as const, short: "h", default: false },
+				init: { type: "boolean" as const, default: false },
+				"max-warnings": { type: "string" as const },
+				performance: { type: "boolean" as const, default: false },
+				preset: { type: "string" as const, short: "p" },
+				"print-config": { type: "boolean" as const, default: false },
+				rule: { type: "string" as const },
+				stdin: { type: "boolean" as const, default: false },
+				"stdin-filename": { type: "string" as const },
+				version: { type: "boolean" as const, default: false },
+			},
+			allowPositionals: true,
+			strict: true,
+		});
+	} catch (err) {
+		process.stderr.write(`${(err as Error).message}\n`);
+		process.exit(1);
+	}
+})();
 
 function showUsage(): void {
 	process.stdout.write(`${name}-${version}
@@ -203,7 +170,7 @@ function showVersion(): void {
 }
 
 if (argv.stdin) {
-	argv._.push("-");
+	positionals.push("-");
 }
 
 if (argv.version) {
@@ -216,7 +183,7 @@ if (argv.help) {
 	process.exit();
 }
 
-if (argv._.length === 0) {
+if (positionals.length === 0) {
 	const mode = getMode(argv);
 	if (mode === Mode.LINT) {
 		showUsage();
@@ -261,9 +228,9 @@ async function run(): Promise<void> {
 		return cur.startsWith(".") ? cur.slice(1) : cur;
 	});
 
-	const files = await cli.expandFiles(argv._, { extensions });
+	const files = await cli.expandFiles(positionals, { extensions });
 	if (files.length === 0 && mode !== Mode.INIT) {
-		console.error("No files matching patterns", argv._);
+		console.error("No files matching patterns", positionals);
 		process.exit(1);
 	}
 
