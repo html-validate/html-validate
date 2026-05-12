@@ -3,9 +3,9 @@
  * https://www.w3.org/TR/wai-aria
  */
 
+import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "@jest/globals";
-import { globSync } from "glob";
 import "../../jest";
 import { type Source } from "../../context";
 import { type HtmlElement } from "../../dom";
@@ -58,7 +58,9 @@ describe("validator test-files", () => {
 	} as const;
 
 	const fixtureDir = "test-files/wai-aria";
-	const files = globSync("*.html", { cwd: fixtureDir, posix: true }) as Array<keyof typeof mapping>;
+	const files = fs
+		.globSync("*.html", { cwd: fixtureDir })
+		.map((it) => it.replaceAll("\\", "/")) as Array<keyof typeof mapping>;
 
 	it.each(files)("%s", async (filename) => {
 		expect.assertions(1);

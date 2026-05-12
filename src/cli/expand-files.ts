@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { globSync } from "glob";
 
 const DEFAULT_EXTENSIONS = ["html"];
 
@@ -59,7 +58,7 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			return result;
 		}
 
-		for (const filename of globSync(pattern, { cwd })) {
+		for (const filename of fs.globSync(pattern, { cwd })) {
 			/* if file is a directory recursively expand files from it */
 			const fullpath = join(cwd, filename);
 			if (isDirectory(fullpath)) {
