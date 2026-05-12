@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { styleText } from "node:util";
-import { glob } from "glob";
 import { rollup } from "rollup";
 import { getRollupConfig } from "./rollup.config.mjs";
 import { apiExtractor } from "./scripts/api-extractor.mjs";
@@ -184,7 +183,7 @@ async function copySchema() {
 	try {
 		const dstDir = "dist/schema";
 		const mkdir = fs.mkdir(dstDir, { recursive: true });
-		const schemas = await glob("src/schema/*.json");
+		const schemas = await Array.fromAsync(fs.glob("src/schema/*.json"));
 		await mkdir;
 		await Promise.all(schemas.map((src) => copyFile(src, dstDir)));
 	} finally {

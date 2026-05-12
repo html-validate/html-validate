@@ -1,5 +1,5 @@
+import fs from "node:fs";
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { globSync } from "glob";
 import "./jest";
 import { StaticConfigLoader } from "./browser";
 import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
@@ -240,7 +240,7 @@ describe("configuration smoketest", () => {
 		return data;
 	}
 
-	const files = globSync("test-files/config/**/*.html", { posix: true });
+	const files = fs.globSync("test-files/config/**/*.html").map((it) => it.replaceAll("\\", "/"));
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(2);
 		const loader = new FileSystemConfigLoader();

@@ -3,7 +3,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
-import { glob } from "glob";
 import isCI from "is-ci";
 
 /**
@@ -11,7 +10,7 @@ import isCI from "is-ci";
  * @returns {Promise<string[]>}
  */
 async function expandPatterns(patterns) {
-	const globs = await Promise.all(patterns.map((it) => glob(it)));
+	const globs = await Promise.all(patterns.map((it) => Array.fromAsync(fs.glob(it))));
 	return globs.flat();
 }
 
@@ -70,7 +69,7 @@ async function patchAugmentations(config) {
 	try {
 		const mainDir = path.dirname(mainEntryPointFilePath);
 		const pattern = `${mainDir.replaceAll("\\", "/")}/**/*.d.ts`;
-		const files = await glob(pattern);
+		const files = await Array.fromAsync(fs.glob(pattern));
 		console.log("Searching", files.length, "declaration files in", mainDir);
 		const results = await Promise.all(files.map(extract));
 		const augmentations = results.flat();

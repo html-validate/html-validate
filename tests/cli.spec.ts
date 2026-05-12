@@ -1,9 +1,11 @@
+import * as fs from "node:fs";
 import * as path from "node:path";
 import { expect, it } from "@jest/globals";
-import { globSync } from "glob";
 import { CLI } from "../src/cli/cli";
 
-const fixtures = globSync("cli-*/*.html", { cwd: __dirname, posix: true });
+const fixtures = fs
+	.globSync("cli-*/*.html", { cwd: __dirname })
+	.map((it) => it.replaceAll("\\", "/"));
 
 it.each(fixtures)("%s", async (filePath) => {
 	expect.assertions(1);

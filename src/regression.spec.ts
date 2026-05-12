@@ -1,5 +1,5 @@
+import fs from "node:fs";
 import { describe, expect, it } from "@jest/globals";
-import { globSync } from "glob";
 import { StaticConfigLoader, staticResolver } from "./browser";
 import { type Source } from "./context";
 import { DynamicValue } from "./dom";
@@ -41,7 +41,7 @@ const loader = new StaticConfigLoader([resolver], {
 const htmlvalidate = new HtmlValidate(loader);
 
 describe("regression tests", () => {
-	const files = globSync("test-files/issues/**/*.html", { posix: true });
+	const files = fs.globSync("test-files/issues/**/*.html").map((it) => it.replaceAll("\\", "/"));
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile(filename);
