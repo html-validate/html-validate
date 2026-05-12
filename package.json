@@ -219,7 +219,6 @@
     "deepmerge": "4.3.1",
     "ignore": "7.0.5",
     "kleur": "^4.1.0",
-    "minimist": "^1.2.0",
     "prompts": "^2.0.0",
     "semver": "^7.0.0"
   },
@@ -248,7 +247,6 @@
     "@types/babar": "0.2.4",
     "@types/babel__code-frame": "7.27.0",
     "@types/cli-table": "0.3.4",
-    "@types/minimist": "1.2.5",
     "@types/node": "22.19.18",
     "@types/prompts": "2.4.9",
     "@types/semver": "7.7.1",
@@ -308,7 +306,6 @@
     "@sidvind/better-ajv-errors",
     "ajv",
     "kleur",
-    "minimist",
     "prompts",
     "semver"
   ]
