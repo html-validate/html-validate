@@ -17,7 +17,7 @@
     "connect": "3.7.0",
     "cssnano": "8.0.1",
     "dgeni": "0.4.14",
-    "dgeni-front-matter": "5.1.1",
+    "dgeni-front-matter": "6.0.0",
     "front-matter": "4.0.2",
     "highlight.js": "11.11.1",
     "is-ci": "4.1.0",
