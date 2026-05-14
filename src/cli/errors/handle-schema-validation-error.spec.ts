@@ -3,14 +3,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { beforeEach, expect, it } from "@jest/globals";
 import Ajv, { type SchemaObject } from "ajv";
-import kleur from "kleur";
 import { WritableStreamBuffer } from "stream-buffers";
 import { SchemaValidationError } from "../../error";
 import { stripAnsi } from "../../jest/utils";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../../schema/keywords";
 import { handleSchemaValidationError } from "./handle-schema-validation-error";
-
-kleur.enabled = true;
 
 let stdout: WritableStreamBuffer;
 let stderr: WritableStreamBuffer;

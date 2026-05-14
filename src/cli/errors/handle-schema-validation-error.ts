@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { styleText } from "node:util";
 import betterAjvErrors from "@sidvind/better-ajv-errors";
 import kleur from "kleur";
 import { type SchemaValidationError } from "../../error";
@@ -13,6 +14,11 @@ function prettyError(err: SchemaValidationError): string {
 		format: "cli",
 		indent: 2,
 		json,
+		colors: {
+			error: styleText.bind(undefined, "red"),
+			property: styleText.bind(undefined, "magenta"),
+			bold: styleText.bind(undefined, "bold"),
+		},
 	});
 }
 
