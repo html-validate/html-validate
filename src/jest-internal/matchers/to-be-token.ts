@@ -2,42 +2,33 @@
 
 import {
 	type AsymmetricMatchers,
-	type BaseExpect,
 	type ExpectationResult,
 	type MatcherContext,
 	type MatcherFunction,
 } from "expect";
 import { diff } from "jest-diff";
-import { TokenType } from "../../lexer";
+import { type Token, TokenType } from "../../lexer";
+import { type TokenMatcher } from "../token-matcher";
 
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
-function createMatcher(expect: BaseExpect & AsymmetricMatchers): MatcherFunction<[any]> {
-	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
-	function toBeToken(this: MatcherContext, actual: any, expected: any): ExpectationResult {
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, this should be refactored and made typesafe */
-		const token = actual.value;
-
-		// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
-		if (token.type) {
-			token.type = TokenType[token.type];
-		}
-
-		// istanbul ignore next: TokenMatcher requires "type" property to be set, this is just a failsafe
-		if (expected.type) {
-			expected.type = TokenType[expected.type];
-		}
-
-		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt, this should be refactored and made typesafe */
-		const matcher = expect.objectContaining(expected);
-		const pass = this.equals(token, matcher);
-		const diffString = diff(matcher, token, { expand: this.expand });
+function createMatcher(expect: AsymmetricMatchers): MatcherFunction<[TokenMatcher]> {
+	function toBeToken(
+		this: MatcherContext,
+		actual: unknown,
+		expected: TokenMatcher,
+	): ExpectationResult {
+		const token = (actual as IteratorResult<Token, void>).value as Token;
+		const tokenData: Record<string, unknown> = { ...token, type: TokenType[token.type] };
+		const expectedData: Record<string, unknown> = { ...expected, type: TokenType[expected.type] };
+		const matcher = expect.objectContaining(expectedData);
+		const pass = this.equals(tokenData, matcher);
+		const diffString = diff(matcher, tokenData, { expand: this.expand });
 		const message = (): string =>
 			this.utils.matcherHint(".toBeToken") +
 			"\n\n" +
 			"Expected token to equal:\n" +
 			`  ${this.utils.printExpected(matcher)}\n` +
 			"Received:\n" +
-			`  ${this.utils.printReceived(token)}` +
+			`  ${this.utils.printReceived(tokenData)}` +
 			/* istanbul ignore next */ (diffString ? `\n\nDifference:\n\n${diffString}` : "");
 
 		return { pass, message };

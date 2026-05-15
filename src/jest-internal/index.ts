@@ -1,14 +1,6 @@
 import { expect } from "@jest/globals";
-
-import { type TokenType } from "../lexer";
-import { type Location } from "../location";
 import { toBeToken } from "./matchers";
-
-interface TokenMatcher {
-	type: TokenType;
-	location?: Partial<Record<keyof Location, unknown>>;
-	data?: unknown;
-}
+import { type TokenMatcher } from "./token-matcher";
 
 declare module "expect" {
 	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- to match jest declaration */
