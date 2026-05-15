@@ -1,5 +1,5 @@
 import { expect, it } from "@jest/globals";
-import { stripAnsi } from "../../jest/utils";
+import { stripAnsi } from "../../strip-ansi";
 import { ImportResolveMissingError } from "./import-resolve-missing-error";
 
 expect.addSnapshotSerializer({

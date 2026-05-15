@@ -3,7 +3,7 @@
  */
 
 import { describe, expect, it, jest } from "@jest/globals";
-import { stripAnsi } from "../utils";
+import { stripAnsi } from "../../strip-ansi";
 import "../jest";
 
 jest.mock("../../config/default", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { type Token, TokenType } from "../../lexer";
-import { stripAnsi } from "../utils";
+import { stripAnsi } from "../../strip-ansi";
 import "../jest-internal";
 
 describe("toBeToken()", () => {
