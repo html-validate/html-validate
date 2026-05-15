@@ -1,19 +1,19 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored*/
 
-import { TokenType } from "../../lexer";
 import {
+	type AsymmetricMatchers,
+	type BaseExpect,
+	type ExpectationResult,
 	type MatcherContext,
-	type MatcherExpect,
-	type MatcherResult,
-	type MaybeAsyncCallback,
-	diff,
-	diverge,
-} from "../utils";
+	type MatcherFunction,
+} from "expect";
+import { diff } from "jest-diff";
+import { TokenType } from "../../lexer";
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
-function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<any, [any]> {
+function createMatcher(expect: BaseExpect & AsymmetricMatchers): MatcherFunction<[any]> {
 	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, should use proper types */
-	function toBeToken(this: MatcherContext, actual: any, expected: any): MatcherResult {
+	function toBeToken(this: MatcherContext, actual: any, expected: any): ExpectationResult {
 		/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- technical debt, this should be refactored and made typesafe */
 		const token = actual.value;
 
@@ -27,6 +27,7 @@ function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<any, [any]> {
 			expected.type = TokenType[expected.type];
 		}
 
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- technical debt, this should be refactored and made typesafe */
 		const matcher = expect.objectContaining(expected);
 		const pass = this.equals(token, matcher);
 		const diffString = diff(matcher, token, { expand: this.expand });
@@ -41,7 +42,7 @@ function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<any, [any]> {
 
 		return { pass, message };
 	}
-	return diverge(toBeToken);
+	return toBeToken;
 }
 
 export { createMatcher as toBeToken };
