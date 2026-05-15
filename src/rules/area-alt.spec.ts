@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import "../jest";
+import "html-validate/jest";
 import { RuleContext } from "./area-alt";
 
 describe("rule area-alt", () => {

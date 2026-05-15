@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import type { RuleContext } from "./no-unknown-attributes";
-import "../jest";
+import "html-validate/jest";
 
 describe("rule no-unknown-attributes", () => {
 	let htmlvalidate: HtmlValidate;

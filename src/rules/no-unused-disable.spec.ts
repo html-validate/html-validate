@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import "../jest";
+import "html-validate/jest";
 import { StaticConfigLoader } from "../browser";
 import { staticResolver } from "../config";
 import { HtmlValidate } from "../htmlvalidate";

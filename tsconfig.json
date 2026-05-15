@@ -28,7 +28,8 @@
     "verbatimModuleSyntax": false,
 
     "paths": {
-      "html-validate": ["./src"]
+      "html-validate": ["./src"],
+      "html-validate/jest": ["./src/jest"]
     }
   },
   "include": ["./src/**/*.ts"]

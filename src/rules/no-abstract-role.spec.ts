@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import "../jest";
+import "html-validate/jest";
 
 const htmlvalidate = new HtmlValidate({
 	root: true,

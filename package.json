@@ -187,7 +187,8 @@
     ],
     "globalSetup": "<rootDir>/jest.global.cjs",
     "moduleNameMapper": {
-      "^html-validate/browser$": "<rootDir>/src/browser.ts"
+      "^html-validate/browser$": "<rootDir>/src/browser.ts",
+      "^html-validate/jest$": "<rootDir>/src/jest/index.ts"
     },
     "preset": "@html-validate/jest-config",
     "roots": [

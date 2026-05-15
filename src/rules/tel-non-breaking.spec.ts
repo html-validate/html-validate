@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { type RuleContext } from "./tel-non-breaking";
-import "../jest";
+import "html-validate/jest";
 
 describe("rule tel-non-breaking", () => {
 	let htmlvalidate: HtmlValidate;

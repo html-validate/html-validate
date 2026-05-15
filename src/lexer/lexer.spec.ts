@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { type Source } from "../context";
-import "../jest";
+import "html-validate/jest";
 import { Lexer } from "./lexer";
 import { TokenType } from "./token";
 
