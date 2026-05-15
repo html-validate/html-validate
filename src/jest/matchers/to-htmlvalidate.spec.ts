@@ -4,7 +4,12 @@
 
 import { describe, expect, it, jest } from "@jest/globals";
 import { stripAnsi } from "../../strip-ansi";
-import "../jest";
+import { diff } from "../utils";
+import { toHTMLValidate } from "./to-htmlvalidate";
+
+expect.extend({
+	toHTMLValidate: toHTMLValidate(expect, diff),
+});
 
 jest.mock("../../config/default", () => {
 	return {

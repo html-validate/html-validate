@@ -1,6 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
-import "../jest";
+import { toBeInvalid } from "./to-be-invalid";
+
+expect.extend({
+	toBeInvalid: toBeInvalid(),
+});
 
 describe("toBeInvalid()", () => {
 	it("should pass if report is invalid", () => {

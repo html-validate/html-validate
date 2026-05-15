@@ -1,7 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { type Token, TokenType } from "../../lexer";
 import { stripAnsi } from "../../strip-ansi";
-import "../jest-internal";
+import { toBeToken } from "./to-be-token";
+
+expect.extend({
+	toBeToken: toBeToken(expect),
+});
 
 describe("toBeToken()", () => {
 	const token: Token = {

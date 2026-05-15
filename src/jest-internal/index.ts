@@ -1,9 +1,8 @@
 import { expect } from "@jest/globals";
-import "./jest";
 
 import { type TokenType } from "../lexer";
 import { type Location } from "../location";
-import { toBeToken } from "./internal-matchers";
+import { toBeToken } from "./matchers";
 
 interface TokenMatcher {
 	type: TokenType;

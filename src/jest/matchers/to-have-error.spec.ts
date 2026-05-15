@@ -1,7 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { stripAnsi } from "../../strip-ansi";
+import { diff } from "../utils";
 import { reportError, reportErrorAsync } from "./__fixtures__";
-import "../jest";
+import { toHaveError } from "./to-have-error";
+
+expect.extend({
+	toHaveError: toHaveError(expect, diff),
+});
 
 describe("toHaveError()", () => {
 	it("should pass if error is preset", () => {
