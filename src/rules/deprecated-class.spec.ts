@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { processAttribute } from "../transform/mocks/attribute";
 import type { RuleContext } from "./deprecated-class";
 

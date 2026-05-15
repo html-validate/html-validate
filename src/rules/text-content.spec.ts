@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { TextContent } from "../meta";
 
 function processElement(node: HtmlElement): void {

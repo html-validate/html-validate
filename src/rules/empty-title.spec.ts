@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type HtmlElement, DynamicValue } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import { type Location } from "../location";
-import "../jest";
+import "html-validate/jest";
 
 const location: Location = {
 	filename: "inline",

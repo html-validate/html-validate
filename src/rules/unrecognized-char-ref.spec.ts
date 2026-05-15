@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { type RuleContext } from "./unrecognized-char-ref";
 
 describe("rule unrecognized-char-ref", () => {

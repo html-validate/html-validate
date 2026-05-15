@@ -34,7 +34,7 @@ const entrypoints = [
 	{ in: "src/browser.ts" },
 	{ in: "src/html5.ts" },
 	{ in: "src/cli/html-validate.ts" },
-	{ in: "src/jest/jest.ts" },
+	{ in: "src/jest/index.ts", out: "jest" },
 	{ in: "src/vitest/vitest.ts" },
 	{ in: "src/jest/worker/worker.ts", out: "jest-worker" },
 ];

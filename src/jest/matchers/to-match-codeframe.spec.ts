@@ -1,6 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
-import "../jest";
+import { toMatchCodeframe } from "./to-match-codeframe";
+
+expect.extend({
+	toMatchCodeframe: toMatchCodeframe(),
+});
 
 describe("toMatchCodeframe()", () => {
 	it("should match valid report", () => {

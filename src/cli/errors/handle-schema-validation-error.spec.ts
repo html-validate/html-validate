@@ -5,8 +5,8 @@ import { beforeEach, expect, it } from "@jest/globals";
 import Ajv, { type SchemaObject } from "ajv";
 import { WritableStreamBuffer } from "stream-buffers";
 import { SchemaValidationError } from "../../error";
-import { stripAnsi } from "../../jest/utils";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../../schema/keywords";
+import { stripAnsi } from "../../strip-ansi";
 import { handleSchemaValidationError } from "./handle-schema-validation-error";
 
 let stdout: WritableStreamBuffer;

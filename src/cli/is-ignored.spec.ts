@@ -3,7 +3,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CLI } from "./cli";
 import { IsIgnored } from "./is-ignored";
-import "../jest";
+import "html-validate/jest";
 
 describe("integration tests", () => {
 	let ignored: IsIgnored;

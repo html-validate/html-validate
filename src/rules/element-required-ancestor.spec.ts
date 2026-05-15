@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { type RuleContext } from "./element-required-ancestor";
 
 describe("rule element-required-ancestor", () => {

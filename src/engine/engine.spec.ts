@@ -4,7 +4,7 @@ import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
 import { type ConfigReadyEvent, type DOMLoadEvent, EventHandler } from "../event";
 import { InvalidTokenError } from "../lexer";
-import "../jest";
+import "html-validate/jest";
 import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { type Plugin } from "../plugin";

@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
-import "../jest";
+import "html-validate/jest";
 
 describe("rule map-dup-name", () => {
 	let htmlvalidate: HtmlValidate;

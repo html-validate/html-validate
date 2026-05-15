@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 
 describe("rule long-title", () => {
 	let htmlvalidate: HtmlValidate;

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../htmlvalidate";
-import "../../jest";
+import "html-validate/jest";
 import { defineMetadata } from "../../meta";
 
 describe("wcag/h32", () => {

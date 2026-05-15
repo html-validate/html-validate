@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from "@jest/globals";
 import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { type MetaDataTable } from "../meta";
 import { type Parser } from "../parser";
 import metadata from "./html5";

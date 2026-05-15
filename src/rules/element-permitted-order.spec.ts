@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import { defineMetadata } from "../meta";
-import "../jest";
+import "html-validate/jest";
 
 describe("rule element-permitted-order", () => {
 	let htmlvalidate: HtmlValidate;

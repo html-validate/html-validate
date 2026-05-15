@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
-import "../jest";
+import "html-validate/jest";
 import { type MetaDataTable } from "../meta";
 import { processAttribute } from "../transform/mocks/attribute";
 
