@@ -82,7 +82,7 @@ it("should match inline snapshot", async () => {
 
 ## Version history
 
-- %version% - `toMatchCodeframe` and `toMatchInlineCodeframe` matchers added (requires Vitest v4.1.3 or later).
+- 11.2.0 - `toMatchCodeframe` and `toMatchInlineCodeframe` matchers added (requires Vitest v4.1.3 or later).
 - 11.0.0 - Support for Vitest v1 and v2 removed.
 - 10.2.0 - Support for Vitest v4 added.
 - 9.2.0 - Support for Vitest v3 added.

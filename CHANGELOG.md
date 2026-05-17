@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.2.0 (2026-05-17)
+
+### Features
+
+- **deps:** update dependency @sidvind/better-ajv-errors to v7 ([a6f4242](https://gitlab.com/html-validate/html-validate/commit/a6f424264240f5c89399948787635671b3d3124d))
+- **vitest:** add `toMatchCodeframe()` and `toMatchInlineCodeframe()` matchers ([5153c12](https://gitlab.com/html-validate/html-validate/commit/5153c126188edd5ccdda6888f780656d23bdeba4))
+
 ## 11.1.0 (2026-05-12)
 
 ### Features

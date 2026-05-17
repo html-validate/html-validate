@@ -54,7 +54,7 @@ declare module "vitest" {
 		 *
 		 * * Requires Vitest v4.1.3 or later.
 		 *
-		 * @since %version%
+		 * @since 11.2.0
 		 */
 		toMatchCodeframe(hint?: string): Promise<void>;
 
@@ -64,7 +64,7 @@ declare module "vitest" {
 		 *
 		 * Requires Vitest v4.1.3 or later.
 		 *
-		 * @since %version%
+		 * @since 11.2.0
 		 */
 		toMatchInlineCodeframe(snapshot?: string): Promise<void>;
 	}
