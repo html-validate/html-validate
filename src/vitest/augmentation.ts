@@ -47,6 +47,26 @@ declare module "vitest" {
 		toHTMLValidate(config: ConfigData, filename?: string): T;
 		toHTMLValidate(error: Partial<Message>, filename?: string): T;
 		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): T;
+
+		/**
+		 * Writes out the given [[Report]] using codeframe formatter and compares
+		 * with snapshot.
+		 *
+		 * * Requires Vitest v4.1.3 or later.
+		 *
+		 * @since %version%
+		 */
+		toMatchCodeframe(hint?: string): Promise<void>;
+
+		/**
+		 * Writes out the given [[Report]] using codeframe formatter and compares
+		 * with inline snapshot.
+		 *
+		 * Requires Vitest v4.1.3 or later.
+		 *
+		 * @since %version%
+		 */
+		toMatchInlineCodeframe(snapshot?: string): Promise<void>;
 	}
 }
 /** module augmentation end */
