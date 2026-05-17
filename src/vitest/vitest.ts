@@ -12,7 +12,7 @@ import {
 expect.extend({
 	toBeValid: toBeValid(),
 	toBeInvalid: toBeInvalid(),
-	toHTMLValidate: toHTMLValidate(expect, undefined),
-	toHaveError: toHaveError(expect, undefined),
-	toHaveErrors: toHaveErrors(expect, undefined),
+	toHTMLValidate: toHTMLValidate(expect),
+	toHaveError: toHaveError(expect),
+	toHaveErrors: toHaveErrors(expect),
 });

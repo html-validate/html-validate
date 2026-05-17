@@ -37,18 +37,31 @@ it("should validate ok", async () => {
 	expect(report).toBeValid();
 	expect(() => expect(report).toHaveError("no-inline-style", "Inline style is not allowed"))
 		.toThrowErrorMatchingInlineSnapshot(`
-expect(received).toHaveError(expected)
+			expect(received).toHaveError(expected)
 
-Expected error to equal:
-  Array [
-  ObjectContaining {
-    "message": "Inline style is not allowed",
-    "ruleId": "no-inline-style",
-  },
-]
-Received:
-  Array []
-`);
+			Expected error to equal:
+			  Array [
+			  ObjectContaining {
+			    "message": "Inline style is not allowed",
+			    "ruleId": "no-inline-style",
+			  },
+			]
+			Received:
+			  Array []
+
+			Difference:
+
+			- Expected
+			+ Received
+
+			- [
+			-   ObjectContaining {
+			-     "message": "Inline style is not allowed",
+			-     "ruleId": "no-inline-style",
+			-   },
+			- ]
+			+ []
+		`);
 });
 
 it("should not validate", async () => {

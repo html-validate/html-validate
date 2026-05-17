@@ -1,11 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { stripAnsi } from "../../strip-ansi";
-import { diff } from "../utils";
 import { reportError, reportErrorAsync } from "./__fixtures__";
 import { toHaveError } from "./to-have-error";
 
 expect.extend({
-	toHaveError: toHaveError(expect, diff),
+	toHaveError: toHaveError(expect),
 });
 
 describe("toHaveError()", () => {
