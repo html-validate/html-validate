@@ -7,7 +7,6 @@ import {
 	type MatcherResult,
 	type MaybeAsyncCallback,
 	diverge,
-	flattenMessages,
 } from "../utils";
 
 function createMatcher(
@@ -18,7 +17,7 @@ function createMatcher(
 		report: Report,
 		errors: Array<[string, string] | Record<string, unknown>>,
 	): MatcherResult {
-		const flattened = flattenMessages(report);
+		const flattened = report.results.flatMap((result) => result.messages);
 		const matcher = errors.map((entry) => {
 			if (Array.isArray(entry)) {
 				const [ruleId, message] = entry;

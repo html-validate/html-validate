@@ -7,7 +7,6 @@ import {
 	type MaybeAsyncCallback,
 	diverge,
 } from "../utils";
-import { flattenMessages } from "../utils/flatten-messages";
 
 function toHaveErrorImpl(
 	context: MatcherContext,
@@ -15,7 +14,7 @@ function toHaveErrorImpl(
 	actual: Report,
 	expected: Partial<Message>,
 ): MatcherResult {
-	const flattened = flattenMessages(actual);
+	const flattened = actual.results.flatMap((result) => result.messages);
 	const matcher = [expect.objectContaining(expected)];
 	const pass = context.equals(flattened, matcher);
 	const diffString = context.utils.diff(matcher, flattened, { expand: context.expand });
