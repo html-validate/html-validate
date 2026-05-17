@@ -1,3 +1,3 @@
-export { type ValidateStringFn } from "./worker";
+export { type ValidateStringFn } from "./jest-worker";
 export { createSyncFn } from "./create-sync-fn";
-export { default as workerPath } from "./worker.ts?worker&url";
+export { default as jestWorkerPath } from "./jest-worker.ts?worker&url";

@@ -1,13 +1,18 @@
+import {
+	type AsyncExpectationResult,
+	type MatcherContext,
+	type SyncExpectationResult,
+} from "expect";
 import { toMatchInlineSnapshot } from "jest-snapshot";
 import { type Report } from "../../reporter";
-import { type MatcherContext, type MatcherResult, codeframe, isThenable } from "../utils";
+import { codeframe, isThenable } from "../utils";
 import { getResults } from "./get-results";
 
 function toMatchInlineCodeframeImpl(
 	context: MatcherContext,
 	actual: Report | string,
 	...rest: Array<string | object>
-): MatcherResult {
+): SyncExpectationResult {
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const filename = context.testPath ?? "inline";
 	const results = getResults(filename, actual);
@@ -22,13 +27,13 @@ type ToMatchInlineCodeframeMatcher = (
 	this: MatcherContext,
 	actual: Report | Promise<Report> | string,
 	...rest: Array<string | object>
-) => MatcherResult | Promise<MatcherResult>;
+) => SyncExpectationResult | Promise<SyncExpectationResult>;
 
 function toMatchInlineCodeframe(
 	this: MatcherContext,
 	actual: Report | Promise<Report> | string,
 	...rest: Array<string | object>
-): MatcherResult | Promise<MatcherResult> {
+): SyncExpectationResult | AsyncExpectationResult {
 	const context = {
 		...this,
 

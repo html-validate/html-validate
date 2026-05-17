@@ -1,21 +1,21 @@
-import { type expect } from "@jest/globals";
-import { type MatcherContext, type SyncExpectationResult } from "expect";
+import { type MatcherState, type SyncExpectationResult } from "@vitest/expect";
+import { type expect } from "vitest";
 import { type Message } from "../../message";
 import { type Report } from "../../reporter";
 import { type MaybeAsyncCallback, diverge } from "../utils";
 
-type JestExpect = typeof expect;
+type VitestExpect = typeof expect;
 
 function toHaveErrorImpl(
-	context: MatcherContext,
-	expect: JestExpect,
+	context: MatcherState,
+	expect: VitestExpect,
 	actual: Report,
 	expected: Partial<Message>,
 ): SyncExpectationResult {
 	const flattened = actual.results.flatMap((result) => result.messages);
 	const matcher = [expect.objectContaining(expected)];
 	const pass = context.equals(flattened, matcher);
-	const diffString = context.utils.diff(matcher, flattened, { expand: context.expand });
+	const diffString = context.utils.diff(matcher, flattened);
 	const hint = context.utils.matcherHint(".toHaveError");
 	const prettyExpected = context.utils.printExpected(matcher);
 	const prettyReceived = context.utils.printReceived(flattened);
@@ -30,28 +30,28 @@ function toHaveErrorImpl(
 			/* istanbul ignore next */ diffString ? `\nDifference:\n\n${diffString}` : "",
 		].join("\n");
 	};
-	return { pass, message: resultMessage };
+	return { pass, message: resultMessage, actual: flattened, expected: matcher };
 }
 
 function createMatcher(
-	expect: JestExpect,
+	expect: VitestExpect,
 ):
 	| MaybeAsyncCallback<Report, [Partial<Message>]>
 	| MaybeAsyncCallback<Report, [string, string, unknown?]> {
 	function toHaveError(
-		this: MatcherContext,
+		this: MatcherState,
 		actual: Report,
 		error: Partial<Message>,
 	): SyncExpectationResult;
 	function toHaveError(
-		this: MatcherContext,
+		this: MatcherState,
 		actual: Report,
 		ruleId: string,
 		message: string,
 		context?: unknown,
 	): SyncExpectationResult;
 	function toHaveError(
-		this: MatcherContext,
+		this: MatcherState,
 		actual: Report,
 		arg1: string | Partial<Message>,
 		arg2?: string,

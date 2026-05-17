@@ -1,12 +1,7 @@
+import { type MatcherContext, type SyncExpectationResult } from "expect";
 import { toMatchSnapshot } from "jest-snapshot";
 import { type Report } from "../../reporter";
-import {
-	type MatcherContext,
-	type MatcherResult,
-	type MaybeAsyncCallback,
-	codeframe,
-	diverge,
-} from "../utils";
+import { type MaybeAsyncCallback, codeframe, diverge } from "../utils";
 import { getResults } from "./get-results";
 
 function createMatcher(): MaybeAsyncCallback<Report | string, [Array<string | object>]> {
@@ -14,7 +9,7 @@ function createMatcher(): MaybeAsyncCallback<Report | string, [Array<string | ob
 		this: MatcherContext,
 		actual: Report | string,
 		...rest: Array<string | object>
-	): MatcherResult {
+	): SyncExpectationResult {
 		/* istanbul ignore next: cant figure out when this would be unset */
 		const filename = this.testPath ?? "inline";
 		const results = getResults(filename, actual);

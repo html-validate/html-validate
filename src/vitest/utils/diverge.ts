@@ -1,12 +1,12 @@
 import {
 	type AsyncExpectationResult,
-	type MatcherContext,
+	type MatcherState,
 	type SyncExpectationResult,
-} from "expect";
+} from "@vitest/expect";
 import { isThenable } from "./is-thenable";
 
 type SyncCallback<T, TArgs extends unknown[]> = (
-	this: MatcherContext,
+	this: MatcherState,
 	actual: T,
 	...args: TArgs
 ) => SyncExpectationResult;
@@ -15,8 +15,8 @@ type SyncCallback<T, TArgs extends unknown[]> = (
  * @internal
  */
 export interface MaybeAsyncCallback<TActual, TArgs extends unknown[]> {
-	(this: MatcherContext, actual: TActual, ...args: TArgs): SyncExpectationResult;
-	(this: MatcherContext, actual: Promise<TActual>, ...args: TArgs): AsyncExpectationResult;
+	(this: MatcherState, actual: TActual, ...args: TArgs): SyncExpectationResult;
+	(this: MatcherState, actual: Promise<TActual>, ...args: TArgs): AsyncExpectationResult;
 }
 
 /**
@@ -34,14 +34,10 @@ export interface MaybeAsyncCallback<TActual, TArgs extends unknown[]> {
 export function diverge<T, TArgs extends unknown[]>(
 	fn: SyncCallback<T, TArgs>,
 ): MaybeAsyncCallback<T, TArgs> {
-	function diverged(this: MatcherContext, actual: T, ...args: TArgs): SyncExpectationResult;
+	function diverged(this: MatcherState, actual: T, ...args: TArgs): SyncExpectationResult;
+	function diverged(this: MatcherState, actual: Promise<T>, ...args: TArgs): AsyncExpectationResult;
 	function diverged(
-		this: MatcherContext,
-		actual: Promise<T>,
-		...args: TArgs
-	): AsyncExpectationResult;
-	function diverged(
-		this: MatcherContext,
+		this: MatcherState,
 		actual: T | Promise<T>,
 		...args: TArgs
 	): SyncExpectationResult | AsyncExpectationResult {

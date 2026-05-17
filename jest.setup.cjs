@@ -8,7 +8,7 @@ jest.mock(
 );
 
 jest.mock(
-	"./src/jest/worker/worker.ts?worker&url",
+	"./src/jest/worker/jest-worker.ts?worker&url",
 	() => require.resolve("./temp/jest-worker.js"),
 	{ virtual: true },
 );

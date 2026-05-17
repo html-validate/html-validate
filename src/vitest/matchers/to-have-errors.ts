@@ -1,17 +1,17 @@
 /* eslint-disable prefer-template -- technical debt, should be refactored */
 
-import { type expect } from "@jest/globals";
-import { type MatcherContext, type SyncExpectationResult } from "expect";
+import { type MatcherState, type SyncExpectationResult } from "@vitest/expect";
+import { type expect } from "vitest";
 import { type Report } from "../../reporter";
 import { type MaybeAsyncCallback, diverge } from "../utils";
 
-type JestExpect = typeof expect;
+type VitestExpect = typeof expect;
 
 function createMatcher(
-	expect: JestExpect,
+	expect: VitestExpect,
 ): MaybeAsyncCallback<Report, [Array<[string, string] | Record<string, unknown>>]> {
 	function toHaveErrors(
-		this: MatcherContext,
+		this: MatcherState,
 		report: Report,
 		errors: Array<[string, string] | Record<string, unknown>>,
 	): SyncExpectationResult {
@@ -19,13 +19,15 @@ function createMatcher(
 		const matcher = errors.map((entry) => {
 			if (Array.isArray(entry)) {
 				const [ruleId, message] = entry;
+				/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- upstream typing */
 				return expect.objectContaining({ ruleId, message });
 			} else {
+				/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- upstream typing */
 				return expect.objectContaining(entry);
 			}
 		});
 		const pass = this.equals(flattened, matcher);
-		const diffString = this.utils.diff(matcher, flattened, { expand: this.expand });
+		const diffString = this.utils.diff(matcher, flattened);
 		const resultMessage = (): string =>
 			this.utils.matcherHint(".toHaveErrors") +
 			"\n\n" +

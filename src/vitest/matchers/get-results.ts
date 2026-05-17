@@ -1,12 +1,12 @@
 import { type Report, type Result } from "../../reporter";
-import { type ValidateStringFn, createSyncFn, jestWorkerPath } from "../worker";
+import { type ValidateStringFn, createSyncFn, vitestWorkerPath } from "../worker";
 
 /**
  * @internal
  */
 export function getResults(filename: string, value: Report | string): Result[] {
 	if (typeof value === "string") {
-		const syncFn = createSyncFn<ValidateStringFn>(jestWorkerPath);
+		const syncFn = createSyncFn<ValidateStringFn>(vitestWorkerPath);
 		const report = syncFn(value, filename, {
 			rules: {
 				"void-style": "off",
