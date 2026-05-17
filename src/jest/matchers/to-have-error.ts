@@ -64,7 +64,7 @@ function createMatcher(
 				ruleId: arg1,
 				message: arg2,
 			};
-			if (arg3) {
+			if (arg3 !== undefined) {
 				expected.context = arg3;
 			}
 			return toHaveErrorImpl(this, expect, actual, expected);
