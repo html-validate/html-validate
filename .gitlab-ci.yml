@@ -169,7 +169,7 @@ Node:
   parallel:
     matrix:
       - VERSION:
-          - "22.12"
+          - "22.17"
           - "22"
           - "24.0"
           - "24"
