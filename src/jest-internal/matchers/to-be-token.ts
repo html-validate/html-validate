@@ -6,7 +6,6 @@ import {
 	type MatcherContext,
 	type MatcherFunction,
 } from "expect";
-import { diff } from "jest-diff";
 import { type Token, TokenType } from "../../lexer";
 import { type TokenMatcher } from "../token-matcher";
 
@@ -21,7 +20,7 @@ function createMatcher(expect: AsymmetricMatchers): MatcherFunction<[TokenMatche
 		const expectedData: Record<string, unknown> = { ...expected, type: TokenType[expected.type] };
 		const matcher = expect.objectContaining(expectedData);
 		const pass = this.equals(tokenData, matcher);
-		const diffString = diff(matcher, tokenData, { expand: this.expand });
+		const diffString = this.utils.diff(matcher, tokenData, { expand: this.expand });
 		const message = (): string =>
 			this.utils.matcherHint(".toBeToken") +
 			"\n\n" +

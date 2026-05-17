@@ -1,7 +1,6 @@
 import { type Message } from "../../message";
 import { type Report } from "../../reporter";
 import {
-	type DiffFunction,
 	type MatcherContext,
 	type MatcherExpect,
 	type MatcherResult,
@@ -13,16 +12,13 @@ import { flattenMessages } from "../utils/flatten-messages";
 function toHaveErrorImpl(
 	context: MatcherContext,
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined,
 	actual: Report,
 	expected: Partial<Message>,
 ): MatcherResult {
 	const flattened = flattenMessages(actual);
 	const matcher = [expect.objectContaining(expected)];
 	const pass = context.equals(flattened, matcher);
-	const diffString = diff
-		? diff(matcher, flattened, { expand: context.expand })
-		: /* istanbul ignore next */ undefined;
+	const diffString = context.utils.diff(matcher, flattened, { expand: context.expand });
 	const hint = context.utils.matcherHint(".toHaveError");
 	const prettyExpected = context.utils.printExpected(matcher);
 	const prettyReceived = context.utils.printReceived(flattened);
@@ -42,7 +38,6 @@ function toHaveErrorImpl(
 
 function createMatcher(
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined,
 ):
 	| MaybeAsyncCallback<Report, [Partial<Message>]>
 	| MaybeAsyncCallback<Report, [string, string, unknown?]> {
@@ -73,9 +68,9 @@ function createMatcher(
 			if (arg3) {
 				expected.context = arg3;
 			}
-			return toHaveErrorImpl(this, expect, diff, actual, expected);
+			return toHaveErrorImpl(this, expect, actual, expected);
 		} else {
-			return toHaveErrorImpl(this, expect, diff, actual, arg1);
+			return toHaveErrorImpl(this, expect, actual, arg1);
 		}
 	}
 	return diverge(toHaveError);

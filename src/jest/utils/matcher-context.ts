@@ -1,3 +1,5 @@
+import { type DiffOptions } from "jest-diff";
+
 /**
  * @internal
  */
@@ -6,6 +8,7 @@ export interface MatcherContext {
 	expand?: boolean;
 	testPath?: string;
 	utils: {
+		diff(a: unknown, b: unknown, options?: DiffOptions): string | null | undefined;
 		matcherHint(
 			matcherName: string,
 			received?: string,

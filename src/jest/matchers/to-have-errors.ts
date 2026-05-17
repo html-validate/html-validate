@@ -2,7 +2,6 @@
 
 import { type Report } from "../../reporter";
 import {
-	type DiffFunction,
 	type MatcherContext,
 	type MatcherExpect,
 	type MatcherResult,
@@ -13,7 +12,6 @@ import {
 
 function createMatcher(
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined,
 ): MaybeAsyncCallback<Report, [Array<[string, string] | Record<string, unknown>>]> {
 	function toHaveErrors(
 		this: MatcherContext,
@@ -30,9 +28,7 @@ function createMatcher(
 			}
 		});
 		const pass = this.equals(flattened, matcher);
-		const diffString = diff
-			? diff(matcher, flattened, { expand: this.expand })
-			: /* istanbul ignore next */ undefined;
+		const diffString = this.utils.diff(matcher, flattened, { expand: this.expand });
 		const resultMessage = (): string =>
 			this.utils.matcherHint(".toHaveErrors") +
 			"\n\n" +

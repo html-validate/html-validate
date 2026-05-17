@@ -2,7 +2,6 @@ import deepmerge from "deepmerge";
 import { type ConfigData } from "../../config";
 import { type Message } from "../../message";
 import {
-	type DiffFunction,
 	type MatcherContext,
 	type MatcherExpect,
 	type MatcherResult,
@@ -55,10 +54,7 @@ type Arg1 = Partial<Message> | ConfigData | string;
 type Arg2 = ConfigData | string;
 type Arg3 = string;
 
-function createMatcher(
-	expect: MatcherExpect,
-	diff: DiffFunction | undefined,
-): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
+function createMatcher(expect: MatcherExpect): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
 	function toHTMLValidate(
 		this: MatcherContext,
 		actual: unknown,
@@ -70,7 +66,7 @@ function createMatcher(
 		const message = isMessage(arg0) ? arg0 : undefined;
 		const config = isConfig(arg0) ? arg0 : isConfig(arg1) ? arg1 : undefined; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
 		const filename = isString(arg0) ? arg0 : isString(arg1) ? arg1 : arg2; // eslint-disable-line sonarjs/no-nested-conditional -- easier to read than the alternative */
-		return toHTMLValidateImpl.call(this, expect, diff, markup, message, config, filename);
+		return toHTMLValidateImpl.call(this, expect, markup, message, config, filename);
 	}
 	return diverge(toHTMLValidate);
 }
@@ -79,7 +75,6 @@ function createMatcher(
 function toHTMLValidateImpl(
 	this: MatcherContext,
 	expect: MatcherExpect,
-	diff: DiffFunction | undefined,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
@@ -107,13 +102,11 @@ function toHTMLValidateImpl(
 			const actual = result.messages;
 			const expected = expect.arrayContaining([expect.objectContaining(expectedError)]);
 			const errorPass = this.equals(actual, expected);
-			const diffString = diff
-				? diff(expected, actual, {
-						expand: this.expand,
-						aAnnotation: "Expected error",
-						bAnnotation: "Actual error",
-					})
-				: /* istanbul ignore next */ undefined;
+			const diffString = this.utils.diff(expected, actual, {
+				expand: this.expand,
+				aAnnotation: "Expected error",
+				bAnnotation: "Actual error",
+			});
 			const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
 				comment: "expected error",
 			});
