@@ -30,10 +30,12 @@ function isWorkerError<T>(value: WorkerToMainMessage<T>): value is WorkerToMainE
 }
 
 function receiveMessageWithId<R>(port: MessagePort, expectedId: number): WorkerToMainMessage<R> {
+	/* wait for the semaphore to be raised before receiving message */
 	const timeout = 30000;
 	const status = Atomics.wait(sharedBufferView, 0, 0, timeout);
 	Atomics.store(sharedBufferView, 0, 0);
 
+	/* handle timeout or unexpected errors */
 	if (!["ok", "not-equal"].includes(status)) {
 		const abortMsg: MainToWorkerCommandMessage = {
 			id: expectedId,
@@ -43,6 +45,9 @@ function receiveMessageWithId<R>(port: MessagePort, expectedId: number): WorkerT
 		throw new Error(`Internal error: Atomics.wait() failed: ${status}`);
 	}
 
+	/* the worker process will post the message before raising the semaphore, we
+	 * should not reach this part of the code unless there is a message waiting to
+	 * be read */
 	const reply = receiveMessageOnPort(port) as { message: WorkerToMainMessage<R> };
 	const { id, ...message } = reply.message;
 
