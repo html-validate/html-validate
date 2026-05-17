@@ -1,13 +1,16 @@
-const { build } = require("esbuild");
+import { build } from "esbuild";
 
-module.exports = function setup() {
-	return build({
-		entryPoints: ["src/jest/worker/jest-worker.ts"],
+export default async function setup(): Promise<void> {
+	await build({
+		entryPoints: ["src/vitest/worker/vitest-worker.ts"],
 		bundle: true,
-		format: "cjs",
-		outfile: "temp/jest-worker.js",
+		format: "esm",
+		outfile: "temp/vitest-worker.mjs",
 		platform: "node",
 		target: "node22",
+		banner: {
+			js: ["const __filename = import.meta.filename;"].join("\n"),
+		},
 		plugins: [
 			{
 				name: "html-validate:get-rule-url",
@@ -27,4 +30,4 @@ module.exports = function setup() {
 			},
 		],
 	});
-};
+}

@@ -1,0 +1,213 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`toHaveError() > should fail if error has mismatched context 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
+  Array [
+  ObjectContaining {
+    "context": Object {
+      "foo": "spam",
+    },
+    "message": "mock message",
+    "ruleId": "my-rule",
+  },
+]
+Received:
+  Array [
+  Object {
+    "column": 8,
+    "context": Object {
+      "foo": "bar",
+    },
+    "line": 4,
+    "message": "mock message",
+    "offset": 37,
+    "ruleId": "my-rule",
+    "selector": "#foo > div",
+    "severity": 2,
+    "size": 11,
+  },
+]
+
+Difference:
+
+- Expected
++ Received
+
+  [
+-   ObjectContaining {
++   {
++     "column": 8,
+      "context": {
+-       "foo": "spam",
++       "foo": "bar",
+      },
++     "line": 4,
+      "message": "mock message",
++     "offset": 37,
+      "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
+    },
+  ]"
+`;
+
+exports[`toHaveError() > should fail if expected async error is missing 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
+  Array [
+  ObjectContaining {
+    "message": "asdf",
+    "ruleId": "asdf",
+  },
+]
+Received:
+  Array [
+  Object {
+    "column": 8,
+    "context": Object {
+      "foo": "bar",
+    },
+    "line": 4,
+    "message": "mock message",
+    "offset": 37,
+    "ruleId": "my-rule",
+    "selector": "#foo > div",
+    "severity": 2,
+    "size": 11,
+  },
+]
+
+Difference:
+
+- Expected
++ Received
+
+  [
+-   ObjectContaining {
+-     "message": "asdf",
+-     "ruleId": "asdf",
++   {
++     "column": 8,
++     "context": {
++       "foo": "bar",
++     },
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
+    },
+  ]"
+`;
+
+exports[`toHaveError() > should fail if expected error is missing 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
+  Array [
+  ObjectContaining {
+    "message": "asdf",
+    "ruleId": "asdf",
+  },
+]
+Received:
+  Array [
+  Object {
+    "column": 8,
+    "context": Object {
+      "foo": "bar",
+    },
+    "line": 4,
+    "message": "mock message",
+    "offset": 37,
+    "ruleId": "my-rule",
+    "selector": "#foo > div",
+    "severity": 2,
+    "size": 11,
+  },
+]
+
+Difference:
+
+- Expected
++ Received
+
+  [
+-   ObjectContaining {
+-     "message": "asdf",
+-     "ruleId": "asdf",
++   {
++     "column": 8,
++     "context": {
++       "foo": "bar",
++     },
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
+    },
+  ]"
+`;
+
+exports[`toHaveError() > should handle passing object as expected error 1`] = `
+"expect(received).toHaveError(expected)
+
+Expected error to equal:
+  Array [
+  ObjectContaining {
+    "line": 3,
+    "ruleId": "asdf",
+    "size": 12,
+  },
+]
+Received:
+  Array [
+  Object {
+    "column": 8,
+    "context": Object {
+      "foo": "bar",
+    },
+    "line": 4,
+    "message": "mock message",
+    "offset": 37,
+    "ruleId": "my-rule",
+    "selector": "#foo > div",
+    "severity": 2,
+    "size": 11,
+  },
+]
+
+Difference:
+
+- Expected
++ Received
+
+  [
+-   ObjectContaining {
+-     "line": 3,
+-     "ruleId": "asdf",
+-     "size": 12,
++   {
++     "column": 8,
++     "context": {
++       "foo": "bar",
++     },
++     "line": 4,
++     "message": "mock message",
++     "offset": 37,
++     "ruleId": "my-rule",
++     "selector": "#foo > div",
++     "severity": 2,
++     "size": 11,
+    },
+  ]"
+`;

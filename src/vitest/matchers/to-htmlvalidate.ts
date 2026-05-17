@@ -1,12 +1,12 @@
-import { type expect } from "@jest/globals";
+import { type MatcherState, type SyncExpectationResult } from "@vitest/expect";
 import deepmerge from "deepmerge";
-import { type MatcherContext, type SyncExpectationResult } from "expect";
+import { type expect } from "vitest";
 import { type ConfigData } from "../../config";
 import { type Message } from "../../message";
 import { type MaybeAsyncCallback, diverge } from "../utils";
-import { type ValidateStringFn, createSyncFn, jestWorkerPath } from "../worker";
+import { type ValidateStringFn, createSyncFn, vitestWorkerPath } from "../worker";
 
-type JestExpect = typeof expect;
+type VitestExpect = typeof expect;
 
 function isMessage(arg: Arg1 | undefined): arg is Partial<Message> {
 	if (!arg || typeof arg !== "object") {
@@ -52,9 +52,9 @@ type Arg1 = Partial<Message> | ConfigData | string;
 type Arg2 = ConfigData | string;
 type Arg3 = string;
 
-function createMatcher(expect: JestExpect): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
+function createMatcher(expect: VitestExpect): MaybeAsyncCallback<unknown, [Arg1?, Arg2?, Arg3?]> {
 	function toHTMLValidate(
-		this: MatcherContext,
+		this: MatcherState,
 		actual: unknown,
 		arg0?: Arg1,
 		arg1?: Arg2,
@@ -71,8 +71,8 @@ function createMatcher(expect: JestExpect): MaybeAsyncCallback<unknown, [Arg1?, 
 
 /* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 function toHTMLValidateImpl(
-	this: MatcherContext,
-	expect: JestExpect,
+	this: MatcherState,
+	expect: VitestExpect,
 	actual: string,
 	expectedError?: Partial<Message>,
 	userConfig?: ConfigData,
@@ -89,7 +89,7 @@ function toHTMLValidateImpl(
 	/* istanbul ignore next: cant figure out when this would be unset */
 	const actualFilename = filename ?? this.testPath ?? "inline";
 
-	const syncFn = createSyncFn<ValidateStringFn>(jestWorkerPath);
+	const syncFn = createSyncFn<ValidateStringFn>(vitestWorkerPath);
 	const report = syncFn(actual, actualFilename, config);
 	const pass = report.valid;
 	const result = report.results[0];
@@ -98,10 +98,10 @@ function toHTMLValidateImpl(
 	} else {
 		if (expectedError) {
 			const actual = result.messages;
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- upstream typing */
 			const expected = expect.arrayContaining([expect.objectContaining(expectedError)]);
 			const errorPass = this.equals(actual, expected);
 			const diffString = this.utils.diff(expected, actual, {
-				expand: this.expand,
 				aAnnotation: "Expected error",
 				bAnnotation: "Actual error",
 			});
@@ -116,7 +116,8 @@ function toHTMLValidateImpl(
 					this.utils.printExpected(expectedError),
 					/* istanbul ignore next */ diffString ? `\n${diffString}` : "",
 				].join("\n");
-			return { pass: !errorPass, message: expectedErrorMessage };
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- upstream typing */
+			return { pass: !errorPass, message: expectedErrorMessage, actual, expected };
 		}
 
 		const errors = result.messages.map((message) => `  ${message.message} [${message.ruleId}]`);

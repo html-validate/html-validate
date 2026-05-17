@@ -124,7 +124,17 @@ Jest:
         path: coverage/cobertura-coverage.xml
       junit: temp/jest.xml
   script:
-    - npm test -- src/ tests/
+    - npx jest -- --ci src/ tests/
+
+Vitest:
+  stage: test
+  dependencies:
+    - NPM
+  needs:
+    - NPM
+  coverage: /Branches\s+:\s+([\d\.]+%)/
+  script:
+    - npx vitest
 
 Prettier:
   stage: test
@@ -147,7 +157,7 @@ Docs:
     - npm run build
     - npm run docs
     - npm run htmlvalidate -- --formatter codeframe --config docs/htmlvalidate-public.json 'public/**/*.html'
-    - npm test -- --no-coverage docs
+    - npx jest -- --no-coverage docs
     - npm exec eslint docs/examples
     - git status
     - test -z "$(git status --porcelain)" || (echo 'working copy dirty, need to commit updated specs'; exit 1)
@@ -160,7 +170,7 @@ Docs:
     - npm ci --no-fund --no-audit --no-update-notifier
   script:
     - npm run --if-present build
-    - npm test -- --no-coverage --ci --testPathIgnorePatterns matchers --workerThreads 1 --logHeapUsage -- src tests/jest
+    - npx jest -- --no-coverage --ci --testPathIgnorePatterns matchers --workerThreads 1 --logHeapUsage -- src tests/jest
     - npm run -w tests/vitest test
     - npm run compatibility
 

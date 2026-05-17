@@ -1,4 +1,4 @@
-import { type SyncExpectationResult } from "expect";
+import { type SyncExpectationResult } from "@vitest/expect";
 import { type Report } from "../../reporter";
 import { type MaybeAsyncCallback, diverge } from "../utils";
 

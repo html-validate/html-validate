@@ -1,0 +1,78 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`toHaveErrors() > should fail if error any missing 1`] = `
+"expect(received).toHaveErrors(expected)
+
+Expected error to equal:
+  Array [
+  ObjectContaining {
+    "message": "mock message",
+    "ruleId": "my-rule",
+  },
+  ObjectContaining {
+    "message": "spam",
+    "ruleId": "spam",
+  },
+]
+Received:
+  Array [
+  Object {
+    "column": 15,
+    "context": Object {
+      "foo": "bar",
+    },
+    "line": 2,
+    "message": "mock message",
+    "offset": 43,
+    "ruleId": "my-rule",
+    "selector": null,
+    "severity": 2,
+    "size": 12,
+  },
+  Object {
+    "column": 15,
+    "line": 2,
+    "message": "another message",
+    "offset": 43,
+    "ruleId": "another-rule",
+    "selector": null,
+    "severity": 2,
+    "size": 12,
+  },
+]
+
+Difference:
+
+- Expected
++ Received
+
+  [
+-   ObjectContaining {
++   {
++     "column": 15,
++     "context": {
++       "foo": "bar",
++     },
++     "line": 2,
+      "message": "mock message",
++     "offset": 43,
+      "ruleId": "my-rule",
++     "selector": null,
++     "severity": 2,
++     "size": 12,
+    },
+-   ObjectContaining {
+-     "message": "spam",
+-     "ruleId": "spam",
++   {
++     "column": 15,
++     "line": 2,
++     "message": "another message",
++     "offset": 43,
++     "ruleId": "another-rule",
++     "selector": null,
++     "severity": 2,
++     "size": 12,
+    },
+  ]"
+`;

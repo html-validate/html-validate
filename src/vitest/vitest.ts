@@ -1,13 +1,7 @@
 import "./augmentation";
 
 import { expect } from "vitest";
-import {
-	toBeInvalid,
-	toBeValid,
-	toHTMLValidate,
-	toHaveError,
-	toHaveErrors,
-} from "../jest/matchers";
+import { toBeInvalid, toBeValid, toHTMLValidate, toHaveError, toHaveErrors } from "./matchers";
 
 expect.extend({
 	toBeValid: toBeValid(),
