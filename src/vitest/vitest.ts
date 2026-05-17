@@ -1,7 +1,15 @@
 import "./augmentation";
 
 import { expect } from "vitest";
-import { toBeInvalid, toBeValid, toHTMLValidate, toHaveError, toHaveErrors } from "./matchers";
+import {
+	toBeInvalid,
+	toBeValid,
+	toHTMLValidate,
+	toHaveError,
+	toHaveErrors,
+	toMatchCodeframe,
+	toMatchInlineCodeframe,
+} from "./matchers";
 
 expect.extend({
 	toBeValid: toBeValid(),
@@ -9,4 +17,6 @@ expect.extend({
 	toHTMLValidate: toHTMLValidate(expect),
 	toHaveError: toHaveError(expect),
 	toHaveErrors: toHaveErrors(expect),
+	toMatchCodeframe: toMatchCodeframe(),
+	toMatchInlineCodeframe: toMatchInlineCodeframe(),
 });
