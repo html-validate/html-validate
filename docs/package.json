@@ -27,7 +27,7 @@
     "marked": "15.0.12",
     "memfs": "4.57.2",
     "nunjucks": "3.2.4",
-    "postcss": "8.5.14",
+    "postcss": "8.5.15",
     "prettier": "3.8.3",
     "sass": "1.99.0",
     "serve-static": "2.2.1",
