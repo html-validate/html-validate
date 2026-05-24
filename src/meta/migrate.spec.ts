@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { type MetaData } from "./element";
 import { type HtmlElementLike } from "./html-element-like";
-import { migrateElement } from "./migrate";
+import { migrateElement, patternToRegex } from "./migrate";
 
 const mockNode: HtmlElementLike = {
 	closest() {
@@ -277,5 +277,145 @@ describe("aria.named", () => {
 		const result = migrateElement(src);
 		const naming = result.aria.naming(mockNode);
 		expect(naming).toBe("prohibited");
+	});
+});
+
+describe("patternToRegex", () => {
+	it("should match the literal prefix before the wildcard", () => {
+		expect.assertions(1);
+		const re = patternToRegex("data-*");
+		expect(re.test("data-foo")).toBeTruthy();
+	});
+
+	it("should not match when the prefix is absent", () => {
+		expect.assertions(1);
+		const re = patternToRegex("data-*");
+		expect(re.test("foo")).toBe(false);
+	});
+
+	it("should require at least one character after the wildcard", () => {
+		expect.assertions(1);
+		const re = patternToRegex("data-*");
+		expect(re.test("data-")).toBe(false);
+	});
+
+	it("should match case-insensitively", () => {
+		expect.assertions(2);
+		const re = patternToRegex("data-*");
+		expect(re.test("DATA-foo")).toBeTruthy();
+		expect(re.test("Data-FOO")).toBeTruthy();
+	});
+
+	it("should escape regex special characters in the literal parts", () => {
+		expect.assertions(2);
+		const re = patternToRegex("xml:*");
+		expect(re.test("xml:lang")).toBeTruthy();
+		expect(re.test("xmlXlang")).toBe(false);
+	});
+
+	it("should support multiple wildcards", () => {
+		expect.assertions(2);
+		const re = patternToRegex("*-*");
+		expect(re.test("foo-bar")).toBeTruthy();
+		expect(re.test("foo")).toBe(false);
+	});
+
+	it("should be anchored at the start", () => {
+		expect.assertions(2);
+		const re = patternToRegex("foo-*");
+		expect(re.test("foo-bar")).toBeTruthy();
+		expect(re.test("xfoo-bar")).toBe(false);
+	});
+
+	it("should be anchored at the end", () => {
+		expect.assertions(2);
+		const re = patternToRegex("*-bar");
+		expect(re.test("foo-bar")).toBeTruthy();
+		expect(re.test("foo-barx")).toBe(false);
+	});
+
+	it("should match a wildcard surrounded by literals", () => {
+		expect.assertions(3);
+		const re = patternToRegex("[*]");
+		expect(re.test("[foo]")).toBeTruthy();
+		expect(re.test("[foo")).toBe(false);
+		expect(re.test("foo]")).toBe(false);
+	});
+});
+
+describe("patternAttributes", () => {
+	it("should be empty when no pattern keys are present", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			attributes: {
+				"my-attr": {},
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.patternAttributes).toEqual([]);
+	});
+
+	it("should migrate a glob key into a pattern attribute", () => {
+		expect.assertions(2);
+		const src: MetaData = {
+			attributes: {
+				"data-*": {},
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.patternAttributes).toHaveLength(1);
+		expect(result.patternAttributes[0]).toEqual({
+			pattern: "data-*",
+			regexp: expect.any(RegExp),
+		});
+	});
+
+	it("should not include glob keys in static attributes", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			attributes: {
+				id: {},
+				"data-*": {},
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.attributes).not.toHaveProperty("data-*");
+	});
+
+	it("should carry over attribute properties to the pattern entry", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			attributes: {
+				"on*": { enum: ["foo"] },
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.patternAttributes[0]).toMatchObject({ enum: ["foo"] });
+	});
+
+	it("should mark pattern attribute for deletion when set to null", () => {
+		expect.assertions(1);
+		const src: MetaData = {
+			attributes: {
+				"data-*": null,
+			},
+		};
+		const result = migrateElement(src);
+		expect(result.patternAttributes).toEqual([
+			{ pattern: "data-*", regexp: expect.any(RegExp), delete: true },
+		]);
+	});
+
+	it("should match attribute names against the generated regex", () => {
+		expect.assertions(2);
+		const src: MetaData = {
+			attributes: {
+				"aria-*": {},
+			},
+		};
+		const result = migrateElement(src);
+		const { regexp: name } = result.patternAttributes[0];
+		expect(name.test("aria-label")).toBeTruthy();
+		expect(name.test("data-foo")).toBe(false);
 	});
 });

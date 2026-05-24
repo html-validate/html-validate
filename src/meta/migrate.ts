@@ -1,9 +1,13 @@
+/* eslint-disable-next-line import-x/no-deprecated -- should be replaced with native RegExp.escape() when available */
+import { regexpEscape } from "../utils/regexp-escape";
 import {
 	type FormAssociated,
 	type InternalAttributeFlags,
+	type InternalPatternAttributeFlags,
 	type MetaAttribute,
 	type MetaData,
 	type MetaElement,
+	type NormalizedPatternAttribute,
 	type TextContent,
 } from "./element";
 import { type HtmlElementLike } from "./html-element-like";
@@ -61,19 +65,48 @@ function migrateSingleAttribute(
 	}
 }
 
+function isPatternAttribute(key: string): boolean {
+	return key.includes("*");
+}
+
+export function patternToRegex(pattern: string): RegExp {
+	/* eslint-disable-next-line @typescript-eslint/no-deprecated, import-x/no-deprecated -- should be replaced with native RegExp.escape() when available */
+	const escaped = pattern.split("*").map(regexpEscape).join(".+");
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- while pattern is under user control the user portion has been escaped */
+	return new RegExp(`^${escaped}$`, "i");
+}
+
 function migrateAttributes(src: MetaData): Record<string, MetaAttribute & InternalAttributeFlags> {
 	const keys = [
 		...Object.keys(src.attributes ?? {}),
 		...(src.requiredAttributes ?? []),
 		...(src.deprecatedAttributes ?? []),
+	]
+		.filter((key) => !isPatternAttribute(key))
 		/* eslint-disable-next-line sonarjs/no-alphabetical-sort -- not really needed in this case, this is a-z anyway */
-	].toSorted();
+		.toSorted();
 
 	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
 		return [key, migrateSingleAttribute(src, key)];
 	});
 
 	return Object.fromEntries(entries);
+}
+
+function migratePatternAttributes(
+	src: MetaData,
+): Array<NormalizedPatternAttribute & InternalPatternAttributeFlags> {
+	const attrs = src.attributes ?? {};
+	return Object.entries(attrs)
+		.filter(([key]) => isPatternAttribute(key))
+		.map(([pattern]): NormalizedPatternAttribute & InternalPatternAttributeFlags => {
+			const { delete: deleted, ...attr } = migrateSingleAttribute(src, pattern);
+			const regexp = patternToRegex(pattern);
+			if (deleted) {
+				return { pattern, regexp, delete: true };
+			}
+			return { ...attr, pattern, regexp };
+		});
 }
 
 function normalizeAriaImplicitRole(
@@ -107,6 +140,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		...src,
 		formAssociated: undefined as FormAssociated | undefined,
 		attributes: migrateAttributes(src),
+		patternAttributes: migratePatternAttributes(src),
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,
 		implicitRole,

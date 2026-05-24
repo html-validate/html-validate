@@ -954,6 +954,8 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
     // (undocumented)
     formAssociated?: FormAssociated;
     // (undocumented)
+    patternAttributes: NormalizedPatternAttribute[];
+    // (undocumented)
     tagName: string;
     templateRoot: boolean;
     // (undocumented)
@@ -1036,6 +1038,12 @@ export type NodeType = typeof Node_2.ELEMENT_NODE | typeof Node_2.TEXT_NODE | ty
 export interface NormalizedMetaAria {
     implicitRole(node: HtmlElementLike): string | null;
     naming(node: HtmlElementLike): "allowed" | "prohibited";
+}
+
+// @public
+export interface NormalizedPatternAttribute extends MetaAttribute {
+    pattern: string;
+    regexp: RegExp;
 }
 
 // @internal

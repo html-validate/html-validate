@@ -18,6 +18,7 @@ export {
 	type MetaLabelableCallback,
 	type MetaLookupableProperty,
 	type MetaSubmitButtonCallback,
+	type NormalizedPatternAttribute,
 	type Permitted,
 	type PermittedAttribute,
 	type PermittedEntry,

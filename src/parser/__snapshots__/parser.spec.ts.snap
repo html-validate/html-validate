@@ -169,6 +169,28 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
   "flow": true,
   "focusable": false,
   "implicitRole": [Function],
+  "patternAttributes": [
+    {
+      "pattern": "aria-*",
+      "regexp": /\\^\\\\x61ria\\\\x2d\\.\\+\\$/i,
+    },
+    {
+      "pattern": "data-*",
+      "regexp": /\\^\\\\x64ata\\\\x2d\\.\\+\\$/i,
+    },
+    {
+      "pattern": "on*",
+      "regexp": /\\^\\\\x6fn\\.\\+\\$/i,
+    },
+    {
+      "pattern": "xml:*",
+      "regexp": /\\^\\\\x78ml\\\\x3a\\.\\+\\$/i,
+    },
+    {
+      "pattern": "xmlns:*",
+      "regexp": /\\^\\\\x78mlns\\\\x3a\\.\\+\\$/i,
+    },
+  ],
   "permittedContent": [
     "@flow",
     "dt",
@@ -336,6 +358,28 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
   "flow": true,
   "focusable": false,
   "implicitRole": [Function],
+  "patternAttributes": [
+    {
+      "pattern": "aria-*",
+      "regexp": /\\^\\\\x61ria\\\\x2d\\.\\+\\$/i,
+    },
+    {
+      "pattern": "data-*",
+      "regexp": /\\^\\\\x64ata\\\\x2d\\.\\+\\$/i,
+    },
+    {
+      "pattern": "on*",
+      "regexp": /\\^\\\\x6fn\\.\\+\\$/i,
+    },
+    {
+      "pattern": "xml:*",
+      "regexp": /\\^\\\\x78ml\\\\x3a\\.\\+\\$/i,
+    },
+    {
+      "pattern": "xmlns:*",
+      "regexp": /\\^\\\\x78mlns\\\\x3a\\.\\+\\$/i,
+    },
+  ],
   "permittedContent": [
     "@phrasing",
   ],
