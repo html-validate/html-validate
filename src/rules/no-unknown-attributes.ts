@@ -7,7 +7,7 @@ export interface RuleContext {
 	attr: string;
 }
 
-const skipPatterns: RegExp[] = [/^:/, /^@/, /^ng-/i, /^v-/i, /^x-/i, /^\[/];
+const skipPatterns: RegExp[] = [/^:/, /^@/, /^ng-/i, /^v-/i, /^x-/i, /^\[/, /^#/];
 
 function isKnownDynamicAttr(attr: string): boolean {
 	return skipPatterns.some((pattern) => pattern.test(attr));
