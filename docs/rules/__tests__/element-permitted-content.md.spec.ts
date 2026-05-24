@@ -26,6 +26,7 @@ describe("docs/rules/element-permitted-content.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"element-permitted-content":"error"}});

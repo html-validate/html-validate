@@ -19,12 +19,14 @@ describe("docs/rules/empty-title.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-title":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: whitespace", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-title":"error"}});

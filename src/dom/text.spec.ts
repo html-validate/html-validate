@@ -57,6 +57,7 @@ describe("isTextNode()", () => {
 		const node = new TextNode("foobar", location);
 		expect(isTextNode(node)).toBeTruthy();
 	});
+
 	it("should return false for other nodes", () => {
 		expect.assertions(2);
 		const element = HtmlElement.createElement("div", location);
@@ -64,10 +65,12 @@ describe("isTextNode()", () => {
 		expect(isTextNode(element)).toBeFalsy();
 		expect(isTextNode(document)).toBeFalsy();
 	});
+
 	it("should handle null", () => {
 		expect.assertions(1);
 		expect(isTextNode(null)).toBeFalsy();
 	});
+
 	it("should handle undefined", () => {
 		expect.assertions(1);
 		expect(isTextNode(undefined)).toBeFalsy();

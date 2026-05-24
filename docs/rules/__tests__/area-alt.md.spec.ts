@@ -30,18 +30,21 @@ describe("docs/rules/area-alt.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: enabled-a11y", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":["error",{"accessible":true}]}});
 		const report = await htmlvalidate.validateString(markup["enabled-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: disabled-a11y", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"area-alt":["error",{"accessible":false}]}});

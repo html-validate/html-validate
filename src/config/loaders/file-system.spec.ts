@@ -326,6 +326,7 @@ describe("FileSystemConfigLoader", () => {
 				{ fs: volume },
 			);
 			/* .htmlvalidate.json */
+			/* eslint-disable-next-line jest/prefer-mock-promise-shorthand -- we need to force `Config.fromObject()` to be a promise */
 			jest.spyOn(loader, "fromFilenameAsync").mockImplementation(() => {
 				return Promise.resolve(
 					Config.fromObject([], {

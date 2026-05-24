@@ -16,12 +16,14 @@ describe("docs/rules/valid-id.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"valid-id":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: relaxed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"valid-id":["error",{"relaxed":true}]}});

@@ -6,6 +6,9 @@
  * Mock jsdom to avoid loading the real jsdom package which has transitive
  * ESM-only dependencies that jest cannot handle.
  */
+
+import { expect, it, jest } from "@jest/globals";
+
 jest.mock("jsdom", () => {
 	class JSDOM {
 		constructor(html) {

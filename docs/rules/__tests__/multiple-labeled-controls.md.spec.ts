@@ -21,12 +21,14 @@ describe("docs/rules/multiple-labeled-controls.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect-multiple"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: incorrect-both", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"multiple-labeled-controls":"error"}});
 		const report = await htmlvalidate.validateString(markup["incorrect-both"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"multiple-labeled-controls":"error"}});

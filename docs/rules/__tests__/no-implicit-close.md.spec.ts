@@ -27,24 +27,28 @@ describe("docs/rules/no-implicit-close.md", () => {
 		const report = await htmlvalidate.validateString(markup["parent"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: siblings", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = await htmlvalidate.validateString(markup["siblings"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: adjacent", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = await htmlvalidate.validateString(markup["adjacent"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-list", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct-list"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-paragraph", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-implicit-close":"error"}});

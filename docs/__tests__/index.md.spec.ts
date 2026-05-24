@@ -32,12 +32,14 @@ describe("docs/index.md", () => {
 		const report = await htmlvalidate.validateString(markup["frontpage-contentmodel"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: frontpage-a11y", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error","no-implicit-button-type":"error","input-missing-label":"error"}});
 		const report = await htmlvalidate.validateString(markup["frontpage-a11y"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: frontpage-components", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-inline":{"phrasing":true,"permittedContent":["@phrasing"]},"my-block":{"flow":true},"my-deprecated":{"phrasing":true,"deprecated":"replaced with <my-other>"}}],"extends":["html-validate:recommended"]});

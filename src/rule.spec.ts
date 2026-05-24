@@ -44,7 +44,7 @@ describe("rule base class", () => {
 		parser = new Parser(config);
 		parserOn = jest.spyOn(parser, "on");
 		reporter = new Reporter();
-		reporter.add = jest.fn();
+		jest.spyOn(reporter, "add").mockReturnValue(undefined);
 		meta = new MetaTable();
 		meta.loadFromObject(bundledElements.html5);
 

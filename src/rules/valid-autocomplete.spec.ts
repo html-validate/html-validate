@@ -219,6 +219,7 @@ describe("rule autocomplete", () => {
 
 	describe("should report error when input elements with wrong type uses autocomplete", () => {
 		const disallowedTypes = ["button", "reset", "image", "submit", "file", "radio", "checkbox"];
+
 		it.each(disallowedTypes)("%s", async (type) => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <input type="${type}" autocomplete="on" /> `;

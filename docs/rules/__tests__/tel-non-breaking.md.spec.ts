@@ -22,18 +22,21 @@ describe("docs/rules/tel-non-breaking.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"tel-non-breaking":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: ignored", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"tel-non-breaking":["error",{"ignoreClasses":["nobreak"]}]}});
 		const report = await htmlvalidate.validateString(markup["ignored"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: ignore-style", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"tel-non-breaking":"error"}});

@@ -14,12 +14,14 @@ describe("docs/rules/attr-pattern.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-pattern":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: multiple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"attr-pattern":["error",{"pattern":["[a-z0-9-]+","myprefix-.+"]}]}});

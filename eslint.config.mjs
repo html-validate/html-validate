@@ -103,4 +103,11 @@ export default [
 			"no-console": "off",
 		},
 	},
+
+	{
+		name: "local/technical-debt",
+		rules: {
+			"jest/no-conditional-in-test": "off",
+		},
+	},
 ];

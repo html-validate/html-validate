@@ -20,18 +20,21 @@ describe("docs/rules/no-self-closing.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-self-closing":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: foreign", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-self-closing":["error",{"ignoreForeign":false}]}});
 		const report = await htmlvalidate.validateString(markup["foreign"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: xml", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-self-closing":["error",{"ignoreXML":false}]}});

@@ -53,14 +53,12 @@ beforeEach(() => {
 
 it("should return successful if there where no errors", async () => {
 	expect.assertions(3);
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation(() =>
-		Promise.resolve({
-			valid: true,
-			results: [],
-			errorCount: 0,
-			warningCount: 0,
-		}),
-	);
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue({
+		valid: true,
+		results: [],
+		errorCount: 0,
+		warningCount: 0,
+	});
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, stderr, files, defaultOptions);
 	expect(success).toBeTruthy();
@@ -280,14 +278,12 @@ it("should output performance data when enabled", async () => {
 		transformTime: 3,
 		totalTime: 10,
 	}));
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation(() =>
-		Promise.resolve({
-			valid: true,
-			results: [],
-			errorCount: 0,
-			warningCount: 0,
-		}),
-	);
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue({
+		valid: true,
+		results: [],
+		errorCount: 0,
+		warningCount: 0,
+	});
 	const files = ["foo.html"];
 	await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, performance: true });
 	expect(htmlvalidate.startPerformance).toHaveBeenCalledTimes(1);
@@ -325,14 +321,12 @@ it("should not call startPerformance/stopPerformance when not enabled", async ()
 		transformTime: 0,
 		totalTime: 0,
 	}));
-	jest.spyOn(htmlvalidate, "validateFile").mockImplementation(() =>
-		Promise.resolve({
-			valid: true,
-			results: [],
-			errorCount: 0,
-			warningCount: 0,
-		}),
-	);
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue({
+		valid: true,
+		results: [],
+		errorCount: 0,
+		warningCount: 0,
+	});
 	const files = ["foo.html"];
 	await lint(htmlvalidate, stdout, stderr, files, defaultOptions);
 	expect(htmlvalidate.startPerformance).not.toHaveBeenCalled();

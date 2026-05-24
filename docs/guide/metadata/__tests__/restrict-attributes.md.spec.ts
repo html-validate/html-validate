@@ -22,30 +22,35 @@ describe("docs/guide/metadata/restrict-attributes.md", () => {
 		const report = await htmlvalidate.validateString(markup["enum"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: regexp", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"ducks":{"enum":["/\\d+/"]}}}}],"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["regexp"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: boolean", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"quacks":{"boolean":true}}}}],"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["boolean"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: omit", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"quacks":{"omit":true,"enum":["duck","dog"]}}}}],"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["omit"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: required", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":{"required":true}}}}],"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["required"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: deprecated", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"attributes":{"duck":{"deprecated":true}}}}],"extends":["html-validate:recommended"]});

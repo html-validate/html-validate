@@ -31,12 +31,14 @@ describe("docs/guide/metadata/restrict-content.md", () => {
 		const report = await htmlvalidate.validateString(markup["tags"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: exclude", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-component":{"flow":true,"permittedContent":[{"exclude":"@heading"}]}}],"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["exclude"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: descendants", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"footer":{"flow":true,"sectioning":true},"my-component":{"flow":true,"permittedDescendants":[{"exclude":["@sectioning","my-component"]}]}}],"extends":["html-validate:recommended"]});

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-deprecated, import-x/no-deprecated -- deprecated function should still be tested  */
+/* eslint-disable @typescript-eslint/no-deprecated -- deprecated function should still be tested  */
 import { describe, expect, it } from "@jest/globals";
 import { regexpEscape } from "./regexp-escape";
 

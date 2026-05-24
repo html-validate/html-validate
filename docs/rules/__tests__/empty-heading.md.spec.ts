@@ -26,30 +26,35 @@ describe("docs/rules/empty-heading.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: whitespace", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
 		const report = await htmlvalidate.validateString(markup["whitespace"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: img-alt", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
 		const report = await htmlvalidate.validateString(markup["img-alt"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: hidden-invalid", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});
 		const report = await htmlvalidate.validateString(markup["hidden-invalid"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: hidden-valid", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"empty-heading":"error"}});

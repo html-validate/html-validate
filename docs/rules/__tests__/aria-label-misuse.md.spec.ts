@@ -23,24 +23,28 @@ describe("docs/rules/aria-label-misuse.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"aria-label-misuse":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: any-namable", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"aria-label-misuse":["error",{"allowAnyNamable":true}]}});
 		const report = await htmlvalidate.validateString(markup["any-namable"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: elements-include", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"aria-label-misuse":["error",{"elements":{"include":["div"]}}]}});
 		const report = await htmlvalidate.validateString(markup["elements-include"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: elements-exclude", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"aria-label-misuse":["error",{"elements":{"exclude":["p"]}}]}});

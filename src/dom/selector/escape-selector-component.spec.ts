@@ -113,6 +113,7 @@ describe("escapeSelectorComponent", () => {
 			["}", "foo\\}bar"],
 			["~", "foo\\~bar"],
 		];
+
 		it.each(oracle)('"%s"', (ch, expected) => {
 			expect.assertions(1);
 			const part = `foo${ch}bar`;

@@ -2390,7 +2390,7 @@ describe("parser", () => {
 		it("should push wildcard event on event queue", () => {
 			expect.assertions(2);
 			const cb = jest.fn();
-			/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
+			/* eslint-disable-next-line jest/prefer-spy-on, @typescript-eslint/no-explicit-any -- technical debt, testing internal properties */
 			(parser as any).event.once = jest.fn((event: string, fn: EventCallback) => {
 				fn(event, fn);
 			});

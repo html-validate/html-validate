@@ -42,6 +42,7 @@ const htmlvalidate = new HtmlValidate(loader);
 
 describe("regression tests", () => {
 	const files = fs.globSync("test-files/issues/**/*.html").map((it) => it.replaceAll("\\", "/"));
+
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile(filename);
