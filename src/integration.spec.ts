@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import "./jest";
 import { StaticConfigLoader } from "./browser";
@@ -18,6 +19,21 @@ expect.addSnapshotSerializer({
 	test(value: unknown): boolean {
 		return typeof value === "string" && value.startsWith(process.cwd());
 	},
+});
+
+it("should handle empty string", async () => {
+	expect.assertions(1);
+	const htmlvalidate = new HtmlValidate();
+	const report = await htmlvalidate.validateString("");
+	expect(report).toBeValid();
+});
+
+it("should handle empty file", async () => {
+	expect.assertions(1);
+	const htmlvalidate = new HtmlValidate();
+	const filePath = path.resolve(__dirname, "../test-files/parser/empty-file.html");
+	const report = await htmlvalidate.validateFile(filePath);
+	expect(report).toBeValid();
 });
 
 it("should compute correct line, column and offset when using transformed sources", async () => {
