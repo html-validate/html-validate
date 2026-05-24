@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 11.3.0 (2026-05-24)
+
+### Features
+
+- **meta:** support pattern attributes (e.g. `data-*`) ([5d27614](https://gitlab.com/html-validate/html-validate/commit/5d27614788603b9bfd06bdbcbde502eb6ca3e6ca)), closes [#361](https://gitlab.com/html-validate/html-validate/issues/361)
+
+### Bug Fixes
+
+- **html5:** support `focusable` attribute on `<svg>` element ([d458d6c](https://gitlab.com/html-validate/html-validate/commit/d458d6cde4414b82fe2e9d8e59021da1defc7670))
+- **html5:** support `name` attribute on `<slot>` element ([e3bb6c2](https://gitlab.com/html-validate/html-validate/commit/e3bb6c238f72e117f27ccec5e81d24677f5d7c19))
+- **html5:** support `value` attribute on `<option>` element ([14d8673](https://gitlab.com/html-validate/html-validate/commit/14d8673cc468372af338802d8b4265c1980a8c7c))
+- **rules:** ignore `[#slot](https://gitlab.com/html-validate/html-validate/issues/slot)` in `no-unknown-attributes` rule ([817b111](https://gitlab.com/html-validate/html-validate/commit/817b111eb2d2017f2b7ada510654e6ca662b7f43))
+
 ## 11.2.0 (2026-05-17)
 
 ### Features
