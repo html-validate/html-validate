@@ -13,6 +13,7 @@ describe("{{ doc.fileInfo.fullpath }}", () => {
 		const htmlvalidate = new HtmlValidate({{ validation.config | dump }});
 		const report = await htmlvalidate.validateString(markup["{{ validation.name }}"]);
 		expect(report.results).toMatchSnapshot();
-	});
+	});{% if loop.index != loop.length %}
+{% endif %}
 {%- endfor %}
 });

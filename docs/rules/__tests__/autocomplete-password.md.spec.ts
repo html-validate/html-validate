@@ -15,18 +15,21 @@ describe("docs/rules/autocomplete-password.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"autocomplete-password":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: incorrect-preferred", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"autocomplete-password":["error",{"preferred":"new-password"}]}});
 		const report = await htmlvalidate.validateString(markup["incorrect-preferred"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-preferred", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"autocomplete-password":["error",{"preferred":"new-password"}]}});

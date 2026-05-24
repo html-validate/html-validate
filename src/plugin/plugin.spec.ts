@@ -357,6 +357,7 @@ describe("Plugin", () => {
 
 		it("Engine should call plugin init callback", async () => {
 			expect.assertions(1);
+			/* eslint-disable-next-line jest/prefer-spy-on -- cannot use spyOn() on non-existing method */
 			mockPlugin.init = jest.fn();
 			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			engine.lint([source]);
@@ -365,6 +366,7 @@ describe("Plugin", () => {
 
 		it("Engine should call plugin setup callback", async () => {
 			expect.assertions(1);
+			/* eslint-disable-next-line jest/prefer-spy-on -- cannot use spyOn() on non-existing method */
 			mockPlugin.setup = jest.fn();
 			const engine = new Engine(await config.resolve(), Parser, { tracker: null });
 			engine.lint([source]);

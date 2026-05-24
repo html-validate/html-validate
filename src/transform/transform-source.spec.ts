@@ -299,7 +299,7 @@ describe("transformSource()", () => {
 				},
 			}),
 		];
-		return expect(() =>
+		await expect(() =>
 			transformSource(resolvers, config, source),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
 			`"When transforming "/path/to/test.foo": Failed to frobnicate a baz"`,

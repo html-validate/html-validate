@@ -53,18 +53,21 @@ describe("docs/rules/wcag/h63.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect-missing"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-simple", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct-simple"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-col", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct-col"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-row", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h63":"error"}});

@@ -24,12 +24,14 @@ describe("docs/usage/inline-config.md", () => {
 		const report = await htmlvalidate.validateString(markup["directive-commend"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: disable-block-button-type", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});
 		const report = await htmlvalidate.validateString(markup["disable-block-button-type"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: disable-next-deprecated", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"extends":["html-validate:recommended"]});

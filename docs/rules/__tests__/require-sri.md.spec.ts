@@ -25,24 +25,28 @@ describe("docs/rules/require-sri.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: crossorigin", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"target":"crossorigin"}]}});
 		const report = await htmlvalidate.validateString(markup["crossorigin"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: include-option", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"include":["//cdn.example.net/"]}]}});
 		const report = await htmlvalidate.validateString(markup["include-option"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: exclude-option", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"require-sri":["error",{"exclude":["//cdn.example.net/"]}]}});

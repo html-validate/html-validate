@@ -14,6 +14,7 @@ describe("docs/rules/deprecated-class.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"deprecated-class":["error",{"classes":[{"class":"old-btn"}]}]}});

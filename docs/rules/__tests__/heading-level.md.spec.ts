@@ -26,18 +26,21 @@ describe("docs/rules/heading-level.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: min-initial-rank", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":["error",{"minInitialRank":"h2"}]}});
 		const report = await htmlvalidate.validateString(markup["min-initial-rank"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: sectioning-root", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"heading-level":"error"}});

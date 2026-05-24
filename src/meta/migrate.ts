@@ -1,4 +1,3 @@
-/* eslint-disable-next-line import-x/no-deprecated -- should be replaced with native RegExp.escape() when available */
 import { regexpEscape } from "../utils/regexp-escape";
 import {
 	type FormAssociated,
@@ -70,7 +69,7 @@ function isPatternAttribute(key: string): boolean {
 }
 
 export function patternToRegex(pattern: string): RegExp {
-	/* eslint-disable-next-line @typescript-eslint/no-deprecated, import-x/no-deprecated -- should be replaced with native RegExp.escape() when available */
+	/* eslint-disable-next-line @typescript-eslint/no-deprecated -- should be replaced with native RegExp.escape() when available */
 	const escaped = pattern.split("*").map(regexpEscape).join(".+");
 	/* eslint-disable-next-line security/detect-non-literal-regexp -- while pattern is under user control the user portion has been escaped */
 	return new RegExp(`^${escaped}$`, "i");

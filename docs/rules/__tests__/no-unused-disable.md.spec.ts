@@ -18,18 +18,21 @@ describe("docs/rules/no-unused-disable.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-removed", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct-removed"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-error-present", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct-error-present"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct-disabled", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"no-unused-disable":"error","attribute-allowed-values":"error"}});

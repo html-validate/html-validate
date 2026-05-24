@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { marked } from "marked";
 import { plugin } from "./container.mjs";
 

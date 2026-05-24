@@ -22,6 +22,7 @@ class ForcedAsyncLoader extends StaticConfigLoader {
 		return Promise.resolve(Config.fromObject([], options));
 	}
 }
+
 describe("StaticConfigLoader", () => {
 	describe("getConfigFor()", () => {
 		it("should use default configuration (sync)", async () => {

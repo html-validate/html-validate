@@ -149,6 +149,7 @@ describe("DOMNode", () => {
 			const node = new DOMNode(Node.DOCUMENT_NODE, "#document", location);
 			expect(node.isRootElement()).toBeTruthy();
 		});
+
 		it("should false true for other element", () => {
 			expect.assertions(1);
 			const node = new DOMNode(Node.ELEMENT_NODE, "foo", location);
@@ -181,6 +182,7 @@ describe("DOMNode", () => {
 			node.append(last);
 			expect(node.firstChild.unique).toEqual(first.unique);
 		});
+
 		it("should return null if no children present", () => {
 			expect.assertions(1);
 			const node = new DOMNode(Node.ELEMENT_NODE, "root", location);

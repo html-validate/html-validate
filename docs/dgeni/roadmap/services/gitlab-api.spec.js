@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { vol } from "memfs";
 
 jest.mock("node:fs", () => require("memfs").fs);

@@ -14,18 +14,21 @@ describe("docs/rules/wcag/h37.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: allow-empty", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":["error",{"allowEmpty":true}]}});
 		const report = await htmlvalidate.validateString(markup["allow-empty"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: alias", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"wcag/h37":["error",{"alias":["data-alt"]}]}});

@@ -257,6 +257,7 @@ describe("configuration smoketest", () => {
 	}
 
 	const files = fs.globSync("test-files/config/**/*.html").map((it) => it.replaceAll("\\", "/"));
+
 	it.each(files)("%s", async (filename: string) => {
 		expect.assertions(2);
 		const loader = new FileSystemConfigLoader();

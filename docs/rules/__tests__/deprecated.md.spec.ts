@@ -14,12 +14,14 @@ describe("docs/rules/deprecated.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"deprecated":"error"}});
 		const report = await htmlvalidate.validateString(markup["correct"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: custom-message", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"elements":["html5",{"my-element":{"deprecated":"replaced with <other-element>"}}],"rules":{"deprecated":"error"}});

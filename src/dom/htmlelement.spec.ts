@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-dead-store -- has side-effects and in this case gives more consistent code */
-
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
 import { type Source } from "../context";

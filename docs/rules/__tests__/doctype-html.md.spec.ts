@@ -13,12 +13,14 @@ describe("docs/rules/doctype-html.md", () => {
 		const report = await htmlvalidate.validateString(markup["incorrect"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: legacy", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"doctype-html":"error"}});
 		const report = await htmlvalidate.validateString(markup["legacy"]);
 		expect(report.results).toMatchSnapshot();
 	});
+
 	it("inline validation: correct", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"doctype-html":"error"}});
