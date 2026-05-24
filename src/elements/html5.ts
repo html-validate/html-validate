@@ -2284,6 +2284,7 @@ export default {
 			selected: {
 				boolean: true,
 			},
+			value: {},
 		},
 		aria: {
 			implicitRole: "option",
