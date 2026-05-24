@@ -33,6 +33,7 @@ Examples of **correct** code for this rule:
 Currently this rule ignores:
 
 - `:attr`
+- `#slot`
 - `@event`
 - `ng-*`
 - `v-*`
