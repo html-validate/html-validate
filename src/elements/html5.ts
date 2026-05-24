@@ -2284,6 +2284,7 @@ export default {
 			selected: {
 				boolean: true,
 			},
+			value: {},
 		},
 		aria: {
 			implicitRole: "option",
@@ -2626,6 +2627,9 @@ export default {
 		aria: {
 			naming: "prohibited",
 		},
+		attributes: {
+			name: {},
+		},
 	},
 
 	small: {
@@ -2757,6 +2761,11 @@ export default {
 		embedded: true,
 		aria: {
 			implicitRole: "graphics-document",
+		},
+		attributes: {
+			focusable: {
+				enum: ["true", "false"],
+			},
 		},
 	},
 
