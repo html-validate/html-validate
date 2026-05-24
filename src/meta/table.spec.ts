@@ -514,6 +514,7 @@ describe("MetaTable", () => {
 				  },
 				  "focusable": false,
 				  "implicitRole": [Function],
+				  "patternAttributes": [],
 				  "tagName": "foo",
 				  "templateRoot": false,
 				}
@@ -539,6 +540,7 @@ describe("MetaTable", () => {
 				  "focusable": false,
 				  "implicitRole": [Function],
 				  "inherit": "foo",
+				  "patternAttributes": [],
 				  "tagName": "bar",
 				  "templateRoot": false,
 				}
@@ -555,6 +557,88 @@ describe("MetaTable", () => {
 					} as MetaData,
 				});
 			}).toThrow("Element <foo> cannot inherit from <bar>: no such element");
+		});
+	});
+
+	describe("patternAttributes", () => {
+		it("should be deduplicated when global element is loaded twice", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: { "data-*": { enum: ["first"] } },
+				}),
+			});
+			table.loadFromObject({
+				"*": mockEntry({
+					attributes: { "data-*": { enum: ["second"] } },
+				}),
+			});
+			table.loadFromObject({ foo: mockEntry() });
+			table.init();
+			const meta = table.getMetaFor("foo");
+			expect(meta?.patternAttributes).toEqual([
+				expect.objectContaining({ pattern: "data-*", enum: ["second"] }),
+			]);
+		});
+
+		it("should be deduplicated when same tag element is loaded twice", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({ attributes: { "data-*": { enum: ["first"] } } }),
+			});
+			table.loadFromObject({
+				foo: mockEntry({ attributes: { "data-*": { enum: ["second"] } } }),
+			});
+			table.init();
+			const meta = table.getMetaFor("foo");
+			expect(meta?.patternAttributes).toEqual([
+				expect.objectContaining({ pattern: "data-*", enum: ["second"] }),
+			]);
+		});
+
+		it("should give tag-specific element priority over global element", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				"*": mockEntry({ attributes: { "data-*": { enum: ["global"] } } }),
+				foo: mockEntry({ attributes: { "data-*": { enum: ["specific"] } } }),
+			});
+			table.init();
+			const meta = table.getMetaFor("foo");
+			expect(meta?.patternAttributes).toEqual([
+				expect.objectContaining({ pattern: "data-*", enum: ["specific"] }),
+			]);
+		});
+
+		it("should remove pattern attribute when second load sets it to null", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({ attributes: { "data-*": {} } }),
+			});
+			table.loadFromObject({
+				foo: mockEntry({ attributes: { "data-*": null } }),
+			});
+			table.init();
+			const meta = table.getMetaFor("foo");
+			expect(meta?.patternAttributes).toEqual([]);
+		});
+
+		it("should remove inherited pattern attribute when set to null", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({ attributes: { "data-*": {} } }),
+				bar: {
+					inherit: "foo",
+					attributes: { "data-*": null },
+				},
+			});
+			table.init();
+			const meta = table.getMetaFor("bar");
+			expect(meta?.patternAttributes).toEqual([]);
 		});
 	});
 

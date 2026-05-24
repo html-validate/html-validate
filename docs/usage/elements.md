@@ -515,6 +515,52 @@ Given the metadata above both `foo="a"` and `foo="b"` is valid.
 When the attribute is `foo="a b"` each token (`a` and `b`) is validated separately and both must be valid.
 Thus `foo="a b"` is valid but `foo="a c"` is not.
 
+#### Pattern attributes
+
+Attribute keys containing `*` are treated as glob patterns and are matched against attribute names at runtime.
+For example, `"data-*"` matches any attribute starting with `data-` such as `data-foo` or `data-bar`.
+
+The `*` wildcard matches one or more characters, and matching is case-insensitive.
+
+```ts
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  "custom-element": {
+    flow: true,
+    attributes: {
+      /* matches custom-foo, custom-bar, etc */
+      "custom-*": {},
+    },
+  },
+});
+```
+
+All `MetaAttribute` properties (`enum`, `boolean`, `deprecated`, etc.) can be applied to pattern attributes.
+
+Pattern attributes participate in inheritance and override in the same way as static attributes.
+Setting a pattern to `null` removes it from the inheriting element:
+
+```ts
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  base: {
+    flow: true,
+    attributes: {
+      "data-*": {},
+    },
+  },
+  restricted: {
+    inherit: "base",
+    attributes: {
+      /* remove data-* from the inheritor */
+      "data-*": null,
+    },
+  },
+});
+```
+
 #### Deprecated method
 
 The previous (now deprecated) method was to assign an enumerated list of valid values:
@@ -539,6 +585,8 @@ It features a number of quirks:
 - Some corner-cases could not be expressed.
 
 While still supported this syntax should be migrated to the new syntax and is scheduled to be removed in the next major version.
+
+Pattern attributes is not supported by the deprecated method.
 
 ### `requiredAttributes`
 

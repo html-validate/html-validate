@@ -87,6 +87,7 @@ export default {
 				enum: [/./u],
 				list: true,
 			},
+			"aria-*": {},
 			autocapitalize: {
 				enum: ["off", "none", "on", "sentences", "words", "characters"],
 			},
@@ -105,6 +106,7 @@ export default {
 			contextmenu: {
 				deprecated: true,
 			},
+			"data-*": {},
 			dir: {
 				enum: ["ltr", "rtl", "auto"],
 			},
@@ -150,6 +152,7 @@ export default {
 			itemtype: {},
 			lang: {},
 			nonce: {},
+			"on*": {},
 			/* css-shadow */
 			part: {},
 			popover: {
@@ -176,6 +179,8 @@ export default {
 				omit: true,
 				enum: ["true", "false"],
 			},
+			"xml:*": {},
+			"xmlns:*": {},
 		},
 	},
 

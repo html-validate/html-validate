@@ -94,6 +94,7 @@ export {
 	type MetaSubmitButtonCallback,
 	type MetadataHelper,
 	type NormalizedMetaAria,
+	type NormalizedPatternAttribute,
 	type Permitted,
 	type PermittedAttribute,
 	type PermittedEntry,

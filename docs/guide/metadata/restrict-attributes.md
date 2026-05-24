@@ -134,6 +134,26 @@ export default defineMetadata({
   <my-component>...</my-component>
 </validate>
 
+## Pattern attributes
+
+Attribute keys containing `*` are treated as glob patterns matching one or more characters (case-insensitive).
+For example, `"custom-*"` matches `custom-foo`, `custom-bar`, etc.
+
+```js
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  "my-component": {
+    flow: true,
+    attributes: {
+      "custom-*": {},
+    },
+  },
+});
+```
+
+See the {@link usage/elements element metadata reference} for details.
+
 ## Deprecating attributes
 
 Similar to required attribute we can set `deprecated` to true or a message to mark an attribute as deprecated:

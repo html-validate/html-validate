@@ -9,10 +9,12 @@ import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
 import { computeHash } from "../utils/compute-hash";
 import {
 	type InternalAttributeFlags,
+	type InternalPatternAttributeFlags,
 	type MetaAttribute,
 	type MetaDataTable,
 	type MetaElement,
 	type MetaLookupableProperty,
+	type NormalizedPatternAttribute,
 	setMetaProperty,
 } from "./element";
 import { migrateElement } from "./migrate";
@@ -265,6 +267,22 @@ export class MetaTable {
 			}
 		}
 		merged.attributes = mergedAttrs;
+
+		/* merge pattern attributes: b takes priority; deduplicate by pattern key; remove deleted entries */
+		type PatternAttrWithFlags = NormalizedPatternAttribute & InternalPatternAttributeFlags;
+		const mergedPatterns: PatternAttrWithFlags[] = [
+			...(b.patternAttributes as PatternAttrWithFlags[]),
+			...((a.patternAttributes ?? []) as PatternAttrWithFlags[]),
+		];
+		const seenPatterns = new Set<string>();
+		merged.patternAttributes = mergedPatterns.filter((entry) => {
+			/* note: patterns from b comes first in the array */
+			if (seenPatterns.has(entry.pattern)) {
+				return false;
+			}
+			seenPatterns.add(entry.pattern);
+			return !entry.delete;
+		});
 
 		/* merge aria (shallow merge suffices as all properties are scalar or function) */
 		if (a.aria) {

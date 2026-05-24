@@ -176,12 +176,34 @@ export interface MetaAttribute {
 }
 
 /**
+ * A pattern attribute name with associated validation rules.
+ *
+ * @public
+ */
+export interface NormalizedPatternAttribute extends MetaAttribute {
+	/** Original glob pattern */
+	pattern: string;
+	/** Compiled regular expression */
+	regexp: RegExp;
+}
+
+/**
  * Internal flags used during configuration loading.
  *
  * @internal
  */
 export interface InternalAttributeFlags {
 	/* set to true if attribute is marked for deletion */
+	delete?: true;
+}
+
+/**
+ * Internal flags used during configuration loading.
+ *
+ * @internal
+ */
+export interface InternalPatternAttributeFlags {
+	/* set to true if pattern attribute is marked for deletion */
 	delete?: true;
 }
 
@@ -354,6 +376,7 @@ export const MetaCopyableProperty: Array<keyof MetaElement> = [
 	"labelable",
 	"submitButton",
 	"attributes",
+	"patternAttributes",
 	"aria",
 	"permittedContent",
 	"permittedDescendants",
@@ -386,6 +409,7 @@ export interface MetaElement extends Omit<MetaData, "deprecatedAttributes" | "re
 	aria: NormalizedMetaAria;
 
 	attributes: Record<string, MetaAttribute>;
+	patternAttributes: NormalizedPatternAttribute[];
 	textContent?: TextContent;
 }
 

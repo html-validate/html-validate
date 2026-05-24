@@ -32,10 +32,6 @@ Examples of **correct** code for this rule:
 
 Currently this rule ignores:
 
-- `data-*`
-- `aria-*`
-- `on*`
-- `xml:*`
 - `:attr`
 - `@event`
 - `ng-*`

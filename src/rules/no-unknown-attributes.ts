@@ -1,23 +1,13 @@
 import { type AttributeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { isPatternAttribute } from "./helper";
 
 export interface RuleContext {
 	tagName: string;
 	attr: string;
 }
 
-const skipPatterns: RegExp[] = [
-	/^data-/i,
-	/^aria-/i,
-	/^on[a-z]/i,
-	/^xml(ns)?:/i,
-	/^:/,
-	/^@/,
-	/^ng-/i,
-	/^v-/i,
-	/^x-/i,
-	/^\[/,
-];
+const skipPatterns: RegExp[] = [/^:/, /^@/, /^ng-/i, /^v-/i, /^x-/i, /^\[/];
 
 function isKnownDynamicAttr(attr: string): boolean {
 	return skipPatterns.some((pattern) => pattern.test(attr));
@@ -47,7 +37,12 @@ export default class NoUnknownAttributes extends Rule<RuleContext> {
 				return;
 			}
 
-			/* skip attributes matching known dynamic or framework patterns */
+			/* attribute matches a dynamic pattern (e.g. data-*, aria-*, on*) */
+			if (isPatternAttribute(attr, meta.patternAttributes)) {
+				return;
+			}
+
+			/* skip attributes matching known framework patterns */
 			if (isKnownDynamicAttr(attr)) {
 				return;
 			}
