@@ -2626,6 +2626,9 @@ export default {
 		aria: {
 			naming: "prohibited",
 		},
+		attributes: {
+			name: {},
+		},
 	},
 
 	small: {
