@@ -2762,6 +2762,11 @@ export default {
 		aria: {
 			implicitRole: "graphics-document",
 		},
+		attributes: {
+			focusable: {
+				enum: ["true", "false"],
+			},
+		},
 	},
 
 	/* while not part of HTML 5 specification these two elements are handled as
