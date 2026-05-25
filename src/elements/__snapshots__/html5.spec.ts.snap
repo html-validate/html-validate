@@ -20466,7 +20466,7 @@ exports[`HTML elements <xmp> valid markup 1`] = `[]`;
 exports[`HTML elements global attributes invalid markup 1`] = `
 [
   {
-    "errorCount": 28,
+    "errorCount": 29,
     "filePath": "test-files/elements/global-attributes-invalid.html",
     "messages": [
       {
@@ -21061,6 +21061,27 @@ exports[`HTML elements global attributes invalid markup 1`] = `
         "severity": 2,
         "size": 7,
       },
+      {
+        "column": 6,
+        "context": {
+          "allowed": {
+            "enum": [
+              /\\^\\.\\+\\$/,
+            ],
+          },
+          "attribute": "xmlns",
+          "element": "div",
+          "value": "",
+        },
+        "line": 61,
+        "message": "Attribute "xmlns" has invalid value """,
+        "offset": 1368,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "div:nth-child(27)",
+        "severity": 2,
+        "size": 5,
+      },
     ],
     "source": "<p contenteditable="foobar"></p>
 <p dir=""></p>
@@ -21120,6 +21141,10 @@ exports[`HTML elements global attributes invalid markup 1`] = `
 
 <!-- invalid writingsuggestions value -->
 <p writingsuggestions="invalid"></p>
+
+<!-- should not allow empty xml namespace -->
+<div xmlns=""></div>
+<div xmlns:foo=""></div>
 ",
     "warningCount": 0,
   },
@@ -21302,6 +21327,10 @@ exports[`HTML elements global attributes valid markup 1`] = `
 <p writingsuggestions=""></p>
 <p writingsuggestions="true"></p>
 <p writingsuggestions="false"></p>
+
+<!-- should allow xml namespace -->
+<div xmlns="http://example.net/v1/default-namespace"></div>
+<div xmlns:foo="http://example.net/v1/foo-namespace"></div>
 ",
     "warningCount": 0,
   },

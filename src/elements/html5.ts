@@ -217,7 +217,12 @@ export default {
 				enum: ["true", "false"],
 			},
 			"xml:*": {},
-			"xmlns:*": {},
+			xmlns: {
+				enum: ["/.+/"],
+			},
+			"xmlns:*": {
+				enum: ["/.+/"],
+			},
 		},
 	},
 
