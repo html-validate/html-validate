@@ -16849,7 +16849,7 @@ exports[`HTML elements <samp> valid markup 1`] = `[]`;
 exports[`HTML elements <script> invalid markup 1`] = `
 [
   {
-    "errorCount": 11,
+    "errorCount": 13,
     "filePath": "test-files/elements/script-invalid.html",
     "messages": [
       {
@@ -16930,6 +16930,50 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "size": 2,
       },
       {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "enum": [
+              "render",
+            ],
+          },
+          "attribute": "blocking",
+          "element": "script",
+          "value": "invalid",
+        },
+        "line": 15,
+        "message": "Attribute "blocking" has invalid value "invalid"",
+        "offset": 529,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(6)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 24,
+        "context": {
+          "allowed": {
+            "enum": [
+              "high",
+              "low",
+              "auto",
+            ],
+          },
+          "attribute": "fetchpriority",
+          "element": "script",
+          "value": "invalid",
+        },
+        "line": 18,
+        "message": "Attribute "fetchpriority" has invalid value "invalid"",
+        "offset": 630,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "script:nth-child(7)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
         "column": 25,
         "context": {
           "allowed": {
@@ -16941,12 +16985,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "element": "script",
           "value": "",
         },
-        "line": 15,
+        "line": 21,
         "message": "Attribute "integrity" is missing value",
-        "offset": 534,
+        "offset": 723,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(6)",
+        "selector": "script:nth-child(8)",
         "severity": 2,
         "size": 9,
       },
@@ -16962,12 +17006,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "element": "script",
           "value": "",
         },
-        "line": 16,
+        "line": 22,
         "message": "Attribute "integrity" has invalid value """,
-        "offset": 578,
+        "offset": 767,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(7)",
+        "selector": "script:nth-child(9)",
         "severity": 2,
         "size": 9,
       },
@@ -16978,12 +17022,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "details": "requires "src" attribute to be present",
           "tagName": "<script>",
         },
-        "line": 19,
+        "line": 25,
         "message": ""integrity" attribute cannot be used on <script> in this context: requires "src" attribute to be present",
-        "offset": 673,
+        "offset": 862,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "script:nth-child(8)",
+        "selector": "script:nth-child(10)",
         "severity": 2,
         "size": 9,
       },
@@ -17007,12 +17051,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "element": "script",
           "value": "",
         },
-        "line": 22,
+        "line": 28,
         "message": "Attribute "referrerpolicy" is missing value",
-        "offset": 791,
+        "offset": 980,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(9)",
+        "selector": "script:nth-child(11)",
         "severity": 2,
         "size": 14,
       },
@@ -17036,12 +17080,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "element": "script",
           "value": "invalid",
         },
-        "line": 23,
+        "line": 29,
         "message": "Attribute "referrerpolicy" has invalid value "invalid"",
-        "offset": 856,
+        "offset": 1045,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "script:nth-child(10)",
+        "selector": "script:nth-child(12)",
         "severity": 2,
         "size": 7,
       },
@@ -17058,6 +17102,12 @@ exports[`HTML elements <script> invalid markup 1`] = `
 
 <!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
 <script/>
+
+<!-- should not allow invalid blocking tokens -->
+<script blocking="invalid"></script>
+
+<!-- should not allow invalid fetchpriority attribute -->
+<script fetchpriority="invalid"></script>
 
 <!-- integrity attribute should not be empty -->
 <script src="script.js" integrity></script>

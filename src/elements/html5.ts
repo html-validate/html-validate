@@ -2533,6 +2533,10 @@ export default {
 			async: {
 				boolean: true,
 			},
+			blocking: {
+				list: true,
+				enum: ["render"],
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -2542,6 +2546,9 @@ export default {
 			},
 			event: {
 				deprecated: true,
+			},
+			fetchpriority: {
+				enum: ["high", "low", "auto"],
 			},
 			for: {
 				deprecated: true,
@@ -2562,6 +2569,7 @@ export default {
 			src: {
 				enum: ["/.+/"],
 			},
+			type: {},
 		},
 		aria: {
 			naming: "prohibited",
