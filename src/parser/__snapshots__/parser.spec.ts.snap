@@ -16,6 +16,59 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "align": {
       "deprecated": true,
     },
+    "aria-activedescendant": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-controls": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-describedby": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-details": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-errormessage": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-flowto": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-labelledby": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-owns": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
     "autocapitalize": {
       "enum": [
         "off",
@@ -213,6 +266,59 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
         /\\./u,
       ],
       "list": true,
+    },
+    "aria-activedescendant": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-controls": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-describedby": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-details": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-errormessage": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "reference": "id",
+    },
+    "aria-flowto": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-labelledby": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
+    },
+    "aria-owns": {
+      "enum": [
+        /\\^\\\\S\\+\\$/,
+      ],
+      "list": true,
+      "reference": "id",
     },
     "autocapitalize": {
       "enum": [

@@ -351,6 +351,11 @@
                   "type": "boolean",
                   "title": "Set to true if this attribute can optionally omit its value"
                 },
+                "reference": {
+                  "type": "string",
+                  "enum": ["id"],
+                  "title": "Set when the attribute references another element."
+                },
                 "required": {
                   "title": "Set to true or a function to evaluate if this attribute is required",
                   "oneOf": [{ "type": "boolean" }, { "function": true }]
