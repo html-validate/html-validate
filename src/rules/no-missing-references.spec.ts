@@ -277,6 +277,34 @@ describe("rule no-missing-references", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report error for custom element with no metadata", async () => {
+		expect.assertions(1);
+		const localValidate = new HtmlValidate({
+			elements: [],
+			rules: { "no-missing-references": "error" },
+		});
+		const markup = /* HTML */ ` <custom-element my-ref="missing"></custom-element> `;
+		const report = await localValidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report error for custom element with metadata but no attributes", async () => {
+		expect.assertions(1);
+		const localValidate = new HtmlValidate({
+			elements: [
+				{
+					"custom-element": {
+						flow: true,
+					},
+				},
+			],
+			rules: { "no-missing-references": "error" },
+		});
+		const markup = /* HTML */ ` <custom-element my-ref="missing"></custom-element> `;
+		const report = await localValidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({

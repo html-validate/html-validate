@@ -849,6 +849,7 @@ export interface MetaAttribute {
     enum?: Array<string | RegExp>;
     list?: boolean;
     omit?: boolean;
+    reference?: "id";
     required?: boolean | MetaAttributeRequiredCallback;
 }
 

@@ -87,6 +87,43 @@ export default {
 				enum: [/./u],
 				list: true,
 			},
+			"aria-activedescendant": {
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-controls": {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-describedby": {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-details": {
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-errormessage": {
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-flowto": {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-labelledby": {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			"aria-owns": {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
 			"aria-*": {},
 			autocapitalize: {
 				enum: ["off", "none", "on", "sentences", "words", "characters"],
@@ -1593,6 +1630,10 @@ export default {
 			ismap: {
 				deprecated: true,
 			},
+			list: {
+				enum: [validId],
+				reference: "id",
+			},
 			multiple: {
 				boolean: true,
 			},
@@ -1750,6 +1791,7 @@ export default {
 			},
 			for: {
 				enum: [validId],
+				reference: "id",
 			},
 		},
 		aria: {

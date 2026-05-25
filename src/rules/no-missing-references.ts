@@ -6,29 +6,13 @@ import {
 	DynamicValue,
 	generateIdSelector,
 } from "../dom";
-import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { walk } from "../utils/walk";
 
 interface Context {
 	key: string;
 	value: string;
 }
-
-interface AriaAttribute {
-	property: string;
-	isList: boolean;
-}
-
-const ARIA: AriaAttribute[] = [
-	{ property: "aria-activedescendant", isList: false },
-	{ property: "aria-controls", isList: true },
-	{ property: "aria-describedby", isList: true },
-	{ property: "aria-details", isList: false },
-	{ property: "aria-errormessage", isList: false },
-	{ property: "aria-flowto", isList: true },
-	{ property: "aria-labelledby", isList: true },
-	{ property: "aria-owns", isList: true },
-];
 
 function idMissing(document: DOMTree, id: string): boolean {
 	const nodes = document.querySelectorAll(generateIdSelector(id));
@@ -44,28 +28,23 @@ export default class NoMissingReferences extends Rule<Context> {
 	}
 
 	public setup(): void {
-		this.on("dom:ready", (event: DOMReadyEvent) => {
+		this.on("dom:ready", (event) => {
 			const document = event.document;
+			walk.depthFirst(document, (node) => {
+				const meta = node.meta;
 
-			/* verify <label for=".."> */
-			for (const node of document.querySelectorAll("label[for]")) {
-				const attr = node.getAttribute("for");
-				this.validateReference(document, node, attr, false);
-			}
-
-			/* verify <input list=".."> */
-			for (const node of document.querySelectorAll("input[list]")) {
-				const attr = node.getAttribute("list");
-				this.validateReference(document, node, attr, false);
-			}
-
-			/* verify WAI-ARIA properties */
-			for (const { property, isList } of ARIA) {
-				for (const node of document.querySelectorAll(`[${property}]`)) {
-					const attr = node.getAttribute(property);
-					this.validateReference(document, node, attr, isList);
+				if (!meta?.attributes) {
+					return;
 				}
-			}
+
+				for (const attr of node.attributes) {
+					const attrMeta = meta.attributes[attr.key];
+					/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- attr.key may not exist in meta.attributes but the type does not reflect this */
+					if (attrMeta?.reference === "id") {
+						this.validateReference(document, node, attr, attrMeta.list ?? false);
+					}
+				}
+			});
 		});
 	}
 

@@ -170,6 +170,17 @@ export interface MetaAttribute {
 	omit?: boolean;
 
 	/**
+	 * When set, this attribute references another element by the given type. If
+	 * `list` is also set, each individual token in the attribute value references another
+	 * element.
+	 *
+	 * - `id`: the attribute value references the id of another element in the document.
+	 *
+	 * @since %version%
+	 */
+	reference?: "id";
+
+	/**
 	 * If set this attribute is required to be present on the element.
 	 */
 	required?: boolean | MetaAttributeRequiredCallback;

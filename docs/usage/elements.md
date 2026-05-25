@@ -359,8 +359,9 @@ export interface MetaAttribute {
   deprecated?: boolean | string;
   enum?: Array<string | RegExp>;
   list?: boolean;
-  required?: boolean | ((node: HtmlElementLike) => string | boolean | null | undefined);
   omit?: boolean;
+  reference?: "id";
+  required?: boolean | ((node: HtmlElementLike) => string | boolean | null | undefined);
 }
 ```
 
@@ -493,6 +494,31 @@ return '<custom-element> requires either the "foo" or the "bar" attribute to be 
 :::
 
 This is used by the [element-required-attributes](/rules/element-required-attributes.html) rule.
+
+#### `attribute.reference`
+
+When set, this attribute references another element by the given attribute type.
+If `list` is also set, each individual token in the space-separated attribute value is treated as a reference.
+
+When set to `id`, the attribute references the `id` of another element.
+
+```json
+{
+  "custom-element": {
+    "attributes": {
+      "for": {
+        "reference": "id"
+      },
+      "controls": {
+        "list": true,
+        "reference": "id"
+      }
+    }
+  }
+}
+```
+
+This is used by the {@link rule:no-missing-references} rule.
 
 #### `attribute.list`
 
