@@ -1,33 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`docs/rules/no-unknown-attributes.md inline validation: correct 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "inline",
-    "messages": [
-      {
-        "column": 20,
-        "context": {
-          "attr": "name",
-          "tagName": "input",
-        },
-        "line": 2,
-        "message": "Attribute "name" is not allowed on <input> element",
-        "offset": 59,
-        "ruleId": "no-unknown-attributes",
-        "ruleUrl": "https://html-validate.org/rules/no-unknown-attributes.html",
-        "selector": "input",
-        "severity": 2,
-        "size": 4,
-      },
-    ],
-    "source": "<div id="foo" class="bar" hidden></div>
-<input type="text" name="username" />",
-    "warningCount": 0,
-  },
-]
-`;
+exports[`docs/rules/no-unknown-attributes.md inline validation: correct 1`] = `[]`;
 
 exports[`docs/rules/no-unknown-attributes.md inline validation: incorrect 1`] = `
 [
