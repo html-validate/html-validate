@@ -218,6 +218,11 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
       ],
       "omit": true,
     },
+    "xmlns": {
+      "enum": [
+        /\\^\\.\\+\\$/,
+      ],
+    },
   },
   "flow": true,
   "focusable": false,
@@ -240,6 +245,9 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
       "regexp": /\\^\\\\x78ml\\\\x3a\\.\\+\\$/i,
     },
     {
+      "enum": [
+        "/.+/",
+      ],
       "pattern": "xmlns:*",
       "regexp": /\\^\\\\x78mlns\\\\x3a\\.\\+\\$/i,
     },
@@ -460,6 +468,11 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
       ],
       "omit": true,
     },
+    "xmlns": {
+      "enum": [
+        /\\^\\.\\+\\$/,
+      ],
+    },
   },
   "flow": true,
   "focusable": false,
@@ -482,6 +495,9 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
       "regexp": /\\^\\\\x78ml\\\\x3a\\.\\+\\$/i,
     },
     {
+      "enum": [
+        "/.+/",
+      ],
       "pattern": "xmlns:*",
       "regexp": /\\^\\\\x78mlns\\\\x3a\\.\\+\\$/i,
     },

@@ -217,7 +217,12 @@ export default {
 				enum: ["true", "false"],
 			},
 			"xml:*": {},
-			"xmlns:*": {},
+			xmlns: {
+				enum: ["/.+/"],
+			},
+			"xmlns:*": {
+				enum: ["/.+/"],
+			},
 		},
 	},
 
@@ -1568,9 +1573,18 @@ export default {
 			return type === "submit" || type === "image";
 		},
 		attributes: {
+			accept: {},
 			align: {
 				deprecated: true,
 			},
+			alpha: {
+				boolean: true,
+			},
+			alt: {},
+			autocapitalize: {
+				enum: ["off", "none", "on", "sentences", "words", "characters"],
+			},
+			autocomplete: {},
 			autofocus: {
 				boolean: true,
 			},
@@ -1581,6 +1595,9 @@ export default {
 			checked: {
 				boolean: true,
 			},
+			colorspace: {
+				enum: ["limited-srgb", "display-p3"],
+			},
 			datafld: {
 				deprecated: true,
 			},
@@ -1590,8 +1607,13 @@ export default {
 			datasrc: {
 				deprecated: true,
 			},
+			dirname: {},
 			disabled: {
 				boolean: true,
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
 			},
 			formaction: {
 				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
@@ -1621,6 +1643,9 @@ export default {
 				}),
 				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
 			},
+			height: {
+				enum: ["/\\d+/"],
+			},
 			hspace: {
 				deprecated: true,
 			},
@@ -1634,8 +1659,32 @@ export default {
 				enum: [validId],
 				reference: "id",
 			},
+			max: {
+				enum: ["/.+/"],
+			},
+			maxlength: {
+				enum: ["/\\d+/"],
+			},
+			min: {
+				enum: ["/.+/"],
+			},
+			minlength: {
+				enum: ["/\\d+/"],
+			},
 			multiple: {
 				boolean: true,
+			},
+			name: {
+				enum: ["/.+/"],
+			},
+			pattern: {},
+			placeholder: {},
+			popovertarget: {
+				enum: [validId],
+				reference: "id",
+			},
+			popovertargetaction: {
+				enum: ["toggle", "show", "hide"],
 			},
 			readonly: {
 				boolean: true,
@@ -1643,6 +1692,13 @@ export default {
 			required: {
 				boolean: true,
 			},
+			size: {
+				enum: ["/\\d+/"],
+			},
+			src: {
+				enum: ["/.+/"],
+			},
+			step: {},
 			type: {
 				enum: [
 					"button",
@@ -1672,8 +1728,12 @@ export default {
 			usemap: {
 				deprecated: true,
 			},
+			value: {},
 			vspace: {
 				deprecated: true,
+			},
+			width: {
+				enum: ["/\\d+/"],
 			},
 		},
 		aria: {
@@ -2533,6 +2593,10 @@ export default {
 			async: {
 				boolean: true,
 			},
+			blocking: {
+				list: true,
+				enum: ["render"],
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -2542,6 +2606,9 @@ export default {
 			},
 			event: {
 				deprecated: true,
+			},
+			fetchpriority: {
+				enum: ["high", "low", "auto"],
 			},
 			for: {
 				deprecated: true,
@@ -2562,6 +2629,7 @@ export default {
 			src: {
 				enum: ["/.+/"],
 			},
+			type: {},
 		},
 		aria: {
 			naming: "prohibited",

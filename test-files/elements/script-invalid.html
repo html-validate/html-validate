@@ -11,6 +11,12 @@
 <!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
 <script/>
 
+<!-- should not allow invalid blocking tokens -->
+<script blocking="invalid"></script>
+
+<!-- should not allow invalid fetchpriority attribute -->
+<script fetchpriority="invalid"></script>
+
 <!-- integrity attribute should not be empty -->
 <script src="script.js" integrity></script>
 <script src="script.js" integrity=""></script>
