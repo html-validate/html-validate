@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## 11.4.0 (2026-05-25)
+
+### Features
+
+- **meta:** add `reference` attribute property to mark an attribute as referencing another element ([5632529](https://gitlab.com/html-validate/html-validate/commit/56325297a787a0dfe86559b2afae93073e6eebff))
+
+### Bug Fixes
+
+- **html5:** add missing attributes on `<input>` element (for `no-unknown-attributes`) ([5520b40](https://gitlab.com/html-validate/html-validate/commit/5520b40755802199cae25ba0854905112675bc7b)), closes [#360](https://gitlab.com/html-validate/html-validate/issues/360)
+- **html5:** add missing attributes on `<script>` element (for `no-unknown-attributes`) ([4b1b993](https://gitlab.com/html-validate/html-validate/commit/4b1b993197dfbdd3ec01abd53006163f8385f60e)), closes [#360](https://gitlab.com/html-validate/html-validate/issues/360)
+- **html5:** support `xmlns` global attribute (for `no-unknown-attributes`) ([d3739ec](https://gitlab.com/html-validate/html-validate/commit/d3739ec5b66b2d5c77f0c34588dda6d2fb5f9466)), closes [#360](https://gitlab.com/html-validate/html-validate/issues/360)
+
 ## 11.3.0 (2026-05-24)
 
 ### Features

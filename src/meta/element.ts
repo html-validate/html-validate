@@ -176,7 +176,7 @@ export interface MetaAttribute {
 	 *
 	 * - `id`: the attribute value references the id of another element in the document.
 	 *
-	 * @since %version%
+	 * @since 11.4.0
 	 */
 	reference?: "id";
 
