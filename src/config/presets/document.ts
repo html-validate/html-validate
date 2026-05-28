@@ -1,5 +1,6 @@
 import { type ConfigData } from "../config-data";
 
+/** @public */
 const config: ConfigData = {
 	rules: {
 		"input-missing-label": "error",
