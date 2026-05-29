@@ -62,6 +62,11 @@
       "import": "./dist/esm/html5.js",
       "require": "./dist/cjs/html5.js"
     },
+    "./presets": {
+      "types": "./dist/types/presets.d.ts",
+      "import": "./dist/esm/presets.js",
+      "require": "./dist/cjs/presets.js"
+    },
     "./jest": {
       "types": "./dist/types/jest.d.ts",
       "import": "./dist/esm/jest.js",

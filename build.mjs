@@ -234,10 +234,22 @@ async function build() {
 		`export default value;\n`,
 	];
 
+	const presetsDts = [
+		`import { ConfigData } from "html-validate";\n`,
+		`\n`,
+		`export declare const a11y: ConfigData;\n`,
+		`export declare const browser: ConfigData;\n`,
+		`export declare const document: ConfigData;\n`,
+		`export declare const prettier: ConfigData;\n`,
+		`export declare const recommended: ConfigData;\n`,
+		`export declare const standard: ConfigData;\n`,
+	];
+
 	await bundle("es");
 	await bundle("cjs");
 	await apiExtractor(["entrypoints/api-extractor-*.json"]);
 	await writeFile("dist/types/html5.d.ts", html5dts.join(""));
+	await writeFile("dist/types/presets.d.ts", presetsDts.join(""));
 	await copySchema();
 }
 

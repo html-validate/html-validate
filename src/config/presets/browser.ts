@@ -1,5 +1,6 @@
 import { type ConfigData } from "../config-data";
 
+/** @public */
 const config: ConfigData = {
 	rules: {
 		/* doctype is usually not included when fetching source code from browser */
