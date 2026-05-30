@@ -244,7 +244,7 @@
     "@html-validate/rollup-plugin-packagejson": "file:internal/rollup-plugin-packagejson",
     "@jest/globals": "30.4.1",
     "@microsoft/api-extractor": "7.58.7",
-    "@rollup/plugin-commonjs": "29.0.2",
+    "@rollup/plugin-commonjs": "29.0.3",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.3",
     "@rollup/plugin-replace": "6.0.3",
