@@ -18,6 +18,12 @@ export const validId = {
 } satisfies MetaAttributeNamedRegex;
 
 /** @internal */
+export const validInteger = {
+	name: "a integer",
+	pattern: /^-?\d+$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
 export const validPositiveInteger = {
 	name: "a positive integer",
 	pattern: /^\d+$/,

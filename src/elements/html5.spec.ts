@@ -9,6 +9,7 @@ import metadata, {
 	validBrowsingContextName,
 	validFloatingPoint,
 	validId,
+	validInteger,
 	validNonEmptyString,
 	validPositiveInteger,
 } from "./html5";
@@ -92,9 +93,27 @@ describe("named regex patterns", () => {
 		});
 	});
 
+	describe("validInteger", () => {
+		it("should accept valid values", () => {
+			expect.assertions(5);
+			expect(validInteger.pattern.test("0")).toBeTruthy();
+			expect(validInteger.pattern.test("1")).toBeTruthy();
+			expect(validInteger.pattern.test("42")).toBeTruthy();
+			expect(validInteger.pattern.test("-1")).toBeTruthy();
+			expect(validInteger.pattern.test("-42")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(2);
+			expect(validInteger.pattern.test("")).toBeFalsy();
+			expect(validInteger.pattern.test("invalid")).toBeFalsy();
+		});
+	});
+
 	describe("validPositiveInteger", () => {
 		it("should accept valid values", () => {
-			expect.assertions(2);
+			expect.assertions(3);
+			expect(validPositiveInteger.pattern.test("0")).toBeTruthy();
 			expect(validPositiveInteger.pattern.test("1")).toBeTruthy();
 			expect(validPositiveInteger.pattern.test("42")).toBeTruthy();
 		});
