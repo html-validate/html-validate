@@ -18,6 +18,12 @@ export const validId = {
 } satisfies MetaAttributeNamedRegex;
 
 /** @internal */
+export const validInteger = {
+	name: "a integer",
+	pattern: /^-?\d+$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
 export const validPositiveInteger = {
 	name: "a positive integer",
 	pattern: /^\d+$/,
@@ -33,6 +39,12 @@ export const validNonEmptyString = {
 export const validBrowsingContextName = {
 	name: "a browsing context name (non-empty string, must not start with `_`)",
 	pattern: /^[^_].*$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
+export const validFloatingPoint = {
+	name: "a floating-point number",
+	pattern: /^-?(\d+(\.\d+)?|\.\d+)([Ee][+-]?\d+)?$/,
 } satisfies MetaAttributeNamedRegex;
 
 const ReferrerPolicy = [
@@ -103,6 +115,7 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 }
 
 export default {
+	/* https://html.spec.whatwg.org/multipage/dom.html#global-attributes */
 	"*": {
 		attributes: {
 			accesskey: {
@@ -248,6 +261,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element */
 	a: {
 		flow: true,
 		focusable(node) {
@@ -401,6 +415,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-abbr-element */
 	abbr: {
 		flow: true,
 		phrasing: true,
@@ -418,6 +433,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-address-element */
 	address: {
 		flow: true,
 		aria: {
@@ -427,6 +443,7 @@ export default {
 		permittedDescendants: [{ exclude: ["address", "header", "footer", "@heading", "@sectioning"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/obsolete.html#the-applet-element */
 	applet: {
 		deprecated: {
 			source: "html5",
@@ -441,6 +458,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/image-maps.html#the-area-element */
 	area: {
 		flow(node) {
 			return Boolean(node.closest("map"));
@@ -582,6 +600,7 @@ export default {
 		requiredAncestors: ["map", "template"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-article-element */
 	article: {
 		flow: true,
 		sectioning: true,
@@ -592,6 +611,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-aside-element */
 	aside: {
 		flow: true,
 		sectioning: true,
@@ -602,6 +622,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/media.html#the-audio-element */
 	audio: {
 		flow: true,
 		focusable(node) {
@@ -614,6 +635,12 @@ export default {
 		},
 		transparent: ["@flow"],
 		attributes: {
+			autoplay: {
+				boolean: true,
+			},
+			controls: {
+				boolean: true,
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -621,9 +648,18 @@ export default {
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
 			},
+			loop: {
+				boolean: true,
+			},
+			muted: {
+				boolean: true,
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
+			},
+			src: {
+				enum: [validNonEmptyString],
 			},
 		},
 		permittedContent: ["@flow", "track", "source"],
@@ -631,6 +667,7 @@ export default {
 		permittedOrder: ["source", "track", "@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-b-element */
 	b: {
 		flow: true,
 		phrasing: true,
@@ -641,9 +678,14 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/document-metadata.html#the-base-element */
 	base: {
 		metadata: true,
 		void: true,
+		attributes: {
+			href: {},
+			target: {},
+		},
 		permittedParent: ["head"],
 		aria: {
 			naming: "prohibited",
@@ -658,6 +700,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-bdi-element */
 	bdi: {
 		flow: true,
 		phrasing: true,
@@ -668,6 +711,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-bdo-element */
 	bdo: {
 		flow: true,
 		phrasing: true,
@@ -703,15 +747,20 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element */
 	blockquote: {
 		flow: true,
 		sectioning: true,
+		attributes: {
+			cite: {},
+		},
 		aria: {
 			implicitRole: "blockquote",
 		},
 		permittedContent: ["@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-body-element */
 	body: {
 		optionalEnd: true,
 		permittedContent: ["@flow"],
@@ -760,6 +809,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-br-element */
 	br: {
 		flow: true,
 		phrasing: true,
@@ -774,6 +824,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element */
 	button: {
 		flow: true,
 		focusable: true,
@@ -792,6 +843,21 @@ export default {
 			autofocus: {
 				boolean: true,
 			},
+			command: {
+				enum: [
+					"toggle-popover",
+					"show-popover",
+					"hide-popover",
+					"close",
+					"request-close",
+					"show-modal",
+					"/^--/",
+				],
+			},
+			commandfor: {
+				enum: [validId],
+				reference: "id",
+			},
 			datafld: {
 				deprecated: true,
 			},
@@ -803,6 +869,10 @@ export default {
 			},
 			disabled: {
 				boolean: true,
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
 			},
 			formaction: {
 				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
@@ -822,9 +892,20 @@ export default {
 				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
 				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+			popovertarget: {
+				enum: [validId],
+				reference: "id",
+			},
+			popovertargetaction: {
+				enum: ["toggle", "show", "hide"],
+			},
 			type: {
 				enum: ["submit", "reset", "button"],
 			},
+			value: {},
 		},
 		aria: {
 			implicitRole: "button",
@@ -834,6 +915,7 @@ export default {
 		textContent: "accessible",
 	},
 
+	/* https://html.spec.whatwg.org/multipage/canvas.html#the-canvas-element */
 	canvas: {
 		flow: true,
 		phrasing: true,
@@ -841,6 +923,7 @@ export default {
 		transparent: true,
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-caption-element */
 	caption: {
 		implicitClosed: ["colgroup", "thead", "tfoot", "tbody", "tr"],
 		optionalEnd: true,
@@ -865,6 +948,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-element */
 	cite: {
 		flow: true,
 		phrasing: true,
@@ -874,6 +958,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-code-element */
 	code: {
 		flow: true,
 		phrasing: true,
@@ -884,6 +969,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-col-element */
 	col: {
 		attributes: {
 			align: {
@@ -911,6 +997,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-colgroup-element */
 	colgroup: {
 		implicitClosed: ["colgroup", "caption", "thead", "tbody", "tfoot", "tr"],
 		attributes: {
@@ -924,9 +1011,13 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-data-element */
 	data: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			value: {},
+		},
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
@@ -934,6 +1025,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element */
 	datalist: {
 		flow: true,
 		phrasing: true,
@@ -944,27 +1036,35 @@ export default {
 		permittedContent: ["@phrasing", "option"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-dd-element */
 	dd: {
 		implicitClosed: ["dd", "dt"],
 		permittedContent: ["@flow"],
 		requiredAncestors: ["dl > dd", "dl > div > dd", "template > dd", "template > div > dd"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/edits.html#the-del-element */
 	del: {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			cite: {},
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "deletion",
 			naming: "prohibited",
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element */
 	details: {
 		flow: true,
 		sectioning: true,
 		interactive: true,
 		attributes: {
+			name: {},
 			open: {
 				boolean: true,
 			},
@@ -977,6 +1077,7 @@ export default {
 		requiredContent: ["summary"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-dfn-element */
 	dfn: {
 		flow: true,
 		phrasing: true,
@@ -987,10 +1088,15 @@ export default {
 		permittedDescendants: [{ exclude: ["dfn"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element */
 	dialog: {
 		flow: true,
 		permittedContent: ["@flow"],
 		attributes: {
+			closedby: {
+				omit: true,
+				enum: ["any", "closerequest", "none"],
+			},
 			open: {
 				boolean: true,
 			},
@@ -1008,6 +1114,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-div-element */
 	div: {
 		flow: true,
 		permittedContent: ["@flow", "dt", "dd"],
@@ -1031,6 +1138,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element */
 	dl: {
 		flow: true,
 		permittedContent: ["@script", "dt", "dd", "div"],
@@ -1041,6 +1149,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-dt-element */
 	dt: {
 		implicitClosed: ["dd", "dt"],
 		permittedContent: ["@flow"],
@@ -1048,6 +1157,7 @@ export default {
 		requiredAncestors: ["dl > dt", "dl > div > dt", "template > dt", "template > div > dt"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element */
 	em: {
 		flow: true,
 		phrasing: true,
@@ -1058,6 +1168,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-embed-element */
 	embed: {
 		flow: true,
 		phrasing: true,
@@ -1081,6 +1192,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element */
 	fieldset: {
 		flow: true,
 		formAssociated: {
@@ -1094,6 +1206,13 @@ export default {
 			disabled: {
 				boolean: true,
 			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
+			name: {
+				enum: [validNonEmptyString],
+			},
 		},
 		aria: {
 			implicitRole: "group",
@@ -1102,6 +1221,7 @@ export default {
 		permittedOrder: ["legend", "@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-figcaption-element */
 	figcaption: {
 		permittedContent: ["@flow"],
 		aria: {
@@ -1109,6 +1229,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element */
 	figure: {
 		flow: true,
 		aria: {
@@ -1126,6 +1247,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-footer-element */
 	footer: {
 		flow: true,
 		aria: {
@@ -1148,22 +1270,28 @@ export default {
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/forms.html#the-form-element */
 	form: {
 		flow: true,
 		form: true,
 		attributes: {
-			action: {
-				enum: [/^\s*\S+\s*$/],
-			},
 			accept: {
 				deprecated: true,
+			},
+			"accept-charset": {},
+			action: {
+				enum: [/^\s*\S+\s*$/],
 			},
 			autocomplete: {
 				enum: ["on", "off"],
 			},
+			enctype: {
+				enum: ["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"],
+			},
 			method: {
 				enum: ["get", "post", "dialog"],
 			},
+			name: {},
 			novalidate: {
 				boolean: true,
 			},
@@ -1241,6 +1369,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h1: {
 		flow: true,
 		heading: true,
@@ -1255,6 +1384,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h2: {
 		flow: true,
 		heading: true,
@@ -1269,6 +1399,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h3: {
 		flow: true,
 		heading: true,
@@ -1283,6 +1414,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h4: {
 		flow: true,
 		heading: true,
@@ -1297,6 +1429,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h5: {
 		flow: true,
 		heading: true,
@@ -1311,6 +1444,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements */
 	h6: {
 		flow: true,
 		heading: true,
@@ -1325,6 +1459,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/document-metadata.html#the-head-element */
 	head: {
 		implicitClosed: ["body", "@flow-not-meta"],
 		optionalEnd: true,
@@ -1341,6 +1476,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-header-element */
 	header: {
 		flow: true,
 		aria: {
@@ -1363,6 +1499,7 @@ export default {
 		permittedDescendants: [{ exclude: ["header", "footer", "main"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element */
 	hgroup: {
 		flow: true,
 		heading: true,
@@ -1374,6 +1511,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-hr-element */
 	hr: {
 		flow: true,
 		void: true,
@@ -1399,6 +1537,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/semantics.html#the-html-element */
 	html: {
 		implicitOpen: [
 			{ for: ["@meta"], open: "head" },
@@ -1422,6 +1561,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-i-element */
 	i: {
 		flow: true,
 		phrasing: true,
@@ -1432,6 +1572,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element */
 	iframe: {
 		flow: true,
 		phrasing: true,
@@ -1487,6 +1628,7 @@ export default {
 		permittedContent: [],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element */
 	img: {
 		flow: true,
 		phrasing: true,
@@ -1499,6 +1641,7 @@ export default {
 			align: {
 				deprecated: true,
 			},
+			alt: {},
 			border: {
 				deprecated: true,
 			},
@@ -1515,6 +1658,10 @@ export default {
 			decoding: {
 				enum: ["sync", "async", "auto"],
 			},
+			fetchpriority: {
+				omit: true,
+				enum: ["high", "low", "auto"],
+			},
 			height: {
 				enum: [validPositiveInteger],
 			},
@@ -1523,6 +1670,10 @@ export default {
 			},
 			ismap: {
 				boolean: true,
+			},
+			loading: {
+				omit: true,
+				enum: ["lazy", "eager"],
 			},
 			lowsrc: {
 				deprecated: true,
@@ -1533,6 +1684,7 @@ export default {
 			referrerpolicy: {
 				enum: ReferrerPolicy,
 			},
+			sizes: {},
 			src: {
 				required: true,
 				enum: [validNonEmptyString],
@@ -1540,6 +1692,7 @@ export default {
 			srcset: {
 				enum: ["/[^]+/"],
 			},
+			usemap: {},
 			vspace: {
 				deprecated: true,
 			},
@@ -1573,6 +1726,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/input.html#the-input-element */
 	input: {
 		flow: true,
 		focusable(node) {
@@ -1821,22 +1975,29 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/edits.html#the-ins-element */
 	ins: {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			cite: {},
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "insertion",
 			naming: "prohibited",
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/obsolete.html#isindex */
 	isindex: {
 		deprecated: {
 			source: "html4",
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-kbd-element */
 	kbd: {
 		flow: true,
 		phrasing: true,
@@ -1855,6 +2016,7 @@ export default {
 		deprecated: true,
 	},
 
+	/* https://html.spec.whatwg.org/multipage/forms.html#the-label-element */
 	label: {
 		flow: true,
 		phrasing: true,
@@ -1881,6 +2043,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-legend-element */
 	legend: {
 		permittedContent: ["@phrasing", "@heading"],
 		attributes: {
@@ -1902,6 +2065,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element */
 	li: {
 		implicitClosed: ["li"],
 		permittedContent: ["@flow"],
@@ -1909,6 +2073,9 @@ export default {
 		attributes: {
 			type: {
 				deprecated: true,
+			},
+			value: {
+				enum: ["/-?\\d+/"],
 			},
 		},
 		aria: {
@@ -1918,6 +2085,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/document-metadata.html#the-link-element */
 	link: {
 		metadata: true,
 		flow(node) {
@@ -2090,6 +2258,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-main-element */
 	main: {
 		flow: true,
 		aria: {
@@ -2097,6 +2266,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element */
 	map: {
 		flow: true,
 		phrasing: true,
@@ -2112,6 +2282,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-mark-element */
 	mark: {
 		flow: true,
 		phrasing: true,
@@ -2140,6 +2311,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/embedded-content.html#mathml */
 	math: {
 		flow: true,
 		foreign: true,
@@ -2173,6 +2345,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-menu-element */
 	menu: {
 		flow: true,
 		aria: {
@@ -2181,6 +2354,7 @@ export default {
 		permittedContent: ["@script", "li"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element */
 	meta: {
 		flow(node) {
 			return node.hasAttribute("itemprop");
@@ -2215,10 +2389,31 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-meter-element */
 	meter: {
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		attributes: {
+			high: {
+				enum: [validFloatingPoint],
+			},
+			low: {
+				enum: [validFloatingPoint],
+			},
+			max: {
+				enum: [validFloatingPoint],
+			},
+			min: {
+				enum: [validFloatingPoint],
+			},
+			optimum: {
+				enum: [validFloatingPoint],
+			},
+			value: {
+				enum: [validFloatingPoint],
+			},
+		},
 		aria: {
 			implicitRole: "meter",
 		},
@@ -2234,6 +2429,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-nav-element */
 	nav: {
 		flow: true,
 		sectioning: true,
@@ -2270,6 +2466,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/scripting.html#the-noscript-element */
 	noscript: {
 		metadata: true,
 		flow: true,
@@ -2281,6 +2478,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-object-element */
 	object: {
 		flow: true,
 		phrasing: true,
@@ -2358,6 +2556,7 @@ export default {
 		permittedOrder: ["param", "@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element */
 	ol: {
 		flow: true,
 		attributes: {
@@ -2366,6 +2565,9 @@ export default {
 			},
 			reversed: {
 				boolean: true,
+			},
+			start: {
+				enum: [validPositiveInteger],
 			},
 			type: {
 				enum: ["a", "A", "i", "I", "1"],
@@ -2377,12 +2579,14 @@ export default {
 		permittedContent: ["@script", "li"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-optgroup-element */
 	optgroup: {
 		implicitClosed: ["optgroup"],
 		attributes: {
 			disabled: {
 				boolean: true,
 			},
+			label: {},
 		},
 		aria: {
 			implicitRole: "group",
@@ -2390,6 +2594,7 @@ export default {
 		permittedContent: ["@script", "option"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-option-element */
 	option: {
 		implicitClosed: ["option"],
 		attributes: {
@@ -2402,6 +2607,7 @@ export default {
 			disabled: {
 				boolean: true,
 			},
+			label: {},
 			name: {
 				deprecated: true,
 			},
@@ -2417,6 +2623,7 @@ export default {
 		permittedDescendants: [{ exclude: ["@interactive", "datalist", "object"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-output-element */
 	output: {
 		flow: true,
 		phrasing: true,
@@ -2425,12 +2632,27 @@ export default {
 			listed: true,
 		},
 		labelable: true,
+		attributes: {
+			for: {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+		},
 		aria: {
 			implicitRole: "status",
 		},
 		permittedContent: ["@phrasing"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-p-element */
 	p: {
 		flow: true,
 		implicitClosed: [
@@ -2500,6 +2722,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element */
 	picture: {
 		flow: true,
 		phrasing: true,
@@ -2519,6 +2742,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-pre-element */
 	pre: {
 		flow: true,
 		permittedContent: ["@phrasing"],
@@ -2533,10 +2757,19 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-progress-element */
 	progress: {
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		attributes: {
+			max: {
+				enum: [validFloatingPoint],
+			},
+			value: {
+				enum: [validFloatingPoint],
+			},
+		},
 		aria: {
 			implicitRole: "progressbar",
 		},
@@ -2544,9 +2777,13 @@ export default {
 		permittedDescendants: [{ exclude: "progress" }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-q-element */
 	q: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			cite: {},
+		},
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
@@ -2559,6 +2796,7 @@ export default {
 		permittedContent: ["@phrasing"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-rp-element */
 	rp: {
 		implicitClosed: ["rb", "rt", "rtc", "rp"],
 		permittedContent: ["@phrasing"],
@@ -2567,6 +2805,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-rt-element */
 	rt: {
 		implicitClosed: ["rb", "rt", "rtc", "rp"],
 		permittedContent: ["@phrasing"],
@@ -2580,12 +2819,14 @@ export default {
 		permittedContent: ["@phrasing", "rt"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-ruby-element */
 	ruby: {
 		flow: true,
 		phrasing: true,
 		permittedContent: ["@phrasing", "rb", "rp", "rt", "rtc"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-s-element */
 	s: {
 		flow: true,
 		phrasing: true,
@@ -2596,6 +2837,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-samp-element */
 	samp: {
 		flow: true,
 		phrasing: true,
@@ -2606,6 +2848,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/scripting.html#the-script-element */
 	script: {
 		metadata: true,
 		flow: true,
@@ -2658,6 +2901,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-search-element */
 	search: {
 		flow: true,
 		aria: {
@@ -2665,6 +2909,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/sections.html#the-section-element */
 	section: {
 		flow: true,
 		sectioning: true,
@@ -2677,6 +2922,7 @@ export default {
 		permittedContent: ["@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element */
 	select: {
 		flow: true,
 		focusable: true,
@@ -2688,14 +2934,22 @@ export default {
 		},
 		labelable: true,
 		attributes: {
+			autocomplete: {},
 			autofocus: {
 				boolean: true,
 			},
 			disabled: {
 				boolean: true,
 			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
 			multiple: {
 				boolean: true,
+			},
+			name: {
+				enum: [validNonEmptyString],
 			},
 			required: {
 				boolean: true,
@@ -2741,6 +2995,7 @@ export default {
 		permittedOrder: ["button", "option, optgroup, hr"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-selectedcontent-element */
 	selectedcontent: {
 		phrasing: true,
 		permittedContent: [],
@@ -2752,6 +3007,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/scripting.html#the-slot-element */
 	slot: {
 		flow: true,
 		phrasing: true,
@@ -2764,6 +3020,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-small-element */
 	small: {
 		flow: true,
 		phrasing: true,
@@ -2774,6 +3031,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/embedded-content.html#the-source-element */
 	source: {
 		void: true,
 		attributes: {
@@ -2810,6 +3068,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element */
 	span: {
 		flow: true,
 		phrasing: true,
@@ -2839,6 +3098,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-strong-element */
 	strong: {
 		flow: true,
 		phrasing: true,
@@ -2849,6 +3109,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/semantics.html#the-style-element */
 	style: {
 		metadata: true,
 		aria: {
@@ -2856,6 +3117,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-sub-and-sup-elements */
 	sub: {
 		flow: true,
 		phrasing: true,
@@ -2866,6 +3128,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/interactive-elements.html#the-summary-element */
 	summary: {
 		permittedContent: ["@phrasing", "@heading"],
 		focusable(node) {
@@ -2876,6 +3139,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-sub-and-sup-elements */
 	sup: {
 		flow: true,
 		phrasing: true,
@@ -2886,6 +3150,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/embedded-content.html#svg-0 */
 	svg: {
 		flow: true,
 		foreign: true,
@@ -2907,6 +3172,7 @@ export default {
 	"svg:desc": {},
 	"svg:title": {},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-table-element */
 	table: {
 		flow: true,
 		permittedContent: ["@script", "caption?", "colgroup", "tbody", "tfoot?", "thead?", "tr"],
@@ -2957,6 +3223,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-tbody-element */
 	tbody: {
 		implicitClosed: ["tbody", "tfoot"],
 		permittedContent: ["@script", "tr"],
@@ -2982,6 +3249,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-td-element */
 	td: {
 		flow: true,
 		implicitClosed: ["td", "th", "tr", "tbody", "tfoot"],
@@ -3006,6 +3274,11 @@ export default {
 			},
 			colspan: {
 				enum: [validPositiveInteger],
+			},
+			headers: {
+				list: true,
+				enum: [validId],
+				reference: "id",
 			},
 			height: {
 				deprecated: true,
@@ -3044,17 +3317,39 @@ export default {
 		permittedContent: ["@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/scripting.html#the-template-element */
 	template: {
 		metadata: true,
 		flow: true,
 		phrasing: true,
 		scriptSupporting: true,
 		templateRoot: true,
+		attributes: {
+			shadowrootclonable: {
+				boolean: true,
+			},
+			shadowrootcustomelementregistry: {
+				boolean: true,
+			},
+			shadowrootdelegatesfocus: {
+				boolean: true,
+			},
+			shadowrootmode: {
+				enum: ["open", "closed"],
+			},
+			shadowrootserializable: {
+				boolean: true,
+			},
+			shadowrootslotassignment: {
+				enum: ["named", "manual"],
+			},
+		},
 		aria: {
 			naming: "prohibited",
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element */
 	textarea: {
 		flow: true,
 		focusable: true,
@@ -3079,8 +3374,15 @@ export default {
 			datasrc: {
 				deprecated: true,
 			},
+			dirname: {
+				enum: [validNonEmptyString],
+			},
 			disabled: {
 				boolean: true,
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
 			},
 			maxlength: {
 				enum: [validPositiveInteger],
@@ -3088,6 +3390,10 @@ export default {
 			minlength: {
 				enum: [validPositiveInteger],
 			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+			placeholder: {},
 			readonly: {
 				boolean: true,
 			},
@@ -3107,6 +3413,7 @@ export default {
 		permittedContent: [],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-tfoot-element */
 	tfoot: {
 		implicitClosed: ["tbody"],
 		optionalEnd: true,
@@ -3133,10 +3440,12 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-th-element */
 	th: {
 		flow: true,
 		implicitClosed: ["td", "th", "tr", "tbody", "tfoot"],
 		attributes: {
+			abbr: {},
 			align: {
 				deprecated: true,
 			},
@@ -3151,6 +3460,11 @@ export default {
 			},
 			char: {
 				deprecated: true,
+			},
+			headers: {
+				list: true,
+				enum: [validId],
+				reference: "id",
 			},
 			charoff: {
 				deprecated: true,
@@ -3199,6 +3513,7 @@ export default {
 		permittedDescendants: [{ exclude: ["header", "footer", "@sectioning", "@heading"] }],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-thead-element */
 	thead: {
 		implicitClosed: ["tbody", "tfoot"],
 		optionalEnd: true,
@@ -3225,9 +3540,13 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-time-element */
 	time: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "time",
 			naming: "prohibited",
@@ -3235,6 +3554,7 @@ export default {
 		permittedContent: ["@phrasing"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/document-metadata.html#the-title-element */
 	title: {
 		metadata: true,
 		permittedContent: [],
@@ -3244,6 +3564,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/tables.html#the-tr-element */
 	tr: {
 		implicitClosed: ["tr", "tbody", "tfoot"],
 		permittedContent: ["@script", "td", "th"],
@@ -3272,8 +3593,24 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/media.html#the-track-element */
 	track: {
 		void: true,
+		attributes: {
+			default: {
+				boolean: true,
+			},
+			kind: {
+				omit: true,
+				enum: ["subtitles", "captions", "descriptions", "chapters", "metadata"],
+			},
+			label: {},
+			src: {
+				required: true,
+				enum: [validNonEmptyString],
+			},
+			srclang: {},
+		},
 		aria: {
 			naming: "prohibited",
 		},
@@ -3287,6 +3624,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-u-element */
 	u: {
 		flow: true,
 		phrasing: true,
@@ -3297,6 +3635,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element */
 	ul: {
 		flow: true,
 		permittedContent: ["@script", "li"],
@@ -3313,6 +3652,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-var-element */
 	var: {
 		flow: true,
 		phrasing: true,
@@ -3322,6 +3662,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/media.html#the-video-element */
 	video: {
 		flow: true,
 		focusable(node) {
@@ -3334,6 +3675,12 @@ export default {
 		},
 		transparent: ["@flow"],
 		attributes: {
+			autoplay: {
+				boolean: true,
+			},
+			controls: {
+				boolean: true,
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -3344,9 +3691,24 @@ export default {
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
 			},
+			loop: {
+				boolean: true,
+			},
+			muted: {
+				boolean: true,
+			},
+			playsinline: {
+				boolean: true,
+			},
+			poster: {
+				enum: [validNonEmptyString],
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
+			},
+			src: {
+				enum: [validNonEmptyString],
 			},
 			width: {
 				enum: [validPositiveInteger],
@@ -3357,6 +3719,7 @@ export default {
 		permittedOrder: ["source", "track", "@flow"],
 	},
 
+	/* https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-wbr-element */
 	wbr: {
 		flow: true,
 		phrasing: true,
@@ -3366,6 +3729,7 @@ export default {
 		},
 	},
 
+	/* https://html.spec.whatwg.org/multipage/obsolete.html#the-xmp-element */
 	xmp: {
 		deprecated: {
 			documentation: "Use `<pre>` or `<code>` and escape content using HTML entities instead.",

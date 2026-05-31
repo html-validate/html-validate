@@ -22,7 +22,11 @@
 <button type="submit" formnovalidate="invalid">lorem ipsum</button>
 
 <!-- should not allow invalid target keywords -->
-<button type="submit" formtarget="_invalid"> lorem ipsum </button>
+<button type="submit" formtarget="_invalid">lorem ipsum</button>
+
+<!-- should not allow empty or omitted name -->
+<button type="submit" name>lorem ipsum</button>
+<button type="submit" name="">lorem ipsum</button>
 
 <!-- missing type -->
 <button>foo</button>
@@ -37,3 +41,9 @@
 		lorem ipsum
 	</button>
 </div>
+
+<!-- invalid command value -->
+<button type="button" command="invalid">foo</button>
+
+<!-- invalid popovertargetaction value -->
+<button type="button" popovertargetaction="invalid">foo</button>

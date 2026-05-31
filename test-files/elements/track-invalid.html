@@ -1,4 +1,14 @@
 <!-- should omit end tag -->
 <audio>
-	<track></track>
+	<track src="video.vtt"></track>
+</audio>
+
+<!-- invalid kind value -->
+<audio><track src="video.vtt" kind="invalid"></audio>
+
+<audio>
+	<!-- should not allow missing, empty or omitted src -->
+	<track>
+	<track src>
+	<track src="">
 </audio>

@@ -10,7 +10,7 @@
 <div>
 	<video>
 		<source>
-		<track>
+		<track src="video.vtt">
 	</video>
 </div>
 
@@ -19,10 +19,23 @@
 	<source>
 	<div>foo</div>
 </video>
-<video src="">
-	<track>
+<video src="video.mp4">
+	<track src="video.vtt">
 	<div>foo</div>
 </video>
+
+<!-- should allow non-empty src -->
+<video src="video.mp4"></video>
+
+<!-- should allow non-empty poster -->
+<video poster="poster.jpg"></video>
+
+<!-- should allow attributes -->
+<video autoplay></video>
+<video loop></video>
+<video muted></video>
+<video controls></video>
+<video playsinline></video>
 
 <!-- should not be interactive if missing controls attribute (and thus allowed as content in button) -->
 <button type="button">
@@ -38,7 +51,7 @@
 <video preload="auto"></video>
 
 <!-- should be allowed if src is present -->
-<video src itemprop></video>
+<video src="video.mp4" itemprop></video>
 
 <!-- should allow non-negative integer width and height -->
 <video width="100" height="100"></video>

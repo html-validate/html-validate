@@ -6,3 +6,16 @@
 <!-- should allow label with for attribute -->
 <label for="label-for">Lorem ipsum</label>
 <output id="label-for">dolor sit amet</output>
+
+<!-- for should allow referencing one or more elements -->
+<input id="foo" type="text">
+<input id="bar" type="text">
+<output for="foo"></output>
+<output for="foo bar"></output>
+
+<!-- form should allow referencing form element -->
+<form id="outputform"></form>
+<output form="outputform"></output>
+
+<!-- should allow non-empty name -->
+<output name="foobar"></output>
