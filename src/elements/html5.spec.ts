@@ -356,12 +356,18 @@ describe("HTML elements", () => {
 			it("valid markup", async () => {
 				expect.assertions(1);
 				const report = await htmlvalidate.validateFile(filename("valid"));
+				for (const result of report.results) {
+					result.source = "";
+				}
 				expect(report.results).toMatchSnapshot();
 			});
 
 			it("invalid markup", async () => {
 				expect.assertions(1);
 				const report = await htmlvalidate.validateFile(filename("invalid"));
+				for (const result of report.results) {
+					result.source = "";
+				}
 				expect(report.results).toMatchSnapshot();
 			});
 
@@ -369,6 +375,9 @@ describe("HTML elements", () => {
 				it(`start tag may be omitted`, async () => {
 					expect.assertions(1);
 					const report = await htmlvalidate.validateFile(filename("implicit-open"));
+					for (const result of report.results) {
+						result.source = "";
+					}
 					expect(report).toBeValid();
 				});
 			}
@@ -377,6 +386,9 @@ describe("HTML elements", () => {
 				it(`end tag may be omitted`, async () => {
 					expect.assertions(1);
 					const report = await htmlvalidate.validateFile(filename("omitted-end"));
+					for (const result of report.results) {
+						result.source = "";
+					}
 					expect(report).toBeValid();
 				});
 			}

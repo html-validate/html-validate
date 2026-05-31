@@ -533,47 +533,7 @@ exports[`HTML elements <a> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should be transparent -->
-<span><a><div>foo</div></a></span>
-
-<!-- should not allow interactive as content or descendant-->
-<a href="target"><button type="button">foo</button></a>
-<a href="target"><span><button type="button">foo</button></span></a>
-
-<!-- should not allow nesting -->
-<a href="target"><span><a href="target">foo</a></span></a>
-<a><span><a>foo</a></span></a>
-
-<!-- should not allow omitted href value -->
-<a href>foo</a>
-
-<!-- should not allow invalid type keywords -->
-<a href="target" target="_invalid"> foo </a>
-
-<!-- should not be allowed if href is omitted -->
-<a target="_blank" download ping rel hreflang type referrerpolicy="" itemprop> foo </a>
-
-<!-- should not allow omitted or invalid referrerpolicy -->
-<a href="target" referrerpolicy>foo</a>
-<a href="target" referrerpolicy="invalid">foo</a>
-
-<!-- disallowed rel keywords -->
-<a href="target" rel="canonical">foo</a>
-<a href="target" rel="dns-prefetch">foo</a>
-<a href="target" rel="expect">foo</a>
-<a href="target" rel="icon">foo</a>
-<a href="target" rel="manifest">foo</a>
-<a href="target" rel="modulepreload">foo</a>
-<a href="target" rel="pingback">foo</a>
-<a href="target" rel="preconnect">foo</a>
-<a href="target" rel="prefetch">foo</a>
-<a href="target" rel="preload">foo</a>
-<a href="target" rel="stylesheet">foo</a>
-<a href="target" rel="dcterms.creator">foo</a>
-
-<!-- should handle disallowed keywords in a list of many -->
-<a href="target" rel="alternate external canonical">foo</a>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -604,9 +564,7 @@ exports[`HTML elements <abbr> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<abbr><div>foo</div></abbr>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -638,9 +596,7 @@ exports[`HTML elements <acronym> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<acronym title="foobar">FB</acronym>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -735,19 +691,7 @@ exports[`HTML elements <address> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- should not allow heading as content -->
-<address><h1>foo</h1></address>
-
-<!-- should not allow sectioning as descendant-- -->
-<address><div><article>foo</article></div></address>
-
-<!-- should not allow header or footer as descendant-- -->
-<address><div><header>foo</header></div></address>
-<address><div><footer>foo</footer></div></address>
-
-<!-- should not allow nesting -->
-<address><div><address>foo</address></div></address>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -777,9 +721,7 @@ exports[`HTML elements <applet> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<applet></applet>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1538,105 +1480,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should require <map> ancestor -->
-<area>
-
-<map name="foo">
-	<!-- should not allow end tag -->
-	<area></area>
-
-	<!-- should not allow content -->
-	<area>
-		<span>foo</span>
-	</area>
-</map>
-
-<!-- should not allow invalid shape attribute -->
-<map id="invalid-shape" name="invalid-shape">
-	<area shape="" coords>
-	<area shape="foobar" coords>
-</map>
-
-<!-- missing alt when required -->
-<map id="missing-alt" name="missing-alt">
-	<area href="target">
-</map>
-
-<!-- empty alt when required -->
-<map id="empty-alt" name="empty-alt">
-	<area href="target" alt="">
-</map>
-
-<!-- alt must be mitted when href is not present -->
-<map id="omit-alt" name="omit-alt">
-	<area alt="">
-	<area alt="lorem ipsum">
-</map>
-
-<!-- should not allow invalid type keywords -->
-<map id="invalid-target" name="invalid-target">
-	<area href="target" target="_invalid" alt="lorem ipsum">
-</map>
-
-<!-- target cannot be used without href -->
-<map id="target-missing-href" name="target-missing-href">
-	<area target="_blank">
-</map>
-
-<!-- should not be allowed if href is omitted -->
-<map id="invalid-without-href" name="invalid-without-href">
-	<area target="_blank" download ping rel referrerpolicy="" itemprop>
-</map>
-
-<!-- should not allow "coords" attribute when shape is "default" -->
-<map name="invalid-with-coords">
-	<area shape="default" coords="..">
-</map>
-
-<!-- should not allow obsolete aliases for shape attribute -->
-<map id="obsolete-shapes" name="obsolete-shapes">
-	<area shape="circ" coords>
-	<area shape="polygon" coords>
-	<area shape="rectangle" coords>
-</map>
-
-<!-- should require "coords" -->
-<map id="missing-coords" name="missing-coords">
-	<!-- [html-validate-disable-block attribute-allowed-values -- obsolete aliases are tested above] -->
-	<area shape>
-	<area shape="circ">
-	<area shape="circle">
-	<area shape="poly">
-	<area shape="polygon">
-	<area shape="rect">
-	<area shape="rectangle">
-</map>
-
-<!-- should not allow omitted or invalid referrerpolicy -->
-<map id="invalid-referrerpolicy" name="invalid-referrerpolicy">
-	<area href="target" alt=".." referrerpolicy>
-	<area href="target" alt=".." referrerpolicy="invalid">
-</map>
-
-<map id="disallowed-rel-keywords" name="disallowed-rel-keywords">
-	<!-- disallowed rel keywords -->
-	<area href="target" alt=".." rel="canonical">
-	<area href="target" alt=".." rel="dns-prefetch">
-	<area href="target" alt=".." rel="expect">
-	<area href="target" alt=".." rel="icon">
-	<area href="target" alt=".." rel="manifest">
-	<area href="target" alt=".." rel="modulepreload">
-	<area href="target" alt=".." rel="pingback">
-	<area href="target" alt=".." rel="preconnect">
-	<area href="target" alt=".." rel="prefetch">
-	<area href="target" alt=".." rel="preload">
-	<area href="target" alt=".." rel="stylesheet">
-	<area href="target" alt=".." rel="dcterms.creator">
-
-	<!-- should handle disallowed keywords in a list of many -->
-	<area href="target" alt=".." rel="alternate external canonical">
-</map>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1667,13 +1511,7 @@ exports[`HTML elements <article> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should disallow <main> as descendant (HTML 5.0) -->
-<article>
-	<div>
-		<main>foo</main>
-	</div>
-</article>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1704,13 +1542,7 @@ exports[`HTML elements <aside> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should disallow <main> as descendant (HTML 5.0) -->
-<aside>
-	<div>
-		<main>foo</main>
-	</div>
-</aside>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1850,37 +1682,7 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not allow <audio> or <video> descendant -->
-<audio>
-	<audio></audio>
-	<video></video>
-</audio>
-
-<!-- should be transparent -->
-<span><audio><div>foo</div></audio></span>
-
-<!-- should now allow children in wrong order -->
-<audio>
-	<div>foo</div>
-	<source>
-</audio>
-<audio src="">
-	<div>foo</div>
-	<track>
-</audio>
-
-<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
-<button type="button">
-	Audio:
-	<audio controls="foo"></audio>
-</button>
-
-<!-- should not allow preload attribute -->
-<audio preload="foobar"></audio>
-
-<!-- should not be allowed if src is omitted -->
-<audio itemprop></audio>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1911,9 +1713,7 @@ exports[`HTML elements <b> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<b><div>foo</div></b>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -1974,14 +1774,7 @@ exports[`HTML elements <base> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should not be allowed outside <head> -->
-<div>
-	<base>
-</div>
-
-<!-- should not allow end tag -->
-<base></base>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2013,9 +1806,7 @@ exports[`HTML elements <basefont> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<basefont></basefont>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2046,9 +1837,7 @@ exports[`HTML elements <bdi> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<bdi><div>foo</div></bdi>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2079,9 +1868,7 @@ exports[`HTML elements <bdo> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<bdo><div>foo</div></bdo>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2113,9 +1900,7 @@ exports[`HTML elements <bgsound> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<bgsound></bgsound>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2147,9 +1932,7 @@ exports[`HTML elements <big> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<big></big>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2180,9 +1963,7 @@ exports[`HTML elements <blink> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<blink></blink>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2213,9 +1994,7 @@ exports[`HTML elements <blockquote> invalid markup 1`] = `
         "size": 10,
       },
     ],
-    "source": "<!-- should now allow phrasing parent -->
-<span><blockquote>foo</blockquote></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2330,30 +2109,7 @@ exports[`HTML elements <body> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should not be allowed under other elements -->
-<div>
-	<body></body>
-</div>
-
-<!-- should not allow non-flow content -->
-<body>
-	<head>
-		<title>lorem ipsum</title>
-	</head>
-
-	<html lang="en">
-		<head>
-			<title>lorem ipsum</title>
-		</head>
-		<body></body>
-	</html>
-</body>
-
-<!-- should not allow nesting -->
-<body>
-	<body></body>
-</body>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2380,9 +2136,7 @@ exports[`HTML elements <br> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow end tag -->
-<br></br>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2675,46 +2429,7 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "size": 10,
       },
     ],
-    "source": "<!-- should not allow flow as content -->
-<button type="button"><div>foo</div></button>
-
-<!-- should not allow interactive as content or descendant-->
-<button type="button"><a href="target">foo</a></button>
-<button type="button">
-	<span><a href="target">foo</a></span>
-</button>
-
-<!-- should not allow nesting -->
-<button type="button">
-	<span><button type="button">foo</button></span>
-</button>
-
-<!-- disallowed type variants -->
-<button type="foobar">foo</button>
-
-<!-- disallow invalid formmethods -->
-<button type="submit" formmethod="invalid">lorem ipsum</button>
-
-<!-- disallow invalid formnovalidate -->
-<button type="submit" formnovalidate="invalid">lorem ipsum</button>
-
-<!-- should not allow invalid target keywords -->
-<button type="submit" formtarget="_invalid"> lorem ipsum </button>
-
-<!-- missing type -->
-<button>foo</button>
-
-<!-- missing accessible text -->
-<button type="button"></button>
-<button type="button"><span aria-hidden="true">foo</span></button>
-
-<!-- should not be allowed if type isn't submit -->
-<div id="invalid-form-overrides">
-	<button type="button" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
-		lorem ipsum
-	</button>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2745,9 +2460,7 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should be transparent -->
-<span><canvas><div>foo</div></canvas></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2794,18 +2507,7 @@ exports[`HTML elements <caption> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should only allow <table> parent -->
-<div>
-	<caption>foo</caption>
-</div>
-
-<!-- should not allow nested table -->
-<table>
-	<caption>
-		<table></table>
-	</caption>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2837,9 +2539,7 @@ exports[`HTML elements <center> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<center></center>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2870,9 +2570,7 @@ exports[`HTML elements <cite> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<cite><div>foo</div></cite>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -2903,9 +2601,7 @@ exports[`HTML elements <code> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<code><div>foo</div></code>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3044,32 +2740,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<col>
-</div>
-
-<!-- should not allow end tag -->
-<table>
-	<colgroup>
-		<col></col>
-	</colgroup>
-</table>
-
-<table>
-	<colgroup>
-		<!-- should not allow negative span -->
-		<col span="-1">
-
-		<!-- should not allow omitted/empty -->
-		<col span>
-		<col span="">
-
-		<!-- should not allow text -->
-		<col span="foobar4u">
-	</colgroup>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3234,47 +2905,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not allow <colgroup> under other elements -->
-<div>
-	<colgroup></colgroup>
-</div>
-
-<!-- should not allow phrasing as content -->
-<table>
-	<colgroup>
-		<span>foo</span>
-	</colgroup>
-</table>
-
-<!-- should not allow <colgroup> before <caption> -->
-<table>
-	<colgroup></colgroup>
-	<caption>foo</caption>
-</table>
-
-<!-- should not allow <colgroup> after <thead> -->
-<table>
-	<thead></thead>
-	<colgroup></colgroup>
-</table>
-
-<table>
-	<!-- should not allow negative span -->
-	<colgroup span="-1"></colgroup>
-
-	<!-- should not allow omitted/empty -->
-	<colgroup span></colgroup>
-	<colgroup span=""></colgroup>
-
-	<!-- should not allow text -->
-	<colgroup span="foobar4u"></colgroup>
-
-	<!-- should not allow nested col when using span, but no rule currently covers this -->
-	<colgroup span="2">
-		<col>
-	</colgroup>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3305,9 +2936,7 @@ exports[`HTML elements <data> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<data><div>foo</div></data>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3338,9 +2967,7 @@ exports[`HTML elements <datalist> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<datalist><div>foo</div></datalist>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3411,20 +3038,7 @@ exports[`HTML elements <dd> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not be allowed in other elements -->
-<span>
-	<dd>foo</dd>
-</span>
-
-<!-- should require proper ancestry (only single level grouping allowed) -->
-<dl>
-	<div>
-		<div>
-			<dd>foo</dd>
-		</div>
-	</div>
-</dl>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3455,9 +3069,7 @@ exports[`HTML elements <del> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should be transparent -->
-<span><del><div>foo</div></del></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3517,20 +3129,7 @@ exports[`HTML elements <details> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- summary must go before flow -->
-<details>
-	<div></div>
-	<summary></summary>
-</details>
-
-<!-- summary is required -->
-<details></details>
-
-<!-- open attribute is boolean -->
-<details open="foobar">
-	<summary></summary>
-</details>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3577,12 +3176,7 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<dfn><div>foo</div></dfn>
-
-<!-- should not allow nesting -->
-<dfn>foo<dfn>bar</dfn>baz</dfn>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3613,14 +3207,7 @@ exports[`HTML elements <dialog> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should not be allowed under <span> -->
-<span>
-	<dialog></dialog>
-</span>
-
-<!-- should not allow tabindex (not implemented) -->
-<dialog tabindex="0"></dialog>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3651,9 +3238,7 @@ exports[`HTML elements <dir> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<dir></dir>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3704,12 +3289,7 @@ exports[`HTML elements <dl> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should not allow arbirtary content -->
-<dl>
-	<main></main>
-	<span></span>
-</dl>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3844,30 +3424,7 @@ exports[`HTML elements <dt> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not be allowed outside <dl> -->
-<span>
-	<dt></dt>
-</span>
-
-<!-- should not allow sectioning, header, header or footer -->
-<dl>
-	<dt>
-		<header></header>
-		<footer></footer>
-		<article></article>
-		<h1>Lorem ipsum</h1>
-	</dt>
-</dl>
-
-<!-- should require proper ancestry (only single level grouping allowed) -->
-<dl>
-	<div>
-		<div>
-			<dt>foo</dt>
-		</div>
-	</div>
-</dl>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -3898,9 +3455,7 @@ exports[`HTML elements <em> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<em><div>foo</div></em>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4173,19 +3728,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed to have end tag -->
-<embed src="url" title="My embedded thing"></embed>
-
-<!-- should have src and title -->
-<embed>
-<embed src="" title="">
-
-<!-- should not allow invalid width and height -->
-<embed src="url" title="My embedded thing" width="" height="">
-<embed src="url" title="My embedded thing" width="foo" height="foo">
-<embed src="url" title="My embedded thing" width="-1" height="-1">
-<embed src="url" title="My embedded thing" width="1.5" height="1.5">
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4222,16 +3765,7 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- must have <legend> -->
-<fieldset>
-</fieldset>
-
-<!-- should not allow legend and flow content out-of-order -->
-<fieldset>
-	<div>bar</div>
-	<legend>foo</legend>
-</fieldset>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4262,11 +3796,7 @@ exports[`HTML elements <figcaption> invalid markup 1`] = `
         "size": 10,
       },
     ],
-    "source": "<!-- should not be allowed outside <figure> -->
-<div>
-	<figcaption></figcaption>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4292,12 +3822,7 @@ exports[`HTML elements <figure> invalid markup 1`] = `
         "size": 10,
       },
     ],
-    "source": "<!-- should not allow multiple figcaption -->
-<figure>
-	<figcaption></figcaption>
-	<figcaption></figcaption>
-</figure>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4329,9 +3854,7 @@ exports[`HTML elements <font> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<font></font>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4394,13 +3917,7 @@ exports[`HTML elements <footer> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should not allow <header>, <main> or <footer> as descendant -->
-<footer>
-	<header>foo</header>
-	<main>bar</main>
-	<footer>baz</footer>
-</footer>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4882,54 +4399,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow nesting -->
-<form>
-	<form></form>
-</form>
-
-<!-- should not allow nesting with custom elements -->
-<form>
-	<custom-form></custom-form>
-</form>
-
-<!-- should not allow arbitrary form methods -->
-<form method="foobar">
-	<button type="submit">submit</button>
-</form>
-
-<!-- should not allow empty action attribute -->
-<form action></form>
-<form action=""></form>
-<form action=" "></form>
-
-<!-- should not allow multiple urls -->
-<form action="/foo /bar"></form>
-
-<!-- should not allow invalid target keywords -->
-<form target="_invalid"></form>
-
-<!-- disallowed rel keywords -->
-<form rel="alternate"></form>
-<form rel="canonical"></form>
-<form rel="author"></form>
-<form rel="bookmark"></form>
-<form rel="dns-prefetch"></form>
-<form rel="expect"></form>
-<form rel="icon"></form>
-<form rel="manifest"></form>
-<form rel="modulepreload"></form>
-<form rel="pingback"></form>
-<form rel="preconnect"></form>
-<form rel="prefetch"></form>
-<form rel="preload"></form>
-<form rel="privacy-policy"></form>
-<form rel="stylesheet"></form>
-<form rel="tag"></form>
-<form rel="terms-of-service"></form>
-
-<!-- should handle disallowed keywords in a list of many -->
-<form rel="external canonical next"></form>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -4975,13 +4445,7 @@ exports[`HTML elements <frame> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<frame title="foobar"></frame>
-
-<!-- should require title attribute -->
-<!-- [html-validate-disable-next deprecated] -->
-<frame></frame>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5012,9 +4476,7 @@ exports[`HTML elements <frameset> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<frameset></frameset>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5067,15 +4529,7 @@ exports[`HTML elements <h1> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h1>
-	<div>Lorem ipsum</div>
-</h1>
-
-<!-- cannot be empty (or whitespace only) -->
-<h1></h1>
-<h1> </h1>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5128,15 +4582,7 @@ exports[`HTML elements <h2> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h2>
-	<div>Lorem ipsum</div>
-</h2>
-
-<!-- cannot be empty (or whitespace only) -->
-<h2></h2>
-<h2> </h2>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5189,15 +4635,7 @@ exports[`HTML elements <h3> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h3>
-	<div>Lorem ipsum</div>
-</h3>
-
-<!-- cannot be empty (or whitespace only) -->
-<h3></h3>
-<h3> </h3>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5250,15 +4688,7 @@ exports[`HTML elements <h4> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h4>
-	<div>Lorem ipsum</div>
-</h4>
-
-<!-- cannot be empty (or whitespace only) -->
-<h4></h4>
-<h4> </h4>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5311,15 +4741,7 @@ exports[`HTML elements <h5> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h5>
-	<div>Lorem ipsum</div>
-</h5>
-
-<!-- cannot be empty (or whitespace only) -->
-<h5></h5>
-<h5> </h5>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5372,15 +4794,7 @@ exports[`HTML elements <h6> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<h6>
-	<div>Lorem ipsum</div>
-</h6>
-
-<!-- cannot be empty (or whitespace only) -->
-<h6></h6>
-<h6> </h6>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5493,49 +4907,7 @@ exports[`HTML elements <head> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should not be allowed outside <html> -->
-<div>
-	<head>
-		<title>foo</title>
-	</head>
-</div>
-
-<!-- should require title -->
-<html lang="en">
-	<head>
-	</head>
-	<body></body>
-</html>
-
-<!-- should not allow flow or phrasing -->
-<html lang="en">
-	<head>
-		<title>foo</title>
-		<div></div>
-		<span></span>
-	</head>
-	<body></body>
-</html>
-
-<!-- should only allow <base> once -->
-<html lang="en">
-	<head>
-		<title>foo</title>
-		<base>
-		<base>
-	</head>
-	<body></body>
-</html>
-
-<!-- should only allow <title> once -->
-<html lang="en">
-	<head>
-		<title>lorem ipsum</title>
-		<title>lorem ipsum</title>
-	</head>
-	<body></body>
-</html>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5598,13 +4970,7 @@ exports[`HTML elements <header> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should not allow <header>, <main> or <footer> as descendant -->
-<header>
-	<header>foo</header>
-	<main>bar</main>
-	<footer>baz</footer>
-</header>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5714,27 +5080,7 @@ exports[`HTML elements <hgroup> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- content model as per https://html.spec.whatwg.org/#the-hgroup-element violated -->
-
-<!-- should not be allowed in head -->
-<head><title>title</title><hgroup><h1>section</h1></hgroup></head>
-
-<!-- should not be empty -->
-<hgroup></hgroup>
-
-<!-- should have exactly one h1 .. h6 element -->
-<hgroup><h1>section</h1><h2>subsection</h2></hgroup>
-<hgroup><h1>section</h1><h1>section</h1></hgroup>
-
-<!-- should only contain p*, h?, p* -->
-<hgroup><div>foo</div><h1>section</h1></hgroup>
-
-<!-- should not containt p alone -->
-<hgroup><p>topline</p></hgroup>
-
-<!-- should not be nested -->
-<hgroup><hgroup><h1>section</h1></hgroup></hgroup>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5777,12 +5123,7 @@ exports[`HTML elements <hr> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow end tag -->
-<hr></hr>
-
-<!-- should not be allowed under phrasing -->
-<span><hr></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5875,46 +5216,7 @@ exports[`HTML elements <html> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should require lang -->
-<html>
-	<head>
-		<title>foo</title>
-	</head>
-	<body></body>
-</html>
-
-<!-- should require <head> and <body> -->
-<html lang="en">
-</html>
-
-<!-- should not allow multiple head -->
-<html lang="en">
-	<head>
-		<title>foo</title>
-	</head>
-	<head>
-		<title>bar</title>
-	</head>
-	<body></body>
-</html>
-
-<!-- should not allow multiple body -->
-<html lang="en">
-	<head>
-		<title>foo</title>
-	</head>
-	<body></body>
-	<body></body>
-</html>
-
-<!-- should not allow body before head -->
-<html lang="en">
-	<body></body>
-	<head>
-		<title>foo</title>
-	</head>
-</html>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -5945,9 +5247,7 @@ exports[`HTML elements <i> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<i><div>foo</div></i>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -6251,22 +5551,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should require title attribute -->
-<iframe></iframe>
-
-<!-- invalid src attribute -->
-<iframe src="" title="My page"></iframe>
-
-<!-- should not allow omitted or invalid referrerpolicy -->
-<iframe src="page.html" title="lorem ipsum" referrerpolicy></iframe>
-<iframe src="page.html" title="lorem ipsum" referrerpolicy="invalid"></iframe>
-
-<!-- should not allow invalid width and height -->
-<iframe src="page.html" title="lorem ipsum" width="" height=""></iframe>
-<iframe src="page.html" title="lorem ipsum" width="foo" height="foo"></iframe>
-<iframe src="page.html" title="lorem ipsum" width="-1" height="-1"></iframe>
-<iframe src="page.html" title="lorem ipsum" width="1.5" height="1.5"></iframe>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -6622,33 +5907,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- must have src attribute -->
-<img>
-
-<!-- src must be non-empty -->
-<img src="">
-
-<!-- srcset must be non-empty -->
-<img src="foo.png" srcset="">
-
-<!-- should not allow end tag -->
-<img src="foo.png"></img>
-
-<!-- should be interactive if usemap is set -->
-<button type="button">
-	<img src="foo.png" usemap aria-label="Picture of a foo">
-</button>
-
-<!-- should not allow omitted or invalid referrerpolicy -->
-<img src="foo.png" referrerpolicy>
-<img src="foo.png" referrerpolicy="invalid">
-
-<!-- should not allow invalid width and height -->
-<img src="foo.png" width="" height="">
-<img src="foo.png" width="foo" height="foo">
-<img src="foo.png" width="-1" height="-1">
-<img src="foo.png" width="1.5" height="1.5">
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -13382,459 +12641,7 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "size": 12,
       },
     ],
-    "source": "<!-- should not allow end tag -->
-<input type="text"></input>
-
-<!-- should not allow attributes -->
-<input type="text" autofocus="foobar">
-<input type="file" capture="foobar">
-<input type="checkbox" checked="foobar">
-<input type="text" disabled="foobar">
-<input type="file" multiple="foobar">
-<input type="text" readonly="foobar">
-<input type="text" required="foobar">
-<input type="text" inputmode="foobar">
-<input type="foobar">
-<input type="text" spellcheck="foobar">
-
-<!-- should not allow missing type -->
-<input>
-
-<!-- should be interactive when type isn't hidden -->
-<button type="button">
-	foo
-	<input type="text">
-</button>
-
-<!-- type="image" requires alt text -->
-<input type="image">
-
-<!-- attributes with restrictions based on type -->
-<div id="attribute-restriction">
-	<input type="hidden" accept="image/jpeg">
-	<input type="text" accept="image/jpeg">
-	<input type="search" accept="image/jpeg">
-	<input type="url" accept="image/jpeg">
-	<input type="tel" accept="image/jpeg">
-	<input type="email" accept="image/jpeg">
-	<input type="password" accept="image/jpeg">
-	<input type="date" accept="image/jpeg">
-	<input type="month" accept="image/jpeg">
-	<input type="week" accept="image/jpeg">
-	<input type="time" accept="image/jpeg">
-	<input type="datetime-local" accept="image/jpeg">
-	<input type="number" accept="image/jpeg">
-	<input type="range" accept="image/jpeg">
-	<input type="color" accept="image/jpeg">
-	<input type="checkbox" accept="image/jpeg">
-	<input type="radio" accept="image/jpeg">
-	<input type="submit" accept="image/jpeg">
-	<input type="image" accept="image/jpeg" alt="lorem ipsum">
-	<input type="reset" accept="image/jpeg">
-	<input type="hidden" alt="lorem ipsum">
-	<input type="text" alt="lorem ipsum">
-	<input type="search" alt="lorem ipsum">
-	<input type="url" alt="lorem ipsum">
-	<input type="tel" alt="lorem ipsum">
-	<input type="email" alt="lorem ipsum">
-	<input type="password" alt="lorem ipsum">
-	<input type="date" alt="lorem ipsum">
-	<input type="month" alt="lorem ipsum">
-	<input type="week" alt="lorem ipsum">
-	<input type="time" alt="lorem ipsum">
-	<input type="datetime-local" alt="lorem ipsum">
-	<input type="number" alt="lorem ipsum">
-	<input type="range" alt="lorem ipsum">
-	<input type="color" alt="lorem ipsum">
-	<input type="checkbox" alt="lorem ipsum">
-	<input type="radio" alt="lorem ipsum">
-	<input type="file" alt="lorem ipsum">
-	<input type="submit" alt="lorem ipsum">
-	<input type="reset" alt="lorem ipsum">
-	<input type="checkbox" autocomplete="on">
-	<input type="radio" autocomplete="on">
-	<input type="file" autocomplete="on">
-	<input type="submit" autocomplete="on">
-	<input type="image" autocomplete="on" alt="lorem ipsum">
-	<input type="reset" autocomplete="on">
-	<input type="hidden" capture>
-	<input type="text" capture>
-	<input type="search" capture>
-	<input type="url" capture>
-	<input type="tel" capture>
-	<input type="email" capture>
-	<input type="password" capture>
-	<input type="date" capture>
-	<input type="month" capture>
-	<input type="week" capture>
-	<input type="time" capture>
-	<input type="datetime-local" capture>
-	<input type="number" capture>
-	<input type="range" capture>
-	<input type="color" capture>
-	<input type="checkbox" capture>
-	<input type="radio" capture>
-	<input type="submit" capture>
-	<input type="image" capture alt="lorem ipsum">
-	<input type="reset" capture>
-	<input type="hidden" checked>
-	<input type="text" checked>
-	<input type="search" checked>
-	<input type="url" checked>
-	<input type="tel" checked>
-	<input type="email" checked>
-	<input type="password" checked>
-	<input type="date" checked>
-	<input type="month" checked>
-	<input type="week" checked>
-	<input type="time" checked>
-	<input type="datetime-local" checked>
-	<input type="number" checked>
-	<input type="range" checked>
-	<input type="color" checked>
-	<input type="file" checked>
-	<input type="submit" checked>
-	<input type="image" checked alt="lorem ipsum">
-	<input type="reset" checked>
-	<input type="password" dirname="myname">
-	<input type="date" dirname="myname">
-	<input type="month" dirname="myname">
-	<input type="week" dirname="myname">
-	<input type="time" dirname="myname">
-	<input type="datetime-local" dirname="myname">
-	<input type="number" dirname="myname">
-	<input type="range" dirname="myname">
-	<input type="color" dirname="myname">
-	<input type="checkbox" dirname="myname">
-	<input type="radio" dirname="myname">
-	<input type="file" dirname="myname">
-	<input type="submit" dirname="myname">
-	<input type="image" dirname="myname" alt="lorem ipsum">
-	<input type="reset" dirname="myname">
-	<input type="hidden" formaction="/myaction">
-	<input type="text" formaction="/myaction">
-	<input type="search" formaction="/myaction">
-	<input type="url" formaction="/myaction">
-	<input type="tel" formaction="/myaction">
-	<input type="email" formaction="/myaction">
-	<input type="password" formaction="/myaction">
-	<input type="date" formaction="/myaction">
-	<input type="month" formaction="/myaction">
-	<input type="week" formaction="/myaction">
-	<input type="time" formaction="/myaction">
-	<input type="datetime-local" formaction="/myaction">
-	<input type="number" formaction="/myaction">
-	<input type="range" formaction="/myaction">
-	<input type="color" formaction="/myaction">
-	<input type="checkbox" formaction="/myaction">
-	<input type="radio" formaction="/myaction">
-	<input type="file" formaction="/myaction">
-	<input type="reset" formaction="/myaction">
-	<input type="hidden" formenctype>
-	<input type="text" formenctype>
-	<input type="search" formenctype>
-	<input type="url" formenctype>
-	<input type="tel" formenctype>
-	<input type="email" formenctype>
-	<input type="password" formenctype>
-	<input type="date" formenctype>
-	<input type="month" formenctype>
-	<input type="week" formenctype>
-	<input type="time" formenctype>
-	<input type="datetime-local" formenctype>
-	<input type="number" formenctype>
-	<input type="range" formenctype>
-	<input type="color" formenctype>
-	<input type="checkbox" formenctype>
-	<input type="radio" formenctype>
-	<input type="file" formenctype>
-	<input type="reset" formenctype>
-	<input type="hidden" formmethod="post">
-	<input type="text" formmethod="post">
-	<input type="search" formmethod="post">
-	<input type="url" formmethod="post">
-	<input type="tel" formmethod="post">
-	<input type="email" formmethod="post">
-	<input type="password" formmethod="post">
-	<input type="date" formmethod="post">
-	<input type="month" formmethod="post">
-	<input type="week" formmethod="post">
-	<input type="time" formmethod="post">
-	<input type="datetime-local" formmethod="post">
-	<input type="number" formmethod="post">
-	<input type="range" formmethod="post">
-	<input type="color" formmethod="post">
-	<input type="checkbox" formmethod="post">
-	<input type="radio" formmethod="post">
-	<input type="file" formmethod="post">
-	<input type="reset" formmethod="post">
-	<input type="hidden" formnovalidate>
-	<input type="text" formnovalidate>
-	<input type="search" formnovalidate>
-	<input type="url" formnovalidate>
-	<input type="tel" formnovalidate>
-	<input type="email" formnovalidate>
-	<input type="password" formnovalidate>
-	<input type="date" formnovalidate>
-	<input type="month" formnovalidate>
-	<input type="week" formnovalidate>
-	<input type="time" formnovalidate>
-	<input type="datetime-local" formnovalidate>
-	<input type="number" formnovalidate>
-	<input type="range" formnovalidate>
-	<input type="color" formnovalidate>
-	<input type="checkbox" formnovalidate>
-	<input type="radio" formnovalidate>
-	<input type="file" formnovalidate>
-	<input type="reset" formnovalidate>
-	<input type="hidden" formtarget="mytarget">
-	<input type="text" formtarget="mytarget">
-	<input type="search" formtarget="mytarget">
-	<input type="url" formtarget="mytarget">
-	<input type="tel" formtarget="mytarget">
-	<input type="email" formtarget="mytarget">
-	<input type="password" formtarget="mytarget">
-	<input type="date" formtarget="mytarget">
-	<input type="month" formtarget="mytarget">
-	<input type="week" formtarget="mytarget">
-	<input type="time" formtarget="mytarget">
-	<input type="datetime-local" formtarget="mytarget">
-	<input type="number" formtarget="mytarget">
-	<input type="range" formtarget="mytarget">
-	<input type="color" formtarget="mytarget">
-	<input type="checkbox" formtarget="mytarget">
-	<input type="radio" formtarget="mytarget">
-	<input type="file" formtarget="mytarget">
-	<input type="reset" formtarget="mytarget">
-	<input type="hidden" height="512">
-	<input type="text" height="512">
-	<input type="search" height="512">
-	<input type="url" height="512">
-	<input type="tel" height="512">
-	<input type="email" height="512">
-	<input type="password" height="512">
-	<input type="date" height="512">
-	<input type="month" height="512">
-	<input type="week" height="512">
-	<input type="time" height="512">
-	<input type="datetime-local" height="512">
-	<input type="number" height="512">
-	<input type="range" height="512">
-	<input type="color" height="512">
-	<input type="checkbox" height="512">
-	<input type="radio" height="512">
-	<input type="file" height="512">
-	<input type="submit" height="512">
-	<input type="reset" height="512">
-	<input type="hidden" list="mylist">
-	<input type="password" list="mylist">
-	<input type="checkbox" list="mylist">
-	<input type="radio" list="mylist">
-	<input type="file" list="mylist">
-	<input type="submit" list="mylist">
-	<input type="image" list="mylist" alt="lorem ipsum">
-	<input type="reset" list="mylist">
-	<input type="hidden" max="100">
-	<input type="text" max="100">
-	<input type="search" max="100">
-	<input type="url" max="100">
-	<input type="tel" max="100">
-	<input type="email" max="100">
-	<input type="password" max="100">
-	<input type="color" max="100">
-	<input type="checkbox" max="100">
-	<input type="radio" max="100">
-	<input type="file" max="100">
-	<input type="submit" max="100">
-	<input type="image" max="100" alt="lorem ipsum">
-	<input type="reset" max="100">
-	<input type="hidden" maxlength="10">
-	<input type="date" maxlength="10">
-	<input type="month" maxlength="10">
-	<input type="week" maxlength="10">
-	<input type="time" maxlength="10">
-	<input type="datetime-local" maxlength="10">
-	<input type="number" maxlength="10">
-	<input type="range" maxlength="10">
-	<input type="color" maxlength="10">
-	<input type="checkbox" maxlength="10">
-	<input type="radio" maxlength="10">
-	<input type="file" maxlength="10">
-	<input type="submit" maxlength="10">
-	<input type="image" maxlength="10" alt="lorem ipsum">
-	<input type="reset" maxlength="10">
-	<input type="hidden" min="0">
-	<input type="text" min="0">
-	<input type="search" min="0">
-	<input type="url" min="0">
-	<input type="tel" min="0">
-	<input type="email" min="0">
-	<input type="password" min="0">
-	<input type="color" min="0">
-	<input type="checkbox" min="0">
-	<input type="radio" min="0">
-	<input type="file" min="0">
-	<input type="submit" min="0">
-	<input type="image" min="0" alt="lorem ipsum">
-	<input type="reset" min="0">
-	<input type="hidden" minlength="3">
-	<input type="date" minlength="3">
-	<input type="month" minlength="3">
-	<input type="week" minlength="3">
-	<input type="time" minlength="3">
-	<input type="datetime-local" minlength="3">
-	<input type="number" minlength="3">
-	<input type="range" minlength="3">
-	<input type="color" minlength="3">
-	<input type="checkbox" minlength="3">
-	<input type="radio" minlength="3">
-	<input type="file" minlength="3">
-	<input type="submit" minlength="3">
-	<input type="image" minlength="3" alt="lorem ipsum">
-	<input type="reset" minlength="3">
-	<input type="hidden" multiple>
-	<input type="text" multiple>
-	<input type="search" multiple>
-	<input type="url" multiple>
-	<input type="tel" multiple>
-	<input type="password" multiple>
-	<input type="date" multiple>
-	<input type="month" multiple>
-	<input type="week" multiple>
-	<input type="time" multiple>
-	<input type="datetime-local" multiple>
-	<input type="number" multiple>
-	<input type="range" multiple>
-	<input type="color" multiple>
-	<input type="checkbox" multiple>
-	<input type="radio" multiple>
-	<input type="submit" multiple>
-	<input type="image" multiple alt="lorem ipsum">
-	<input type="reset" multiple>
-	<input type="hidden" pattern="foo">
-	<input type="date" pattern="foo">
-	<input type="month" pattern="foo">
-	<input type="week" pattern="foo">
-	<input type="time" pattern="foo">
-	<input type="datetime-local" pattern="foo">
-	<input type="number" pattern="foo">
-	<input type="range" pattern="foo">
-	<input type="color" pattern="foo">
-	<input type="checkbox" pattern="foo">
-	<input type="radio" pattern="foo">
-	<input type="file" pattern="foo">
-	<input type="submit" pattern="foo">
-	<input type="image" pattern="foo" alt="lorem ipsum">
-	<input type="reset" pattern="foo">
-	<input type="hidden" placeholder="foobar">
-	<input type="date" placeholder="foobar">
-	<input type="month" placeholder="foobar">
-	<input type="week" placeholder="foobar">
-	<input type="time" placeholder="foobar">
-	<input type="datetime-local" placeholder="foobar">
-	<input type="range" placeholder="foobar">
-	<input type="color" placeholder="foobar">
-	<input type="checkbox" placeholder="foobar">
-	<input type="radio" placeholder="foobar">
-	<input type="file" placeholder="foobar">
-	<input type="submit" placeholder="foobar">
-	<input type="image" placeholder="foobar" alt="lorem ipsum">
-	<input type="reset" placeholder="foobar">
-	<input type="hidden" readonly>
-	<input type="range" readonly>
-	<input type="color" readonly>
-	<input type="checkbox" readonly>
-	<input type="radio" readonly>
-	<input type="file" readonly>
-	<input type="submit" readonly>
-	<input type="image" readonly alt="lorem ipsum">
-	<input type="reset" readonly>
-	<input type="hidden" required>
-	<input type="range" required>
-	<input type="color" required>
-	<input type="submit" required>
-	<input type="image" required alt="lorem ipsum">
-	<input type="reset" required>
-	<input type="hidden" size="10">
-	<input type="date" size="10">
-	<input type="month" size="10">
-	<input type="week" size="10">
-	<input type="time" size="10">
-	<input type="datetime-local" size="10">
-	<input type="number" size="10">
-	<input type="range" size="10">
-	<input type="color" size="10">
-	<input type="checkbox" size="10">
-	<input type="radio" size="10">
-	<input type="file" size="10">
-	<input type="submit" size="10">
-	<input type="image" size="10" alt="lorem ipsum">
-	<input type="reset" size="10">
-	<input type="hidden" src="myimage.jpg">
-	<input type="text" src="myimage.jpg">
-	<input type="search" src="myimage.jpg">
-	<input type="url" src="myimage.jpg">
-	<input type="tel" src="myimage.jpg">
-	<input type="email" src="myimage.jpg">
-	<input type="password" src="myimage.jpg">
-	<input type="date" src="myimage.jpg">
-	<input type="month" src="myimage.jpg">
-	<input type="week" src="myimage.jpg">
-	<input type="time" src="myimage.jpg">
-	<input type="datetime-local" src="myimage.jpg">
-	<input type="number" src="myimage.jpg">
-	<input type="range" src="myimage.jpg">
-	<input type="color" src="myimage.jpg">
-	<input type="checkbox" src="myimage.jpg">
-	<input type="radio" src="myimage.jpg">
-	<input type="file" src="myimage.jpg">
-	<input type="submit" src="myimage.jpg">
-	<input type="reset" src="myimage.jpg">
-	<input type="hidden" step="5">
-	<input type="text" step="5">
-	<input type="search" step="5">
-	<input type="url" step="5">
-	<input type="tel" step="5">
-	<input type="email" step="5">
-	<input type="password" step="5">
-	<input type="color" step="5">
-	<input type="checkbox" step="5">
-	<input type="radio" step="5">
-	<input type="file" step="5">
-	<input type="submit" step="5">
-	<input type="image" step="5" alt="lorem ipsum">
-	<input type="reset" step="5">
-	<input type="hidden" width="512">
-	<input type="text" width="512">
-	<input type="search" width="512">
-	<input type="url" width="512">
-	<input type="tel" width="512">
-	<input type="email" width="512">
-	<input type="password" width="512">
-	<input type="date" width="512">
-	<input type="month" width="512">
-	<input type="week" width="512">
-	<input type="time" width="512">
-	<input type="datetime-local" width="512">
-	<input type="number" width="512">
-	<input type="range" width="512">
-	<input type="color" width="512">
-	<input type="checkbox" width="512">
-	<input type="radio" width="512">
-	<input type="file" width="512">
-	<input type="submit" width="512">
-	<input type="reset" width="512">
-</div>
-
-<!-- should not be allowed if type isn't submit or image -->
-<div id="invalid-form-overrides">
-	<input type="text" formaction formenctype formmethod="post" formnovalidate formtarget="_blank">
-</div>
-
-<!-- should not allow label to reference hidden input -->
-<label for="hidden-field">Lorem ipsum</label>
-<input type="hidden" id="hidden-field">
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -13865,9 +12672,7 @@ exports[`HTML elements <ins> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should be transparent -->
-<span><ins><div>foo</div></ins></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -13897,9 +12702,7 @@ exports[`HTML elements <isindex> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<isindex></isindex>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -13930,9 +12733,7 @@ exports[`HTML elements <kbd> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<kbd><div>foo</div></kbd>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -13973,9 +12774,7 @@ exports[`HTML elements <keygen> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<keygen></keygen>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -14123,51 +12922,7 @@ exports[`HTML elements <label> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow -->
-<label>
-	<div>foo</div>
-</label>
-
-<!-- should not allow nesting -->
-<label>
-	<label>foo</label>
-</label>
-
-<!-- should not allow multiple controls -->
-<label>
-	<button type="button">foo</button>
-	<button type="button">bar</button>
-</label>
-<label>
-	<input type="text">
-	<input type="text">
-</label>
-<label>
-	<meter></meter>
-	<meter></meter>
-</label>
-<label>
-	<output></output>
-	<output></output>
-</label>
-<label>
-	<progress></progress>
-	<progress></progress>
-</label>
-<label>
-	<select></select>
-	<select></select>
-</label>
-<label>
-	<textarea></textarea>
-	<textarea></textarea>
-</label>
-
-<!-- should not allow empty for -->
-<label for="">
-	lorem ipsum
-</label>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -14214,18 +12969,7 @@ exports[`HTML elements <legend> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow under other elements -->
-<div>
-	<legend>foo</legend>
-</div>
-
-<!-- should not allow flow -->
-<fieldset>
-	<legend>
-		<div>foo</div>
-	</legend>
-</fieldset>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -14277,11 +13021,7 @@ exports[`HTML elements <li> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should require <ul>, <ol> or <menu> -->
-<div>
-	<li>foo</li>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -14966,81 +13706,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<html lang="en">
-	<head>
-		<title>link element</title>
-
-		<!-- should not allow end tag -->
-		<link href="my-url" ></link>
-
-		<!-- href should not be omitted or empty -->
-		<link>
-		<link href="">
-
-		<!-- should not allow "as" if "rel" is something other than "preload" or "modulepreload" -->
-		<link href="my-url" rel="foobar" as="script">
-
-		<!-- should now allow "as" with invalid values  -->
-		<link href="my-url" rel="preload" as="foobar">
-
-		<!-- "integrity" attribute should not be empty -->
-		<link href="my-url" rel="stylesheet" integrity>
-		<link href="my-url" rel="stylesheet" integrity="">
-
-		<!-- should not allow "integrity" if "rel" is something other than "stylesheet", "preload" or "modulepreload" -->
-		<link href="my-url" rel="foobar" integrity="sha384-...">
-
-		<!-- should not allow "blocking" with invalid value -->
-		<link href="my-url" rel="stylesheet" blocking="foobar">
-
-		<!-- should not allow "blocking" if "rel" is something other than "expect" and "stylesheet" -->
-		<link href="my-url" rel="foobar" blocking="render">
-		<link href="my-url" rel="preload" blocking="render">
-		<link href="my-url" rel="modulepreload" blocking="render">
-
-		<!-- should not allow "disabled" with invalid value -->
-		<link href="my-url" rel="stylesheet" disabled="foobar">
-
-		<!-- should not allow "disable" if "rel" is something other than "stylesheet" -->
-		<link href="my-url" rel="script" disabled>
-
-		<!-- should not allow omitted or invalid referrerpolicy -->
-		<link href="my-url" referrerpolicy>
-		<link href="my-url" referrerpolicy="invalid">
-
-		<!-- disallowed rel keywords -->
-		<link href="my-url" rel="bookmark">
-		<link href="my-url" rel="external">
-		<link href="my-url" rel="nofollow">
-		<link href="my-url" rel="noopener">
-		<link href="my-url" rel="noreferrer">
-		<link href="my-url" rel="opener">
-		<link href="my-url" rel="tag">
-		<link href="my-url" rel="disclosure">
-		<link href="my-url" rel="entry-content">
-		<link href="my-url" rel="lightbox">
-		<link href="my-url" rel="lightvideo">
-
-		<!-- should handle disallowed keywords in a list of many -->
-		<link href="my-url" rel="alternate external canonical">
-
-		<!-- should require imagesizes when imagesrcset uses width descriptors -->
-		<link rel="preload" as="image" imagesrcset="foo.png 400w, bar.png 800w">
-
-		<!-- imagesrcset and imagesizes requires rel="preload" and as="image" -->
-		<link imagesrcset="" imagesizes="">
-		<link rel="prefetch" as="image" imagesrcset="" imagesizes="">
-		<link rel="preload" as="fetch" imagesrcset="" imagesizes="">
-	</head>
-	<body>
-
-		<!-- should not be allowed without itemprop or body ok rel attribute -->
-		<link href="my-url">
-		<link href="my-url" rel="alternate">
-
-	</body>
-</html>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15070,9 +13736,7 @@ exports[`HTML elements <listing> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<listing></listing>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15165,17 +13829,7 @@ exports[`HTML elements <map> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- missing name -->
-<map></map>
-<map name=""></map>
-
-<!-- name cannot contain whitespace -->
-<map name="foo bar"></map>
-
-<!-- duplicate name -->
-<map name="foo"></map>
-<map name="foo"></map>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15206,9 +13860,7 @@ exports[`HTML elements <mark> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<mark><div>foo</div></mark>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15239,9 +13891,7 @@ exports[`HTML elements <marquee> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<marquee></marquee>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15394,14 +14044,7 @@ exports[`HTML elements <math> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- disallowed attributes -->
-<math dir></math>
-<math dir="foobar"></math>
-<math display></math>
-<math display="foobar"></math>
-<math overflow></math>
-<math overflow="foobar"></math>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15432,11 +14075,7 @@ exports[`HTML elements <menu> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow other content -->
-<menu>
-	<div>foo</div>
-</menu>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15612,34 +14251,7 @@ exports[`HTML elements <meta> invalid markup 1`] = `
         "size": 10,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<meta></meta>
-
-<!-- should not be allowed where flow content is expected unless itemprop is set -->
-<div>
-	<meta>
-	<video>
-		<meta>
-	</video>
-</div>
-
-<!-- should not be allowed where phrasing content is expected unless itemprop is set -->
-<span>
-	<meta>
-	<audio>
-		<meta>
-	</audio>
-</span>
-
-<!-- should not allow "content" if neither of "name", "http-equiv" or "itemprop" is present -->
-<meta content="...">
-
-<!-- should not combine "name", "http-equiv" and "itemprop" -->
-<meta content="..." name http-equiv itemprop>
-
-<!-- should not allow other than utf-8 -->
-<meta charset="iso-8859-1">
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15686,16 +14298,7 @@ exports[`HTML elements <meter> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should not allow flow -->
-<meter>
-	<div>foo</div>
-</meter>
-
-<!-- should not allow nesting -->
-<meter>
-	<meter></meter>
-</meter>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15727,9 +14330,7 @@ exports[`HTML elements <multicol> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<multicol></multicol>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15760,11 +14361,7 @@ exports[`HTML elements <nav> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should not allow <main> as descendant (HTML 5.0) -->
-<nav>
-	<main>bar</main>
-</nav>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15794,9 +14391,7 @@ exports[`HTML elements <nextid> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<nextid></nextid>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15828,9 +14423,7 @@ exports[`HTML elements <nobr> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<nobr></nobr>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15860,9 +14453,7 @@ exports[`HTML elements <noembed> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<noembed></noembed>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15892,9 +14483,7 @@ exports[`HTML elements <noframes> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<noframes></noframes>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -15925,11 +14514,7 @@ exports[`HTML elements <noscript> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not allow nesting -->
-<noscript>
-	<noscript></noscript>
-</noscript>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16218,35 +14803,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should be transparent -->
-<span>
-	<object data="resource">
-		<div>foo</div>
-	</object>
-</span>
-
-<!-- invalid data attribute -->
-<object></object>
-<object data=""></object>
-
-<!-- should not allow flow before <param> -->
-<object data="resource">
-	<div></div>
-	<param>
-</object>
-
-<!-- should be interactive if usemap is set -->
-<button type="button">
-	foo
-	<object data="resource" usemap></object>
-</button>
-
-<!-- should not allow invalid width and height -->
-<object data="resource" width="" height=""></object>
-<object data="resource" width="foo" height="foo"></object>
-<object data="resource" width="-1" height="-1"></object>
-<object data="resource" width="1.5" height="1.5"></object>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16277,11 +14834,7 @@ exports[`HTML elements <ol> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow other content -->
-<ol>
-	<div>foo</div>
-</ol>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16312,13 +14865,7 @@ exports[`HTML elements <optgroup> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow other content -->
-<select>
-	<optgroup>
-		<div>foo</div>
-	</optgroup>
-</select>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16349,11 +14896,7 @@ exports[`HTML elements <option> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<option>foo</option>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16384,11 +14927,7 @@ exports[`HTML elements <output> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow -->
-<output>
-	<div>foo</div>
-</output>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16419,11 +14958,7 @@ exports[`HTML elements <p> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- should not allow non-phrasing content -->
-<p>
-	<summary>foo</summary>
-</p>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16466,14 +15001,7 @@ exports[`HTML elements <param> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<param></param>
-
-<!-- should not be allowed under other elements -->
-<div>
-	<param>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16515,17 +15043,7 @@ exports[`HTML elements <picture> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- wrong order -->
-<picture>
-  <img src="small.png" alt="smaller image">
-  <source srcset="large.png" media="(min-width: 1024x)">
-</picture>
-
-<!-- disallowed elements -->
-<picture>
-	<div>foo</div>
-</picture>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16557,9 +15075,7 @@ exports[`HTML elements <plaintext> invalid markup 1`] = `
         "size": 9,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<plaintext></plaintext>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16590,11 +15106,7 @@ exports[`HTML elements <pre> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<pre>
-	<div>foo</div>
-</pre>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16641,16 +15153,7 @@ exports[`HTML elements <progress> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<progress>
-	<div>foo</div>
-</progress>
-
-<!-- should not allow nesting -->
-<progress>
-	<progress></progress>
-</progress>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16681,9 +15184,7 @@ exports[`HTML elements <q> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<q><div>foo</div></q>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16730,18 +15231,7 @@ exports[`HTML elements <rb> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<rb></rb>
-</div>
-
-<!-- should not allow flow content -->
-<ruby>
-	<rb>
-		<div>foo</div>
-	</rb>
-</ruby>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16788,18 +15278,7 @@ exports[`HTML elements <rp> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<rp></rp>
-</div>
-
-<!-- should not allow flow content -->
-<ruby>
-	<rp>
-		<div>foo</div>
-	</rp>
-</ruby>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16846,18 +15325,7 @@ exports[`HTML elements <rt> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<rt></rt>
-</div>
-
-<!-- should not allow flow content -->
-<ruby>
-	<rt>
-		<div>foo</div>
-	</rt>
-</ruby>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16904,18 +15372,7 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not be allowed under other content -->
-<div>
-	<rtc></rtc>
-</div>
-
-<!-- should not allow flow content -->
-<ruby>
-	<rtc>
-		<div>foo</div>
-	</rtc>
-</ruby>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16946,9 +15403,7 @@ exports[`HTML elements <ruby> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<ruby><div>foo</div></ruby>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -16979,9 +15434,7 @@ exports[`HTML elements <s> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<s><div>foo</div></s>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17012,9 +15465,7 @@ exports[`HTML elements <samp> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<samp><div>foo</div></samp>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17275,36 +15726,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- src attribute cannot be empty -->
-<script src=""></script>
-
-<!-- type attribute should be omitted when empty or js -->
-<script type=""></script>
-<script type="text/javascript"></script>
-
-<!-- deprecated attribute -->
-<script language="vbscript"></script>
-
-<!-- must not omit end tag in any way, because the way the scripttag is tokenized both according to spec and this tool it must explicitly be ended with </>. Dragons ahead if not obeyed -->
-<script/>
-
-<!-- should not allow invalid blocking tokens -->
-<script blocking="invalid"></script>
-
-<!-- should not allow invalid fetchpriority attribute -->
-<script fetchpriority="invalid"></script>
-
-<!-- integrity attribute should not be empty -->
-<script src="script.js" integrity></script>
-<script src="script.js" integrity=""></script>
-
-<!-- integrity attribute must not be specified without src -->
-<script integrity="sha384-..."></script>
-
-<!-- should not allow omitted or invalid referrerpolicy -->
-<script src="script.js" referrerpolicy></script>
-<script src="script.js" referrerpolicy="invalid"></script>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17335,10 +15757,7 @@ exports[`HTML elements <search> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<span>
-	<search></search>
-</span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17582,49 +16001,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "size": 1,
       },
     ],
-    "source": "<!-- should not allow arbitrary content -->
-<select>
-	<span>foo</span>
-	<div>bar</div>
-</select>
-
-<!-- should not allow negative size -->
-<select size="-1"></select>
-
-<!-- should not allow omitted/empty size -->
-<select size></select>
-<select size=""></select>
-
-<!-- should not allow text size -->
-<select size="foobar4u"></select>
-
-<!-- should only allow a single button -->
-<select>
-	<button><selectedcontent></selectedcontent></button>
-	<button><selectedcontent></selectedcontent></button>
-</select>
-
-<!-- should only allow button as first children -->
-<select>
-	<option>foo</option>
-	<button><selectedcontent></selectedcontent></button>
-</select>
-<select>
-	<hr>
-	<button><selectedcontent></selectedcontent></button>
-</select>
-
-<!-- should not allow these elements -->
-<select>
-	<option><datalist></datalist></option>
-	<option><object data="foo"></object></option>
-	<option><button type="submit">lorem ipsum</button></option>
-	<option><a href="">lorem ipsum</a></option>
-
-	<!-- this should yield an error but doesn't yet -->
-	<option><span tabindex="0"></span></option>
-</select>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17722,25 +16099,7 @@ exports[`HTML elements <selectedcontent> invalid markup 1`] = `
         "size": 15,
       },
     ],
-    "source": "<!-- [html-validate-disable no-implicit-button-type -- button elements are not under test here] -->
-
-<!-- should not be allowed under arbitrary content -->
-<div>
-	<selectedcontent></selectedcontent>
-</div>
-
-<!-- should both a <button> and <select> ancestor -->
-<div>
-	<button>
-		<selectedcontent></selectedcontent>
-	</button>
-</div>
-<div>
-	<select>
-		<selectedcontent></selectedcontent>
-	</select>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17771,14 +16130,7 @@ exports[`HTML elements <slot> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- should be transparent -->
-<button type="button">
-	<slot>
-		foo
-		<input type="text">
-	</slot>
-</button>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -17809,9 +16161,7 @@ exports[`HTML elements <small> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<small><div>foo</div></small>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18190,37 +16540,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
         "size": 7,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<audio>
-	<source></source>
-</audio>
-
-<!-- should not be allowed under other content -->
-<div>
-	<source>
-</div>
-
-<!-- attributes should not be allowed under <audio> and <video> -->
-<audio>
-	<source srcset=".." sizes=".." width="123" height="123">
-</audio>
-<video>
-	<source srcset=".." sizes=".." width="123" height="123">
-</video>
-
-<!-- attributes should not be allowed under <picture> -->
-<picture>
-	<source src="..">
-</picture>
-
-<!-- width/height should only be non-negative integers -->
-<picture>
-	<source width="" height="">
-	<source width="-123" height="-123">
-	<source width="12.34" height="12.34">
-	<source width="invalid" height="invalid">
-</picture>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18252,9 +16572,7 @@ exports[`HTML elements <spacer> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<spacer></spacer>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18285,9 +16603,7 @@ exports[`HTML elements <span> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<span><div>foo</div></span>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18319,9 +16635,7 @@ exports[`HTML elements <strike> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<strike></strike>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18352,9 +16666,7 @@ exports[`HTML elements <strong> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<strong><div>foo</div></strong>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18389,9 +16701,7 @@ exports[`HTML elements <sub> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<sub><div>foo</div></sub>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18438,18 +16748,7 @@ exports[`HTML elements <summary> invalid markup 1`] = `
         "size": 1,
       },
     ],
-    "source": "<!-- should not allow under arbitrary content -->
-<div>
-	<summary>lorem ipsum</summary>
-</div>
-
-<!-- should not allow flow content -->
-<details>
-	<summary>
-		<p>lorem ipsum</p>
-	</summary>
-</details>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18480,9 +16779,7 @@ exports[`HTML elements <sup> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<sup><div>foo</div></sup>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18516,9 +16813,7 @@ exports[`HTML elements <svg> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- requires focusable attribute -->
-<svg></svg>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18642,45 +16937,7 @@ exports[`HTML elements <table> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow other content -->
-<table>
-	<span>foo</span>
-	<div>bar</div>
-</table>
-
-<!-- should not allow multiple -->
-<table>
-	<caption>foo</caption>
-	<caption>bar</caption>
-</table>
-<table>
-	<thead></thead>
-	<thead></thead>
-</table>
-<table>
-	<tfoot></tfoot>
-	<tfoot></tfoot>
-</table>
-
-<!-- should not allow elements out-of-order -->
-<table>
-	<thead></thead>
-	<caption>foo</caption>
-</table>
-<table>
-	<tbody></tbody>
-	<thead></thead>
-</table>
-<table>
-	<tfoot></tfoot>
-	<tbody></tbody>
-</table>
-
-<!-- should prefer to wrap <tr> in <tbody> -->
-<table>
-	<tr></tr>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18743,19 +17000,7 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allowed outside <table> -->
-<div>
-	<tbody></tbody>
-</div>
-
-<!-- should not allow other content -->
-<table>
-	<tbody>
-		<span>foo</span>
-		<div>bar</div>
-	</tbody>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -18962,27 +17207,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not be allowed outside <tr> -->
-<div>
-	<td>foo</td>
-</div>
-
-<table>
-	<tbody>
-		<tr>
-			<!-- should not allow negative colspan/rowspan -->
-			<td colspan="-1" rowspan="-1"></td>
-
-			<!-- should not allow omitted/empty colspan/rowspan -->
-			<td colspan rowspan></td>
-			<td colspan="" rowspan=""></td>
-
-			<!-- should not allow text colspan/rowspan -->
-			<td colspan="foobar4u" rowspan="foobar4u"></td>
-		</tr>
-	</tbody>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -19418,24 +17643,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should not allow raw <> -->
-<textarea>
-	<span>
-</textarea>
-
-<!-- should not allow negative values -->
-<textarea cols="-1" maxlength="-1" minlength="-1" rows="-1"></textarea>
-
-<!-- should not allow omitted/empty values -->
-<textarea cols maxlength minlength rows></textarea>
-<textarea cols="" maxlength="" minlength="" rows=""></textarea>
-
-<!-- should not allow text values -->
-<textarea cols="foobar4u" maxlength="foobar4u" minlength="foobar4u" rows="foobar4u"></textarea>
-
-<!-- should not allow invalid spellcheck attribute -->
-<textarea spellcheck="foobar"></textarea>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -19498,19 +17706,7 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allowed outside <table> -->
-<div>
-	<tfoot></tfoot>
-</div>
-
-<!-- should not allow other content -->
-<table>
-	<tfoot>
-		<span>foo</span>
-		<div>bar</div>
-	</tfoot>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -19829,56 +18025,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
         "size": 8,
       },
     ],
-    "source": "<!-- should not be allowed outside <tr> -->
-<div>
-	<th>foo</th>
-</div>
-
-<!-- should not allow <header>, <footer>, sectioning or headings -->
-<table>
-	<tbody>
-		<tr>
-			<th>
-				<header></header>
-				<footer></footer>
-				<article></article>
-				<h1>Lorem ipsum</h1>
-			</th>
-		</tr>
-	</tbody>
-</table>
-
-<table>
-	<tbody>
-		<tr>
-			<!-- should require scope attribute -->
-			<th>foo</th>
-
-			<!-- should not allow auto as a keyword -->
-			<th scope="auto">bar</th>
-
-			<!-- invalid scope attribute -->
-			<th scope="foobar">bar</th>
-		</tr>
-	</tbody>
-</table>
-
-<table>
-	<tbody>
-		<tr>
-			<!-- should not allow negative colspan/rowspan -->
-			<th scope="col" colspan="-1" rowspan="-1"></th>
-
-			<!-- should not allow omitted/empty colspan/rowspan -->
-			<th scope="col" colspan rowspan></th>
-			<th scope="col" colspan="" rowspan=""></th>
-
-			<!-- should not allow text colspan/rowspan -->
-			<th scope="col" colspan="foobar4u" rowspan="foobar4u"></th>
-		</tr>
-	</tbody>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -19941,19 +18088,7 @@ exports[`HTML elements <thead> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allowed outside <table> -->
-<div>
-	<thead></thead>
-</div>
-
-<!-- should not allow other content -->
-<table>
-	<thead>
-		<span>foo</span>
-		<div>bar</div>
-	</thead>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -19984,9 +18119,7 @@ exports[`HTML elements <time> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<time><div>foo</div></time>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20068,24 +18201,7 @@ exports[`HTML elements <title> invalid markup 1`] = `
         "size": 5,
       },
     ],
-    "source": "<!-- title cannot be empty or whitespace only -->
-<head>
-	<title></title>
-</head>
-<head>
-	<title> </title>
-</head>
-
-<!-- title cannot be too long -->
-<head>
-	<title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>
-</head>
-
-<!-- should not be allowed outside <head> -->
-<div>
-	<title>foo</title>
-</div>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20120,18 +18236,7 @@ exports[`HTML elements <title> valid markup 1`] = `
         "size": 1,
       },
     ],
-    "source": "<!-- should be allowed under <head> -->
-<head>
-	<title>foo</title>
-</head>
-
-<!-- should allow nested markup (browsers render the literal markup as content) -->
-<head>
-	<title>
-		<span>foo</span>
-	</title>
-</head>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20187,21 +18292,7 @@ exports[`HTML elements <tr> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- should not allow arbitrary content -->
-<table>
-	<tbody>
-		<tr>
-			<span>foo</span>
-			<div>foo</div>
-		</tr>
-	</tbody>
-</table>
-
-<!-- should prefer nesting in tbody -->
-<table>
-	<tr></tr>
-</table>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20228,11 +18319,7 @@ exports[`HTML elements <track> invalid markup 1`] = `
         "size": 6,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<audio>
-	<track></track>
-</audio>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20263,9 +18350,7 @@ exports[`HTML elements <tt> invalid markup 1`] = `
         "size": 2,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<tt></tt>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20296,9 +18381,7 @@ exports[`HTML elements <u> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<u><div>foo</div></u>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20329,11 +18412,7 @@ exports[`HTML elements <ul> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow other content -->
-<ul>
-	<div>foo</div>
-</ul>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20364,9 +18443,7 @@ exports[`HTML elements <var> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow flow content -->
-<var><div>foo</div></var>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20698,43 +18775,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- should not allow <audio> or <video> descendant -->
-<video>
-	<audio></audio>
-	<video></video>
-</video>
-
-<!-- should be transparent -->
-<span><video><div>foo</div></video></span>
-
-<!-- should now allow children in wrong order -->
-<video>
-	<div>foo</div>
-	<source>
-</video>
-<video src="">
-	<div>foo</div>
-	<track>
-</video>
-
-<!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
-<button type="button">
-	Video:
-	<video controls="foo"></video>
-</button>
-
-<!-- should not allow preload attribute -->
-<video preload="foobar"></video>
-
-<!-- should not be allowed if src is omitted -->
-<video itemprop></video>
-
-<!-- should not allow invalid width and height -->
-<video width="" height=""></video>
-<video width="foo" height="foo"></video>
-<video width="-1" height="-1"></video>
-<video width="1.5" height="1.5"></video>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20761,9 +18802,7 @@ exports[`HTML elements <wbr> invalid markup 1`] = `
         "size": 4,
       },
     ],
-    "source": "<!-- should omit end tag -->
-<wbr></wbr>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
@@ -20794,9 +18833,7 @@ exports[`HTML elements <xmp> invalid markup 1`] = `
         "size": 3,
       },
     ],
-    "source": "<!-- element is deprecated -->
-<xmp></xmp>
-",
+    "source": "",
     "warningCount": 0,
   },
 ]
