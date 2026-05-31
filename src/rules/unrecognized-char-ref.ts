@@ -48,6 +48,7 @@ function isNumerical(entity: string): boolean {
  * @returns `true` if the match appears after a query or fragment delimiter
  */
 function isAfterQueryOrFragment(delimiterIndex: number, match: EntityMatch): boolean {
+	/* istanbul ignore next -- match.index is always set when using exec() */
 	const matchIndex = match.match.index ?? 0;
 	return delimiterIndex !== -1 && matchIndex > delimiterIndex;
 }

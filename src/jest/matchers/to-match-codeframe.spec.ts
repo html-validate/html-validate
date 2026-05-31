@@ -1,5 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
-import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
+import {
+	reportError,
+	reportErrorAsync,
+	reportOk,
+	reportOkAsync,
+	reportWarning,
+} from "./__fixtures__";
 import { toMatchCodeframe } from "./to-match-codeframe";
 
 expect.extend({
@@ -40,5 +46,10 @@ describe("toMatchCodeframe()", () => {
 	it("should handle hint", () => {
 		expect.assertions(1);
 		expect(reportOk()).toMatchCodeframe("foobar");
+	});
+
+	it("should match warning report", () => {
+		expect.assertions(1);
+		expect(reportWarning()).toMatchCodeframe();
 	});
 });

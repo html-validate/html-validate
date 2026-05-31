@@ -19,6 +19,8 @@ function* ancestors(node: HtmlElement | null): Generator<HtmlElement, void> {
 		yield ancestor;
 		ancestor = ancestor.parent;
 	}
+	/* istanbul ignore next: similar to above, this should normally be the root
+	 * element but again the typing include null */
 	if (ancestor) {
 		yield ancestor;
 	}
