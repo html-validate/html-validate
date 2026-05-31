@@ -5,7 +5,12 @@ import { HtmlValidate } from "../htmlvalidate";
 import "html-validate/jest";
 import { type MetaDataTable } from "../meta";
 import { type Parser } from "../parser";
-import metadata from "./html5";
+import metadata, {
+	validBrowsingContextName,
+	validId,
+	validNonEmptyString,
+	validPositiveInteger,
+} from "./html5";
 
 const fileDirectory = "test-files/elements";
 const tagNames = Object.keys(metadata).filter((it) => it !== "*");
@@ -69,6 +74,66 @@ let parser: Parser;
 
 beforeAll(async () => {
 	parser = await htmlvalidate.getParserFor(source);
+});
+
+describe("named regex patterns", () => {
+	describe("validId", () => {
+		it("should accept valid values", () => {
+			expect.assertions(2);
+			expect(validId.pattern.test("id")).toBeTruthy();
+			expect(validId.pattern.test("abc-123")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(2);
+			expect(validId.pattern.test("")).toBeFalsy();
+			expect(validId.pattern.test(" ")).toBeFalsy();
+		});
+	});
+
+	describe("validPositiveInteger", () => {
+		it("should accept valid values", () => {
+			expect.assertions(2);
+			expect(validPositiveInteger.pattern.test("1")).toBeTruthy();
+			expect(validPositiveInteger.pattern.test("42")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(3);
+			expect(validPositiveInteger.pattern.test("")).toBeFalsy();
+			expect(validPositiveInteger.pattern.test("-1")).toBeFalsy();
+			expect(validPositiveInteger.pattern.test("1.5")).toBeFalsy();
+		});
+	});
+
+	describe("validNonEmptyString", () => {
+		it("should accept valid values", () => {
+			expect.assertions(2);
+			expect(validNonEmptyString.pattern.test("x")).toBeTruthy();
+			expect(validNonEmptyString.pattern.test("hello world")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(1);
+			expect(validNonEmptyString.pattern.test("")).toBeFalsy();
+		});
+	});
+
+	describe("validBrowsingContextName", () => {
+		it("should accept valid values", () => {
+			expect.assertions(3);
+			expect(validBrowsingContextName.pattern.test("a")).toBeTruthy();
+			expect(validBrowsingContextName.pattern.test("main")).toBeTruthy();
+			expect(validBrowsingContextName.pattern.test("frame-1")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(3);
+			expect(validBrowsingContextName.pattern.test("")).toBeFalsy();
+			expect(validBrowsingContextName.pattern.test("_blank")).toBeFalsy();
+			expect(validBrowsingContextName.pattern.test("_self")).toBeFalsy();
+		});
+	});
 });
 
 describe("HTML elements", () => {

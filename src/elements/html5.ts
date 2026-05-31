@@ -1,4 +1,4 @@
-import { type MetaDataTable } from "../meta";
+import { type MetaAttributeNamedRegex, type MetaDataTable } from "../meta";
 import { metadataHelper } from "../meta/helper";
 import { type HtmlElementLike } from "../meta/html-element-like";
 import { parseImageCandidateString } from "../utils/parse-image-candidate-string";
@@ -11,7 +11,29 @@ const {
 	hasKeyword,
 } = metadataHelper;
 
-const validId = "/\\S+/";
+/** @internal */
+export const validId = {
+	name: "a valid id",
+	pattern: /^\S+$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
+export const validPositiveInteger = {
+	name: "a positive integer",
+	pattern: /^\d+$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
+export const validNonEmptyString = {
+	name: "a non-empty string",
+	pattern: /^.+$/,
+} satisfies MetaAttributeNamedRegex;
+
+/** @internal */
+export const validBrowsingContextName = {
+	name: "a browsing context name (non-empty string, must not start with `_`)",
+	pattern: /^[^_].*$/,
+} satisfies MetaAttributeNamedRegex;
 
 const ReferrerPolicy = [
 	"",
@@ -218,10 +240,10 @@ export default {
 			},
 			"xml:*": {},
 			xmlns: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			"xmlns:*": {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 		},
 	},
@@ -254,7 +276,7 @@ export default {
 			download: {
 				allowed: allowedIfAttributeIsPresent("href"),
 				omit: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			href: {
 				enum: ["/.*/"],
@@ -347,14 +369,14 @@ export default {
 					return null;
 				},
 				list: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			shape: {
 				deprecated: true,
 			},
 			target: {
 				allowed: allowedIfAttributeIsPresent("href"),
-				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
 			type: {
 				allowed: allowedIfAttributeIsPresent("href"),
@@ -546,7 +568,7 @@ export default {
 			},
 			target: {
 				allowed: allowedIfAttributeIsPresent("href"),
-				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
 		},
 		aria: {
@@ -798,7 +820,7 @@ export default {
 			},
 			formtarget: {
 				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
-				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
 			type: {
 				enum: ["submit", "reset", "button"],
@@ -874,7 +896,7 @@ export default {
 				deprecated: true,
 			},
 			span: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			valign: {
 				deprecated: true,
@@ -893,7 +915,7 @@ export default {
 		implicitClosed: ["colgroup", "caption", "thead", "tbody", "tfoot", "tr"],
 		attributes: {
 			span: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		permittedContent: ["col", "template"],
@@ -1044,17 +1066,17 @@ export default {
 		void: true,
 		attributes: {
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			src: {
 				required: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			title: {
 				required: true,
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 	},
@@ -1179,10 +1201,10 @@ export default {
 					return null;
 				},
 				list: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			target: {
-				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
 		},
 		aria: {
@@ -1432,7 +1454,7 @@ export default {
 				deprecated: true,
 			},
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			hspace: {
 				deprecated: true,
@@ -1450,7 +1472,7 @@ export default {
 				deprecated: true,
 			},
 			src: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			title: {
 				required: true,
@@ -1459,7 +1481,7 @@ export default {
 				deprecated: true,
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		permittedContent: [],
@@ -1494,7 +1516,7 @@ export default {
 				enum: ["sync", "async", "auto"],
 			},
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			hspace: {
 				deprecated: true,
@@ -1513,7 +1535,7 @@ export default {
 			},
 			src: {
 				required: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			srcset: {
 				enum: ["/[^]+/"],
@@ -1522,7 +1544,7 @@ export default {
 				deprecated: true,
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		aria: {
@@ -1641,10 +1663,10 @@ export default {
 				allowed: allowedIfAttributeHasValue("type", ["submit", "image"], {
 					defaultValue: "submit",
 				}),
-				enum: ["/[^_].*/", "_blank", "_self", "_parent", "_top"],
+				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			hspace: {
 				deprecated: true,
@@ -1660,22 +1682,22 @@ export default {
 				reference: "id",
 			},
 			max: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			maxlength: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			min: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			minlength: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			multiple: {
 				boolean: true,
 			},
 			name: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			pattern: {},
 			placeholder: {},
@@ -1693,10 +1715,10 @@ export default {
 				boolean: true,
 			},
 			size: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			src: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			step: {},
 			type: {
@@ -1733,7 +1755,7 @@ export default {
 				deprecated: true,
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		aria: {
@@ -1959,7 +1981,7 @@ export default {
 					}
 					return `{{ tagName }} is missing required "href" or "imagesrcset" attribute`;
 				},
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			imagesrcset: {
 				allowed(node) {
@@ -2010,7 +2032,7 @@ export default {
 			},
 			integrity: {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			methods: {
 				deprecated: true,
@@ -2048,7 +2070,7 @@ export default {
 					return null;
 				},
 				list: true,
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			target: {
 				deprecated: true,
@@ -2298,7 +2320,7 @@ export default {
 				deprecated: true,
 			},
 			data: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 				required: true,
 			},
 			datafld: {
@@ -2314,13 +2336,13 @@ export default {
 				deprecated: true,
 			},
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			hspace: {
 				deprecated: true,
 			},
 			name: {
-				enum: ["/[^_].*/"],
+				enum: [validBrowsingContextName],
 			},
 			standby: {
 				deprecated: true,
@@ -2329,7 +2351,7 @@ export default {
 				deprecated: true,
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		permittedContent: ["param", "@flow"],
@@ -2615,7 +2637,7 @@ export default {
 			},
 			integrity: {
 				allowed: allowedIfAttributeIsPresent("src"),
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			language: {
 				deprecated: true,
@@ -2627,7 +2649,7 @@ export default {
 				enum: ReferrerPolicy,
 			},
 			src: {
-				enum: ["/.+/"],
+				enum: [validNonEmptyString],
 			},
 			type: {},
 		},
@@ -2679,7 +2701,7 @@ export default {
 				boolean: true,
 			},
 			size: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		aria: {
@@ -2768,11 +2790,11 @@ export default {
 			},
 			width: {
 				allowed: allowedIfParentIsPresent("picture"),
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			height: {
 				allowed: allowedIfParentIsPresent("picture"),
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		aria: {
@@ -2983,7 +3005,7 @@ export default {
 				deprecated: true,
 			},
 			colspan: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			height: {
 				deprecated: true,
@@ -2992,7 +3014,7 @@ export default {
 				deprecated: true,
 			},
 			rowspan: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			scope: {
 				deprecated: true,
@@ -3049,7 +3071,7 @@ export default {
 				boolean: true,
 			},
 			cols: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			datafld: {
 				deprecated: true,
@@ -3061,10 +3083,10 @@ export default {
 				boolean: true,
 			},
 			maxlength: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			minlength: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			readonly: {
 				boolean: true,
@@ -3073,7 +3095,7 @@ export default {
 				boolean: true,
 			},
 			rows: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			wrap: {
 				enum: ["hard", "soft"],
@@ -3134,7 +3156,7 @@ export default {
 				deprecated: true,
 			},
 			colspan: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			height: {
 				deprecated: true,
@@ -3143,7 +3165,7 @@ export default {
 				deprecated: true,
 			},
 			rowspan: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			scope: {
 				enum: ["row", "col", "rowgroup", "colgroup"],
@@ -3317,7 +3339,7 @@ export default {
 				enum: ["anonymous", "use-credentials"],
 			},
 			height: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
@@ -3327,7 +3349,7 @@ export default {
 				enum: ["none", "metadata", "auto"],
 			},
 			width: {
-				enum: ["/\\d+/"],
+				enum: [validPositiveInteger],
 			},
 		},
 		permittedContent: ["@flow", "track", "source"],

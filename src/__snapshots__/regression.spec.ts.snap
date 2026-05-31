@@ -278,7 +278,7 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\S+$/",
+                "name": "a valid id",
                 "pattern": /\\^\\\\S\\+\\$/,
               },
             ],
@@ -317,7 +317,7 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\S+$/",
+                "name": "a valid id",
                 "pattern": /\\^\\\\S\\+\\$/,
               },
             ],

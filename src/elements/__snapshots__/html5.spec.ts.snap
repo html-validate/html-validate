@@ -116,7 +116,7 @@ exports[`HTML elements <a> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^[^_].*$/",
+                "name": "a browsing context name (non-empty string, must not start with \`_\`)",
                 "pattern": /\\^\\[\\^_\\]\\.\\*\\$/,
               },
               "_blank",
@@ -937,7 +937,7 @@ exports[`HTML elements <area> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^[^_].*$/",
+                "name": "a browsing context name (non-empty string, must not start with \`_\`)",
                 "pattern": /\\^\\[\\^_\\]\\.\\*\\$/,
               },
               "_blank",
@@ -2531,7 +2531,7 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^[^_].*$/",
+                "name": "a browsing context name (non-empty string, must not start with \`_\`)",
                 "pattern": /\\^\\[\\^_\\]\\.\\*\\$/,
               },
               "_blank",
@@ -2953,7 +2953,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -2977,7 +2977,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3001,7 +3001,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3025,7 +3025,7 @@ exports[`HTML elements <col> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3143,7 +3143,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3167,7 +3167,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3191,7 +3191,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3215,7 +3215,7 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -3962,7 +3962,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -3986,7 +3986,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4010,7 +4010,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4034,7 +4034,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4058,7 +4058,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4082,7 +4082,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4106,7 +4106,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4130,7 +4130,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4154,7 +4154,7 @@ exports[`HTML elements <embed> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -4571,7 +4571,7 @@ exports[`HTML elements <form> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^[^_].*$/",
+                "name": "a browsing context name (non-empty string, must not start with \`_\`)",
                 "pattern": /\\^\\[\\^_\\]\\.\\*\\$/,
               },
               "_blank",
@@ -5982,7 +5982,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -6064,7 +6064,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6088,7 +6088,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6112,7 +6112,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6136,7 +6136,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6160,7 +6160,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6184,7 +6184,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6208,7 +6208,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6232,7 +6232,7 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6301,7 +6301,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -6435,7 +6435,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6459,7 +6459,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6483,7 +6483,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6507,7 +6507,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6531,7 +6531,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6555,7 +6555,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6579,7 +6579,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -6603,7 +6603,7 @@ exports[`HTML elements <img> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -14104,7 +14104,7 @@ exports[`HTML elements <label> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\S+$/",
+                "name": "a valid id",
                 "pattern": /\\^\\\\S\\+\\$/,
               },
             ],
@@ -14328,7 +14328,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -14410,7 +14410,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -14434,7 +14434,7 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -15980,7 +15980,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -16031,7 +16031,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16055,7 +16055,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16079,7 +16079,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16103,7 +16103,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16127,7 +16127,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16151,7 +16151,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16175,7 +16175,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -16199,7 +16199,7 @@ exports[`HTML elements <object> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -17034,7 +17034,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -17158,7 +17158,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -17182,7 +17182,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],
@@ -17394,7 +17394,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -17418,7 +17418,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -17442,7 +17442,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -17466,7 +17466,7 @@ exports[`HTML elements <select> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18003,7 +18003,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18027,7 +18027,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18051,7 +18051,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18075,7 +18075,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18099,7 +18099,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18123,7 +18123,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18147,7 +18147,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18171,7 +18171,7 @@ exports[`HTML elements <source> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18775,7 +18775,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18799,7 +18799,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18823,7 +18823,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18847,7 +18847,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18871,7 +18871,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18895,7 +18895,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18919,7 +18919,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -18943,7 +18943,7 @@ exports[`HTML elements <td> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19017,7 +19017,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19041,7 +19041,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19065,7 +19065,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19089,7 +19089,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19113,7 +19113,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19137,7 +19137,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19161,7 +19161,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19185,7 +19185,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19209,7 +19209,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19233,7 +19233,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19257,7 +19257,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19281,7 +19281,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19305,7 +19305,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19329,7 +19329,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19353,7 +19353,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19377,7 +19377,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19642,7 +19642,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19666,7 +19666,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19690,7 +19690,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19714,7 +19714,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19738,7 +19738,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19762,7 +19762,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19786,7 +19786,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -19810,7 +19810,7 @@ exports[`HTML elements <th> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20511,7 +20511,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20535,7 +20535,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20559,7 +20559,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20583,7 +20583,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20607,7 +20607,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20631,7 +20631,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20655,7 +20655,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20679,7 +20679,7 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\d+$/",
+                "name": "a positive integer",
                 "pattern": /\\^\\\\d\\+\\$/,
               },
             ],
@@ -20943,7 +20943,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\S+$/",
+                "name": "a valid id",
                 "pattern": /\\^\\\\S\\+\\$/,
               },
             ],
@@ -20982,7 +20982,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^\\S+$/",
+                "name": "a valid id",
                 "pattern": /\\^\\\\S\\+\\$/,
               },
             ],
@@ -21432,7 +21432,7 @@ exports[`HTML elements global attributes invalid markup 1`] = `
           "allowed": {
             "enum": [
               {
-                "name": "/^.+$/",
+                "name": "a non-empty string",
                 "pattern": /\\^\\.\\+\\$/,
               },
             ],

@@ -14,6 +14,9 @@ const metadata: MetaDataTable = {
 				enum: ["/foo/i"],
 			},
 			"named-regex": {
+				enum: [{ name: "a positive integer", pattern: /^\d+$/ }],
+			},
+			"named-string": {
 				enum: [{ name: "a positive integer", pattern: "/\\d+/" }],
 			},
 		},
@@ -85,20 +88,30 @@ describe("rule attribute-allowed-values", () => {
 
 	it("should not report error when attribute value matches named regex", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <mock-element named-regex="42"></mock-element> `;
+		const markup = /* HTML */ ` <mock-element named-regex="42" named-string="42"></mock-element> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error when attribute value does not match named regex", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <mock-element named-regex="abc"></mock-element> `;
+		const markup = /* HTML */ `
+			<mock-element named-regex="invalid" named-string="invalid"></mock-element>
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
-			"error: Attribute "named-regex" has invalid value "abc" (attribute-allowed-values)
-			> 1 |  <mock-element named-regex="abc"></mock-element>
-			    |                             ^^^
+			"error: Attribute "named-regex" has invalid value "invalid" (attribute-allowed-values)
+			  1 |
+			> 2 | 			<mock-element named-regex="invalid" named-string="invalid"></mock-element>
+			    | 			                           ^^^^^^^
+			  3 |
+			Selector: mock-element
+			error: Attribute "named-string" has invalid value "invalid" (attribute-allowed-values)
+			  1 |
+			> 2 | 			<mock-element named-regex="invalid" named-string="invalid"></mock-element>
+			    | 			                                                  ^^^^^^^
+			  3 |
 			Selector: mock-element"
 		`);
 	});
@@ -215,7 +228,7 @@ describe("rule attribute-allowed-values", () => {
 			attribute: "foo",
 			value: "bar",
 			allowed: {
-				enum: ["spam", { name: "a positive integer", pattern: /\d+/ }],
+				enum: ["spam", { name: "a positive integer", pattern: /^\d+$/ }],
 			},
 		};
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
