@@ -20,7 +20,7 @@ it("should format pretty error", () => {
 
 		Either ensure you are running a supported NodeJS version:
 		  Current:  [..]
-		  Required: v22.17.0, v24.0.0 or later
+		  Required: v22.22.0, v24.8.0 or later
 		Or set NODE_OPTIONS="--experimental-import-meta-resolve"
 	`);
 });

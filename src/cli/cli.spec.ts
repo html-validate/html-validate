@@ -1,6 +1,8 @@
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { vol } from "memfs";
+import { FileSystemConfigLoader } from "../config/loaders/file-system";
+import { FlatConfigLoader } from "../flat-config";
 import { CLI } from "./cli";
 
 jest.mock("fs");
@@ -266,6 +268,39 @@ describe("CLI", () => {
 			await expect(() => cli.getConfig()).rejects.toThrowErrorMatchingInlineSnapshot(
 				`"Failed to read configuration from "missing-file.js""`,
 			);
+		});
+	});
+
+	describe("getLoader()", () => {
+		it("should use FlatConfigLoader when flat config file is found", async () => {
+			expect.assertions(1);
+			const spy = jest
+				.spyOn(FlatConfigLoader, "fromDirectory")
+				.mockReturnValueOnce(new FlatConfigLoader("/folder/html-validate.config.js"));
+			const cli = new CLI();
+			const loader = await cli.getLoader();
+			spy.mockRestore();
+			expect(loader).toBeInstanceOf(FlatConfigLoader);
+		});
+
+		it("should fall back to FileSystemConfigLoader when no flat config is found", async () => {
+			expect.assertions(1);
+			const spy = jest.spyOn(FlatConfigLoader, "fromDirectory").mockReturnValueOnce(null);
+			const cli = new CLI();
+			const loader = await cli.getLoader();
+			spy.mockRestore();
+			expect(loader).toBeInstanceOf(FileSystemConfigLoader);
+		});
+
+		it("should skip flat config detection when --config is explicitly specified", async () => {
+			expect.assertions(2);
+			const fromDirSpy = jest.spyOn(FlatConfigLoader, "fromDirectory");
+			const cli = new CLI({ configFile: ".htmlvalidate.json" });
+			jest.spyOn(cli, "getConfig").mockResolvedValueOnce({});
+			const loader = await cli.getLoader();
+			fromDirSpy.mockRestore();
+			expect(loader).toBeInstanceOf(FileSystemConfigLoader);
+			expect(fromDirSpy).not.toHaveBeenCalled();
 		});
 	});
 });

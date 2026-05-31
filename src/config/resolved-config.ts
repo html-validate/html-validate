@@ -1,3 +1,4 @@
+import { type FlatConfig } from "../flat-config";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
 import { type Transformer, type TransformerEntry } from "../transform";
@@ -27,7 +28,7 @@ export class ResolvedConfig {
 	private transformers: TransformerEntry[];
 
 	/** The original data this resolved configuration was created from */
-	private original: ConfigData;
+	private original: ConfigData | FlatConfig;
 
 	/**
 	 * @internal
@@ -37,10 +38,8 @@ export class ResolvedConfig {
 	/**
 	 * @internal
 	 */
-	public constructor(
-		{ metaTable, plugins, rules, transformers }: ResolvedConfigData,
-		original: ConfigData,
-	) {
+	public constructor(options: ResolvedConfigData, original: ConfigData | FlatConfig) {
+		const { metaTable, plugins, rules, transformers } = options;
 		this.metaTable = metaTable;
 		this.plugins = plugins;
 		this.rules = rules;
@@ -53,7 +52,7 @@ export class ResolvedConfig {
 	 * Returns the (merged) configuration data used to create this resolved
 	 * configuration.
 	 */
-	public getConfigData(): ConfigData {
+	public getConfigData(): ConfigData | FlatConfig {
 		return this.original;
 	}
 

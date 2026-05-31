@@ -1,7 +1,8 @@
+import { type FlatConfigObject } from "../../flat-config/flat-config";
 import { type ConfigData } from "../config-data";
 
 /** @public */
-const config: ConfigData = {
+const config = {
 	rules: {
 		"area-alt": ["error", { accessible: true }],
 		"aria-hidden-body": "error",
@@ -84,6 +85,6 @@ const config: ConfigData = {
 		"wcag/h67": "error",
 		"wcag/h71": "error",
 	},
-};
+} satisfies ConfigData & FlatConfigObject;
 
 export default config;

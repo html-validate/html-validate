@@ -8,6 +8,7 @@ import {
 	UserError,
 	esmResolver,
 } from "..";
+import { FlatConfigLoader } from "../flat-config";
 import { type ExpandOptions, expandFiles } from "./expand-files";
 import { getFormatter } from "./formatter";
 import { getRuleConfig } from "./get-rule-config";
@@ -117,6 +118,14 @@ export class CLI {
 	public async getLoader(): Promise<ConfigLoader> {
 		/* istanbul ignore next: cache will most likely be cold during testing */
 		if (!this.loader) {
+			/* auto-detect flat config unless an explicit --config file was given */
+			if (!this.options.configFile) {
+				const flat = FlatConfigLoader.fromDirectory(process.cwd(), [resolver]);
+				if (flat) {
+					this.loader = flat;
+					return this.loader;
+				}
+			}
 			const config = await this.getConfig();
 			this.loader = new FileSystemConfigLoader([resolver], config);
 		}

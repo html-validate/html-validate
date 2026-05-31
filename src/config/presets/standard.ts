@@ -1,7 +1,8 @@
+import { type FlatConfigObject } from "../../flat-config/flat-config";
 import { type ConfigData } from "../config-data";
 
 /** @public */
-const config: ConfigData = {
+const config = {
 	rules: {
 		"area-alt": ["error", { accessible: false }],
 		"aria-label-misuse": ["error", { allowAnyNamable: true }],
@@ -38,6 +39,6 @@ const config: ConfigData = {
 		"valid-id": ["error", { relaxed: true }],
 		"void-content": "error",
 	},
-};
+} satisfies ConfigData & FlatConfigObject;
 
 export default config;

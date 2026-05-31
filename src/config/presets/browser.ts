@@ -1,7 +1,8 @@
+import { type FlatConfigObject } from "../../flat-config/flat-config";
 import { type ConfigData } from "../config-data";
 
 /** @public */
-const config: ConfigData = {
+const config = {
 	rules: {
 		/* doctype is usually not included when fetching source code from browser */
 		"missing-doctype": "off",
@@ -22,6 +23,6 @@ const config: ConfigData = {
 		"void-style": "off",
 		"no-self-closing": "off",
 	},
-};
+} satisfies ConfigData & FlatConfigObject;
 
 export default config;

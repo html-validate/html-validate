@@ -7,6 +7,7 @@ import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from 
 import { FileSystemConfigLoader } from "./config/loaders/file-system";
 import { type Source } from "./context";
 import { type DOMReadyEvent } from "./event";
+import { FlatConfigLoader } from "./flat-config";
 import { HtmlValidate } from "./htmlvalidate";
 import { type Plugin } from "./plugin";
 import { Rule } from "./rule";
@@ -264,7 +265,20 @@ describe("configuration smoketest", () => {
 		const htmlvalidate = new HtmlValidate(loader);
 		const config = await htmlvalidate.getConfigFor(filename);
 		const report = await htmlvalidate.validateFile(filename);
-		expect(filter(config.getConfigData())).toMatchSnapshot("config");
+		const data = config.getConfigData() as ConfigData;
+		expect(filter(data)).toMatchSnapshot("config");
+		expect(report.results).toMatchSnapshot("results");
+	});
+
+	const flatFiles = fs
+		.globSync("test-files/flat-config/**/*.html")
+		.map((it) => it.replaceAll("\\", "/"));
+
+	it.each(flatFiles)("%s", async (filename: string) => {
+		expect.assertions(1);
+		const loader = FlatConfigLoader.fromDirectory(path.dirname(path.resolve(filename)))!;
+		const htmlvalidate = new HtmlValidate(loader);
+		const report = await htmlvalidate.validateFile(filename);
 		expect(report.results).toMatchSnapshot("results");
 	});
 

@@ -24,7 +24,8 @@ it("should match results", async () => {
 		const projectRelative = path.relative(root, filename);
 		const config = await htmlvalidate.getConfigFor(projectRelative);
 		const report = await htmlvalidate.validateFile(projectRelative);
-		expect(filter(config.getConfigData())).toMatchSnapshot(`${projectRelative} config`);
+		const data = config.getConfigData() as ConfigData;
+		expect(filter(data)).toMatchSnapshot(`${projectRelative} config`);
 		expect(report).toMatchSnapshot(`${projectRelative} result`);
 	}
 }, 15000);

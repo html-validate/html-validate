@@ -44,6 +44,8 @@ Configuration can be added to:
 - `.htmlvalidate.mjs`
 - `.htmlvalidate.json`
 
+Alternatively, a single project-level {@link flat-configuration flat configuration file} (e.g. `html-validate.config.js`) can be used.
+
 For `json` the JSON schema `https://html-validate.org/schemas/config.json` can optionally be used:
 
 ```jsonc

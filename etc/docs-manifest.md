@@ -141,6 +141,7 @@ schemas/elements.json
 usage/cli.html
 usage/cypress.html
 usage/elements.html
+usage/flat-config.html
 usage/grunt.html
 usage/index.html
 usage/inline-config.html

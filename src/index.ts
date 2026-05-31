@@ -13,6 +13,7 @@ export {
 	cjsResolver,
 	esmResolver,
 } from "./config/resolver/nodejs";
+export { FlatConfigLoader, defineFlatConfig } from "./flat-config";
 export {
 	type AvailableFormatters,
 	type Formatter,

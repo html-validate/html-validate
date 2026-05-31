@@ -48,6 +48,7 @@ export {
 	isUserError,
 } from "./error";
 export * from "./event";
+export { type FlatConfig, type FlatConfigObject } from "./flat-config";
 export { version } from "./generated/package-json";
 export {
 	type AttrNameToken,

@@ -247,6 +247,9 @@ export interface DeferredMessage extends Omit<Message, "selector"> {
 export function defineConfig(config: ConfigData): ConfigData;
 
 // @public
+export function defineFlatConfig(config: FlatConfig): FlatConfig;
+
+// @public
 export function defineMetadata(metatable: MetaDataTable): MetaDataTable;
 
 // @public
@@ -547,6 +550,30 @@ export class FileSystemConfigLoader extends ConfigLoader {
 // @public
 export interface FileSystemConfigLoaderOptions {
     fs: FSLike;
+}
+
+// @public (undocumented)
+export type FlatConfig = FlatConfigObject[];
+
+// @public
+export class FlatConfigLoader extends ConfigLoader {
+    constructor(configFilePath: string, resolvers?: Resolver[]);
+    // (undocumented)
+    protected defaultConfig(): Config;
+    flushCache(handle?: string): void;
+    static fromDirectory(dir: string, resolvers?: Resolver[]): FlatConfigLoader | null;
+    getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
+}
+
+// @public
+export interface FlatConfigObject {
+    elements?: MetaDataTable[];
+    files?: string[];
+    ignores?: string[];
+    name?: string;
+    plugins?: Plugin_2[];
+    rules?: RuleConfig;
+    transform?: Record<string, Transformer_2>;
 }
 
 // @public (undocumented)
@@ -1195,13 +1222,13 @@ export type RequiredContent = string[];
 // @public
 export class ResolvedConfig {
     // @internal
-    constructor(input: ResolvedConfigData, original: ConfigData);
+    constructor(options: ResolvedConfigData, original: ConfigData | FlatConfig);
     // @internal (undocumented)
     cache: Map<string, Transformer_2>;
     canTransform(filename: string): boolean;
     // @internal (undocumented)
     findTransformer(filename: string): TransformerEntry | null;
-    getConfigData(): ConfigData;
+    getConfigData(): ConfigData | FlatConfig;
     // (undocumented)
     getMetaTable(): MetaTable;
     // (undocumented)
