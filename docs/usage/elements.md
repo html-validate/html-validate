@@ -357,7 +357,7 @@ export interface MetaAttribute {
   ) => string | null | undefined;
   boolean?: boolean;
   deprecated?: boolean | string;
-  enum?: Array<string | RegExp>;
+  enum?: Array<string | RegExp | { name: string; pattern: string | RegExp }>;
   list?: boolean;
   omit?: boolean;
   reference?: "id";
@@ -425,8 +425,13 @@ Calling `allowed(..)` with a native `HTMLElement` (or JSDOM) works but is not of
 #### `attribute.enum`
 
 The `enum` property is a list of allowed values the attribute can have.
-It can be either strings or regular expressions using `"/../"` e.g `"/-?\\d+/"` to match numbers.
 If unset any value is accepted.
+
+Each entry can be one of:
+
+- A **string** — an exact allowed value, e.g. `"bar"`.
+- A **regular expression string** using `"/../"` syntax, e.g. `"/-?\\d+/"` to match numbers.
+- A **named regular expression** object `{ name, pattern }` where `name` is a human-readable label shown in error messages and `pattern` is the regular expression (string or `RegExp`), e.g. `{ name: "positive integer", pattern: /^\d+$/ }`.
 
 #### `attribute.boolean`
 

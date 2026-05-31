@@ -83,6 +83,7 @@ export {
 	type MetaAria,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
+	type MetaAttributeNamedRegex,
 	type MetaAttributeRequiredCallback,
 	type MetaCategoryCallback,
 	type MetaData,

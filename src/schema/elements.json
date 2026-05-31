@@ -344,7 +344,20 @@
                   "title": "Exhaustive list of values (string or regex) this attribute accepts",
                   "uniqueItems": true,
                   "items": {
-                    "anyOf": [{ "type": "string" }, { "regexp": true }]
+                    "anyOf": [
+                      { "type": "string" },
+                      { "regexp": true },
+                      {
+                        "type": "object",
+                        "title": "Named regular expression",
+                        "required": ["name", "pattern"],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": { "type": "string", "minLength": 1 },
+                          "pattern": { "anyOf": [{ "type": "string" }, { "regexp": true }] }
+                        }
+                      }
+                    ]
                   }
                 },
                 "omit": {

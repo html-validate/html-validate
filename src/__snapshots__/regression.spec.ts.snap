@@ -277,7 +277,10 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              /\\^\\\\S\\+\\$/,
+              {
+                "name": "a valid id",
+                "pattern": /\\^\\\\S\\+\\$/,
+              },
             ],
           },
           "attribute": "for",
@@ -313,7 +316,10 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
         "context": {
           "allowed": {
             "enum": [
-              /\\^\\\\S\\+\\$/,
+              {
+                "name": "a valid id",
+                "pattern": /\\^\\\\S\\+\\$/,
+              },
             ],
           },
           "attribute": "id",

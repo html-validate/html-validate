@@ -763,7 +763,7 @@ export interface MetaAttribute {
     allowed?: MetaAttributeAllowedCallback;
     boolean?: boolean;
     deprecated?: boolean | string;
-    enum?: Array<string | RegExp>;
+    enum?: Array<string | RegExp | MetaAttributeNamedRegex>;
     list?: boolean;
     omit?: boolean;
     reference?: "id";
@@ -772,6 +772,12 @@ export interface MetaAttribute {
 
 // @public
 export type MetaAttributeAllowedCallback = (node: HtmlElementLike, attr: string | DynamicValue | null | undefined) => string | null | undefined;
+
+// @public
+export interface MetaAttributeNamedRegex {
+    name: string;
+    pattern: RegExp | string;
+}
 
 // @public
 export type MetaAttributeRequiredCallback = (node: HtmlElementLike) => string | boolean | null | undefined;

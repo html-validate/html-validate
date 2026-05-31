@@ -11,6 +11,7 @@ import {
 	type InternalAttributeFlags,
 	type InternalPatternAttributeFlags,
 	type MetaAttribute,
+	type MetaAttributeNamedRegex,
 	type MetaDataTable,
 	type MetaElement,
 	type MetaLookupableProperty,
@@ -315,13 +316,10 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
 }
 
 /**
- * Given a string it returns either the string as-is or if the string is wrapped
- * in /../ it creates and returns a regex instead.
+ * Compile a string regex literal (e.g. `"/\d+/"` or `"/^foo$/i"`) into a
+ * `RegExp`. Returns `null` if the string is not a regex literal.
  */
-function expandRegexValue(value: string | RegExp): string | RegExp {
-	if (value instanceof RegExp) {
-		return value;
-	}
+function compileRegexString(value: string): RegExp | null {
 	/* match anything starting and ending with `/`, optionally with `/i` at the end. */
 	const match = /^\/(.*(?=\/))\/(i?)$/.exec(value);
 	if (match) {
@@ -333,9 +331,44 @@ function expandRegexValue(value: string | RegExp): string | RegExp {
 			return new RegExp(`^${expr}$`, flags);
 		}
 		/* eslint-enable security/detect-non-literal-regexp */
-	} else {
-		return value;
 	}
+	return null;
+}
+
+/**
+ * Normalise a single `enum` entry to either a plain keyword string or a
+ * {@link MetaAttributeNamedRegex} object with a compiled `pattern`.
+ *
+ * - Plain keyword strings are returned as-is.
+ * - String regex literals (`"/\d+/"`) are compiled and wrapped with their
+ *   `toString()` representation as the `name`.
+ * - Bare `RegExp` instances are wrapped with their `toString()` as the `name`.
+ * - Existing {@link MetaAttributeNamedRegex} objects have their `pattern`
+ *   compiled if it is still a string.
+ */
+function expandRegexValue(
+	value: string | RegExp | MetaAttributeNamedRegex,
+): string | MetaAttributeNamedRegex {
+	if (value instanceof RegExp) {
+		return { name: value.toString(), pattern: value };
+	}
+	if (typeof value === "object") {
+		/* already a named regex object — compile the pattern string if needed */
+		if (value.pattern instanceof RegExp) {
+			return { name: value.name, pattern: value.pattern };
+		}
+		const compiled = compileRegexString(value.pattern);
+		if (!compiled) {
+			throw new Error(`Failed to create regular expression from "${value.pattern}"`);
+		}
+		return { name: value.name, pattern: compiled };
+	}
+	/* plain string: check if it is a regex literal */
+	const regex = compileRegexString(value);
+	if (regex) {
+		return { name: regex.toString(), pattern: regex };
+	}
+	return value;
 }
 
 /**

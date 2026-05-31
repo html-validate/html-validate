@@ -2,6 +2,7 @@ import { type Attribute, type HtmlElement, DOMTokenList, DynamicValue } from "..
 import {
 	type CategoryOrTag,
 	type MetaAttribute,
+	type MetaAttributeNamedRegex,
 	type Permitted,
 	type PermittedEntry,
 	type PermittedGroup,
@@ -236,13 +237,18 @@ export class Validator {
 
 		const caseInsensitiveValue = value.toLowerCase();
 
-		return rule.enum.some((entry: string | RegExp) => {
-			if (entry instanceof RegExp) {
-				/* regular expressions are matched case-sensitive */
-				return entry.test(value);
-			} else {
+		return rule.enum.some((entry: string | RegExp | MetaAttributeNamedRegex) => {
+			if (typeof entry === "string") {
 				/* strings matched case-insensitive */
 				return caseInsensitiveValue === entry;
+			} else if (entry instanceof RegExp) {
+				/* bare RegExp (pre-expansion path, e.g. direct API usage) */
+				return entry.test(value);
+			} else if (entry.pattern instanceof RegExp) {
+				/* named pattern with RegExp */
+				return entry.pattern.test(value);
+			} else {
+				throw new TypeError("RegExp was not precompiled when it should have been");
 			}
 		});
 	}

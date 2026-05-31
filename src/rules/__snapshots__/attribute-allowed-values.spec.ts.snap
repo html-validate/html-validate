@@ -26,3 +26,15 @@ exports[`rule attribute-allowed-values should contain contextual documentation w
   "url": "https://html-validate.org/rules/attribute-allowed-values.html",
 }
 `;
+
+exports[`rule attribute-allowed-values should contain contextual documentation with named regex 1`] = `
+{
+  "description": "The \`<any>\` element does not allow the attribute \`foo\` to have the value \`"bar"\`.
+
+It must match one of the following:
+
+- \`"spam"\`
+- a positive integer",
+  "url": "https://html-validate.org/rules/attribute-allowed-values.html",
+}
+`;

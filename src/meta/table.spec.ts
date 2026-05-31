@@ -259,7 +259,7 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/^foo$/] },
+				attr: { enum: [{ name: "/^foo$/", pattern: /^foo$/ }] },
 			});
 		});
 
@@ -276,7 +276,7 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/^foo$/i] },
+				attr: { enum: [{ name: "/^foo$/i", pattern: /^foo$/i }] },
 			});
 		});
 
@@ -293,7 +293,13 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/^foo/, /bar$/, /^baz$/] },
+				attr: {
+					enum: [
+						{ name: "/^foo/", pattern: /^foo/ },
+						{ name: "/bar$/", pattern: /bar$/ },
+						{ name: "/^baz$/", pattern: /^baz$/ },
+					],
+				},
 			});
 		});
 
@@ -310,7 +316,7 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/^foo\/bar$/] },
+				attr: { enum: [{ name: "/^foo\\/bar$/", pattern: /^foo\/bar$/ }] },
 			});
 		});
 
@@ -327,8 +333,39 @@ describe("MetaTable", () => {
 			const meta = table.getMetaFor("foo");
 			expect(meta).toBeDefined();
 			expect(meta?.attributes).toEqual({
-				attr: { enum: [/foo/] },
+				attr: { enum: [{ name: "/foo/", pattern: /foo/ }] },
 			});
+		});
+
+		it("should expand named regex with string pattern", () => {
+			expect.assertions(2);
+			const table = new MetaTable();
+			table.loadFromObject({
+				foo: mockEntry({
+					attributes: {
+						attr: { enum: [{ name: "positive integer", pattern: "/\\d+/" }] },
+					},
+				}),
+			});
+			const meta = table.getMetaFor("foo");
+			expect(meta).toBeDefined();
+			expect(meta?.attributes).toEqual({
+				attr: { enum: [{ name: "positive integer", pattern: /^\d+$/ }] },
+			});
+		});
+
+		it("should throw when named regex string pattern is not a regex literal", () => {
+			expect.assertions(1);
+			const table = new MetaTable();
+			expect(() => {
+				table.loadFromObject({
+					foo: mockEntry({
+						attributes: {
+							attr: { enum: [{ name: "foo", pattern: "^\\d+$" }] },
+						},
+					}),
+				});
+			}).toThrow('Failed to create regular expression from "^\\d+$"');
 		});
 	});
 

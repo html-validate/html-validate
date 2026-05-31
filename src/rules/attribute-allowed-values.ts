@@ -31,11 +31,13 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 		};
 		const { allowed, attribute, element, value } = context;
 		if (allowed.enum) {
-			const allowedList = allowed.enum.map((value: string | RegExp) => {
+			const allowedList = allowed.enum.map((value) => {
 				if (typeof value === "string") {
 					return `- \`"${value}"\``;
-				} else {
+				} else if (value instanceof RegExp) {
 					return `- \`${value.toString()}\``;
+				} else {
+					return `- ${value.name}`;
 				}
 			});
 			docs.description = [

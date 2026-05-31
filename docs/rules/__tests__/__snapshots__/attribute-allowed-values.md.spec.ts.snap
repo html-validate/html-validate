@@ -13,7 +13,10 @@ exports[`docs/rules/attribute-allowed-values.md inline validation: incorrect 1`]
         "context": {
           "allowed": {
             "enum": [
-              /\\^\\.\\*\\$/,
+              {
+                "name": "/^.*$/",
+                "pattern": /\\^\\.\\*\\$/,
+              },
             ],
           },
           "attribute": "href",

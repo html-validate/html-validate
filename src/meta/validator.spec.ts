@@ -3,7 +3,7 @@ import { Config, ResolvedConfig } from "../config";
 import { type HtmlElement, Attribute, DynamicValue } from "../dom";
 import { type Location } from "../location";
 import { Parser } from "../parser";
-import { type MetaAttribute, type PermittedEntry } from "./element";
+import { type MetaAttribute, type MetaAttributeNamedRegex, type PermittedEntry } from "./element";
 import { type MetaData, MetaTable, Validator } from ".";
 
 const location: Location = {
@@ -585,6 +585,43 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex as RegExp] } };
 			const attr = new Attribute("foo", value as string | null, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
+		});
+
+		it.each`
+			name                  | pattern    | value
+			${"positive integer"} | ${/^\d+$/} | ${"42"}
+			${"non-empty string"} | ${/^.+$/}  | ${"foo"}
+		`("should match named regex '$name' vs $value", ({ name, pattern, value }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: [{ name, pattern } as MetaAttributeNamedRegex] },
+			};
+			const attr = new Attribute("foo", value as string, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
+		});
+
+		it.each`
+			name                  | pattern    | value
+			${"positive integer"} | ${/^\d+$/} | ${"abc"}
+			${"positive integer"} | ${/^\d+$/} | ${null}
+		`("should not match named regex '$name' vs $value", ({ name, pattern, value }) => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: [{ name, pattern } as MetaAttributeNamedRegex] },
+			};
+			const attr = new Attribute("foo", value as string | null, location, location);
+			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
+		});
+
+		it("should throw when named regex pattern is a string", () => {
+			expect.assertions(1);
+			const rules: Record<string, MetaAttribute> = {
+				foo: { enum: [{ name: "foo", pattern: "/bar/" }] },
+			};
+			const attr = new Attribute("foo", "value", location, location);
+			expect(() => Validator.validateAttribute(attr, rules)).toThrow(
+				"RegExp was not precompiled when it should have been",
+			);
 		});
 
 		it("should match string value", () => {
