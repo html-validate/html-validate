@@ -9,6 +9,7 @@ export {
 	type ImplicitOpenEntry,
 	type MetaAttribute,
 	type MetaAttributeAllowedCallback,
+	type MetaAttributeNamedRegex,
 	type MetaAttributeRequiredCallback,
 	type MetaCategoryCallback,
 	type MetaData,

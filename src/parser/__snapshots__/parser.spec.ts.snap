@@ -9,7 +9,10 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
   "attributes": {
     "accesskey": {
       "enum": [
-        /\\./u,
+        {
+          "name": "/./u",
+          "pattern": /\\./u,
+        },
       ],
       "list": true,
     },
@@ -18,53 +21,77 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     },
     "aria-activedescendant": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-controls": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-describedby": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-details": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-errormessage": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-flowto": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-labelledby": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-owns": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
@@ -136,7 +163,10 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "exportparts": {},
     "headingoffset": {
       "enum": [
-        /\\^\\[0-8\\]\\$/,
+        {
+          "name": "/^[0-8]$/",
+          "pattern": /\\^\\[0-8\\]\\$/,
+        },
       ],
     },
     "headingreset": {
@@ -151,7 +181,10 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     },
     "id": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
     },
     "inert": {
@@ -200,7 +233,10 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     "style": {},
     "tabindex": {
       "enum": [
-        /\\^-\\?\\\\d\\+\\$/,
+        {
+          "name": "/^-?\\d+$/",
+          "pattern": /\\^-\\?\\\\d\\+\\$/,
+        },
       ],
     },
     "title": {},
@@ -220,7 +256,10 @@ exports[`parser should postprocess elements allow modify element metadata 1`] = 
     },
     "xmlns": {
       "enum": [
-        /\\^\\.\\+\\$/,
+        {
+          "name": "/^.+$/",
+          "pattern": /\\^\\.\\+\\$/,
+        },
       ],
     },
   },
@@ -271,59 +310,86 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
   "attributes": {
     "accesskey": {
       "enum": [
-        /\\./u,
+        {
+          "name": "/./u",
+          "pattern": /\\./u,
+        },
       ],
       "list": true,
     },
     "aria-activedescendant": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-controls": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-describedby": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-details": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-errormessage": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "reference": "id",
     },
     "aria-flowto": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-labelledby": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
     },
     "aria-owns": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
       "list": true,
       "reference": "id",
@@ -386,7 +452,10 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     "exportparts": {},
     "headingoffset": {
       "enum": [
-        /\\^\\[0-8\\]\\$/,
+        {
+          "name": "/^[0-8]$/",
+          "pattern": /\\^\\[0-8\\]\\$/,
+        },
       ],
     },
     "headingreset": {
@@ -401,7 +470,10 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     },
     "id": {
       "enum": [
-        /\\^\\\\S\\+\\$/,
+        {
+          "name": "/^\\S+$/",
+          "pattern": /\\^\\\\S\\+\\$/,
+        },
       ],
     },
     "inert": {
@@ -450,7 +522,10 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     "style": {},
     "tabindex": {
       "enum": [
-        /\\^-\\?\\\\d\\+\\$/,
+        {
+          "name": "/^-?\\d+$/",
+          "pattern": /\\^-\\?\\\\d\\+\\$/,
+        },
       ],
     },
     "title": {},
@@ -470,7 +545,10 @@ exports[`parser should postprocess elements allow modify element metadata 2`] = 
     },
     "xmlns": {
       "enum": [
-        /\\^\\.\\+\\$/,
+        {
+          "name": "/^.+$/",
+          "pattern": /\\^\\.\\+\\$/,
+        },
       ],
     },
   },

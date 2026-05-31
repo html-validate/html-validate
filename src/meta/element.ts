@@ -131,6 +131,19 @@ export type MetaAttributeRequiredCallback = (
 ) => string | boolean | null | undefined;
 
 /**
+ * A named regular expression for use in attribute value validation.
+ *
+ * @public
+ * @since %version%
+ */
+export interface MetaAttributeNamedRegex {
+	/** Human-readable label shown in error documentation. */
+	name: string;
+	/** Regular expression used for validation. */
+	pattern: RegExp | string;
+}
+
+/**
  * @public
  */
 export interface MetaAttribute {
@@ -153,10 +166,19 @@ export interface MetaAttribute {
 	deprecated?: boolean | string;
 
 	/**
-	 * If set it is an exhaustive list of all possible values (as `string` or
-	 * `RegExp`) this attribute can have (each token if list is set)
+	 * If set it is an exhaustive list of all possible values this attribute can
+	 * have (each token if list is set).
+	 *
+	 * Each entry can either be:
+	 *
+	 * - A keyword (as string).
+	 * - A regular expression.
+	 * - An object with `name` and `pattern` (regular expression).
+	 *
+	 * When using an object the name is presented in error messages and contextual
+	 * documentation.
 	 */
-	enum?: Array<string | RegExp>;
+	enum?: Array<string | RegExp | MetaAttributeNamedRegex>;
 
 	/**
 	 * If `true` this attribute contains space-separated tokens and each token must

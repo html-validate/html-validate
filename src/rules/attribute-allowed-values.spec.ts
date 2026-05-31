@@ -13,6 +13,9 @@ const metadata: MetaDataTable = {
 			"case-insensitive": {
 				enum: ["/foo/i"],
 			},
+			"named-regex": {
+				enum: [{ name: "a positive integer", pattern: "/\\d+/" }],
+			},
 		},
 	},
 };
@@ -76,6 +79,26 @@ describe("rule attribute-allowed-values", () => {
 			"error: Attribute "non-empty" has invalid value "" (attribute-allowed-values)
 			> 1 |  <mock-element non-empty=""></mock-element>
 			    |                ^^^^^^^^^
+			Selector: mock-element"
+		`);
+	});
+
+	it("should not report error when attribute value matches named regex", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <mock-element named-regex="42"></mock-element> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should report error when attribute value does not match named regex", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ ` <mock-element named-regex="abc"></mock-element> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Attribute "named-regex" has invalid value "abc" (attribute-allowed-values)
+			> 1 |  <mock-element named-regex="abc"></mock-element>
+			    |                             ^^^
 			Selector: mock-element"
 		`);
 	});
@@ -178,6 +201,21 @@ describe("rule attribute-allowed-values", () => {
 			value: "bar",
 			allowed: {
 				enum: ["spam", "ham", /\d+/],
+			},
+		};
+		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
+		const docs = await htmlvalidate.getRuleDocumentation("attribute-allowed-values", null, context);
+		expect(docs).toMatchSnapshot();
+	});
+
+	it("should contain contextual documentation with named regex", async () => {
+		expect.assertions(1);
+		const context = {
+			element: "any",
+			attribute: "foo",
+			value: "bar",
+			allowed: {
+				enum: ["spam", { name: "a positive integer", pattern: /\d+/ }],
 			},
 		};
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

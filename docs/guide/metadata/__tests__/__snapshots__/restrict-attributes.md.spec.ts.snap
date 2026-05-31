@@ -119,7 +119,10 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: regexp 1`
         "context": {
           "allowed": {
             "enum": [
-              /\\^\\\\d\\+\\$/,
+              {
+                "name": "/^\\d+$/",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
             ],
           },
           "attribute": "ducks",
