@@ -16,6 +16,7 @@ export default {
 				title: "Configuration",
 				children: [
 					{ title: "Elements", target: "usage/elements" },
+					{ title: "Flat configuration", target: "usage/flat-config" },
 					{ title: "Transformers", target: "usage/transformers" },
 					{ title: "Plugins", target: "usage/plugins" },
 				],

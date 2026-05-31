@@ -1,7 +1,8 @@
+import { type FlatConfigObject } from "../../flat-config/flat-config";
 import { type ConfigData } from "../config-data";
 
 /** @public */
-const config: ConfigData = {
+const config = {
 	rules: {
 		"input-missing-label": "error",
 		"heading-level": "error",
@@ -9,6 +10,6 @@ const config: ConfigData = {
 		"no-missing-references": "error",
 		"require-sri": "error",
 	},
-};
+} satisfies ConfigData & FlatConfigObject;
 
 export default config;

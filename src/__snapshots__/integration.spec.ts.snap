@@ -677,3 +677,85 @@ exports[`configuration smoketest test-files/config/warn/file.html: results 1`] =
   },
 ]
 `;
+
+exports[`configuration smoketest test-files/flat-config/basic/file.html: results 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/flat-config/basic/file.html",
+    "messages": [
+      {
+        "column": 4,
+        "context": "br",
+        "line": 1,
+        "message": "<br> must not be self-closed",
+        "offset": 3,
+        "ruleId": "no-self-closing",
+        "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+        "selector": "br",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<br/>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`configuration smoketest test-files/flat-config/files-glob/src/matched.html: results 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/flat-config/files-glob/src/matched.html",
+    "messages": [
+      {
+        "column": 4,
+        "context": "br",
+        "line": 1,
+        "message": "<br> must not be self-closed",
+        "offset": 3,
+        "ruleId": "no-self-closing",
+        "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+        "selector": "br",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<br/>
+",
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`configuration smoketest test-files/flat-config/files-glob/tests/not-matched.html: results 1`] = `[]`;
+
+exports[`configuration smoketest test-files/flat-config/global-ignores/ignored/output.html: results 1`] = `[]`;
+
+exports[`configuration smoketest test-files/flat-config/global-ignores/src/index.html: results 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "test-files/flat-config/global-ignores/src/index.html",
+    "messages": [
+      {
+        "column": 4,
+        "context": "br",
+        "line": 1,
+        "message": "<br> must not be self-closed",
+        "offset": 3,
+        "ruleId": "no-self-closing",
+        "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
+        "selector": "br",
+        "severity": 2,
+        "size": 2,
+      },
+    ],
+    "source": "<br/>
+",
+    "warningCount": 0,
+  },
+]
+`;

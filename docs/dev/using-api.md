@@ -291,6 +291,32 @@ htmlvalidate.validateFile("/path/to/my-file.html");
 htmlvalidate.validateString("..", "/path/to/my-file.html");
 ```
 
+### `FlatConfigLoader(configFilePath)`
+
+Loader for the experimental {@link usage/flat-config flat configuration file}.
+Loads a single project-wide configuration.
+
+```ts
+import { FlatConfigLoader, HtmlValidate } from "html-validate";
+
+const loader = new FlatConfigLoader("/path/to/html-validate.config.js");
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+const htmlvalidate = new HtmlValidate(loader);
+```
+
+Or auto-detect from a directory (returns `null` when no config file is found):
+
+```ts
+import { FlatConfigLoader, HtmlValidate } from "html-validate";
+
+const loader = FlatConfigLoader.fromDirectory(process.cwd());
+if (loader) {
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const htmlvalidate = new HtmlValidate(loader);
+  /* ... */
+}
+```
+
 ### `StaticConfigLoader([config: ConfigData])` (default)
 
 Default loader which loads configuration only from the configuration passed to the constructor or explicit overrides to `validateString(..)`.

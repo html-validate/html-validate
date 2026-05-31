@@ -235,14 +235,14 @@ async function build() {
 	];
 
 	const presetsDts = [
-		`import { ConfigData } from "html-validate";\n`,
+		`import { FlatConfigObject } from "html-validate";\n`,
 		`\n`,
-		`export declare const a11y: ConfigData;\n`,
-		`export declare const browser: ConfigData;\n`,
-		`export declare const document: ConfigData;\n`,
-		`export declare const prettier: ConfigData;\n`,
-		`export declare const recommended: ConfigData;\n`,
-		`export declare const standard: ConfigData;\n`,
+		`export declare const a11y: FlatConfigObject;\n`,
+		`export declare const browser: FlatConfigObject;\n`,
+		`export declare const document: FlatConfigObject;\n`,
+		`export declare const prettier: FlatConfigObject;\n`,
+		`export declare const recommended: FlatConfigObject;\n`,
+		`export declare const standard: FlatConfigObject;\n`,
 	];
 
 	await bundle("es");

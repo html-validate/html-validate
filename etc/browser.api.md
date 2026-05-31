@@ -474,6 +474,20 @@ export interface EventPerformanceEntry {
 }
 
 // @public (undocumented)
+export type FlatConfig = FlatConfigObject[];
+
+// @public
+export interface FlatConfigObject {
+    elements?: MetaDataTable[];
+    files?: string[];
+    ignores?: string[];
+    name?: string;
+    plugins?: Plugin_2[];
+    rules?: RuleConfig;
+    transform?: Record<string, Transformer_2>;
+}
+
+// @public (undocumented)
 export interface FormAssociated {
     disablable: boolean;
     listed: boolean;
@@ -1098,13 +1112,13 @@ export type RequiredContent = string[];
 // @public
 export class ResolvedConfig {
     // @internal
-    constructor(input: ResolvedConfigData, original: ConfigData);
+    constructor(options: ResolvedConfigData, original: ConfigData | FlatConfig);
     // @internal (undocumented)
     cache: Map<string, Transformer_2>;
     canTransform(filename: string): boolean;
     // @internal (undocumented)
     findTransformer(filename: string): TransformerEntry | null;
-    getConfigData(): ConfigData;
+    getConfigData(): ConfigData | FlatConfig;
     // (undocumented)
     getMetaTable(): MetaTable;
     // (undocumented)
