@@ -7,6 +7,7 @@ import { type MetaDataTable } from "../meta";
 import { type Parser } from "../parser";
 import metadata, {
 	validBrowsingContextName,
+	validFloatingPoint,
 	validId,
 	validNonEmptyString,
 	validPositiveInteger,
@@ -132,6 +133,70 @@ describe("named regex patterns", () => {
 			expect(validBrowsingContextName.pattern.test("")).toBeFalsy();
 			expect(validBrowsingContextName.pattern.test("_blank")).toBeFalsy();
 			expect(validBrowsingContextName.pattern.test("_self")).toBeFalsy();
+		});
+	});
+
+	describe("validFloatingPoint", () => {
+		it("should accept valid values", () => {
+			expect.assertions(28);
+			expect(validFloatingPoint.pattern.test("0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1.0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("3.14")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("42")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test(".5")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-1")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-1.0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-3.14")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-42")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-.5")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1e10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1e0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("42e100")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1E10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1E0")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1e+10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1e-10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1E+10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1E-10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1.5e10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("1.5E-3")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("3.14e+2")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test(".5e10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-.5e+2")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-1e10")).toBeTruthy();
+			expect(validFloatingPoint.pattern.test("-1.5E-3")).toBeTruthy();
+		});
+
+		it("should reject invalid values", () => {
+			expect.assertions(26);
+			expect(validFloatingPoint.pattern.test("")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("-")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("+")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("+1")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("+1.5")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test(".")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1.")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("-1.")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("e5")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("E5")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1e")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1E")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1e+")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1e-")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1e1.5")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1.2.3")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("--1")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("Infinity")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("-Infinity")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("NaN")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("inf")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test(" 1")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("1 ")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test(" 1 ")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("0x1")).toBeFalsy();
+			expect(validFloatingPoint.pattern.test("0o1")).toBeFalsy();
 		});
 	});
 });

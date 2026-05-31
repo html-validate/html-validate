@@ -35,6 +35,12 @@ export const validBrowsingContextName = {
 	pattern: /^[^_].*$/,
 } satisfies MetaAttributeNamedRegex;
 
+/** @internal */
+export const validFloatingPoint = {
+	name: "a floating-point number",
+	pattern: /^-?(\d+(\.\d+)?|\.\d+)([Ee][+-]?\d+)?$/,
+} satisfies MetaAttributeNamedRegex;
+
 const ReferrerPolicy = [
 	"",
 	"no-referrer",
