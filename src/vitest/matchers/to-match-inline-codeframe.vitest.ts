@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { reportError, reportErrorAsync, reportOk, reportOkAsync } from "./__fixtures__";
+import {
+	reportError,
+	reportErrorAsync,
+	reportOk,
+	reportOkAsync,
+	reportWarning,
+} from "./__fixtures__";
 import { toMatchInlineCodeframe } from "./to-match-inline-codeframe";
 
 expect.extend({
@@ -59,6 +65,21 @@ describe("toMatchInlineCodeframe()", () => {
 			> 1 | <div>
 			    |  ^^^
 			Selector: div"
+		`);
+	});
+
+	it("should match warning report", async () => {
+		expect.assertions(1);
+		await expect(reportWarning()).toMatchInlineCodeframe(`
+			"warning: mock message (my-rule)
+			  2 | 		<header id="foo">
+			  3 | 			<div>
+			> 4 | 				<p>lorem ipsum</p>
+			    | 				   ^^^^^^^^^^^
+			  5 | 			</div>
+			  6 | 		</header>
+			  7 |
+			Selector: #foo > div"
 		`);
 	});
 });

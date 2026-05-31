@@ -333,3 +333,44 @@ it("should not call startPerformance/stopPerformance when not enabled", async ()
 	expect(htmlvalidate.stopPerformance).not.toHaveBeenCalled();
 	expect(stderr.getContentsAsString("utf-8")).toMatchInlineSnapshot(`false`);
 });
+
+it("should output performance data with zero total time", async () => {
+	expect.assertions(2);
+	jest.spyOn(htmlvalidate, "startPerformance").mockImplementation(() => void 0);
+	jest.spyOn(htmlvalidate, "stopPerformance").mockImplementation(() => ({
+		events: [{ event: "tag:start", count: 1, time: 0 }],
+		rules: [{ rule: "void-style", count: 1, time: 0 }],
+		configTime: 0,
+		transformTime: 0,
+		totalTime: 0,
+	}));
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue({
+		valid: true,
+		results: [],
+		errorCount: 0,
+		warningCount: 0,
+	});
+	const files = ["foo.html"];
+	await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, performance: true });
+	expect(htmlvalidate.stopPerformance).toHaveBeenCalledTimes(1);
+	expect(stderr.getContentsAsString("utf-8")).toMatchInlineSnapshot(`
+		"Performance
+
+		Events:
+		  event        count    time(ms)   time(%)
+		  ────────────────────────────────────────
+		  tag:start        1      0.00ms      0.0%
+
+		Rules:
+		  rule          count    time(ms)   time(%)
+		  ─────────────────────────────────────────
+		  void-style        1      0.00ms      0.0%
+
+		Total:     0.00ms
+		  Config:    0.00ms
+		  Transform: 0.00ms
+		  Events:    0.00ms
+		  Rules:     0.00ms
+		"
+	`);
+});

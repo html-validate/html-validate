@@ -38,3 +38,15 @@ exports[`toMatchCodeframe() > should match valid async report 1`] = `""`;
 exports[`toMatchCodeframe() > should match valid report 1`] = `""`;
 
 exports[`toMatchCodeframe() > should match valid string 1`] = `""`;
+
+exports[`toMatchCodeframe() > should match warning report 1`] = `
+"warning: mock message (my-rule)
+  2 | 		<header id="foo">
+  3 | 			<div>
+> 4 | 				<p>lorem ipsum</p>
+    | 				   ^^^^^^^^^^^
+  5 | 			</div>
+  6 | 		</header>
+  7 |
+Selector: #foo > div"
+`;
