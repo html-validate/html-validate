@@ -14,7 +14,7 @@
 </video>
 <video src="">
 	<div>foo</div>
-	<track>
+	<track src="video.vtt">
 </video>
 
 <!-- should be interactive if missing controls attribute (and thus not allowed as content in button) -->
@@ -25,6 +25,14 @@
 
 <!-- should not allow preload attribute -->
 <video preload="foobar"></video>
+
+<!-- should not allow empty or omitted src -->
+<video src></video>
+<video src=""></video>
+
+<!-- should not allow empty or omitted poster -->
+<video poster></video>
+<video poster=""></video>
 
 <!-- should not be allowed if src is omitted -->
 <video itemprop></video>

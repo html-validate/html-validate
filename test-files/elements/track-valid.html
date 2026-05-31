@@ -1,7 +1,16 @@
 <!-- should be allowed under <audio> and <video> -->
 <audio>
-	<track>
+	<track src="audio.vtt">
 </audio>
 <video>
-	<track>
+	<track src="video.vtt">
 </video>
+
+<!-- kind, src, srclang, label, and default attributes -->
+<audio>
+	<track kind="subtitles" src="subtitle.vtt" srclang="en" label="English" default>
+	<track kind="captions" src="captions.vtt" srclang="en" label="English Captions">
+	<track kind="descriptions" src="desc.vtt">
+	<track kind="chapters" src="chapters.vtt">
+	<track kind="metadata" src="meta.vtt">
+</audio>

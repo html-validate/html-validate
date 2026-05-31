@@ -1553,7 +1553,7 @@ exports[`HTML elements <aside> valid markup 1`] = `[]`;
 exports[`HTML elements <audio> invalid markup 1`] = `
 [
   {
-    "errorCount": 8,
+    "errorCount": 12,
     "filePath": "test-files/elements/audio-invalid.html",
     "messages": [
       {
@@ -1616,6 +1616,45 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "size": 6,
       },
       {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "audio",
+          "value": "",
+        },
+        "line": 15,
+        "message": "Attribute "src" has invalid value """,
+        "offset": 283,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "audio:nth-child(4)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 3,
+        "context": {
+          "attr": "src",
+          "tagName": "<track>",
+        },
+        "line": 17,
+        "message": "<track> is missing required "src" attribute",
+        "offset": 309,
+        "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
+        "selector": "audio:nth-child(4) > track",
+        "severity": 2,
+        "size": 5,
+      },
+      {
         "column": 3,
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
@@ -1643,6 +1682,25 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "size": 5,
       },
       {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "boolean": true,
+          },
+          "attribute": "controls",
+          "element": "audio",
+          "value": "foo",
+        },
+        "line": 23,
+        "message": "Attribute "controls" has invalid value "foo"",
+        "offset": 480,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button > audio",
+        "severity": 2,
+        "size": 3,
+      },
+      {
         "column": 17,
         "context": {
           "allowed": {
@@ -1668,16 +1726,40 @@ exports[`HTML elements <audio> invalid markup 1`] = `
       {
         "column": 8,
         "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "audio",
+          "value": "",
+        },
+        "line": 30,
+        "message": "Attribute "src" has invalid value """,
+        "offset": 609,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "audio:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
           "attr": "itemprop",
           "details": "requires "src" attribute to be present",
           "tagName": "<audio>",
         },
-        "line": 30,
+        "line": 33,
         "message": ""itemprop" attribute cannot be used on <audio> in this context: requires "src" attribute to be present",
-        "offset": 639,
+        "offset": 682,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "audio:nth-child(7)",
+        "selector": "audio:nth-child(8)",
         "severity": 2,
         "size": 8,
       },
@@ -2147,7 +2229,7 @@ exports[`HTML elements <br> valid markup 1`] = `[]`;
 exports[`HTML elements <button> invalid markup 1`] = `
 [
   {
-    "errorCount": 16,
+    "errorCount": 20,
     "filePath": "test-files/elements/button-invalid.html",
     "messages": [
       {
@@ -2308,28 +2390,61 @@ exports[`HTML elements <button> invalid markup 1`] = `
         "size": 8,
       },
       {
-        "column": 2,
+        "column": 23,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "button",
+          "value": "",
+        },
         "line": 28,
-        "message": "<button> is missing recommended "type" attribute",
-        "offset": 821,
-        "ruleId": "no-implicit-button-type",
-        "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",
+        "message": "Attribute "name" is missing value",
+        "offset": 866,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "button:nth-child(9)",
         "severity": 2,
-        "size": 6,
+        "size": 4,
+      },
+      {
+        "column": 23,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "button",
+          "value": "",
+        },
+        "line": 29,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 914,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(10)",
+        "severity": 2,
+        "size": 4,
       },
       {
         "column": 2,
-        "context": {
-          "tagName": "button",
-          "textContent": "accessible",
-        },
-        "line": 31,
-        "message": "<button> must have accessible text",
-        "offset": 876,
-        "ruleId": "text-content",
-        "ruleUrl": "https://html-validate.org/rules/text-content.html",
-        "selector": "button:nth-child(10)",
+        "line": 32,
+        "message": "<button> is missing recommended "type" attribute",
+        "offset": 967,
+        "ruleId": "no-implicit-button-type",
+        "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",
+        "selector": "button:nth-child(11)",
         "severity": 2,
         "size": 6,
       },
@@ -2339,12 +2454,27 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "tagName": "button",
           "textContent": "accessible",
         },
-        "line": 32,
+        "line": 35,
         "message": "<button> must have accessible text",
-        "offset": 908,
+        "offset": 1022,
         "ruleId": "text-content",
         "ruleUrl": "https://html-validate.org/rules/text-content.html",
-        "selector": "button:nth-child(11)",
+        "selector": "button:nth-child(12)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 2,
+        "context": {
+          "tagName": "button",
+          "textContent": "accessible",
+        },
+        "line": 36,
+        "message": "<button> must have accessible text",
+        "offset": 1054,
+        "ruleId": "text-content",
+        "ruleUrl": "https://html-validate.org/rules/text-content.html",
+        "selector": "button:nth-child(13)",
         "severity": 2,
         "size": 6,
       },
@@ -2355,9 +2485,9 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "details": ""type" attribute must be "submit"",
           "tagName": "<button>",
         },
-        "line": 36,
+        "line": 40,
         "message": ""formaction" attribute cannot be used on <button> in this context: "type" attribute must be "submit"",
-        "offset": 1084,
+        "offset": 1230,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-form-overrides > button",
@@ -2371,9 +2501,9 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "details": ""type" attribute must be "submit"",
           "tagName": "<button>",
         },
-        "line": 36,
+        "line": 40,
         "message": ""formenctype" attribute cannot be used on <button> in this context: "type" attribute must be "submit"",
-        "offset": 1095,
+        "offset": 1241,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-form-overrides > button",
@@ -2387,9 +2517,9 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "details": ""type" attribute must be "submit"",
           "tagName": "<button>",
         },
-        "line": 36,
+        "line": 40,
         "message": ""formmethod" attribute cannot be used on <button> in this context: "type" attribute must be "submit"",
-        "offset": 1107,
+        "offset": 1253,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-form-overrides > button",
@@ -2403,9 +2533,9 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "details": ""type" attribute must be "submit"",
           "tagName": "<button>",
         },
-        "line": 36,
+        "line": 40,
         "message": ""formnovalidate" attribute cannot be used on <button> in this context: "type" attribute must be "submit"",
-        "offset": 1125,
+        "offset": 1271,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-form-overrides > button",
@@ -2419,14 +2549,67 @@ exports[`HTML elements <button> invalid markup 1`] = `
           "details": ""type" attribute must be "submit"",
           "tagName": "<button>",
         },
-        "line": 36,
+        "line": 40,
         "message": ""formtarget" attribute cannot be used on <button> in this context: "type" attribute must be "submit"",
-        "offset": 1140,
+        "offset": 1286,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
         "selector": "#invalid-form-overrides > button",
         "severity": 2,
         "size": 10,
+      },
+      {
+        "column": 32,
+        "context": {
+          "allowed": {
+            "enum": [
+              "toggle-popover",
+              "show-popover",
+              "hide-popover",
+              "close",
+              "request-close",
+              "show-modal",
+              {
+                "name": "/^--/",
+                "pattern": /\\^--/,
+              },
+            ],
+          },
+          "attribute": "command",
+          "element": "button",
+          "value": "invalid",
+        },
+        "line": 46,
+        "message": "Attribute "command" has invalid value "invalid"",
+        "offset": 1402,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(15)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 44,
+        "context": {
+          "allowed": {
+            "enum": [
+              "toggle",
+              "show",
+              "hide",
+            ],
+          },
+          "attribute": "popovertargetaction",
+          "element": "button",
+          "value": "invalid",
+        },
+        "line": 49,
+        "message": "Attribute "popovertargetaction" has invalid value "invalid"",
+        "offset": 1511,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button:nth-child(16)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "",
@@ -3739,7 +3922,7 @@ exports[`HTML elements <embed> valid markup 1`] = `[]`;
 exports[`HTML elements <fieldset> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 4,
     "filePath": "test-files/elements/fieldset-invalid.html",
     "messages": [
       {
@@ -3763,6 +3946,54 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
         "selector": "fieldset:nth-child(2) > legend",
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "fieldset",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute "name" is missing value",
+        "offset": 235,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "fieldset:nth-child(3)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "fieldset",
+          "value": "",
+        },
+        "line": 15,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 285,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "fieldset:nth-child(4)",
+        "severity": 2,
+        "size": 4,
       },
     ],
     "source": "",
@@ -5562,7 +5793,7 @@ exports[`HTML elements <iframe> valid markup 1`] = `[]`;
 exports[`HTML elements <img> invalid markup 1`] = `
 [
   {
-    "errorCount": 15,
+    "errorCount": 17,
     "filePath": "test-files/elements/img-invalid.html",
     "messages": [
       {
@@ -5905,6 +6136,51 @@ exports[`HTML elements <img> invalid markup 1`] = `
         "selector": "img:nth-child(11)",
         "severity": 2,
         "size": 3,
+      },
+      {
+        "column": 29,
+        "context": {
+          "allowed": {
+            "enum": [
+              "lazy",
+              "eager",
+            ],
+          },
+          "attribute": "loading",
+          "element": "img",
+          "value": "invalid",
+        },
+        "line": 28,
+        "message": "Attribute "loading" has invalid value "invalid"",
+        "offset": 793,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(12)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 35,
+        "context": {
+          "allowed": {
+            "enum": [
+              "high",
+              "low",
+              "auto",
+            ],
+          },
+          "attribute": "fetchpriority",
+          "element": "img",
+          "value": "invalid",
+        },
+        "line": 29,
+        "message": "Attribute "fetchpriority" has invalid value "invalid"",
+        "offset": 837,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "img:nth-child(13)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "",
@@ -14262,7 +14538,7 @@ exports[`HTML elements <meta> valid markup 1`] = `[]`;
 exports[`HTML elements <meter> invalid markup 1`] = `
 [
   {
-    "errorCount": 2,
+    "errorCount": 20,
     "filePath": "test-files/elements/meter-invalid.html",
     "messages": [
       {
@@ -14296,6 +14572,438 @@ exports[`HTML elements <meter> invalid markup 1`] = `
         "selector": "meter:nth-child(2) > meter",
         "severity": 2,
         "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "value",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute "value" is missing value",
+        "offset": 182,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(3)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "min",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 13,
+        "message": "Attribute "min" is missing value",
+        "offset": 204,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(4)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "low",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 14,
+        "message": "Attribute "low" is missing value",
+        "offset": 224,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(5)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "high",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 15,
+        "message": "Attribute "high" is missing value",
+        "offset": 244,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(6)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "max",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 16,
+        "message": "Attribute "max" is missing value",
+        "offset": 265,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "optimum",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 17,
+        "message": "Attribute "optimum" is missing value",
+        "offset": 285,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(8)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "value",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 20,
+        "message": "Attribute "value" has invalid value """,
+        "offset": 349,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(9)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "min",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 21,
+        "message": "Attribute "min" has invalid value """,
+        "offset": 374,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(10)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "low",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 22,
+        "message": "Attribute "low" has invalid value """,
+        "offset": 397,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(11)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "high",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 23,
+        "message": "Attribute "high" has invalid value """,
+        "offset": 420,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(12)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "max",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 24,
+        "message": "Attribute "max" has invalid value """,
+        "offset": 444,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(13)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "optimum",
+          "element": "meter",
+          "value": "",
+        },
+        "line": 25,
+        "message": "Attribute "optimum" has invalid value """,
+        "offset": 467,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(14)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 15,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "value",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 28,
+        "message": "Attribute "value" has invalid value "invalid"",
+        "offset": 543,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(15)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 13,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "min",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 29,
+        "message": "Attribute "min" has invalid value "invalid"",
+        "offset": 573,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(16)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 13,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "low",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 30,
+        "message": "Attribute "low" has invalid value "invalid"",
+        "offset": 603,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(17)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 14,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "high",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 31,
+        "message": "Attribute "high" has invalid value "invalid"",
+        "offset": 634,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(18)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 13,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "max",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 32,
+        "message": "Attribute "max" has invalid value "invalid"",
+        "offset": 664,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(19)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a floating-point number",
+                "pattern": /\\^-\\?\\(\\\\d\\+\\(\\\\\\.\\\\d\\+\\)\\?\\|\\\\\\.\\\\d\\+\\)\\(\\[Ee\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?\\$/,
+              },
+            ],
+          },
+          "attribute": "optimum",
+          "element": "meter",
+          "value": "invalid",
+        },
+        "line": 33,
+        "message": "Attribute "optimum" has invalid value "invalid"",
+        "offset": 698,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "meter:nth-child(20)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "",
@@ -14907,7 +15615,7 @@ exports[`HTML elements <option> valid markup 1`] = `[]`;
 exports[`HTML elements <output> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 3,
     "filePath": "test-files/elements/output-invalid.html",
     "messages": [
       {
@@ -14922,9 +15630,57 @@ exports[`HTML elements <output> invalid markup 1`] = `
         "offset": 42,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
-        "selector": "output > div",
+        "selector": "output:nth-child(1) > div",
         "severity": 2,
         "size": 3,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "output",
+          "value": "",
+        },
+        "line": 7,
+        "message": "Attribute "name" is missing value",
+        "offset": 123,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "output:nth-child(2)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "output",
+          "value": "",
+        },
+        "line": 8,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 146,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "output:nth-child(3)",
+        "severity": 2,
+        "size": 4,
       },
     ],
     "source": "",
@@ -15772,7 +16528,7 @@ exports[`HTML elements <section> valid markup 1`] = `[]`;
 exports[`HTML elements <select> invalid markup 1`] = `
 [
   {
-    "errorCount": 13,
+    "errorCount": 15,
     "filePath": "test-files/elements/select-invalid.html",
     "messages": [
       {
@@ -15999,6 +16755,54 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "selector": "select:nth-child(9) > option:nth-child(4) > a",
         "severity": 2,
         "size": 1,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "select",
+          "value": "",
+        },
+        "line": 45,
+        "message": "Attribute "name" is missing value",
+        "offset": 1140,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(10)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "select",
+          "value": "",
+        },
+        "line": 46,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 1163,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "select:nth-child(11)",
+        "severity": 2,
+        "size": 4,
       },
     ],
     "source": "",
@@ -17215,14 +18019,69 @@ exports[`HTML elements <td> invalid markup 1`] = `
 
 exports[`HTML elements <td> valid markup 1`] = `[]`;
 
-exports[`HTML elements <template> invalid markup 1`] = `[]`;
+exports[`HTML elements <template> invalid markup 1`] = `
+[
+  {
+    "errorCount": 2,
+    "filePath": "test-files/elements/template-invalid.html",
+    "messages": [
+      {
+        "column": 27,
+        "context": {
+          "allowed": {
+            "enum": [
+              "open",
+              "closed",
+            ],
+          },
+          "attribute": "shadowrootmode",
+          "element": "template",
+          "value": "invalid",
+        },
+        "line": 2,
+        "message": "Attribute "shadowrootmode" has invalid value "invalid"",
+        "offset": 80,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "template:nth-child(1)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 37,
+        "context": {
+          "allowed": {
+            "enum": [
+              "named",
+              "manual",
+            ],
+          },
+          "attribute": "shadowrootslotassignment",
+          "element": "template",
+          "value": "invalid",
+        },
+        "line": 5,
+        "message": "Attribute "shadowrootslotassignment" has invalid value "invalid"",
+        "offset": 202,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "template:nth-child(2)",
+        "severity": 2,
+        "size": 7,
+      },
+    ],
+    "source": "",
+    "warningCount": 0,
+  },
+]
+`;
 
 exports[`HTML elements <template> valid markup 1`] = `[]`;
 
 exports[`HTML elements <textarea> invalid markup 1`] = `
 [
   {
-    "errorCount": 18,
+    "errorCount": 22,
     "filePath": "test-files/elements/textarea-invalid.html",
     "messages": [
       {
@@ -17641,6 +18500,102 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
         "selector": "textarea:nth-child(6)",
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 20,
+        "message": "Attribute "name" is missing value",
+        "offset": 635,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(7)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "name",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 21,
+        "message": "Attribute "name" has invalid value """,
+        "offset": 662,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(8)",
+        "severity": 2,
+        "size": 4,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "dirname",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 24,
+        "message": "Attribute "dirname" is missing value",
+        "offset": 744,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(9)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 11,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "dirname",
+          "element": "textarea",
+          "value": "",
+        },
+        "line": 25,
+        "message": "Attribute "dirname" has invalid value """,
+        "offset": 774,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "textarea:nth-child(10)",
+        "severity": 2,
+        "size": 7,
       },
     ],
     "source": "",
@@ -18303,20 +19258,108 @@ exports[`HTML elements <tr> valid markup 1`] = `[]`;
 exports[`HTML elements <track> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 5,
     "filePath": "test-files/elements/track-invalid.html",
     "messages": [
       {
-        "column": 10,
+        "column": 26,
         "context": "track",
         "line": 3,
         "message": "End tag for <track> must be omitted",
-        "offset": 46,
+        "offset": 62,
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,
         "severity": 2,
         "size": 6,
+      },
+      {
+        "column": 37,
+        "context": {
+          "allowed": {
+            "enum": [
+              "subtitles",
+              "captions",
+              "descriptions",
+              "chapters",
+              "metadata",
+            ],
+          },
+          "attribute": "kind",
+          "element": "track",
+          "value": "invalid",
+        },
+        "line": 7,
+        "message": "Attribute "kind" has invalid value "invalid"",
+        "offset": 144,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "audio:nth-child(2) > track",
+        "severity": 2,
+        "size": 7,
+      },
+      {
+        "column": 3,
+        "context": {
+          "attr": "src",
+          "tagName": "<track>",
+        },
+        "line": 11,
+        "message": "<track> is missing required "src" attribute",
+        "offset": 230,
+        "ruleId": "element-required-attributes",
+        "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
+        "selector": "audio:nth-child(3) > track:nth-child(1)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "track",
+          "value": "",
+        },
+        "line": 12,
+        "message": "Attribute "src" is missing value",
+        "offset": 245,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "audio:nth-child(3) > track:nth-child(2)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "track",
+          "value": "",
+        },
+        "line": 13,
+        "message": "Attribute "src" has invalid value """,
+        "offset": 258,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "audio:nth-child(3) > track:nth-child(3)",
+        "severity": 2,
+        "size": 3,
       },
     ],
     "source": "",
@@ -18454,7 +19497,7 @@ exports[`HTML elements <var> valid markup 1`] = `[]`;
 exports[`HTML elements <video> invalid markup 1`] = `
 [
   {
-    "errorCount": 16,
+    "errorCount": 22,
     "filePath": "test-files/elements/video-invalid.html",
     "messages": [
       {
@@ -18517,6 +19560,30 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "size": 6,
       },
       {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "video",
+          "value": "",
+        },
+        "line": 15,
+        "message": "Attribute "src" has invalid value """,
+        "offset": 283,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(4)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
         "column": 3,
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
@@ -18536,12 +19603,31 @@ exports[`HTML elements <video> invalid markup 1`] = `
         },
         "line": 23,
         "message": "<video> element is not permitted as a descendant of <button>",
-        "offset": 464,
+        "offset": 480,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "button > video",
         "severity": 2,
         "size": 5,
+      },
+      {
+        "column": 19,
+        "context": {
+          "allowed": {
+            "boolean": true,
+          },
+          "attribute": "controls",
+          "element": "video",
+          "value": "foo",
+        },
+        "line": 23,
+        "message": "Attribute "controls" has invalid value "foo"",
+        "offset": 496,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "button > video",
+        "severity": 2,
+        "size": 3,
       },
       {
         "column": 17,
@@ -18559,10 +19645,106 @@ exports[`HTML elements <video> invalid markup 1`] = `
         },
         "line": 27,
         "message": "Attribute "preload" has invalid value "foobar"",
-        "offset": 565,
+        "offset": 581,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "video:nth-child(6)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "video",
+          "value": "",
+        },
+        "line": 30,
+        "message": "Attribute "src" is missing value",
+        "offset": 653,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "src",
+          "element": "video",
+          "value": "",
+        },
+        "line": 31,
+        "message": "Attribute "src" has invalid value """,
+        "offset": 673,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(8)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "poster",
+          "element": "video",
+          "value": "",
+        },
+        "line": 34,
+        "message": "Attribute "poster" is missing value",
+        "offset": 747,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(9)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 8,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a non-empty string",
+                "pattern": /\\^\\.\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "poster",
+          "element": "video",
+          "value": "",
+        },
+        "line": 35,
+        "message": "Attribute "poster" has invalid value """,
+        "offset": 770,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "video:nth-child(10)",
         "severity": 2,
         "size": 6,
       },
@@ -18573,12 +19755,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "details": "requires "src" attribute to be present",
           "tagName": "<video>",
         },
-        "line": 30,
+        "line": 38,
         "message": ""itemprop" attribute cannot be used on <video> in this context: requires "src" attribute to be present",
-        "offset": 639,
+        "offset": 846,
         "ruleId": "attribute-misuse",
         "ruleUrl": "https://html-validate.org/rules/attribute-misuse.html",
-        "selector": "video:nth-child(7)",
+        "selector": "video:nth-child(11)",
         "severity": 2,
         "size": 8,
       },
@@ -18597,12 +19779,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "",
         },
-        "line": 33,
+        "line": 41,
         "message": "Attribute "width" has invalid value """,
-        "offset": 716,
+        "offset": 923,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(8)",
+        "selector": "video:nth-child(12)",
         "severity": 2,
         "size": 5,
       },
@@ -18621,12 +19803,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "",
         },
-        "line": 33,
+        "line": 41,
         "message": "Attribute "height" has invalid value """,
-        "offset": 725,
+        "offset": 932,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(8)",
+        "selector": "video:nth-child(12)",
         "severity": 2,
         "size": 6,
       },
@@ -18645,12 +19827,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "foo",
         },
-        "line": 34,
+        "line": 42,
         "message": "Attribute "width" has invalid value "foo"",
-        "offset": 758,
+        "offset": 965,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(9)",
+        "selector": "video:nth-child(13)",
         "severity": 2,
         "size": 3,
       },
@@ -18669,12 +19851,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "foo",
         },
-        "line": 34,
+        "line": 42,
         "message": "Attribute "height" has invalid value "foo"",
-        "offset": 771,
+        "offset": 978,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(9)",
+        "selector": "video:nth-child(13)",
         "severity": 2,
         "size": 3,
       },
@@ -18693,12 +19875,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "-1",
         },
-        "line": 35,
+        "line": 43,
         "message": "Attribute "width" has invalid value "-1"",
-        "offset": 799,
+        "offset": 1006,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(10)",
+        "selector": "video:nth-child(14)",
         "severity": 2,
         "size": 2,
       },
@@ -18717,12 +19899,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "-1",
         },
-        "line": 35,
+        "line": 43,
         "message": "Attribute "height" has invalid value "-1"",
-        "offset": 811,
+        "offset": 1018,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(10)",
+        "selector": "video:nth-child(14)",
         "severity": 2,
         "size": 2,
       },
@@ -18741,12 +19923,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "1.5",
         },
-        "line": 36,
+        "line": 44,
         "message": "Attribute "width" has invalid value "1.5"",
-        "offset": 838,
+        "offset": 1045,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(11)",
+        "selector": "video:nth-child(15)",
         "severity": 2,
         "size": 3,
       },
@@ -18765,12 +19947,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
           "element": "video",
           "value": "1.5",
         },
-        "line": 36,
+        "line": 44,
         "message": "Attribute "height" has invalid value "1.5"",
-        "offset": 851,
+        "offset": 1058,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
-        "selector": "video:nth-child(11)",
+        "selector": "video:nth-child(15)",
         "severity": 2,
         "size": 3,
       },

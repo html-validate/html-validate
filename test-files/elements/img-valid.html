@@ -34,3 +34,13 @@
 <!-- should allow non-negative integer width and height -->
 <img src="foo.png" width="100" height="100">
 <img src="foo.png" width="0" height="0">
+<!-- alt, loading, fetchpriority, sizes, usemap -->
+<img src="foo.png" alt="A foo image">
+<img src="foo.png" alt="" loading="lazy">
+<img src="foo.png" alt="" loading="eager">
+<img src="foo.png" alt="" fetchpriority="high">
+<img src="foo.png" alt="" fetchpriority="low">
+<img src="foo.png" alt="" fetchpriority="auto">
+<img src="foo.png" sizes="(max-width: 600px) 100vw, 600px" srcset="foo-small.png 600w">
+<map name="shapes"><area href="circle.html" alt="circle"></map>
+<img src="foo.png" usemap="#shapes">

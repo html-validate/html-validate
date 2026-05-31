@@ -36,6 +36,9 @@ const htmlvalidate = new HtmlValidate({
 		"attribute-boolean-style": "off",
 		"attribute-empty-style": "off",
 
+		/* has separate tests */
+		"no-autoplay": "off",
+
 		/* messes with tests validating that elements with support implicit close
 		 * does so */
 		"no-implicit-close": "off",

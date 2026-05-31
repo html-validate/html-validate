@@ -635,6 +635,12 @@ export default {
 		},
 		transparent: ["@flow"],
 		attributes: {
+			autoplay: {
+				boolean: true,
+			},
+			controls: {
+				boolean: true,
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -642,9 +648,18 @@ export default {
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
 			},
+			loop: {
+				boolean: true,
+			},
+			muted: {
+				boolean: true,
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
+			},
+			src: {
+				enum: [validNonEmptyString],
 			},
 		},
 		permittedContent: ["@flow", "track", "source"],
@@ -667,6 +682,10 @@ export default {
 	base: {
 		metadata: true,
 		void: true,
+		attributes: {
+			href: {},
+			target: {},
+		},
 		permittedParent: ["head"],
 		aria: {
 			naming: "prohibited",
@@ -732,6 +751,9 @@ export default {
 	blockquote: {
 		flow: true,
 		sectioning: true,
+		attributes: {
+			cite: {},
+		},
 		aria: {
 			implicitRole: "blockquote",
 		},
@@ -821,6 +843,21 @@ export default {
 			autofocus: {
 				boolean: true,
 			},
+			command: {
+				enum: [
+					"toggle-popover",
+					"show-popover",
+					"hide-popover",
+					"close",
+					"request-close",
+					"show-modal",
+					"/^--/",
+				],
+			},
+			commandfor: {
+				enum: [validId],
+				reference: "id",
+			},
 			datafld: {
 				deprecated: true,
 			},
@@ -832,6 +869,10 @@ export default {
 			},
 			disabled: {
 				boolean: true,
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
 			},
 			formaction: {
 				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
@@ -851,9 +892,20 @@ export default {
 				allowed: allowedIfAttributeHasValue("type", ["submit"], { defaultValue: "submit" }),
 				enum: [validBrowsingContextName, "_blank", "_self", "_parent", "_top"],
 			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+			popovertarget: {
+				enum: [validId],
+				reference: "id",
+			},
+			popovertargetaction: {
+				enum: ["toggle", "show", "hide"],
+			},
 			type: {
 				enum: ["submit", "reset", "button"],
 			},
+			value: {},
 		},
 		aria: {
 			implicitRole: "button",
@@ -963,6 +1015,9 @@ export default {
 	data: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			value: {},
+		},
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
@@ -993,6 +1048,10 @@ export default {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			cite: {},
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "deletion",
 			naming: "prohibited",
@@ -1005,6 +1064,7 @@ export default {
 		sectioning: true,
 		interactive: true,
 		attributes: {
+			name: {},
 			open: {
 				boolean: true,
 			},
@@ -1033,6 +1093,10 @@ export default {
 		flow: true,
 		permittedContent: ["@flow"],
 		attributes: {
+			closedby: {
+				omit: true,
+				enum: ["any", "closerequest", "none"],
+			},
 			open: {
 				boolean: true,
 			},
@@ -1142,6 +1206,13 @@ export default {
 			disabled: {
 				boolean: true,
 			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
+			name: {
+				enum: [validNonEmptyString],
+			},
 		},
 		aria: {
 			implicitRole: "group",
@@ -1204,18 +1275,23 @@ export default {
 		flow: true,
 		form: true,
 		attributes: {
-			action: {
-				enum: [/^\s*\S+\s*$/],
-			},
 			accept: {
 				deprecated: true,
+			},
+			"accept-charset": {},
+			action: {
+				enum: [/^\s*\S+\s*$/],
 			},
 			autocomplete: {
 				enum: ["on", "off"],
 			},
+			enctype: {
+				enum: ["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"],
+			},
 			method: {
 				enum: ["get", "post", "dialog"],
 			},
+			name: {},
 			novalidate: {
 				boolean: true,
 			},
@@ -1565,6 +1641,7 @@ export default {
 			align: {
 				deprecated: true,
 			},
+			alt: {},
 			border: {
 				deprecated: true,
 			},
@@ -1581,6 +1658,10 @@ export default {
 			decoding: {
 				enum: ["sync", "async", "auto"],
 			},
+			fetchpriority: {
+				omit: true,
+				enum: ["high", "low", "auto"],
+			},
 			height: {
 				enum: [validPositiveInteger],
 			},
@@ -1589,6 +1670,10 @@ export default {
 			},
 			ismap: {
 				boolean: true,
+			},
+			loading: {
+				omit: true,
+				enum: ["lazy", "eager"],
 			},
 			lowsrc: {
 				deprecated: true,
@@ -1599,6 +1684,7 @@ export default {
 			referrerpolicy: {
 				enum: ReferrerPolicy,
 			},
+			sizes: {},
 			src: {
 				required: true,
 				enum: [validNonEmptyString],
@@ -1606,6 +1692,7 @@ export default {
 			srcset: {
 				enum: ["/[^]+/"],
 			},
+			usemap: {},
 			vspace: {
 				deprecated: true,
 			},
@@ -1893,6 +1980,10 @@ export default {
 		flow: true,
 		phrasing: true,
 		transparent: true,
+		attributes: {
+			cite: {},
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "insertion",
 			naming: "prohibited",
@@ -1982,6 +2073,9 @@ export default {
 		attributes: {
 			type: {
 				deprecated: true,
+			},
+			value: {
+				enum: ["/-?\\d+/"],
 			},
 		},
 		aria: {
@@ -2300,6 +2394,26 @@ export default {
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		attributes: {
+			high: {
+				enum: [validFloatingPoint],
+			},
+			low: {
+				enum: [validFloatingPoint],
+			},
+			max: {
+				enum: [validFloatingPoint],
+			},
+			min: {
+				enum: [validFloatingPoint],
+			},
+			optimum: {
+				enum: [validFloatingPoint],
+			},
+			value: {
+				enum: [validFloatingPoint],
+			},
+		},
 		aria: {
 			implicitRole: "meter",
 		},
@@ -2452,6 +2566,9 @@ export default {
 			reversed: {
 				boolean: true,
 			},
+			start: {
+				enum: [validPositiveInteger],
+			},
 			type: {
 				enum: ["a", "A", "i", "I", "1"],
 			},
@@ -2469,6 +2586,7 @@ export default {
 			disabled: {
 				boolean: true,
 			},
+			label: {},
 		},
 		aria: {
 			implicitRole: "group",
@@ -2489,6 +2607,7 @@ export default {
 			disabled: {
 				boolean: true,
 			},
+			label: {},
 			name: {
 				deprecated: true,
 			},
@@ -2513,6 +2632,20 @@ export default {
 			listed: true,
 		},
 		labelable: true,
+		attributes: {
+			for: {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+		},
 		aria: {
 			implicitRole: "status",
 		},
@@ -2629,6 +2762,14 @@ export default {
 		flow: true,
 		phrasing: true,
 		labelable: true,
+		attributes: {
+			max: {
+				enum: [validFloatingPoint],
+			},
+			value: {
+				enum: [validFloatingPoint],
+			},
+		},
 		aria: {
 			implicitRole: "progressbar",
 		},
@@ -2640,6 +2781,9 @@ export default {
 	q: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			cite: {},
+		},
 		permittedContent: ["@phrasing"],
 		aria: {
 			implicitRole: "generic",
@@ -2790,14 +2934,22 @@ export default {
 		},
 		labelable: true,
 		attributes: {
+			autocomplete: {},
 			autofocus: {
 				boolean: true,
 			},
 			disabled: {
 				boolean: true,
 			},
+			form: {
+				enum: [validId],
+				reference: "id",
+			},
 			multiple: {
 				boolean: true,
+			},
+			name: {
+				enum: [validNonEmptyString],
 			},
 			required: {
 				boolean: true,
@@ -3123,6 +3275,11 @@ export default {
 			colspan: {
 				enum: [validPositiveInteger],
 			},
+			headers: {
+				list: true,
+				enum: [validId],
+				reference: "id",
+			},
 			height: {
 				deprecated: true,
 			},
@@ -3167,6 +3324,26 @@ export default {
 		phrasing: true,
 		scriptSupporting: true,
 		templateRoot: true,
+		attributes: {
+			shadowrootclonable: {
+				boolean: true,
+			},
+			shadowrootcustomelementregistry: {
+				boolean: true,
+			},
+			shadowrootdelegatesfocus: {
+				boolean: true,
+			},
+			shadowrootmode: {
+				enum: ["open", "closed"],
+			},
+			shadowrootserializable: {
+				boolean: true,
+			},
+			shadowrootslotassignment: {
+				enum: ["named", "manual"],
+			},
+		},
 		aria: {
 			naming: "prohibited",
 		},
@@ -3197,8 +3374,15 @@ export default {
 			datasrc: {
 				deprecated: true,
 			},
+			dirname: {
+				enum: [validNonEmptyString],
+			},
 			disabled: {
 				boolean: true,
+			},
+			form: {
+				enum: [validId],
+				reference: "id",
 			},
 			maxlength: {
 				enum: [validPositiveInteger],
@@ -3206,6 +3390,10 @@ export default {
 			minlength: {
 				enum: [validPositiveInteger],
 			},
+			name: {
+				enum: [validNonEmptyString],
+			},
+			placeholder: {},
 			readonly: {
 				boolean: true,
 			},
@@ -3257,6 +3445,7 @@ export default {
 		flow: true,
 		implicitClosed: ["td", "th", "tr", "tbody", "tfoot"],
 		attributes: {
+			abbr: {},
 			align: {
 				deprecated: true,
 			},
@@ -3271,6 +3460,11 @@ export default {
 			},
 			char: {
 				deprecated: true,
+			},
+			headers: {
+				list: true,
+				enum: [validId],
+				reference: "id",
 			},
 			charoff: {
 				deprecated: true,
@@ -3350,6 +3544,9 @@ export default {
 	time: {
 		flow: true,
 		phrasing: true,
+		attributes: {
+			datetime: {},
+		},
 		aria: {
 			implicitRole: "time",
 			naming: "prohibited",
@@ -3399,6 +3596,21 @@ export default {
 	/* https://html.spec.whatwg.org/multipage/media.html#the-track-element */
 	track: {
 		void: true,
+		attributes: {
+			default: {
+				boolean: true,
+			},
+			kind: {
+				omit: true,
+				enum: ["subtitles", "captions", "descriptions", "chapters", "metadata"],
+			},
+			label: {},
+			src: {
+				required: true,
+				enum: [validNonEmptyString],
+			},
+			srclang: {},
+		},
 		aria: {
 			naming: "prohibited",
 		},
@@ -3463,6 +3675,12 @@ export default {
 		},
 		transparent: ["@flow"],
 		attributes: {
+			autoplay: {
+				boolean: true,
+			},
+			controls: {
+				boolean: true,
+			},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -3473,9 +3691,24 @@ export default {
 			itemprop: {
 				allowed: allowedIfAttributeIsPresent("src"),
 			},
+			loop: {
+				boolean: true,
+			},
+			muted: {
+				boolean: true,
+			},
+			playsinline: {
+				boolean: true,
+			},
+			poster: {
+				enum: [validNonEmptyString],
+			},
 			preload: {
 				omit: true,
 				enum: ["none", "metadata", "auto"],
+			},
+			src: {
+				enum: [validNonEmptyString],
 			},
 			width: {
 				enum: [validPositiveInteger],

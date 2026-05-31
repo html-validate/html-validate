@@ -7,3 +7,11 @@
 	<div>bar</div>
 	<legend>foo</legend>
 </fieldset>
+
+<!-- should not allow empty or omitted name -->
+<fieldset name>
+	<legend>foo</legend>
+</fieldset>
+<fieldset name="">
+	<legend>foo</legend>
+</fieldset>

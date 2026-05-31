@@ -20,3 +20,18 @@
 <!-- should allow label with for attribute -->
 <label for="label-for">Lorem ipsum</label>
 <textarea id="label-for"></textarea>
+
+<!-- should allow any non-empty name -->
+<textarea name="foobar"></textarea>
+
+<!-- should allow any non-empty dirname -->
+<textarea dirname="foobar"></textarea>
+
+<!-- should allow any placeholder -->
+<textarea placeholder></textarea>
+<textarea placeholder=""></textarea>
+<textarea placeholder="lorem ipsum"></textarea>
+
+<!-- form attribute referencing a form by id -->
+<form id="textareaform"></form>
+<textarea form="textareaform"></textarea>
