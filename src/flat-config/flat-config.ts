@@ -7,7 +7,7 @@ import { type Transformer } from "../transform";
  * A single object in a flat configuration file.
  *
  * @public
- * @since %version%
+ * @since 11.5.0
  */
 export interface FlatConfigObject {
 	/**
@@ -63,6 +63,6 @@ export interface FlatConfigObject {
 
 /**
  * @public
- * @since %version%
+ * @since 11.5.0
  */
 export type FlatConfig = FlatConfigObject[];

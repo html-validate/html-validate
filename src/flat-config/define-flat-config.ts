@@ -19,7 +19,7 @@ import { type FlatConfig } from "./flat-config";
  * ```
  *
  * @public
- * @since %version%
+ * @since 11.5.0
  */
 export function defineFlatConfig(config: FlatConfig): FlatConfig {
 	return config;

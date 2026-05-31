@@ -134,7 +134,7 @@ export type MetaAttributeRequiredCallback = (
  * A named regular expression for use in attribute value validation.
  *
  * @public
- * @since %version%
+ * @since 11.5.0
  */
 export interface MetaAttributeNamedRegex {
 	/** Human-readable label shown in error documentation. */

@@ -98,7 +98,7 @@ const defaultResolvers: Resolver[] = [esmResolver()];
  * per-file glob filtering.
  *
  * @public
- * @since %version%
+ * @since 11.5.0
  */
 export class FlatConfigLoader extends ConfigLoader {
 	private readonly configFilePath: string;

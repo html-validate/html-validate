@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 11.5.0 (2026-05-31)
+
+### Features
+
+- **html5:** add more attributes for `no-unknown-attributes` rule ([14af5f3](https://gitlab.com/html-validate/html-validate/commit/14af5f37b58cdab31ef727d5d9cd4ba70d71dcd5))
+- **meta:** allow named regular expressions for better error messages ([9e715b6](https://gitlab.com/html-validate/html-validate/commit/9e715b6bc696c04c03dcf031292b67b11414ee6e))
+- new experimental flat config file support ([994fbff](https://gitlab.com/html-validate/html-validate/commit/994fbff85baa75e6fdd0547b178ef0ef3ea997bb))
+
 ## 11.4.0 (2026-05-25)
 
 ### Features
