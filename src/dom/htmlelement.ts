@@ -641,7 +641,6 @@ export class HtmlElement extends DOMNode {
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
 		const matches: HtmlElement[] = [];
-		/* eslint-disable-next-line unicorn/prefer-query-selector -- querySelectorAll() is less optimized here */
 		this.collectByTagName(tagName, matches);
 		return matches;
 	}
