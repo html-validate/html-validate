@@ -1,5 +1,6 @@
 import { type AsyncExpectationResult, type MatcherState } from "@vitest/expect";
 import * as vitest from "vitest";
+import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Report } from "../../reporter";
 import { codeframe } from "../utils";
@@ -11,7 +12,10 @@ type ToMatchInlineCodeframeMatcher = (
 ) => AsyncExpectationResult;
 
 function createMatcher(): ToMatchInlineCodeframeMatcher {
-	const htmlvalidate = new HtmlValidate();
+	const loader = new FileSystemConfigLoader({
+		extends: ["html-validate:recommended"],
+	});
+	const htmlvalidate = new HtmlValidate(loader);
 
 	async function toMatchInlineCodeframe(
 		this: MatcherState,
@@ -33,7 +37,12 @@ function createMatcher(): ToMatchInlineCodeframeMatcher {
 
 		let report: Report;
 		if (typeof resolved === "string") {
-			report = await htmlvalidate.validateString(resolved);
+			const filename = this.testPath ?? "inline";
+			report = await htmlvalidate.validateString(resolved, filename, {
+				rules: {
+					"void-style": "off",
+				},
+			});
 		} else {
 			report = resolved;
 		}
