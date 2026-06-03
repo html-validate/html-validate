@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.5.1 (2026-06-03)
+
+### Bug Fixes
+
+- fix vitest codeframe matchers not resolving repository configuration properly ([d41d8c2](https://gitlab.com/html-validate/html-validate/commit/d41d8c2d330792a7fc3ac7a493586b4ec285fa6e))
+
 ## 11.5.0 (2026-05-31)
 
 ### Features
