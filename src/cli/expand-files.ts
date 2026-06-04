@@ -58,6 +58,16 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			return result;
 		}
 
+		/* `fs.globSync()` does not match directories as input pattern so if the
+		 * pattern is an existing directory we directly expand it by joining the
+		 * path with the directory pattern */
+		if (!path.isAbsolute(pattern)) {
+			const candidate = path.join(cwd, pattern);
+			if (fs.existsSync(candidate) && isDirectory(candidate)) {
+				pattern = path.join(pattern, directoryPattern(extensions));
+			}
+		}
+
 		for (const filename of fs.globSync(pattern, { cwd })) {
 			/* if file is a directory recursively expand files from it */
 			const fullpath = join(cwd, filename);
