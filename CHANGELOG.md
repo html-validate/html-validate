@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.5.2 (2026-06-04)
+
+### Bug Fixes
+
+- **cli:** fix regression bug when passing a directory as target ([423116d](https://gitlab.com/html-validate/html-validate/commit/423116d7a33f15e260aad68e46ee11d0b436322a)), closes [#363](https://gitlab.com/html-validate/html-validate/issues/363)
+
 ## 11.5.1 (2026-06-03)
 
 ### Bug Fixes
