@@ -74,6 +74,20 @@ describe("expandFiles()", () => {
 		`);
 	});
 
+	it("should handle relative paths", async () => {
+		expect.assertions(1);
+		const patterns = [`.`];
+		const result = await cli.expandFiles(patterns, { cwd });
+		expect(result).toMatchInlineSnapshot(`
+			[
+			  "/folder/foo.html",
+			  "/folder/bar/barney.html",
+			  "/folder/bar/fred.html",
+			  "/folder/baz/spam.html",
+			]
+		`);
+	});
+
 	it("should handle absolute paths", async () => {
 		expect.assertions(1);
 		const patterns = [`${cwd}/foo.html`, `${cwd}/bar`];
