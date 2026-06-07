@@ -2230,7 +2230,7 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 - **config:** With this release any custom configuration files will no longer
   automatically extend `html-validate:recommended`.
 
-The previous behaviour was to to always merge with the default configuration
+The previous behaviour was to always merge with the default configuration
 containing `extends: ["html-validate:recommended"]`. This is counter-intuitive
 when adding a blank `{}` `.htmlvalidate.json` configuration file (or a file with
 `extends: []`). The new behaviour is to not apply default configuration if

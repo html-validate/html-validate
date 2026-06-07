@@ -54,7 +54,7 @@ This preset should be used together with `html-validate:standard` to ensure the 
 
 - Since: 8.24.0
 
-If you are fetching source code from a browser use this this preset to disable rules affected by browser normalization such as {@link rule:attribute-boolean-style}.
+If you are fetching source code from a browser use this preset to disable rules affected by browser normalization such as {@link rule:attribute-boolean-style}.
 Most of these rules are cosmetic only.
 
 This preset if meant to be used in combination with another preset such as `html-validate:recommended` as it only disables rules.

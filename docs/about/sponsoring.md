@@ -8,7 +8,7 @@ nav: about
 
 Support HTML-Validate, the offline HTML validator.
 
-By sponsoring HTML-Validate you can help it grow and gain more features, better documentation and and overall help with a better experience.
+By sponsoring HTML-Validate you can help it grow and gain more features, better documentation and overall help with a better experience.
 
 Some long-time goals that need help, financially or by submitting pull requests:
 

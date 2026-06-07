@@ -73,7 +73,7 @@ function createTagParser(tagDefinitions, parserAdapters) {
 		const lines = content.split(END_OF_LINE);
 		let lineNumber = 0;
 		const descriptionLines = [];
-		let current; // The current that that is being extracted
+		let current; // The current tag that is being extracted
 		const tags = new TagCollection(); // Contains all the tags that have been found
 
 		init(lines, tags);
