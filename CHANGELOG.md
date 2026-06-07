@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 11.5.3 (2026-06-07)
+
+### Bug Fixes
+
+- ignore Vite query string imports in rule ([e893a48](https://gitlab.com/html-validate/html-validate/commit/e893a480bc364eaca1ea0db4030f6bbbd7a00a75))
+- remove/replace superfluous words ([1854d3f](https://gitlab.com/html-validate/html-validate/commit/1854d3f27c0eabe746c15b1094cc3ab130d47432))
+
+### Performance Improvements
+
+- optimize performance with caching and loop refinements ([a547729](https://gitlab.com/html-validate/html-validate/commit/a547729a2122963dc5709a7af27a2bd7b37de246))
+
 ## 11.5.2 (2026-06-04)
 
 ### Bug Fixes
