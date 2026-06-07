@@ -106,6 +106,15 @@ export default [
 	},
 
 	{
+		name: "local/vite-worker-imports",
+		files: ["src/jest/worker/index.ts", "src/vitest/worker/index.ts"],
+		rules: {
+			/* import-x cannot resolve Vite ?worker&url query strings */
+			"import-x/no-unresolved": "off",
+		},
+	},
+
+	{
 		name: "local/technical-debt",
 		rules: {
 			"jest/no-conditional-in-test": "off",

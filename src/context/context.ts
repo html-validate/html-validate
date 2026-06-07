@@ -37,15 +37,20 @@ export class Context {
 	}
 
 	public consume(n: number, state: State): void {
-		/* poor mans line counter :( */
-		let consumed = this.string.slice(0, n);
-		let offset;
-		while ((offset = consumed.indexOf("\n")) >= 0) {
-			this.line++;
-			this.column = 1;
-			consumed = consumed.slice(offset + 1);
+		let lastNewline = -1;
+		let newlines = 0;
+		for (let i = 0; i < n; i++) {
+			if (this.string[i] === "\n") {
+				newlines++;
+				lastNewline = i;
+			}
 		}
-		this.column += consumed.length;
+		if (newlines > 0) {
+			this.line += newlines;
+			this.column = n - lastNewline;
+		} else {
+			this.column += n;
+		}
 		this.offset += n;
 
 		/* remove N chars */

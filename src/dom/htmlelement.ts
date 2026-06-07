@@ -640,10 +640,18 @@ export class HtmlElement extends DOMNode {
 	}
 
 	public getElementsByTagName(tagName: string): HtmlElement[] {
-		return this.childElements.reduce<HtmlElement[]>((matches, node) => {
-			/* eslint-disable-next-line unicorn/prefer-query-selector -- querySelectorAll() is less optimized here */
-			return matches.concat(node.is(tagName) ? [node] : [], node.getElementsByTagName(tagName));
-		}, []);
+		const matches: HtmlElement[] = [];
+		this.collectByTagName(tagName, matches);
+		return matches;
+	}
+
+	private collectByTagName(tagName: string, matches: HtmlElement[]): void {
+		for (const node of this.childElements) {
+			if (node.is(tagName)) {
+				matches.push(node);
+			}
+			node.collectByTagName(tagName, matches);
+		}
 	}
 
 	public querySelector(selector: string): HtmlElement | null {
