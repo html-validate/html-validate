@@ -57,6 +57,7 @@ export default [
 		name: "local",
 		rules: {
 			"import-x/extensions": "off",
+			"import-x/no-unresolved": ["error", { ignore: ["\\?"] }],
 			"security/detect-unsafe-regex": "off",
 			"sonarjs/no-hardcoded-passwords": "off",
 			"sonarjs/slow-regex": "off",

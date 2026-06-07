@@ -298,7 +298,7 @@ Many native HTML elements has an implicit ARIA role (defined in [ARIA in HTML](h
 `aria.implicitRole` can either be set to:
 
 - a `string` with an unconditional role.
-- a callback returning a string. The `node` parameter is the element the the role is requested for. If the callback returns `null` the element has no corresponding role.
+- a callback returning a string. The `node` parameter is the element the role is requested for. If the callback returns `null` the element has no corresponding role.
 
 ```js
 import { defineMetadata } from "html-validate";
