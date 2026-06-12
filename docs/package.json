@@ -15,7 +15,7 @@
     "browserify": "17.0.1",
     "canonical-path": "1.0.0",
     "connect": "3.7.0",
-    "cssnano": "8.0.1",
+    "cssnano": "8.0.2",
     "dgeni": "0.4.14",
     "dgeni-front-matter": "6.0.0",
     "front-matter": "4.0.2",
