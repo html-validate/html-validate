@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@jest/globals": "30.4.1",
-    "esbuild": "0.28.0"
+    "esbuild": "0.28.1"
   }
 }
