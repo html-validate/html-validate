@@ -321,7 +321,7 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
  */
 function compileRegexString(value: string): RegExp | null {
 	/* match anything starting and ending with `/`, optionally with `/i` at the end. */
-	const match = /^\/(.*(?=\/))\/(i?)$/.exec(value);
+	const match = /^\/(.*)\/(i?)$/.exec(value);
 	if (match) {
 		const [, expr, flags] = match;
 		/* eslint-disable security/detect-non-literal-regexp -- expected to be regexp */

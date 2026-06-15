@@ -13,7 +13,7 @@ const LINE_TERMINATOR = /^[\n\r\u2028\u2029]$/;
 const SURROGATE = /^[\uD800-\uDFFF]$/;
 
 function isDecimalDigitOrASCIILetter(ch: string): boolean {
-	return /^[\dA-Za-z]$/.test(ch);
+	return /^[\dA-Z]$/i.test(ch);
 }
 
 function needEscape(ch: string): boolean {

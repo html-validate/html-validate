@@ -11,10 +11,10 @@ function ruleInfoPlugin() {
 				name: "ruleInfo",
 				level: "block",
 				start(src) {
-					return src.match(/{@ruleInfo}/)?.index;
+					return src.match(/\{@ruleInfo\}/)?.index;
 				},
 				tokenizer(src) {
-					const rule = /^{@ruleInfo}(?:\n*|$)/;
+					const rule = /^\{@ruleInfo\}\n*/;
 					const match = rule.exec(src);
 					if (match) {
 						const token = {

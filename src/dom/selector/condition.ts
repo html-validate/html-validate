@@ -87,7 +87,7 @@ export function createIdCondition(raw: string): IdCondition {
  * @internal
  */
 export function createAttributeCondition(attr: string): AttributeCondition {
-	const match = /^(.+?)(?:([$*^|~]?=)"([^"]+?)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+	const match = /^(.+?)(?:([$*^|~]?=)"([^"]+)")?$/.exec(attr)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 	const key = match[1];
 	const op = match[2] as string | undefined; // optional capture group
 	const rawValue = match[3] as string | undefined; // optional capture group

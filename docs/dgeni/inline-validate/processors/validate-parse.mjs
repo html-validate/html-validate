@@ -2,8 +2,10 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
-const VALIDATE_REGEX = /<validate([^>]*)>([\S\s]+?)<\/validate>/g;
-const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:(?:"([^"]+)")|(?:'([^']+)'))/g;
+const VALIDATE_REGEX = /<validate([^>]*)>([\s\S]+?)<\/validate>/g;
+
+/* eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation -- technical debt */
+const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:"([^"]+)"|'([^']+)')/g;
 
 function readElements(fileInfo, filename) {
 	if (!filename) {

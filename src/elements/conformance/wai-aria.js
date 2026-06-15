@@ -19,8 +19,8 @@ async function update() {
 	}));
 	const serialized = JSON.stringify(data, null, "\t")
 		.replaceAll(/"([^"]+)":/g, "$1:") /* replace `"key":` with `key:` */
-		.replaceAll(/(\s+)}/gm, ",$1}") /* add trailing comma to objects */
-		.replaceAll(/(\s+)]/gm, ",$1]"); /* add trailing comma to arrays */
+		.replaceAll(/(\s+)\}/g, ",$1}") /* add trailing comma to objects */
+		.replaceAll(/(\s+)\]/g, ",$1]"); /* add trailing comma to arrays */
 	const content = [
 		update.toString(),
 		`if (require.main === module) {\n\tupdate();\n}`,

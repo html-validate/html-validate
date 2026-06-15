@@ -3,7 +3,7 @@
  * @returns {boolean}
  */
 function isVersionNumber(value) {
-	return Boolean(/^\d+\.\d+\.\d+(-rc\.\d+)? \(\d+-\d+-\d+\)$/.test(value));
+	return Boolean(/^\d+\.\d+\.\d+(?:-rc\.\d+)? \(\d+-\d+-\d+\)$/.test(value));
 }
 
 /**
@@ -15,7 +15,7 @@ function generateId(value) {
 		.toLowerCase()
 		.replaceAll(/\(.*?\)/g, "")
 		.replaceAll(/\W+/g, "-")
-		.replaceAll(/(^-|-$)/g, "");
+		.replaceAll(/^-|-$/g, "");
 
 	if (isVersionNumber(value)) {
 		return `v${slug}`;
@@ -30,7 +30,7 @@ function generateId(value) {
  * @returns {[text: string, id: string]}
  */
 function getHeadingId(text, raw) {
-	const hasId = /(?: +|^){#([a-z][\w-]*)}(?: +|$)/i;
+	const hasId = /(?: +|^)\{#([a-z][\w-]*)\}(?: +|$)/i;
 	const match = text.match(hasId);
 	if (match) {
 		return [text.replace(hasId, ""), match[1]];

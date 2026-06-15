@@ -30,7 +30,7 @@ const defaults: RuleOptions = {
 	requireSemicolon: true,
 };
 
-const regexp = /&(?:[\da-z]+|#x?[\da-f]+)(;|[^\da-z]|$)/gi;
+const regexp = /&(?:[\da-z]+|#x?[\da-f]+)([^\da-z]|$)/gi;
 const lowercaseEntities = entities.map((it) => it.toLowerCase());
 
 function isNumerical(entity: string): boolean {

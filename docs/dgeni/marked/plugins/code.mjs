@@ -16,7 +16,7 @@ const stubFilename = "docs/stub.js";
  */
 
 function removePreamble(code) {
-	return code.replaceAll(/[^]*\/\* --- \*\/\n+/gm, "");
+	return code.replaceAll(/[\s\S]*\/\* --- \*\/\n+/g, "");
 }
 
 function stripEslintComments(code) {

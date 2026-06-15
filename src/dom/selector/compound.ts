@@ -20,7 +20,8 @@ export class Compound {
 	private readonly conditions: Condition[];
 
 	public constructor(pattern: string) {
-		const match = /^([+>~-]?)((?:\*|[^#.:[]+)?)([^]*)$/.exec(pattern);
+		/* eslint-disable-next-line regexp/no-misleading-capturing-group, regexp/no-super-linear-backtracking -- technical debt */
+		const match = /^([+>~-]?)((?:\*|[^#.:[]+)?)([\s\S]*)$/.exec(pattern);
 		/* istanbul ignore next: should not happen but throw proper error if it still happens */
 		if (!match) {
 			throw new Error(`Failed to create selector pattern from "${pattern}"`);

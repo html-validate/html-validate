@@ -59,6 +59,7 @@ function createTagDefMap(tagDefinitions) {
  */
 function createTagParser(tagDefinitions, parserAdapters) {
 	const END_OF_LINE = /\r?\n/;
+	/* eslint-disable-next-line regexp/no-super-linear-backtracking -- technical debt */
 	const TAG_MARKER = /^\s*@(\S+)\s*(.*)$/;
 	const tagDefMap = createTagDefMap(tagDefinitions);
 

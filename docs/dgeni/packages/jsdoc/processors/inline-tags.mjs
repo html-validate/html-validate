@@ -1,6 +1,7 @@
-const INLINE_TAG = /({@[^\s}]+[^}]*})/;
+const INLINE_TAG = /(\{@[^\s}][^}]*\})/;
 //  11111111     22222222
-const INLINE_TAG_DETAIL = /{@(\S+)\s*([^}]*)}/;
+/* eslint-disable-next-line regexp/no-super-linear-backtracking -- technical debt */
+const INLINE_TAG_DETAIL = /\{@(\S+)\s*([^}]*)\}/;
 
 /**
  * @dgProcessor inlineTagProcessor

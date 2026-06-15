@@ -18,7 +18,7 @@ function findWidget(widgets, typename) {
  * @returns {string}
  */
 export function extractExcerpt(description) {
-	const paragraphs = description.split(/\n\n+/);
+	const paragraphs = description.split(/\n{2,}/);
 	const first = paragraphs.find((p) => p.trim().length > 0);
 	return first ? first.trim() : "";
 }

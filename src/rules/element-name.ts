@@ -85,7 +85,7 @@ export default class ElementName extends Rule<Context, RuleOptions> {
 	}
 
 	public setup(): void {
-		const xmlns = /^(.+):.+$/;
+		const xmlns = /^[^:]+:.+$/;
 		this.on("tag:start", (event: TagStartEvent) => {
 			const target = event.target;
 			const tagName = target.tagName;

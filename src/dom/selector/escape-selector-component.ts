@@ -11,7 +11,7 @@ const codepoints: Record<string, string> = {
  * @internal
  */
 export function escapeSelectorComponent(text: string | DynamicValue): string {
-	return text.toString().replaceAll(/([\t\n\r]|[^\w-])/gi, (_, ch: string) => {
+	return text.toString().replaceAll(/([^\w-])/g, (_, ch: string) => {
 		if (codepoints[ch]) {
 			return codepoints[ch];
 		} else {

@@ -1,5 +1,5 @@
 function extractBlock(doc, tag, value) {
-	const [, title, body] = value.match(/(.*?)\n([^]*)/m);
+	const [, title, body] = value.match(/(.*)\n([\s\S]*)/);
 	const className = title.toLowerCase().replace(/[^\da-z]+/, "-");
 	return {
 		body,
