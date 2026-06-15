@@ -9,7 +9,7 @@ interface RuleOptions {
 	ignoreXML: boolean;
 }
 
-const xmlns = /^(.+):.+$/;
+const xmlns = /^[^:]+:.+$/;
 const defaults: RuleOptions = {
 	ignoreForeign: true,
 	ignoreXML: true,

@@ -44,7 +44,7 @@ async function patchAugmentations(config) {
 	async function extract(filename) {
 		const content = await fs.readFile(filename, "utf-8");
 		const matches = content.matchAll(
-			/^\/\*\* module augmentation:(.*)\*\/([^]+?^)\/\*\* module augmentation end \*\//gm,
+			/^\/\*\* module augmentation:(.*)\*\/([\s\S]+?^)\/\*\* module augmentation end \*\//gm,
 			//			/^\/\*\* module augmentation:(.*)/gm
 		);
 		return Array.from(matches, (it) => ({

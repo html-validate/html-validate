@@ -756,6 +756,7 @@ export class Parser {
 			});
 			return;
 		}
+		/* eslint-disable-next-line regexp/no-super-linear-backtracking -- technical debt */
 		const match = /^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/.exec(directive);
 
 		/* istanbul ignore next: should not be possible, would be emitted as comment token */

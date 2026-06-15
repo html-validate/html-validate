@@ -12,12 +12,12 @@ function plugin() {
 					return src.match(/:::/)?.index;
 				},
 				tokenizer(src) {
-					const pattern = /^:::([^\n]*)\n([\S\s]*?)\n:::/;
+					const pattern = /^:::([^\n]*)\n([\s\S]*?)\n:::/;
 					const match = src.match(pattern);
 					if (match) {
 						const [raw, infostring, content] = match;
 						const tokens = this.lexer.blockTokens(content);
-						const [, variant, rawTitle] = infostring.trim().match(/^(\S*)(\s+.*)?$/);
+						const [, variant, rawTitle] = infostring.trim().match(/^(\S*)(\s+(?:\S.*)?)?$/);
 						if (!variant) {
 							throw new Error(`Markdown container missing variant tag`);
 						}

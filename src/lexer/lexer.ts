@@ -10,7 +10,7 @@ type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
  */
 export type TokenStream = IterableIterator<Token>;
 
-/* eslint-disable no-useless-escape -- false positives */
+/* eslint-disable no-useless-escape, regexp/no-super-linear-backtracking -- false positives */
 const MATCH_UNICODE_BOM = /^\uFEFF/;
 const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[\t ]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(doctype)\s/i;
@@ -19,27 +19,27 @@ const MATCH_DOCTYPE_CLOSE = /^>/;
 const MATCH_XML_TAG = /^<\?xml.*?\?>\s+/;
 const MATCH_TAG_OPEN = /^<(\/?)([\w:\-]+)/; // https://www.w3.org/TR/html/syntax.html#start-tags
 const MATCH_TAG_CLOSE = /^\/?>/;
-const MATCH_TEXT = /^[^]*?(?=(?:[\t ]*(?:\r\n|\r|\n)|<[^ ]|$))/;
+const MATCH_TEXT = /^[\s\S]*?(?=[\t ]*(?:\r\n|\r|\n)|<[^ ]|$)/;
 const MATCH_TEMPLATING = /^(?:<%.*?%>|<\?.*?\?>|<\$.*?\$>)/s;
-const MATCH_TAG_LOOKAHEAD = /^[^]*?(?=<|$)/;
+const MATCH_TAG_LOOKAHEAD = /^[\s\S]*?(?=<|$)/;
 const MATCH_ATTR_START = /^([^\t\n\f\r "'/<=>]+)/; // https://www.w3.org/TR/html/syntax.html#elements-attributes
-const MATCH_ATTR_SINGLE = /^(\s*=\s*)'([^']*?)(')/;
-const MATCH_ATTR_DOUBLE = /^(\s*=\s*)"([^"]*?)(")/;
+const MATCH_ATTR_SINGLE = /^(\s*=\s*)'([^']*)(')/;
+const MATCH_ATTR_DOUBLE = /^(\s*=\s*)"([^"]*)(")/;
 const MATCH_ATTR_UNQUOTED = /^(\s*=\s*)([^\t\n\f\r "'<>][^\t\n\f\r <>]*)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
-const MATCH_CDATA_END = /^[^]*?]]>/;
-const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
+const MATCH_CDATA_END = /^[\s\S]*?\]\]>/;
+const MATCH_SCRIPT_DATA = /^[\s\S]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
-const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
+const MATCH_STYLE_DATA = /^[\s\S]*?(?=<\/style)/;
 const MATCH_STYLE_END = /^<(\/)(style)/;
-const MATCH_TEXTAREA_DATA = /^[^]*?(?=<\/textarea)/;
+const MATCH_TEXTAREA_DATA = /^[\s\S]*?(?=<\/textarea)/;
 const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
-const MATCH_TITLE_DATA = /^[^]*?(?=<\/title)/;
+const MATCH_TITLE_DATA = /^[\s\S]*?(?=<\/title)/;
 const MATCH_TITLE_END = /^<(\/)(title)/;
-const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)(.*?)(]?\s*-->)/;
-const MATCH_COMMENT = /^<!--([^]*?)-->/;
-const MATCH_CONDITIONAL = /^<!\[([^\]]*?)]>/;
-/* eslint-enable no-useless-escape */
+const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)(.*?)(\]?\s*-->)/;
+const MATCH_COMMENT = /^<!--([\s\S]*?)-->/;
+const MATCH_CONDITIONAL = /^<!\[([^\]]*)\]>/;
+/* eslint-enable no-useless-escape, regexp/no-super-linear-backtracking */
 
 export class InvalidTokenError extends Error {
 	public location: Location;

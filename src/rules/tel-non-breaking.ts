@@ -42,8 +42,10 @@ export function constructRegex(characters: Character[]): RegExp {
 }
 
 function getText(node: TextNode): [offset: number, text: string] {
-	/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- this will always match something, it cannot be null */
-	const match = /^(\s*)(.*)$/.exec(node.textContent)!;
+	const match = /^(\s*)(\S.*)$/.exec(node.textContent);
+	if (!match) {
+		return [0, ""];
+	}
 	const [, leading, text] = match;
 	return [leading.length, text.trimEnd()];
 }

@@ -3,7 +3,7 @@ import { TokenType } from "../lexer";
 import { sliceLocation } from "../location";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
-const whitespace = /(\s+)/;
+const whitespace = /\s+/;
 
 export default class AttrDelimiter extends Rule {
 	public override documentation(): RuleDocumentation {

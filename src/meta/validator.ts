@@ -298,7 +298,7 @@ export class Validator {
 		category: string,
 		defaultMatch: boolean,
 	): boolean {
-		const [, rawCategory] = /^(@?.*?)([*?]?)$/.exec(category)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
+		const [, rawCategory] = /^(@?.*?)[*?]?$/.exec(category)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 
 		/* match tagName when an explicit name is given */
 		if (!rawCategory.startsWith("@")) {

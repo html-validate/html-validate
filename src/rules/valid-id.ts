@@ -45,7 +45,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 		const message = this.messages[kind]
 			.replace(`"{{ id }}"`, "`{{ id }}`")
 			.replace("id", "ID")
-			.replace(/^(.)/, (m) => m.toUpperCase());
+			.replace(/^./, (m) => m.toUpperCase());
 		const relaxedDescription = relaxed
 			? []
 			: [
@@ -91,7 +91,7 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
-			if (/^[^\p{L}]/u.test(value)) {
+			if (/^\P{L}/u.test(value)) {
 				const context: RuleContext = { kind: ErrorKind.LEADING_CHARACTER, id: value };
 				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
 				return;

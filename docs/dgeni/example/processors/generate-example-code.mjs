@@ -17,7 +17,7 @@ import path from "node:path";
 function fakeRequire(value, definition) {
 	if (definition.fakeRequire) {
 		return value
-			.replaceAll(/(^|\s)require\("[^"]+"\)/g, `require("mock-any")`)
+			.replaceAll(/(?:^|\s)require\("[^"]+"\)/g, `require("mock-any")`)
 			.replaceAll(/\sfrom "([^"]+)"/g, (_, mod) => {
 				return mod !== "html-validate" ? ` from "mock-any"` : ` from "html-validate"`;
 			});
