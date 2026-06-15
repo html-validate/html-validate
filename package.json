@@ -311,6 +311,13 @@
   "engines": {
     "node": "^22.22.0 || >= 24.8.0"
   },
+  "allowScripts": {
+    "@html-validate/commitlint-config": true,
+    "@parcel/watcher": false,
+    "esbuild": true,
+    "fsevents": false,
+    "unrs-resolver": true
+  },
   "externalDependencies": [
     "@babel/code-frame",
     "@html-validate/stylish",
