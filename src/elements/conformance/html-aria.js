@@ -658,8 +658,7 @@ async function update() {
 	const { document } = new JSDOM(html).window;
 	const rows = Array.from(
 		document
-			.querySelector("#document-conformance-requirements-for-use-of-aria-attributes-in-html")
-			.querySelector("tbody")
+			.querySelector("#document-conformance-requirements-for-use-of-aria-attributes-in-html tbody")
 			.querySelectorAll("tr"),
 	);
 

@@ -39,7 +39,7 @@ export interface ConfigData {
 	 *
 	 * The following sources are allowed:
 	 *
-	 * - One of the [predefined presets](http://html-validate.org/rules/presets.html).
+	 * - One of the [predefined presets](https://html-validate.org/rules/presets.html).
 	 * - Node module exporting a preset.
 	 * - Plugin exporting a named preset.
 	 * - Local path to a json or js file exporting a preset.

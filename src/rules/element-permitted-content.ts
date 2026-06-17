@@ -85,6 +85,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 				[
 					() => this.validatePermittedContent(node, parent),
 					() => this.validatePermittedDescendant(node, parent),
+					/* eslint-disable-next-line unicorn/no-unused-array-method-return -- technical debt, should use iterator helpers */
 				].some((fn) => fn());
 			});
 		});

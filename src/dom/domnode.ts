@@ -201,6 +201,7 @@ export class DOMNode {
 	 * node has no children.
 	 */
 	public get firstChild(): DOMNode {
+		/* eslint-disable-next-line unicorn/better-dom-traversing -- this is the implementation of firstChild */
 		return this.childNodes[0] || null;
 	}
 

@@ -137,7 +137,7 @@ function printTree(nodes, prefix = " ") {
 		const node = sorted[i];
 		const isLast = i === sorted.length - 1;
 		const connector = styleText("gray", isLast ? "└── " : "├── ");
-		const childPrefix = prefix + styleText("gray", isLast ? "    " : "│   ");
+		const childPrefix = prefix + styleText("gray", isLast ? " ".repeat(4) : "│   ");
 		if (node.type === "dir") {
 			const name = `${node.name}/`;
 			console.log(`${prefix}${connector}${styleText("cyan", name)}`);

@@ -25,6 +25,7 @@ describe("rule doctype-html", () => {
 		expect(report).toBeValid();
 	});
 
+	/* eslint-disable unicorn/prefer-https -- test should ensure this works */
 	it("should report error when older doctype is used", async () => {
 		expect.assertions(2);
 		const html =
@@ -38,6 +39,7 @@ describe("rule doctype-html", () => {
 			Selector: -"
 		`);
 	});
+	/* eslint-enable unicorn/prefer-https */
 
 	it("should report error when doctype has legacy string", async () => {
 		expect.assertions(2);

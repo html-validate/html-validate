@@ -47,7 +47,7 @@ describe("DOMNode", () => {
 			expect(parent.childNodes).toHaveLength(0);
 			parent.append(child);
 			expect(parent.childNodes).toHaveLength(1);
-			expect(parent.childNodes[0].unique).toEqual(child.unique);
+			expect(parent.firstChild.unique).toEqual(child.unique);
 		});
 
 		it("should set parent", () => {

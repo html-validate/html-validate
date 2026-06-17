@@ -166,7 +166,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 	}
 
 	protected getStyle(value: string): Style {
-		/* http://example.net or //example.net */
+		/* protocol://example.net or //example.net */
 		if (/^(?:[a-z]+:)?\/\//.test(value)) {
 			return Style.EXTERNAL;
 		}
