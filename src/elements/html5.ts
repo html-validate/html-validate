@@ -343,7 +343,6 @@ export default {
 						"authorization_endpoint",
 						"component",
 						"chrome-webstore-item",
-						"dns-prefetch",
 						"edit",
 						"gbfs",
 						"gtfs-static",
@@ -368,7 +367,6 @@ export default {
 						"token_endpoint",
 						"wlwmanifest",
 						"stylesheet/less",
-						"token_endpoint",
 						"yandex-tableau-widget",
 					]);
 					const tokens = attr.toLowerCase().split(/\s+/);
@@ -527,7 +525,6 @@ export default {
 						"authorization_endpoint",
 						"component",
 						"chrome-webstore-item",
-						"dns-prefetch",
 						"edit",
 						"gbfs",
 						"gtfs-static",
@@ -552,7 +549,6 @@ export default {
 						"token_endpoint",
 						"wlwmanifest",
 						"stylesheet/less",
-						"token_endpoint",
 						"yandex-tableau-widget",
 					]);
 					const tokens = attr.toLowerCase().split(/\s+/);

@@ -119,7 +119,7 @@ export class Validator {
 				 * - disallowed elements
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
-				const orderSpecified = rules.find((cur: string) =>
+				const orderSpecified = rules.some((cur: string) =>
 					Validator.validatePermittedCategory(node, cur, true),
 				);
 				if (orderSpecified) {

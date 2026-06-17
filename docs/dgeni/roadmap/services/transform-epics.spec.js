@@ -261,9 +261,9 @@ describe("transformEpic", () => {
 								iid: "11",
 								title: "Closed issue",
 								state: "CLOSED",
-								webUrl: "http://example.com/11",
+								webUrl: "https://example.com/11",
 							},
-							{ iid: "10", title: "Open issue", state: "OPEN", webUrl: "http://example.com/10" },
+							{ iid: "10", title: "Open issue", state: "OPEN", webUrl: "https://example.com/10" },
 						],
 					},
 				},
@@ -271,7 +271,7 @@ describe("transformEpic", () => {
 		});
 		const epic = transformEpic(node);
 		expect(epic.children).toHaveLength(2);
-		expect(epic.children[0].iid).toBe("10");
+		expect(epic.children[0].iid).toBe("10"); // eslint-disable-line unicorn/better-dom-traversing -- false positive
 	});
 
 	it("should default children to empty array when hierarchy widget is absent", () => {

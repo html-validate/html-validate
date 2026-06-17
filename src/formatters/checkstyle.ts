@@ -40,7 +40,7 @@ function checkstyleFormatter(results: Result[]): string {
 
 		for (const message of messages) {
 			const ruleId = xmlescape(`htmlvalidate.rules.${message.ruleId}`);
-			output += "    ";
+			output += " ".repeat(4);
 			output += [
 				`<error line="${xmlescape(message.line)}"`,
 				`column="${xmlescape(message.column)}"`,

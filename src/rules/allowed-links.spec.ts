@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/prefer-https -- tests ensure non-http links are handled properly */
+
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
 import "html-validate/jest";

@@ -84,9 +84,10 @@ export default [
 
 	{
 		name: "local/docs/specs",
-		files: ["docs/**/*.spec.ts"],
+		files: ["docs/**/__tests__/*.spec.ts"],
 		rules: {
 			"dot-notation": "off",
+			"unicorn/prefer-https": "off",
 		},
 	},
 

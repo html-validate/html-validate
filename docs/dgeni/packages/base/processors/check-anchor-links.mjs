@@ -90,7 +90,7 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 				if (unmatchedLinks.length > 0) {
 					unmatchedLinkCount += unmatchedLinks.length;
 					messages.push(
-						`${createDocMessage("      ", linkInfo.doc)}\n${unmatchedLinks
+						`${createDocMessage(" ".repeat(6), linkInfo.doc)}\n${unmatchedLinks
 							.map((link) => `         - ${link}`)
 							.join("\n")}`,
 					);

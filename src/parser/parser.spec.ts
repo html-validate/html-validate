@@ -2007,8 +2007,8 @@ describe("parser", () => {
 			expect.assertions(8);
 			const document = parser.parseHtml("<b>foo</b> <u>bar</ul>");
 			expect(document.childNodes).toHaveLength(3);
-			expect(document.childNodes[0]).toBeInstanceOf(HtmlElement);
-			expect(document.childNodes[0].textContent).toBe("foo");
+			expect(document.childNodes[0]).toBeInstanceOf(HtmlElement); // eslint-disable-line unicorn/better-dom-traversing -- for consistency
+			expect(document.childNodes[0].textContent).toBe("foo"); // eslint-disable-line unicorn/better-dom-traversing -- for consistency
 			expect(document.childNodes[1]).toBeInstanceOf(TextNode);
 			expect(document.childNodes[1].textContent).toBe(" ");
 			expect(document.childNodes[2]).toBeInstanceOf(HtmlElement);
