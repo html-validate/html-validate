@@ -54,7 +54,7 @@ export default function rulesProcessor(renderDocsProcessor) {
 		for (const doc of ruleDocs) {
 			if (!doc.title) {
 				doc.title = `${doc.summary} (${doc.name})`;
-				doc.standards = doc.standards ?? [];
+				doc.standards ??= [];
 			}
 		}
 

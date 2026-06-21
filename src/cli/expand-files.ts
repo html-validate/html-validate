@@ -67,7 +67,8 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			}
 		}
 
-		for (const filename of fs.globSync(pattern, { cwd })) {
+		const filenames = fs.globSync(pattern, { cwd });
+		for (const filename of filenames) {
 			/* if file is a directory recursively expand files from it */
 			const fullpath = join(cwd, filename);
 			if (isDirectory(fullpath)) {

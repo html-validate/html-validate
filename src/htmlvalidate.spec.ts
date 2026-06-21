@@ -74,7 +74,6 @@ beforeEach(() => {
 describe("HtmlValidate", () => {
 	it("should support using a custom config loader", async () => {
 		expect.assertions(2);
-		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		const loader = new (class extends ConfigLoader {
 			public async getConfigFor(
 				_handle: string,
@@ -94,6 +93,7 @@ describe("HtmlValidate", () => {
 				return Config.defaultConfig();
 			}
 		})([]);
+		/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 		const getConfigFor = jest.spyOn(loader, "getConfigFor");
 		const htmlvalidate = new HtmlValidate(loader);
 		const filename = "/path/to/my-file.html";
@@ -1038,6 +1038,7 @@ describe("HtmlValidate", () => {
 		it("should use inline config by default", async () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
 			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" });
 			expect(getConfigFor).toHaveBeenCalledTimes(1);
@@ -1047,6 +1048,7 @@ describe("HtmlValidate", () => {
 		it("should get config for given filename", async () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
 			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" }, "my-file.html");
 			expect(getConfigFor).toHaveBeenCalledTimes(1);
@@ -1057,6 +1059,7 @@ describe("HtmlValidate", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
 			const config = Config.empty().resolve();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor");
 			await htmlvalidate.getContextualDocumentation({ ruleId: "foo" }, config);
 			expect(getConfigFor).not.toHaveBeenCalled();
@@ -1081,6 +1084,7 @@ describe("HtmlValidate", () => {
 		it("should use inline config by default", () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
 			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" });
 			expect(getConfigFor).toHaveBeenCalledTimes(1);
@@ -1090,6 +1094,7 @@ describe("HtmlValidate", () => {
 		it("should get config for given filename", () => {
 			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
 			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" }, "my-file.html");
 			expect(getConfigFor).toHaveBeenCalledTimes(1);
@@ -1100,6 +1105,7 @@ describe("HtmlValidate", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
 			const config = mockConfigSync();
+			/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigForSync");
 			htmlvalidate.getContextualDocumentationSync({ ruleId: "foo" }, config);
 			expect(getConfigFor).not.toHaveBeenCalled();

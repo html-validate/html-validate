@@ -1,6 +1,6 @@
 /* eslint-disable-next-line complexity -- technical debt, imported as-is */
 function docMessage(message, doc, error) {
-	message = message || "";
+	message ||= "";
 	if (doc) {
 		message += " - doc";
 		const docIdentifier = doc.id || doc.name || doc.path;

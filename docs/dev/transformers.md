@@ -63,7 +63,8 @@ export async function myTransform(
   const sources = [];
   for (const transformedSource of transformImplementation(source)) {
     const next = `${source.filename}.foo`;
-    for (const chained of await this.chain(transformedSource, next)) {
+    const chain = await this.chain(transformedSource, next);
+    for (const chained of chain) {
       sources.push(chained);
     }
   }

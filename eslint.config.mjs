@@ -8,18 +8,6 @@ import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-ty
 import vitestConfig from "@html-validate/eslint-config-vitest";
 
 export default [
-	{
-		name: "Ignored files",
-		ignores: [
-			"**/coverage/**",
-			"**/dist/**",
-			"**/node_modules/**",
-			"**/out/**",
-			"**/public/assets/**",
-			"**/temp/**",
-		],
-	},
-
 	...defaultConfig,
 
 	{
@@ -60,7 +48,6 @@ export default [
 			"import-x/no-unresolved": ["error", { ignore: ["\\?"] }],
 			"security/detect-unsafe-regex": "off",
 			"sonarjs/no-hardcoded-passwords": "off",
-			"sonarjs/slow-regex": "off",
 		},
 	},
 
@@ -111,7 +98,6 @@ export default [
 		name: "local/vite-worker-imports",
 		files: ["src/jest/worker/index.ts", "src/vitest/worker/index.ts"],
 		rules: {
-			/* eslint-disable-next-line unicorn/comment-content -- false positive */
 			/* import-x cannot resolve Vite ?worker&url query strings */
 			"import-x/no-unresolved": "off",
 		},

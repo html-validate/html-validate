@@ -42,6 +42,7 @@ export function determineRootDirImpl(intial: string, fs: FSLike): string {
  */
 /* istanbul ignore next: cached version of determineRootDirImpl, no need to test */
 export function determineRootDir(): string {
+	/* eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- technical debt, should use explicit state variable */
 	cachedRootDir ??= determineRootDirImpl(process.cwd(), fs);
 	return cachedRootDir;
 }

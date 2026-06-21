@@ -3,7 +3,7 @@
  * @returns {boolean}
  */
 function isVersionNumber(value) {
-	return Boolean(/^\d+\.\d+\.\d+(?:-rc\.\d+)? \(\d+-\d+-\d+\)$/.test(value));
+	return /^\d+\.\d+\.\d+(?:-rc\.\d+)? \(\d+-\d+-\d+\)$/.test(value);
 }
 
 /**

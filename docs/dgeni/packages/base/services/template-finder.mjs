@@ -24,7 +24,8 @@ export default function templateFinder(log, createDocMessage) {
 			// Traverse each templateFolder and store an index of the files found for later
 			const templateSets = this.templateFolders.map((templateFolder) => {
 				const templates = {};
-				for (const template of fs.globSync("**/*", { cwd: templateFolder })) {
+				const templateFiles = fs.globSync("**/*", { cwd: templateFolder });
+				for (const template of templateFiles) {
 					templates[template] = template;
 				}
 				return { templateFolder, templates };

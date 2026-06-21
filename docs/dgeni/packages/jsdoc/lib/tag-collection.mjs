@@ -7,6 +7,7 @@ class TagCollection {
 		this.tagsByName = new Map();
 		this.badTags = [];
 		this.description = "";
+		/* eslint-disable-next-line unicorn/no-unreadable-for-of-expression -- technical debt */
 		for (const tag of tags || []) {
 			this.addTag(tag);
 		}
@@ -59,6 +60,7 @@ class TagCollection {
 function remove(array, item) {
 	const index = array.indexOf(item);
 	if (index !== -1) {
+		/* eslint-disable-next-line unicorn/no-array-splice -- technical debt */
 		array.splice(index, 1);
 	}
 }

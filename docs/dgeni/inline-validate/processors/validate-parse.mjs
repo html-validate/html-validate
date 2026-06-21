@@ -34,7 +34,7 @@ function uniqueName(containerMap, name) {
 		while (containerMap.has(name + index)) {
 			index += 1;
 		}
-		name = name + index;
+		name += index;
 	}
 	return name;
 }

@@ -3,7 +3,9 @@
  */
 export type RuleBlocker = number & { __type: "rule-blocker" };
 
-let blockerCounter = 1;
+const state = {
+	blockerCounter: 1,
+};
 
 /**
  * Creates a new rule blocker for using when blocking rules from generating
@@ -12,6 +14,6 @@ let blockerCounter = 1;
  * @internal
  */
 export function createBlocker(): RuleBlocker {
-	const id = blockerCounter++;
+	const id = state.blockerCounter++;
 	return id as RuleBlocker;
 }

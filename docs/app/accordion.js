@@ -10,6 +10,7 @@ let useAnimation = !prefersReducedMotion.matches;
 
 /* eslint-disable-next-line unicorn/no-top-level-side-effects -- technical debt, should be initialized with the accordion */
 prefersReducedMotion.addEventListener("change", (event) => {
+	/* eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- technical debt, should use explicit state variable */
 	useAnimation = !event.matches;
 });
 
