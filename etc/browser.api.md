@@ -1574,9 +1574,9 @@ export type TransformerResult = Source | Iterable<Source | Promise<Source>> | Pr
 export interface TransformFS {
     readFileSync(this: void, path: string | number, options: {
         encoding: "utf8";
-    }): {
+    }): string | {
         toString(encoding: "utf8"): string;
-    } | string;
+    };
 }
 
 // @public (undocumented)

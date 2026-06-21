@@ -48,6 +48,7 @@ export default function readFilesProcessor(log) {
 
 				log.debug("Source Info:\n", sourceInfo);
 
+				/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 				return getSourceFiles(sourceInfo).then((files) => {
 					const docsPromises = [];
 
@@ -55,7 +56,7 @@ export default function readFilesProcessor(log) {
 
 					for (const file of files) {
 						// Load up each file and extract documents using the appropriate fileReader
-						/* eslint-disable-next-line sonarjs/no-nested-functions -- inherited technical debt */
+						/* eslint-disable-next-line sonarjs/no-nested-functions, unicorn/prefer-await -- inherited technical debt */
 						const docsPromise = readFile(file).then((content) => {
 							// Choose a file reader for this file
 							const fileReader = sourceInfo.fileReader
@@ -83,10 +84,11 @@ export default function readFilesProcessor(log) {
 
 						docsPromises.push(docsPromise);
 					}
-					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
+					/* eslint-disable-next-line sonarjs/no-nested-functions, unicorn/prefer-await -- inhertited technical debt */
 					return Promise.all(docsPromises).then((results) => results.flat());
 				});
 			});
+			/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 			return Promise.all(sourcePromises).then((results) => results.flat());
 		},
 	};
@@ -168,29 +170,34 @@ function getSourceFiles(sourceInfo) {
 	const filesPromises = sourceInfo.include.map((include) => matchFiles(include));
 
 	// Once we have all the file path arrays, flatten them into a single array
-	return Promise.all(filesPromises)
-		.then((filesCollections) => filesCollections.flat())
-		.then((files) => {
-			// Filter the files on whether they match the `exclude` property and whether they are files
-			const filteredFilePromises = files.map((file) => {
-				if (sourceInfo.exclude.some((exclude) => matchesGlob(file, exclude))) {
-					// Return a promise for `null` if the path is excluded
-					// Doing this first - it is synchronous - saves us even making the isFile call if not needed
-					return Promise.resolve(null);
-				} else {
+	return (
+		Promise.all(filesPromises)
+			/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
+			.then((filesCollections) => filesCollections.flat())
+			/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
+			.then((files) => {
+				// Filter the files on whether they match the `exclude` property and whether they are files
+				const filteredFilePromises = files.map((file) => {
+					if (sourceInfo.exclude.some((exclude) => matchesGlob(file, exclude))) {
+						// Return a promise for `null` if the path is excluded
+						// Doing this first - it is synchronous - saves us even making the isFile call if not needed
+						return Promise.resolve(null);
+					}
 					// Return a promise for the file if path is a file, otherwise return a promise for `null`
+					/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 					return isFile(file).then((isFile) => {
 						return isFile ? file : null;
 					});
-				}
-			});
+				});
 
-			// Return a promise to a filtered list of files, those that are files and not excluded
-			// (i.e. those that are not `null` from the previous block of code)
-			return Promise.all(filteredFilePromises).then((filteredFiles) => {
-				return filteredFiles.filter((filteredFile) => filteredFile);
-			});
-		});
+				// Return a promise to a filtered list of files, those that are files and not excluded
+				// (i.e. those that are not `null` from the previous block of code)
+				/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
+				return Promise.all(filteredFilePromises).then((filteredFiles) => {
+					return filteredFiles.filter((filteredFile) => filteredFile);
+				});
+			})
+	);
 }
 
 function readFile(file) {

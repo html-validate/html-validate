@@ -25,9 +25,8 @@ function ruleInfoPlugin() {
 						};
 						this.lexer.inline(token.text, token.tokens);
 						return token;
-					} else {
-						return undefined;
 					}
+					return undefined;
 				},
 				renderer() {
 					return `{@ruleInfo}`;

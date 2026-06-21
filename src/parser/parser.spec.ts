@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/comment-content -- false positive */
+
 import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
@@ -78,6 +80,7 @@ function mergeEvent(event: string, data: any): any {
 
 	/* change HtmlElement instances to just tagname for easier testing */
 	for (const key of ["target", "previous"]) {
+		/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- technical debt */
 		if (merged[key] && merged[key] instanceof HtmlElement) {
 			merged[key] = merged[key].tagName;
 		}
@@ -1785,7 +1788,7 @@ describe("parser", () => {
 	describe("should parse", () => {
 		it("unicode bom", () => {
 			expect.assertions(2);
-			parser.parseHtml("\uFEFF<!DOCTYPE html>");
+			parser.parseHtml("\u{FEFF}<!DOCTYPE html>");
 			expect(events.shift()).toEqual({
 				event: "doctype",
 				tag: "DOCTYPE",
@@ -2182,10 +2185,11 @@ describe("parser", () => {
 			it("allow modify element metadata", () => {
 				expect.assertions(2);
 				function processElement(this: ProcessElementContext, node: HtmlElement): void {
-					if (node.tagName === "i") {
-						const meta = this.getMetaFor("div");
-						node.loadMeta(meta!);
+					if (node.tagName !== "i") {
+						return;
 					}
+					const meta = this.getMetaFor("div");
+					node.loadMeta(meta!);
 				}
 				const source: Source = {
 					data: "<i></i><u></u>",

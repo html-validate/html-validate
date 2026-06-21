@@ -6,6 +6,7 @@ import { type TransformContext } from "./context";
 import { getCachedTransformerFunction } from "./get-transformer-function";
 
 function isIterable<T>(value: unknown | Iterable<T>): value is Iterable<T> {
+	/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- want to search prototype chain */
 	return Boolean(value && typeof value === "object" && Symbol.iterator in value);
 }
 
@@ -38,6 +39,9 @@ export async function transformSource(
 ): Promise<Source[]> {
 	const { cache } = config;
 	const transformer = config.findTransformer(filename ?? source.filename);
+	if (!transformer) {
+		return [source];
+	}
 	const context: TransformContext = {
 		hasChain(filename) {
 			return config.canTransform(filename);
@@ -46,9 +50,6 @@ export async function transformSource(
 			return transformSource(resolvers, config, source, filename);
 		},
 	};
-	if (!transformer) {
-		return [source];
-	}
 	const fn =
 		transformer.kind === "import"
 			? await getCachedTransformerFunction(cache, resolvers, transformer.name, config.getPlugins())
@@ -92,6 +93,9 @@ export function transformSourceSync(
 ): Source[] {
 	const { cache } = config;
 	const transformer = config.findTransformer(filename ?? source.filename);
+	if (!transformer) {
+		return [source];
+	}
 	const context: TransformContext = {
 		hasChain(filename) {
 			return config.canTransform(filename);
@@ -100,17 +104,14 @@ export function transformSourceSync(
 			return transformSourceSync(resolvers, config, source, filename);
 		},
 	};
-	if (!transformer) {
-		return [source];
-	}
 	const fn =
 		transformer.kind === "import"
 			? getCachedTransformerFunction(cache, resolvers, transformer.name, config.getPlugins())
 			: transformer.function;
-	const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 	if (isThenable(fn)) {
 		throw new UserError(asyncInSyncTransformError);
 	}
+	const name = transformer.kind === "import" ? transformer.name : transformer.function.name;
 	try {
 		const result = fn.call(context, source);
 		if (isThenable(result)) {

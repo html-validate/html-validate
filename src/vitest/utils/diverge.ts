@@ -42,10 +42,10 @@ export function diverge<T, TArgs extends unknown[]>(
 		...args: TArgs
 	): SyncExpectationResult | AsyncExpectationResult {
 		if (isThenable(actual)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return actual.then((resolved) => fn.call(this, resolved, ...args));
-		} else {
-			return fn.call(this, actual, ...args);
 		}
+		return fn.call(this, actual, ...args);
 	}
 	return diverged;
 }

@@ -47,7 +47,9 @@ export default function fetchRoadmapProcessor(renderDocsProcessor, roadmapConfig
 		const icons = roadmapConfig.componentIcons;
 		if (Object.keys(icons).length > 0) {
 			epics = epics.map((epic) => {
-				const match = epic.labels.find((l) => l.prefix === "component" && l.suffix in icons);
+				const match = epic.labels.find(
+					(l) => l.prefix === "component" && Object.hasOwn(icons, l.suffix),
+				);
 				return { ...epic, icon: match ? icons[match.suffix] : null };
 			});
 		}

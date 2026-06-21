@@ -17,13 +17,12 @@ function createMockedModule(name: string, content: unknown): void {
 beforeEach(() => {
 	mockModules = {};
 	legacyRequire.mockReset().mockImplementation((name: string) => {
-		if (mockModules[name]) {
+		if (Object.hasOwn(mockModules, name)) {
 			return mockModules[name];
-		} else {
-			const error = new Error(`No mocked module named "${name}"`) as RequireError;
-			error.code = "MODULE_NOT_FOUND";
-			throw error;
 		}
+		const error = new Error(`No mocked module named "${name}"`) as RequireError;
+		error.code = "MODULE_NOT_FOUND";
+		throw error;
 	});
 });
 

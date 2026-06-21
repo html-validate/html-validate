@@ -1,3 +1,4 @@
+/* eslint-disable-next-line unicorn/no-global-object-property-assignment -- intentional for now */
 window.jQuery = require("jquery");
 require("bootstrap-sass");
 

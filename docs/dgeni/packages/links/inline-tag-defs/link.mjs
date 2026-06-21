@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/comment-content -- false positive */
+
 const INLINE_LINK = /(\S+)(?:\s+([\s\S]+))?/;
 
 /**
@@ -5,9 +7,9 @@ const INLINE_LINK = /(\S+)(?:\s+([\s\S]+))?/;
  * @description
  * Process inline link tags (of the form {@link some/uri Some Title}), replacing them with HTML anchors
  * @kind function
- * @param  {Object} url   The url to match
+ * @param  {Object} url   The URL to match
  * @param  {Function} docs error message
- * @return {String}  The html link information
+ * @return {String}  The HTML link information
  *
  * @property {boolean} relativeLinks Whether we expect the links to be relative to the originating doc
  */
@@ -17,7 +19,7 @@ export default function linkInlineTagDef(getLinkInfo, createDocMessage, log) {
 		description:
 			"Process inline link tags (of the form {@link some/uri Some Title}), replacing them with HTML anchors",
 		handler(doc, tagName, tagDescription) {
-			// Parse out the uri and title
+			// Parse out the URI and title
 			return tagDescription.replace(INLINE_LINK, (match, uri, title) => {
 				const linkInfo = getLinkInfo(uri, title, doc);
 

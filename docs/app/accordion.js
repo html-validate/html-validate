@@ -8,6 +8,7 @@ const ClassNames = {
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion)");
 let useAnimation = !prefersReducedMotion.matches;
 
+/* eslint-disable-next-line unicorn/no-top-level-side-effects -- technical debt, should be initialized with the accordion */
 prefersReducedMotion.addEventListener("change", (event) => {
 	useAnimation = !event.matches;
 });
@@ -30,7 +31,8 @@ function getElements(element) {
 				return element.open;
 			},
 		};
-	} else if (element.dataset.accordion) {
+	}
+	if (element.dataset.accordion) {
 		/** @type {HTMLInputElement} */
 		const control = element.querySelector("[data-accordion-control]");
 		/** @type {HTMLElement} */
@@ -49,11 +51,10 @@ function getElements(element) {
 				return control.checked;
 			},
 		};
-	} else {
-		throw new Error(
-			"Accordion can only be created on <details> element or an element with explicit [data-accordion] attribute",
-		);
 	}
+	throw new Error(
+		"Accordion can only be created on <details> element or an element with explicit [data-accordion] attribute",
+	);
 }
 
 /**
@@ -69,14 +70,16 @@ export function accordion(element) {
 	let isExpanding = false;
 
 	summary.addEventListener("click", (event) => {
-		if (useAnimation) {
-			event.preventDefault();
-			element.style.overflow = "hidden";
-			if (isClosing || !state.isOpen()) {
-				open();
-			} else if (isExpanding || state.isOpen()) {
-				shrink();
-			}
+		if (!useAnimation) {
+			return;
+		}
+
+		event.preventDefault();
+		element.style.overflow = "hidden";
+		if (isClosing || !state.isOpen()) {
+			open();
+		} else if (isExpanding || state.isOpen()) {
+			shrink();
 		}
 	});
 

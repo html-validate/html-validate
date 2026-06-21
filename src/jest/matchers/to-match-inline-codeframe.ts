@@ -45,10 +45,10 @@ function toMatchInlineCodeframe(
 	};
 
 	if (isThenable(actual)) {
+		/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 		return actual.then((resolved) => toMatchInlineCodeframeImpl(context, resolved, ...rest));
-	} else {
-		return toMatchInlineCodeframeImpl(context, actual, ...rest);
 	}
+	return toMatchInlineCodeframeImpl(context, actual, ...rest);
 }
 
 function createMatcher(): ToMatchInlineCodeframeMatcher {

@@ -102,12 +102,12 @@ const defaultResolvers: Resolver[] = [esmResolver()];
  */
 export class FlatConfigLoader extends ConfigLoader {
 	private readonly configFilePath: string;
-	private configCache: {
+	private configCache: null | {
 		/** all configuration blocks except global ignores */
 		flatConfig: FlatConfigObject[];
 		/** global ignore patterns */
 		globalIgnores: string[];
-	} | null;
+	};
 	private fileCache: Map<string, ResolvedConfig>;
 
 	/**

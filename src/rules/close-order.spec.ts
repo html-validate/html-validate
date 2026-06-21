@@ -78,6 +78,7 @@ describe("rule close-order", () => {
 
 	it("should not report for element with optional end tag", async () => {
 		expect.assertions(1);
+		/* eslint-disable-next-line unicorn/comment-content -- false positive */
 		/* HTML allows omitting </html>, </head>, and </body> */
 		const markup = `
 			<html>

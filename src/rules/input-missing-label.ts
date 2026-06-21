@@ -90,7 +90,7 @@ export default class InputMissingLabel extends Rule {
 			this.report(elem, `<${elem.tagName}> element has <label> but <label> element is hidden`);
 			return;
 		}
-		if (!labels.some((label) => hasAccessibleName(root, label))) {
+		if (labels.every((label) => !hasAccessibleName(root, label))) {
 			this.report(elem, `<${elem.tagName}> element has <label> but <label> has no text`);
 		}
 	}

@@ -35,14 +35,13 @@ function isNativeTemplate(node: HtmlElement): boolean {
 function getTransparentChildren(node: HtmlElement, transparent: boolean | string[]): HtmlElement[] {
 	if (typeof transparent === "boolean") {
 		return node.childElements;
-	} else {
-		/* only return children which matches one of the given content categories */
-		return node.childElements.filter((it) => {
-			return transparent.some((category) => {
-				return Validator.validatePermittedCategory(it, category, false);
-			});
-		});
 	}
+	/* only return children which matches one of the given content categories */
+	return node.childElements.filter((it) => {
+		return transparent.some((category) => {
+			return Validator.validatePermittedCategory(it, category, false);
+		});
+	});
 }
 
 function getRuleDescription(context: RuleContext): string[] {
@@ -72,7 +71,7 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
-				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
+				/* istanbul ignore next: satisfy TypeScript but will visitDepthFirst()
 				 * will not yield nodes without a parent */
 				if (!parent) {
 					return;

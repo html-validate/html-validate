@@ -300,21 +300,19 @@ export default class FormDupName extends Rule<RuleContext, RuleOptions> {
 		const existing = group.cacheGet(UNIQUE_CACHE_KEY);
 		if (existing) {
 			return existing;
-		} else {
-			const elements = new Map<string, ControlDetails>();
-			group.cacheSet(UNIQUE_CACHE_KEY, elements);
-			return elements;
 		}
+		const elements = new Map<string, ControlDetails>();
+		group.cacheSet(UNIQUE_CACHE_KEY, elements);
+		return elements;
 	}
 
 	private getSharedElements(group: HtmlElement): Map<string, string> {
 		const existing = group.cacheGet(SHARED_CACHE_KEY);
 		if (existing) {
 			return existing;
-		} else {
-			const elements = new Map<string, string>();
-			group.cacheSet(SHARED_CACHE_KEY, elements);
-			return elements;
 		}
+		const elements = new Map<string, string>();
+		group.cacheSet(SHARED_CACHE_KEY, elements);
+		return elements;
 	}
 }

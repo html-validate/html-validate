@@ -9,12 +9,11 @@ function createMatcher(): MaybeAsyncCallback<Report, []> {
 				pass: false,
 				message: () => "Result should be invalid but had no errors",
 			};
-		} else {
-			return {
-				pass: true,
-				message: /* istanbul ignore next */ () => "Result should not contain error",
-			};
 		}
+		return {
+			pass: true,
+			message: /* istanbul ignore next */ () => "Result should not contain error",
+		};
 	}
 	return diverge(toBeInvalid);
 }

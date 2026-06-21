@@ -14,6 +14,7 @@ const packagePath = import.meta.dirname;
 
 export default new Package("inline-validate", [])
 
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.processor(validateParse)
 	.processor(validateGenerate)
 	.processor(validateResults)

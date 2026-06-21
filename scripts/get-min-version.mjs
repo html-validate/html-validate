@@ -33,7 +33,7 @@ if (!foundJest) {
 	process.exit(1); // eslint-disable-line n/no-process-exit -- want early exit
 }
 
-if (!typescript[constraint]) {
+if (!Object.hasOwn(typescript, constraint)) {
 	process.stderr.write(`Failed to find a typescript version that matches jest "${constraint}"\n`);
 	process.exit(1); // eslint-disable-line n/no-process-exit -- want early exit
 }

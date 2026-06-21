@@ -51,7 +51,7 @@ const folders = {
 
 /** @type {string[]} */
 const external = [
-	/* nodejs */
+	/* Node.js */
 	...builtinModules,
 	...builtinModules.map((name) => `node:${name}`), //spec: https://nodejs.org/docs/latest/api/esm.html#esm_node_imports
 
@@ -161,9 +161,8 @@ function manualChunks(id) {
 		const split = ["natural-join", "parse-image-candidate-string"];
 		if (split.includes(parsed.name)) {
 			return `utils/${parsed.name}`;
-		} else {
-			return "core";
 		}
+		return "core";
 	}
 
 	if (rel.startsWith("jest/")) {
@@ -190,6 +189,7 @@ function generateResolved(format) {
 				return new URL(import.meta.resolve(specifier));
 			};
 		`;
+		// eslint-disable-next-line unicorn/no-useless-else -- for consistency
 	} else {
 		return `
 			import { pathToFileURL } from "node:url";
@@ -211,9 +211,8 @@ function generatedPackageJsonPlugin() {
 		resolveId(id) {
 			if (id.endsWith("generated/package-json")) {
 				return virtualId;
-			} else {
-				return undefined;
 			}
+			return undefined;
 		},
 		load(id) {
 			if (id === virtualId) {
@@ -223,9 +222,8 @@ function generatedPackageJsonPlugin() {
 					`export const homepage = ${JSON.stringify(packageJson.homepage)};`,
 					`export const bugs = ${JSON.stringify(packageJson.bugs.url)};`,
 				].join("\n");
-			} else {
-				return undefined;
 			}
+			return undefined;
 		},
 	};
 }

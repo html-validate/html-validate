@@ -74,6 +74,7 @@ beforeEach(() => {
 describe("HtmlValidate", () => {
 	it("should support using a custom config loader", async () => {
 		expect.assertions(2);
+		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		const loader = new (class extends ConfigLoader {
 			public async getConfigFor(
 				_handle: string,

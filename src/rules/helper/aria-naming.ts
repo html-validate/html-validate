@@ -61,9 +61,8 @@ export function ariaNaming(element: HtmlElement): "allowed" | "prohibited" {
 	if (role) {
 		if (role instanceof DynamicValue) {
 			return element.cacheSet(cacheKey, defaultValue);
-		} else {
-			return element.cacheSet(cacheKey, byRole(role));
 		}
+		return element.cacheSet(cacheKey, byRole(role));
 	}
 
 	const meta = element.meta;

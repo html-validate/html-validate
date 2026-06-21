@@ -37,7 +37,6 @@ export function* splitCompound(pattern: string): Generator<string> {
 
 	while (cur < end) {
 		const ch = pattern[cur];
-		const buffer = pattern.slice(begin, cur);
 
 		/* escaped character, ignore whatever is next */
 		if (ch === "\\") {
@@ -61,6 +60,8 @@ export function* splitCompound(pattern: string): Generator<string> {
 			cur += 1;
 			continue;
 		}
+
+		const buffer = pattern.slice(begin, cur);
 
 		/* special case when using :: pseudo element selector */
 		if (isPseudoElement(ch, buffer)) {

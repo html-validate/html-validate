@@ -33,6 +33,7 @@ export default new Package("base")
 	 * @dgProcessor reading-files
 	 * @description  A marker that files are about to be read
 	 */
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.processor({ name: "reading-files" })
 	/**
 	 * @dgProcessor files-read

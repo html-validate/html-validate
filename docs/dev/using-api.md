@@ -469,7 +469,7 @@ The CLI interface can be wrapped using the `CLI` class.
 ```ts
 import { CLI } from "html-validate";
 
-/* replace with your favourite cli arg parser */
+/* replace with your favourite CLI arg parser */
 const argv = {
   configFile: "myconfig.json",
   formatter: "stylish",

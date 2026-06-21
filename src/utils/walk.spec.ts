@@ -20,7 +20,9 @@ describe("walk.depthFirst()", () => {
 		const b = HtmlElement.createElement("b", location, { parent: root });
 		const c = HtmlElement.createElement("c", location, { parent: b });
 		const order: string[] = [];
-		walk.depthFirst(root, (node) => order.push(node.tagName));
+		walk.depthFirst(root, (node) => {
+			order.push(node.tagName);
+		});
 		expect(order).toEqual([a.tagName, c.tagName, b.tagName]);
 	});
 
@@ -33,7 +35,9 @@ describe("walk.depthFirst()", () => {
 		const c = HtmlElement.createElement("c", location, { parent: b });
 		tree.resolveMeta(table);
 		const order: string[] = [];
-		walk.depthFirst(tree, (node) => order.push(node.tagName));
+		walk.depthFirst(tree, (node) => {
+			order.push(node.tagName);
+		});
 		expect(order).toEqual([a.tagName, c.tagName, b.tagName]);
 	});
 

@@ -62,8 +62,7 @@ function getExisting(element: HtmlElement, root: HtmlElement): Set<string> {
 	const existing = group.cacheGet(CACHE_KEY);
 	if (existing) {
 		return existing;
-	} else {
-		const existing = new Set<string>();
-		return group.cacheSet(CACHE_KEY, existing);
 	}
+	const value = new Set<string>();
+	return group.cacheSet(CACHE_KEY, value);
 }

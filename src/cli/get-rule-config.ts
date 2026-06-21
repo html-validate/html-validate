@@ -11,7 +11,7 @@ function parseItem(value: string): { ruleId: string; severity: RuleSeverity } {
  */
 export function getRuleConfig(values: string | string[]): RuleConfig {
 	if (typeof values === "string") {
-		return getRuleConfig([values]);
+		values = [values];
 	}
 
 	return values.reduce<RuleConfig>((parsedRules, value) => {

@@ -95,9 +95,11 @@ export class Reporter {
 		reports: Report[] | Promise<Report[]> | Array<Promise<Report>>,
 	): Report | Promise<Report> {
 		if (isThenable(reports)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return reports.then((reports) => this.merge(reports));
 		}
 		if (isThenableArray(reports)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return Promise.all(reports).then((reports) => this.merge(reports));
 		}
 		const valid = reports.every((report) => report.valid);
@@ -105,7 +107,7 @@ export class Reporter {
 		for (const report of reports) {
 			for (const result of report.results) {
 				const key = result.filePath;
-				if (key in merged) {
+				if (Object.hasOwn(merged, key)) {
 					merged[key].messages = [...merged[key].messages, ...result.messages];
 				} else {
 					merged[key] = { ...result };
@@ -138,7 +140,7 @@ export class Reporter {
 		context: ContextType;
 	}): void {
 		const { rule, message, severity, node, location, context } = options;
-		if (!(location.filename in this.result)) {
+		if (!Object.hasOwn(this.result, location.filename)) {
 			this.result[location.filename] = [];
 		}
 		const ruleUrl = rule.documentation(context)?.url;
@@ -167,7 +169,7 @@ export class Reporter {
 	 * @internal
 	 */
 	public addManual(filename: string, message: DeferredMessage): void {
-		if (!(filename in this.result)) {
+		if (!Object.hasOwn(this.result, filename)) {
 			this.result[filename] = [];
 		}
 		this.result[filename].push(message);
@@ -179,6 +181,7 @@ export class Reporter {
 	public save(sources?: Source[]): Report {
 		const report: Report = {
 			valid: this.isValid(),
+			/* eslint-disable-next-line unicorn/prefer-object-iterable-methods -- technical debt */
 			results: Object.keys(this.result).map((filePath) => {
 				const messages = Array.from(this.result[filePath], freeze).toSorted(messageSort);
 				const source = (sources ?? []).find((source: Source) => filePath === source.filename);

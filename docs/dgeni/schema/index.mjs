@@ -8,6 +8,7 @@ const { Package } = Dgeni;
 const packagePath = import.meta.dirname;
 
 export default new Package("schema", [])
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.processor(copySchemaProcessor)
 	.factory(copySchemaService)
 

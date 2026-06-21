@@ -46,9 +46,9 @@ export function sortChildren(children) {
  * @returns {T[]}
  */
 export function filterHiddenEpics(epics) {
-	return epics.filter(
-		(epic) => !epic.labels.some((l) => l.prefix === "docs" && l.suffix === "hidden"),
-	);
+	return epics.filter((epic) => {
+		return epic.labels.every((l) => !(l.prefix === "docs" && l.suffix === "hidden"));
+	});
 }
 
 /**

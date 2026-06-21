@@ -21,7 +21,7 @@ export default class NoButtonsRule extends Rule {
   }
 
   public setup(): void {
-    /* listen on dom ready event */
+    /* listen on DOM ready event */
     this.on("dom:ready", (event: DOMReadyEvent) => {
       /* do something with the DOM tree */
       const { document } = event;

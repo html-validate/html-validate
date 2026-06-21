@@ -317,9 +317,8 @@ export default defineMetadata({
       implicitRole(node) {
         if (node.hasAttribute("foo")) {
           return "button";
-        } else {
-          return "generic";
         }
+        return "generic";
       },
     },
   },
@@ -404,11 +403,10 @@ export default defineMetadata({
     attributes: {
       foo: {
         allowed(node) {
-          if (!node.hasAttribute("bar")) {
-            return "needs a bar attribute";
-          } else {
+          if (node.hasAttribute("bar")) {
             return null;
           }
+          return "needs a bar attribute";
         },
       },
     },

@@ -209,7 +209,7 @@ describe("config", () => {
 			expect.assertions(2);
 			const config = await Config.fromObject(resolvers, { rules: { foo: "error" } });
 			expect(config.get().rules).toEqual({ foo: "error" });
-			expect(Array.from(config.getRules().entries())).toEqual([["foo", [Severity.ERROR, {}]]]);
+			expect(Array.from(config.getRules())).toEqual([["foo", [Severity.ERROR, {}]]]);
 		});
 
 		it("should parse severity from string", async () => {
@@ -221,7 +221,7 @@ describe("config", () => {
 					baz: "off",
 				},
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -237,7 +237,7 @@ describe("config", () => {
 					baz: 0,
 				},
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -253,7 +253,7 @@ describe("config", () => {
 					baz: ["warn"],
 				},
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, { foo: true }]],
 				["bar", [Severity.ERROR, { bar: false }]],
 				["baz", [Severity.WARN, {}]],
@@ -266,7 +266,7 @@ describe("config", () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
 			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.json");
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -277,7 +277,7 @@ describe("config", () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
 			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config.js");
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -288,7 +288,7 @@ describe("config", () => {
 			expect.assertions(1);
 			const resolver = cjsResolver();
 			const config = await Config.fromFile(resolver, "<rootDir>/test-files/config");
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.ERROR, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -306,7 +306,7 @@ describe("config", () => {
 					foo: 1,
 				},
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([
+			expect(Array.from(config.getRules())).toEqual([
 				["foo", [Severity.WARN, {}]],
 				["bar", [Severity.WARN, {}]],
 				["baz", [Severity.DISABLED, {}]],
@@ -447,7 +447,7 @@ describe("config", () => {
 				extends: undefined,
 				rules: undefined,
 			});
-			expect(Array.from(config.getRules().entries())).toEqual([]);
+			expect(Array.from(config.getRules())).toEqual([]);
 		});
 	});
 
@@ -543,11 +543,11 @@ describe("config", () => {
 			resolvePlugin(id): Plugin | null {
 				if (id === "foo") {
 					return { name: "foo", configs: { recommended: { rules: { foo: "error" } } } };
-				} else if (id === "bar") {
-					return { configs: { recommended: { rules: { bar: "error" } } } };
-				} else {
-					return null;
 				}
+				if (id === "bar") {
+					return { configs: { recommended: { rules: { bar: "error" } } } };
+				}
+				return null;
 			},
 		};
 		const config = await Config.fromObject([resolver], {
@@ -576,13 +576,13 @@ describe("config", () => {
 						name: "foo",
 						configs: { recommended: { rules: { foo: "error" } } },
 					});
-				} else if (id === "bar") {
+				}
+				if (id === "bar") {
 					return Promise.resolve({
 						configs: { recommended: { rules: { bar: "error" } } },
 					});
-				} else {
-					return Promise.resolve(null);
 				}
+				return Promise.resolve(null);
 			},
 		};
 		const config = await Config.fromObject([resolver], {

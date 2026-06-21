@@ -8,6 +8,7 @@ function getNthChild(node: HtmlElement): number {
 		return -1;
 	}
 
+	/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- technical debt, should use map instead of object */
 	if (!cache[node.unique]) {
 		const parent = node.parent;
 		const index = parent.childElements.findIndex((cur) => {
@@ -23,7 +24,7 @@ export function nthChild(node: HtmlElement, args?: string): boolean {
 	if (!args) {
 		throw new Error("Missing argument to nth-child");
 	}
-	const n = Number.parseInt(args.trim(), 10);
+	const n = Math.trunc(Number(args.trim()));
 	const cur = getNthChild(node);
 	return cur === n;
 }

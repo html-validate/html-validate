@@ -34,7 +34,7 @@ function isTransformer(value: Transformer | Plugin): value is Transformer {
 export type CommonJSResolver = Required<Resolver>;
 
 /**
- * Create a new resolver for NodeJS packages using `require(..)`.
+ * Create a new resolver for Node.js packages using `require(..)`.
  *
  * If the module name contains `<rootDir>` (e.g. `<rootDir/foo`) it will be
  * expanded relative to the root directory either explicitly set by the
@@ -49,16 +49,15 @@ export function cjsResolver(options: { rootDir?: string } = {}): CommonJSResolve
 
 	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- technical debt, should return unknown as use explicit cast */
 	function internalRequire<T = unknown>(id: string, { cache }: ResolverOptions): T | null {
-		const moduleName = id.replace("<rootDir>", rootDir);
+		const moduleName = id.replace("<rootDir>", () => rootDir);
 		try {
 			/* istanbul ignore else: the tests only runs the cached versions to get
 			 * unmodified access to `require`, the implementation of `requireUncached`
 			 * is assumed to be tested elsewhere */
 			if (cache) {
 				return legacyRequire(moduleName) as T;
-			} else {
-				return requireUncached(legacyRequire, moduleName) as T;
 			}
+			return requireUncached(legacyRequire, moduleName) as T;
 		} catch (err: unknown) {
 			if (isRequireError(err) && err.code === "MODULE_NOT_FOUND") {
 				return null;

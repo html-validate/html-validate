@@ -68,4 +68,5 @@ function validateString(markup: string, filename: string, config: ConfigData): P
 
 export type ValidateStringFn = typeof validateString;
 
+/* eslint-disable-next-line unicorn/no-top-level-side-effects -- needed for worker to function */
 runAsWorker(validateString);

@@ -32,7 +32,7 @@ export default class IdPattern extends BasePatternRule {
 	}
 
 	public static override schema(): SchemaObject {
-		return BasePatternRule.schema();
+		return super.schema();
 	}
 
 	public override documentation(context: BasePatternRuleContext): RuleDocumentation {

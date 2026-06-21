@@ -28,7 +28,7 @@ export interface Plugin {
    * to use the name/path the user used when loading the plugin. To be less
    * confusing for users you should use the same name as your package.
    *
-   * The name must be a valid package name according to NPM (basically lowercase
+   * The name must be a valid package name according to npm (basically lowercase
    * characters, must not begin with dot, slash or non-url safe characters).
    *
    * Hint: import and use the name from `package.json`.

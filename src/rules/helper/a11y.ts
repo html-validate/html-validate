@@ -201,7 +201,6 @@ export function isPresentation(node: HtmlElement): boolean {
 	const role = node.getAttribute("role");
 	if (role && (role.value === "presentation" || role.value === "none")) {
 		return node.cacheSet(ROLE_PRESENTATION_CACHE, true);
-	} else {
-		return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
 	}
+	return node.cacheSet(ROLE_PRESENTATION_CACHE, false);
 }

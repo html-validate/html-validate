@@ -63,20 +63,19 @@ export function getTransformerFunction(
 	try {
 		const transformer = loadTransformerFunction(resolvers, name, plugins);
 		if (isThenable(transformer)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return transformer.then((transformer) => {
 				validateTransformer(transformer);
 				return transformer;
 			});
-		} else {
-			validateTransformer(transformer);
-			return transformer;
 		}
+		validateTransformer(transformer);
+		return transformer;
 	} catch (err: unknown) {
 		if (err instanceof ConfigError) {
 			throw new ConfigError(`Failed to load transformer "${name}": ${err.message}`, err);
-		} else {
-			throw new ConfigError(`Failed to load transformer "${name}"`, ensureError(err));
 		}
+		throw new ConfigError(`Failed to load transformer "${name}"`, ensureError(err));
 	}
 }
 
@@ -95,16 +94,15 @@ export function getCachedTransformerFunction(
 	const cached = cache.get(name);
 	if (cached) {
 		return cached;
-	} else {
-		const transformer = getTransformerFunction(resolvers, name, plugins);
-		if (isThenable(transformer)) {
-			return transformer.then((transformer) => {
-				cache.set(name, transformer);
-				return transformer;
-			});
-		} else {
+	}
+	const transformer = getTransformerFunction(resolvers, name, plugins);
+	if (isThenable(transformer)) {
+		/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
+		return transformer.then((transformer) => {
 			cache.set(name, transformer);
 			return transformer;
-		}
+		});
 	}
+	cache.set(name, transformer);
+	return transformer;
 }

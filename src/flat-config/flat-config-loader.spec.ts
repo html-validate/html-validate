@@ -65,7 +65,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.ts");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`{}`);
 		});
 
@@ -82,7 +82,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -107,7 +107,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -132,7 +132,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.vue");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`{}`);
 		});
 
@@ -151,8 +151,8 @@ describe("FlatConfigLoader", () => {
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const shallow = await loader.getConfigFor("/project/file.html");
 			const nested = await loader.getConfigFor("/project/src/file.html");
-			const shallowRules = Object.fromEntries(shallow.getRules().entries());
-			const nestedRules = Object.fromEntries(nested.getRules().entries());
+			const shallowRules = Object.fromEntries(shallow.getRules());
+			const nestedRules = Object.fromEntries(nested.getRules());
 			expect(shallowRules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -185,7 +185,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/ignored.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`{}`);
 		});
 
@@ -203,7 +203,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/kept.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -230,7 +230,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/dist/output.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`{}`);
 		});
 
@@ -250,7 +250,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/src/index.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -281,7 +281,7 @@ describe("FlatConfigLoader", () => {
 			});
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.html");
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "deprecated": [
@@ -311,7 +311,7 @@ describe("FlatConfigLoader", () => {
 			const config = await loader.getConfigFor("/project/file.html", {
 				rules: { "no-self-closing": "warn" },
 			});
-			const rules = Object.fromEntries(config.getRules().entries());
+			const rules = Object.fromEntries(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				{
 				  "no-self-closing": [
@@ -345,7 +345,7 @@ describe("FlatConfigLoader", () => {
 			]);
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.html");
-			const rules = Array.from(config.getRules().entries());
+			const rules = Array.from(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				[
 				  [
@@ -370,7 +370,7 @@ describe("FlatConfigLoader", () => {
 			]);
 			const loader = new FlatConfigLoader("/project/html-validate.config.js");
 			const config = await loader.getConfigFor("/project/file.html");
-			const rules = Array.from(config.getRules().entries());
+			const rules = Array.from(config.getRules());
 			expect(rules).toMatchInlineSnapshot(`
 				[
 				  [
@@ -402,8 +402,8 @@ describe("FlatConfigLoader", () => {
 		const loader = new FlatConfigLoader("/project/html-validate.config.js");
 		const config1 = await loader.getConfigFor("/project/src/index.html");
 		const config2 = await loader.getConfigFor("/project/foo/src/index.html");
-		const rules1 = Object.fromEntries(config1.getRules().entries());
-		const rules2 = Object.fromEntries(config2.getRules().entries());
+		const rules1 = Object.fromEntries(config1.getRules());
+		const rules2 = Object.fromEntries(config2.getRules());
 		expect(rules1).toMatchInlineSnapshot(`
 			{
 			  "no-self-closing": [
@@ -429,7 +429,7 @@ describe("FlatConfigLoader", () => {
 		});
 		const loader = new FlatConfigLoader("/project/html-validate.config.js");
 		const config = await loader.getConfigFor("/project/tests/index.html");
-		const rules = Object.fromEntries(config.getRules().entries());
+		const rules = Object.fromEntries(config.getRules());
 		expect(rules).toMatchInlineSnapshot(`{}`);
 	});
 

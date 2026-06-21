@@ -29,14 +29,14 @@ function isSourceHooks(value: string | SourceHooks | ConfigData | undefined): va
 	if (!value || typeof value !== "object") {
 		return false;
 	}
-	return ["processAttribute", "processElement"].some((key) => key in value);
+	return ["processAttribute", "processElement"].some((key) => Object.hasOwn(value, key));
 }
 
 function isConfigData(value: string | SourceHooks | ConfigData | undefined): value is ConfigData {
 	if (!value || typeof value !== "object") {
 		return false;
 	}
-	return !["processAttribute", "processElement"].some((key) => key in value);
+	return ["processAttribute", "processElement"].every((key) => !Object.hasOwn(value, key));
 }
 
 /**
@@ -298,6 +298,7 @@ export class HtmlValidate {
 	 * file or not. CLI tools will run on all the given files anyway.
 	 */
 	public async canValidate(filename: string): Promise<boolean> {
+		/* eslint-disable-next-line unicorn/comment-content -- false positive */
 		/* .html is always supported */
 		if (filename.toLowerCase().endsWith(".html")) {
 			return true;
@@ -318,6 +319,7 @@ export class HtmlValidate {
 	 * file or not. CLI tools will run on all the given files anyway.
 	 */
 	public canValidateSync(filename: string): boolean {
+		/* eslint-disable-next-line unicorn/comment-content -- false positive */
 		/* .html is always supported */
 		if (filename.toLowerCase().endsWith(".html")) {
 			return true;
@@ -429,7 +431,7 @@ export class HtmlValidate {
 	 * If a filename is given the configured plugins can extend the
 	 * schema. Filename must not be an existing file or a filetype normally
 	 * handled by html-validate but the path will be used when resolving
-	 * configuration. As a rule-of-thumb, set it to the elements json file.
+	 * configuration. As a rule-of-thumb, set it to the elements JSON file.
 	 */
 	public async getElementsSchema(filename?: string): Promise<SchemaObject> {
 		const config = await this.getConfigFor(filename ?? "inline");
@@ -443,7 +445,7 @@ export class HtmlValidate {
 	 * If a filename is given the configured plugins can extend the
 	 * schema. Filename must not be an existing file or a filetype normally
 	 * handled by html-validate but the path will be used when resolving
-	 * configuration. As a rule-of-thumb, set it to the elements json file.
+	 * configuration. As a rule-of-thumb, set it to the elements JSON file.
 	 */
 	public getElementsSchemaSync(filename?: string): SchemaObject {
 		const config = this.getConfigForSync(filename ?? "inline");

@@ -157,9 +157,8 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 	): QuoteMark {
 		if (style === QuoteStyle.AUTO_QUOTE) {
 			return value.includes('"') ? "'" : '"';
-		} else {
-			return style;
 		}
+		return style;
 	}
 }
 

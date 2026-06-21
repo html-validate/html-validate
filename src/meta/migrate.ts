@@ -59,9 +59,8 @@ function migrateSingleAttribute(
 			}
 		}
 		return stripUndefined(result);
-	} else {
-		return stripUndefined({ ...result, ...attr });
 	}
+	return stripUndefined({ ...result, ...attr });
 }
 
 function isPatternAttribute(key: string): boolean {
@@ -82,8 +81,7 @@ function migrateAttributes(src: MetaData): Record<string, MetaAttribute & Intern
 		...(src.deprecatedAttributes ?? []),
 	]
 		.filter((key) => !isPatternAttribute(key))
-		/* eslint-disable-next-line sonarjs/no-alphabetical-sort -- not really needed in this case, this is a-z anyway */
-		.toSorted();
+		.toSorted((a, b) => a.localeCompare(b));
 
 	const entries: Array<[string, MetaAttribute & InternalAttributeFlags]> = keys.map((key) => {
 		return [key, migrateSingleAttribute(src, key)];

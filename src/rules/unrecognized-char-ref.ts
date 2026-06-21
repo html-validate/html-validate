@@ -111,7 +111,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		this.on("element:ready", (event: ElementReadyEvent) => {
 			const node = event.target;
 
-			/* ignore <script> and <style> as its content is not html */
+			/* ignore <script> and <style> as its content is not HTML */
 			if (node.textType !== "text") {
 				return;
 			}
@@ -142,9 +142,8 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 	private get entities(): string[] {
 		if (this.options.ignoreCase) {
 			return lowercaseEntities;
-		} else {
-			return entities;
 		}
+		return entities;
 	}
 
 	private findCharacterReferences(

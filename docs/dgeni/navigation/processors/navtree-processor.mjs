@@ -7,6 +7,10 @@ function haveNavigation(doc) {
 	}
 
 	const enabled = ["content", "rule", "rules", "presets", "migration"];
+	if (enabled.includes(doc.docType)) {
+		return true;
+	}
+
 	const disabled = [
 		"changelog",
 		"error",
@@ -16,11 +20,6 @@ function haveNavigation(doc) {
 		"validate-public",
 		"validate-spec",
 	];
-
-	if (enabled.includes(doc.docType)) {
-		return true;
-	}
-
 	if (disabled.includes(doc.docType)) {
 		return false;
 	}
@@ -57,9 +56,8 @@ export default function navtreeProcessor(getDocFromAlias, log) {
 		const docs = getDocFromAlias(target, currentDoc);
 		if (docs.length > 0) {
 			return docs[0].id === currentDoc.id;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	function normalizeItem(item, doc) {
@@ -69,12 +67,11 @@ export default function navtreeProcessor(getDocFromAlias, log) {
 				active: item.children.some((it) => isActive(it.target, doc)),
 				children: item.children.map((it) => normalizeItem(it, doc)),
 			};
-		} else {
-			return {
-				...item,
-				active: isActive(item.target, doc),
-			};
 		}
+		return {
+			...item,
+			active: isActive(item.target, doc),
+		};
 	}
 
 	function $process(docs) {

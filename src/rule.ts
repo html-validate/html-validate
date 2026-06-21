@@ -18,9 +18,12 @@ import { interpolate } from "./utils/interpolate";
 
 export { type SchemaObject } from "ajv";
 
-const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-ajv.addMetaSchema(ajvSchemaDraft);
-ajv.addKeyword(ajvRegexpKeyword);
+const ajv = (() => {
+	const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
+	ajv.addMetaSchema(ajvSchemaDraft);
+	ajv.addKeyword(ajvRegexpKeyword);
+	return ajv;
+})();
 
 /**
  * @public
@@ -90,10 +93,9 @@ function unpackErrorDescriptor<T>(
 ): ErrorDescriptor<T> {
 	if (isErrorDescriptor(value)) {
 		return value[0];
-	} else {
-		const [node, message, location, context] = value;
-		return { node, message, location, context };
 	}
+	const [node, message, location, context] = value;
+	return { node, message, location, context };
 }
 
 /**
@@ -379,17 +381,18 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		const filter = (args.pop() as ((event: Event) => boolean) | undefined) ?? (() => true);
 
 		return this.parser.on(event, (_event: string, data: Event) => {
-			if (this.isEnabled() && filter(data)) {
-				this.event = data;
-				const { tracker } = this;
-				if (tracker) {
-					const start = performance.now();
-					callback(data);
-					const end = performance.now();
-					tracker.trackRule(this.name, end - start);
-				} else {
-					callback(data);
-				}
+			if (!this.isEnabled() || !filter(data)) {
+				return;
+			}
+			this.event = data;
+			const { tracker } = this;
+			if (tracker) {
+				const start = performance.now();
+				callback(data);
+				const end = performance.now();
+				tracker.trackRule(this.name, end - start);
+			} else {
+				callback(data);
 			}
 		});
 	}
@@ -480,7 +483,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @public
 	 * @virtual
 	 * @param context - Error context given by a reported error.
-	 * @returns Rule documentation and url with additional details or `null` if no
+	 * @returns Rule documentation and URL with additional details or `null` if no
 	 * additional documentation is available.
 	 */
 	public documentation(_context: ContextType): RuleDocumentation | null {

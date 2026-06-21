@@ -13,6 +13,7 @@ type MarkerLines = Record<number, true | [number, number] | undefined>;
 /**
  * RegExp to test for newlines in terminal.
  */
+/* eslint-disable-next-line unicorn/prefer-unicode-code-point-escapes -- technical debt */
 const NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
 
 /**
@@ -111,9 +112,8 @@ export function codeFrameColumns(rawLines: string, loc: NodeLocation): string {
 					].join("");
 				}
 				return [">", gutter, line.length > 0 ? ` ${line}` : "", markerLine].join("");
-			} else {
-				return [" ", gutter, line.length > 0 ? ` ${line}` : ""].join("");
 			}
+			return [" ", gutter, line.length > 0 ? ` ${line}` : ""].join("");
 		})
 		.join("\n");
 }

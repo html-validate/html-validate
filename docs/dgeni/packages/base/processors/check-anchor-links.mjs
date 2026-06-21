@@ -79,9 +79,9 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 						resolveUrl(linkInfo.path, decodeURIComponent(link), this.base),
 					);
 					if (
-						!this.pathVariants.some(
-							(pathVariant) => allValidReferences[normalizedLink + pathVariant],
-						)
+						this.pathVariants.every((pathVariant) => {
+							return !Object.hasOwn(allValidReferences, normalizedLink + pathVariant);
+						})
 					) {
 						unmatchedLinks.push(link);
 					}
@@ -104,9 +104,8 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 				)}`;
 				if (this.errorOnUnmatchedLinks) {
 					throw new Error(errorMessage);
-				} else {
-					log.warn(errorMessage);
 				}
+				log.warn(errorMessage);
 			}
 		},
 	};

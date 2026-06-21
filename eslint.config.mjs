@@ -103,6 +103,7 @@ export default [
 			"n/no-extraneous-import": ["error", { allowModules: ["html-validate"] }],
 			"tsdoc/syntax": "off",
 			"no-console": "off",
+			"unicorn/no-top-level-side-effects": "off",
 		},
 	},
 
@@ -110,6 +111,7 @@ export default [
 		name: "local/vite-worker-imports",
 		files: ["src/jest/worker/index.ts", "src/vitest/worker/index.ts"],
 		rules: {
+			/* eslint-disable-next-line unicorn/comment-content -- false positive */
 			/* import-x cannot resolve Vite ?worker&url query strings */
 			"import-x/no-unresolved": "off",
 		},
@@ -119,6 +121,7 @@ export default [
 		name: "local/technical-debt",
 		rules: {
 			"jest/no-conditional-in-test": "off",
+			"unicorn/prefer-minimal-ternary": "off",
 		},
 	},
 ];

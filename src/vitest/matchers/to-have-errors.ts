@@ -21,10 +21,9 @@ function createMatcher(
 				const [ruleId, message] = entry;
 				/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- upstream typing */
 				return expect.objectContaining({ ruleId, message });
-			} else {
-				/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- upstream typing */
-				return expect.objectContaining(entry);
 			}
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- upstream typing */
+			return expect.objectContaining(entry);
 		});
 		const pass = this.equals(flattened, matcher);
 		const diffString = this.utils.diff(matcher, flattened);

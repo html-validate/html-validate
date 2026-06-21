@@ -50,13 +50,14 @@ export function getCachekey(options: TextClassificationOptions): CACHE_KEY {
 	const { accessible = false, ignoreHiddenRoot = false } = options;
 	if (accessible && ignoreHiddenRoot) {
 		return IGNORE_HIDDEN_ROOT_A11Y_CACHE_KEY;
-	} else if (ignoreHiddenRoot) {
-		return IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY;
-	} else if (accessible) {
-		return A11Y_CACHE_KEY;
-	} else {
-		return HTML_CACHE_KEY;
 	}
+	if (ignoreHiddenRoot) {
+		return IGNORE_HIDDEN_ROOT_HTML_CACHE_KEY;
+	}
+	if (accessible) {
+		return A11Y_CACHE_KEY;
+	}
+	return HTML_CACHE_KEY;
 }
 
 /* While I cannot find a reference about this in the standard the <select>

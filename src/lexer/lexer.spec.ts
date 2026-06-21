@@ -157,7 +157,7 @@ describe("lexer", () => {
 	describe("should tokenize", () => {
 		it("unicode bom", () => {
 			expect.assertions(6);
-			const token = lexer.tokenize(inlineSource("\uFEFF<!DOCTYPE html>"));
+			const token = lexer.tokenize(inlineSource("\u{FEFF}<!DOCTYPE html>"));
 			expect(token.next()).toBeToken({ type: TokenType.UNICODE_BOM });
 			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_OPEN });
 			expect(token.next()).toBeToken({ type: TokenType.DOCTYPE_VALUE });

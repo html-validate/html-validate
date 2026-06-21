@@ -66,9 +66,8 @@ function createMatcher(
 				expected.context = arg3;
 			}
 			return toHaveErrorImpl(this, expect, actual, expected);
-		} else {
-			return toHaveErrorImpl(this, expect, actual, arg1);
 		}
+		return toHaveErrorImpl(this, expect, actual, arg1);
 	}
 	return diverge(toHaveError);
 }

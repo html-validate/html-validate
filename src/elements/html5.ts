@@ -475,9 +475,8 @@ export default {
 					const attr = node.getAttribute("shape");
 					if (attr === "default") {
 						return `cannot be used when "shape" attribute is "default"`;
-					} else {
-						return null;
 					}
+					return null;
 				},
 			},
 			download: {
@@ -1250,16 +1249,14 @@ export default {
 			implicitRole(node) {
 				if (isInsideLandmark(node)) {
 					return "generic";
-				} else {
-					return "contentinfo";
 				}
+				return "contentinfo";
 			},
 			naming(node) {
 				if (isInsideLandmark(node)) {
 					return "prohibited";
-				} else {
-					return "allowed";
 				}
+				return "allowed";
 			},
 		},
 		permittedContent: ["@flow"],
@@ -1479,16 +1476,14 @@ export default {
 			implicitRole(node) {
 				if (isInsideLandmark(node)) {
 					return "generic";
-				} else {
-					return "banner";
 				}
+				return "banner";
 			},
 			naming(node) {
 				if (isInsideLandmark(node)) {
 					return "prohibited";
-				} else {
-					return "allowed";
 				}
+				return "allowed";
 			},
 		},
 		permittedContent: ["@flow"],
@@ -1704,9 +1699,8 @@ export default {
 				const title = node.getAttribute("title");
 				if (alt === "" && !ariaLabel && !ariaLabelledBy && !title) {
 					return "none";
-				} else {
-					return "img";
 				}
+				return "img";
 			},
 			naming(node) {
 				const alt = node.getAttribute("alt");
@@ -1715,9 +1709,8 @@ export default {
 				const title = node.getAttribute("title");
 				if (!alt && !ariaLabel && !ariaLabelledBy && !title) {
 					return "prohibited";
-				} else {
-					return "allowed";
 				}
+				return "allowed";
 			},
 		},
 	},
@@ -2155,10 +2148,10 @@ export default {
 					 * state."
 					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
 					const rel = node.getAttribute("rel");
-					const as = node.getAttribute("as");
 					if (!rel || (typeof rel === "string" && !hasKeyword(rel, "preload"))) {
 						return `"rel" attribute must be "preload"`;
 					}
+					const as = node.getAttribute("as");
 					if (!as || (typeof as === "string" && as !== "image")) {
 						return `"as" attribute must be "image"`;
 					}
@@ -2173,10 +2166,10 @@ export default {
 					 * state."
 					 * 2025-11-17 - https://html.spec.whatwg.org/multipage/semantics.html */
 					const rel = node.getAttribute("rel");
-					const as = node.getAttribute("as");
 					if (!rel || (typeof rel === "string" && !hasKeyword(rel, "preload"))) {
 						return `"rel" attribute must be "preload"`;
 					}
+					const as = node.getAttribute("as");
 					if (!as || (typeof as === "string" && as !== "image")) {
 						return `"as" attribute must be "image"`;
 					}
@@ -2962,7 +2955,7 @@ export default {
 				}
 				const size = node.getAttribute("size");
 				if (typeof size === "string") {
-					const parsed = Number.parseInt(size, 10);
+					const parsed = Math.trunc(Number(size));
 					if (parsed > 1) {
 						return "listbox";
 					}

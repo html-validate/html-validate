@@ -22,7 +22,7 @@ export function myTransform(this: TransformContext, source: Source): Iterable<So
   return [];
 }
 
-/* api version declaration */
+/* API version declaration */
 myTransform.api = 1;
 
 /* export transformer */
@@ -109,9 +109,8 @@ export function myTransform(
   const next = `${source.filename}:virtual`;
   if (this.hasChain(next)) {
     return this.chain(source, next);
-  } else {
-    return [source];
   }
+  return [source];
 }
 ```
 

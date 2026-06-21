@@ -33,7 +33,7 @@ export default class ElementRequiredAncestor extends Rule<RuleContext> {
 			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
-				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
+				/* istanbul ignore next: satisfy TypeScript but will visitDepthFirst()
 				 * will not yield nodes without a parent */
 				if (!parent) {
 					return;

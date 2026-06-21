@@ -15,14 +15,17 @@ async function iteration() {
 	await htmlValidate.validateString("<!DOCTYPE html><html><head></head><body></body></html>");
 }
 
+/**
+ * @param {number} value
+ */
 function prettySize(value) {
 	if (value > 1024 * 1024) {
 		return `${(value / 1024 / 1024).toFixed(1)}mb`;
-	} else if (value > 1024) {
-		return `${Math.round((value / 1024) * 10) / 10}kb`;
-	} else {
-		return `${value}`;
 	}
+	if (value > 1024) {
+		return `${Math.round((value / 1024) * 10) / 10}kb`;
+	}
+	return String(value);
 }
 
 function percent(cur, prev) {

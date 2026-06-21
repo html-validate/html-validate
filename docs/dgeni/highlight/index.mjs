@@ -6,6 +6,7 @@ import highlightService from "./services/highlight.mjs";
 const { Package } = Dgeni;
 
 export default new Package("highlight", [nunjucksPackage])
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.factory(highlightService)
 	.factory(highlightFilter)
 	.config(function (templateEngine, highlightFilter) {

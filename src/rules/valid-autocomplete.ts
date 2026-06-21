@@ -408,7 +408,6 @@ export default class ValidAutocomplete extends Rule<RuleContext> {
 		keyLocation: Location,
 	): void {
 		const type = node.getAttributeValue("type") ?? "text";
-		const mantle = type !== "hidden" ? "expectation" : "anchor";
 
 		if (isDisallowedType(node, type)) {
 			const context: RuleContext = {
@@ -425,6 +424,7 @@ export default class ValidAutocomplete extends Rule<RuleContext> {
 		}
 
 		if (tokens.includes("on") || tokens.includes("off")) {
+			const mantle = type !== "hidden" ? "expectation" : "anchor";
 			this.validateOnOff(node, mantle, tokens);
 			return;
 		}
@@ -567,23 +567,24 @@ export default class ValidAutocomplete extends Rule<RuleContext> {
 	 * Ensure contact token is only used with field names from the second list.
 	 */
 	private validateContact(node: HtmlElement, tokens: DOMTokenList, order: TokenType[]): void {
-		if (order.includes("contact") && order.includes("field1")) {
-			const a = order.indexOf("field1");
-			const b = order.indexOf("contact");
-			const context: RuleContext = {
-				msg: MessageID.InvalidCombination,
-				/* eslint-disable @typescript-eslint/no-non-null-assertion -- it must be present of it wouldn't be found */
-				first: tokens.item(a)!,
-				second: tokens.item(b)!,
-				/* eslint-enable @typescript-eslint/no-non-null-assertion */
-			};
-			this.report({
-				node,
-				message: getTerminalMessage(context),
-				location: tokens.location(b),
-				context,
-			});
+		if (!order.includes("contact") || !order.includes("field1")) {
+			return;
 		}
+		const a = order.indexOf("field1");
+		const b = order.indexOf("contact");
+		const context: RuleContext = {
+			msg: MessageID.InvalidCombination,
+			/* eslint-disable @typescript-eslint/no-non-null-assertion -- it must be present of it wouldn't be found */
+			first: tokens.item(a)!,
+			second: tokens.item(b)!,
+			/* eslint-enable @typescript-eslint/no-non-null-assertion */
+		};
+		this.report({
+			node,
+			message: getTerminalMessage(context),
+			location: tokens.location(b),
+			context,
+		});
 	}
 
 	private validateOrder(node: HtmlElement, tokens: DOMTokenList, order: TokenType[]): void {

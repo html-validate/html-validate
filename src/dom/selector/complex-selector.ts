@@ -75,9 +75,9 @@ export class ComplexSelector implements Selector {
 			case Combinator.CHILD:
 				return root.childElements.filter((node) => node.is(pattern.tagName));
 			case Combinator.ADJACENT_SIBLING:
-				return ComplexSelector.findAdjacentSibling(root);
+				return this.findAdjacentSibling(root);
 			case Combinator.GENERAL_SIBLING:
-				return ComplexSelector.findGeneralSibling(root);
+				return this.findGeneralSibling(root);
 			case Combinator.SCOPE:
 				return [root];
 		}

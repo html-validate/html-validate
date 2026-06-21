@@ -52,9 +52,8 @@ export default function templateFinder(log, createDocMessage) {
 						if (templatePath) {
 							log.debug("template found", path.resolve(templateSet.templateFolder, templatePath));
 							return true;
-						} else {
-							return false;
 						}
+						return false;
 					}),
 				);
 

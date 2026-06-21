@@ -4,6 +4,7 @@ import path from "node:path";
 const CACHE_TTL_MS = 15 * 60 * 1000; /* 15 minutes */
 const GRAPHQL_TIMEOUT_MS = 30_000; /* 30 seconds */
 
+/* eslint-disable-next-line unicorn/comment-content -- false positive */
 const GRAPHQL_QUERY = /* graphql */ `
   query RoadmapEpics {
     group(fullPath: "html-validate") {

@@ -51,12 +51,14 @@ export function isSimpleTable(table: HtmlElement): boolean {
 	/* if the number of columns differ in any row assume it is a complex table
 	 * (either it is malformed or it uses col- or rowspan) */
 	const numColumns = cells[0].length;
-	if (!cells.every((row) => row.length === numColumns)) {
+	if (cells.some((row) => row.length !== numColumns)) {
 		return false;
 	}
 
 	const shape = getShape(cells);
 	const headersPerRow = cells.map((row) => row.reduce((sum, cell) => sum + cell, 0));
+
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 	const headersPerColumn = new Array(shape.cols).fill(0).map((_, index) => {
 		return cells.reduce((sum, it) => sum + it[index], 0);
 	});

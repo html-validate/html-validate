@@ -21,20 +21,21 @@ export default function writeFilesProcessor(log, readFilesProcessor, writeFile) 
 					if (!doc.outputPath) {
 						log.debug(`Document "${doc.id}, ${doc.docType}" has no outputPath.`);
 						return undefined;
-					} else {
-						const outputFile = path.resolve(
-							readFilesProcessor.basePath,
-							outputFolder,
-							doc.outputPath,
-						);
-
-						log.silly("writing file", outputFile);
-						return writeFile(outputFile, doc.renderedContent).then(() => {
-							log.debug("written file", outputFile);
-							return outputFile;
-						});
 					}
+					const outputFile = path.resolve(
+						readFilesProcessor.basePath,
+						outputFolder,
+						doc.outputPath,
+					);
+
+					log.silly("writing file", outputFile);
+					/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
+					return writeFile(outputFile, doc.renderedContent).then(() => {
+						log.debug("written file", outputFile);
+						return outputFile;
+					});
 				}),
+				/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 			).then(() => docs);
 		},
 	};

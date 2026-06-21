@@ -11,7 +11,7 @@ type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
 export type TokenStream = IterableIterator<Token>;
 
 /* eslint-disable no-useless-escape, regexp/no-super-linear-backtracking -- false positives */
-const MATCH_UNICODE_BOM = /^\uFEFF/;
+const MATCH_UNICODE_BOM = /^\uFEFF/; // eslint-disable-line unicorn/prefer-unicode-code-point-escapes -- technical debt
 const MATCH_WHITESPACE = /^(?:\r\n|\r|\n|[\t ]+(?:\r\n|\r|\n)?)/;
 const MATCH_DOCTYPE_OPEN = /^<!(doctype)\s/i;
 const MATCH_DOCTYPE_VALUE = /^[^>]+/;
@@ -44,6 +44,7 @@ const MATCH_CONDITIONAL = /^<!\[([^\]]*)\]>/;
 export class InvalidTokenError extends Error {
 	public location: Location;
 
+	/* eslint-disable-next-line unicorn/custom-error-definition -- technical debt */
 	public constructor(location: Location, message: string) {
 		super(message);
 		this.name = "InvalidTokenError";
@@ -64,42 +65,52 @@ export class Lexer {
 			switch (context.state) {
 				case State.INITIAL:
 					yield* this.tokenizeInitial(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.DOCTYPE:
 					yield* this.tokenizeDoctype(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.TAG:
 					yield* this.tokenizeTag(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.ATTR:
 					yield* this.tokenizeAttr(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.TEXT:
 					yield* this.tokenizeText(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.CDATA:
 					yield* this.tokenizeCDATA(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.SCRIPT:
 					yield* this.tokenizeScript(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.STYLE:
 					yield* this.tokenizeStyle(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.TEXTAREA:
 					yield* this.tokenizeTextarea(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				case State.TITLE:
 					yield* this.tokenizeTitle(context);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 
 				/* istanbul ignore next: sanity check: should not happen unless adding new states */
@@ -154,9 +165,8 @@ export class Lexer {
 	): State {
 		if (typeof nextState === "function") {
 			return nextState(token);
-		} else {
-			return nextState;
 		}
+		return nextState;
 	}
 
 	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
@@ -252,27 +262,23 @@ export class Lexer {
 				case ContentModel.SCRIPT:
 					if (selfClosed) {
 						return State.SCRIPT;
-					} else {
-						return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 					}
+					return State.TEXT; /* <script/> (not legal but handle it anyway so the lexer doesn't choke on it) */
 				case ContentModel.STYLE:
 					if (selfClosed) {
 						return State.STYLE;
-					} else {
-						return State.TEXT; /* <style/> */
 					}
+					return State.TEXT; /* <style/> */
 				case ContentModel.TEXTAREA:
 					if (selfClosed) {
 						return State.TEXTAREA;
-					} else {
-						return State.TEXT; /* <textarea/> */
 					}
+					return State.TEXT; /* <textarea/> */
 				case ContentModel.TITLE:
 					if (selfClosed) {
 						return State.TITLE;
-					} else {
-						return State.TEXT; /* <title/> */
 					}
+					return State.TEXT; /* <title/> */
 			}
 		}
 		yield* this.match(

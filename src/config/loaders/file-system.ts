@@ -139,12 +139,12 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const normalizedFilename = normalizeFilename(filename);
 		const override = this.loadFromObject(configOverride ?? {});
 		if (isThenable(override)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return override.then((override) => {
 				return this._resolveAsync(normalizedFilename, override);
 			});
-		} else {
-			return this._resolveSync1(normalizedFilename, override);
 		}
+		return this._resolveSync1(normalizedFilename, override);
 	}
 
 	/**
@@ -295,12 +295,12 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			: globalConfig.merge(this.resolvers, override);
 		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 		if (isThenable(merged)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return merged.then((merged) => {
 				return merged.resolve();
 			});
-		} else {
-			return merged.resolve();
 		}
+		return merged.resolve();
 	}
 
 	private _resolveSync1(
@@ -314,12 +314,12 @@ export class FileSystemConfigLoader extends ConfigLoader {
 		const globalConfig = this.getGlobalConfig();
 		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 		if (isThenable(globalConfig)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return globalConfig.then((globalConfig) => {
 				return this._resolveSync2(filename, override, globalConfig);
 			});
-		} else {
-			return this._resolveSync2(filename, override, globalConfig);
 		}
+		return this._resolveSync2(filename, override, globalConfig);
 	}
 
 	private _resolveSync2(
@@ -333,22 +333,22 @@ export class FileSystemConfigLoader extends ConfigLoader {
 			const merged = globalConfig.merge(this.resolvers, override);
 			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 			if (isThenable(merged)) {
+				/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 				return merged.then((merged) => {
 					return merged.resolve();
 				});
-			} else {
-				return merged.resolve();
 			}
+			return merged.resolve();
 		}
 
 		const config = this.fromFilename(filename);
 		if (isThenable(config)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return config.then((config) => {
 				return this._merge(globalConfig, override, config);
 			});
-		} else {
-			return this._merge(globalConfig, override, config);
 		}
+		return this._merge(globalConfig, override, config);
 	}
 
 	private async _resolveAsync(filename: string, override: Config): Promise<ResolvedConfig> {

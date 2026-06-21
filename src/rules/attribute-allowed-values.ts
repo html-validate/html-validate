@@ -34,11 +34,11 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 			const allowedList = allowed.enum.map((value) => {
 				if (typeof value === "string") {
 					return `- \`"${value}"\``;
-				} else if (value instanceof RegExp) {
-					return `- \`${value.toString()}\``;
-				} else {
-					return `- ${value.name}`;
 				}
+				if (value instanceof RegExp) {
+					return `- \`${value.toString()}\``;
+				}
+				return `- ${value.name}`;
 			});
 			docs.description = [
 				`The \`<${element}>\` element does not allow the attribute \`${attribute}\` to have the value \`"${value}"\`.`,
@@ -90,9 +90,8 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 		const { key, value } = attr;
 		if (value !== null) {
 			return `Attribute "${key}" has invalid value "${value.toString()}"`;
-		} else {
-			return `Attribute "${key}" is missing value`;
 		}
+		return `Attribute "${key}" is missing value`;
 	}
 
 	private getLocation(attr: Attribute): Location {

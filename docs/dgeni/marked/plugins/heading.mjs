@@ -34,9 +34,8 @@ function getHeadingId(text, raw) {
 	const match = text.match(hasId);
 	if (match) {
 		return [text.replace(hasId, ""), match[1]];
-	} else {
-		return [text, generateId(raw)];
 	}
+	return [text, generateId(raw)];
 }
 
 /**
@@ -51,9 +50,8 @@ function heading(text, level, raw) {
 	const [value, id] = getHeadingId(text, raw);
 	if (level > 1) {
 		return `<h${level} id="${id}"><a href="#${id}">${value}</a></h${level}>`;
-	} else {
-		return `<h${level} id="${id}">${value}</h${level}>`;
 	}
+	return `<h${level} id="${id}">${value}</h${level}>`;
 }
 
 /**

@@ -25,6 +25,7 @@ export class SchemaValidationError extends UserError {
 
 	public constructor(
 		filename: string | null,
+		/* eslint-disable-next-line unicorn/custom-error-definition -- technical debt */
 		message: string,
 		obj: unknown,
 		schema: SchemaObject,

@@ -63,7 +63,7 @@ function parseAllow(value: boolean | AllowList<string>): boolean | AllowList<Reg
  * @internal
  */
 export function matchList(value: string, list: AllowList<RegExp>): boolean {
-	if (list.include && !list.include.some((it) => it.test(value))) {
+	if (list.include?.every((it) => !it.test(value))) {
 		return false;
 	}
 	if (list.exclude?.some((it) => it.test(value))) {
@@ -170,7 +170,7 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		if (/^(?:[a-z]+:)?\/\//.test(value)) {
 			return Style.EXTERNAL;
 		}
-		switch (value[0]) {
+		switch (value.at(0)) {
 			/* /foo/bar */
 			case "/":
 				return Style.ABSOLUTE;
@@ -190,7 +190,8 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		const { allowAbsolute } = this;
 		if (allowAbsolute === true) {
 			return;
-		} else if (allowAbsolute === false) {
+		}
+		if (allowAbsolute === false) {
 			this.report(
 				event.target,
 				"Link destination must not be absolute url",
@@ -211,7 +212,8 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		const { allowExternal } = this;
 		if (allowExternal === true) {
 			return;
-		} else if (allowExternal === false) {
+		}
+		if (allowExternal === false) {
 			this.report(
 				event.target,
 				"Link destination must not be external url",
@@ -232,7 +234,8 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		const { allowRelative } = this;
 		if (allowRelative === true) {
 			return false;
-		} else if (allowRelative === false) {
+		}
+		if (allowRelative === false) {
 			this.report(
 				event.target,
 				"Link destination must not be relative url",
@@ -240,7 +243,8 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 				style,
 			);
 			return true;
-		} else if (!matchList(target, allowRelative)) {
+		}
+		if (!matchList(target, allowRelative)) {
 			this.report(
 				event.target,
 				"Relative link to this destination is not allowed by current configuration",
@@ -256,7 +260,8 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 		const { allowBase } = this.options;
 		if (this.handleRelativePath(target, event, style)) {
 			return;
-		} else if (!allowBase) {
+		}
+		if (!allowBase) {
 			this.report(
 				event.target,
 				"Relative links must be relative to current folder",

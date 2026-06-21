@@ -248,9 +248,8 @@ export class Parser {
 			/* a new element is opened, check if the new element should close the
 			 * previous; entries may be explicit tag names or @category strings */
 			return this.wouldCloseElement(token, active);
-		} else {
-			return this.closeOptionalEndTag(token, active);
 		}
+		return this.closeOptionalEndTag(token, active);
 	}
 
 	/**
@@ -421,10 +420,12 @@ export class Parser {
 			baseParent = cur;
 		}
 
+		/* eslint-disable unicorn/comment-content -- false positive */
 		/* for start tags, pre-create any intermediary element that should be
 		 * implicitly opened (e.g. <head>/<body> under <html>).  This must happen
 		 * before the actual node is created so that the node's parent is set
 		 * correctly from the start. */
+		/* eslint-enable unicorn/comment-content */
 		const implicitParent = isStartTag ? this.peekImplicitOpen(startToken, baseParent) : null;
 		const parent = implicitParent ?? baseParent;
 
@@ -475,9 +476,11 @@ export class Parser {
 			const token = tokens[i];
 			switch (token.type) {
 				case TokenType.WHITESPACE:
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 				case TokenType.ATTR_NAME:
 					this.consumeAttribute(source, node, token, tokens[i + 1]);
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					break;
 			}
 		}
@@ -590,7 +593,7 @@ export class Parser {
 			const [last] = tokens.slice(-1) as [TagOpenToken];
 			const [, tagClosed, tagName] = last.data;
 
-			/* special case: svg <title> and <desc> should be intact as it affects accessibility */
+			/* special case: SVG <title> and <desc> should be intact as it affects accessibility */
 			if (!tagClosed && svgShouldRetainTag(foreignTagName, tagName)) {
 				const oldNamespace = this.currentNamespace;
 				this.currentNamespace = "svg";
@@ -623,7 +626,7 @@ export class Parser {
 		} while (nested > 0);
 
 		/* istanbul ignore next: this should never happen because `consumeUntil`
-		 * would have thrown errors however typescript does not know that */
+		 * would have thrown errors however TypeScript does not know that */
 		if (!startToken || !endToken) {
 			return;
 		}
@@ -721,9 +724,8 @@ export class Parser {
 		const quote = token.data[3];
 		if (quote) {
 			return sliceLocation(token.location, 2, -1);
-		} else {
-			return sliceLocation(token.location, 1);
 		}
+		return sliceLocation(token.location, 1);
 	}
 
 	/**

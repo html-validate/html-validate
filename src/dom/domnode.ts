@@ -100,9 +100,8 @@ export class DOMNode {
 	public cacheGet(key: string | number | symbol): unknown {
 		if (this.cache) {
 			return this.cache.get(key);
-		} else {
-			return undefined;
 		}
+		return undefined;
 	}
 
 	/**
@@ -127,9 +126,8 @@ export class DOMNode {
 	public cacheRemove(key: string | number | symbol): boolean {
 		if (this.cache) {
 			return this.cache.delete(key);
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**

@@ -6,11 +6,11 @@ const availablePresets = ["recommended", "standard", "a11y", "document"];
 function compareName(a, b) {
 	if (a.name < b.name) {
 		return -1;
-	} else if (a.name > b.name) {
-		return 1;
-	} else {
-		return 0;
 	}
+	if (a.name > b.name) {
+		return 1;
+	}
+	return 0;
 }
 
 function isRuleDocument(doc) {
@@ -28,6 +28,7 @@ function isEnabled(value) {
 		return true;
 	}
 	if (Array.isArray(value)) {
+		/* eslint-disable-next-line unicorn/no-useless-recursion -- technical debt */
 		return isEnabled(value[0]);
 	}
 	throw new Error(`Don't know how to process "${value}"`);
@@ -91,7 +92,7 @@ export default function rulesProcessor(renderDocsProcessor) {
 		const categories = { all: rules };
 		for (const rule of rules) {
 			const category = rule.category || "other";
-			if (!(category in categories)) {
+			if (!Object.hasOwn(categories, category)) {
 				categories[category] = [];
 			}
 			categories[category].push(rule);

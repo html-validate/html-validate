@@ -21,35 +21,35 @@ it("should not split on escaped space", () => {
 
 it("should not split on escaped \\t (codepoint)", () => {
 	expect.assertions(1);
-	const result = Array.from(splitSelectorElements("foo\\\u0039 bar"));
-	expect(result).toEqual(["foo\\\u0039 bar"]);
+	const result = Array.from(splitSelectorElements("foo\\\u{39} bar"));
+	expect(result).toEqual(["foo\\\u{39} bar"]);
 });
 
 it("should not split on escaped \\n (codepoint)", () => {
 	expect.assertions(1);
-	const result = Array.from(splitSelectorElements("foo\\\u0061 bar"));
-	expect(result).toEqual(["foo\\\u0061 bar"]);
+	const result = Array.from(splitSelectorElements("foo\\\u{61} bar"));
+	expect(result).toEqual(["foo\\\u{61} bar"]);
 });
 
 it("should not split on escaped \\r (codepoint)", () => {
 	expect.assertions(1);
-	const result = Array.from(splitSelectorElements("foo\\\u0064 bar"));
-	expect(result).toEqual(["foo\\\u0064 bar"]);
+	const result = Array.from(splitSelectorElements("foo\\\u{64} bar"));
+	expect(result).toEqual(["foo\\\u{64} bar"]);
 });
 
-it("should split on word ending with 9 (collides with \\\u0039 escape)", () => {
+it("should split on word ending with 9 (collides with \\\u{39} escape)", () => {
 	expect.assertions(1);
 	const result = Array.from(splitSelectorElements("foo9 bar"));
 	expect(result).toEqual(["foo9", "bar"]);
 });
 
-it("should split on word ending with a (collides with \\\u0061 escape)", () => {
+it("should split on word ending with a (collides with \\\u{61} escape)", () => {
 	expect.assertions(1);
 	const result = Array.from(splitSelectorElements("fooa bar"));
 	expect(result).toEqual(["fooa", "bar"]);
 });
 
-it("should split on word ending with d (collides with \\\u0064 escape)", () => {
+it("should split on word ending with d (collides with \\\u{64} escape)", () => {
 	expect.assertions(1);
 	const result = Array.from(splitSelectorElements("food bar"));
 	expect(result).toEqual(["food", "bar"]);

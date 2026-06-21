@@ -23,7 +23,7 @@ export default class ClassPattern extends BasePatternRule {
 	}
 
 	public static override schema(): SchemaObject {
-		return BasePatternRule.schema();
+		return super.schema();
 	}
 
 	public override documentation(context: BasePatternRuleContext): RuleDocumentation {

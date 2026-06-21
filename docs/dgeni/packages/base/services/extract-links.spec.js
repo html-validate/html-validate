@@ -12,7 +12,8 @@ import { expect, it, jest } from "@jest/globals";
 jest.mock("jsdom", () => {
 	class JSDOM {
 		constructor(html) {
-			const doc = new global.DOMParser().parseFromString(html, "text/html");
+			const domparser = new global.DOMParser();
+			const doc = domparser.parseFromString(html, "text/html");
 			this.window = { document: doc, close() {} };
 		}
 	}

@@ -45,7 +45,7 @@ export default class ScriptType extends Rule {
 	}
 
 	private isJavascript(mime: string): boolean {
-		/* remove mime parameters, e.g. ";charset=utf-8" */
+		/* remove MIME parameters, e.g. ";charset=utf-8" */
 		const type = mime.replace(/;.*/, "");
 		return javascript.has(type);
 	}

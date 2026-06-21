@@ -42,7 +42,7 @@ export interface ConfigData {
 	 * - One of the [predefined presets](https://html-validate.org/rules/presets.html).
 	 * - Node module exporting a preset.
 	 * - Plugin exporting a named preset.
-	 * - Local path to a json or js file exporting a preset.
+	 * - Local path to a JSON or js file exporting a preset.
 	 */
 	extends?: string[];
 
@@ -53,7 +53,7 @@ export interface ConfigData {
 	 *
 	 * - "html5" (default) for the builtin metadata.
 	 * - node module which export metadata
-	 * - local path to json or js file exporting metadata.
+	 * - local path to JSON or js file exporting metadata.
 	 * - object with inline metadata
 	 *
 	 * If elements isn't specified it defaults to `["html5"]`
