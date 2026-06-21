@@ -16,6 +16,7 @@ const defaults: RuleOptions = {
 	exclude: null,
 };
 
+/* eslint-disable-next-line unicorn/comment-content -- false positive */
 const crossorigin = /^(?:\w+:\/\/|\/\/)/; /* e.g. https:// or // */
 const supportSri: Record<string, string> = {
 	link: "href",

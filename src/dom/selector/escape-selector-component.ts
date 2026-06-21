@@ -2,9 +2,9 @@ import { type DynamicValue } from "../dynamic-value";
 
 /* some characters requires extra care: https://drafts.csswg.org/cssom/#escape-a-character-as-code-point */
 const codepoints: Record<string, string> = {
-	"\t": "\\\u0039 ",
-	"\n": "\\\u0061 ",
-	"\r": "\\\u0064 ",
+	"\t": "\\\u{39} ",
+	"\n": "\\\u{61} ",
+	"\r": "\\\u{64} ",
 };
 
 /**
@@ -12,10 +12,9 @@ const codepoints: Record<string, string> = {
  */
 export function escapeSelectorComponent(text: string | DynamicValue): string {
 	return text.toString().replaceAll(/([^\w-])/g, (_, ch: string) => {
-		if (codepoints[ch]) {
+		if (Object.hasOwn(codepoints, ch)) {
 			return codepoints[ch];
-		} else {
-			return `\\${ch}`;
 		}
+		return `\\${ch}`;
 	});
 }

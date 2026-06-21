@@ -21,9 +21,8 @@ function fakeRequire(value, definition) {
 			.replaceAll(/\sfrom "([^"]+)"/g, (_, mod) => {
 				return mod !== "html-validate" ? ` from "mock-any"` : ` from "html-validate"`;
 			});
-	} else {
-		return value;
 	}
+	return value;
 }
 
 /**
@@ -37,9 +36,8 @@ function fakeRequire(value, definition) {
 function forceModule(value, definition) {
 	if (definition.lang !== "ts" || value.startsWith("export ")) {
 		return value;
-	} else {
-		return `${value}\n\nexport {}\n`;
 	}
+	return `${value}\n\nexport {}\n`;
 }
 
 /**

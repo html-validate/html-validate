@@ -59,10 +59,6 @@ function writeConfig(dst: string, config: ConfigData): Promise<void> {
 export async function init(cwd: string): Promise<InitResult> {
 	const filename = `${cwd}/.htmlvalidate.json`;
 	const exists = fs.existsSync(filename);
-	const initialConfig: ConfigData = {
-		elements: ["html5"],
-		extends: ["html-validate:recommended"],
-	};
 
 	/* confirm overwrite */
 	if (exists) {
@@ -76,6 +72,11 @@ export async function init(cwd: string): Promise<InitResult> {
 			return Promise.reject();
 		}
 	}
+
+	const initialConfig: ConfigData = {
+		elements: ["html5"],
+		extends: ["html-validate:recommended"],
+	};
 
 	const questions: prompts.PromptObject[] = [
 		{

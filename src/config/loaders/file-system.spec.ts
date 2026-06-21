@@ -27,9 +27,8 @@ jest
 		}
 		if (moduleName.endsWith(".json")) {
 			return JSON.parse(volume.readFileSync(moduleName, "utf-8") as string);
-		} else {
-			throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
 		}
+		throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
 	});
 
 jest.mock("../resolver/nodejs/internal-import", (): typeof internalImport => {
@@ -41,9 +40,8 @@ jest.mock("../resolver/nodejs/internal-import", (): typeof internalImport => {
 			if (moduleName.endsWith(".json")) {
 				const content = volume.readFileSync(moduleName, "utf-8") as string;
 				return Promise.resolve(JSON.parse(content));
-			} else {
-				throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
 			}
+			throw new Error(`Failed to read mocked "${moduleName}", only json files are handled`);
 		},
 	};
 });
@@ -53,9 +51,8 @@ class ForcedSyncLoader extends FileSystemConfigLoader {
 		const config = Config.fromObject([], options);
 		if (isThenable(config)) {
 			throw new Error("expected non-thenable result");
-		} else {
-			return config;
 		}
+		return config;
 	}
 }
 

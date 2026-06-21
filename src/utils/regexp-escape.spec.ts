@@ -94,25 +94,25 @@ describe("whitespace", () => {
 
 	it("should unicode-escape BOM (U+FEFF)", () => {
 		expect.assertions(1);
-		expect(regexpEscape("\uFEFF")).toBe("\\ufeff");
+		expect(regexpEscape("\u{FEFF}")).toBe("\\ufeff");
 	});
 });
 
 describe("line terminators", () => {
 	it("should unicode-escape line separator (U+2028)", () => {
 		expect.assertions(1);
-		expect(regexpEscape("\u2028")).toBe("\\u2028");
+		expect(regexpEscape("\u{2028}")).toBe("\\u2028");
 	});
 
 	it("should unicode-escape paragraph separator (U+2029)", () => {
 		expect.assertions(1);
-		expect(regexpEscape("\u2029")).toBe("\\u2029");
+		expect(regexpEscape("\u{2029}")).toBe("\\u2029");
 	});
 });
 
 describe("surrogate characters", () => {
 	it("should unicode-escape a surrogate character", () => {
 		expect.assertions(1);
-		expect(regexpEscape("\uD800")).toBe("\\ud800");
+		expect(regexpEscape("\u{D800}")).toBe("\\ud800");
 	});
 });

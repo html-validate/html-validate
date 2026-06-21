@@ -61,7 +61,7 @@ const htmlvalidate = new HtmlValidate({
 		"wcag/h63": "off",
 		"wcag/h67": "off",
 
-		/* svg elements uses a remapping of tagnames (added namespace), this ensures
+		/* SVG elements uses a remapping of tagnames (added namespace), this ensures
 		 * this mapping works as intended */
 		"no-unknown-elements": "error",
 	},

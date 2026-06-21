@@ -24,7 +24,7 @@ export default class NoDupAttr extends Rule {
 			}
 
 			const name = event.key.toLowerCase();
-			if (name in attr) {
+			if (Object.hasOwn(attr, name)) {
 				this.report(event.target, `Attribute "${name}" duplicated`, event.keyLocation);
 			}
 			attr[event.key] = true;

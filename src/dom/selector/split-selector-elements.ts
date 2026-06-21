@@ -4,7 +4,7 @@ const enum State {
 	WHITESPACE,
 }
 
-const escapedCodepoints = new Set(["\u0039", "\u0061", "\u0064"]);
+const escapedCodepoints = new Set(["\u{39}", "\u{61}", "\u{64}"]);
 
 /**
  * @internal
@@ -52,14 +52,17 @@ export function* splitSelectorElements(selector: string): Generator<string, void
 		switch (state) {
 			case State.INITIAL:
 				state = initialState(ch, p);
+				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 				break;
 
 			case State.ESCAPED:
 				state = escapedState(ch);
+				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 				break;
 
 			case State.WHITESPACE:
 				state = yield* whitespaceState(ch, p);
+				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 				break;
 		}
 	}

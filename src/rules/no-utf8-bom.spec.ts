@@ -20,14 +20,14 @@ describe("rule no-utf8-bom", () => {
 
 	it("should not report when BOM is present elsewhere", async () => {
 		expect.assertions(1);
-		const markup = "<p>lorem\uFEFFipsum</p>";
+		const markup = "<p>lorem\u{FEFF}ipsum</p>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
 
 	it("should report error file starts with UTF-8 BOM", async () => {
 		expect.assertions(2);
-		const markup = "\uFEFF<p>lorem ipsum</p>";
+		const markup = "\u{FEFF}<p>lorem ipsum</p>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toHaveError("no-utf8-bom", "File should be saved without UTF-8 BOM");

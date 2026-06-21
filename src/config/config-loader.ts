@@ -53,14 +53,14 @@ export abstract class ConfigLoader {
 		}
 		const config = this._configData ? this.loadFromObject(this._configData) : this.defaultConfig();
 		if (isThenable(config)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return config.then((config) => {
 				this._globalConfig = config;
 				return this._globalConfig;
 			});
-		} else {
-			this._globalConfig = config;
-			return this._globalConfig;
 		}
+		this._globalConfig = config;
+		return this._globalConfig;
 	}
 
 	/**

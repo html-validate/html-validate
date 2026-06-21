@@ -35,13 +35,12 @@ const dynamicKeys = [
 const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
 
 function clone<T>(value: T): T {
-	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- jsdom (e.g. jest) does not have this function */
-	if (globalThis.structuredClone) {
-		return globalThis.structuredClone(value);
-	} else {
-		/* eslint-disable-next-line unicorn/prefer-structured-clone -- structuredClone is used if present, this is only the fallback */
-		return JSON.parse(JSON.stringify(value)) as T;
+	/* jsdom (e.g. jest) does not have this function */
+	if (Object.hasOwn(globalThis, "structuredClone")) {
+		return structuredClone(value);
 	}
+	/* eslint-disable-next-line unicorn/prefer-structured-clone -- structuredClone is used if present, this is only the fallback */
+	return JSON.parse(JSON.stringify(value)) as T;
 }
 
 /**
@@ -142,9 +141,8 @@ export class MetaTable {
 		const meta = this.elements[tagName.toLowerCase()] ?? this.elements["*"];
 		if (meta) {
 			return { ...meta };
-		} else {
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -197,16 +195,15 @@ export class MetaTable {
 		const cached = schemaCache.get(hash);
 		if (cached) {
 			return cached;
-		} else {
-			const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-			ajv.addMetaSchema(ajvSchemaDraft);
-			ajv.addKeyword(ajvFunctionKeyword);
-			ajv.addKeyword(ajvRegexpKeyword);
-			ajv.addKeyword({ keyword: "copyable" });
-			const validate = ajv.compile<MetaDataTable>(this.schema);
-			schemaCache.set(hash, validate);
-			return validate;
 		}
+		const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
+		ajv.addMetaSchema(ajvSchemaDraft);
+		ajv.addKeyword(ajvFunctionKeyword);
+		ajv.addKeyword(ajvRegexpKeyword);
+		ajv.addKeyword({ keyword: "copyable" });
+		const validate = ajv.compile<MetaDataTable>(this.schema);
+		schemaCache.set(hash, validate);
+		return validate;
 	}
 
 	/**
@@ -327,9 +324,8 @@ function compileRegexString(value: string): RegExp | null {
 		/* eslint-disable security/detect-non-literal-regexp -- expected to be regexp */
 		if (expr.startsWith("^") || expr.endsWith("$")) {
 			return new RegExp(expr, flags);
-		} else {
-			return new RegExp(`^${expr}$`, flags);
 		}
+		return new RegExp(`^${expr}$`, flags);
 		/* eslint-enable security/detect-non-literal-regexp */
 	}
 	return null;

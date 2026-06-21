@@ -23,19 +23,17 @@ function generateRegexp(pattern: string | string[]): RegExp {
 	if (Array.isArray(pattern)) {
 		/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp */
 		return new RegExp(`^(${pattern.join("|")})$`, "i");
-	} else {
-		/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp  */
-		return new RegExp(`^${pattern}$`, "i");
 	}
+	/* eslint-disable-next-line security/detect-non-literal-regexp -- expected to be regexp  */
+	return new RegExp(`^${pattern}$`, "i");
 }
 
 function generateMessage(name: string, pattern: string | string[]): string {
 	if (Array.isArray(pattern)) {
 		const patterns = pattern.map((it) => `/${it}/`).join(", ");
 		return `Attribute "${name}" should match one of [${patterns}]`;
-	} else {
-		return `Attribute "${name}" should match /${pattern}/`;
 	}
+	return `Attribute "${name}" should match /${pattern}/`;
 }
 
 function generateDescription(name: string, pattern: string | string[]): string {
@@ -45,9 +43,8 @@ function generateDescription(name: string, pattern: string | string[]): string {
 			"",
 			...pattern.map((it) => `- \`/${it}/\``),
 		].join("\n");
-	} else {
-		return `Attribute "${name}" should match the regular expression \`/${pattern}/\``;
 	}
+	return `Attribute "${name}" should match the regular expression \`/${pattern}/\``;
 }
 
 export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
@@ -105,8 +102,7 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 	protected isIgnored(node: HtmlElement): boolean {
 		if (this.options.ignoreForeign) {
 			return Boolean(node.meta?.foreign);
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

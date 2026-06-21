@@ -15,7 +15,6 @@ export function getResults(filename: string, value: Report | string): Result[] {
 		return report.results.map((it) => {
 			return { ...it, filePath: "inline" };
 		});
-	} else {
-		return value.results;
 	}
+	return value.results;
 }

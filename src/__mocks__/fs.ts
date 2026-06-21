@@ -23,9 +23,8 @@ const proxy = new Proxy(fs, {
 		}
 		if (Reflect.has(target, prop)) {
 			return Reflect.get(target, prop, receiver);
-		} else {
-			throw new Error(`fs mock does not implement "${prop.toString()}"`);
 		}
+		throw new Error(`fs mock does not implement "${prop.toString()}"`);
 	},
 });
 

@@ -31,7 +31,7 @@ export default function generateValidationsSpecProcessor(log, validateMap) {
 		for (const validation of validateMap.values()) {
 			const key = validation.doc.fileInfo.relativePath;
 
-			if (!specs[key]) {
+			if (!Object.hasOwn(specs, key)) {
 				specs[key] = [];
 			}
 

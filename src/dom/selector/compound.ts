@@ -38,7 +38,7 @@ export class Compound {
 	}
 
 	private createCondition(pattern: string): Condition {
-		switch (pattern[0]) {
+		switch (pattern.at(0)) {
 			case ".":
 				return createClassCondition(pattern.slice(1));
 			case "#":

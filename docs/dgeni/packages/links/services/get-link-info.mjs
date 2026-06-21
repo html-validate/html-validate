@@ -1,11 +1,12 @@
+/* eslint-disable unicorn/comment-content -- false positive */
 import path from "canonical-path";
 
 /**
  * @dgService getLinkInfo
  * @description
- * Get link information to a document that matches the given url
+ * Get link information to a document that matches the given URL
  * @kind function
- * @param  {String} url   The url to match
+ * @param  {String} url   The URL to match
  * @param  {String} title An optional title to return in the link information
  * @return {Object}       The link information
  *
@@ -14,16 +15,16 @@ import path from "canonical-path";
 export default function getLinkInfo(getDocFromAlias, encodeCodeBlock, log) {
 	/* eslint-disable-next-line complexity -- technical debt */
 	return function getLinkInfoImpl(url, title, currentDoc) {
+		if (!url) {
+			throw new Error("Invalid url");
+		}
+
 		let linkInfo = {
 			url,
 			type: "url",
 			valid: true,
 			title: title || url,
 		};
-
-		if (!url) {
-			throw new Error("Invalid url");
-		}
 
 		const docs = getDocFromAlias(url, currentDoc);
 

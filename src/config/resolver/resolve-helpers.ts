@@ -12,7 +12,7 @@ function haveResolver<K extends keyof Resolver>(
 	key: K,
 	value: Resolver,
 ): value is BoundResolver<K> {
-	return key in value;
+	return Object.hasOwn(value, key);
 }
 
 function haveConfigResolver(value: Resolver): value is BoundResolver<"resolveConfig"> {
@@ -39,7 +39,10 @@ export function resolveConfig(
 	id: string,
 	options: ResolverOptions,
 ): ConfigData | Promise<ConfigData> {
-	for (const resolver of resolvers.filter(haveConfigResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveConfigResolver(resolver)) {
+			continue;
+		}
 		const config = resolver.resolveConfig(id, options);
 		if (isThenable(config)) {
 			return resolveConfigAsync(resolvers, id, options);
@@ -59,7 +62,10 @@ export async function resolveConfigAsync(
 	id: string,
 	options: ResolverOptions,
 ): Promise<ConfigData> {
-	for (const resolver of resolvers.filter(haveConfigResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveConfigResolver(resolver)) {
+			continue;
+		}
 		const config = await resolver.resolveConfig(id, options);
 		if (config) {
 			return config;
@@ -76,7 +82,10 @@ export function resolveElements(
 	id: string,
 	options: ResolverOptions,
 ): MetaDataTable | Promise<MetaDataTable> {
-	for (const resolver of resolvers.filter(haveElementsResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveElementsResolver(resolver)) {
+			continue;
+		}
 		const elements = resolver.resolveElements(id, options);
 		if (isThenable(elements)) {
 			return resolveElementsAsync(resolvers, id, options);
@@ -96,7 +105,10 @@ export async function resolveElementsAsync(
 	id: string,
 	options: ResolverOptions,
 ): Promise<MetaDataTable> {
-	for (const resolver of resolvers.filter(haveElementsResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveElementsResolver(resolver)) {
+			continue;
+		}
 		const elements = await resolver.resolveElements(id, options);
 		if (elements) {
 			return elements;
@@ -113,7 +125,10 @@ export function resolvePlugin(
 	id: string,
 	options: ResolverOptions,
 ): Plugin | Promise<Plugin> {
-	for (const resolver of resolvers.filter(havePluginResolver)) {
+	for (const resolver of resolvers) {
+		if (!havePluginResolver(resolver)) {
+			continue;
+		}
 		const plugin = resolver.resolvePlugin(id, options);
 		if (isThenable(plugin)) {
 			return resolvePluginAsync(resolvers, id, options);
@@ -133,7 +148,10 @@ export async function resolvePluginAsync(
 	id: string,
 	options: ResolverOptions,
 ): Promise<Plugin> {
-	for (const resolver of resolvers.filter(havePluginResolver)) {
+	for (const resolver of resolvers) {
+		if (!havePluginResolver(resolver)) {
+			continue;
+		}
 		const plugin = await resolver.resolvePlugin(id, options);
 		if (plugin) {
 			return plugin;
@@ -150,7 +168,10 @@ export function resolveTransformer(
 	id: string,
 	options: ResolverOptions,
 ): Transformer | Promise<Transformer> {
-	for (const resolver of resolvers.filter(haveTransformerResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveTransformerResolver(resolver)) {
+			continue;
+		}
 		const transformer = resolver.resolveTransformer(id, options);
 		if (isThenable(transformer)) {
 			return resolveTransformerAsync(resolvers, id, options);
@@ -170,7 +191,10 @@ export async function resolveTransformerAsync(
 	id: string,
 	options: ResolverOptions,
 ): Promise<Transformer> {
-	for (const resolver of resolvers.filter(haveTransformerResolver)) {
+	for (const resolver of resolvers) {
+		if (!haveTransformerResolver(resolver)) {
+			continue;
+		}
 		const transformer = await resolver.resolveTransformer(id, options);
 		if (transformer) {
 			return transformer;

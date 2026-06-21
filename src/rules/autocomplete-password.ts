@@ -121,12 +121,13 @@ export default class AutocompletePassword extends Rule<RuleContext, RuleOptions>
 			const tokens = new DOMTokenList(raw, autocomplete.valueLocation);
 			const index = tokens.findIndex((token) => !isGroupingToken(token));
 			const value = tokens.item(index);
-			const location = tokens.location(index);
 
 			/* no non-grouping token found, ignore (other rules handle invalid autocomplete values) */
 			if (!value) {
 				return;
 			}
+
+			const location = tokens.location(index);
 
 			/* yield error when autocomplete="off" or contains "off" as the non-grouping token */
 			if (value === "off") {

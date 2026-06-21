@@ -69,7 +69,6 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 			}
 
 			const letters = event.key.replaceAll(/[^a-z]+/gi, "");
-			/* eslint-disable-next-line unicorn/prefer-regexp-test -- false positive, match() is not String.match() */
 			if (this.style.match(letters)) {
 				return;
 			}
@@ -85,8 +84,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 	protected isIgnored(node: HtmlElement): boolean {
 		if (this.options.ignoreForeign) {
 			return Boolean(node.meta?.foreign);
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

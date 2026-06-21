@@ -4,7 +4,7 @@ import path from "canonical-path";
 /**
  * @dgService resolveUrl
  * @description
- * Calculates the absolute path of the url from the current path,
+ * Calculates the absolute path of the URL from the current path,
  * the relative path and the base
  * @param {String=} currentPath The current path
  * @param {String} newPath The new path
@@ -18,7 +18,7 @@ function resolveUrlImpl(currentPath, newPath, base) {
 	newPath = url.format(parsedUrl);
 
 	if (base && newPath.charAt(0) !== "/") {
-		// Resolve against the base url if there is a base and the new path is not absolute
+		// Resolve against the base URL if there is a base and the new path is not absolute
 		newPath = path.resolve(base, newPath).replace(/^(\w:)?\//, "");
 	} else {
 		// Otherwise resolve against the current path

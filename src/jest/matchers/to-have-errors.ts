@@ -20,9 +20,8 @@ function createMatcher(
 			if (Array.isArray(entry)) {
 				const [ruleId, message] = entry;
 				return expect.objectContaining({ ruleId, message });
-			} else {
-				return expect.objectContaining(entry);
 			}
+			return expect.objectContaining(entry);
 		});
 		const pass = this.equals(flattened, matcher);
 		const diffString = this.utils.diff(matcher, flattened, { expand: this.expand });

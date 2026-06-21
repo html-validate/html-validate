@@ -15,7 +15,7 @@ jest.mock(
 
 /* Workaround for jest not supporting `import(..)` yet ans ts-jest compiles
  * `import(..)` to `require(..)` anyway, the issue is that a
- * `file:///path/to/file?mtime=123456789` url is passed which `require(..)` will
+ * `file:///path/to/file?mtime=123456789` URL is passed which `require(..)` will
  * choke on so we convert this to a regular path and passes it back to the
  * original function. */
 jest.mock("./src/config/resolver/nodejs/import-function", () => {

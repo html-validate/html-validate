@@ -79,10 +79,11 @@ export default class NoMissingReferences extends Rule<Context> {
 		attr: Attribute,
 		id: string,
 	): void {
-		if (idMissing(document, id)) {
-			const context: Context = { key: attr.key, value: id };
-			this.report(node, `Element references missing id "${id}"`, attr.valueLocation, context);
+		if (!idMissing(document, id)) {
+			return;
 		}
+		const context: Context = { key: attr.key, value: id };
+		this.report(node, `Element references missing id "${id}"`, attr.valueLocation, context);
 	}
 
 	protected validateList(

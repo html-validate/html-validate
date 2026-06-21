@@ -27,9 +27,8 @@ export interface BasePatternRuleOptions {
 function toArray<T>(value: T | readonly T[]): readonly T[] {
 	if (Array.isArray(value)) {
 		return value as readonly T[];
-	} else {
-		return [value] as readonly T[];
 	}
+	return [value] as readonly T[];
 }
 
 /**

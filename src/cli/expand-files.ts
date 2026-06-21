@@ -27,9 +27,8 @@ function isDirectory(filename: string): boolean {
 function join(stem: string, filename: string): string {
 	if (path.isAbsolute(filename)) {
 		return path.normalize(filename);
-	} else {
-		return path.normalize(path.join(stem, filename));
 	}
+	return path.normalize(path.join(stem, filename));
 }
 
 function directoryPattern(extensions: string[]): string {
@@ -85,9 +84,8 @@ export function expandFiles(patterns: string[], options: ExpandOptions): string[
 			const pb = b.split("/").length;
 			if (pa !== pb) {
 				return pa - pb;
-			} else {
-				return a > b ? 1 : -1;
 			}
+			return a > b ? 1 : -1;
 		});
 	}, []);
 

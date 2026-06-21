@@ -16,6 +16,7 @@ export {
 function isIterable(
 	value: Source | Iterable<Source | Promise<Source>>,
 ): value is Iterable<Source | Promise<Source>> {
+	/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- want to search prototype chain */
 	return Symbol.iterator in value;
 }
 
@@ -87,7 +88,6 @@ export async function transformSource(
 	const result = await fn.call(context, source);
 	if (isIterable(result)) {
 		return await Promise.all(Array.from(result));
-	} else {
-		return [result];
 	}
+	return [result];
 }

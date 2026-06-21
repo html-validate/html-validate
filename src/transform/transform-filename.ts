@@ -20,7 +20,7 @@ export interface TransformFS {
 		this: void,
 		path: string | number,
 		options: { encoding: "utf8" },
-	): { toString(encoding: "utf8"): string } | string;
+	): string | { toString(encoding: "utf8"): string };
 }
 
 /**

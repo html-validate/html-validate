@@ -50,7 +50,7 @@ function generateConfig(rules, elements, attr) {
 	}
 	if (rules) {
 		config.rules = rules.reduce((dst, rule) => {
-			if (attr[rule]) {
+			if (Object.hasOwn(attr, rule)) {
 				dst[rule] = ["error", JSON.parse(attr[rule])];
 			} else {
 				dst[rule] = "error";

@@ -181,11 +181,11 @@ export class HtmlElement extends DOMNode {
 		namespace: string = "",
 	): HtmlElement {
 		const name = startToken.data[2];
-		const tagName = namespace ? `${namespace}:${name}` : name;
 		if (!name) {
 			throw new Error("tagName cannot be empty");
 		}
 
+		const tagName = namespace ? `${namespace}:${name}` : name;
 		const meta = metaTable ? metaTable.getMetaFor(tagName) : null;
 		const open = startToken.data[1] !== "/";
 		const closed = isClosed(endToken, meta);
@@ -211,9 +211,8 @@ export class HtmlElement extends DOMNode {
 	public get annotatedName(): string {
 		if (this.annotation) {
 			return this.annotation;
-		} else {
-			return `<${this.tagName}>`;
 		}
+		return `<${this.tagName}>`;
 	}
 
 	/**
@@ -473,7 +472,7 @@ export class HtmlElement extends DOMNode {
 			return this.cacheSet(TABINDEX, null);
 		}
 
-		if (tabindex.value === null) {
+		if (tabindex.value === null || tabindex.value === "") {
 			return this.cacheSet(TABINDEX, null);
 		}
 
@@ -481,7 +480,7 @@ export class HtmlElement extends DOMNode {
 			return this.cacheSet(TABINDEX, 0);
 		}
 
-		const parsed = Number.parseInt(tabindex.value, 10);
+		const parsed = Math.trunc(Number(tabindex.value));
 		if (Number.isNaN(parsed)) {
 			return this.cacheSet(TABINDEX, null);
 		}
@@ -499,11 +498,11 @@ export class HtmlElement extends DOMNode {
 		const tagName = this.tagName.toLowerCase();
 		if (tagName === "script") {
 			return "script";
-		} else if (tagName === "style") {
-			return "css";
-		} else {
-			return "text";
 		}
+		if (tagName === "style") {
+			return "css";
+		}
+		return "text";
 	}
 
 	/**
@@ -517,7 +516,7 @@ export class HtmlElement extends DOMNode {
 
 	public hasAttribute(key: string): boolean {
 		key = key.toLowerCase();
-		return key in this.attr;
+		return Object.hasOwn(this.attr, key);
 	}
 
 	/**
@@ -540,12 +539,11 @@ export class HtmlElement extends DOMNode {
 	public getAttribute(key: string, all: true): Attribute[];
 	public getAttribute(key: string, all: boolean = false): Attribute | Attribute[] | null {
 		key = key.toLowerCase();
-		if (key in this.attr) {
+		if (Object.hasOwn(this.attr, key)) {
 			const matches = this.attr[key];
 			return all ? matches : matches[0];
-		} else {
-			return all ? [] : null;
 		}
+		return all ? [] : null;
 	}
 
 	/**
@@ -564,9 +562,8 @@ export class HtmlElement extends DOMNode {
 		const attr = this.getAttribute(key);
 		if (attr) {
 			return attr.value !== null ? attr.value.toString() : null;
-		} else {
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -659,15 +656,14 @@ export class HtmlElement extends DOMNode {
 		const next = it.next();
 		if (next.done) {
 			return null;
-		} else {
-			return next.value;
 		}
+		return next.value;
 	}
 
 	public querySelectorAll(selector: string): HtmlElement[] {
 		const it = this.querySelectorImpl(selector);
 		const unique = new Set(it);
-		return Array.from(unique.values());
+		return Array.from(unique);
 	}
 
 	private *querySelectorImpl(selectorList: string): IterableIterator<HtmlElement> {
@@ -691,9 +687,8 @@ export class HtmlElement extends DOMNode {
 		function visit(node: HtmlElement): boolean {
 			if (callback(node)) {
 				return true;
-			} else {
-				return node.childElements.some(visit);
 			}
+			return node.childElements.some(visit);
 		}
 	}
 

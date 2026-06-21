@@ -16,9 +16,8 @@ function wrap(formatter: Formatter, dst: string): (results: Result[]) => string 
 			}
 			fs.writeFileSync(dst, output, "utf-8");
 			return "";
-		} else {
-			return output;
 		}
+		return output;
 	};
 }
 

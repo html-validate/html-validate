@@ -8,8 +8,8 @@ const CONTROL_ESCAPES = new Map([
 ]);
 
 const OTHER_PUNCTUATORS = /^[!"#%&',:;<=>@`~-]$/;
-const WHITE_SPACE = /^[\t\v\f\uFEFF\p{Zs}]$/u;
-const LINE_TERMINATOR = /^[\n\r\u2028\u2029]$/;
+const WHITE_SPACE = /^[\t\v\f\u{FEFF}\p{Zs}]$/u;
+const LINE_TERMINATOR = /^[\n\r\u2028\u2029]$/; // eslint-disable-line unicorn/prefer-unicode-code-point-escapes -- technical debt
 const SURROGATE = /^[\uD800-\uDFFF]$/;
 
 function isDecimalDigitOrASCIILetter(ch: string): boolean {
@@ -41,7 +41,7 @@ function encodeForRegExpEscape(ch: string): string {
 	}
 
 	if (needEscape(ch)) {
-		/* eslint-disable-next-line no-control-regex -- intentional */
+		/* eslint-disable-next-line no-control-regex, unicorn/prefer-unicode-code-point-escapes -- intentional */
 		if (/[\u0000-\u00FF]/.test(ch)) {
 			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we know it exists */
 			return `\\x${ch.codePointAt(0)!.toString(16).padStart(2, "0")}`;

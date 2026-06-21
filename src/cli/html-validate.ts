@@ -214,7 +214,7 @@ async function run(): Promise<void> {
 	});
 	const mode = getMode(argv);
 	const formatter = await cli.getFormatter(argv.formatter);
-	const maxWarnings = Number.parseInt(argv["max-warnings"] ?? "-1", 10);
+	const maxWarnings = Math.trunc(Number(argv["max-warnings"] ?? "-1"));
 	const htmlvalidate = await cli.getValidator();
 
 	/* sanity check: ensure maxWarnings has a valid value */
@@ -276,7 +276,7 @@ async function run(): Promise<void> {
 	}
 }
 
-/* eslint-disable-next-line unicorn/prefer-top-level-await -- technical debt, as long as we bundle and ship commonjs we cannot use TLA here */
+/* eslint-disable-next-line unicorn/prefer-top-level-await, unicorn/prefer-await -- technical debt, as long as we bundle and ship commonjs we cannot use TLA here */
 run().catch((err: unknown) => {
 	console.error(err);
 	process.exit(1);

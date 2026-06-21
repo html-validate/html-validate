@@ -35,13 +35,15 @@ export default new Package("html-validate-docs", [
 	schemaPackage,
 ])
 
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.processor(fileManifest)
 	.processor(rules)
 
 	.config(function (renderDocsProcessor) {
+		const date = new Date();
 		renderDocsProcessor.extraData.pkg = pkg;
 		renderDocsProcessor.extraData.tracking = process.env.GA_TRACKING_ID;
-		renderDocsProcessor.extraData.year = new Date().getFullYear();
+		renderDocsProcessor.extraData.year = date.getFullYear();
 	})
 
 	/* configure roadmap */
@@ -142,7 +144,7 @@ export default new Package("html-validate-docs", [
 		 * lodash templates are not supported here and replaced with arrow
 		 * functions */
 		templateFinder.templatePatterns = [
-			(doc) => `${doc.template}`,
+			(doc) => String(doc.template),
 			(doc) => `${doc.id}.${doc.docType}.template.html`,
 			(doc) => `${doc.id}.template.html`,
 			(doc) => `${doc.docType}.template.html`,
@@ -162,10 +164,9 @@ export default new Package("html-validate-docs", [
 				if (name !== "index") {
 					/* documents in subdirectory gets dir + name as id, unless .. */
 					return `${dir}/${name}`;
-				} else {
-					/* ... the name is index in which case only the directory is used */
-					return dir;
 				}
+				/* ... the name is index in which case only the directory is used */
+				return dir;
 			},
 			getAliases(doc) {
 				const alias = [doc.id];

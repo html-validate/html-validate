@@ -39,7 +39,7 @@ export class DOMTree {
 		}
 		/* istanbul ignore next: If we reach this the active element is not the root
 		 * element and thus would always have a parent (the document element if
-		 * nothing else). But typescript doesn't know that. Keeping the fallback
+		 * nothing else). But TypeScript doesn't know that. Keeping the fallback
 		 * just in case we ever do get in a situation where this isn't true */
 		this.active = this.active.parent ?? this.root;
 	}

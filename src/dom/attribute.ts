@@ -50,7 +50,7 @@ export class Attribute {
 	 * @param keyLocation - Source location of attribute name.
 	 * @param valueLocation - Source location of attribute value.
 	 * @param originalAttribute - If this attribute was dynamically added via a
-	 * transformation (e.g. vuejs `:id` generating the `id` attribute) this
+	 * transformation (e.g. Vue.js `:id` generating the `id` attribute) this
 	 * parameter should be set to the attribute name of the source attribute (`:id`).
 	 */
 	public constructor(
@@ -112,8 +112,7 @@ export class Attribute {
 		/* test value against pattern */
 		if (pattern instanceof RegExp) {
 			return this.value.match(pattern) !== null;
-		} else {
-			return this.value === pattern;
 		}
+		return this.value === pattern;
 	}
 }

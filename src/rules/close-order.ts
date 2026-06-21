@@ -58,12 +58,11 @@ export default class CloseOrder extends Rule {
 		/* handle unclosed tags */
 		this.on("tag:end", (event: TagEndEvent) => {
 			const current = event.target; // The current element being closed
-			const active = event.previous; // The current active element (that is, the current element on the stack)
-
 			if (current) {
 				return;
 			}
 
+			const active = event.previous; // The current active element (that is, the current element on the stack)
 			for (const ancestor of ancestors(active)) {
 				if (ancestor.isRootElement() || reported.has(ancestor.unique)) {
 					continue;
@@ -77,8 +76,6 @@ export default class CloseOrder extends Rule {
 		/* eslint-disable-next-line complexity -- lots of needed ifs'n buts */
 		this.on("tag:end", (event: TagEndEvent) => {
 			const current = event.target; // The current element being closed
-			const active = event.previous; // The current active element (that is, the current element on the stack)
-
 			if (!current) {
 				return;
 			}
@@ -90,6 +87,8 @@ export default class CloseOrder extends Rule {
 			if (current.voidElement) {
 				return;
 			}
+
+			const active = event.previous; // The current active element (that is, the current element on the stack)
 
 			/* if the active element is implicitly closed when the parent is closed
 			 * (such as a <li> by </ul>) no error should be reported. */

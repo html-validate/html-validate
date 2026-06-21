@@ -23,14 +23,13 @@ function moduleNotFound(name: string): never {
 beforeEach(() => {
 	mockModules = {};
 	mockImport.mockReset().mockImplementation((name: string) => {
-		if (name.startsWith("/\u0000")) {
+		if (name.startsWith("/\u{0}")) {
 			name = name.slice(2);
 		}
-		if (mockModules[name]) {
+		if (Object.hasOwn(mockModules, name)) {
 			return mockModules[name];
-		} else {
-			moduleNotFound(name);
 		}
+		moduleNotFound(name);
 	});
 });
 

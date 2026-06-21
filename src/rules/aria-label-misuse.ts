@@ -131,12 +131,11 @@ export default class AriaLabelMisuse extends Rule<RuleContext, RuleOptions> {
 				].join("\n"),
 				url,
 			};
-		} else {
-			return {
-				description: [`\`${context.attr}\` can only be used on:`, "", ...lines].join("\n"),
-				url,
-			};
 		}
+		return {
+			description: [`\`${context.attr}\` can only be used on:`, "", ...lines].join("\n"),
+			url,
+		};
 	}
 
 	public setup(): void {

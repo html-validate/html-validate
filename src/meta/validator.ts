@@ -32,7 +32,7 @@ export class Validator {
 			return true;
 		}
 		return rules.some((rule) => {
-			return Validator.validatePermittedRule(node, rule);
+			return this.validatePermittedRule(node, rule);
 		});
 	}
 
@@ -70,9 +70,7 @@ export class Validator {
 			const limit = category && quantifier && parseQuantifier(quantifier);
 
 			if (limit) {
-				const siblings = children.filter((cur) =>
-					Validator.validatePermittedCategory(cur, rule, true),
-				);
+				const siblings = children.filter((cur) => this.validatePermittedCategory(cur, rule, true));
 				if (siblings.length > limit) {
 					// fail only the children above the limit (currently limit can only be 1)
 					for (const child of siblings.slice(limit)) {
@@ -109,7 +107,8 @@ export class Validator {
 		let prev: HtmlElement | null = null;
 		for (const node of children) {
 			const old = i;
-			while (rules[i] && !Validator.validatePermittedCategory(node, rules[i], true)) {
+			/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- technical debt */
+			while (rules[i] && !this.validatePermittedCategory(node, rules[i], true)) {
 				i++;
 			}
 
@@ -120,7 +119,7 @@ export class Validator {
 				 * - elements where the order doesn't matter
 				 * In both of these cases no error should be reported. */
 				const orderSpecified = rules.some((cur: string) =>
-					Validator.validatePermittedCategory(node, cur, true),
+					this.validatePermittedCategory(node, cur, true),
 				);
 				if (orderSpecified) {
 					/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt, should never happen */
@@ -170,7 +169,7 @@ export class Validator {
 
 		return rules.filter((tagName) => {
 			const haveMatchingChild = node.childElements.some((child) =>
-				Validator.validatePermittedCategory(child, tagName, false),
+				this.validatePermittedCategory(child, tagName, false),
 			);
 			return !haveMatchingChild;
 		});
@@ -241,15 +240,16 @@ export class Validator {
 			if (typeof entry === "string") {
 				/* strings matched case-insensitive */
 				return caseInsensitiveValue === entry;
-			} else if (entry instanceof RegExp) {
+			}
+			if (entry instanceof RegExp) {
 				/* bare RegExp (pre-expansion path, e.g. direct API usage) */
 				return entry.test(value);
-			} else if (entry.pattern instanceof RegExp) {
+			}
+			if (entry.pattern instanceof RegExp) {
 				/* named pattern with RegExp */
 				return entry.pattern.test(value);
-			} else {
-				throw new TypeError("RegExp was not precompiled when it should have been");
 			}
+			throw new TypeError("RegExp was not precompiled when it should have been");
 		});
 	}
 
@@ -259,25 +259,23 @@ export class Validator {
 		isExclude: boolean = false,
 	): boolean {
 		if (typeof rule === "string") {
-			return Validator.validatePermittedCategory(node, rule, !isExclude);
-		} else if (Array.isArray(rule)) {
-			return rule.every((inner: PermittedEntry) => {
-				return Validator.validatePermittedRule(node, inner, isExclude);
-			});
-		} else {
-			validateKeys(rule);
-			if (rule.exclude) {
-				if (Array.isArray(rule.exclude)) {
-					return !rule.exclude.some((inner: PermittedEntry) => {
-						return Validator.validatePermittedRule(node, inner, true);
-					});
-				} else {
-					return !Validator.validatePermittedRule(node, rule.exclude, true);
-				}
-			} else {
-				return true;
-			}
+			return this.validatePermittedCategory(node, rule, !isExclude);
 		}
+		if (Array.isArray(rule)) {
+			return rule.every((inner: PermittedEntry) => {
+				return this.validatePermittedRule(node, inner, isExclude);
+			});
+		}
+		validateKeys(rule);
+		if (rule.exclude) {
+			if (Array.isArray(rule.exclude)) {
+				return rule.exclude.every((inner: PermittedEntry) => {
+					return !this.validatePermittedRule(node, inner, true);
+				});
+			}
+			return !this.validatePermittedRule(node, rule.exclude, true);
+		}
+		return true;
 	}
 
 	/**

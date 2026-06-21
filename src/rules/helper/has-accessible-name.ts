@@ -20,25 +20,24 @@ function isHidden(node: HtmlElement, context: Context): boolean {
 	const { reference } = context;
 	if (reference?.isSameNode(node)) {
 		return false;
-	} else {
-		return !inAccessibilityTree(node);
 	}
+	return !inAccessibilityTree(node);
 }
 
 function hasImgAltText(node: HtmlElement, context: Context): boolean {
 	if (node.is("img")) {
 		return hasAltText(node);
-	} else if (node.is("svg")) {
-		return node.textContent.trim() !== "";
-	} else {
-		for (const img of node.querySelectorAll("img, svg")) {
-			const hasName = hasAccessibleNameImpl(img, context);
-			if (hasName) {
-				return true;
-			}
-		}
-		return false;
 	}
+	if (node.is("svg")) {
+		return node.textContent.trim() !== "";
+	}
+	for (const img of node.querySelectorAll("img, svg")) {
+		const hasName = hasAccessibleNameImpl(img, context);
+		if (hasName) {
+			return true;
+		}
+	}
+	return false;
 }
 
 function hasLabel(node: HtmlElement): boolean {

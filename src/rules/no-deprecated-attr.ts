@@ -14,13 +14,13 @@ export default class NoDeprecatedAttr extends Rule {
 		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;
 			const meta = node.meta;
-			const attr = event.key.toLowerCase();
 
 			/* cannot validate if meta isn't known */
 			if (meta === null) {
 				return;
 			}
 
+			const attr = event.key.toLowerCase();
 			const metaAttribute = meta.attributes[attr] as MetaAttribute | undefined;
 			if (!metaAttribute) {
 				return;

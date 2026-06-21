@@ -29,11 +29,10 @@ function getTransformationFn(transforms, tagDefName) {
 		throw new Error(
 			`Invalid transformFn in tag definition, ${tagDefName} - you must provide a function or an array of functions.`,
 		);
-	} else {
-		throw new Error(
-			"Invalid default transformFn - you must provide a function or an array of functions.",
-		);
 	}
+	throw new Error(
+		"Invalid default transformFn - you must provide a function or an array of functions.",
+	);
 }
 
 /**

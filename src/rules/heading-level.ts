@@ -30,10 +30,9 @@ function isRelevant(event: TagStartEvent): boolean {
 function extractLevel(node: HtmlElement): number | null {
 	const match = /^H(\d)$/i.exec(node.tagName);
 	if (match) {
-		return Number.parseInt(match[1], 10);
-	} else {
-		return null;
+		return Math.trunc(Number(match[1]));
 	}
+	return null;
 }
 
 function parseMaxInitial(value: string | false): number {
@@ -45,7 +44,7 @@ function parseMaxInitial(value: string | false): number {
 	if (!match) {
 		return 1;
 	}
-	return Number.parseInt(match[1], 10);
+	return Math.trunc(Number(match[1]));
 }
 
 export default class HeadingLevel extends Rule<void, RuleOptions> {

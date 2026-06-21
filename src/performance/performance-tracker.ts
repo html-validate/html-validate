@@ -98,14 +98,15 @@ export class PerformanceTracker {
 	 */
 	public getResult(): PerformanceResult {
 		const events: EventPerformanceEntry[] = Array.from(
-			this.eventData.entries(),
+			this.eventData,
 			([event, { count, time }]) => ({ event, count, time }),
 		).toSorted((a, b) => b.time - a.time);
 
-		const rules: RulePerformanceEntry[] = Array.from(
-			this.ruleData.entries(),
-			([rule, { count, time }]) => ({ rule, count, time }),
-		).toSorted((a, b) => b.time - a.time);
+		const rules: RulePerformanceEntry[] = Array.from(this.ruleData, ([rule, { count, time }]) => ({
+			rule,
+			count,
+			time,
+		})).toSorted((a, b) => b.time - a.time);
 
 		return {
 			events,

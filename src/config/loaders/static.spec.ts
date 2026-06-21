@@ -11,9 +11,8 @@ class ForcedSyncLoader extends StaticConfigLoader {
 		const config = Config.fromObject([], options);
 		if (isThenable(config)) {
 			throw new Error("expected non-thenable result");
-		} else {
-			return config;
 		}
+		return config;
 	}
 }
 
@@ -201,7 +200,7 @@ describe("StaticConfigLoader", () => {
 				},
 			});
 			const config1 = await loader.getConfigFor("-");
-			expect(Object.fromEntries(config1.getRules().entries())).toEqual({
+			expect(Object.fromEntries(config1.getRules())).toEqual({
 				foo: [Severity.ERROR, {}],
 			});
 			loader.setConfig({
@@ -210,7 +209,7 @@ describe("StaticConfigLoader", () => {
 				},
 			});
 			const config2 = await loader.getConfigFor("-");
-			expect(Object.fromEntries(config2.getRules().entries())).toEqual({
+			expect(Object.fromEntries(config2.getRules())).toEqual({
 				bar: [Severity.ERROR, {}],
 			});
 		});

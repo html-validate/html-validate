@@ -22,14 +22,16 @@ function isMessage(arg: Arg1 | undefined): arg is Partial<Message> {
 		"size",
 		"selector",
 		"context",
-	].some((key) => key in arg);
+	].some((key) => Object.hasOwn(arg, key));
 }
 
 function isConfig(arg: Arg1 | undefined): arg is ConfigData {
 	if (!arg || typeof arg !== "object") {
 		return false;
 	}
-	return ["root", "extends", "elements", "plugin", "transform", "rules"].some((key) => key in arg);
+	return ["root", "extends", "elements", "plugin", "transform", "rules"].some((key) =>
+		Object.hasOwn(arg, key),
+	);
 }
 
 function isString(arg: Arg1 | undefined): arg is string {
@@ -43,9 +45,8 @@ function getMarkup(src: unknown): string {
 	/* istanbul ignore else: prototype only allows string or HTMLElement */
 	if (typeof src === "string") {
 		return src;
-	} else {
-		throw new TypeError(`Failed to get markup from "${typeof src}" argument`);
 	}
+	throw new TypeError(`Failed to get markup from "${typeof src}" argument`);
 }
 
 type Arg1 = Partial<Message> | ConfigData | string;
@@ -92,40 +93,40 @@ function toHTMLValidateImpl(
 	const syncFn = createSyncFn<ValidateStringFn>(jestWorkerPath);
 	const report = syncFn(actual, actualFilename, config);
 	const pass = report.valid;
-	const result = report.results[0];
 	if (pass) {
 		return { pass, message: () => "HTML is valid when an error was expected" };
-	} else {
-		if (expectedError) {
-			const actual = result.messages;
-			const expected = expect.arrayContaining([expect.objectContaining(expectedError)]);
-			const errorPass = this.equals(actual, expected);
-			const diffString = this.utils.diff(expected, actual, {
-				expand: this.expand,
-				aAnnotation: "Expected error",
-				bAnnotation: "Actual error",
-			});
-			const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
-				comment: "expected error",
-			});
-			const expectedErrorMessage = (): string =>
-				[
-					hint,
-					"",
-					"Expected error to be present:",
-					this.utils.printExpected(expectedError),
-					/* istanbul ignore next */ diffString ? `\n${diffString}` : "",
-				].join("\n");
-			return { pass: !errorPass, message: expectedErrorMessage };
-		}
-
-		const errors = result.messages.map((message) => `  ${message.message} [${message.ruleId}]`);
-		return {
-			pass,
-			message: () =>
-				["Expected HTML to be valid but had the following errors:", ""].concat(errors).join("\n"),
-		};
 	}
+
+	const result = report.results[0];
+	if (expectedError) {
+		const actual = result.messages;
+		const expected = expect.arrayContaining([expect.objectContaining(expectedError)]);
+		const errorPass = this.equals(actual, expected);
+		const diffString = this.utils.diff(expected, actual, {
+			expand: this.expand,
+			aAnnotation: "Expected error",
+			bAnnotation: "Actual error",
+		});
+		const hint = this.utils.matcherHint(".not.toHTMLValidate", undefined, undefined, {
+			comment: "expected error",
+		});
+		const expectedErrorMessage = (): string =>
+			[
+				hint,
+				"",
+				"Expected error to be present:",
+				this.utils.printExpected(expectedError),
+				/* istanbul ignore next */ diffString ? `\n${diffString}` : "",
+			].join("\n");
+		return { pass: !errorPass, message: expectedErrorMessage };
+	}
+
+	const errors = result.messages.map((message) => `  ${message.message} [${message.ruleId}]`);
+	return {
+		pass,
+		message: () =>
+			["Expected HTML to be valid but had the following errors:", ""].concat(errors).join("\n"),
+	};
 }
 
 export { createMatcher as toHTMLValidate };

@@ -67,7 +67,7 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 			return;
 		}
 
-		/* if refresh is instant a url must be provided or it will be an infinite refresh loop */
+		/* if refresh is instant a URL must be provided or it will be an infinite refresh loop */
 		if (!url && delay === 0) {
 			this.report(target, "Don't use instant meta refresh to reload the page", location);
 			return;
@@ -83,14 +83,13 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 	}
 }
 
-function parseContent(text: string): { delay: number; url: string } | null {
+function parseContent(text: string): null | { delay: number; url: string } {
 	const match = /^(\d+)(?:\s*;\s*url=(.*))?/i.exec(text);
 	if (match) {
 		return {
-			delay: Number.parseInt(match[1], 10),
+			delay: Math.trunc(Number(match[1])),
 			url: match[2],
 		};
-	} else {
-		return null;
 	}
+	return null;
 }

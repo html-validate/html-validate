@@ -41,9 +41,8 @@ async function getBaseConfig(preset?: string, filename?: string): Promise<Config
 			throw new UserError(`Failed to read configuration from "${filename}"`);
 		}
 		return configData;
-	} else {
-		return defaultConfig(preset ?? "recommended");
 	}
+	return defaultConfig(preset ?? "recommended");
 }
 
 /**

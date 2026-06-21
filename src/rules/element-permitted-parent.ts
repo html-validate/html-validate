@@ -35,14 +35,12 @@ function getRuleDescription(context: RuleContext): string[] {
 		const allowed = rules.filter(isCategoryOrTag).map((it) => {
 			if (isCategory(it)) {
 				return `- any ${it.slice(1)} element`;
-			} else {
-				return `- \`<${it}>\``;
 			}
+			return `- \`<${it}>\``;
 		});
 		return [preamble, "", "Allowed parents one of:", "", ...allowed];
-	} else {
-		return [preamble];
 	}
+	return [preamble];
 }
 
 function formatMessage(node: HtmlElement, parent: HtmlElement, rules: Permitted): string {
@@ -69,12 +67,13 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 			walk.depthFirst(doc, (node: HtmlElement) => {
 				const parent = node.parent;
 
-				/* istanbul ignore next: satisfy typescript but will visitDepthFirst()
+				/* istanbul ignore next: satisfy TypeScript but will visitDepthFirst()
 				 * will not yield nodes without a parent */
 				if (!parent) {
 					return;
 				}
 
+				/* eslint-disable-next-line unicorn/comment-content -- false positive */
 				/* don't validate root element as the <html> and <body> tag is optional
 				 * so anything could be directly under the root element. */
 				if (parent.isRootElement()) {

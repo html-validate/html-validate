@@ -11,7 +11,6 @@ import { WrappedError } from "./wrapped-error";
 export function ensureError(value: unknown): Error {
 	if (value instanceof Error) {
 		return value;
-	} else {
-		return new WrappedError(value);
 	}
+	return new WrappedError(value);
 }

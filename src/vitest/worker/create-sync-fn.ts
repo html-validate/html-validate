@@ -17,7 +17,7 @@ import {
 
 /**
  * This is all based on the synckit library but without all the extra stuff such
- * as typescript, esbuld, pnp etc.
+ * as TypeScript, esbuld, pnpm etc.
  */
 
 const INT32_BYTES = 4;
@@ -52,6 +52,7 @@ function receiveMessageWithId<R>(port: MessagePort, expectedId: number): WorkerT
 	const { id, ...message } = reply.message;
 
 	if (id < expectedId) {
+		/* eslint-disable-next-line unicorn/no-useless-recursion -- technical debt */
 		return receiveMessageWithId(port, expectedId);
 	}
 

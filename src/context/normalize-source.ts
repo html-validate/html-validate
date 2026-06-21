@@ -2,7 +2,7 @@ import { type Source } from "./source";
 
 /**
  * Ensures all fields are set to something sane. This wont normally be needed
- * but with non-typescript usage (or if one is lying to typescript `as Source`)
+ * but with non-typescript usage (or if one is lying to TypeScript `as Source`)
  * some fields might be missing after all.
  *
  * This function is only to be called at API boundaries and not internally

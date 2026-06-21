@@ -29,11 +29,11 @@ function rewriteImport(content) {
 async function patchAugmentations(config) {
 	const { mainEntryPointFilePath, rollupEnabled, publicTrimmedFilePath } = config;
 
-	const target = path.basename(publicTrimmedFilePath);
-
 	if (!rollupEnabled) {
 		return;
 	}
+
+	const target = path.basename(publicTrimmedFilePath);
 
 	/* create folder if it doesn't exist */
 	await fs.mkdir("temp", { recursive: true });
@@ -98,7 +98,7 @@ async function patchAugmentations(config) {
  */
 function cmp(a, b) {
 	const ab = path.basename(a);
-	const bb = path.basename(b);
+	const bb = path.basename(b); // eslint-disable-line unicorn/no-declarations-before-early-exit -- for consistency
 	if (ab.endsWith("-index.json")) {
 		return -1;
 	}
@@ -161,7 +161,7 @@ export async function apiExtractor(patterns) {
 
 		await patchAugmentations(config);
 
-		/* create a stub js file for really old typescript versions */
+		/* create a stub js file for really old TypeScript versions */
 		const stub = config.publicTrimmedFilePath.replace(/\.d\.ts$/, ".js");
 		await fs.writeFile(stub, "", "utf-8");
 

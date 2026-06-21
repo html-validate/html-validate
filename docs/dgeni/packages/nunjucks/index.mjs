@@ -11,6 +11,7 @@ const { Package } = Dgeni;
  */
 export default new Package("nunjucks", [basePackage])
 
+	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.factory(nunjucksTemplateEngine)
 	.factory(markedNunjucksFilter)
 

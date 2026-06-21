@@ -35,9 +35,12 @@ export interface LoadedPlugin extends Plugin {
 	originalName: string;
 }
 
-const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
-ajv.addMetaSchema(ajvSchemaDraft);
-ajv.addKeyword(ajvFunctionKeyword);
+const ajv = (() => {
+	const ajv = new Ajv({ strict: true, strictTuples: true, strictTypes: true });
+	ajv.addMetaSchema(ajvSchemaDraft);
+	ajv.addKeyword(ajvFunctionKeyword);
+	return ajv;
+})();
 
 const validator = ajv.compile(schema);
 
@@ -68,9 +71,8 @@ function mergeInternal(base: ConfigData, rhs: ConfigData): ConfigData {
 function toArray<T>(value: T | T[]): T[] {
 	if (Array.isArray(value)) {
 		return value;
-	} else {
-		return [value];
 	}
+	return [value];
 }
 
 function transformerEntries(transform: TransformMap): TransformerEntry[] {
@@ -79,9 +81,8 @@ function transformerEntries(transform: TransformMap): TransformerEntry[] {
 		const regex = new RegExp(pattern);
 		if (typeof value === "string") {
 			return { kind: "import", pattern: regex, name: value };
-		} else {
-			return { kind: "function", pattern: regex, function: value };
 		}
+		return { kind: "function", pattern: regex, function: value };
 	});
 }
 
@@ -120,8 +121,8 @@ export class Config {
 		options: ConfigData,
 		filename: string | null = null,
 	): Config | Promise<Config> {
-		Config.validate(options, filename);
-		return Config.create(resolvers, options);
+		this.validate(options, filename);
+		return this.create(resolvers, options);
 	}
 
 	/**
@@ -139,10 +140,10 @@ export class Config {
 	): Config | Promise<Config> {
 		const configData = resolveConfig(toArray(resolvers), filename, { cache: false });
 		if (isThenable(configData)) {
-			return configData.then((configData) => Config.fromObject(resolvers, configData, filename));
-		} else {
-			return Config.fromObject(resolvers, configData, filename);
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
+			return configData.then((configData) => this.fromObject(resolvers, configData, filename));
 		}
+		return this.fromObject(resolvers, configData, filename);
 	}
 
 	/**
@@ -166,8 +167,8 @@ export class Config {
 		}
 
 		if (configData.rules) {
-			const normalizedRules = Config.getRulesObject(configData.rules);
-			for (const [ruleId, [, ruleOptions]] of normalizedRules.entries()) {
+			const normalizedRules = this.getRulesObject(configData.rules);
+			for (const [ruleId, [, ruleOptions]] of normalizedRules) {
 				const cls = bundledRules[ruleId];
 				const path = `/rules/${ruleId}/1`;
 				Rule.validateOptions(cls, ruleId, path, ruleOptions, filename, configData);
@@ -194,12 +195,12 @@ export class Config {
 		/* load plugins */
 		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
 		if (isThenable(plugins)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return plugins.then((plugins) => {
 				return instance.init(options, plugins);
 			});
-		} else {
-			return instance.init(options, plugins);
 		}
+		return instance.init(options, plugins);
 	}
 
 	private init(options: ConfigData, plugins: LoadedPlugin[]): Config | Promise<Config> {
@@ -227,10 +228,10 @@ export class Config {
 		/* process extended configs */
 		const extendedConfig = this.extendConfig(this.config.extends ?? []);
 		if (isThenable(extendedConfig)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return extendedConfig.then((extended) => update(extended));
-		} else {
-			return update(extendedConfig);
 		}
+		return update(extendedConfig);
 	}
 
 	/**
@@ -269,21 +270,21 @@ export class Config {
 		const instance = new Config(resolvers, mergeInternal(this.config, rhs.config));
 
 		/* load plugins */
-		/* istanbul ignore next -- this is initialized to [] but typescript doesn't know that */
+		/* istanbul ignore next -- this is initialized to [] but TypeScript doesn't know that */
 		const plugins = instance.loadPlugins(instance.config.plugins ?? []);
 		if (isThenable(plugins)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return plugins.then((plugins) => {
 				instance.plugins = plugins;
 				instance.configurations = instance.loadConfigurations(instance.plugins);
 				instance.extendMeta(instance.plugins);
 				return instance;
 			});
-		} else {
-			instance.plugins = plugins;
-			instance.configurations = instance.loadConfigurations(instance.plugins);
-			instance.extendMeta(instance.plugins);
-			return instance;
 		}
+		instance.plugins = plugins;
+		instance.configurations = instance.loadConfigurations(instance.plugins);
+		instance.extendMeta(instance.plugins);
+		return instance;
 	}
 
 	private extendConfig(entries: string[]): ConfigData | Promise<ConfigData> {
@@ -349,6 +350,7 @@ export class Config {
 		const loadEntry = (entry: string | Record<string, unknown>): void | Promise<void> => {
 			const result = this.getElementsFromEntry(entry);
 			if (isThenable(result)) {
+				/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 				return result.then((result) => {
 					const [obj, filename] = result;
 					metaTable.loadFromObject(obj, filename);
@@ -357,19 +359,19 @@ export class Config {
 						return loadEntry(next);
 					}
 				});
-			} else {
-				const [obj, filename] = result;
-				metaTable.loadFromObject(obj, filename);
-				const next = source.shift();
-				if (next) {
-					return loadEntry(next);
-				}
+			}
+			const [obj, filename] = result;
+			metaTable.loadFromObject(obj, filename);
+			const next = source.shift();
+			if (next) {
+				return loadEntry(next);
 			}
 		};
 		const next = source.shift();
 		if (next) {
 			const result = loadEntry(next);
 			if (isThenable(result)) {
+				/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 				return result.then(() => {
 					metaTable.init();
 					/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
@@ -403,12 +405,12 @@ export class Config {
 		try {
 			const obj = resolveElements(this.resolvers, entry, { cache: false });
 			if (isThenable(obj)) {
+				/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 				return obj.then((obj) => {
 					return [obj, entry];
 				});
-			} else {
-				return [obj, entry];
 			}
+			return [obj, entry];
 		} catch (err: unknown) {
 			/* istanbul ignore next: only used as a fallback */
 			const message = err instanceof Error ? err.message : String(err);
@@ -494,6 +496,7 @@ export class Config {
 						| LoadedPlugin
 						| Promise<LoadedPlugin>;
 					if (isThenable(plugin)) {
+						/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 						return plugin.then((plugin) => {
 							plugin.name = plugin.name || entry;
 							plugin.originalName = entry;
@@ -503,14 +506,13 @@ export class Config {
 								return loadPlugin(next, index + 1);
 							}
 						});
-					} else {
-						plugin.name = plugin.name || entry;
-						plugin.originalName = entry;
-						loaded.push(plugin);
-						const next = loading.shift();
-						if (next) {
-							return loadPlugin(next, index + 1);
-						}
+					}
+					plugin.name = plugin.name || entry;
+					plugin.originalName = entry;
+					loaded.push(plugin);
+					const next = loading.shift();
+					if (next) {
+						return loadPlugin(next, index + 1);
 					}
 				} catch (err: unknown) {
 					/* istanbul ignore next: only used as a fallback */
@@ -524,6 +526,7 @@ export class Config {
 		if (next) {
 			const result = loadPlugin(next, 0);
 			if (isThenable(result)) {
+				/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 				return result.then(() => {
 					return loaded;
 				});
@@ -545,6 +548,7 @@ export class Config {
 		for (const plugin of plugins) {
 			for (const [name, config] of Object.entries(plugin.configs ?? {})) {
 				if (!config) {
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;
 				}
 
@@ -577,7 +581,7 @@ export class Config {
 			for (const [raw, schema] of Object.entries(properties)) {
 				/* at compile time this is a fixed list but the point of this method is
 				 * to augment the runtime with additional keys so it is a bit of lying
-				 * to typescript */
+				 * to TypeScript */
 				const key = raw as keyof MetaElement;
 				if ((schema as { copyable?: boolean }).copyable && !MetaCopyableProperty.includes(key)) {
 					MetaCopyableProperty.push(key);
@@ -597,12 +601,12 @@ export class Config {
 	public resolve(): ResolvedConfig | Promise<ResolvedConfig> {
 		const resolveData = this.resolveData();
 		if (isThenable(resolveData)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return resolveData.then((resolveData) => {
 				return new ResolvedConfig(resolveData, this.get());
 			});
-		} else {
-			return new ResolvedConfig(resolveData, this.get());
 		}
+		return new ResolvedConfig(resolveData, this.get());
 	}
 
 	/**
@@ -614,6 +618,7 @@ export class Config {
 	public resolveData(): ResolvedConfigData | Promise<ResolvedConfigData> {
 		const metaTable = this.getMetaTable();
 		if (isThenable(metaTable)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return metaTable.then((metaTable) => {
 				return {
 					metaTable,
@@ -622,13 +627,12 @@ export class Config {
 					transformers: this.transformers,
 				};
 			});
-		} else {
-			return {
-				metaTable,
-				plugins: this.getPlugins(),
-				rules: this.getRules(),
-				transformers: this.transformers,
-			};
 		}
+		return {
+			metaTable,
+			plugins: this.getPlugins(),
+			rules: this.getRules(),
+			transformers: this.transformers,
+		};
 	}
 }

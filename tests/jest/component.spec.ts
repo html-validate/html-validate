@@ -9,7 +9,7 @@ import "../../src/jest";
 let htmlvalidate: HtmlValidate;
 
 function stripAnsi(text: string): string {
-	/* eslint-disable-next-line no-control-regex -- expected to match control characters */
+	/* eslint-disable-next-line no-control-regex, unicorn/prefer-unicode-code-point-escapes -- expected to match control characters */
 	return text.replaceAll(/\u001B\[[\d;]*m/g, "");
 }
 

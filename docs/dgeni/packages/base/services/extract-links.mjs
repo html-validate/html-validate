@@ -1,10 +1,12 @@
+/* eslint-disable unicorn/comment-content -- false positive */
+
 import { JSDOM } from "jsdom";
 
 /**
  * @dgService extractLinks
  * @description
- * Extracts the links and references from a given html
- * @param {String} html The html
+ * Extracts the links and references from a given HTML
+ * @param {String} html The HTML
  */
 function extractLinksImpl(html) {
 	const result = { hrefs: [], names: [] };

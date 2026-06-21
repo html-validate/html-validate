@@ -43,9 +43,8 @@ function hasDefaultText(node: HtmlElement): boolean {
 function isNonEmptyText(node: DOMNode): boolean {
 	if (isTextNode(node)) {
 		return node.isDynamic || node.textContent.trim() !== "";
-	} else {
-		return false;
 	}
+	return false;
 }
 
 /**

@@ -25,7 +25,6 @@ export default class NoUnknownAttributes extends Rule<RuleContext> {
 		this.on("attr", (event: AttributeEvent) => {
 			const node = event.target;
 			const meta = node.meta;
-			const attr = event.key.toLowerCase();
 
 			/* cannot validate without element metadata */
 			if (meta === null) {
@@ -33,7 +32,8 @@ export default class NoUnknownAttributes extends Rule<RuleContext> {
 			}
 
 			/* attribute is known in element metadata (includes global attributes) */
-			if (attr in meta.attributes) {
+			const attr = event.key.toLowerCase();
+			if (Object.hasOwn(meta.attributes, attr)) {
 				return;
 			}
 

@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/comment-content -- false positive */
+
 const categoryName = {
 	"content-model": "Content model",
 	a11y: "Accessibility",
@@ -27,9 +29,9 @@ const standardsName = {
 };
 
 /**
- * @param  {Object} url   The url to match
+ * @param  {Object} url   The URL to match
  * @param  {Function} docs error message
- * @return {String}  The html link information
+ * @return {String}  The HTML link information
  * @property {boolean} relativeLinks Whether we expect the links to be relative to the originating doc
  */
 function ruleInfoInlineTagDef() {

@@ -27,7 +27,7 @@ export default function fileManifestProcessor(log) {
 				"",
 				"---",
 				"",
-				...relevantDocs.map((doc) => doc.outputPath).toSorted(),
+				...relevantDocs.map((doc) => doc.outputPath).toSorted((a, b) => a.localeCompare(b)),
 			];
 			const content = lines.map((it) => `${it}\n`).join("");
 
@@ -44,10 +44,9 @@ export default function fileManifestProcessor(log) {
 				);
 				log.error(`Build and commit the file locally before continuing!`);
 				throw new Error("Documentation manifest error");
-			} else {
-				log.info("Updating documentation manifest");
-				await fs.writeFile(manifestLocation, content, "utf-8");
 			}
+			log.info("Updating documentation manifest");
+			await fs.writeFile(manifestLocation, content, "utf-8");
 		},
 	};
 }

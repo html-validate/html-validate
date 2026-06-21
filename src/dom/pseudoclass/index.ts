@@ -22,7 +22,6 @@ export function factory(
 	const fn = table[name];
 	if (fn) {
 		return fn.bind(context);
-	} else {
-		throw new Error(`Pseudo-class "${name}" is not implemented`);
 	}
+	throw new Error(`Pseudo-class "${name}" is not implemented`);
 }

@@ -31,22 +31,20 @@ function moduleNotFound(name: string): never {
 beforeEach(() => {
 	mockModules = {};
 	mockResolve.mockReset().mockImplementation((name: string) => {
-		if (mockModules[name]) {
-			return new URL(`file:///\u0000${name}`);
-		} else {
-			moduleNotFound(name);
+		if (Object.hasOwn(mockModules, name)) {
+			return new URL(`file:///\u{0}${name}`);
 		}
+		moduleNotFound(name);
 	});
 	mockImport.mockReset().mockImplementation((name: string) => {
 		name = fileURLToPath(name);
-		if (name.startsWith("/\u0000")) {
+		if (name.startsWith("/\u{0}")) {
 			name = name.slice(2);
 		}
-		if (mockModules[name]) {
+		if (Object.hasOwn(mockModules, name)) {
 			return mockModules[name];
-		} else {
-			moduleNotFound(name);
 		}
+		moduleNotFound(name);
 	});
 });
 

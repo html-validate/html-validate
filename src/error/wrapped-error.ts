@@ -1,9 +1,8 @@
 function stringify(value: unknown): string {
 	if (typeof value === "string") {
 		return value;
-	} else {
-		return JSON.stringify(value);
 	}
+	return JSON.stringify(value);
 }
 
 /**
@@ -12,6 +11,7 @@ function stringify(value: unknown): string {
  * @public
  */
 export class WrappedError extends Error {
+	/* eslint-disable-next-line unicorn/custom-error-definition -- technical debt */
 	public constructor(message: unknown) {
 		super(stringify(message));
 		this.name = "WrappedError";

@@ -19,9 +19,8 @@ describe("rule attribute-misuse", () => {
 								allowed(node: HtmlElement) {
 									if (!node.hasAttribute("other")) {
 										return "reason";
-									} else {
-										return undefined;
 									}
+									return undefined;
 								},
 							},
 						},

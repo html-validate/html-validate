@@ -224,9 +224,8 @@ export class Engine<T extends Parser = Parser> {
 			const [, options] = ruleData;
 			const rule = this.instantiateRule(ruleId, options);
 			return rule.documentation(context);
-		} else {
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -235,6 +234,7 @@ export class Engine<T extends Parser = Parser> {
 	 * @internal
 	 */
 	public instantiateParser(): Parser {
+		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		return new this.ParserClass(this.config);
 	}
 
@@ -309,7 +309,7 @@ export class Engine<T extends Parser = Parser> {
 		const unregisterOpen = parser.on("tag:start", (_event: string, data: TagStartEvent) => {
 			/* wait for a tag to open and find the current block by using its parent */
 			/* istanbul ignore next: there will always be a parent (root element if
-			 * nothing else) but typescript doesn't know that */
+			 * nothing else) but TypeScript doesn't know that */
 			directiveBlock ??= data.target.parent?.unique ?? null;
 
 			/* disable rules directly on the node so it will be recorded for later,
@@ -417,6 +417,7 @@ export class Engine<T extends Parser = Parser> {
 		for (const plugin of config.getPlugins()) {
 			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {
 				if (!rule) {
+					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;
 				}
 				availableRules[name] = rule;
@@ -455,7 +456,7 @@ export class Engine<T extends Parser = Parser> {
 		parser: Parser,
 	): Record<string, Rule<unknown, unknown>> {
 		const rules: Record<string, Rule<unknown, unknown>> = {};
-		for (const [ruleId, [severity, options]] of config.getRules().entries()) {
+		for (const [ruleId, [severity, options]] of config.getRules()) {
 			rules[ruleId] = this.loadRule(ruleId, config, severity, options, parser, this.report);
 		}
 		return rules;
@@ -490,15 +491,16 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	protected instantiateRule(name: string, options: RuleOptions): Rule<unknown, unknown> {
+		/* eslint-disable-next-line unicorn/no-computed-property-existence-check -- technical debt */
 		if (this.availableRules[name]) {
 			const RuleConstructor = this.availableRules[name];
 			return new RuleConstructor(options);
-		} else {
-			return this.missingRule(name);
 		}
+		return this.missingRule(name);
 	}
 
 	protected missingRule(name: string): Rule {
+		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		return new (class MissingRule extends Rule {
 			public setup(): void {
 				this.on("dom:load", () => {

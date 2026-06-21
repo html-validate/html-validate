@@ -49,7 +49,7 @@ export function parseImageCandidateString(srcset: string): ParsedImageCandidateD
 			return {
 				url,
 				descriptor: "width",
-				value: Number.parseInt(descriptor.slice(0, -1), 10),
+				value: Math.trunc(Number(descriptor.slice(0, -1))),
 				raw: descriptor,
 			};
 		}
@@ -58,7 +58,7 @@ export function parseImageCandidateString(srcset: string): ParsedImageCandidateD
 			return {
 				url,
 				descriptor: "density",
-				value: Number.parseFloat(descriptor.slice(0, -1)),
+				value: Number(descriptor.slice(0, -1)),
 				raw: descriptor,
 			};
 		}

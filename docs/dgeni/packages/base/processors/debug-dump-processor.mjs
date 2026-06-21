@@ -29,6 +29,7 @@ export default function debugDumpProcessor(log, readFilesProcessor, writeFile) {
 			const filteredDocs = this.filterFn(docs);
 			const dumpedDocs = util.inspect(filteredDocs, this.depth);
 			const outputPath = path.resolve(readFilesProcessor.basePath, this.outputPath);
+			/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 			return writeFile(outputPath, dumpedDocs).then(() => docs);
 		},
 	};

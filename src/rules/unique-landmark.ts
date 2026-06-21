@@ -30,13 +30,12 @@ function getTextFromReference(
 	const ref = document.querySelector(selector);
 	if (ref) {
 		return ref.textContent;
-	} else {
-		/* If the referenced element cannot be found (maybe outside the fragment
-		 * being tested) we use the selector as text, i.e. if two landmarks
-		 * reference the same selector they would still be flagged as
-		 * non-unique. */
-		return selector;
 	}
+	/* If the referenced element cannot be found (maybe outside the fragment
+	 * being tested) we use the selector as text, i.e. if two landmarks
+	 * reference the same selector they would still be flagged as
+	 * non-unique. */
+	return selector;
 }
 
 /* until Array.groupBy(..) can be used (Node 21) */
@@ -47,7 +46,7 @@ function groupBy<T, K extends string | number | symbol>(
 	const result = {} as Record<K, T[]>;
 	for (const value of values) {
 		const key = callback(value);
-		if (key in result) {
+		if (Object.hasOwn(result, key)) {
 			result[key].push(value);
 		} else {
 			result[key] = [value];
@@ -146,6 +145,7 @@ export default class UniqueLandmark extends Rule {
 
 				for (const entry of filteredEntries) {
 					if (entry.text instanceof DynamicValue) {
+						/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 						continue;
 					}
 					const dup = entries.filter((it) => it.text === entry.text).length > 1;

@@ -70,10 +70,10 @@ export class StaticConfigLoader extends ConfigLoader {
 		const override = this.loadFromObject(configOverride ?? {});
 
 		if (isThenable(override)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return override.then((override) => this._resolveConfig(override));
-		} else {
-			return this._resolveConfig(override);
 		}
+		return this._resolveConfig(override);
 	}
 
 	public override flushCache(): void {
@@ -94,27 +94,27 @@ export class StaticConfigLoader extends ConfigLoader {
 
 		const globalConfig = this.getGlobalConfig();
 		if (isThenable(globalConfig)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 			return globalConfig.then((globalConfig) => {
 				const merged = globalConfig.merge(this.resolvers, override);
 				/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
 				if (isThenable(merged)) {
+					/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 					return merged.then((merged) => {
 						return merged.resolve();
 					});
-				} else {
-					return merged.resolve();
 				}
-			});
-		} else {
-			const merged = globalConfig.merge(this.resolvers, override);
-			/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
-			if (isThenable(merged)) {
-				return merged.then((merged) => {
-					return merged.resolve();
-				});
-			} else {
 				return merged.resolve();
-			}
+			});
 		}
+		const merged = globalConfig.merge(this.resolvers, override);
+		/* istanbul ignore if -- covered by tsc, hard to recreate even with very specific testcases */
+		if (isThenable(merged)) {
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
+			return merged.then((merged) => {
+				return merged.resolve();
+			});
+		}
+		return merged.resolve();
 	}
 }
