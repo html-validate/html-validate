@@ -21,6 +21,5 @@ export {
 } from "./formatters";
 export { compatibilityCheck } from "./utils/compatibility-check.nodejs";
 
-/* eslint-disable-next-line unicorn/comment-content -- false positive */
 /* this should be last to break import recursion from src/cli/cli.ts -> src/config/resolvers */
 export { type CLIOptions, type ExpandOptions, type InitResult, CLI } from "./cli";

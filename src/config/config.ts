@@ -483,7 +483,7 @@ export class Config {
 		const loadPlugin = (entry: string | Plugin, index: number): void | Promise<void> => {
 			if (typeof entry !== "string") {
 				const plugin = entry as LoadedPlugin;
-				plugin.name = plugin.name || `:unnamedPlugin@${String(index + 1)}`;
+				plugin.name ||= `:unnamedPlugin@${String(index + 1)}`;
 				plugin.originalName = `:unnamedPlugin@${String(index + 1)}`;
 				loaded.push(plugin);
 				const next = loading.shift();
@@ -498,7 +498,7 @@ export class Config {
 					if (isThenable(plugin)) {
 						/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 						return plugin.then((plugin) => {
-							plugin.name = plugin.name || entry;
+							plugin.name ||= entry;
 							plugin.originalName = entry;
 							loaded.push(plugin);
 							const next = loading.shift();
@@ -507,7 +507,7 @@ export class Config {
 							}
 						});
 					}
-					plugin.name = plugin.name || entry;
+					plugin.name ||= entry;
 					plugin.originalName = entry;
 					loaded.push(plugin);
 					const next = loading.shift();
@@ -546,7 +546,8 @@ export class Config {
 
 		/* presets from plugins */
 		for (const plugin of plugins) {
-			for (const [name, config] of Object.entries(plugin.configs ?? {})) {
+			const entries = Object.entries(plugin.configs ?? {});
+			for (const [name, config] of entries) {
 				if (!config) {
 					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;

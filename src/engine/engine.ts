@@ -234,7 +234,6 @@ export class Engine<T extends Parser = Parser> {
 	 * @internal
 	 */
 	public instantiateParser(): Parser {
-		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		return new this.ParserClass(this.config);
 	}
 
@@ -415,7 +414,8 @@ export class Engine<T extends Parser = Parser> {
 		/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 		const availableRules: Record<string, RuleConstructor<any, any>> = {};
 		for (const plugin of config.getPlugins()) {
-			for (const [name, rule] of Object.entries(plugin.rules ?? {})) {
+			const entries = Object.entries(plugin.rules ?? {});
+			for (const [name, rule] of entries) {
 				if (!rule) {
 					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;
@@ -500,7 +500,6 @@ export class Engine<T extends Parser = Parser> {
 	}
 
 	protected missingRule(name: string): Rule {
-		/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 		return new (class MissingRule extends Rule {
 			public setup(): void {
 				this.on("dom:load", () => {

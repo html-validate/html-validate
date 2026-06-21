@@ -152,7 +152,7 @@ function normalizeSourceInfo(basePath, sourceInfo) {
 	if (!Array.isArray(sourceInfo.include)) {
 		sourceInfo.include = [sourceInfo.include];
 	}
-	sourceInfo.exclude = sourceInfo.exclude || [];
+	sourceInfo.exclude ||= [];
 	if (!Array.isArray(sourceInfo.exclude)) {
 		sourceInfo.exclude = [sourceInfo.exclude];
 	}

@@ -18,11 +18,13 @@ declare module "./cache" {
 	}
 }
 
-let counter = 0;
+const state = {
+	counter: 0,
+};
 
 /* istanbul ignore next: only for testing */
 export function reset(): void {
-	counter = 0;
+	state.counter = 0;
 }
 
 /**
@@ -72,7 +74,7 @@ export class DOMNode {
 		this.disabledRules = new Set();
 		this.blockedRules = new Map();
 		this.childNodes = [];
-		this.unique = counter++;
+		this.unique = state.counter++;
 		this.cache = null;
 	}
 

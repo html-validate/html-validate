@@ -58,7 +58,6 @@ export function isSimpleTable(table: HtmlElement): boolean {
 	const shape = getShape(cells);
 	const headersPerRow = cells.map((row) => row.reduce((sum, cell) => sum + cell, 0));
 
-	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 	const headersPerColumn = new Array(shape.cols).fill(0).map((_, index) => {
 		return cells.reduce((sum, it) => sum + it[index], 0);
 	});

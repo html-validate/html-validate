@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/comment-content -- false positive */
-
 import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";

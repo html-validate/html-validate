@@ -420,12 +420,10 @@ export class Parser {
 			baseParent = cur;
 		}
 
-		/* eslint-disable unicorn/comment-content -- false positive */
 		/* for start tags, pre-create any intermediary element that should be
 		 * implicitly opened (e.g. <head>/<body> under <html>).  This must happen
 		 * before the actual node is created so that the node's parent is set
 		 * correctly from the start. */
-		/* eslint-enable unicorn/comment-content */
 		const implicitParent = isStartTag ? this.peekImplicitOpen(startToken, baseParent) : null;
 		const parent = implicitParent ?? baseParent;
 

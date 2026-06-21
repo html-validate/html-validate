@@ -11,7 +11,6 @@ const { Package } = Dgeni;
  */
 export default new Package("links", [jsdocPackage])
 
-	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.factory(linkInlineTagDef)
 	.factory(getDocFromAlias)
 	.factory(getLinkInfo)

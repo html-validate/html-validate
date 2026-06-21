@@ -8,7 +8,7 @@ async function update() {
 		throw new Error(`Failed to fetch "${url}": HTTP ${response.status}: ${response.statusText}`);
 	}
 	const html = await response.text();
-	const { document } = new JSDOM(html).window; // eslint-disable-line unicorn/no-unreadable-new-expression -- technical debt
+	const { document } = new JSDOM(html).window;
 	const nameFromProhibited = new Set(
 		Array.from(document.querySelectorAll("#namefromprohibited code"), (it) => it.textContent),
 	);

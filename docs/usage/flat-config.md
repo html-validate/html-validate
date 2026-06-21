@@ -85,21 +85,18 @@ import { defineFlatConfig } from "html-validate";
 
 export default defineFlatConfig([
   {
-    /* eslint-disable-next-line unicorn/comment-content -- false positive */
     /* matches all files ending with .html */
     files: ["*.html"],
     rules: { "void-style": "error" },
   },
 
   {
-    /* eslint-disable-next-line unicorn/comment-content -- false positive */
     /* matches only files ending with .html in the public/ folder */
     files: ["public/**/*.html"],
     rules: { "no-trailing-whitespace": "off" },
   },
 
   {
-    /* eslint-disable-next-line unicorn/comment-content -- false positive */
     /* matches files ending with .html except in the public/ folder */
     files: ["*.html"],
     ignores: ["public/**"],

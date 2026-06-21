@@ -290,7 +290,6 @@ export class HtmlValidate {
 	 * file or not. CLI tools will run on all the given files anyway.
 	 */
 	public async canValidate(filename: string): Promise<boolean> {
-		/* eslint-disable-next-line unicorn/comment-content -- false positive */
 		/* .html is always supported */
 		if (filename.toLowerCase().endsWith(".html")) {
 			return true;
@@ -311,7 +310,6 @@ export class HtmlValidate {
 	 * file or not. CLI tools will run on all the given files anyway.
 	 */
 	public canValidateSync(filename: string): boolean {
-		/* eslint-disable-next-line unicorn/comment-content -- false positive */
 		/* .html is always supported */
 		if (filename.toLowerCase().endsWith(".html")) {
 			return true;

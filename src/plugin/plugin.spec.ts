@@ -398,7 +398,6 @@ describe("Plugin", () => {
 
 		it("Engine should call rule init callback", async () => {
 			expect.assertions(1);
-			/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- technical debt */
 			const mockRule: Rule = new (class extends Rule {
 				public setup(): void {
 					/* do nothing */

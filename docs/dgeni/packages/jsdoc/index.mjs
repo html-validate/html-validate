@@ -16,7 +16,7 @@ const { Package } = Dgeni;
 export default new Package("jsdoc", [basePackage])
 
 	// Add in extra pseudo marker processors
-	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
+
 	.processor({ name: "parsing-tags", $runAfter: ["files-read"], $runBefore: ["processing-docs"] })
 	.processor({ name: "tags-parsed", $runAfter: ["parsing-tags"], $runBefore: ["processing-docs"] })
 	.processor({

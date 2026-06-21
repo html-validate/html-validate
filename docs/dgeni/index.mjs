@@ -35,7 +35,6 @@ export default new Package("html-validate-docs", [
 	schemaPackage,
 ])
 
-	/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 	.processor(fileManifest)
 	.processor(rules)
 

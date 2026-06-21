@@ -12,5 +12,4 @@ function roadmapConfig() {
 	};
 }
 
-/* eslint-disable-next-line unicorn/no-unreadable-new-expression -- established pattern for dgeni */
 export default new Package("roadmap", []).factory(roadmapConfig).processor(fetchRoadmap);
