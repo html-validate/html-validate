@@ -254,7 +254,6 @@
     "@tsconfig/node22": "22.0.5",
     "@tsconfig/strictest": "2.0.8",
     "@types/babar": "0.2.4",
-    "@types/babel__code-frame": "7.27.0",
     "@types/cli-table": "0.3.4",
     "@types/node": "22.20.0",
     "@types/prompts": "2.4.9",
