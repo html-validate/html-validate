@@ -13,7 +13,6 @@ it("should print config for given filename", async () => {
 	expect.assertions(3);
 	const htmlvalidate = new HtmlValidate();
 	const config = Config.defaultConfig().resolve() as ResolvedConfig;
-	/* eslint-disable-next-line unicorn/no-non-function-verb-prefix -- function under test is called this */
 	const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor").mockResolvedValue(config);
 	const success = await printConfig(htmlvalidate, stdout, ["/path/to/my/file.html"]);
 	expect(success).toBeTruthy();
