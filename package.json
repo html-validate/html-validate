@@ -232,7 +232,6 @@
     "semver": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/code-frame": "7.29.7",
     "@html-validate/commitlint-config": "4.0.2",
     "@html-validate/eslint-config": "9.7.0",
     "@html-validate/eslint-config-jest": "9.7.0",
@@ -319,7 +318,6 @@
     "unrs-resolver": true
   },
   "externalDependencies": [
-    "@babel/code-frame",
     "@html-validate/stylish",
     "@sidvind/better-ajv-errors",
     "ajv",

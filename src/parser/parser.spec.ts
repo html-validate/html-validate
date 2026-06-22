@@ -1,4 +1,3 @@
-import { type SourceLocation, codeFrameColumns } from "@babel/code-frame";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
 import { type ProcessElementContext, type Source } from "../context";
@@ -18,6 +17,7 @@ import {
 } from "../lexer";
 import { type Location } from "../location";
 import "html-validate/jest";
+import { codeFrameColumns } from "../utils/code-frame-columns";
 import { dumpTree } from "../utils/dump-tree";
 import { type AttributeData } from "./attribute-data";
 import { Parser } from "./parser";
@@ -59,11 +59,11 @@ function codeframe(source: string, location: Location): string {
 			column++;
 		}
 	}
-	const sourceLocation: SourceLocation = {
+	const sourceLocation = {
 		start: { line: location.line, column: location.column },
 		end: { line, column },
 	};
-	const codeframe = codeFrameColumns(source, sourceLocation, { highlightCode: false });
+	const codeframe = codeFrameColumns(source, sourceLocation);
 	return `${codeframePrefix}${codeframe}`;
 }
 
