@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import autoprefixer from "autoprefixer";
-import browserify from "browserify";
 import cssnano from "cssnano";
 import Dgeni from "dgeni";
+import * as esbuild from "esbuild";
 import postcss from "postcss";
-import sass from "sass";
+import * as sass from "sass";
 import dgeniPackage from "./dgeni/index.mjs";
 
 async function assets() {
@@ -20,29 +20,19 @@ async function assets() {
 }
 
 async function scripts() {
-	console.group("Running Browserify");
-	const b = browserify("docs/app/index.js", {
-		transform: [
-			[
-				"babelify",
-				{
-					presets: ["@babel/preset-env"],
-				},
-			],
-		],
+	console.group("Building JS assets");
+
+	await esbuild.build({
+		bundle: true,
+		entryPoints: ["docs/app/index.mjs"],
+		outfile: "public/assets/docs.mjs",
+		format: "esm",
+		platform: "browser",
+		target: ["chrome143", "edge143", "firefox146", "safari26.2"],
+		logLevel: "info",
+		metafile: true,
 	});
-	const buffer = await new Promise((resolve, reject) => {
-		b.bundle((err, buf) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(buf);
-			}
-		});
-	});
-	const dst = "public/assets/docs.js";
-	await fs.writeFile(dst, buffer);
-	console.log(dst, "written");
+
 	console.groupEnd();
 	console.log();
 }
