@@ -8,7 +8,7 @@ import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-ty
 import vitestConfig from "@html-validate/eslint-config-vitest";
 
 export default [
-	...defaultConfig,
+	...defaultConfig({ type: "commonjs" }),
 
 	{
 		name: "@html-validate/eslint-config-typescript",
