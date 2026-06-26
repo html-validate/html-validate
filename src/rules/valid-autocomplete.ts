@@ -590,21 +590,23 @@ export default class ValidAutocomplete extends Rule<RuleContext> {
 	private validateOrder(node: HtmlElement, tokens: DOMTokenList, order: TokenType[]): void {
 		const indicies = order.map((it) => expectedOrder.indexOf(it));
 		for (let i = 0; i < indicies.length - 1; i++) {
-			if (indicies[0] > indicies[i + 1]) {
-				const context: RuleContext = {
-					msg: MessageID.InvalidOrder,
-					/* eslint-disable @typescript-eslint/no-non-null-assertion -- it must be present of it wouldn't be found */
-					first: tokens.item(i)!,
-					second: tokens.item(i + 1)!,
-					/* eslint-enable @typescript-eslint/no-non-null-assertion */
-				};
-				this.report({
-					node,
-					message: getTerminalMessage(context),
-					location: tokens.location(i + 1),
-					context,
-				});
+			if (indicies[0] <= indicies[i + 1]) {
+				continue;
 			}
+
+			const context: RuleContext = {
+				msg: MessageID.InvalidOrder,
+				/* eslint-disable @typescript-eslint/no-non-null-assertion -- it must be present of it wouldn't be found */
+				first: tokens.item(i)!,
+				second: tokens.item(i + 1)!,
+				/* eslint-enable @typescript-eslint/no-non-null-assertion */
+			};
+			this.report({
+				node,
+				message: getTerminalMessage(context),
+				location: tokens.location(i + 1),
+				context,
+			});
 		}
 	}
 

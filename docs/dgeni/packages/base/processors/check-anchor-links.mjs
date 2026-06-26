@@ -32,29 +32,31 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 			// in each doc to the allValidReferences hash for checking later
 			for (const doc of docs) {
 				// Only check specified output files
-				if (this.checkDoc(doc)) {
-					// Make the path to the doc relative to the webRoot
-					const docPath = path.join(this.webRoot, resolveUrl(this.base, doc.path, this.base));
+				if (!this.checkDoc(doc)) {
+					continue;
+				}
 
-					// Parse out all link hrefs, names and ids
-					const linkInfo = extractLinks(doc.renderedContent);
-					linkInfo.path = docPath;
-					linkInfo.outputPath = doc.outputPath;
-					linkInfo.doc = doc;
-					allDocs.push(linkInfo);
+				// Make the path to the doc relative to the webRoot
+				const docPath = path.join(this.webRoot, resolveUrl(this.base, doc.path, this.base));
 
-					for (const pathVariant of this.pathVariants) {
-						const docPathVariant = docPath + pathVariant;
+				// Parse out all link hrefs, names and ids
+				const linkInfo = extractLinks(doc.renderedContent);
+				linkInfo.path = docPath;
+				linkInfo.outputPath = doc.outputPath;
+				linkInfo.doc = doc;
+				allDocs.push(linkInfo);
 
-						// The straight doc path is a valid reference
-						allValidReferences[docPathVariant] = true;
-						// The path with a trailing hash is valid
-						allValidReferences[`${docPathVariant}#`] = true;
-						// The path referencing each name/id in the doc is valid
+				for (const pathVariant of this.pathVariants) {
+					const docPathVariant = docPath + pathVariant;
 
-						for (const name of linkInfo.names) {
-							allValidReferences[`${docPathVariant}#${name}`] = true;
-						}
+					// The straight doc path is a valid reference
+					allValidReferences[docPathVariant] = true;
+					// The path with a trailing hash is valid
+					allValidReferences[`${docPathVariant}#`] = true;
+					// The path referencing each name/id in the doc is valid
+
+					for (const name of linkInfo.names) {
+						allValidReferences[`${docPathVariant}#${name}`] = true;
 					}
 				}
 			}

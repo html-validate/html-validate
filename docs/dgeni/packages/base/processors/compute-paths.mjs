@@ -10,13 +10,13 @@ function initializeMaps(pathTemplates) {
 		if (template.docTypes) {
 			for (const docType of template.docTypes) {
 				if (template.getPath) {
-					pathTemplateMap[docType] = template.getPath;
+					pathTemplateMap.set(docType, template.getPath);
 				} else if (template.pathTemplate) {
 					throw new Error(`pathTemplate not supported, use getPath() instead`);
 				}
 
 				if (template.getOutputPath) {
-					outputPathTemplateMap[docType] = template.getOutputPath;
+					outputPathTemplateMap.set(docType, template.getOutputPath);
 				} else if (template.outputPathTemplate) {
 					throw new Error(`outputPathTemplate not supported, use getOutputPath() instead`);
 				}
@@ -40,7 +40,7 @@ export default function computePathsProcessor(log, createDocMessage) {
 			for (const doc of docs) {
 				try {
 					if (!doc.path) {
-						const getPath = pathTemplateMap[doc.docType];
+						const getPath = pathTemplateMap.get(doc.docType);
 						if (!getPath) {
 							log.warn(createDocMessage("No path template provided", doc));
 						} else {
@@ -49,7 +49,7 @@ export default function computePathsProcessor(log, createDocMessage) {
 					}
 
 					if (!doc.outputPath) {
-						const getOutputPath = outputPathTemplateMap[doc.docType];
+						const getOutputPath = outputPathTemplateMap.get(doc.docType);
 						if (!getOutputPath) {
 							log.warn(createDocMessage("No output path template provided", doc));
 						} else {

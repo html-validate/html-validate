@@ -22,10 +22,12 @@ function calcIndent(text) {
 		}
 
 		for (const line of lines) {
-			if (!isEmpty(line)) {
-				const indent = line.match(/^\s*/)[0].length;
-				minIndent = Math.min(minIndent, indent);
+			if (isEmpty(line)) {
+				continue;
 			}
+
+			const indent = line.match(/^\s*/)[0].length;
+			minIndent = Math.min(minIndent, indent);
 		}
 	}
 
