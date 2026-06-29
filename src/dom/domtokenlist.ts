@@ -9,7 +9,7 @@ interface Result {
 function parse(text: string, baseLocation: Location | null): Result {
 	const tokens: string[] = [];
 	const locations: Location[] | null = baseLocation ? [] : null;
-	for (let begin = 0; begin < text.length; ) {
+	for (let begin = 0; begin < text.length;) {
 		let end = text.indexOf(" ", begin);
 
 		/* if the last space was found move the position to the last character

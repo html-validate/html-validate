@@ -493,8 +493,7 @@ export class Config {
 			} else {
 				try {
 					const plugin = resolvePlugin(this.resolvers, entry, { cache: true }) as
-						| LoadedPlugin
-						| Promise<LoadedPlugin>;
+						LoadedPlugin | Promise<LoadedPlugin>;
 					if (isThenable(plugin)) {
 						/* eslint-disable-next-line unicorn/prefer-await -- intentional, we must return sync result if sync parameters are used */
 						return plugin.then((plugin) => {

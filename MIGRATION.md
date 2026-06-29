@@ -225,9 +225,7 @@ import { HtmlValidate } from "html-validate";
 let htmlvalidate;
 try {
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  htmlvalidate = new HtmlValidate({
-    /* invalid configuration */
-  });
+  htmlvalidate = new HtmlValidate({/* invalid configuration */});
 } catch {
   /* ... */
 }

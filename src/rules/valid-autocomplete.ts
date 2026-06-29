@@ -54,15 +54,7 @@ export type RuleContext =
 	| RuleContextMissingField;
 
 type ControlGroup =
-	| "text"
-	| "username"
-	| "password"
-	| "multiline"
-	| "month"
-	| "numeric"
-	| "date"
-	| "url"
-	| "tel";
+	"text" | "username" | "password" | "multiline" | "month" | "numeric" | "date" | "url" | "tel";
 
 type TokenType = "section" | "hint" | "contact" | "field1" | "field2" | "webauthn";
 

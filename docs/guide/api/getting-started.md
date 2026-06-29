@@ -59,9 +59,7 @@ If we run this, `report` will contain an object like this:
 ```jsonc
 {
   "valid": false,
-  "results": [
-    /* ... */
-  ],
+  "results": [/* ... */],
   "errorCount": 2,
   "warningCount": 0,
 }
@@ -81,9 +79,7 @@ That is, if there are one or more errors, `valid` will be `false` and `errorCoun
   "results": [
     {
       "filePath": "inline",
-      "messages": [
-        /* ... */
-      ],
+      "messages": [/* ... */],
       "errorCount": 2,
       "warningCount": 0,
       "source": "\n  <h1>Hello & goodbye!</h1>\n  <input type='text'></input>\n",
