@@ -52,10 +52,12 @@ export default function rulesProcessor(renderDocsProcessor) {
 
 		/* add missing fields */
 		for (const doc of ruleDocs) {
-			if (!doc.title) {
-				doc.title = `${doc.summary} (${doc.name})`;
-				doc.standards ??= [];
+			if (doc.title) {
+				continue;
 			}
+
+			doc.title = `${doc.summary} (${doc.name})`;
+			doc.standards ??= [];
 		}
 
 		/* split heading and other content */

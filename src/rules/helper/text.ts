@@ -127,7 +127,7 @@ export function classifyNodeText(
 
 function findTextNodes(node: HtmlElement, options: TextClassificationOptions): TextNode[] {
 	const { accessible = false } = options;
-	let text: TextNode[] = [];
+	const text: TextNode[] = [];
 	for (const child of node.childNodes) {
 		if (isTextNode(child)) {
 			text.push(child);
@@ -138,7 +138,7 @@ function findTextNodes(node: HtmlElement, options: TextClassificationOptions): T
 			if (accessible && isAriaHidden(child, true).bySelf) {
 				continue;
 			}
-			text = text.concat(findTextNodes(child, options));
+			text.push(...findTextNodes(child, options));
 		}
 	}
 	return text;

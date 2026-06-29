@@ -40,10 +40,12 @@ export class Context {
 		let lastNewline = -1;
 		let newlines = 0;
 		for (let i = 0; i < n; i++) {
-			if (this.string[i] === "\n") {
-				newlines++;
-				lastNewline = i;
+			if (this.string[i] !== "\n") {
+				continue;
 			}
+
+			newlines++;
+			lastNewline = i;
 		}
 		if (newlines > 0) {
 			this.line += newlines;

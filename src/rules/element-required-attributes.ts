@@ -39,9 +39,8 @@ function normalizeRequired(element: HtmlElement, attr: MetaAttribute): string | 
 			default:
 				return result;
 		}
-	} else {
-		return required ? defaultMessage : false;
 	}
+	return required ? defaultMessage : false;
 }
 
 export default class ElementRequiredAttributes extends Rule<RuleContext> {
