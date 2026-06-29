@@ -13,7 +13,7 @@ function cyrb53(str: string): number {
 	const seed = 0;
 	let h1 = 0xdeadbeef ^ seed;
 	let h2 = 0x41c6ce57 ^ seed;
-	for (let i = 0, ch; i < str.length; ) {
+	for (let i = 0, ch; i < str.length;) {
 		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index will be in range */
 		ch = str.codePointAt(i)!;
 		h1 = Math.imul(h1 ^ ch, a);

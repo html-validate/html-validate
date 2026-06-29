@@ -67,9 +67,7 @@ This rule takes an optional object:
 
 ```jsonc
 {
-  "mapping": {
-    /* ... */
-  },
+  "mapping": {/* ... */},
   "include": [],
   "exclude": [],
 }

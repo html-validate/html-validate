@@ -324,9 +324,7 @@ Default loader which loads configuration only from the configuration passed to t
 ```ts
 import { HtmlValidate, StaticConfigLoader } from "html-validate";
 
-const loader = new StaticConfigLoader({
-  /* your global configuration here */
-});
+const loader = new StaticConfigLoader({/* your global configuration here */});
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const htmlvalidate = new HtmlValidate(loader);
 ```
@@ -336,9 +334,7 @@ The global configuration is used by default when using `validateFile`, `validate
 ```ts
 import { HtmlValidate, StaticConfigLoader } from "html-validate";
 
-const loader = new StaticConfigLoader({
-  /* your global configuration here */
-});
+const loader = new StaticConfigLoader({/* your global configuration here */});
 const htmlvalidate = new HtmlValidate(loader);
 
 /* --- */
@@ -363,9 +359,7 @@ const htmlvalidate = new HtmlValidate();
 
 /* --- */
 
-htmlvalidate.validateString("..", {
-  /* config override */
-});
+htmlvalidate.validateString("..", {/* config override */});
 ```
 
 ## Resolvers

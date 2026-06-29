@@ -525,9 +525,7 @@ describe("config", () => {
 				{
 					name: "inline-plugin",
 				},
-				{
-					/* anonymous/unnamed plugin */
-				},
+				{/* anonymous/unnamed plugin */},
 			],
 		});
 		expect(config.getPlugins()).toEqual([

@@ -126,14 +126,7 @@ all HTML5 elements.
 
 ```jsonc config
 {
-  "elements": [
-    "html5",
-    "my-npm-package",
-    "./file.json",
-    {
-      /* inline metadata */
-    },
-  ],
+  "elements": ["html5", "my-npm-package", "./file.json", {/* inline metadata */}],
 }
 ```
 
