@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.5.4 (2026-06-30)
+
+### Bug Fixes
+
+- **plugin:** add alternative `HtmlElement.appendText()` api for dynamic values ([f25cb18](https://gitlab.com/html-validate/html-validate/commit/f25cb18a1a8bf6a89371d494972abff13488f3c4))
+
 ## 11.5.3 (2026-06-07)
 
 ### Bug Fixes
