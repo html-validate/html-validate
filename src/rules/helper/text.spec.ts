@@ -1,6 +1,5 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { Config } from "../../config";
-import { DynamicValue } from "../../dom";
 import { type Location } from "../../location";
 import { Parser } from "../../parser";
 import { TextClassification, classifyNodeText, getCachekey } from "./text";
@@ -48,14 +47,14 @@ describe("classifyNodeText()", () => {
 	it("should classify element with dynamic text as DYNAMIC_TEXT", () => {
 		expect.assertions(1);
 		const node = parser.parseHtml("<p></p>").querySelector("p")!;
-		node.appendText(new DynamicValue(""), location);
+		node.appendText({ dynamic: "" }, location);
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 
 	it("should classify element with descendant dynamic text as DYNAMIC_TEXT", () => {
 		expect.assertions(1);
 		const node = parser.parseHtml("<p>foo <b></b> bar</p>").querySelector("p")!;
-		node.querySelector("b")!.appendText(new DynamicValue(""), location);
+		node.querySelector("b")!.appendText({ dynamic: "" }, location);
 		expect(classifyNodeText(node)).toEqual(TextClassification.DYNAMIC_TEXT);
 	});
 

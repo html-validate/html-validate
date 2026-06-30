@@ -1,18 +1,21 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { type HtmlElement, DynamicValue } from "../dom";
+import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import "html-validate/jest";
 import { TextContent } from "../meta";
 
 function processElement(node: HtmlElement): void {
 	if (node.hasAttribute("bind-text")) {
-		node.appendText(new DynamicValue(""), {
-			filename: "mock",
-			line: 1,
-			column: 1,
-			offset: 0,
-			size: 1,
-		});
+		node.appendText(
+			{ dynamic: "" },
+			{
+				filename: "mock",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			},
+		);
 	}
 }
 

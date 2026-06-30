@@ -604,7 +604,11 @@ export class HtmlElement extends DOMNode {
     get annotatedName(): string;
     // (undocumented)
     append(node: DOMNode): void;
-    appendText(text: string | DynamicValue, location: Location_2): void;
+    appendText(text: string | {
+        dynamic: string;
+    }, location: Location_2): void;
+    // @deprecated
+    appendText(text: DynamicValue, location: Location_2): void;
     get ariaLabelledby(): string[] | DynamicValue | null;
     // (undocumented)
     protected readonly attr: Record<string, Attribute[]>;
