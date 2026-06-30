@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { Config } from "../../config";
 import { type Source } from "../../context";
-import { type HtmlElement, DynamicValue } from "../../dom";
+import { type HtmlElement } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { hasAccessibleName } from "./has-accessible-name";
@@ -15,13 +15,16 @@ beforeAll(async () => {
 
 function processElement(node: HtmlElement): void {
 	if (node.hasAttribute("bind-text")) {
-		node.appendText(new DynamicValue(""), {
-			filename: "mock",
-			line: 1,
-			column: 1,
-			offset: 0,
-			size: 1,
-		});
+		node.appendText(
+			{ dynamic: "" },
+			{
+				filename: "mock",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			},
+		);
 	}
 }
 

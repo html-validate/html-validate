@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { type HtmlElement, DynamicValue } from "../dom";
+import { type HtmlElement } from "../dom";
 import { HtmlValidate } from "../htmlvalidate";
 import { type Location } from "../location";
 import "html-validate/jest";
@@ -53,7 +53,7 @@ describe("rule empty-title", () => {
 	it("should not report when title has dynamic text", async () => {
 		expect.assertions(1);
 		function processElement(node: HtmlElement): void {
-			node.appendText(new DynamicValue(""), location);
+			node.appendText({ dynamic: "" }, location);
 		}
 		const markup = /* HTML */ ` <title></title> `;
 		const report = await htmlvalidate.validateString(markup, {

@@ -572,7 +572,22 @@ export class HtmlElement extends DOMNode {
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
-	public appendText(text: string | DynamicValue, location: Location): void {
+	public appendText(text: string | { dynamic: string }, location: Location): void;
+
+	/**
+	 * Add text as a child node to this element.
+	 *
+	 * @deprecated `appendText()` with `DynamicValue` is not safe to use, use `appendText({ dynamic: "expr" })` instead.
+	 * @param text - Text to add.
+	 * @param location - Source code location of this text.
+	 */
+	/* eslint-disable-next-line @typescript-eslint/unified-signatures -- this signature is deprecated, the other is not */
+	public appendText(text: DynamicValue, location: Location): void;
+
+	public appendText(text: string | DynamicValue | { dynamic: string }, location: Location): void {
+		if (typeof text === "object" && "dynamic" in text) {
+			text = new DynamicValue(text.dynamic);
+		}
 		this.childNodes.push(new TextNode(text, location));
 	}
 

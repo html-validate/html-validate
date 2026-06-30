@@ -484,6 +484,23 @@ describe("HtmlElement", () => {
 			expect(node.childNodes).toHaveLength(2);
 			expect(node.textContent).toBe("foobar");
 		});
+
+		it("should handle dynamic text", () => {
+			expect.assertions(2);
+			const node = HtmlElement.createElement("foo", location);
+			node.appendText({ dynamic: "expr" }, location);
+			expect(node.childNodes).toHaveLength(1);
+			expect(node.textContent).toBe("expr");
+		});
+
+		it("should handle DynamicValue (deprecated)", () => {
+			expect.assertions(2);
+			const node = HtmlElement.createElement("foo", location);
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- need to ensure deprecated function still works as intended */
+			node.appendText(new DynamicValue("expr"), location);
+			expect(node.childNodes).toHaveLength(1);
+			expect(node.textContent).toBe("expr");
+		});
 	});
 
 	describe("should calculate depth", () => {
