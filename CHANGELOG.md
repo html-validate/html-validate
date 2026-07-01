@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.5.5 (2026-07-01)
+
+### Bug Fixes
+
+- **plugin:** replace `DynamicValue` instances to avoid issues with esm/cjs hybrids ([acfed1b](https://gitlab.com/html-validate/html-validate/commit/acfed1bdad3a05dad70420dbfc1222bd52603757))
+
 ## 11.5.4 (2026-06-30)
 
 ### Bug Fixes
