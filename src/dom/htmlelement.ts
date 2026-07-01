@@ -569,6 +569,7 @@ export class HtmlElement extends DOMNode {
 	/**
 	 * Add text as a child node to this element.
 	 *
+	 * @since v11.5.4
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
@@ -578,6 +579,7 @@ export class HtmlElement extends DOMNode {
 	 * Add text as a child node to this element.
 	 *
 	 * @deprecated `appendText()` with `DynamicValue` is not safe to use, use `appendText({ dynamic: "expr" })` instead.
+	 * @since v11.5.4
 	 * @param text - Text to add.
 	 * @param location - Source code location of this text.
 	 */
@@ -585,8 +587,15 @@ export class HtmlElement extends DOMNode {
 	public appendText(text: DynamicValue, location: Location): void;
 
 	public appendText(text: string | DynamicValue | { dynamic: string }, location: Location): void {
-		if (typeof text === "object" && "dynamic" in text) {
-			text = new DynamicValue(text.dynamic);
+		if (typeof text !== "string") {
+			if ("dynamic" in text) {
+				text = new DynamicValue(text.dynamic);
+			} else {
+				/* handle when a receiving a `DynamicValue` from a different
+				 * implementation, e.g. we're running in ESM but a plugin was loaded
+				 * with CJS */
+				text = new DynamicValue(text.expr);
+			}
 		}
 		this.childNodes.push(new TextNode(text, location));
 	}
