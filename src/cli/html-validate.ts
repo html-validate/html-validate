@@ -188,7 +188,8 @@ if (positionals.length === 0) {
 	if (mode === Mode.LINT) {
 		showUsage();
 		process.exit(0);
-	} else if (requiresFilename(mode)) {
+	}
+	if (requiresFilename(mode)) {
 		const flag = modeToFlag(mode);
 		console.error(`\`${flag}\` requires a filename.`);
 		process.exit(1);
