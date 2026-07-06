@@ -232,7 +232,7 @@
     "semver": "^7.0.0"
   },
   "devDependencies": {
-    "@html-validate/commitlint-config": "4.1.1",
+    "@html-validate/commitlint-config": "4.1.2",
     "@html-validate/eslint-config": "9.10.0",
     "@html-validate/eslint-config-jest": "9.10.0",
     "@html-validate/eslint-config-typescript": "9.10.0",
