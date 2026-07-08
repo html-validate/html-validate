@@ -46,6 +46,8 @@ const allowlist = new Set([
 	"img",
 	"summary",
 	"table",
+	"ul",
+	"ol",
 	"td",
 	"th",
 ]);

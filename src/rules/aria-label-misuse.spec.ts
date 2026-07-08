@@ -383,6 +383,18 @@ describe("rule aria-label-misuse", () => {
 			`);
 		});
 
+		it("should allow lists to have an aria-labelledby attribute", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<div id="label-id">Label</div>
+				<ul aria-labelledby="label-id">
+					<li>list item</li>
+				</ul>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should ignore elements in exclude list", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate({
