@@ -255,7 +255,7 @@
     "@tsconfig/strictest": "2.0.8",
     "@types/babar": "0.2.4",
     "@types/cli-table": "0.3.4",
-    "@types/node": "22.20.0",
+    "@types/node": "22.20.1",
     "@types/prompts": "2.4.9",
     "@types/semver": "7.7.1",
     "@types/stream-buffers": "3.0.8",
