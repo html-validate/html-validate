@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.5.6 (2026-07-12)
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.6 ([c91bdb5](https://gitlab.com/html-validate/html-validate/commit/c91bdb58057746593304145a6347d10cd3c6ff9e))
+- **rules:** allow ul and ol elements to have naming attributes ([a9a6267](https://gitlab.com/html-validate/html-validate/commit/a9a62678d13565f5a58c95f3f673e7505eb2586a))
+
 ## 11.5.5 (2026-07-01)
 
 ### Bug Fixes
