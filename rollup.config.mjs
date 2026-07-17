@@ -6,7 +6,7 @@ import json from "@rollup/plugin-json"; //native solution coming: https://nodejs
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import virtual from "@rollup/plugin-virtual";
-import MagicString from "magic-string";
+import { MagicString } from "magic-string";
 import esbuild from "rollup-plugin-esbuild";
 import { getRuleUrl } from "./src/utils/get-rule-url.mjs";
 import { legacyPlugin } from "@html-validate/rollup-plugin-legacy";
