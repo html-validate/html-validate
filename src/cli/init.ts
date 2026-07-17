@@ -50,6 +50,7 @@ function writeConfig(dst: string, config: ConfigData): Promise<void> {
 		fs.writeFile(dst, JSON.stringify(config, null, 2), (err) => {
 			if (err) {
 				reject(err);
+				return;
 			}
 			resolve();
 		});
