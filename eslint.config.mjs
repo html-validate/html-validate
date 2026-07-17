@@ -90,6 +90,10 @@ export default [
 			"n/no-extraneous-import": ["error", { allowModules: ["html-validate"] }],
 			"tsdoc/syntax": "off",
 			"no-console": "off",
+
+			/* some examples show raw assertions outside of test-cases */
+			"sonarjs/assertions-in-test-cases": "off",
+
 			"unicorn/no-top-level-side-effects": "off",
 		},
 	},
