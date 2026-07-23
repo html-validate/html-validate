@@ -278,7 +278,7 @@
     "rollup": "4.62.2",
     "rollup-plugin-esbuild": "6.2.1",
     "stream-buffers": "3.0.3",
-    "ts-jest": "29.4.11",
+    "ts-jest": "29.4.12",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.1.5",
     "vitest": "4.1.10"
