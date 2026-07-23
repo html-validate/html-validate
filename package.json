@@ -240,7 +240,7 @@
     "@html-validate/eslint-config-vitest": "9.13.0",
     "@html-validate/jest-config": "3.18.2",
     "@html-validate/prettier-config": "4.1.8",
-    "@html-validate/release-scripts": "7.3.6",
+    "@html-validate/release-scripts": "7.5.0",
     "@html-validate/rollup-plugin-legacy": "file:internal/rollup-plugin-legacy",
     "@html-validate/rollup-plugin-packagejson": "file:internal/rollup-plugin-packagejson",
     "@jest/globals": "30.4.1",
