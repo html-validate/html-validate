@@ -28,20 +28,32 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			}
 
 			const parent = closed.parent;
+
+			/* the temporary node created for an end tag never has a parent while the
+			 * node for a start tag always has one, i.e., this tells whether this
+			 * element was closed by an end tag or by another element being opened */
+			const closedByEndTag = !by.parent;
+
 			const closedByParent = parent?.tagName === by.tagName; /* <ul><li></ul> */
-			const closedByDocument = closedByParent && parent.isRootElement();
 			const sameTag = closed.tagName === by.tagName; /* <p>foo<p>bar */
 
-			if (closedByDocument) {
+			if (by.isRootElement()) {
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by document ending`,
 					closed.location,
 				);
-			} else if (closedByParent) {
+			} else if (closedByEndTag && closedByParent) {
 				this.report(
 					closed,
 					`Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
+					closed.location,
+				);
+			} else if (closedByEndTag) {
+				/* <table><tbody><tr><td>x</table> closes <td> and <tr> as well */
+				this.report(
+					closed,
+					`Element <${closed.tagName}> is implicitly closed by ancestor </${by.tagName}>`,
 					closed.location,
 				);
 			} else if (sameTag) {

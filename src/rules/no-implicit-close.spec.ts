@@ -90,6 +90,52 @@ describe("rule no-implicit-close", () => {
 		`);
 	});
 
+	it("should report error when element is implicitly closed by ancestor end tag", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `
+			<table><tbody><tr><td>foo</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: Element <tbody> is implicitly closed by parent </table> (no-implicit-close)
+		  1 |
+		> 2 | 			<table><tbody><tr><td>foo</table>
+		    | 			        ^^^^^
+		  3 |
+		Selector: table > tbody
+		error: Element <tr> is implicitly closed by ancestor </table> (no-implicit-close)
+		  1 |
+		> 2 | 			<table><tbody><tr><td>foo</table>
+		    | 			               ^^
+		  3 |
+		Selector: table > tbody > tr
+		error: Element <td> is implicitly closed by ancestor </table> (no-implicit-close)
+		  1 |
+		> 2 | 			<table><tbody><tr><td>foo</table>
+		    | 			                   ^^
+		  3 |
+		Selector: table > tbody > tr > td"
+	`);
+	});
+
+	it("should report error when nested element is implicitly closed by document ending", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `
+			<div><p>foo
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: Element <p> is implicitly closed by document ending (no-implicit-close)
+		  1 |
+		> 2 | 			<div><p>foo
+		    | 			      ^
+		  3 |
+		Selector: div > p"
+	`);
+	});
+
 	it("should report error when element is implicitly closed by implicit document element end tag", async () => {
 		expect.assertions(2);
 		const markup = /* RAW */ `
