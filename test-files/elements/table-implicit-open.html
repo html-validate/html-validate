@@ -1,0 +1,35 @@
+<!-- colgroup implicitly opened when col content appears -->
+<table>
+	<col>
+	<col>
+	<tbody>
+		<tr>
+			<td>a</td>
+			<td>b</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- colgroup implicitly opened after a caption with omitted end tag -->
+<table>
+	<caption>foo<col>
+	<tbody>
+		<tr>
+			<td>a</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- colgroup implicitly opened after an explicitly closed colgroup -->
+<table>
+	<colgroup>
+		<col>
+	</colgroup>
+	<col>
+	<tbody>
+		<tr>
+			<td>a</td>
+			<td>b</td>
+		</tr>
+	</tbody>
+</table>

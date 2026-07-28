@@ -920,7 +920,7 @@ export default {
 
 	/* https://html.spec.whatwg.org/multipage/tables.html#the-caption-element */
 	caption: {
-		implicitClosed: ["colgroup", "thead", "tfoot", "tbody", "tr"],
+		implicitClosed: ["col", "colgroup", "thead", "tfoot", "tbody", "tr"],
 		optionalEnd: true,
 		permittedContent: ["@flow"],
 		permittedDescendants: [{ exclude: ["table"] }],
@@ -2585,7 +2585,7 @@ export default {
 
 	/* https://html.spec.whatwg.org/multipage/form-elements.html#the-option-element */
 	option: {
-		implicitClosed: ["option"],
+		implicitClosed: ["option", "optgroup"],
 		attributes: {
 			dataformatas: {
 				deprecated: true,
@@ -3164,6 +3164,7 @@ export default {
 	/* https://html.spec.whatwg.org/multipage/tables.html#the-table-element */
 	table: {
 		flow: true,
+		implicitOpen: [{ for: ["col"], open: "colgroup" }],
 		permittedContent: ["@script", "caption?", "colgroup", "tbody", "tfoot?", "thead?", "tr"],
 		permittedOrder: ["caption", "colgroup", "thead", "tbody", "tr", "tfoot"],
 		attributes: {
