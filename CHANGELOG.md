@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.6.0 (2026-07-28)
+
+### Features
+
+- **config:** add `FlatCompat` helper ([497f378](https://gitlab.com/html-validate/html-validate/commit/497f378c1adbabc49dfe875547213507f2ceb330))
+- **vitest:** `toBeValid()` and `toBeInvalid()` can use string (markup) input ([2e352d6](https://gitlab.com/html-validate/html-validate/commit/2e352d6ff50d5f384c246ca13ff43dbfb8ab6d71))
+
 ## 11.5.7 (2026-07-28)
 
 ### Bug Fixes

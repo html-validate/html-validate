@@ -72,14 +72,14 @@ async function resolveTransformMap(
  * ```
  *
  * @public
- * @since %version%
+ * @since 11.6.0
  */
 export class FlatCompat {
 	private readonly resolvers: Resolver[];
 
 	/**
 	 * @public
-	 * @since %version%
+	 * @since 11.6.0
 	 * @param resolvers - Resolvers used to resolve `extends`, `elements`,
 	 * `plugins` and `transform` references.
 	 */
@@ -99,7 +99,7 @@ export class FlatCompat {
 	 * (`root` and `extends`) are silently omitted from the result.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.6.0
 	 * @param data - Legacy configuration to convert. If omitted an empty
 	 * {@link FlatConfigObject} is returned.
 	 */
@@ -135,7 +135,7 @@ export class FlatCompat {
 	 * `{ extends: [...names] }`.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.6.0
 	 * @param names - One or more preset names to extend from.
 	 */
 	public async extend(...names: string[]): Promise<FlatConfigObject> {
