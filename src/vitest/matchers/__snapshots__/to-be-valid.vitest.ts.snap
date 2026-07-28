@@ -2,4 +2,8 @@
 
 exports[`toBeValid() > should fail if async report is invalid 1`] = `"Result should be valid but had error "mock message""`;
 
+exports[`toBeValid() > should fail if async string is invalid 1`] = `"Result should be valid but had error "Unclosed element '<div>'""`;
+
 exports[`toBeValid() > should fail if report is invalid 1`] = `"Result should be valid but had error "mock message""`;
+
+exports[`toBeValid() > should fail if string is invalid 1`] = `"Result should be valid but had error "Unclosed element '<div>'""`;

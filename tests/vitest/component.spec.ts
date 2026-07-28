@@ -33,7 +33,7 @@ it("should validate ok", async () => {
 	const markup = /* HTML */ `<div></div>`;
 	const report = await htmlvalidate.validateString(markup);
 	expect(markup).toHTMLValidate();
-	expect(report).toBeValid();
+	await expect(report).toBeValid();
 	expect(() => expect(report).toHaveError("no-inline-style", "Inline style is not allowed"))
 		.toThrowErrorMatchingInlineSnapshot(`
 			expect(received).toHaveError(expected)
@@ -71,9 +71,9 @@ it("should not validate", async () => {
 	expect(markup).not.toHTMLValidate({
 		ruleId: "no-inline-style",
 	});
-	expect(report).toBeInvalid();
+	await expect(report).toBeInvalid();
 	expect(report).toHaveError("no-inline-style", "Inline style is not allowed");
-	expect(() => expect(report).toBeValid()).toThrowErrorMatchingInlineSnapshot(
+	await expect(expect(report).toBeValid()).rejects.toThrowErrorMatchingInlineSnapshot(
 		`Result should be valid but had error "Inline style is not allowed"`,
 	);
 });

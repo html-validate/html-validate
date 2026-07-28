@@ -2,4 +2,8 @@
 
 exports[`toBeInvalid() > should fail if async report is valid 1`] = `"Result should be invalid but had no errors"`;
 
+exports[`toBeInvalid() > should fail if async string is valid 1`] = `"Result should be invalid but had no errors"`;
+
 exports[`toBeInvalid() > should fail if report is valid 1`] = `"Result should be invalid but had no errors"`;
+
+exports[`toBeInvalid() > should fail if string is valid 1`] = `"Result should be invalid but had no errors"`;
