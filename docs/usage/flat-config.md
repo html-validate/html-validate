@@ -209,3 +209,26 @@ export default defineFlatConfig([
   },
 ]);
 ```
+
+## Migration
+
+If you have an existing rc-style {@link usage legacy configuration} (`ConfigData`) you can use the `FlatCompat` helper class to convert it into flat configuration.
+
+```ts
+import { FlatCompat, defineFlatConfig, esmResolver } from "html-validate";
+
+const compat = new FlatCompat([esmResolver()]);
+
+export default defineFlatConfig([
+  /* migrate a preset (or any `extends` entry) */
+  await compat.extend("html-validate:recommended"),
+
+  /* migrate a full legacy configuration object */
+  await compat.config({
+    extends: ["./my-legacy-config.json"],
+    rules: {
+      "void-style": "error",
+    },
+  }),
+]);
+```
