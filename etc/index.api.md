@@ -552,6 +552,13 @@ export interface FileSystemConfigLoaderOptions {
     fs: FSLike;
 }
 
+// @public
+export class FlatCompat {
+    constructor(resolvers: Resolver[]);
+    config(data: ConfigData | undefined): Promise<FlatConfigObject>;
+    extend(...names: string[]): Promise<FlatConfigObject>;
+}
+
 // @public (undocumented)
 export type FlatConfig = FlatConfigObject[];
 
