@@ -1676,9 +1676,52 @@ describe("parser", () => {
 			            └── td
 		`);
 		});
+
+		it("<optgroup> implicitly closes open <option>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(
+				`<select><option>first<optgroup label="group"><option>second</option></optgroup></select>`,
+			);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── select
+			    ├── option
+			    └── optgroup
+			        └── option
+		`);
+		});
 	});
 
 	describe("should handle optional start tags", () => {
+		it("should implicitly open <colgroup> when <col> appears directly under <table>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(
+				`<table><col><col><tbody><tr><td>data</td></tr></tbody></table>`,
+			);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    ├── colgroup
+			    │   ├── col
+			    │   └── col
+			    └── tbody
+			        └── tr
+			            └── td
+		`);
+		});
+
+		it("should not implicitly open <colgroup> when <col> appears under an open <colgroup>", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml(`<table><colgroup><col><col></colgroup></table>`);
+			expect(document).toMatchInlineSnapshot(`
+			(root)
+			└── table
+			    └── colgroup
+			        ├── col
+			        └── col
+		`);
+		});
+
 		it("should implicitly open <head> when metadata content appears directly under <html>", () => {
 			expect.assertions(12);
 			/* no lang attribute to keep event count predictable */

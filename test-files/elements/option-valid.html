@@ -22,6 +22,17 @@
 	<option>baz
 </select>
 
+<!-- should allow optional end tag before <optgroup> -->
+<select>
+	<option>foo
+	<optgroup label="Group A">
+		<option>bar
+	</optgroup>
+	<optgroup label="Group B">
+		<option>baz
+	</optgroup>
+</select>
+
 <!-- should allow <div> and phrasing when used as a descendant of <select> -->
 <select>
 	<option><div></div></option>
