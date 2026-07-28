@@ -10,12 +10,12 @@ declare module "vitest" {
 		/**
 		 * @since 8.5.0
 		 */
-		toBeValid(): T;
+		toBeValid(): Promise<void>;
 
 		/**
 		 * @since 8.5.0
 		 */
-		toBeInvalid(): T;
+		toBeInvalid(): Promise<void>;
 
 		/**
 		 * @since 8.5.0

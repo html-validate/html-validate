@@ -1,21 +1,32 @@
-import { type SyncExpectationResult } from "@vitest/expect";
+import { type AsyncExpectationResult, type MatcherState } from "@vitest/expect";
 import { type Report } from "../../reporter";
-import { type MaybeAsyncCallback, diverge } from "../utils";
+import { getReport } from "../utils";
 
-function createMatcher(): MaybeAsyncCallback<Report, []> {
-	function toBeInvalid(report: Report): SyncExpectationResult {
-		if (report.valid) {
-			return {
-				pass: false,
-				message: () => "Result should be invalid but had no errors",
-			};
-		}
+type ToBeInvalidMatcher = (
+	this: MatcherState,
+	received: Report | string | Promise<Report> | Promise<string>,
+) => AsyncExpectationResult;
+
+async function toBeInvalid(
+	this: MatcherState,
+	received: Report | string | Promise<Report> | Promise<string>,
+): AsyncExpectationResult {
+	const report = await getReport(received, this);
+
+	if (report.valid) {
 		return {
-			pass: true,
-			message: /* istanbul ignore next */ () => "Result should not contain error",
+			pass: false,
+			message: () => "Result should be invalid but had no errors",
 		};
 	}
-	return diverge(toBeInvalid);
+	return {
+		pass: true,
+		message: /* istanbul ignore next */ () => "Result should not contain error",
+	};
+}
+
+function createMatcher(): ToBeInvalidMatcher {
+	return toBeInvalid;
 }
 
 export { createMatcher as toBeInvalid };
