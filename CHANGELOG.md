@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.5.7 (2026-07-28)
+
+### Bug Fixes
+
+- correct handling of and tags omission ([30c43ca](https://gitlab.com/html-validate/html-validate/commit/30c43caa3f81049efbe8fc0b23d124f15bd3e162))
+- **rules:** correct message for ancestor end tags ([df87249](https://gitlab.com/html-validate/html-validate/commit/df87249f7f4c232f4774056e0e381cb4928640d7))
+
 ## 11.5.6 (2026-07-12)
 
 ### Bug Fixes
