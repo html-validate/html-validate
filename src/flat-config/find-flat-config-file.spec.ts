@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { fs, vol } from "memfs";
-import { findFlatConfigFile } from "./find-flat-config-file";
+import { findFlatConfigFile } from "./find-flat-config-file.nodejs";
 
 jest.mock("node:fs", () => fs);
 

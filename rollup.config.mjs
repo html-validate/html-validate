@@ -73,7 +73,6 @@ function isNodejsChunk(relativeId) {
 	return (
 		files.includes(relativeId) ||
 		relativeId.startsWith("config/resolver/nodejs/") ||
-		relativeId.startsWith("flat-config/") ||
 		relativeId.endsWith("src/resolve") ||
 		relativeId.endsWith(".nodejs.ts")
 	);
