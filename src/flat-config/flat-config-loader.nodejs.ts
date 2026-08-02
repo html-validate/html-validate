@@ -8,9 +8,9 @@ import { esmResolver } from "../config/resolver/nodejs";
 import { type Severity, parseSeverity } from "../config/severity";
 import { type MetaDataTable, MetaTable } from "../meta";
 import { type TransformerEntry } from "../transform";
-import { findFlatConfigFile } from "./find-flat-config-file";
+import { findFlatConfigFile } from "./find-flat-config-file.nodejs";
 import { type FlatConfig, type FlatConfigObject } from "./flat-config";
-import { loadFlatConfigFile } from "./load-flat-config-file";
+import { loadFlatConfigFile } from "./load-flat-config-file.nodejs";
 import { type MergedFlatConfig, mergeFlatConfig } from "./merge-flat-config";
 
 function isGlobalIgnore(block: FlatConfigObject): block is { ignores: string[] } {
@@ -201,7 +201,7 @@ export class FlatConfigLoader extends ConfigLoader {
 			return this.configCache;
 		}
 
-		const raw = await loadFlatConfigFile(this.configFilePath);
+		const raw = await loadFlatConfigFile(this.configFilePath, (m) => import(m));
 		const flatConfig = raw.filter((block) => !isGlobalIgnore(block));
 		const globalIgnores = raw.filter(isGlobalIgnore).flatMap((block) => block.ignores);
 

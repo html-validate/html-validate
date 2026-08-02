@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { fs, vol } from "memfs";
 import { type Transformer } from "../transform";
 import { type FlatConfig } from "./flat-config";
-import { FlatConfigLoader } from "./flat-config-loader";
-import { loadFlatConfigFile } from "./load-flat-config-file";
+import { FlatConfigLoader } from "./flat-config-loader.nodejs";
+import { loadFlatConfigFile } from "./load-flat-config-file.nodejs";
 
-jest.mock("./load-flat-config-file", () => ({
+jest.mock("./load-flat-config-file.nodejs", () => ({
 	loadFlatConfigFile: jest.fn(),
 }));
 
