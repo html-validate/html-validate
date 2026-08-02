@@ -201,7 +201,7 @@ export class FlatConfigLoader extends ConfigLoader {
 			return this.configCache;
 		}
 
-		const raw = await loadFlatConfigFile(this.configFilePath);
+		const raw = await loadFlatConfigFile(this.configFilePath, (m) => import(m));
 		const flatConfig = raw.filter((block) => !isGlobalIgnore(block));
 		const globalIgnores = raw.filter(isGlobalIgnore).flatMap((block) => block.ignores);
 
