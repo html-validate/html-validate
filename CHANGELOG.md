@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 11.6.1 (2026-08-02)
+
+### Bug Fixes
+
+- fix browser build importing `node:fs` ([1f36aed](https://gitlab.com/html-validate/html-validate/commit/1f36aed8acc1bb857830658fc267aa71b2fce327))
+- fix issue with absolute configuration paths on windows ([460dd25](https://gitlab.com/html-validate/html-validate/commit/460dd25c4cd5de2f7b3bd8ae50166411eff16d13)), closes [#366](https://gitlab.com/html-validate/html-validate/issues/366)
+- ignore null and undefined entries when loading flat configuration ([512d534](https://gitlab.com/html-validate/html-validate/commit/512d53498ed35266b2dc08833a2700cc66511a0d))
+
 ## 11.6.0 (2026-07-28)
 
 ### Features
