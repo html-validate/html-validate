@@ -192,6 +192,28 @@ async function copySchema() {
 }
 
 /**
+ * @returns {Promise<void>}
+ */
+async function validateBrowserBuild() {
+	for (const format of ["esm", "cjs"]) {
+		const filePath = `dist/${format}/browser.js`;
+		const content = await fs.readFile(filePath, "utf8");
+		const lines = content.split("\n");
+		for (const [index, line] of lines.entries()) {
+			const match = /["'](node:[^"']+)["']/.exec(line);
+			if (match) {
+				console.error(`${filePath}:${index + 1}:`);
+				console.group();
+				console.error(line);
+				console.error(" ".repeat(match.index), "^".repeat(match[1].length));
+				console.groupEnd();
+				throw new Error(`"${filePath}" (browser build) imported nodejs module`);
+			}
+		}
+	}
+}
+
+/**
  * @param {"cjs" | "es"} format
  * @returns {Promise<void>}
  */
@@ -247,6 +269,7 @@ async function build() {
 
 	await bundle("es");
 	await bundle("cjs");
+	await validateBrowserBuild();
 	await apiExtractor(["entrypoints/api-extractor-*.json"]);
 	await writeFile("dist/types/html5.d.ts", html5dts.join(""));
 	await writeFile("dist/types/presets.d.ts", presetsDts.join(""));
