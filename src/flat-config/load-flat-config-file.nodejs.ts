@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import { pathToFileURL } from "node:url";
+import { ConfigError } from "../config";
 import { type FlatConfig } from "./flat-config";
 
 /**
@@ -16,7 +17,7 @@ export async function loadFlatConfigFile(
 	const value = module.default;
 
 	if (!Array.isArray(value)) {
-		throw new TypeError(
+		throw new ConfigError(
 			`Flat config file "${filePath}" must have a default export that is an array of configuration objects`,
 		);
 	}
@@ -24,7 +25,7 @@ export async function loadFlatConfigFile(
 	const filtered = value.filter((entry) => entry !== null && entry !== undefined);
 	for (const entry of filtered) {
 		if (typeof entry !== "object" || Array.isArray(entry)) {
-			throw new TypeError(
+			throw new ConfigError(
 				`Flat config file "${filePath}" must have a default export that is an array of configuration objects`,
 			);
 		}
