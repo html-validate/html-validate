@@ -43,10 +43,10 @@ declare module "vitest" {
 		 *
 		 * @since 8.5.0
 		 */
-		toHTMLValidate(filename?: string): T;
-		toHTMLValidate(config: ConfigData, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): T;
+		toHTMLValidate(filename?: string): Promise<void>;
+		toHTMLValidate(config: ConfigData, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): Promise<void>;
 
 		/**
 		 * Writes out the given [[Report]] using codeframe formatter and compares
@@ -107,10 +107,10 @@ declare module "vitest" {
 		 *
 		 * @since 8.5.0
 		 */
-		toHTMLValidate(filename?: string): T;
-		toHTMLValidate(config: ConfigData, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): T;
+		toHTMLValidate(filename?: string): Promise<void>;
+		toHTMLValidate(config: ConfigData, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): Promise<void>;
 
 		/**
 		 * Writes out the given [[Report]] using codeframe formatter and compares
