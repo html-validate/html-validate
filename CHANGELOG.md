@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.6.2 (2026-08-03)
+
+### Bug Fixes
+
+- **vitest:** fix `toHTMLValidate()` typing ([3960603](https://gitlab.com/html-validate/html-validate/commit/3960603102db73537b2845422609fab52b4309a9))
+- **vitest:** fix typescript augmentation of `Matchers` interface ([1680111](https://gitlab.com/html-validate/html-validate/commit/16801110285573335c3348962437778071df1856))
+
 ## 11.6.1 (2026-08-02)
 
 ### Bug Fixes
