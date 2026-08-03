@@ -43,10 +43,74 @@ declare module "vitest" {
 		 *
 		 * @since 8.5.0
 		 */
-		toHTMLValidate(filename?: string): T;
-		toHTMLValidate(config: ConfigData, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, filename?: string): T;
-		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): T;
+		toHTMLValidate(filename?: string): Promise<void>;
+		toHTMLValidate(config: ConfigData, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): Promise<void>;
+
+		/**
+		 * Writes out the given [[Report]] using codeframe formatter and compares
+		 * with snapshot.
+		 *
+		 * * Requires Vitest v4.1.3 or later.
+		 *
+		 * @since 11.2.0
+		 */
+		toMatchCodeframe(hint?: string): Promise<void>;
+
+		/**
+		 * Writes out the given [[Report]] using codeframe formatter and compares
+		 * with inline snapshot.
+		 *
+		 * Requires Vitest v4.1.3 or later.
+		 *
+		 * @since 11.2.0
+		 */
+		toMatchInlineCodeframe(snapshot?: string): Promise<void>;
+	}
+
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- to match upstream */
+	interface Matchers<T = any> {
+		/**
+		 * @since 8.5.0
+		 */
+		toBeValid(): Promise<void>;
+
+		/**
+		 * @since 8.5.0
+		 */
+		toBeInvalid(): Promise<void>;
+
+		/**
+		 * @since 8.5.0
+		 */
+		toHaveError(error: Partial<Message>): T;
+
+		/**
+		 * @since 8.5.0
+		 */
+		toHaveError(ruleId: string, message: string, context?: unknown): T;
+
+		/**
+		 * @since 8.5.0
+		 */
+		toHaveErrors(errors: Array<[string, string] | Record<string, unknown>>): T;
+
+		/**
+		 * Validate string or HTMLElement.
+		 *
+		 * Test passes if result is valid.
+		 *
+		 * @param config - Optional HTML-Validate configuration object.
+		 * @param filename - Optional filename used when matching transformer and
+		 * loading configuration.
+		 *
+		 * @since 8.5.0
+		 */
+		toHTMLValidate(filename?: string): Promise<void>;
+		toHTMLValidate(config: ConfigData, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, filename?: string): Promise<void>;
+		toHTMLValidate(error: Partial<Message>, config: ConfigData, filename?: string): Promise<void>;
 
 		/**
 		 * Writes out the given [[Report]] using codeframe formatter and compares

@@ -15,6 +15,7 @@ expect.extend({
 	toBeValid: toBeValid(),
 	toBeInvalid: toBeInvalid(),
 	toHTMLValidate: toHTMLValidate(expect),
+	/* @ts-expect-error technical debt, vitest/jest types clashes */
 	toHaveError: toHaveError(expect),
 	toHaveErrors: toHaveErrors(expect),
 	toMatchCodeframe: toMatchCodeframe(),

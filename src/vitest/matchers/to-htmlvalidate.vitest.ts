@@ -19,22 +19,22 @@ vi.mock(import("../../config/default"), () => {
 });
 
 describe("toHTMLValidate()", () => {
-	it("should pass if markup is valid", () => {
+	it("should pass if markup is valid", async () => {
 		expect.assertions(1);
-		expect("<p></p>").toHTMLValidate();
+		await expect("<p></p>").toHTMLValidate();
 	});
 
-	it("should pass if markup is invalid but negated", () => {
+	it("should pass if markup is invalid but negated", async () => {
 		expect.assertions(1);
-		expect("<p></i>").not.toHTMLValidate();
+		await expect("<p></i>").not.toHTMLValidate();
 	});
 
-	it("should fail if markup is invalid", () => {
+	it("should fail if markup is invalid", async () => {
 		expect.assertions(3);
 		let error: Error | undefined;
 		const markup = `<a href=""><button>`;
 		try {
-			expect(markup).toHTMLValidate();
+			await expect(markup).toHTMLValidate();
 		} catch (e: unknown) {
 			error = e as Error;
 		}
@@ -51,11 +51,11 @@ describe("toHTMLValidate()", () => {
 		`);
 	});
 
-	it("should fail if markup is valid but negated", () => {
+	it("should fail if markup is valid but negated", async () => {
 		expect.assertions(3);
 		let error: Error | undefined;
 		try {
-			expect("<p></p>").not.toHTMLValidate();
+			await expect("<p></p>").not.toHTMLValidate();
 		} catch (e: unknown) {
 			error = e as Error;
 		}
@@ -65,23 +65,23 @@ describe("toHTMLValidate()", () => {
 		);
 	});
 
-	it("should support setting custom filename", () => {
+	it("should support setting custom filename", async () => {
 		expect.assertions(1);
-		expect("<p></p>").toHTMLValidate("my-custom-filename.html");
+		await expect("<p></p>").toHTMLValidate("my-custom-filename.html");
 	});
 
-	it("should support configuration object", () => {
+	it("should support configuration object", async () => {
 		expect.assertions(1);
-		expect("<div>").toHTMLValidate({
+		await expect("<div>").toHTMLValidate({
 			rules: {
 				"close-order": "off",
 			},
 		});
 	});
 
-	it("should support configuration object and message", () => {
+	it("should support configuration object and message", async () => {
 		expect.assertions(1);
-		expect("<div>").toHTMLValidate(
+		await expect("<div>").toHTMLValidate(
 			/* message */ {
 				ruleId: "close-order",
 			},
@@ -93,9 +93,9 @@ describe("toHTMLValidate()", () => {
 		);
 	});
 
-	it("should support configuration object and filename", () => {
+	it("should support configuration object and filename", async () => {
 		expect.assertions(1);
-		expect("<div>").toHTMLValidate(
+		await expect("<div>").toHTMLValidate(
 			/* config */ {
 				rules: {
 					"close-order": "off",
@@ -105,9 +105,9 @@ describe("toHTMLValidate()", () => {
 		);
 	});
 
-	it("should support configuration object, message and filename", () => {
+	it("should support configuration object, message and filename", async () => {
 		expect.assertions(1);
-		expect("<div>").toHTMLValidate(
+		await expect("<div>").toHTMLValidate(
 			/* message */ {
 				ruleId: "close-order",
 			},
@@ -120,37 +120,37 @@ describe("toHTMLValidate()", () => {
 		);
 	});
 
-	it("should ignore void-style by default", () => {
+	it("should ignore void-style by default", async () => {
 		expect.assertions(1);
-		expect("<hr><hr/>").toHTMLValidate();
+		await expect("<hr><hr/>").toHTMLValidate();
 	});
 
-	it("should support jsdom", () => {
+	it("should support jsdom", async () => {
 		expect.assertions(2);
 
 		/* should pass */
 		const doc = document;
 		const p = doc.createElement("p");
-		expect(p).toHTMLValidate();
+		await expect(p).toHTMLValidate();
 
 		/* should fail (type not set) */
 		const button = doc.createElement("button");
-		expect(button).not.toHTMLValidate();
+		await expect(button).not.toHTMLValidate();
 	});
 
-	it("should pass if markup has correct error", () => {
+	it("should pass if markup has correct error", async () => {
 		expect.assertions(1);
-		expect("<div>").not.toHTMLValidate({
+		await expect("<div>").not.toHTMLValidate({
 			ruleId: "close-order",
 			message: "Unclosed element '<div>'",
 		});
 	});
 
-	it("should fail if markup has wrong error", () => {
+	it("should fail if markup has wrong error", async () => {
 		expect.assertions(3);
 		let error: Error | undefined;
 		try {
-			expect("<div>").not.toHTMLValidate({
+			await expect("<div>").not.toHTMLValidate({
 				ruleId: "wrong-error",
 				message: expect.stringContaining("Some other error"),
 			});

@@ -4,6 +4,7 @@ import { reportError, reportErrorAsync } from "./__fixtures__";
 import { toHaveError } from "./to-have-error";
 
 expect.extend({
+	/* @ts-expect-error technical debt, vitest/jest types clashes */
 	toHaveError: toHaveError(expect),
 });
 
