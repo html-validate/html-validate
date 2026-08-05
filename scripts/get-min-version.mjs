@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-declarations-before-early-exit -- want all declarations at top */
+
 import { minSatisfying, minVersion } from "semver";
 import pkg from "../package.json" with { type: "json" };
 
