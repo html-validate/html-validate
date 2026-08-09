@@ -1,11 +1,8 @@
 export { type LoadedPlugin, Config } from "./config";
-export {
-	type ConfigData,
-	type RuleConfig,
-	type RuleOptions,
-	type RuleSeverity,
-	type TransformMap,
-} from "./config-data";
+export { type ConfigData } from "./config-data";
+export { type TransformMap } from "./transform-map";
+export { type RuleConfig } from "./rule-config";
+export { type RuleOptions } from "./rule-options";
 export { ConfigLoader } from "./config-loader";
 export { defineConfig } from "./define-config";
 export { ConfigError } from "./error";
@@ -22,4 +19,5 @@ export {
 	resolveTransformer,
 	staticResolver,
 } from "./resolver";
+export { type RuleSeverity } from "./rule-severity";
 export { Severity } from "./severity";

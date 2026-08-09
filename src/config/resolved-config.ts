@@ -2,7 +2,8 @@ import { type FlatConfig } from "../flat-config";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
 import { type Transformer, type TransformerEntry } from "../transform";
-import { type ConfigData, type RuleOptions } from "./config-data";
+import { type ConfigData } from "./config-data";
+import { type RuleOptions } from "./rule-options";
 import { type Severity } from "./severity";
 
 /**

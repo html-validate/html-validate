@@ -1,6 +1,7 @@
 import { Config } from "../config/config";
-import { type ConfigData, type TransformMap } from "../config/config-data";
+import { type ConfigData } from "../config/config-data";
 import { type Resolver, resolveElements } from "../config/resolver";
+import { type TransformMap } from "../config/transform-map";
 import { bundledElements } from "../elements";
 import { type MetaDataTable } from "../meta";
 import { type Plugin } from "../plugin";

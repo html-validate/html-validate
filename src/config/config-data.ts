@@ -1,29 +1,6 @@
 import { type Plugin } from "../plugin";
-import { type Transformer } from "../transform/transformer";
-
-/**
- * @public
- */
-export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;
-
-/**
- * @public
- */
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
-export type RuleOptions = string | number | Record<string, any>;
-
-/**
- * @public
- */
-export type RuleConfig = Record<
-	string,
-	RuleSeverity | [RuleSeverity] | [RuleSeverity, RuleOptions]
->;
-
-/**
- * @public
- */
-export type TransformMap = Record<string, string | Transformer>;
+import { type RuleConfig } from "./rule-config";
+import { type TransformMap } from "./transform-map";
 
 /**
  * @public
