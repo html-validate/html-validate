@@ -12,7 +12,7 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import { type TransformerEntry } from "../transform";
 import { isThenable } from "../utils/is-thenable";
-import { type ConfigData, type TransformMap } from "./config-data";
+import { type ConfigData } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import Presets from "./presets";
@@ -21,6 +21,7 @@ import { type Resolver, resolveConfig, resolveElements, resolvePlugin } from "./
 import { type RuleConfig } from "./rule-config";
 import { type RuleOptions } from "./rule-options";
 import { type Severity, parseSeverity } from "./severity";
+import { type TransformMap } from "./transform-map";
 
 /**
  * Internal interface for a loaded plugin.

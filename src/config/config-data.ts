@@ -1,11 +1,6 @@
 import { type Plugin } from "../plugin";
-import { type Transformer } from "../transform/transformer";
 import { type RuleConfig } from "./rule-config";
-
-/**
- * @public
- */
-export type TransformMap = Record<string, string | Transformer>;
+import { type TransformMap } from "./transform-map";
 
 /**
  * @public

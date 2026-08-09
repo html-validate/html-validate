@@ -1,5 +1,6 @@
 export { type LoadedPlugin, Config } from "./config";
-export { type ConfigData, type TransformMap } from "./config-data";
+export { type ConfigData } from "./config-data";
+export { type TransformMap } from "./transform-map";
 export { type RuleConfig } from "./rule-config";
 export { type RuleOptions } from "./rule-options";
 export { ConfigLoader } from "./config-loader";
