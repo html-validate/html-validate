@@ -4,42 +4,20 @@
 import defaultConfig from "@html-validate/eslint-config";
 import jestConfig from "@html-validate/eslint-config-jest";
 import typescriptConfig from "@html-validate/eslint-config-typescript";
-import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-typeinfo";
+import typeinfoConfig from "@html-validate/eslint-config-typescript-typeinfo";
 import vitestConfig from "@html-validate/eslint-config-vitest";
 
 export default [
-	...defaultConfig({ type: "commonjs" }),
+	...defaultConfig({
+		type: "commonjs",
+	}),
 
-	{
-		name: "@html-validate/eslint-config-typescript",
-		files: ["**/*.{ts,cts,mts}"],
-		...typescriptConfig,
-	},
-
-	{
-		name: "@html-validate/eslint-config-typeinfo",
-		files: ["src/**/*.{ts,cts,mts}"],
-		languageOptions: {
-			parserOptions: {
-				tsconfigRootDir: import.meta.dirname,
-				projectService: true,
-			},
-		},
-		...typescriptTypeinfoConfig,
-	},
-
-	{
-		name: "@html-validate/eslint-config-jest",
-		files: ["**/*.spec.[jt]s"],
-		ignores: ["cypress/**", "tests/e2e/**"],
-		...jestConfig,
-	},
-
-	{
-		name: "@html-validate/eslint-config-vitest",
+	typescriptConfig(),
+	typeinfoConfig(import.meta.dirname),
+	jestConfig(),
+	vitestConfig({
 		files: ["**/*.vitest.[jt]s"],
-		...vitestConfig,
-	},
+	}),
 
 	{
 		name: "local",
