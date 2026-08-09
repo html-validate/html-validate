@@ -1,4 +1,4 @@
-import { type RuleBlocker } from "../engine";
+import { type RuleBlocker } from "../engine/rule-blocker";
 import { type Location } from "../location";
 import { type DOMNodeCache } from "./cache";
 import { type NodeType, Node } from "./nodetype";
