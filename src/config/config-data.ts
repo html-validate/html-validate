@@ -1,15 +1,6 @@
 import { type Plugin } from "../plugin";
 import { type Transformer } from "../transform/transformer";
-import { type RuleOptions } from "./rule-options";
-import { type RuleSeverity } from "./rule-severity";
-
-/**
- * @public
- */
-export type RuleConfig = Record<
-	string,
-	RuleSeverity | [RuleSeverity] | [RuleSeverity, RuleOptions]
->;
+import { type RuleConfig } from "./rule-config";
 
 /**
  * @public
