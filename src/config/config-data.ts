@@ -1,10 +1,6 @@
 import { type Plugin } from "../plugin";
 import { type Transformer } from "../transform/transformer";
-
-/**
- * @public
- */
-export type RuleSeverity = "off" | "warn" | "error" | 0 | 1 | 2;
+import { type RuleSeverity } from "./rule-severity";
 
 /**
  * @public

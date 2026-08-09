@@ -3,7 +3,6 @@ export {
 	type ConfigData,
 	type RuleConfig,
 	type RuleOptions,
-	type RuleSeverity,
 	type TransformMap,
 } from "./config-data";
 export { ConfigLoader } from "./config-loader";
@@ -22,4 +21,5 @@ export {
 	resolveTransformer,
 	staticResolver,
 } from "./resolver";
+export { type RuleSeverity } from "./rule-severity";
 export { Severity } from "./severity";
