@@ -1,10 +1,11 @@
 import path from "node:path";
 import { type Config } from "../config/config";
-import { type ConfigData, type RuleOptions } from "../config/config-data";
+import { type ConfigData } from "../config/config-data";
 import { ConfigLoader } from "../config/config-loader";
 import { ResolvedConfig } from "../config/resolved-config";
 import { type Resolver } from "../config/resolver";
 import { esmResolver } from "../config/resolver/nodejs";
+import { type RuleOptions } from "../config/rule-options";
 import { type RuleSeverity } from "../config/rule-severity";
 import { type Severity, parseSeverity } from "../config/severity";
 import { type MetaDataTable, MetaTable } from "../meta";

@@ -1,12 +1,7 @@
 import { type Plugin } from "../plugin";
 import { type Transformer } from "../transform/transformer";
+import { type RuleOptions } from "./rule-options";
 import { type RuleSeverity } from "./rule-severity";
-
-/**
- * @public
- */
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
-export type RuleOptions = string | number | Record<string, any>;
 
 /**
  * @public

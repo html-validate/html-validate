@@ -12,17 +12,13 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import { type TransformerEntry } from "../transform";
 import { isThenable } from "../utils/is-thenable";
-import {
-	type ConfigData,
-	type RuleConfig,
-	type RuleOptions,
-	type TransformMap,
-} from "./config-data";
+import { type ConfigData, type RuleConfig, type TransformMap } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
 import Presets from "./presets";
 import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
 import { type Resolver, resolveConfig, resolveElements, resolvePlugin } from "./resolver";
+import { type RuleOptions } from "./rule-options";
 import { type Severity, parseSeverity } from "./severity";
 
 /**
