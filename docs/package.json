@@ -15,7 +15,7 @@
     "dgeni-front-matter": "6.0.0",
     "esbuild": "0.28.2",
     "front-matter": "4.0.2",
-    "highlight.js": "11.11.1",
+    "highlight.js": "11.11.2",
     "is-ci": "4.1.0",
     "jquery": "3.7.1",
     "jsdom": "30.0.1",
