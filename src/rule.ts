@@ -337,7 +337,12 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		if (src.node?.location) {
 			return src.node.location;
 		}
-		return {} as Location;
+		return {
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+		} as Location;
 	}
 
 	/**
