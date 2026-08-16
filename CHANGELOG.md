@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.7.0 (2026-08-16)
+
+### Features
+
+- handle transformers from plugins in flat config ([f1ad4c6](https://gitlab.com/html-validate/html-validate/commit/f1ad4c63eade6309b435dcd0d8b314d15241dbb2))
+
 ## 11.6.2 (2026-08-03)
 
 ### Bug Fixes
