@@ -69,7 +69,7 @@ Each configuration object may include these properties:
 - `ignores` - An array of glob patterns this configuration should not apply to. If not specified this object applies to all files matched by one or more `files` pattern. If specified without any other properties, then the patterns provided by `ignores` acts as global ignores and is applied to all other configuration objects.
 - `elements` - An array of {@link usage/elements element metadata}, typically set to the bundled `html5` metadata.
 - `plugins` - An array of plugins to use.
-- `transform` - An object mapping transformers to use.
+- `transform` - An object mapping filename patterns to transformers to use. See [transformers](#transformers) below.
 - `rules` - An object containing the configured rules. When `files` or `ignores` are specified, these rule configurations only applies to the matching files.
 
 ## Specifying `files` and `ignores`
@@ -132,6 +132,44 @@ import { defineFlatConfig } from "html-validate";
 export default defineFlatConfig([
   {
     files: ["**/*.vue"],
+  },
+]);
+```
+
+## Transformers
+
+The `transform` property maps a regular-expression pattern (matched against the filename) to a transformer used to extract HTML from the matching files.
+See {@link usage/transformers transformers} for details about transformers in general.
+
+A transformer can be set directly to a function:
+
+```ts fake-require
+import { defineFlatConfig } from "html-validate";
+import myTransformer from "./my-transformer.js";
+
+export default defineFlatConfig([
+  {
+    files: ["**/*.foo"],
+    transform: {
+      "^.*\\.foo$": myTransformer,
+    },
+  },
+]);
+```
+
+Or can be set to the name of a transformer from a plugin:
+
+```ts fake-require
+import { defineFlatConfig } from "html-validate";
+import myPlugin from "./my-plugin.js";
+
+export default defineFlatConfig([
+  {
+    files: ["**/*.foo"],
+    plugins: [myPlugin],
+    transform: {
+      "^.*\\.foo$": "my-plugin",
+    },
   },
 ]);
 ```

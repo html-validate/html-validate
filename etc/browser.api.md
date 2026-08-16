@@ -491,7 +491,7 @@ export interface FlatConfigObject {
     name?: string;
     plugins?: Plugin_2[];
     rules?: RuleConfig;
-    transform?: Record<string, Transformer_2>;
+    transform?: Record<string, Transformer_2 | string>;
 }
 
 // @public (undocumented)
