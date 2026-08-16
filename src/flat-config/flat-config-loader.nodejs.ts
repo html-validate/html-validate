@@ -14,6 +14,7 @@ import { findFlatConfigFile } from "./find-flat-config-file.nodejs";
 import { type FlatConfig, type FlatConfigObject } from "./flat-config";
 import { loadFlatConfigFile } from "./load-flat-config-file.nodejs";
 import { type MergedFlatConfig, mergeFlatConfig } from "./merge-flat-config";
+import { resolveFlatConfigTransformer } from "./resolve-transformer";
 
 function isGlobalIgnore(block: FlatConfigObject): block is { ignores: string[] } {
 	return (
@@ -83,8 +84,15 @@ function buildResolvedConfig(merged: MergedFlatConfig, original: FlatConfig): Re
 	}
 
 	const transformers: TransformerEntry[] = Object.entries(merged.transform).map(
-		/* eslint-disable-next-line security/detect-non-literal-regexp -- transform patterns are user-provided regexp strings */
-		([pattern, fn]) => ({ kind: "function" as const, pattern: new RegExp(pattern), function: fn }),
+		([pattern, value]) => {
+			const transformer = resolveFlatConfigTransformer(value, plugins);
+			return {
+				kind: "function" as const,
+				/* eslint-disable-next-line security/detect-non-literal-regexp -- transform patterns are user-provided regexp strings */
+				pattern: new RegExp(pattern),
+				function: transformer,
+			};
+		},
 	);
 
 	const resolvedData = { metaTable, plugins, rules, transformers };

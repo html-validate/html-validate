@@ -51,9 +51,10 @@ export interface FlatConfigObject {
 	 * Source file transformations.
 	 *
 	 * Maps a regular-expression pattern (matched against the filename) to a
-	 * transformer function.
+	 * transformer (as an imported function or name of a transformer from a
+	 * plugin).
 	 */
-	transform?: Record<string, Transformer>;
+	transform?: Record<string, Transformer | string>;
 
 	/**
 	 * Rule configuration.

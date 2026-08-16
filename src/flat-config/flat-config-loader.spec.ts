@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { fs, vol } from "memfs";
+import { type Plugin } from "../plugin";
 import { type Transformer } from "../transform";
 import { type FlatConfig } from "./flat-config";
 import { FlatConfigLoader } from "./flat-config-loader.nodejs";
@@ -446,6 +447,55 @@ describe("FlatConfigLoader", () => {
 		const entry = config.findTransformer("file.vue");
 		expect(entry).toMatchObject({ kind: "function", function: transformer });
 		expect(entry?.pattern).toEqual(/.*\.vue$/);
+	});
+
+	it("should build transform entries from an unnamed plugin transformer string", async () => {
+		expect.assertions(2);
+		const transformer = jest.fn() as unknown as Transformer;
+		const plugin: Plugin = { name: "mock-plugin", transformer };
+		mockLoadFlatConfigFile.mockResolvedValue([
+			{
+				plugins: [plugin],
+				transform: { ".*\\.vue$": "mock-plugin" },
+			},
+		]);
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		const config = await loader.getConfigFor("/project/file.vue");
+		const entry = config.findTransformer("file.vue");
+		expect(entry).toMatchObject({ kind: "function", function: transformer });
+		expect(entry?.pattern).toEqual(/.*\.vue$/);
+	});
+
+	it("should build transform entries from a named plugin transformer string", async () => {
+		expect.assertions(2);
+		const transformer = jest.fn() as unknown as Transformer;
+		const plugin: Plugin = { name: "mock-plugin", transformer: { foobar: transformer } };
+		mockLoadFlatConfigFile.mockResolvedValue([
+			{
+				plugins: [plugin],
+				transform: { ".*\\.vue$": "mock-plugin:foobar" },
+			},
+		]);
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		const config = await loader.getConfigFor("/project/file.vue");
+		const entry = config.findTransformer("file.vue");
+		expect(entry).toMatchObject({ kind: "function", function: transformer });
+		expect(entry?.pattern).toEqual(/.*\.vue$/);
+	});
+
+	it("should throw when a transform string does not match any loaded plugin", async () => {
+		expect.assertions(1);
+		mockLoadFlatConfigFile.mockResolvedValue([
+			{
+				transform: { ".*\\.vue$": "missing-plugin" },
+			},
+		]);
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		await expect(
+			loader.getConfigFor("/project/file.vue"),
+		).rejects.toThrowErrorMatchingInlineSnapshot(
+			`"No plugin named "missing-plugin" has been loaded"`,
+		);
 	});
 
 	it("should return the same object on repeated calls for the same filename", async () => {

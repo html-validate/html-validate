@@ -3,9 +3,8 @@ import { type Resolver } from "../config/resolver";
 import { ensureError } from "../error";
 import { type Plugin } from "../plugin";
 import { isThenable } from "../utils/is-thenable";
-import { getNamedTransformerFromPlugin } from "./get-named-transformer-from-plugin";
 import { getTransformerFromModule } from "./get-transformer-from-module";
-import { getUnnamedTransformerFromPlugin } from "./get-unnamed-transformer-from-plugin";
+import { getTransformerFromPlugins } from "./get-transformer-from-plugins";
 import { type Transformer } from "./transformer";
 import { TRANSFORMER_API } from "./transformer-api";
 
@@ -26,17 +25,10 @@ function loadTransformerFunction(
 	name: string,
 	plugins: Plugin[],
 ): Transformer | Promise<Transformer> {
-	/* try to match a named transformer from plugin */
-	const match = /(.*):(.*)/.exec(name);
-	if (match) {
-		const [, pluginName, key] = match;
-		return getNamedTransformerFromPlugin(name, plugins, pluginName, key);
-	}
-
-	/* try to match an unnamed transformer from plugin */
-	const plugin = plugins.find((cur) => cur.name === name);
-	if (plugin) {
-		return getUnnamedTransformerFromPlugin(name, plugin);
+	/* try to match a transformer (named or unnamed) from plugin */
+	const transformer = getTransformerFromPlugins(name, plugins);
+	if (transformer) {
+		return transformer;
 	}
 
 	/* assume transformer refers to a regular module */
