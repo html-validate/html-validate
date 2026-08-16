@@ -5,6 +5,7 @@ import { Severity } from "./config/severity";
 import { type DOMNode } from "./dom";
 import { type RuleBlocker } from "./engine/rule-blocker";
 import { SchemaValidationError } from "./error";
+import { type ErrorDescriptor } from "./error-descriptor";
 import { type Event, type ListenEventMap } from "./event";
 import { type Location } from "./location";
 import { type MetaElement, type MetaLookupableProperty, type MetaTable } from "./meta";
@@ -24,16 +25,6 @@ const ajv = (() => {
 	ajv.addKeyword(ajvRegexpKeyword);
 	return ajv;
 })();
-
-/**
- * @public
- */
-export interface ErrorDescriptor<ContextType> {
-	node: DOMNode | null;
-	message: string;
-	location?: Location | null;
-	context?: ContextType;
-}
 
 /**
  * @public
