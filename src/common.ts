@@ -110,13 +110,8 @@ export {
 	defineMetadata,
 	metadataHelper,
 } from "./meta";
-export {
-	type ErrorDescriptor,
-	type RuleConstructor,
-	type RuleDocumentation,
-	type SchemaObject,
-	Rule,
-} from "./rule";
+export { type ErrorDescriptor } from "./error-descriptor";
+export { type RuleConstructor, type RuleDocumentation, type SchemaObject, Rule } from "./rule";
 export {
 	type IncludeExcludeOptions,
 	type TextClassificationOptions,
