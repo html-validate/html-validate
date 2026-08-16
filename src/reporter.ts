@@ -1,7 +1,7 @@
 import { Severity } from "./config";
 import { type Source } from "./context";
 import { type DOMNode } from "./dom";
-import { type Location } from "./location";
+import { type Location, assertValidLocation } from "./location";
 import { type Message } from "./message";
 import { type Rule } from "./rule";
 import { isThenable } from "./utils/is-thenable";
@@ -140,6 +140,7 @@ export class Reporter {
 		context: ContextType;
 	}): void {
 		const { rule, message, severity, node, location, context } = options;
+		assertValidLocation(location);
 		if (!Object.hasOwn(this.result, location.filename)) {
 			this.result[location.filename] = [];
 		}
