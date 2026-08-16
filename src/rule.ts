@@ -337,6 +337,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		if (src.node?.location) {
 			return src.node.location;
 		}
+		/* technical debt: filename is omitted when it shouldn't */
 		return {
 			line: 1,
 			column: 1,

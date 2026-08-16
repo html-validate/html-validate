@@ -152,7 +152,7 @@ export class Reporter {
 			offset: location.offset,
 			line: location.line,
 			column: location.column,
-			size: location.size || 0,
+			size: location.size,
 			selector() {
 				return node ? node.generateSelector() : null;
 			},
