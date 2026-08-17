@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.8.0 (2026-08-17)
+
+### Features
+
+- expose `isIgnored()` method ([a28e069](https://gitlab.com/html-validate/html-validate/commit/a28e069f7de3dd752a6d94fe0304d2dcbc3bd883))
+
 ## 11.7.0 (2026-08-16)
 
 ### Features

@@ -176,7 +176,7 @@ export class CLI {
 	 * falls back to using the `.htmlvalidateignore` file.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.8.0
 	 * @param filename - Filename to test if it is ignored.
 	 * @returns A promise resolving to `true` if the given filename is ignored.
 	 */

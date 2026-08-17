@@ -120,7 +120,7 @@ export abstract class ConfigLoader {
 	 * a specific filename or directory might be configured to be ignored.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.8.0
 	 * @param handle - Unique handle to test if it is ignored.
 	 * @returns `true` or a promise resolving to `true` if the given handle is ignored.
 	 */
