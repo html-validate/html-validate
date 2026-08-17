@@ -572,6 +572,7 @@ export class FlatConfigLoader extends ConfigLoader {
     flushCache(handle?: string): void;
     static fromDirectory(dir: string, resolvers?: Resolver[]): FlatConfigLoader | null;
     getConfigFor(filename: string, configOverride?: ConfigData): Promise<ResolvedConfig>;
+    isIgnored(handle: string): Promise<boolean>;
 }
 
 // @public
