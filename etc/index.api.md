@@ -110,6 +110,7 @@ export class CLI {
     getLoader(): Promise<ConfigLoader>;
     getValidator(): Promise<HtmlValidate>;
     init(cwd: string): Promise<InitResult>;
+    isIgnored(filename: string): Promise<boolean>;
 }
 
 // @public (undocumented)
@@ -214,6 +215,7 @@ export abstract class ConfigLoader {
     protected getGlobalConfigSync(): Config;
     // @internal (undocumented)
     getResolvers(): Resolver[];
+    isIgnored?(handle: string): boolean | Promise<boolean>;
     protected loadFromFile(filename: string): Config | Promise<Config>;
     protected loadFromObject(options: ConfigData, filename?: string | null): Config | Promise<Config>;
     // (undocumented)
@@ -734,6 +736,7 @@ export class HtmlValidate {
     getRuleDocumentation(ruleId: string, config?: ResolvedConfig | Promise<ResolvedConfig> | null, context?: unknown | null): Promise<RuleDocumentation | null>;
     // @internal @deprecated
     getRuleDocumentationSync(ruleId: string, config?: ResolvedConfig | null, context?: unknown | null): RuleDocumentation | null;
+    isIgnored(filename: string): Promise<boolean>;
     setConfigLoader(loader: ConfigLoader): void;
     // @internal
     startPerformance(): void;

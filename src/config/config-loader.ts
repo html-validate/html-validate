@@ -110,6 +110,23 @@ export abstract class ConfigLoader {
 	}
 
 	/**
+	 * Resolves to `true` if the given handle is ignored by the configuration.
+	 *
+	 * If this method is not implemented by the concrete loader, no files should
+	 * be assumed to be ignored.
+	 *
+	 * Ignored is different from testing if the configuration can validate a
+	 * handle or not, e.g. the configuration might support validating `*.vue` but
+	 * a specific filename or directory might be configured to be ignored.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param handle - Unique handle to test if it is ignored.
+	 * @returns `true` or a promise resolving to `true` if the given handle is ignored.
+	 */
+	public isIgnored?(handle: string): boolean | Promise<boolean>;
+
+	/**
 	 * Flush configuration cache.
 	 *
 	 * Flushes all cached entries unless a specific handle is given.
