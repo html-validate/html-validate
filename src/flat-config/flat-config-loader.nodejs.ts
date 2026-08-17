@@ -190,6 +190,16 @@ export class FlatConfigLoader extends ConfigLoader {
 	}
 
 	/**
+	 * Test if filename matches any global ignores.
+	 */
+	public override async isIgnored(handle: string): Promise<boolean> {
+		const { globalIgnores } = await this.loadConfig();
+		const configDir = path.dirname(this.configFilePath);
+		const rel = path.relative(configDir, path.resolve(handle));
+		return globalIgnores.some((p) => path.matchesGlob(rel, p));
+	}
+
+	/**
 	 * Flush the cached flat config, forcing a reload on the next call.
 	 */
 	public override flushCache(handle?: string): void {

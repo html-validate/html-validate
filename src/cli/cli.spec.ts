@@ -1,6 +1,7 @@
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { vol } from "memfs";
+import { type ResolvedConfig, Config, ConfigLoader } from "../config";
 import { FileSystemConfigLoader } from "../config/loaders/file-system";
 import { FlatConfigLoader } from "../flat-config";
 import { CLI } from "./cli";
@@ -301,6 +302,47 @@ describe("CLI", () => {
 			fromDirSpy.mockRestore();
 			expect(loader).toBeInstanceOf(FileSystemConfigLoader);
 			expect(fromDirSpy).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("isIgnored()", () => {
+		it("should delegate to configuration loader isIgnored() when supported", async () => {
+			expect.assertions(2);
+			class MockLoader extends ConfigLoader {
+				public override isIgnored = jest
+					.fn<(handle?: string) => Promise<boolean>>()
+					.mockResolvedValue(true);
+				public defaultConfig(): Config {
+					return Config.empty();
+				}
+				public flushCache(): void {
+					/* do nothing */
+				}
+				public getConfigFor(): Promise<ResolvedConfig> {
+					return Promise.resolve(Config.empty().resolve());
+				}
+			}
+			const loader = new MockLoader([]);
+			const cli = new CLI();
+			jest.spyOn(cli, "getLoader").mockResolvedValue(loader);
+			expect(await cli.isIgnored("my-file.html")).toBeTruthy();
+			expect(loader.isIgnored).toHaveBeenCalledWith("my-file.html");
+		});
+
+		it("should fall back to .htmlvalidateignore when loader does not implement isIgnored()", async () => {
+			expect.assertions(2);
+			vol.fromJSON(
+				{
+					"package.json": "{}",
+					".htmlvalidateignore": "ignored.html\n",
+					"ignored.html": "",
+					"not-ignored.html": "",
+				},
+				"/folder",
+			);
+			const cli = new CLI();
+			expect(await cli.isIgnored("/folder/ignored.html")).toBeTruthy();
+			expect(await cli.isIgnored("/folder/not-ignored.html")).toBeFalsy();
 		});
 	});
 });

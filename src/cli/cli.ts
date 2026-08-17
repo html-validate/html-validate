@@ -73,9 +73,15 @@ export class CLI {
 	 *
 	 * @public
 	 */
-	/* eslint-disable-next-line @typescript-eslint/require-await -- technical debt: expandFiles(..) should actually be async as well */
 	public async expandFiles(patterns: string[], options: ExpandOptions = {}): Promise<string[]> {
-		return expandFiles(patterns, options).filter((filename) => !this.isIgnored(filename));
+		const result = [] as string[];
+		for (const filename of expandFiles(patterns, options)) {
+			if (await this.isIgnored(filename)) {
+				continue;
+			}
+			result.push(filename);
+		}
+		return result;
 	}
 
 	public getFormatter(formatters: string): Promise<(report: Report) => string> {
@@ -151,10 +157,38 @@ export class CLI {
 	}
 
 	/**
-	 * Searches ".htmlvalidateignore" files from filesystem and returns `true` if
-	 * one of them contains a pattern matching given filename.
+	 * Resolves to `true` if the given filename is ignored by the configuration.
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * for (const filename of filenames) {
+	 *   if (await cli.isIgnored(filename)) {
+	 *     continue;
+	 *   }
+	 *   htmlvalidate.validateFile(filename);
+	 * }
+	 * ```
+	 *
+	 * @remarks
+	 *
+	 * If the configuration loader does not implement `isIgnored()` this method
+	 * falls back to using the `.htmlvalidateignore` file.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param filename - Filename to test if it is ignored.
+	 * @returns A promise resolving to `true` if the given filename is ignored.
 	 */
-	private isIgnored(filename: string): boolean {
+	public async isIgnored(filename: string): Promise<boolean> {
+		/* if the loader supports the `isIgnored()` method we delegate the operation
+		 * entirely to the loader. */
+		const loader = await this.getLoader();
+		if (loader.isIgnored) {
+			return loader.isIgnored(filename);
+		}
+
+		/* fallback to using the `.htmlvalidateignore` file */
 		return this.ignored.isIgnored(filename);
 	}
 

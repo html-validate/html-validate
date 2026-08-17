@@ -511,4 +511,88 @@ describe("FlatConfigLoader", () => {
 		expect(config1).toBe(config2);
 		expect(mockLoadFlatConfigFile).toHaveBeenCalledTimes(1);
 	});
+
+	describe("isIgnored()", () => {
+		it("should return true for a file matched by global ignores", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([
+					{
+						ignores: ["dist/**"],
+					},
+					{
+						rules: {
+							"no-self-closing": "error",
+						},
+					},
+				]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			expect(await loader.isIgnored("/project/dist/output.html")).toBeTruthy();
+		});
+
+		it("should return false for a file not matched by global ignores", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([
+					{
+						ignores: ["dist/**"],
+					},
+					{
+						rules: {
+							"no-self-closing": "error",
+						},
+					},
+				]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			expect(await loader.isIgnored("/project/src/index.html")).toBeFalsy();
+		});
+
+		it("should return false when no global ignores are configured", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([
+					{
+						files: ["**/*.html"],
+						rules: {
+							"no-self-closing": "error",
+						},
+					},
+				]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			expect(await loader.isIgnored("/project/file.html")).toBeFalsy();
+		});
+
+		it("should not consider block-level ignores as global ignores", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([
+					{
+						ignores: ["**/ignored.html"],
+						rules: {
+							"no-self-closing": "error",
+						},
+					},
+				]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			expect(await loader.isIgnored("/project/ignored.html")).toBeFalsy();
+		});
+
+		it("should resolve the handle relative to the config file directory", async () => {
+			expect.assertions(2);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([
+					{
+						ignores: ["src/**"],
+					},
+				]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			expect(await loader.isIgnored("/project/src/index.html")).toBeTruthy();
+			expect(await loader.isIgnored("/project/other/src/index.html")).toBeFalsy();
+		});
+	});
 });

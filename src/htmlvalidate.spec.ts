@@ -851,6 +851,37 @@ describe("HtmlValidate", () => {
 		});
 	});
 
+	describe("isIgnored()", () => {
+		it("should return false if configuration loader does not implement isIgnored()", async () => {
+			expect.assertions(1);
+			const loader = new StaticConfigLoader([resolver]);
+			const htmlvalidate = new HtmlValidate(loader);
+			expect(await htmlvalidate.isIgnored("my-file.html")).toBeFalsy();
+		});
+
+		it("should delegate to configuration loader isIgnored()", async () => {
+			expect.assertions(2);
+			class MockLoader extends ConfigLoader {
+				public override isIgnored = jest
+					.fn<(handle?: string) => Promise<boolean>>()
+					.mockResolvedValue(true);
+				public defaultConfig(): Config {
+					return Config.empty();
+				}
+				public flushCache(): void {
+					/* do nothing */
+				}
+				public getConfigFor(): Promise<ResolvedConfig> {
+					return Promise.resolve(Config.empty().resolve());
+				}
+			}
+			const loader = new MockLoader([]);
+			const htmlvalidate = new HtmlValidate(loader);
+			expect(await htmlvalidate.isIgnored("my-file.html")).toBeTruthy();
+			expect(loader.isIgnored).toHaveBeenCalledWith("my-file.html");
+		});
+	});
+
 	it("dumpTokens() should dump tokens", async () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate();

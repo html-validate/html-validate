@@ -281,13 +281,61 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Returns true if the given filename can be validated.
+	 * Resolves to `true` if the given filename is ignored by the configuration.
+	 *
+	 * Ignored is different from testing if the configuration can validate a
+	 * handle or not, e.g. the configuration might support validating `*.vue` but
+	 * a specific filename or directory might be configured to be ignored.
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * for (const filename of filenames) {
+	 *   if (await htmlvalidate.isIgnored(filename)) {
+	 *     continue;
+	 *   }
+	 *   htmlvalidate.validateFile(filename);
+	 * }
+	 * ```
+	 *
+	 * @see
+	 *
+	 * {@link HtmlValidate.canValidate|canValidate()} for a way to test if the configuration supports validating the filename at all.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param filename - Filename to test if it is ignored.
+	 * @returns A promise resolving to `true` if the given filename is ignored.
+	 */
+	public async isIgnored(filename: string): Promise<boolean> {
+		if (this.configLoader.isIgnored) {
+			return await this.configLoader.isIgnored(filename);
+		}
+		return false;
+	}
+
+	/**
+	 * Resolves to `true` if the given filename can be validated.
 	 *
 	 * A file is considered to be validatable if the extension is `.html` or if a
 	 * transformer matches the filename.
 	 *
-	 * This is mostly useful for tooling to determine whenever to validate the
-	 * file or not. CLI tools will run on all the given files anyway.
+	 * @example
+	 *
+	 * ```ts
+	 * if (await htmlvalidate.canValidate("noop.vue")) {
+	 *   console.log("Supports validating vue files");
+	 * }
+	 * ```
+	 *
+	 * @see
+	 *
+	 * {@link HtmlValidate.isIgnored|isIgnored()} for a way to test if the configuration ignores the filename.
+	 *
+	 * @public
+	 * @since v2.5.0
+	 * @param filename - Filename to test if it can be validated.
+	 * @returns A promise resolving to `true` if the given filename can be validated.
 	 */
 	public async canValidate(filename: string): Promise<boolean> {
 		/* .html is always supported */
@@ -301,13 +349,27 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Returns true if the given filename can be validated.
+	 * Returns `true` if the given filename can be validated.
 	 *
 	 * A file is considered to be validatable if the extension is `.html` or if a
 	 * transformer matches the filename.
 	 *
-	 * This is mostly useful for tooling to determine whenever to validate the
-	 * file or not. CLI tools will run on all the given files anyway.
+	 * @example
+	 *
+	 * ```ts
+	 * if (htmlvalidate.canValidateSync("noop.vue")) {
+	 *   console.log("Supports validating vue files");
+	 * }
+	 * ```
+	 *
+	 * @see
+	 *
+	 * {@link HtmlValidate.isIgnored|isIgnored()} for a way to test if the configuration ignores the filename.
+	 *
+	 * @public
+	 * @since v2.5.0
+	 * @param filename - Filename to test if it can be validated.
+	 * @returns Returns `true` if the given filename can be validated.
 	 */
 	public canValidateSync(filename: string): boolean {
 		/* .html is always supported */
