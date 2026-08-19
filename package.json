@@ -281,7 +281,7 @@
     "ts-jest": "29.4.12",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.2.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "@jest/globals": "^29.0.3 || ^30.0.0",
