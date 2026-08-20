@@ -57,4 +57,4 @@ Supports wildcard with `*` (e.g. `foo-*`) and regexp with `/../` (e.g. `/^foo-\d
 
 ## Version history
 
-- %version% - `include` and `exclude` options added.
+- 11.9.0 - `include` and `exclude` options added.

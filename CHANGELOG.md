@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.9.0 (2026-08-20)
+
+### Features
+
+- **rules:** add `include` and `exclude` options to `no-dup-id` ([777acf3](https://gitlab.com/html-validate/html-validate/commit/777acf3154dbdb5ff93bca70710c952cadfaf658))
+
 ## 11.8.0 (2026-08-17)
 
 ### Features
