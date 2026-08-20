@@ -126,4 +126,115 @@ describe("rule no-dup-id", () => {
 		const docs = await htmlvalidate.getRuleDocumentation("no-dup-id");
 		expect(docs).toMatchSnapshot();
 	});
+
+	describe("configured with include", () => {
+		let htmlvalidate: HtmlValidate;
+
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-dup-id": ["error", { include: ["foo-*"] }] },
+			});
+		});
+
+		it("should report error when duplicated id matches include pattern", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<p id="foo-1"></p>
+				<p id="foo-1"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Duplicate ID "foo-1" (no-dup-id)
+				  1 |
+				  2 | 				<p id="foo-1"></p>
+				> 3 | 				<p id="foo-1"></p>
+				    | 				       ^^^^^
+				  4 |
+				Selector: p:nth-child(2)"
+			`);
+		});
+
+		it("should not report error when duplicated id does not match include pattern", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p id="bar-1"></p>
+				<p id="bar-1"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+	});
+
+	describe("configured with exclude", () => {
+		let htmlvalidate: HtmlValidate;
+
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-dup-id": ["error", { exclude: ["foo-*"] }] },
+			});
+		});
+
+		it("should not report error when duplicated id matches exclude pattern", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p id="foo-1"></p>
+				<p id="foo-1"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report error when duplicated id does not match exclude pattern", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<p id="bar-1"></p>
+				<p id="bar-1"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Duplicate ID "bar-1" (no-dup-id)
+				  1 |
+				  2 | 				<p id="bar-1"></p>
+				> 3 | 				<p id="bar-1"></p>
+				    | 				       ^^^^^
+				  4 |
+				Selector: p:nth-child(2)"
+			`);
+		});
+	});
+
+	describe("configured with regexp pattern", () => {
+		let htmlvalidate: HtmlValidate;
+
+		beforeAll(() => {
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "no-dup-id": ["error", { include: ["/^foo-\\d+$/"] }] },
+			});
+		});
+
+		it("should report error when duplicated id matches regexp pattern", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p id="foo-42"></p>
+				<p id="foo-42"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+		});
+
+		it("should not report error when duplicated id does not match regexp pattern", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<p id="foo-bar"></p>
+				<p id="foo-bar"></p>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+	});
 });

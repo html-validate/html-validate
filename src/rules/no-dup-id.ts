@@ -1,6 +1,7 @@
 import { type HtmlElement } from "../dom";
 import { type DOMReadyEvent } from "../event";
-import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
+import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { type IncludeExcludeOptions, keywordPatternMatcher } from "./helper";
 
 const CACHE_KEY = Symbol("no-dup-id");
 
@@ -10,7 +11,49 @@ declare module "../dom/cache" {
 	}
 }
 
-export default class NoDupID extends Rule {
+type RuleOptions = IncludeExcludeOptions;
+
+const defaults: RuleOptions = {
+	include: null,
+	exclude: null,
+};
+
+export default class NoDupID extends Rule<void, RuleOptions> {
+	public constructor(options: Partial<RuleOptions>) {
+		super({ ...defaults, ...options });
+	}
+
+	public static override schema(): SchemaObject {
+		return {
+			exclude: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+			include: {
+				anyOf: [
+					{
+						items: {
+							type: "string",
+						},
+						type: "array",
+					},
+					{
+						type: "null",
+					},
+				],
+			},
+		};
+	}
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description: "The ID of an element must be unique.",
@@ -43,6 +86,10 @@ export default class NoDupID extends Rule {
 				}
 
 				const id = attr.value.toString();
+
+				if (this.isKeywordIgnored(id, keywordPatternMatcher)) {
+					continue;
+				}
 
 				const existing = useRootExisting ? rootExisting : getExisting(el, document.root);
 

@@ -27,3 +27,34 @@ Examples of **correct** code for this rule:
     <div id="foo"></div>
     <div id="bar"></div>
 </validate>
+
+## Options
+
+This rule takes an optional object:
+
+```json
+{
+  "include": null,
+  "exclude": null
+}
+```
+
+### `include`
+
+- type: `string[] | null`
+- default: `null`
+
+If set only IDs matching one or more patterns in this array are checked for duplicates.
+Supports wildcard with `*` (e.g. `foo-*`) and regexp with `/../` (e.g. `/^foo-\d+$/`).
+
+### `exclude`
+
+- type: `string[] | null`
+- default: `null`
+
+If set IDs matching one or more patterns in this array are ignored.
+Supports wildcard with `*` (e.g. `foo-*`) and regexp with `/../` (e.g. `/^foo-\d+$/`).
+
+## Version history
+
+- %version% - `include` and `exclude` options added.
