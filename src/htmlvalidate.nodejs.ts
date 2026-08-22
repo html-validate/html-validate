@@ -306,7 +306,7 @@ export class HtmlValidate {
 	 *   if (await htmlvalidate.isIgnored(filename)) {
 	 *     continue;
 	 *   }
-	 *   htmlvalidate.validateFile(filename);
+	 *   await htmlvalidate.validateFile(filename);
 	 * }
 	 * ```
 	 *
