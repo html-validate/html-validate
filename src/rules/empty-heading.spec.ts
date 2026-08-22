@@ -106,14 +106,48 @@ describe("rule empty-heading", () => {
 		`);
 	});
 
-	it("should report error when heading only has whitespace content", async () => {
+	it("should report when heading has <img> without alt text", async () => {
 		expect.assertions(2);
-		const markup = /* HTML */ ` <h1></h1> `;
+		const markup = /* HTML */ ` <h1><img /></h1> `;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <h1> cannot be empty, must have text content (empty-heading)
-			> 1 |  <h1></h1>
+			> 1 |  <h1><img /></h1>
+			    |   ^^
+			Selector: h1"
+		`);
+	});
+
+	it("should report when heading has <svg> without <title>", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<h1>
+				<svg></svg>
+			</h1>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <h1> cannot be empty, must have text content (empty-heading)
+			  1 |
+			> 2 | 			<h1>
+			    | 			 ^^
+			  3 | 				<svg></svg>
+			  4 | 			</h1>
+			  5 |
+			Selector: h1"
+		`);
+	});
+
+	it("should report error when heading only has whitespace content", async () => {
+		expect.assertions(2);
+		const markup = ` <h1> </h1> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <h1> cannot be empty, must have text content (empty-heading)
+			> 1 |  <h1> </h1>
 			    |   ^^
 			Selector: h1"
 		`);

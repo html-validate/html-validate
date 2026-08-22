@@ -6,16 +6,11 @@ import { TextClassification, classifyNodeText } from "./helper/text";
 const selector = ["h1", "h2", "h3", "h4", "h5", "h6"].join(",");
 
 function hasImgAltText(node: HtmlElement): boolean {
-	if (node.is("img")) {
-		return hasAltText(node);
-	}
-	if (node.is("svg")) {
-		return node.textContent.trim() !== "";
-	}
+	return hasAltText(node);
+}
 
-	/* istanbul ignore next -- querySelector(..) is only going to return the two
-	 * above tags but this serves as a sane default if above assumption changes  */
-	return false;
+function hasSvgTitle(node: HtmlElement): boolean {
+	return node.textContent.trim() !== "";
 }
 
 export default class EmptyHeading extends Rule {
@@ -36,11 +31,14 @@ export default class EmptyHeading extends Rule {
 	}
 
 	protected validateHeading(heading: HtmlElement): void {
-		const images = heading.querySelectorAll("img, svg");
-		for (const child of images) {
-			if (hasImgAltText(child)) {
-				return;
-			}
+		const img = heading.querySelectorAll("img");
+		if (img.some(hasImgAltText)) {
+			return;
+		}
+
+		const svg = heading.querySelectorAll("svg");
+		if (svg.some(hasSvgTitle)) {
+			return;
 		}
 
 		switch (classifyNodeText(heading, { ignoreHiddenRoot: true })) {
