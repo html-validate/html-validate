@@ -136,6 +136,13 @@ describe("toHTMLValidate()", () => {
 		expect(button).not.toHTMLValidate();
 	});
 
+	it("should throw error when passing invalid object", () => {
+		expect.hasAssertions();
+		expect(() => {
+			expect({}).toHTMLValidate();
+		}).toThrowErrorMatchingInlineSnapshot(`"Failed to get markup from "object" argument"`);
+	});
+
 	it("should pass if markup has correct error", () => {
 		expect.assertions(1);
 		expect("<div>").not.toHTMLValidate({
