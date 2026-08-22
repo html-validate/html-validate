@@ -3,7 +3,7 @@ import { type Source } from "./context";
 import { type DOMNode } from "./dom";
 import { type Location, assertValidLocation } from "./location";
 import { type Message } from "./message";
-import { type Rule } from "./rule";
+import { type RuleDocumentation } from "./rule";
 import { isThenable } from "./utils/is-thenable";
 
 /**
@@ -131,8 +131,11 @@ export class Reporter {
 	/**
 	 * @internal
 	 */
-	public add<ContextType, OptionsType>(options: {
-		rule: Rule<ContextType, OptionsType>;
+	public add<ContextType>(options: {
+		rule: {
+			name: string;
+			documentation(context: ContextType): RuleDocumentation | null;
+		};
 		message: string;
 		severity: number;
 		node: DOMNode | null;

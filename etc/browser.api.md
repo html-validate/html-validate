@@ -1102,8 +1102,11 @@ export class Reporter {
     // @internal
     constructor();
     // @internal (undocumented)
-    add<ContextType, OptionsType>(options: {
-        rule: Rule<ContextType, OptionsType>;
+    add<ContextType>(options: {
+        rule: {
+            name: string;
+            documentation(context: ContextType): RuleDocumentation | null;
+        };
         message: string;
         severity: number;
         node: DOMNode | null;
