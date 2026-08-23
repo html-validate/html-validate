@@ -1,10 +1,12 @@
+import fs from "node:fs/promises";
 import { beforeEach, expect, it, jest } from "@jest/globals";
 import kleur from "kleur";
 import { WritableStreamBuffer } from "stream-buffers";
 import { type Message, HtmlValidate } from "../..";
 import { Severity } from "../../config";
+import { type ErrorFixer } from "../../error-fixer";
 import { getFormatter } from "../formatter";
-import { type LintOptions, lint } from "./lint";
+import { type LintOptions, MAX_FIX_ITERATIONS, lint } from "./lint";
 
 kleur.enabled = true;
 
@@ -39,6 +41,7 @@ let stdout: WritableStreamBuffer;
 let stderr: WritableStreamBuffer;
 const formatter = getFormatter("text");
 const defaultOptions: LintOptions = {
+	fix: false,
 	formatter,
 	maxWarnings: -1,
 	performance: false,
@@ -46,6 +49,7 @@ const defaultOptions: LintOptions = {
 };
 
 beforeEach(() => {
+	jest.restoreAllMocks();
 	htmlvalidate = new HtmlValidate();
 	stdout = new WritableStreamBuffer();
 	stderr = new WritableStreamBuffer();
@@ -373,4 +377,180 @@ it("should output performance data with zero total time", async () => {
 		  Rules:     0.00ms
 		"
 	`);
+});
+
+it("should apply autofix and write the patched file when fix option is enabled", async () => {
+	expect.assertions(4);
+	const fixableReport = {
+		valid: false,
+		results: [
+			{
+				filePath: "foo.html",
+				errorCount: 1,
+				warningCount: 0,
+				source: null,
+				messages: [
+					{
+						ruleId: "mock",
+						severity: Severity.ERROR,
+						message: "mock message",
+						offset: 5,
+						line: 1,
+						column: 6,
+						size: 3,
+						selector: null,
+						fix: (fixer: ErrorFixer): void => {
+							fixer.replaceText(
+								{ filename: "foo.html", offset: 5, line: 1, column: 6, size: 3 },
+								"lorem",
+							);
+						},
+					},
+				],
+			},
+		],
+		errorCount: 1,
+		warningCount: 0,
+	};
+	const finalReport = {
+		valid: true,
+		results: [{ filePath: "foo.html", errorCount: 0, warningCount: 0, source: null, messages: [] }],
+		errorCount: 0,
+		warningCount: 0,
+	};
+	jest
+		.spyOn(htmlvalidate, "validateFile")
+		.mockResolvedValueOnce(fixableReport)
+		.mockResolvedValueOnce(finalReport);
+	const autofixFile = jest
+		.spyOn(htmlvalidate, "autofixFile")
+		.mockResolvedValueOnce('<div foo="bar"></div>')
+		.mockResolvedValueOnce('<div lorem="bar"></div>');
+	const writeFile = jest.spyOn(fs, "writeFile").mockResolvedValue(undefined);
+	const files = ["foo.html"];
+	const success = await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, fix: true });
+	expect(success).toBeTruthy();
+	expect(autofixFile).toHaveBeenCalledTimes(2);
+	expect(writeFile).toHaveBeenCalledWith("foo.html", '<div lorem="bar"></div>', "utf-8");
+	expect(stdout.getContentsAsString("utf-8")).toMatchInlineSnapshot(`false`);
+});
+
+it("should not write the file when fix option is enabled but no fix is available", async () => {
+	expect.assertions(3);
+	const report = {
+		valid: false,
+		results: [
+			{
+				filePath: "foo.html",
+				errorCount: 1,
+				warningCount: 0,
+				source: null,
+				messages: [mockError("mock-rule", "lorem ipsum")],
+			},
+		],
+		errorCount: 1,
+		warningCount: 0,
+	};
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue(report);
+	const autofixFile = jest.spyOn(htmlvalidate, "autofixFile");
+	const writeFile = jest.spyOn(fs, "writeFile").mockResolvedValue(undefined);
+	const files = ["foo.html"];
+	const success = await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, fix: true });
+	expect(success).toBeFalsy();
+	expect(autofixFile).not.toHaveBeenCalled();
+	expect(writeFile).not.toHaveBeenCalled();
+});
+
+it("should not write the file when a fix produces no change to the source", async () => {
+	expect.assertions(2);
+	const report = {
+		valid: false,
+		results: [
+			{
+				filePath: "foo.html",
+				errorCount: 1,
+				warningCount: 0,
+				source: null,
+				messages: [
+					{
+						ruleId: "mock",
+						severity: Severity.ERROR,
+						message: "mock message",
+						offset: 0,
+						line: 1,
+						column: 1,
+						size: 1,
+						selector: null,
+						fix: (fixer: ErrorFixer): void => {
+							fixer.replaceText(
+								{ filename: "foo.html", offset: 0, line: 1, column: 1, size: 1 },
+								"a",
+							);
+						},
+					},
+				],
+			},
+		],
+		errorCount: 1,
+		warningCount: 0,
+	};
+	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue(report);
+	/* both the baseline read and the applied fix resolve to the same
+	 * content, simulating a fix that makes no actual change */
+	jest.spyOn(htmlvalidate, "autofixFile").mockResolvedValue("abc");
+	const writeFile = jest.spyOn(fs, "writeFile").mockResolvedValue(undefined);
+	const files = ["foo.html"];
+	const success = await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, fix: true });
+	expect(success).toBeFalsy();
+	expect(writeFile).not.toHaveBeenCalled();
+});
+
+it("should stop fixing once the iteration limit is reached", async () => {
+	expect.assertions(2);
+	let counter = 0;
+	const alwaysFixableReport = {
+		valid: false,
+		results: [
+			{
+				filePath: "foo.html",
+				errorCount: 1,
+				warningCount: 0,
+				source: null,
+				messages: [
+					{
+						ruleId: "mock",
+						severity: Severity.ERROR,
+						message: "mock message",
+						offset: 0,
+						line: 1,
+						column: 1,
+						size: 0,
+						selector: null,
+						fix: (): void => {
+							/* not used since autofixFile() is mocked */
+						},
+					},
+				],
+			},
+		],
+		errorCount: 1,
+		warningCount: 0,
+	};
+	const validateFile = jest
+		.spyOn(htmlvalidate, "validateFile")
+		.mockResolvedValue(alwaysFixableReport);
+	/* every call (the initial baseline read as well as each time a fix is
+	 * applied) resolves to a unique value so the fix loop always makes
+	 * "progress" and only stops once the iteration limit is reached */
+	jest.spyOn(htmlvalidate, "autofixFile").mockImplementation(() => {
+		counter++;
+		return Promise.resolve(`patched-${String(counter)}`);
+	});
+	jest.spyOn(fs, "writeFile").mockResolvedValue(undefined);
+	const files = ["foo.html"];
+	await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, fix: true });
+	/* 1 initial validate + N re-validations (one per applied fix) */
+	expect(validateFile).toHaveBeenCalledTimes(MAX_FIX_ITERATIONS + 1);
+	/* 1 baseline read + N applied fixes */
+	expect(counter).toBe(MAX_FIX_ITERATIONS + 1);
 });

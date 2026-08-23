@@ -4,6 +4,7 @@
 <table class="table table-striped rules-table">
 	<colgroup>
 		<col class="set">
+		<col class="fixable">
 		<col class="name">
 		<col class="summary">
 	</colgroup>
@@ -12,10 +13,15 @@
 		<tr>
 			<td>
 				{% if rule.presets.recommended %}
-				<span class="fa-solid fa-check"></span>
+				<span class="fa-solid fa-check" role="img" aria-label="Recommended preset" title="Recommended preset"></span>
 				{% endif %}
 				{% if rule.presets.document %}
-				<span class="fa-solid fa-file-lines"></span>
+				<span class="fa-solid fa-file-lines" role="img" aria-label="Document preset" title="Document preset"></span>
+				{% endif %}
+			</td>
+			<td>
+				{% if rule.fixable %}
+				<span class="fa-solid fa-wrench" role="img" aria-label="Fixable" title="Fixable"></span>
 				{% endif %}
 			</td>
 			<td><a href="/{{ rule.url }}">{{ rule.name }}</a></td>

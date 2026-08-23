@@ -22,6 +22,10 @@ class MockRule extends Rule<RuleContext> {
 	}
 }
 
+class MockFixableRule extends MockRule {
+	public static override readonly fixable = true;
+}
+
 const location: Location = {
 	filename: "inline",
 	line: 1,
@@ -252,6 +256,107 @@ describe("rule base class", () => {
 				location: expect.anything(),
 				context: undefined,
 			});
+		});
+
+		it("should forward fix callback from descriptor object", () => {
+			expect.assertions(1);
+			const rule = new MockFixableRule();
+			rule.name = "mock-rule";
+			rule.init(parser, reporter, Severity.ERROR, meta);
+			const node = HtmlElement.createElement("foo", location);
+			const fix = (): void => {
+				/* do nothing */
+			};
+			rule.report({
+				node,
+				message: "foo",
+				fix,
+			});
+			expect(reporter.add).toHaveBeenCalledWith({
+				rule,
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
+					unique: node.unique,
+				}),
+				location: expect.anything(),
+				context: undefined,
+				fix,
+				suggestions: undefined,
+			});
+		});
+
+		it("should forward suggestions from descriptor object", () => {
+			expect.assertions(1);
+			const node = HtmlElement.createElement("foo", location);
+			const suggestions = [
+				{
+					message: "use bar instead",
+					fix: (): void => {
+						/* do nothing */
+					},
+				},
+			];
+			rule.report({
+				node,
+				message: "foo",
+				suggestions,
+			});
+			expect(reporter.add).toHaveBeenCalledWith({
+				rule,
+				message: "foo",
+				severity: Severity.ERROR,
+				node: expect.objectContaining({
+					unique: node.unique,
+				}),
+				location: expect.anything(),
+				context: undefined,
+				fix: undefined,
+				suggestions,
+			});
+		});
+
+		it("should throw when reporting a fix but rule is not fixable", () => {
+			expect.assertions(1);
+			const node = HtmlElement.createElement("foo", location);
+			const fix = (): void => {
+				/* do nothing */
+			};
+			expect(() => {
+				rule.report({ node, message: "foo", fix });
+			}).toThrow(
+				"Rule \"mock-rule\" reported a fix but is not marked as fixable. Set 'static fixable = true' on the rule class.",
+			);
+		});
+
+		it("should not throw when reporting suggestions and rule is not fixable", () => {
+			expect.assertions(1);
+			const node = HtmlElement.createElement("foo", location);
+			const suggestions = [
+				{
+					message: "use bar instead",
+					fix: (): void => {
+						/* do nothing */
+					},
+				},
+			];
+			expect(() => {
+				rule.report({ node, message: "foo", suggestions });
+			}).not.toThrow();
+		});
+
+		it("should not throw when reporting a fix and rule is fixable", () => {
+			expect.assertions(1);
+			const fixableRule = new MockFixableRule();
+			fixableRule.name = "mock-rule";
+			fixableRule.init(parser, reporter, Severity.ERROR, meta);
+			const node = HtmlElement.createElement("foo", location);
+			const fix = (): void => {
+				/* do nothing */
+			};
+			expect(() => {
+				fixableRule.report({ node, message: "foo", fix });
+			}).not.toThrow();
 		});
 	});
 

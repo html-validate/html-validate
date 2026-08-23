@@ -31,6 +31,17 @@ Leading dots are ignored.
 
     html-validate --ext html,vue src
 
+### `--fix`
+
+Automatically fix problems when possible and write the result back to the file.
+
+    html-validate --fix file.html
+
+Not all rules support automatic fixes, rules without an automatic fix are still reported as usual.
+Suggestions are never applied automatically.
+
+`--fix` cannot be combined with `--stdin`.
+
 ### `-f`, `--formatter`
 
 Specify which formatter(s) to use.

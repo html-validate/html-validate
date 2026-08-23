@@ -89,6 +89,9 @@ export interface BaseToken {
     type: TokenType;
 }
 
+// @internal (undocumented)
+export const builtinRules: Record<string, RuleConstructor<any, any>>;
+
 // @public (undocumented)
 export type CategoryOrTag = string;
 
@@ -480,12 +483,22 @@ export interface EOFToken extends BaseToken {
 export interface ErrorDescriptor<ContextType> {
     // (undocumented)
     context?: ContextType;
+    fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
     // (undocumented)
     location?: Location_2 | null;
     // (undocumented)
     message: string;
     // (undocumented)
     node: DOMNode | null;
+    suggestions?: Array<{
+        message: string;
+        fix: (fixer: ErrorFixer) => void | Promise<void>;
+    }> | undefined;
+}
+
+// @public
+export interface ErrorFixer {
+    replaceText(location: Location_2, replacement: string): void;
 }
 
 // @public
@@ -715,6 +728,9 @@ export interface HtmlElementLike {
 export class HtmlValidate {
     constructor(config?: ConfigData);
     constructor(configLoader: ConfigLoader);
+    autofixFile(filename: string, fix: (fixer: ErrorFixer) => void | Promise<void>, configOverride?: ConfigData, fs?: TransformFS): Promise<string>;
+    autofixSource(source: Source, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
+    autofixString(filePath: string, source: string, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
     canValidate(filename: string): Promise<boolean>;
     canValidateSync(filename: string): boolean;
     // (undocumented)
@@ -874,6 +890,7 @@ export { Location_2 as Location }
 export interface Message {
     column: number;
     context?: unknown;
+    fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
     line: number;
     message: string;
     offset: number;
@@ -882,6 +899,10 @@ export interface Message {
     selector: string | null;
     severity: number;
     size: number;
+    suggestions?: Array<{
+        message: string;
+        fix: (fixer: ErrorFixer) => void | Promise<void>;
+    }> | undefined;
 }
 
 // @public
@@ -1231,6 +1252,8 @@ export class Reporter {
         node: DOMNode | null;
         location: Location_2;
         context: ContextType;
+        fix?: Message["fix"];
+        suggestions?: Message["suggestions"];
     }): void;
     // @internal (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
@@ -1320,6 +1343,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     get deprecated(): boolean;
     // @virtual
     documentation(_context: ContextType): RuleDocumentation | null;
+    static readonly fixable: boolean;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;
@@ -1372,6 +1396,8 @@ export type RuleConfig = Record<string, RuleSeverity | [RuleSeverity] | [RuleSev
 export interface RuleConstructor<T, U> {
     // (undocumented)
     new (options?: any): Rule<T, U>;
+    // (undocumented)
+    readonly fixable: boolean;
     // (undocumented)
     schema(): SchemaObject | null | undefined;
 }

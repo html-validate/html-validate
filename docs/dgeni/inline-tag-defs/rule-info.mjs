@@ -38,7 +38,7 @@ function ruleInfoInlineTagDef() {
 	return {
 		name: "ruleInfo",
 		/**
-		 * @param {{ docType: string, category?: string, standards: string[] }} doc
+		 * @param {{ docType: string, category?: string, standards: string[], fixable?: boolean }} doc
 		 */
 		handler(doc) {
 			if (doc.docType !== "rule") {
@@ -50,6 +50,7 @@ function ruleInfoInlineTagDef() {
 			});
 			const category = categoryName[doc.category] ?? unset;
 			const standards = standardItems.length > 0 ? `<ul>${standardItems.join("")}</ul>` : unset;
+			const fixable = doc.fixable ? "Yes" : "No";
 			return /* HTML */ `
 				<dl class="rule-info">
 					<div class="rule-info-entry">
@@ -63,6 +64,10 @@ function ruleInfoInlineTagDef() {
 					<div class="rule-info-entry">
 						<dt>Standards:</dt>
 						<dd class="rule-info-standards">${standards}</dd>
+					</div>
+					<div class="rule-info-entry">
+						<dt>Fixable:</dt>
+						<dd class="rule-info-fixable">${fixable}</dd>
 					</div>
 				</dl>
 			`;

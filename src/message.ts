@@ -1,3 +1,5 @@
+import { type ErrorFixer } from "./error-fixer";
+
 /**
  * Reported error message.
  *
@@ -37,4 +39,25 @@ export interface Message {
 	 * This context can be passed to [[HtmlValidate#getRuleDocumentation]].
 	 */
 	context?: unknown;
+
+	/**
+	 * A callback for autofixing this error.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
+
+	/**
+	 * A list of callbacks with suggestions for fixing this error.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	suggestions?:
+		| Array<{
+				message: string;
+				fix: (fixer: ErrorFixer) => void | Promise<void>;
+		  }>
+		| undefined;
 }

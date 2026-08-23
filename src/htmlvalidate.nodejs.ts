@@ -1,11 +1,13 @@
 import fs from "node:fs";
 import { type SchemaObject } from "ajv";
+import { applyFix as applyFixEdits } from "./autofix";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
 import { StaticConfigLoader } from "./config/loaders/static";
 import { type Source, normalizeSource } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
 import { UserError } from "./error";
+import { type ErrorFixer } from "./error-fixer";
 import { type Message } from "./message";
 import { Parser } from "./parser";
 import { type PerformanceResult, PerformanceTracker } from "./performance";
@@ -286,6 +288,82 @@ export class HtmlValidate {
 	 */
 	public validateMultipleFilesSync(filenames: string[], fs: TransformFS = defaultFS): Report {
 		return Reporter.merge(filenames.map((filename) => this.validateFileSync(filename, fs)));
+	}
+
+	/**
+	 * Apply a single fix (or suggestion) callback to a source string.
+	 *
+	 * The callback is typically taken directly from `message.fix` or one of
+	 * `message.suggestions[].fix` as returned by a previous validation.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param filePath - Filename the source belongs to, used to sanity-check
+	 * that the fix does not target a different file.
+	 * @param source - Source text to apply the fix to.
+	 * @param fix - Fix (or suggestion) callback to apply.
+	 * @returns The patched source text.
+	 */
+	public async autofixString(
+		filePath: string,
+		source: string,
+		fix: (fixer: ErrorFixer) => void | Promise<void>,
+	): Promise<string> {
+		return applyFixEdits(filePath, source, fix);
+	}
+
+	/**
+	 * Apply a single fix (or suggestion) callback to a {@link Source}.
+	 *
+	 * The callback is typically taken directly from `message.fix` or one of
+	 * `message.suggestions[].fix` as returned by a previous validation.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param source - Source to apply the fix to.
+	 * @param fix - Fix (or suggestion) callback to apply.
+	 * @returns The patched original (untransformed) source text.
+	 */
+	public async autofixSource(
+		source: Source,
+		fix: (fixer: ErrorFixer) => void | Promise<void>,
+	): Promise<string> {
+		const original = source.originalData ?? source.data;
+		return await applyFixEdits(source.filename, original, fix);
+	}
+
+	/**
+	 * Apply a single fix (or suggestion) callback to a file and return the
+	 * patched result.
+	 *
+	 * The callback is typically taken directly from `message.fix` or one of
+	 * `message.suggestions[].fix` as returned by a previous validation of the
+	 * same file.
+	 *
+	 * This does not write the result back to disk, it only returns the
+	 * patched content, since it's up to the caller to decide how (and
+	 * whether) to persist it.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param filename - Filename to read, transform and patch.
+	 * @param fix - Fix (or suggestion) callback to apply.
+	 * @param configOverride - Configuration to use when transforming the file.
+	 * @returns The patched original source text.
+	 */
+	public async autofixFile(
+		filename: string,
+		fix: (fixer: ErrorFixer) => void | Promise<void>,
+		configOverride?: ConfigData,
+		fs: TransformFS = defaultFS,
+	): Promise<string> {
+		const config = await this.getConfigFor(filename, configOverride);
+		const resolvers = this.configLoader.getResolvers();
+		const sources = await transformFilename(resolvers, config, filename, fs);
+		if (sources.length === 0) {
+			throw new UserError(`Cannot apply fix: "${filename}" did not produce any source to patch`);
+		}
+		return this.autofixSource(sources[0], fix);
 	}
 
 	/**

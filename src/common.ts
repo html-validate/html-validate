@@ -48,6 +48,8 @@ export {
 	WrappedError,
 	isUserError,
 } from "./error";
+export { type ErrorDescriptor } from "./error-descriptor";
+export { type ErrorFixer } from "./error-fixer";
 export * from "./event";
 export { type FlatConfig, type FlatConfigObject, FlatCompat } from "./flat-config";
 export { version } from "./generated/package-json";
@@ -111,8 +113,8 @@ export {
 	defineMetadata,
 	metadataHelper,
 } from "./meta";
-export { type ErrorDescriptor } from "./error-descriptor";
 export { type RuleConstructor, type RuleDocumentation, type SchemaObject, Rule } from "./rule";
+export { default as builtinRules } from "./rules";
 export {
 	type IncludeExcludeOptions,
 	type TextClassificationOptions,
