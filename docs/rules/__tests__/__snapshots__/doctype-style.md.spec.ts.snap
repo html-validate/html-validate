@@ -13,6 +13,7 @@ exports[`docs/rules/doctype-style.md inline validation: incorrect 1`] = `
         "context": {
           "style": "uppercase",
         },
+        "fix": [Function],
         "line": 1,
         "message": "DOCTYPE should be uppercase",
         "offset": 0,
