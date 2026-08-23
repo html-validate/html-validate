@@ -1,8 +1,128 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
+import { Severity } from "./config";
 import { type Source } from "./context";
 import { type DeferredMessage, type Result, Reporter } from "./reporter";
 
 describe("Reporter", () => {
+	describe("add()", () => {
+		it("should keep fix callback if present", () => {
+			expect.assertions(1);
+			const fix = jest.fn<() => void>();
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule: {
+					name: "mock-rule",
+					documentation() {
+						return null;
+					},
+				},
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location: {
+					filename: "mock-file.html",
+					line: 1,
+					column: 1,
+					size: 1,
+					offset: 0,
+				},
+				fix,
+			});
+			const report = reporter.save();
+			const message = report.results[0].messages[0];
+			expect(message.fix).toBe(fix);
+		});
+
+		it("should keep suggestion callbacks if present", () => {
+			expect.assertions(1);
+			const fix = jest.fn<() => void>();
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule: {
+					name: "mock-rule",
+					documentation() {
+						return null;
+					},
+				},
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location: {
+					filename: "mock-file.html",
+					line: 1,
+					column: 1,
+					size: 1,
+					offset: 0,
+				},
+				suggestions: [
+					{
+						message: "mock suggestion",
+						fix,
+					},
+				],
+			});
+			const report = reporter.save();
+			const message = report.results[0].messages[0];
+			expect(message.suggestions?.[0].fix).toBe(fix);
+		});
+
+		it("should handle omitted fix", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule: {
+					name: "mock-rule",
+					documentation() {
+						return null;
+					},
+				},
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location: {
+					filename: "mock-file.html",
+					line: 1,
+					column: 1,
+					size: 1,
+					offset: 0,
+				},
+			});
+			const report = reporter.save();
+			const message = report.results[0].messages[0];
+			expect(message.fix).toBeUndefined();
+		});
+
+		it("should handle omitted suggestions", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule: {
+					name: "mock-rule",
+					documentation() {
+						return null;
+					},
+				},
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location: {
+					filename: "mock-file.html",
+					line: 1,
+					column: 1,
+					size: 1,
+					offset: 0,
+				},
+			});
+			const report = reporter.save();
+			const message = report.results[0].messages[0];
+			expect(message.suggestions).toBeUndefined();
+		});
+	});
+
 	describe("merge()", () => {
 		it("should set valid only if all reports are valid", () => {
 			expect.assertions(3);
@@ -253,6 +373,41 @@ describe("Reporter", () => {
 				expect.objectContaining({
 					filePath: "bar.html",
 					source: "<bar></bar>",
+				}),
+			]);
+		});
+
+		it("should preserve fix callback through freeze", () => {
+			expect.assertions(1);
+			const report = new Reporter();
+			const fix = (): void => {
+				/* do nothing */
+			};
+			report.addManual("foo.html", { ...createMessage("error", 2), fix });
+			expect(report.save().results).toEqual([
+				expect.objectContaining({
+					filePath: "foo.html",
+					messages: [expect.objectContaining({ message: "error", fix })],
+				}),
+			]);
+		});
+
+		it("should preserve suggestions through freeze", () => {
+			expect.assertions(1);
+			const report = new Reporter();
+			const suggestions = [
+				{
+					message: "use bar instead",
+					fix: (): void => {
+						/* do nothing */
+					},
+				},
+			];
+			report.addManual("foo.html", { ...createMessage("error", 2), suggestions });
+			expect(report.save().results).toEqual([
+				expect.objectContaining({
+					filePath: "foo.html",
+					messages: [expect.objectContaining({ message: "error", suggestions })],
 				}),
 			]);
 		});

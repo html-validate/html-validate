@@ -1,14 +1,70 @@
+import fs from "node:fs/promises";
 import kleur from "kleur";
-import { type HtmlValidate, type Report, type Result, Reporter } from "../..";
+import { type ErrorFixer, type HtmlValidate, type Report, type Result, Reporter } from "../..";
 import { type PerformanceResult } from "../../performance";
 import { type WritableStreamLike } from "../writable-stream-like";
 
 export interface LintOptions {
+	fix: boolean;
 	formatter: (report: Report) => string;
 	maxWarnings: number;
 	performance: boolean;
 	stdinFilename: false | string;
 }
+
+/**
+ * Safety cap to avoid looping forever if a fix never converges.
+ *
+ * @internal
+ */
+export const MAX_FIX_ITERATIONS = 1000;
+
+function findFirstAutofix(report: Report): ((fixer: ErrorFixer) => void | Promise<void>) | null {
+	for (const result of report.results) {
+		for (const message of result.messages) {
+			if (message.fix) {
+				return message.fix;
+			}
+		}
+	}
+	return null;
+}
+
+/**
+ * Validate a file, repeatedly applying the first autofixable error and
+ * re-validating the patched result, until no autofixable errors remains, a fix
+ * makes no change to the file or `MAX_FIX_ITERATIONS` is reached.
+ */
+async function fixFile(htmlvalidate: HtmlValidate, filename: string): Promise<Report> {
+	let report = await htmlvalidate.validateFile(filename);
+	let fix = findFirstAutofix(report);
+	if (!fix) {
+		return report;
+	}
+
+	/* baseline used to detect whether a fix made any progress, i.e. actually
+	 * changed the content of the file */
+	const baseline = await htmlvalidate.autofixFile(filename, () => {
+		/* no-op */
+	});
+	const seen = new Set([baseline]);
+
+	let iterations = 0;
+	while (fix && iterations < MAX_FIX_ITERATIONS) {
+		const patched = await htmlvalidate.autofixFile(filename, fix);
+		if (seen.has(patched)) {
+			break;
+		}
+		await fs.writeFile(filename, patched, "utf-8");
+		seen.add(patched);
+		report = await htmlvalidate.validateFile(filename);
+		fix = findFirstAutofix(report);
+		iterations++;
+	}
+
+	return report;
+}
+
 function formatMs(ms: number): string {
 	return `${ms.toFixed(2)}ms`;
 }
@@ -76,7 +132,10 @@ export async function lint(
 	const reports: Report[] = [];
 	for (const filename of files) {
 		try {
-			reports.push(await htmlvalidate.validateFile(filename));
+			const report = options.fix
+				? await fixFile(htmlvalidate, filename)
+				: await htmlvalidate.validateFile(filename);
+			reports.push(report);
 		} catch (err) {
 			const message = kleur.red(`Validator crashed when parsing "${filename}"`);
 			stdout.write(`${message}\n`);

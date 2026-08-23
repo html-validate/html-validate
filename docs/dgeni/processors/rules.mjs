@@ -1,4 +1,4 @@
-import { configPresets } from "../../../dist/cjs/index.js";
+import { builtinRules, configPresets } from "../../../dist/esm/index.js";
 
 /* sort order */
 const availablePresets = ["recommended", "standard", "a11y", "document"];
@@ -34,6 +34,13 @@ function isEnabled(value) {
 	throw new Error(`Don't know how to process "${value}"`);
 }
 
+/**
+ * @returns {boolean}
+ */
+function isFixable(doc) {
+	return Boolean(builtinRules[doc.name]?.fixable);
+}
+
 export default function rulesProcessor(renderDocsProcessor) {
 	return {
 		$runAfter: ["paths-computed"],
@@ -57,6 +64,7 @@ export default function rulesProcessor(renderDocsProcessor) {
 			}
 
 			doc.title = `${doc.summary} (${doc.name})`;
+			doc.fixable = isFixable(doc);
 			doc.standards ??= [];
 		}
 
@@ -79,6 +87,7 @@ export default function rulesProcessor(renderDocsProcessor) {
 				url: doc.outputPath,
 				category: doc.category,
 				summary: doc.summary,
+				fixable: doc.fixable,
 				presets: availablePresets.reduce((result, presetName) => {
 					const key = `html-validate:${presetName}`;
 					const config = configPresets[key];

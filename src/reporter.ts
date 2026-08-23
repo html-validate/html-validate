@@ -141,8 +141,10 @@ export class Reporter {
 		node: DOMNode | null;
 		location: Location;
 		context: ContextType;
+		fix?: Message["fix"];
+		suggestions?: Message["suggestions"];
 	}): void {
-		const { rule, message, severity, node, location, context } = options;
+		const { rule, message, severity, node, location, context, fix, suggestions } = options;
 		assertValidLocation(location);
 		if (!Object.hasOwn(this.result, location.filename)) {
 			this.result[location.filename] = [];
@@ -165,6 +167,12 @@ export class Reporter {
 		}
 		if (context) {
 			entry.context = context;
+		}
+		if (fix) {
+			entry.fix = fix;
+		}
+		if (suggestions) {
+			entry.suggestions = suggestions;
 		}
 		this.result[location.filename].push(entry);
 	}

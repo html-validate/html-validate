@@ -146,6 +146,93 @@ export class MyRule extends Rule<RuleContext> {
 }
 ```
 
+## Autofix
+
+Rules declaring `static fixable = true` can provide an automatic fix for the error by passing a `fix` callback to `report()`.
+The callback receives an {@link api:ErrorFixer} with helper functions to apply changes:
+
+```ts
+import { HtmlElement } from "html-validate";
+
+declare const node: HtmlElement;
+
+/* --- */
+
+import { Rule, RuleDocumentation } from "html-validate";
+
+export class MyRule extends Rule {
+  public static override readonly fixable = true;
+
+  public documentation(): RuleDocumentation {
+    return {
+      description: "Lorem ipsum",
+      url: "https://example.net/my-rule",
+    };
+  }
+
+  public setup(): void {
+    /* actual setup code left out for brevity */
+
+    this.report({
+      node,
+      message: "Some error message",
+      fix(fixer) {
+        fixer.replaceText(node.location, "new text");
+      },
+    });
+  }
+}
+```
+
+If there are multiple ways to fix the issue, or applying a fix cannot always be done safely, provide one or more `suggestions` instead.
+Suggestions do not need to declare the `fixable` static property.
+
+```ts
+import { HtmlElement } from "html-validate";
+
+declare const node: HtmlElement;
+
+/* --- */
+
+import { Rule, RuleDocumentation } from "html-validate";
+
+export class MyRule extends Rule {
+  public documentation(): RuleDocumentation {
+    return {
+      description: "Lorem ipsum",
+      url: "https://example.net/my-rule",
+    };
+  }
+
+  public setup(): void {
+    /* actual setup code left out for brevity */
+
+    this.report({
+      node,
+      message: "Some error message",
+      suggestions: [
+        {
+          message: "Replace with foo",
+          fix(fixer) {
+            fixer.replaceText(node.location, "foo");
+          },
+        },
+        {
+          message: "Replace with bar",
+          fix(fixer) {
+            fixer.replaceText(node.location, "bar");
+          },
+        },
+      ],
+    });
+  }
+}
+```
+
+Suggestions are never applied automatically (e.g. by the {@link usage/cli#fix `--fix`} CLI flag).
+
+Both `fix` and `suggestions[].fix` callbacks may be asynchronous (return a `Promise<void>`).
+
 ## Message interpolation
 
 The error message may contain placeholders using `{{ ... }}`.
@@ -285,16 +372,16 @@ Listen for events. See [events](/dev/events.html) for a full list of available e
 
 If `filter` is passed the callback is only called if the filter function evaluates to true.
 
-### `report({ node: DOMNode, message: string, location?: Location, context?: RuleContext }): void`
+### `report(message)`
 
 Report a new error.
 
-- `node` - The `DOMNode` this error belongs to.
-- `message` - Error message
-- _`location`_ - If set it is the precise location of the error. (Default: node
-  location)
-- _`context`_ - If set it will be passed to `documentation()` later to allow
-  retrieving contextual documentation.
+- `node: DOMNode` - The node this error belongs to.
+- `message: string` - Error message.
+- `location?: Location` - If set it is the precise location of the error. (Default: node location).
+- `context?: unknown` - If set it will be passed to `documentation()` later to allow retrieving contextual documentation.
+- `fix: (fixer: ErrorFixer) => void | Promise<void>` - Optional callback receiving an {@link api:ErrorFixer}, used to automatically fix this error, see {@link dev/writing-rules#autofix autofix} above.
+- `suggestions: Array<{ message: string, fix: (fixer: ErrorFixer) => void | Promise<void>}>` - Optional list of suggestions the user can choose from to fix this error, see {@link dev/writing-rules#autofix autofix} above.
 
 ### `getMetaFor(tagName: string): MetaElement | null`
 

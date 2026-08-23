@@ -41,6 +41,7 @@ export interface RuleConstructor<T, U> {
 	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- should explicitly accept anything */
 	new (options?: any): Rule<T, U>;
 	schema(): SchemaObject | null | undefined;
+	readonly fixable: boolean;
 }
 
 /**
@@ -280,6 +281,13 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	}
 
 	/**
+	 * Whether this rule supports autofixing or not.
+	 *
+	 * Rules must override this to `true` before supplying the `fix` callback when reporting errors.
+	 */
+	public static readonly fixable: boolean = false;
+
+	/**
 	 * Report a new error.
 	 *
 	 * Rule must be enabled both globally and on the specific node for this to
@@ -300,7 +308,13 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			| [DOMNode | null, string, (Location | null | undefined)?]
 			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
-		const { node, message, location, context } = unpackErrorDescriptor(args);
+		const { node, message, location, context, fix, suggestions } = unpackErrorDescriptor(args);
+		const ctor = this.constructor as RuleConstructor<ContextType, OptionsType>;
+		if (fix && !ctor.fixable) {
+			throw new Error(
+				`Rule "${this.name}" reported a fix but is not marked as fixable. Set 'static fixable = true' on the rule class.`,
+			);
+		}
 		const enabled = this.isEnabled(node);
 		const blocked = this.isBlocked(node);
 		const where = this.findLocation({ node, location, event: this.event });
@@ -318,6 +332,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 				severity: this.severity,
 				node,
 				location: where,
+				fix,
+				suggestions,
 				context,
 			});
 		}

@@ -104,6 +104,7 @@ const { values: argv, positionals } = (() => {
 				"dump-tokens": { type: "boolean" as const, default: false },
 				"dump-tree": { type: "boolean" as const, default: false },
 				ext: { type: "string" as const, default: "html" },
+				fix: { type: "boolean" as const, default: false },
 				formatter: { type: "string" as const, short: "f", default: "stylish" },
 				help: { type: "boolean" as const, short: "h", default: false },
 				init: { type: "boolean" as const, default: false },
@@ -131,6 +132,7 @@ Usage: html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Common options:
       --ext=STRING               specify file extensions (commaseparated).
+      --fix                      automatically fix problems when possible.
   -f, --formatter=FORMATTER      specify the formatter to use.
       --max-warnings=INT         number of warnings to trigger nonzero exit code
   -p, --preset=STRING            configuration preset to use, use
@@ -235,6 +237,11 @@ async function run(): Promise<void> {
 		process.exit(1);
 	}
 
+	if (argv.fix && files.includes("/dev/stdin")) {
+		console.error("The `--fix` flag cannot be used together with `--stdin`.");
+		process.exit(1);
+	}
+
 	try {
 		/* istanbul ignore next -- not tested with unittests */
 		if (!haveImportMetaResolve()) {
@@ -245,6 +252,7 @@ async function run(): Promise<void> {
 		switch (mode) {
 			case Mode.LINT: {
 				success = await lint(htmlvalidate, process.stdout, process.stderr, files, {
+					fix: argv.fix,
 					formatter,
 					maxWarnings,
 					performance: argv.performance,
