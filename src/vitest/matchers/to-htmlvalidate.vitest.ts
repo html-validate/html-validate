@@ -138,10 +138,55 @@ describe("toHTMLValidate()", () => {
 		await expect(button).not.toHTMLValidate();
 	});
 
+	it("should support object with outerHTML", async () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { outerHTML: "<p></p>" };
+		await expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { outerHTML: "<button>" };
+		await expect(invalid).not.toHTMLValidate();
+	});
+
+	it("should support object with innerHTML", async () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { innerHTML: "<p></p>" };
+		await expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { innerHTML: "<button>" };
+		await expect(invalid).not.toHTMLValidate();
+	});
+
+	it("should support object with html method", async () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { html: () => "<p></p>" };
+		await expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { html: () => "<button>" };
+		await expect(invalid).not.toHTMLValidate();
+	});
+
 	it("should throw error when passing invalid object", () => {
 		expect.hasAssertions();
 		expect(() => {
-			void expect({}).toHTMLValidate();
+			void expect(42).toHTMLValidate();
+		}).toThrowErrorMatchingInlineSnapshot(
+			`[TypeError: Failed to get markup from "number" argument]`,
+		);
+	});
+
+	it("should throw error when object with html method does not return string", () => {
+		expect.hasAssertions();
+		expect(() => {
+			void expect({ html: () => null }).toHTMLValidate();
 		}).toThrowErrorMatchingInlineSnapshot(
 			`[TypeError: Failed to get markup from "object" argument]`,
 		);

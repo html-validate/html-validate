@@ -38,11 +38,40 @@ function isString(arg: Arg1 | undefined): arg is string {
 	return typeof arg === "string";
 }
 
-function getMarkup(src: unknown): string {
-	if (typeof HTMLElement !== "undefined" && src instanceof HTMLElement) {
-		return (src as { outerHTML: string }).outerHTML;
+function hasOuterHTML(value: unknown): value is { outerHTML: string } {
+	if (!value || typeof value !== "object") {
+		return false;
 	}
-	/* istanbul ignore else: prototype only allows string or HTMLElement */
+	return "outerHTML" in value && typeof value.outerHTML === "string";
+}
+
+function hasInnerHTML(value: unknown): value is { innerHTML: string } {
+	if (!value || typeof value !== "object") {
+		return false;
+	}
+	return "innerHTML" in value && typeof value.innerHTML === "string";
+}
+
+function hasHTML(value: unknown): value is { html(): unknown } {
+	if (!value || typeof value !== "object") {
+		return false;
+	}
+	return "html" in value && typeof value.html === "function";
+}
+
+function getMarkup(src: unknown): string {
+	if (hasOuterHTML(src)) {
+		return src.outerHTML;
+	}
+	if (hasInnerHTML(src)) {
+		return src.innerHTML;
+	}
+	if (hasHTML(src)) {
+		const value = src.html();
+		if (typeof value === "string") {
+			return value;
+		}
+	}
 	if (typeof src === "string") {
 		return src;
 	}
