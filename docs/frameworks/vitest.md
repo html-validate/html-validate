@@ -46,7 +46,7 @@ declare const htmlvalidate: HtmlValidate;
 /* --- */
 
 const markup = "..";
-htmlvalidate.validateString(markup, "awesome-test.spec.ts");
+await htmlvalidate.validateString(markup, "awesome-test.spec.ts");
 ```
 
 When using {@link flat-configuration flat configuration} this can be used to override configuration for tests:
@@ -69,6 +69,109 @@ By default, the following rules are always disabled:
 ## API
 
 See {@link jest} API for a list of matchers.
+
+### toHTMLValidate
+
+- Type 1/4: `(filename?: string) => Promise<void>`
+- Type 2/4: `(config: ConfigData, filename?: string) => Promise<void>`
+- Type 3/4: `(error: Partial<Message>, filename?: string) => Promise<void>`
+- Type 4/4: `(error: Partial<Message>, config: ConfigData, filename?: string) => Promise<void>`
+
+`toHTMLValidate()` asserts that a string or `HTMLElement`-like object is valid.
+
+```ts
+import { expect, it } from "vitest";
+import "html-validate/vitest";
+
+it("should be valid", async () => {
+  const markup = "<p></p>";
+  await expect(markup).toHTMLValidate();
+});
+
+it("should be invalid", async () => {
+  const markup = "<p></i>";
+  await expect(markup).not.toHTMLValidate();
+});
+```
+
+It accepts JSDOM elements, or any object with an `outerHTML` or `innerHTML` property that returns a string, or an `html()` method that returns a string.
+
+```ts
+import { expect, it } from "vitest";
+import "html-validate/vitest";
+
+it("should be valid", async () => {
+  const element = document.createElement("div");
+  await expect(element).toHTMLValidate();
+});
+```
+
+::: info
+
+The {@link void-style} rule is disabled by default since JSDOM normalizes the style.
+It can be enabled by passing a custom configuration reenabling it.
+
+:::
+
+A custom configuration can be set:
+
+```ts
+import { expect } from "vitest";
+
+/* --- */
+
+await expect("<p></i>").toHTMLValidate({
+  rules: {
+    "close-order": "off",
+  },
+});
+```
+
+By default, the configuration is read from configuration files similar to the CLI.
+The current test-case filename is passed into the configuration loader and can be used to apply transformers and overrides.
+
+If you need to override the filename you can pass in a custom filename:
+
+```ts
+import "html-validate/vitest";
+
+/* --- */
+
+await expect("<p></i>").toHTMLValidate("path/to/my-file.html");
+```
+
+Additionally, the `root` configuration property can be used to skip loading from configuration files entirely but remember to actually include the rules you need:
+
+```ts
+import "html-validate/vitest";
+
+/* --- */
+
+await expect("<p></i>").toHTMLValidate({
+  extends: ["html-validate:recommended"],
+  root: true,
+});
+```
+
+To test for presence of an error always use the negated assertion `expect(..).not.toHTMLValidate()`.
+If you pass in an expected error as the first argument it will be matched using `objectContaining` when an error is present.
+
+```ts
+import "html-validate/vitest";
+
+/* --- */
+
+/* OK - error matches */
+await expect("<p></i>").not.toHTMLValidate({
+  ruleId: "close-order",
+  message: expect.stringContaining("Mismatched close-tag"),
+});
+
+/* Fail - wrong error */
+await expect("<p></i>").not.toHTMLValidate({
+  ruleId: "void-style",
+});
+```
 
 ### toBeValid
 

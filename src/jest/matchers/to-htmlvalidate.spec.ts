@@ -136,10 +136,53 @@ describe("toHTMLValidate()", () => {
 		expect(button).not.toHTMLValidate();
 	});
 
+	it("should support object with outerHTML", () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { outerHTML: "<p></p>" };
+		expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { outerHTML: "<button>" };
+		expect(invalid).not.toHTMLValidate();
+	});
+
+	it("should support object with innerHTML", () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { innerHTML: "<p></p>" };
+		expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { innerHTML: "<button>" };
+		expect(invalid).not.toHTMLValidate();
+	});
+
+	it("should support object with html method", () => {
+		expect.assertions(2);
+
+		/* should pass */
+		const valid = { html: () => "<p></p>" };
+		expect(valid).toHTMLValidate();
+
+		/* should fail (type not set) */
+		const invalid = { html: () => "<button>" };
+		expect(invalid).not.toHTMLValidate();
+	});
+
 	it("should throw error when passing invalid object", () => {
 		expect.hasAssertions();
 		expect(() => {
-			expect({}).toHTMLValidate();
+			expect(42).toHTMLValidate();
+		}).toThrowErrorMatchingInlineSnapshot(`"Failed to get markup from "number" argument"`);
+	});
+
+	it("should throw error when object with html method does not return string", () => {
+		expect.hasAssertions();
+		expect(() => {
+			expect({ html: () => null }).toHTMLValidate();
 		}).toThrowErrorMatchingInlineSnapshot(`"Failed to get markup from "object" argument"`);
 	});
 

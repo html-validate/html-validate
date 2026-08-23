@@ -32,25 +32,25 @@ expect("<p></p>").toHTMLValidate();
 expect("<p></i>").not.toHTMLValidate();
 ```
 
-You can also pass jsdom elements:
+It accepts JSDOM elements, or any object with an `outerHTML` or `innerHTML` property that returns a string, or an `html()` method that returns a string.
 
 ```ts
 import "html-validate/jest";
 
 /* --- */
 
-const elem = document.createElement("div");
-expect(elem).toHTMLValidate();
+const element = document.createElement("div");
+expect(element).toHTMLValidate();
 ```
 
 ::: info
 
-The {@link void-style} rule is disabled by default since jsdom normalizes the style.
+The {@link void-style} rule is disabled by default since JSDOM normalizes the style.
 It can be enabled by passing a custom configuration reenabling it.
 
 :::
 
-If needed a custom configuration can be passed:
+A custom configuration can be set:
 
 ```ts
 import "html-validate/jest";
@@ -64,10 +64,10 @@ expect("<p></i>").toHTMLValidate({
 });
 ```
 
-By default configuration is also read from `.htmlvalidate.json` files where the test-case filename is used to match.
-This means you can apply transformations using patterns such as `^.*\\.(spec|test).js$`.
+By default, the configuration is read from configuration files similar to the CLI.
+The current test-case filename is passed into the configuration loader and can be used to apply transformers and overrides.
 
-If you need to override the filename (perhaps because the test-case isn't in the same folder) you can pass in a custom filename as the third argument:
+If you need to override the filename you can pass in a custom filename:
 
 ```ts
 import "html-validate/jest";
@@ -77,7 +77,7 @@ import "html-validate/jest";
 expect("<p></i>").toHTMLValidate("path/to/my-file.html");
 ```
 
-Additionally, the `root` configuration property can be used to skip loading from `.htmlvalidate.json` but remember to actually include the rules you need:
+Additionally, the `root` configuration property can be used to skip loading from configuration files entirely but remember to actually include the rules you need:
 
 ```ts
 import "html-validate/jest";
@@ -90,7 +90,7 @@ expect("<p></i>").toHTMLValidate({
 });
 ```
 
-To test for presence of an error always use the negative form `expect(..).not.toHTMLValidate()`.
+To test for presence of an error always use negated assertion `expect(..).not.toHTMLValidate()`.
 If you pass in an expected error as the first argument it will be matched using `objectContaining` when an error is present.
 
 ```ts
@@ -107,7 +107,6 @@ expect("<p></i>").not.toHTMLValidate({
 /* Fail - wrong error */
 expect("<p></i>").not.toHTMLValidate({
   ruleId: "void-style",
-  message: expect.stringContaining("Expected omitted end tag"),
 });
 ```
 
