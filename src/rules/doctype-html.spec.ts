@@ -60,4 +60,17 @@ describe("rule doctype-html", () => {
 		const docs = await htmlvalidate.getRuleDocumentation("doctype-html");
 		expect(docs).toMatchSnapshot();
 	});
+
+	describe("autofix", () => {
+		it("should replace legacy doctype with html", async () => {
+			expect.assertions(1);
+			const html =
+				/* eslint-disable-next-line unicorn/prefer-https -- test should ensure this works */
+				'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+			const report = await htmlvalidate.validateString(html);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", html, message.fix!);
+			expect(result).toBe("<!DOCTYPE html>");
+		});
+	});
 });

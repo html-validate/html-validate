@@ -10,6 +10,7 @@ exports[`docs/rules/doctype-html.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 11,
+        "fix": [Function],
         "line": 1,
         "message": "doctype should be "html"",
         "offset": 10,
@@ -34,6 +35,7 @@ exports[`docs/rules/doctype-html.md inline validation: legacy 1`] = `
     "messages": [
       {
         "column": 11,
+        "fix": [Function],
         "line": 1,
         "message": "doctype should be "html"",
         "offset": 10,

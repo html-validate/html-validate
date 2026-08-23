@@ -2,6 +2,8 @@ import { type DoctypeEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoStyleTag extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description: [
@@ -19,7 +21,14 @@ export default class NoStyleTag extends Rule {
 		this.on("doctype", (event: DoctypeEvent) => {
 			const doctype = event.value.toLowerCase();
 			if (doctype !== "html") {
-				this.report(null, 'doctype should be "html"', event.valueLocation);
+				this.report({
+					node: null,
+					message: 'doctype should be "html"',
+					location: event.valueLocation,
+					fix(fixer) {
+						fixer.replaceText(event.valueLocation, "html");
+					},
+				});
 			}
 		});
 	}
