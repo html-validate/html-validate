@@ -20,6 +20,8 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		this.style = new CaseStyle(this.options.style, "element-case");
 	}
 
+	public static override readonly fixable = true;
+
 	public static override schema(): SchemaObject {
 		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
 		return {
@@ -66,7 +68,12 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		const letters = target.tagName.replaceAll(/[^a-z]+/gi, "");
 		if (!this.style.match(letters)) {
 			const location = sliceLocation(targetLocation, 1);
-			this.report(target, `Element "${target.tagName}" should be ${this.style.name}`, location);
+			this.report({
+				node: target,
+				message: `Element "${target.tagName}" should be ${this.style.name}`,
+				location,
+				fix: this.style.createFixer(location, target.tagName),
+			});
 		}
 	}
 
@@ -84,7 +91,16 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		}
 
 		if (start.tagName !== end.tagName) {
-			this.report(start, "Start and end tag must not differ in casing", end.location);
+			/* end.location includes the leading "/" so strip it to target just the tag name */
+			const location = sliceLocation(end.location, 1);
+			this.report({
+				node: start,
+				message: "Start and end tag must not differ in casing",
+				location: end.location,
+				fix(fixer) {
+					fixer.replaceText(location, start.tagName);
+				},
+			});
 		}
 	}
 }

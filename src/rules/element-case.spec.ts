@@ -261,6 +261,61 @@ describe("rule element-case", () => {
 		expect(await htmlvalidate.validateString("<input></input>")).toBeValid();
 	});
 
+	describe("autofix", () => {
+		it("should convert start tag name to lowercase", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "lowercase" }] },
+			});
+			/* only the start tag is validated against the configured style, the end
+			 * tag is instead fixed separately once it no longer matches the start tag */
+			const markup = /* RAW */ `<FOO></FOO>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<foo></FOO>");
+		});
+
+		it("should convert start tag name to uppercase", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "uppercase" }] },
+			});
+			const markup = /* RAW */ `<foo></foo>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<FOO></foo>");
+		});
+
+		it("should not provide a fix when style cannot be deterministically converted", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "pascalcase" }] },
+			});
+			const markup = /* RAW */ `<foobar></foobar>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(message.fix).toBeUndefined();
+		});
+
+		it("should fix end tag casing to match start tag", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "camelcase" }] },
+			});
+			const markup = /* RAW */ `<foo-Bar></foo-bar>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<foo-Bar></foo-Bar>");
+		});
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
