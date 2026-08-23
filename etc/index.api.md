@@ -1657,6 +1657,7 @@ export interface TokenDump {
 export interface TokenEvent extends Event_2 {
     // @deprecated (undocumented)
     data?: any;
+    location: Location_2;
     // (undocumented)
     token: Token;
     // @deprecated (undocumented)
