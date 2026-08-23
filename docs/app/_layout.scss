@@ -104,6 +104,21 @@ footer {
 	}
 }
 
+.navbar-brand__version {
+	@media (width >= $screen-md-min) {
+		display: none;
+	}
+}
+
+.navbar-version,
+.navbar-links {
+	display: none;
+
+	@media (width >= $screen-md-min) {
+		display: initial;
+	}
+}
+
 .navbar-gitlab {
 	padding: 13px 5px !important; // override bootstrap padding
 
