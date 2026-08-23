@@ -231,6 +231,7 @@ describe("MetaTable", () => {
 				plugins: [],
 				rules: new Map(),
 				transformers: [],
+				ariaVersion: "1.2",
 			},
 			{},
 		);

@@ -323,6 +323,36 @@ describe("FlatConfigLoader", () => {
 			`);
 		});
 
+		it("should default ariaVersion to 1.2 when unset", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([{ rules: {} }]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			const config = await loader.getConfigFor("/project/file.html");
+			expect(config.getAriaVersion()).toBe("1.2");
+		});
+
+		it("should use ariaVersion from a matching block", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([{ aria: "1.3" }]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			const config = await loader.getConfigFor("/project/file.html");
+			expect(config.getAriaVersion()).toBe("1.3");
+		});
+
+		it("should let configOverride aria win over matching blocks", async () => {
+			expect.assertions(1);
+			vol.fromJSON({
+				["/project/html-validate.config.js"]: serializeFlatConfig([{ aria: "1.3" }]),
+			});
+			const loader = new FlatConfigLoader("/project/html-validate.config.js");
+			const config = await loader.getConfigFor("/project/file.html", { aria: "latest" });
+			expect(config.getAriaVersion()).toBe("latest");
+		});
+
 		it("should load element metadata from elements blocks", async () => {
 			expect.assertions(1);
 			mockLoadFlatConfigFile.mockResolvedValue([

@@ -9,6 +9,7 @@ function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedCon
 		plugins: [],
 		rules: new Map(),
 		transformers: [],
+		ariaVersion: "1.2",
 	};
 	return new ResolvedConfig({ ...defaults, ...config }, {});
 }
@@ -34,5 +35,13 @@ describe("canTransform()", () => {
 	it("should return false if no transformer can handle the file", () => {
 		expect.assertions(1);
 		expect(config.canTransform("my-file.bar")).toBeFalsy();
+	});
+});
+
+describe("getAriaVersion()", () => {
+	it("should return the configured ARIA version", () => {
+		expect.assertions(1);
+		const config = createMockConfig({ ariaVersion: "1.3" });
+		expect(config.getAriaVersion()).toBe("1.3");
 	});
 });

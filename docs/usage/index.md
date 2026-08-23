@@ -196,6 +196,25 @@ Can be set to:
 - A relative path to use a local script (use `<rootDir>` to refer to the path to `package.json`, e.g. `<rootDir>/my-transformer.js`)
 - A function (in a javascript-based configuration)
 
+### `aria`
+
+- type: `"1.2" | "1.3" | "latest"`
+- default: `"1.2"`
+
+Sets the ARIA specification version to use.
+
+```json config
+{
+  "aria": "1.3"
+}
+```
+
+See also:
+
+- WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/)
+- WAI-ARIA 1.3 (https://www.w3.org/TR/wai-aria-1.3/)
+- Latest editor's draft from W3C (https://w3c.github.io/aria/)
+
 ### `root`
 
 By default, configuration is search in the file structure until the root directory (typically `/`) is found:

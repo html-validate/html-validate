@@ -86,4 +86,22 @@ describe("mergeFlatConfig()", () => {
 		]);
 		expect(result.rules).toEqual({ "void-style": "warn" });
 	});
+
+	it("should leave aria unset when no block sets it", () => {
+		expect.assertions(1);
+		const result = mergeFlatConfig([{ rules: {} }, { rules: {} }]);
+		expect(result.aria).toBeUndefined();
+	});
+
+	it("should set aria from a single block", () => {
+		expect.assertions(1);
+		const result = mergeFlatConfig([{ aria: "1.3" }]);
+		expect(result.aria).toBe("1.3");
+	});
+
+	it("should let later block win on aria conflict", () => {
+		expect.assertions(1);
+		const result = mergeFlatConfig([{ aria: "1.3" }, { aria: "latest" }]);
+		expect(result.aria).toBe("latest");
+	});
 });

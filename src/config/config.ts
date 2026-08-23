@@ -12,6 +12,7 @@ import schema from "../schema/config.json";
 import { ajvFunctionKeyword } from "../schema/keywords";
 import { type TransformerEntry } from "../transform";
 import { isThenable } from "../utils/is-thenable";
+import { type AriaVersion, DEFAULT_ARIA_VERSION } from "./aria-version";
 import { type ConfigData } from "./config-data";
 import defaultConfig from "./default";
 import { ConfigError } from "./error";
@@ -255,6 +256,15 @@ export class Config {
 	 */
 	public isRootFound(): boolean {
 		return Boolean(this.config.root);
+	}
+
+	/**
+	 * Get the configured ARIA specification version.
+	 *
+	 * @internal
+	 */
+	public getAriaVersion(): AriaVersion {
+		return this.config.aria ?? DEFAULT_ARIA_VERSION;
 	}
 
 	/**
@@ -623,6 +633,7 @@ export class Config {
 					plugins: this.getPlugins(),
 					rules: this.getRules(),
 					transformers: this.transformers,
+					ariaVersion: this.getAriaVersion(),
 				};
 			});
 		}
@@ -631,6 +642,7 @@ export class Config {
 			plugins: this.getPlugins(),
 			rules: this.getRules(),
 			transformers: this.transformers,
+			ariaVersion: this.getAriaVersion(),
 		};
 	}
 }

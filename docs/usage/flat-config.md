@@ -71,6 +71,7 @@ Each configuration object may include these properties:
 - `plugins` - An array of plugins to use.
 - `transform` - An object mapping filename patterns to transformers to use. See [transformers](#transformers) below.
 - `rules` - An object containing the configured rules. When `files` or `ignores` are specified, these rule configurations only applies to the matching files.
+- `aria` - The ARIA specification version to use, one of `"1.2"` (default), `"1.3"` or `"latest"`. When `files` or `ignores` are specified, the aria version only applies to the matching files.
 
 ## Specifying `files` and `ignores`
 
@@ -270,3 +271,29 @@ export default defineFlatConfig([
   }),
 ]);
 ```
+
+## Properties
+
+### `aria`
+
+- type: `"1.2" | "1.3" | "latest"`
+- default: `"1.2"`
+
+Sets the ARIA specification version to use.
+
+```ts
+import { defineFlatConfig } from "html-validate";
+
+export default defineFlatConfig([
+  {
+    files: ["*.html"],
+    aria: "1.3",
+  },
+]);
+```
+
+See also:
+
+- WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/)
+- WAI-ARIA 1.3 (https://www.w3.org/TR/wai-aria-1.3/)
+- Latest editor's draft from W3C (https://w3c.github.io/aria/)

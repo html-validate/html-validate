@@ -35,6 +35,15 @@ describe("FlatCompat", () => {
 			});
 		});
 
+		it("should pass through aria", async () => {
+			expect.assertions(1);
+			const compat = new FlatCompat([]);
+			const result = await compat.config({
+				aria: "1.3",
+			});
+			expect(result.aria).toBe("1.3");
+		});
+
 		it("should pass through inline elements", async () => {
 			expect.assertions(1);
 			const compat = new FlatCompat([]);
