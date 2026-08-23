@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { applyFix } from "../../autofix";
 import { type CaseStyleName, CaseStyle } from "./case-style";
 
 it.each`
@@ -68,5 +69,54 @@ describe("name", () => {
 		expect.assertions(1);
 		const cs = new CaseStyle(["lowercase", "pascalcase", "camelcase"], "test-case");
 		expect(cs.name).toBe("lowercase, PascalCase or camelCase");
+	});
+});
+
+describe("createFixer()", () => {
+	const input = "FooBar";
+	const location = {
+		filename: "mock-file.html",
+		line: 1,
+		column: 1,
+		offset: 0,
+		size: input.length,
+	};
+
+	it("should create to lowercase fixer", async () => {
+		expect.assertions(1);
+		const style = new CaseStyle("lowercase", "mock-rule");
+		const fixer = style.createFixer(location, input)!;
+		const result = await applyFix(location.filename, input, fixer);
+		expect(result).toBe("foobar");
+	});
+
+	it("should create to uppercase fixer", async () => {
+		expect.assertions(1);
+		const style = new CaseStyle("uppercase", "mock-rule");
+		const source = "FooBar";
+		const fixer = style.createFixer(location, source)!;
+		const result = await applyFix(location.filename, source, fixer);
+		expect(result).toBe("FOOBAR");
+	});
+
+	it("should return null for pascalcase", () => {
+		expect.assertions(1);
+		const style = new CaseStyle("pascalcase", "mock-rule");
+		const fixer = style.createFixer(location, input);
+		expect(fixer).toBeNull();
+	});
+
+	it("should return null for camelcase", () => {
+		expect.assertions(1);
+		const style = new CaseStyle("camelcase", "mock-rule");
+		const fixer = style.createFixer(location, input);
+		expect(fixer).toBeNull();
+	});
+
+	it("should return null when multiple styles are configured", () => {
+		expect.assertions(1);
+		const style = new CaseStyle(["lowercase", "uppercase"], "mock-rule");
+		const fixer = style.createFixer(location, input);
+		expect(fixer).toBeNull();
 	});
 });
