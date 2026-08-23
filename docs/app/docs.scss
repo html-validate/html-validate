@@ -11,10 +11,20 @@ $fa-font-path: "fonts";
 
 // Bootstrap
 @import "bootstrap/variables";
-@import "bootstrap/mixins";
+@import "bootstrap/mixins/background-variant";
+@import "bootstrap/mixins/border-radius";
+@import "bootstrap/mixins/clearfix";
+@import "bootstrap/mixins/forms";
+@import "bootstrap/mixins/grid";
+@import "bootstrap/mixins/grid-framework";
+@import "bootstrap/mixins/nav-divider";
+@import "bootstrap/mixins/nav-vertical-align";
+@import "bootstrap/mixins/tab-focus";
+@import "bootstrap/mixins/table-row";
+@import "bootstrap/mixins/text-emphasis";
+@import "bootstrap/mixins/text-overflow";
+@import "bootstrap/mixins/vendor-prefixes";
 @import "bootstrap/normalize";
-@import "bootstrap/print";
-@import "bootstrap/scaffolding";
 @import "bootstrap/type";
 @import "bootstrap/code";
 @import "bootstrap/grid";
@@ -23,12 +33,11 @@ $fa-font-path: "fonts";
 @import "bootstrap/component-animations";
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
-@import "bootstrap/jumbotron";
-@import "bootstrap/responsive-utilities";
 
 // Highlight.js
 @import "github";
 
+@import "reset";
 @import "layout";
 @import "anchorlink";
 @import "button";
@@ -37,6 +46,7 @@ $fa-font-path: "fonts";
 @import "jumbotron";
 @import "error-panel";
 @import "frontpage";
+@import "print";
 @import "roadmap";
 @import "markdown";
 @import "rule-info";

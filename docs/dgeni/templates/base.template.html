@@ -34,7 +34,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/">HTML-validate <small class="visible-xs-inline visible-sm-inline">v{{ pkg.version }}</small></a>
+						<a class="navbar-brand" href="/">HTML-validate <small class="navbar-brand__version">v{{ pkg.version }}</small></a>
 					</div>
 					<div class="collapse navbar-collapse" id="navbar">
 						<ul class="nav navbar-nav">
@@ -45,8 +45,8 @@
 							<li>{@link changelog Changelog}</li>
 							<li>{@link about About}</li>
 						</ul>
-						<p class="navbar-text navbar-right hidden-xs hidden-sm">{{ pkg.name }}-{{ pkg.version }}</p>
-						<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+						<p class="navbar-text navbar-right navbar-version">{{ pkg.name }}-{{ pkg.version }}</p>
+						<ul class="nav navbar-nav navbar-right navbar-links">
 							<li><a href="https://gitlab.com/html-validate/html-validate" rel="external" class="navbar-gitlab" title="GitLab" aria-label="GitLab"><span class="navbar-gitlab__icon" aria-hidden="true"></span></a></li>
 							<li><a href="/chat" rel="external" class="navbar-discord" title="Discord" aria-label="Discord"><span class="navbar-discord__icon" aria-hidden="true"></span></a></li>
 						</ul>
