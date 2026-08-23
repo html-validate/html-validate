@@ -32,7 +32,7 @@ expect("<p></p>").toHTMLValidate();
 expect("<p></i>").not.toHTMLValidate();
 ```
 
-You can also pass jsdom elements:
+You can also pass in JSDOM elements (or any object with a `outerHTML`, `innerHTML` or a `html()` method):
 
 ```ts
 import "html-validate/jest";
