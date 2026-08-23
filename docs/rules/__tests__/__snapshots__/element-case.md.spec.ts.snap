@@ -10,6 +10,7 @@ exports[`docs/rules/element-case.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 2,
+        "fix": [Function],
         "line": 1,
         "message": "Element "DIV" should be lowercase",
         "offset": 1,
@@ -34,6 +35,7 @@ exports[`docs/rules/element-case.md inline validation: matching 1`] = `
     "messages": [
       {
         "column": 13,
+        "fix": [Function],
         "line": 1,
         "message": "Start and end tag must not differ in casing",
         "offset": 12,

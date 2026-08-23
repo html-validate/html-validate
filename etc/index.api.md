@@ -483,7 +483,7 @@ export interface EOFToken extends BaseToken {
 export interface ErrorDescriptor<ContextType> {
     // (undocumented)
     context?: ContextType;
-    fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
+    fix?: ((fixer: ErrorFixer) => void | Promise<void>) | null | undefined;
     // (undocumented)
     location?: Location_2 | null;
     // (undocumented)
@@ -493,7 +493,7 @@ export interface ErrorDescriptor<ContextType> {
     suggestions?: Array<{
         message: string;
         fix: (fixer: ErrorFixer) => void | Promise<void>;
-    }> | undefined;
+    }> | null | undefined;
 }
 
 // @public
@@ -1252,8 +1252,8 @@ export class Reporter {
         node: DOMNode | null;
         location: Location_2;
         context: ContextType;
-        fix?: Message["fix"];
-        suggestions?: Message["suggestions"];
+        fix?: Message["fix"] | null | undefined;
+        suggestions?: Message["suggestions"] | null | undefined;
     }): void;
     // @internal (undocumented)
     addManual(filename: string, message: DeferredMessage): void;
@@ -1657,6 +1657,7 @@ export interface TokenDump {
 export interface TokenEvent extends Event_2 {
     // @deprecated (undocumented)
     data?: any;
+    location: Location_2;
     // (undocumented)
     token: Token;
     // @deprecated (undocumented)

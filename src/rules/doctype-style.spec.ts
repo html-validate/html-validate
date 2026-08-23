@@ -54,6 +54,15 @@ describe("rule doctype-style", () => {
 			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
 			expect(docs).toMatchSnapshot();
 		});
+
+		it("should fix doctype to uppercase", async () => {
+			expect.assertions(1);
+			const markup = "<!doctype html>";
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<!DOCTYPE html>");
+		});
 	});
 
 	describe("configured with lowercase", () => {
@@ -104,6 +113,15 @@ describe("rule doctype-style", () => {
 			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 			const docs = await htmlvalidate.getRuleDocumentation("doctype-style", null, context);
 			expect(docs).toMatchSnapshot();
+		});
+
+		it("should fix doctype to lowercase", async () => {
+			expect.assertions(1);
+			const markup = "<!DOCTYPE html>";
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<!doctype html>");
 		});
 	});
 });

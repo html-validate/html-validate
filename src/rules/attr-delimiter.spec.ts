@@ -90,4 +90,15 @@ describe("rule attr-delimiter", () => {
 		const docs = await htmlvalidate.getRuleDocumentation("attr-delimiter");
 		expect(docs).toMatchSnapshot();
 	});
+
+	describe("autofix", () => {
+		it("should remove whitespace surrounding the equal sign", async () => {
+			expect.assertions(1);
+			const markup = '<i foo = "1"></i>';
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe('<i foo="1"></i>');
+		});
+	});
 });

@@ -44,6 +44,9 @@ export interface SourceReadyEvent extends Event {
  * @internal
  */
 export interface TokenEvent extends Event {
+	/** Event location. */
+	location: Location;
+
 	/** @deprecated use token property which is typesafe */
 	type: TokenType;
 

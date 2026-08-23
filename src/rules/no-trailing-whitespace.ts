@@ -2,6 +2,8 @@ import { type WhitespaceEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class NoTrailingWhitespace extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description:
@@ -12,9 +14,18 @@ export default class NoTrailingWhitespace extends Rule {
 
 	public setup(): void {
 		this.on("whitespace", (event: WhitespaceEvent) => {
-			if (/^[\t ]+\r?\n$/.test(event.text)) {
-				this.report(null, "Trailing whitespace", event.location);
+			const match = /^[\t ]+(\r?\n)$/.exec(event.text);
+			if (!match) {
+				return;
 			}
+			this.report({
+				node: null,
+				message: "Trailing whitespace",
+				location: event.location,
+				fix(fixer) {
+					fixer.replaceText(event.location, match[1]);
+				},
+			});
 		});
 	}
 }

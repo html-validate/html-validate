@@ -365,6 +365,46 @@ describe("rule attr-case", () => {
 		);
 	});
 
+	describe("autofix", () => {
+		it("should convert attribute name to lowercase", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "attr-case": ["error", { style: "lowercase" }] },
+			});
+			const markup = /* HTML */ `<div FOO="bar"></div>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe(/* HTML */ `<div foo="bar"></div>`);
+		});
+
+		it("should convert attribute name to uppercase", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "attr-case": ["error", { style: "uppercase" }] },
+			});
+			const markup = /* HTML */ `<div foo="bar"></div>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe(/* HTML */ `<div FOO="bar"></div>`);
+		});
+
+		it("should not provide a fix when style cannot be deterministically converted", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "attr-case": ["error", { style: "pascalcase" }] },
+			});
+			const markup = /* HTML */ `<div foobar="bar"></div>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(message.fix).toBeUndefined();
+		});
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({

@@ -1,14 +1,19 @@
 import { ConfigError } from "../../config/error";
+import { type ErrorFixer } from "../../error-fixer";
+import { type Location } from "../../location";
 
 export type CaseStyleName = "lowercase" | "uppercase" | "pascalcase" | "camelcase";
 
 interface Style {
+	id: CaseStyleName;
 	pattern: RegExp;
 	name: string;
 }
 
 /**
  * Represents casing for a name, e.g. lowercase, uppercase, etc.
+ *
+ * @internal
  */
 export class CaseStyle {
 	private styles: Style[];
@@ -33,6 +38,28 @@ export class CaseStyle {
 		return this.styles.some((style) => text.match(style.pattern));
 	}
 
+	/**
+	 * Create an autofixer to correct the casing, if possible.
+	 */
+	public createFixer(location: Location, text: string): ((fixer: ErrorFixer) => void) | null {
+		if (this.styles.length !== 1) {
+			return null;
+		}
+		const [style] = this.styles;
+		switch (style.id) {
+			case "lowercase":
+				return (fixer) => {
+					fixer.replaceText(location, text.toLowerCase());
+				};
+			case "uppercase":
+				return (fixer) => {
+					fixer.replaceText(location, text.toUpperCase());
+				};
+			default:
+				return null;
+		}
+	}
+
 	public get name(): string {
 		const names = this.styles.map((style) => style.name);
 		switch (this.styles.length) {
@@ -52,13 +79,13 @@ export class CaseStyle {
 		return style.map((cur: string): Style => {
 			switch (cur.toLowerCase()) {
 				case "lowercase":
-					return { pattern: /^[a-z]*$/, name: "lowercase" };
+					return { id: "lowercase", pattern: /^[a-z]*$/, name: "lowercase" };
 				case "uppercase":
-					return { pattern: /^[A-Z]*$/, name: "uppercase" };
+					return { id: "uppercase", pattern: /^[A-Z]*$/, name: "uppercase" };
 				case "pascalcase":
-					return { pattern: /^[A-Z][A-Za-z]*$/, name: "PascalCase" };
+					return { id: "pascalcase", pattern: /^[A-Z][A-Za-z]*$/, name: "PascalCase" };
 				case "camelcase":
-					return { pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
+					return { id: "camelcase", pattern: /^[a-z][A-Za-z]*$/, name: "camelCase" };
 				default:
 					throw new ConfigError(`Invalid style "${cur}" for ${ruleId} rule`);
 			}

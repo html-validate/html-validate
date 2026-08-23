@@ -21,6 +21,8 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 		this.style = new CaseStyle(this.options.style, "attr-case");
 	}
 
+	public static override readonly fixable = true;
+
 	public static override schema(): SchemaObject {
 		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
 		return {
@@ -77,6 +79,7 @@ export default class AttrCase extends Rule<void, RuleOptions> {
 				node: event.target,
 				message: `Attribute "${event.key}" should be ${this.style.name}`,
 				location: event.keyLocation,
+				fix: this.style.createFixer(event.keyLocation, event.key),
 			});
 		});
 	}

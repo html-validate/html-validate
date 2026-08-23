@@ -50,6 +50,15 @@ describe("rule no-trailing-whitespace", () => {
 				["no-trailing-whitespace", "Trailing whitespace"],
 			]);
 		});
+
+		it("should remove trailing whitespace but keep the newline", async () => {
+			expect.assertions(1);
+			const markup = /* RAW */ `<p>  ${newline}</p>`;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe(`<p>${newline}</p>`);
+		});
 	});
 
 	it("smoketest", async () => {

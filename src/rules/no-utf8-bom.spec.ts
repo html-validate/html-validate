@@ -39,4 +39,15 @@ describe("rule no-utf8-bom", () => {
 		const docs = await htmlvalidate.getRuleDocumentation("no-utf8-bom");
 		expect(docs).toMatchSnapshot();
 	});
+
+	describe("autofix", () => {
+		it("should remove the BOM", async () => {
+			expect.assertions(1);
+			const markup = "\u{FEFF}<p>lorem ipsum</p>";
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			expect(result).toBe("<p>lorem ipsum</p>");
+		});
+	});
 });

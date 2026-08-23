@@ -6,6 +6,8 @@ import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 const whitespace = /\s+/;
 
 export default class AttrDelimiter extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description: `Attribute value must not be separated by whitespace.`,
@@ -23,7 +25,14 @@ export default class AttrDelimiter extends Rule {
 			const match = whitespace.exec(delimiter);
 			if (match) {
 				const location = sliceLocation(event.location, 0, delimiter.length);
-				this.report(null, "Attribute value must not be delimited by whitespace", location);
+				this.report({
+					node: null,
+					message: "Attribute value must not be delimited by whitespace",
+					location,
+					fix(fixer) {
+						fixer.replaceText(location, "=");
+					},
+				});
 			}
 		});
 	}
