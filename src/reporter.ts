@@ -141,8 +141,8 @@ export class Reporter {
 		node: DOMNode | null;
 		location: Location;
 		context: ContextType;
-		fix?: Message["fix"];
-		suggestions?: Message["suggestions"];
+		fix?: Message["fix"] | null | undefined;
+		suggestions?: Message["suggestions"] | null | undefined;
 	}): void {
 		const { rule, message, severity, node, location, context, fix, suggestions } = options;
 		assertValidLocation(location);
