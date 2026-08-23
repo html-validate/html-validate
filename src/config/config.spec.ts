@@ -261,6 +261,38 @@ describe("config", () => {
 		});
 	});
 
+	describe("getAriaVersion()", () => {
+		it("should default to 1.2 when unset", async () => {
+			expect.assertions(1);
+			const config = await Config.fromObject(resolvers, {});
+			expect(config.getAriaVersion()).toBe("1.2");
+		});
+
+		it.each(["1.2", "1.3", "latest"] as const)(
+			"should return configured value %s",
+			async (aria) => {
+				expect.assertions(1);
+				const config = await Config.fromObject(resolvers, { aria });
+				expect(config.getAriaVersion()).toBe(aria);
+			},
+		);
+
+		it("should use the value from the last merged config", async () => {
+			expect.assertions(1);
+			const a = await Config.fromObject(resolvers, { aria: "1.2" });
+			const b = await Config.fromObject(resolvers, { aria: "1.3" });
+			const merged = await a.merge(resolvers, b);
+			expect(merged.getAriaVersion()).toBe("1.3");
+		});
+
+		it("should be reflected in resolveData()", async () => {
+			expect.assertions(1);
+			const config = await Config.fromObject(resolvers, { aria: "latest" });
+			const resolved = await config.resolveData();
+			expect(resolved.ariaVersion).toBe("latest");
+		});
+	});
+
 	describe("fromFile()", () => {
 		it("should support JSON file", async () => {
 			expect.assertions(1);
@@ -605,6 +637,9 @@ describe("config", () => {
 				["empty", {}],
 				["root true", { root: true }],
 				["root false", { root: false }],
+				["aria 1.2", { aria: "1.2" }],
+				["aria 1.3", { aria: "1.3" }],
+				["aria latest", { aria: "latest" }],
 				["extends empty", { extends: [] }],
 				["extends string", { extends: ["foo", "bar", "baz"] }],
 				["elements empty", { elements: [] }],
@@ -630,6 +665,10 @@ describe("config", () => {
 		describe("invalid", () => {
 			it.each([
 				["root garbage", { root: "asdf" }],
+				["aria too old", { aria: "1.1" }],
+				["aria non-existing", { aria: "1.4" }],
+				["aria garbage", { aria: "asdf" }],
+				["aria invalid type", { aria: 1 }],
 				["extends garbage", { extends: "asdf" }],
 				["extends invalid", { extends: [1] }],
 				["elements garbage", { elements: "asdf" }],

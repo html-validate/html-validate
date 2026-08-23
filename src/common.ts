@@ -2,6 +2,7 @@
 
 export { type AttributeData } from "./parser";
 export {
+	type AriaVersion,
 	type ConfigData,
 	type LoadedPlugin,
 	type ResolvedConfigData,

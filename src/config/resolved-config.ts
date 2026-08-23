@@ -2,6 +2,7 @@ import { type FlatConfig } from "../flat-config";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
 import { type Transformer, type TransformerEntry } from "../transform";
+import { type AriaVersion } from "./aria-version";
 import { type ConfigData } from "./config-data";
 import { type RuleOptions } from "./rule-options";
 import { type Severity } from "./severity";
@@ -14,6 +15,7 @@ export interface ResolvedConfigData {
 	plugins: Plugin[];
 	rules: Map<string, [Severity, RuleOptions]>;
 	transformers: TransformerEntry[];
+	ariaVersion: AriaVersion;
 }
 
 /**
@@ -27,6 +29,7 @@ export class ResolvedConfig {
 	private plugins: Plugin[];
 	private rules: Map<string, [Severity, RuleOptions]>;
 	private transformers: TransformerEntry[];
+	private ariaVersion: AriaVersion;
 
 	/** The original data this resolved configuration was created from */
 	private original: ConfigData | FlatConfig;
@@ -40,11 +43,12 @@ export class ResolvedConfig {
 	 * @internal
 	 */
 	public constructor(options: ResolvedConfigData, original: ConfigData | FlatConfig) {
-		const { metaTable, plugins, rules, transformers } = options;
+		const { metaTable, plugins, rules, transformers, ariaVersion } = options;
 		this.metaTable = metaTable;
 		this.plugins = plugins;
 		this.rules = rules;
 		this.transformers = transformers;
+		this.ariaVersion = ariaVersion;
 		this.cache = new Map();
 		this.original = original;
 	}
@@ -67,6 +71,16 @@ export class ResolvedConfig {
 
 	public getRules(): Map<string, [Severity, RuleOptions]> {
 		return this.rules;
+	}
+
+	/**
+	 * Returns the configured ARIA specification version.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaVersion(): AriaVersion {
+		return this.ariaVersion;
 	}
 
 	/**

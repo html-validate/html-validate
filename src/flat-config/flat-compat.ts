@@ -125,6 +125,7 @@ export class FlatCompat {
 			plugins,
 			transform,
 			rules: merged.rules,
+			aria: merged.aria,
 		};
 	}
 

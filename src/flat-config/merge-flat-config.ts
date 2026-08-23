@@ -7,7 +7,8 @@ import { type FlatConfigObject } from "./flat-config";
  */
 export type MergedFlatConfig = Required<
 	Pick<FlatConfigObject, "elements" | "plugins" | "transform" | "rules">
->;
+> &
+	Pick<FlatConfigObject, "aria">;
 
 /**
  * Merge an array of {@link FlatConfigObject} objects into a single object.
@@ -15,6 +16,7 @@ export type MergedFlatConfig = Required<
  * - `elements` and `plugins` arrays are concatenated (in order).
  * - `transform` and `rules` objects are shallow-merged (later block wins on
  *   key conflict).
+ * - `aria` is scalar, later block wins if set.
  *
  * @internal
  */
@@ -38,6 +40,9 @@ export function mergeFlatConfig(blocks: FlatConfigObject[]): MergedFlatConfig {
 		}
 		if (block.rules) {
 			merged.rules = { ...merged.rules, ...block.rules };
+		}
+		if (block.aria !== undefined) {
+			merged.aria = block.aria;
 		}
 	}
 

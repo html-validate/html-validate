@@ -11,6 +11,9 @@ import { SchemaObject } from 'ajv';
 export function ariaNaming(element: HtmlElement): "allowed" | "prohibited";
 
 // @public
+export type AriaVersion = "1.2" | "1.3" | "latest";
+
+// @public
 export class Attribute {
     constructor(key: string, value: string | DynamicValue | null | undefined, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
     get isDynamic(): boolean;
@@ -169,6 +172,8 @@ export class Config {
     // @internal
     get(): ConfigData;
     // @internal
+    getAriaVersion(): AriaVersion;
+    // @internal
     getMetaTable(): MetaTable | Promise<MetaTable>;
     // @internal
     getPlugins(): Plugin_2[];
@@ -187,6 +192,7 @@ export class Config {
 
 // @public (undocumented)
 export interface ConfigData {
+    aria?: AriaVersion;
     elements?: Array<string | Record<string, unknown>>;
     extends?: string[];
     plugins?: Array<string | Plugin_2>;
@@ -577,6 +583,7 @@ export class FlatConfigLoader extends ConfigLoader {
 
 // @public
 export interface FlatConfigObject {
+    aria?: AriaVersion;
     elements?: MetaDataTable[];
     files?: string[];
     ignores?: string[];
@@ -1252,6 +1259,7 @@ export class ResolvedConfig {
     canTransform(filename: string): boolean;
     // @internal (undocumented)
     findTransformer(filename: string): TransformerEntry | null;
+    getAriaVersion(): AriaVersion;
     getConfigData(): ConfigData | FlatConfig;
     // (undocumented)
     getMetaTable(): MetaTable;
@@ -1263,6 +1271,8 @@ export class ResolvedConfig {
 
 // @public (undocumented)
 export interface ResolvedConfigData {
+    // (undocumented)
+    ariaVersion: AriaVersion;
     // (undocumented)
     metaTable: MetaTable;
     // (undocumented)

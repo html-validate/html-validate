@@ -13,6 +13,7 @@ function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedCon
 		plugins: [],
 		rules: new Map(),
 		transformers: [],
+		ariaVersion: "1.2",
 	};
 	return new ResolvedConfig({ ...defaults, ...config }, {});
 }

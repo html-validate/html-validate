@@ -1,4 +1,5 @@
 import path from "node:path";
+import { DEFAULT_ARIA_VERSION } from "../config/aria-version";
 import { type Config } from "../config/config";
 import { type ConfigData } from "../config/config-data";
 import { ConfigLoader } from "../config/config-loader";
@@ -49,11 +50,13 @@ function configDataToFlatConfigObject(data: ConfigData | undefined): FlatConfigO
 	const elements = data.elements?.filter((it) => typeof it !== "string");
 	const plugins = data.plugins?.filter((it) => typeof it !== "string");
 	const rules = data.rules;
+	const aria = data.aria;
 
 	return {
 		elements: elements as MetaDataTable[],
 		plugins,
 		rules,
+		aria,
 	};
 }
 
@@ -95,7 +98,9 @@ function buildResolvedConfig(merged: MergedFlatConfig, original: FlatConfig): Re
 		},
 	);
 
-	const resolvedData = { metaTable, plugins, rules, transformers };
+	const ariaVersion = merged.aria ?? DEFAULT_ARIA_VERSION;
+
+	const resolvedData = { metaTable, plugins, rules, transformers, ariaVersion };
 	return new ResolvedConfig(resolvedData, original);
 }
 

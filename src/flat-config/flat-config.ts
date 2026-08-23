@@ -1,4 +1,5 @@
-import { type RuleConfig } from "../config";
+import { type AriaVersion } from "../config/aria-version";
+import { type RuleConfig } from "../config/rule-config";
 import { type MetaDataTable } from "../meta";
 import { type Plugin } from "../plugin";
 import { type Transformer } from "../transform";
@@ -60,6 +61,17 @@ export interface FlatConfigObject {
 	 * Rule configuration.
 	 */
 	rules?: RuleConfig;
+
+	/**
+	 * ARIA specification version to use.
+	 *
+	 * One of:
+	 *
+	 * - `"1.2"` (default)
+	 * - `"1.3"`
+	 * - `"latest"`
+	 */
+	aria?: AriaVersion;
 }
 
 /**

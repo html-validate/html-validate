@@ -1,3 +1,4 @@
+export { type AriaVersion } from "./aria-version";
 export { type LoadedPlugin, Config } from "./config";
 export { type ConfigData } from "./config-data";
 export { type TransformMap } from "./transform-map";

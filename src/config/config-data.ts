@@ -1,4 +1,5 @@
 import { type Plugin } from "../plugin";
+import { type AriaVersion } from "./aria-version";
 import { type RuleConfig } from "./rule-config";
 import { type TransformMap } from "./transform-map";
 
@@ -10,6 +11,17 @@ export interface ConfigData {
 	 * If set to true no new configurations will be searched.
 	 */
 	root?: boolean;
+
+	/**
+	 * ARIA specification version to use.
+	 *
+	 * One of:
+	 *
+	 * - `"1.2"` (default)
+	 * - `"1.3"`
+	 * - `"latest"`
+	 */
+	aria?: AriaVersion;
 
 	/**
 	 * List of configuration presets to extend.
