@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## 11.10.0 (2026-08-23)
+
+### Features
+
+- **config:** add new configuration option `aria` to specify which ARIA version to use ([64321ed](https://gitlab.com/html-validate/html-validate/commit/64321ed24bd00c2d226c5398184a5b7b68bea53a))
+- **jest:** `toHTMLValidate()` matcher accepts any object with `outerHTML`, `innerHTML` or `html()` ([749dfc2](https://gitlab.com/html-validate/html-validate/commit/749dfc2837246791874f2014e63f38ea6d312f66))
+- **rules:** add autofix support to `attr-case` ([b22b27c](https://gitlab.com/html-validate/html-validate/commit/b22b27ca4af8ba36f898158fca0f213a2c216a85))
+- **rules:** add autofix support to `attr-delimiter` ([72fc6cb](https://gitlab.com/html-validate/html-validate/commit/72fc6cbef47cf2c0462e30a8daab5495ac0e03bb))
+- **rules:** add autofix support to `doctype-html` ([12ed8b8](https://gitlab.com/html-validate/html-validate/commit/12ed8b83e02f5ecf0d06dc44aa45ad3681061100))
+- **rules:** add autofix support to `doctype-style` ([168b786](https://gitlab.com/html-validate/html-validate/commit/168b786cc00b415dbf0fb5d9a8e70ae614c4cf70))
+- **rules:** add autofix support to `element-case` ([f5bc934](https://gitlab.com/html-validate/html-validate/commit/f5bc9349d2fc209bd196c86134049902490fd1a2))
+- **rules:** add autofix support to `no-trailing-whitespace` ([94b7dba](https://gitlab.com/html-validate/html-validate/commit/94b7dbad103e32330e3b1cbb5f0702aa5a53a778))
+- **rules:** add autofix support to `no-utf8-bom` ([78b2ff1](https://gitlab.com/html-validate/html-validate/commit/78b2ff139b8611a33f5d10ef693b1d9d8b48c771))
+- support rule autofixing ([4f2a7e8](https://gitlab.com/html-validate/html-validate/commit/4f2a7e85537a7b4877beebdc49a8d826f9f205d1))
+- **vitest:** `toHTMLValidate()` matcher accepts any object with `outerHTML`, `innerHTML` or `html()` ([3898790](https://gitlab.com/html-validate/html-validate/commit/389879096af018c77379e570caa55a661445350d))
+
 ## 11.9.0 (2026-08-20)
 
 ### Features

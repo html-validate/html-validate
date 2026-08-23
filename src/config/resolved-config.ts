@@ -77,7 +77,7 @@ export class ResolvedConfig {
 	 * Returns the configured ARIA specification version.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.10.0
 	 */
 	public getAriaVersion(): AriaVersion {
 		return this.ariaVersion;
