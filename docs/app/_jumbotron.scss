@@ -2,16 +2,32 @@
 @use "bootstrap/variables" as bootstrap;
 
 .jumbotron {
+	background-color: bootstrap.$jumbotron-bg;
+	color: bootstrap.$jumbotron-color;
+	margin-bottom: bootstrap.$jumbotron-padding;
+	padding-top: bootstrap.$jumbotron-padding;
+	padding-bottom: bootstrap.$jumbotron-padding;
 	padding-right: math.div(bootstrap.$grid-gutter-width, 2);
 	padding-left: math.div(bootstrap.$grid-gutter-width, 2);
 
 	@media screen and (min-width: bootstrap.$screen-sm-min) {
+		padding-top: (bootstrap.$jumbotron-padding * 1.6);
+		padding-bottom: (bootstrap.$jumbotron-padding * 1.6);
 		padding-right: (bootstrap.$jumbotron-padding * 2);
 		padding-left: (bootstrap.$jumbotron-padding * 2);
 	}
 
-	pre {
-		margin: 2rem 0 3rem;
-		display: inline-block;
+	h1 {
+		color: bootstrap.$jumbotron-heading-color;
+
+		@media screen and (min-width: $screen-sm-min) {
+			font-size: bootstrap.$jumbotron-heading-font-size;
+		}
+	}
+
+	p {
+		margin-bottom: math.div(bootstrap.$jumbotron-padding, 2);
+		font-size: bootstrap.$jumbotron-font-size;
+		font-weight: 200;
 	}
 }
