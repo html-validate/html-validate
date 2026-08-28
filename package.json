@@ -234,7 +234,7 @@
   "devDependencies": {
     "@html-validate/commitlint-config": "4.3.3",
     "@html-validate/eslint-config": "9.18.4",
-    "@html-validate/eslint-config-jest": "9.18.5",
+    "@html-validate/eslint-config-jest": "9.18.6",
     "@html-validate/eslint-config-typescript": "9.18.3",
     "@html-validate/eslint-config-typescript-typeinfo": "9.18.3",
     "@html-validate/eslint-config-vitest": "9.18.0",
