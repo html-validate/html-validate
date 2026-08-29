@@ -120,7 +120,7 @@ describe("HtmlElement", () => {
 			const table = new MetaTable();
 			table.loadFromObject({ foo });
 			const node = HtmlElement.fromTokens(startToken, endToken, null, table);
-			expect(node.meta).toEqual(expect.objectContaining(foo as Record<string, unknown>));
+			expect(node.meta).toEqual(expect.objectContaining(foo));
 		});
 
 		it("should set closed for omitted end tag", () => {
