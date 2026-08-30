@@ -1,3 +1,5 @@
+@use "bootstrap/mixins/tab-focus";
+
 *,
 *:before,
 *:after {
@@ -37,7 +39,7 @@ a {
 	}
 
 	&:focus {
-		@include tab-focus;
+		@include tab-focus.tab-focus;
 	}
 }
 

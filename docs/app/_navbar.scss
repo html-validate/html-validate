@@ -1,0 +1,271 @@
+@use "sass:math";
+
+.nav {
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+
+	@include clearfix;
+
+	> li {
+		position: relative;
+		display: block;
+
+		> a {
+			position: relative;
+			display: block;
+			padding: $nav-link-padding;
+			&:hover,
+			&:focus {
+				text-decoration: none;
+				background-color: $nav-link-hover-bg;
+			}
+		}
+
+		&.disabled > a {
+			color: $nav-disabled-link-color;
+
+			&:hover,
+			&:focus {
+				color: $nav-disabled-link-hover-color;
+				text-decoration: none;
+				cursor: $cursor-disabled;
+				background-color: transparent;
+			}
+		}
+	}
+
+	> li > a > img {
+		max-width: none;
+	}
+}
+
+.navbar {
+	position: relative;
+	min-height: $navbar-height;
+	margin-bottom: $navbar-margin-bottom;
+	border: 1px solid transparent;
+
+	@include clearfix;
+
+	@media (min-width: $grid-float-breakpoint) {
+		border-radius: $navbar-border-radius;
+	}
+}
+
+.navbar-header {
+	@include clearfix;
+
+	@media (min-width: $grid-float-breakpoint) {
+		float: left;
+	}
+}
+
+.navbar-collapse {
+	padding-right: $navbar-padding-horizontal;
+	padding-left: $navbar-padding-horizontal;
+	overflow-x: visible;
+	border-top: 1px solid transparent;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	-webkit-overflow-scrolling: touch;
+
+	@include clearfix;
+
+	&.in {
+		overflow-y: auto;
+	}
+
+	@media (min-width: $grid-float-breakpoint) {
+		width: auto;
+		border-top: 0;
+		box-shadow: none;
+
+		&.collapse {
+			display: block !important;
+			height: auto !important;
+			padding-bottom: 0;
+			overflow: visible !important;
+		}
+
+		&.in {
+			overflow-y: visible;
+		}
+	}
+}
+
+.navbar-brand {
+	float: left;
+	height: $navbar-height;
+	padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	font-size: $font-size-large;
+	line-height: $line-height-computed;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	> img {
+		display: block;
+	}
+}
+
+.navbar-toggle {
+	position: relative;
+	float: right;
+	padding: 9px 10px;
+	margin-right: $navbar-padding-horizontal;
+	@include navbar-vertical-align(34px);
+	background-color: transparent;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: $border-radius-base;
+
+	&:focus {
+		outline: 0;
+	}
+
+	.icon-bar {
+		display: block;
+		width: 22px;
+		height: 2px;
+		border-radius: 1px;
+	}
+
+	.icon-bar + .icon-bar {
+		margin-top: 4px;
+	}
+
+	@media (min-width: $grid-float-breakpoint) {
+		display: none;
+	}
+}
+
+.navbar-nav {
+	margin: math.div($navbar-padding-vertical, 2) (-$navbar-padding-horizontal);
+
+	> li > a {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		line-height: $line-height-computed;
+	}
+
+	@media (min-width: $grid-float-breakpoint) {
+		float: left;
+		margin: 0;
+
+		> li {
+			float: left;
+			> a {
+				padding-top: $navbar-padding-vertical;
+				padding-bottom: $navbar-padding-vertical;
+			}
+		}
+	}
+}
+
+@media (min-width: $grid-float-breakpoint) {
+	.navbar-right {
+		float: right !important;
+		margin-right: -$navbar-padding-horizontal;
+
+		~ .navbar-right {
+			margin-right: 0;
+		}
+	}
+}
+
+.navbar-text {
+	@include navbar-vertical-align($line-height-computed);
+
+	@media (min-width: $grid-float-breakpoint) {
+		float: left;
+		margin-right: $navbar-padding-horizontal;
+		margin-left: $navbar-padding-horizontal;
+	}
+}
+
+.navbar-default {
+	background-color: $navbar-default-bg;
+	border-color: $navbar-default-border;
+
+	.navbar-brand {
+		color: $navbar-default-brand-color;
+		&:hover,
+		&:focus {
+			color: $navbar-default-brand-hover-color;
+			background-color: $navbar-default-brand-hover-bg;
+		}
+	}
+
+	.navbar-text {
+		color: $navbar-default-color;
+	}
+
+	.navbar-nav {
+		> li > a {
+			color: $navbar-default-link-color;
+
+			&:hover,
+			&:focus {
+				color: $navbar-default-link-hover-color;
+				background-color: $navbar-default-link-hover-bg;
+			}
+		}
+		> .active > a {
+			&,
+			&:hover,
+			&:focus {
+				color: $navbar-default-link-active-color;
+				background-color: $navbar-default-link-active-bg;
+			}
+		}
+		> .disabled > a {
+			&,
+			&:hover,
+			&:focus {
+				color: $navbar-default-link-disabled-color;
+				background-color: $navbar-default-link-disabled-bg;
+			}
+		}
+	}
+
+	.navbar-toggle {
+		border-color: $navbar-default-toggle-border-color;
+		&:hover,
+		&:focus {
+			background-color: $navbar-default-toggle-hover-bg;
+		}
+		.icon-bar {
+			background-color: $navbar-default-toggle-icon-bar-bg;
+		}
+	}
+
+	.navbar-collapse {
+		border-color: $navbar-default-border;
+	}
+
+	.navbar-link {
+		color: $navbar-default-link-color;
+		&:hover {
+			color: $navbar-default-link-hover-color;
+		}
+	}
+}
+
+.collapse {
+	display: none;
+
+	&.in {
+		display: block;
+	}
+}
+
+.collapsing {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	transition-property: height, visibility;
+	transition-duration: 0.35s;
+	transition-timing-function: ease;
+}

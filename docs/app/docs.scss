@@ -12,27 +12,13 @@ $fa-font-path: "fonts";
 // Bootstrap
 @import "bootstrap/variables";
 @import "bootstrap/mixins/background-variant";
-@import "bootstrap/mixins/border-radius";
 @import "bootstrap/mixins/clearfix";
-@import "bootstrap/mixins/forms";
-@import "bootstrap/mixins/grid";
-@import "bootstrap/mixins/grid-framework";
-@import "bootstrap/mixins/nav-divider";
 @import "bootstrap/mixins/nav-vertical-align";
-@import "bootstrap/mixins/tab-focus";
-@import "bootstrap/mixins/table-row";
 @import "bootstrap/mixins/text-emphasis";
 @import "bootstrap/mixins/text-overflow";
-@import "bootstrap/mixins/vendor-prefixes";
 @import "bootstrap/normalize";
 @import "bootstrap/type";
 @import "bootstrap/code";
-@import "bootstrap/grid";
-@import "bootstrap/tables";
-@import "bootstrap/forms";
-@import "bootstrap/component-animations";
-@import "bootstrap/navs";
-@import "bootstrap/navbar";
 
 // Highlight.js
 @import "github";
@@ -46,10 +32,12 @@ $fa-font-path: "fonts";
 @import "jumbotron";
 @import "error-panel";
 @import "frontpage";
+@import "navbar";
 @import "print";
 @import "roadmap";
 @import "markdown";
 @import "rule-info";
+@import "table";
 
 body {
 	display: flex;
@@ -117,33 +105,8 @@ footer {
 	}
 }
 
-table {
-	th,
-	td {
-		padding: bootstrap.$table-cell-padding;
-	}
-}
-
 pre code.hljs {
 	padding: 0;
-}
-
-.rules-table {
-	.set {
-		width: 5%;
-	}
-
-	.fixable {
-		width: 5%;
-	}
-
-	.name {
-		width: 35%;
-	}
-
-	.summary {
-		width: 55%;
-	}
 }
 
 .inline-validation {
@@ -167,60 +130,6 @@ pre code.hljs {
 			color: bootstrap.$code-color;
 		}
 	}
-}
-
-%support {
-	text-align: center;
-}
-
-.support-no {
-	@extend %support;
-	background: bootstrap.$alert-danger-bg;
-	color: bootstrap.$alert-danger-text;
-}
-
-.support-yes {
-	@extend %support;
-	background: bootstrap.$alert-success-bg;
-	color: bootstrap.$alert-success-text;
-}
-
-.support-planned {
-	@extend %support;
-	background: bootstrap.$alert-warning-bg;
-	color: bootstrap.$alert-warning-text;
-}
-
-.support-table {
-	em {
-		display: block;
-		margin-top: 1.5rem;
-	}
-}
-
-.release-table {
-	.release-eol {
-		background: bootstrap.$alert-danger-bg;
-		color: bootstrap.$alert-danger-text;
-	}
-
-	.release-maintenance {
-		background: bootstrap.$alert-warning-bg;
-		color: bootstrap.$alert-warning-text;
-	}
-
-	.release-active {
-		background: bootstrap.$alert-success-bg;
-		color: bootstrap.$alert-success-text;
-	}
-}
-
-.table-right {
-	text-align: right;
-}
-
-.table-center {
-	text-align: center;
 }
 
 .alert .fa {
