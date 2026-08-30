@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/comment-content -- false positive */
-
 const categoryName = {
 	"content-model": "Content model",
 	a11y: "Accessibility",

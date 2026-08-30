@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/comment-content -- false positive */
-
 import { JSDOM } from "jsdom";
 
 /**

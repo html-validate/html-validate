@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/comment-content -- false positive */
 import path from "canonical-path";
 
 /**
