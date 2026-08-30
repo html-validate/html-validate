@@ -177,14 +177,14 @@ describe("HtmlElement", () => {
 		it("should return list of id's", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("div", location);
-			node.setAttribute("aria-labelledby", "foo bar baz", location, location);
+			node.setAttribute("aria-labelledby", "foo bar baz", location, location, location);
 			expect(node.ariaLabelledby).toEqual(["foo", "bar", "baz"]);
 		});
 
 		it("should trim whitespace", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("div", location);
-			node.setAttribute("aria-labelledby", " foo bar ", location, location);
+			node.setAttribute("aria-labelledby", " foo bar ", location, location, location);
 			expect(node.ariaLabelledby).toEqual(["foo", "bar"]);
 		});
 
@@ -192,7 +192,7 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("div", location);
 			const attr = new DynamicValue("expr");
-			node.setAttribute("aria-labelledby", attr, location, location);
+			node.setAttribute("aria-labelledby", attr, location, location, location);
 			expect(node.ariaLabelledby).toBe(attr);
 		});
 
@@ -205,14 +205,14 @@ describe("HtmlElement", () => {
 		it("should return null if attribute is empty", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("div", location);
-			node.setAttribute("aria-labelledby", "", location, location);
+			node.setAttribute("aria-labelledby", "", location, location, location);
 			expect(node.ariaLabelledby).toBeNull();
 		});
 
 		it("should return null if attribute is whitespace only", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("div", location);
-			node.setAttribute("aria-labelledby", " ", location, location);
+			node.setAttribute("aria-labelledby", " ", location, location, location);
 			expect(node.ariaLabelledby).toBeNull();
 		});
 	});
@@ -229,7 +229,7 @@ describe("HtmlElement", () => {
 	it("id property should return element id", () => {
 		expect.assertions(1);
 		const el = HtmlElement.createElement("foo", location);
-		el.setAttribute("id", "bar", location, null);
+		el.setAttribute("id", "bar", location, location, null);
 		expect(el.id).toBe("bar");
 	});
 
@@ -319,8 +319,8 @@ describe("HtmlElement", () => {
 		it("should return list of all attributes", () => {
 			expect.assertions(2);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("foo", "a", location, location);
-			node.setAttribute("bar", "b", location, location);
+			node.setAttribute("foo", "a", location, location, location);
+			node.setAttribute("bar", "b", location, location, location);
 			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
 			expect(node.attributes).toEqual([
 				expect.objectContaining({ key: "foo", value: "a" }),
@@ -331,8 +331,8 @@ describe("HtmlElement", () => {
 		it("should handle duplicated or aliased attributes", () => {
 			expect.assertions(2);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("foo", "a", location, location);
-			node.setAttribute("foo", "b", location, location);
+			node.setAttribute("foo", "a", location, location, location);
+			node.setAttribute("foo", "b", location, location, location);
 			expect(node.attributes).toEqual([expect.any(Attribute), expect.any(Attribute)]);
 			expect(node.attributes).toEqual([
 				expect.objectContaining({ key: "foo", value: "a" }),
@@ -344,7 +344,7 @@ describe("HtmlElement", () => {
 	it("hasAttribute()", () => {
 		expect.assertions(2);
 		const node = HtmlElement.createElement("foo", location);
-		node.setAttribute("foo", "", location, null);
+		node.setAttribute("foo", "", location, location, null);
 		expect(node.hasAttribute("foo")).toBeTruthy();
 		expect(node.hasAttribute("bar")).toBeFalsy();
 	});
@@ -355,11 +355,12 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.createElement("foo", location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
-			node.setAttribute("foo", "value", keyLocation, valueLocation);
+			node.setAttribute("foo", "value", location, keyLocation, valueLocation);
 			expect(node.getAttribute("foo")).toBeInstanceOf(Attribute);
 			expect(node.getAttribute("foo")).toEqual({
 				key: "foo",
 				value: "value",
+				location,
 				keyLocation,
 				valueLocation,
 			});
@@ -371,8 +372,8 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.createElement("foo", location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
-			node.setAttribute("foo", "a", keyLocation, valueLocation);
-			node.setAttribute("foo", "b", keyLocation, valueLocation);
+			node.setAttribute("foo", "a", location, keyLocation, valueLocation);
+			node.setAttribute("foo", "b", location, keyLocation, valueLocation);
 			expect(node.getAttribute("foo")).toEqual(
 				expect.objectContaining({
 					key: "foo",
@@ -386,8 +387,8 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.createElement("foo", location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
-			node.setAttribute("foo", "a", keyLocation, valueLocation);
-			node.setAttribute("foo", "b", keyLocation, valueLocation);
+			node.setAttribute("foo", "a", location, keyLocation, valueLocation);
+			node.setAttribute("foo", "b", location, keyLocation, valueLocation);
 			expect(node.getAttribute("foo", true)).toEqual([
 				expect.objectContaining({
 					key: "foo",
@@ -405,7 +406,7 @@ describe("HtmlElement", () => {
 			const node = HtmlElement.createElement("foo", location);
 			const keyLocation = createLocation({ column: 1, size: 3 });
 			const valueLocation = createLocation({ column: 5, size: 5 });
-			node.setAttribute("foo", "bar", keyLocation, valueLocation);
+			node.setAttribute("foo", "bar", location, keyLocation, valueLocation);
 			expect(node.getAttribute("FOO")).toEqual(
 				expect.objectContaining({
 					key: "foo",
@@ -419,7 +420,7 @@ describe("HtmlElement", () => {
 		it("should get attribute value", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("bar", "value", location, null);
+			node.setAttribute("bar", "value", location, location, null);
 			expect(node.getAttributeValue("bar")).toBe("value");
 		});
 
@@ -427,7 +428,7 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			const dynamic = new DynamicValue("{{ interpolated }}");
-			node.setAttribute("bar", dynamic, location, null);
+			node.setAttribute("bar", dynamic, location, location, null);
 			expect(node.getAttributeValue("bar")).toBe("{{ interpolated }}");
 		});
 
@@ -440,7 +441,7 @@ describe("HtmlElement", () => {
 		it("should return null for boolean attributes", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("bar", null, location, null);
+			node.setAttribute("bar", null, location, location, null);
 			expect(node.getAttributeValue("bar")).toBeNull();
 		});
 	});
@@ -449,7 +450,7 @@ describe("HtmlElement", () => {
 		it("should return list of classes", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("class", "foo bar baz", location, null);
+			node.setAttribute("class", "foo bar baz", location, location, null);
 			expect(Array.from(node.classList)).toEqual(["foo", "bar", "baz"]);
 		});
 
@@ -462,15 +463,15 @@ describe("HtmlElement", () => {
 		it("should handle duplicate (or aliased) class attribute", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("class", "foo", location, null);
-			node.setAttribute("class", "bar", location, null);
+			node.setAttribute("class", "foo", location, location, null);
+			node.setAttribute("class", "bar", location, location, null);
 			expect(Array.from(node.classList)).toEqual(["foo", "bar"]);
 		});
 
 		it("should ignore dynamic values", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			node.setAttribute("class", new DynamicValue("dynamic"), location, null);
+			node.setAttribute("class", new DynamicValue("dynamic"), location, location, null);
 			expect(Array.from(node.classList)).toEqual([]);
 		});
 	});

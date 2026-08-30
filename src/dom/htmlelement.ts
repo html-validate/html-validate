@@ -422,21 +422,24 @@ export class HtmlElement extends DOMNode {
 	 *
 	 * @param key - Attribute name
 	 * @param value - Attribute value. Use `null` if no value is present.
+	 * @param location - location of full attribute (key, delimiter, quotes and value).
 	 * @param keyLocation - Location of the attribute name.
 	 * @param valueLocation - Location of the attribute value (excluding quotation)
 	 * @param originalAttribute - If attribute is an alias for another attribute
 	 * (dynamic attributes) set this to the original attribute name.
 	 */
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	public setAttribute(
 		key: string,
 		value: string | DynamicValue | null,
+		location: Location,
 		keyLocation: Location,
 		valueLocation: Location | null,
 		originalAttribute?: string,
 	): void {
 		key = key.toLowerCase();
 
-		const attr = new Attribute(key, value, keyLocation, valueLocation, originalAttribute);
+		const attr = new Attribute(key, value, location, keyLocation, valueLocation, originalAttribute);
 		const list = this.attr[key] as Attribute[] | undefined;
 		if (list) {
 			list.push(attr);

@@ -15,12 +15,13 @@ export type AriaVersion = "1.2" | "1.3" | "latest";
 
 // @public
 export class Attribute {
-    constructor(key: string, value: string | DynamicValue | null | undefined, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
+    constructor(key: string, value: string | DynamicValue | null | undefined, location: Location_2, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string);
     get isDynamic(): boolean;
     get isStatic(): boolean;
     readonly key: string;
     // (undocumented)
     readonly keyLocation: Location_2;
+    readonly location: Location_2;
     // (undocumented)
     readonly originalAttribute?: string;
     // (undocumented)
@@ -696,7 +697,7 @@ export class HtmlElement extends DOMNode {
     // @internal (undocumented)
     static rootNode(location: Location_2): HtmlElement;
     setAnnotation(text: string): void;
-    setAttribute(key: string, value: string | DynamicValue | null, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string): void;
+    setAttribute(key: string, value: string | DynamicValue | null, location: Location_2, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string): void;
     // @internal (undocumented)
     _setParent(node: DOMNode | null): DOMNode | null;
     // (undocumented)

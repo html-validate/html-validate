@@ -90,6 +90,15 @@ describe("rule close-attr", () => {
 		`);
 	});
 
+	it("should autofix by removing attributes", async () => {
+		expect.assertions(1);
+		const markup = `<div></div foo="bar">`;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		expect(result).toBe(`<div></div >`);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

@@ -40,6 +40,10 @@ export class Attribute {
 	/** Attribute name */
 	public readonly key: string;
 	public readonly value: string | DynamicValue | null;
+
+	/** full location of attribute (key, delimiter, quotes and value) */
+	public readonly location: Location;
+
 	public readonly keyLocation: Location;
 	public readonly valueLocation: Location | null;
 	public readonly originalAttribute?: string;
@@ -47,21 +51,25 @@ export class Attribute {
 	/**
 	 * @param key - Attribute name.
 	 * @param value - Attribute value. Set to `null` for boolean attributes.
+	 * @param location - Source location of full attribute (key, delimiter, quotes and value).
 	 * @param keyLocation - Source location of attribute name.
 	 * @param valueLocation - Source location of attribute value.
 	 * @param originalAttribute - If this attribute was dynamically added via a
 	 * transformation (e.g. Vue.js `:id` generating the `id` attribute) this
 	 * parameter should be set to the attribute name of the source attribute (`:id`).
 	 */
+	/* eslint-disable-next-line @typescript-eslint/max-params -- technical debt */
 	public constructor(
 		key: string,
 		value: string | DynamicValue | null | undefined,
+		location: Location,
 		keyLocation: Location,
 		valueLocation: Location | null,
 		originalAttribute?: string,
 	) {
 		this.key = key;
 		this.value = value ?? null;
+		this.location = location;
 		this.keyLocation = keyLocation;
 		this.valueLocation = valueLocation;
 		this.originalAttribute = originalAttribute;

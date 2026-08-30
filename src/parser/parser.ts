@@ -697,7 +697,14 @@ export class Parser {
 				meta: meta?.attributes[attr.key] ?? null,
 			};
 			this.trigger("attr", event);
-			node.setAttribute(attr.key, attr.value, keyLocation, valueLocation, attr.originalAttribute);
+			node.setAttribute(
+				attr.key,
+				attr.value,
+				location,
+				keyLocation,
+				valueLocation,
+				attr.originalAttribute,
+			);
 		}
 	}
 
