@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 11.11.0 (2026-08-30)
+
+### Features
+
+- **api:** add `location` to `Attribute` with full source location (both key and value) ([0648343](https://gitlab.com/html-validate/html-validate/commit/064834341b5caba2fa6228c1e22d5f9fe4687343))
+- **rules:** make `close-attr` autofixable ([690da4c](https://gitlab.com/html-validate/html-validate/commit/690da4cbe3a5b6b73914638fae3ea94bc62f89e7))
+- **rules:** make `no-dup-class` autofixable ([83df993](https://gitlab.com/html-validate/html-validate/commit/83df993cafa328f82fb4c3d557e98fbe8270c7ae))
+
 ## 11.10.0 (2026-08-23)
 
 ### Features
