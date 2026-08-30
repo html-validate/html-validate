@@ -60,6 +60,15 @@ describe("rule no-dup-class", () => {
 		`);
 	});
 
+	it("should autofix by removing duplicated class", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <div class="foo bar foo"></div> `;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		expect(result).toBe(` <div class="foo bar "></div> `);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

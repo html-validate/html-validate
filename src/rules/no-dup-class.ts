@@ -10,6 +10,8 @@ export default class NoDupClass extends Rule {
 		};
 	}
 
+	public static override readonly fixable = true;
+
 	public setup(): void {
 		this.on("attr", (event: AttributeEvent) => {
 			if (event.key.toLowerCase() !== "class") {
@@ -25,6 +27,9 @@ export default class NoDupClass extends Rule {
 						node: event.target,
 						message: `Class "${item}" duplicated`,
 						location,
+						fix(fixer) {
+							fixer.replaceText(location, "");
+						},
 					});
 				}
 				unique.add(item);
