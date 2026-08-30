@@ -96,12 +96,12 @@ export default class NoRedundantRole extends Rule<RuleContext, RuleOptions> {
 				tagName: target.tagName,
 				role: role.value,
 			};
-			this.report(
-				event.target,
-				`Redundant role "${role.value}" on <${target.tagName}>`,
-				role.valueLocation,
+			this.report({
+				node: event.target,
+				message: `Redundant role "${role.value}" on <${target.tagName}>`,
+				location: role.valueLocation,
 				context,
-			);
+			});
 		});
 	}
 }

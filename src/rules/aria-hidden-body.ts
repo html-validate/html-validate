@@ -19,7 +19,11 @@ export default class AriaHiddenBody extends Rule {
 				return;
 			}
 
-			this.report(target, "aria-hidden must not be used on <body>", attr.keyLocation);
+			this.report({
+				node: target,
+				message: "aria-hidden must not be used on <body>",
+				location: attr.keyLocation,
+			});
 		});
 	}
 

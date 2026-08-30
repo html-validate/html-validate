@@ -198,7 +198,12 @@ export default class InputAttributes extends Rule<RuleContext> {
 					type: typeValue,
 				};
 				const message = `Attribute "${attr.key}" is not allowed on <input type="${typeValue}">`;
-				this.report(target, message, attr.keyLocation, context);
+				this.report({
+					node: target,
+					message,
+					location: attr.keyLocation,
+					context,
+				});
 			}
 		});
 	}

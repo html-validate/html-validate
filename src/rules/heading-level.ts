@@ -125,7 +125,11 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 		if (!this.options.allowMultipleH1 && level === 1) {
 			if (root.h1Count >= 1) {
 				const location = sliceLocation(event.location, 1);
-				this.report(event.target, `Multiple <h1> are not allowed`, location);
+				this.report({
+					node: event.target,
+					message: `Multiple <h1> are not allowed`,
+					location,
+				});
 				return;
 			}
 			root.h1Count++;
@@ -171,7 +175,11 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			const expectedTag = `<h${String(expected)}>`;
 			const actualTag = `<h${String(level)}>`;
 			const msg = `Heading level can only increase by one, expected ${expectedTag} but got ${actualTag}`;
-			this.report(event.target, msg, location);
+			this.report({
+				node: event.target,
+				message: msg,
+				location,
+			});
 		} else {
 			this.checkInitialLevel(event, location, level, expected);
 		}
@@ -190,7 +198,11 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 				this.minInitialRank > 1
 					? `Initial heading level must be <h${String(this.minInitialRank)}> or higher rank but got ${actualTag}`
 					: `Initial heading level must be ${expectedTag} but got ${actualTag}`;
-			this.report(event.target, msg, location);
+			this.report({
+				node: event.target,
+				message: msg,
+				location,
+			});
 		} else {
 			const prevRoot = this.getPrevRoot();
 			const prevRootExpected = prevRoot.current + 1;
@@ -198,10 +210,18 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			if (level > prevRootExpected) {
 				if (expected === prevRootExpected) {
 					const msg = `Initial heading level for sectioning root must be ${expectedTag} but got ${actualTag}`;
-					this.report(event.target, msg, location);
+					this.report({
+						node: event.target,
+						message: msg,
+						location,
+					});
 				} else {
 					const msg = `Initial heading level for sectioning root must be between ${expectedTag} and <h${String(prevRootExpected)}> but got ${actualTag}`;
-					this.report(event.target, msg, location);
+					this.report({
+						node: event.target,
+						message: msg,
+						location,
+					});
 				}
 			}
 		}

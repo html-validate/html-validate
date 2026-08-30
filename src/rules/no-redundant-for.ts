@@ -37,7 +37,11 @@ export default class NoRedundantFor extends Rule {
 				return;
 			}
 
-			this.report(target, 'Redundant "for" attribute', attr.keyLocation);
+			this.report({
+				node: target,
+				message: 'Redundant "for" attribute',
+				location: attr.keyLocation,
+			});
 		});
 	}
 }

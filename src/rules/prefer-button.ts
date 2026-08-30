@@ -101,7 +101,12 @@ export default class PreferButton extends Rule<RuleContext, RuleOptions> {
 
 			const context: RuleContext = { type };
 			const message = `Prefer to use <button> instead of <input type="${type}"> when adding buttons`;
-			this.report(node, message, event.valueLocation, context);
+			this.report({
+				node,
+				message,
+				location: event.valueLocation,
+				context,
+			});
 		});
 	}
 }

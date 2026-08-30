@@ -30,12 +30,12 @@ export default class VoidContent extends Rule<RuleContext> {
 			}
 
 			if (node.closed === Node.CLOSED_END_TAG) {
-				this.report(
-					null,
-					`End tag for <${node.tagName}> must be omitted`,
-					node.location,
-					node.tagName,
-				);
+				this.report({
+					node: null,
+					message: `End tag for <${node.tagName}> must be omitted`,
+					location: node.location,
+					context: node.tagName,
+				});
 			}
 		});
 	}

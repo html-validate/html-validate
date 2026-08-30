@@ -25,7 +25,11 @@ export default class MultipleLabeledControls extends Rule {
 					continue;
 				}
 
-				this.report(label, "<label> is associated with multiple controls", label.location);
+				this.report({
+					node: label,
+					message: "<label> is associated with multiple controls",
+					location: label.location,
+				});
 			}
 		});
 	}

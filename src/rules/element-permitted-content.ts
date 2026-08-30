@@ -114,7 +114,12 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 				parent: parent.annotatedName,
 				child,
 			};
-			this.report(cur, message, null, context);
+			this.report({
+				node: cur,
+				message,
+				location: null,
+				context,
+			});
 			return true;
 		}
 
@@ -163,7 +168,12 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 				ancestor,
 				child,
 			};
-			this.report(node, message, null, context);
+			this.report({
+				node,
+				message,
+				location: null,
+				context,
+			});
 			return true;
 		}
 		return false;

@@ -21,7 +21,11 @@ export default class NoDupClass extends Rule {
 
 			for (const { item, location } of classes.iterator()) {
 				if (unique.has(item)) {
-					this.report(event.target, `Class "${item}" duplicated`, location);
+					this.report({
+						node: event.target,
+						message: `Class "${item}" duplicated`,
+						location,
+					});
 				}
 				unique.add(item);
 			}

@@ -23,6 +23,9 @@ export default class SvgFocusable extends Rule {
 			return;
 		}
 
-		this.report(svg, `<${svg.tagName}> is missing required "focusable" attribute`);
+		this.report({
+			node: svg,
+			message: `<${svg.tagName}> is missing required "focusable" attribute`,
+		});
 	}
 }

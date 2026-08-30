@@ -201,7 +201,12 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 					entity: raw,
 					terminated: false,
 				};
-				this.report(node, message, entityLocation, context);
+				this.report({
+					node,
+					message,
+					location: entityLocation,
+					context,
+				});
 			}
 			return;
 		}
@@ -212,7 +217,12 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			entity: raw,
 			terminated: true,
 		};
-		this.report(node, message, entityLocation, context);
+		this.report({
+			node,
+			message,
+			location: entityLocation,
+			context,
+		});
 	}
 
 	private *getMatches(text: string): IterableIterator<EntityMatch> {

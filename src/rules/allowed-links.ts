@@ -192,19 +192,19 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 			return;
 		}
 		if (allowAbsolute === false) {
-			this.report(
-				event.target,
-				"Link destination must not be absolute url",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Link destination must not be absolute url",
+				location: event.valueLocation,
+				context: style,
+			});
 		} else if (!matchList(target, allowAbsolute)) {
-			this.report(
-				event.target,
-				"Absolute link to this destination is not allowed by current configuration",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Absolute link to this destination is not allowed by current configuration",
+				location: event.valueLocation,
+				context: style,
+			});
 		}
 	}
 
@@ -214,19 +214,19 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 			return;
 		}
 		if (allowExternal === false) {
-			this.report(
-				event.target,
-				"Link destination must not be external url",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Link destination must not be external url",
+				location: event.valueLocation,
+				context: style,
+			});
 		} else if (!matchList(target, allowExternal)) {
-			this.report(
-				event.target,
-				"External link to this destination is not allowed by current configuration",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "External link to this destination is not allowed by current configuration",
+				location: event.valueLocation,
+				context: style,
+			});
 		}
 	}
 
@@ -236,21 +236,21 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 			return false;
 		}
 		if (allowRelative === false) {
-			this.report(
-				event.target,
-				"Link destination must not be relative url",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Link destination must not be relative url",
+				location: event.valueLocation,
+				context: style,
+			});
 			return true;
 		}
 		if (!matchList(target, allowRelative)) {
-			this.report(
-				event.target,
-				"Relative link to this destination is not allowed by current configuration",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Relative link to this destination is not allowed by current configuration",
+				location: event.valueLocation,
+				context: style,
+			});
 			return true;
 		}
 		return false;
@@ -262,12 +262,12 @@ export default class AllowedLinks extends Rule<Style, RuleOptions> {
 			return;
 		}
 		if (!allowBase) {
-			this.report(
-				event.target,
-				"Relative links must be relative to current folder",
-				event.valueLocation,
-				style,
-			);
+			this.report({
+				node: event.target,
+				message: "Relative links must be relative to current folder",
+				location: event.valueLocation,
+				context: style,
+			});
 		}
 	}
 }

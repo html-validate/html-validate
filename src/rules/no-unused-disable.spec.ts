@@ -10,7 +10,10 @@ import { type RuleContext } from "./no-unused-disable";
 class DirectRule extends Rule {
 	public setup(): void {
 		this.on("attr", () => {
-			this.report(null, "cannot use attribute");
+			this.report({
+				node: null,
+				message: "cannot use attribute",
+			});
 		});
 	}
 }
@@ -20,7 +23,10 @@ class IndirectRule extends Rule {
 		this.on("dom:ready", ({ document }) => {
 			const elements = document.querySelectorAll("div");
 			for (const element of elements) {
-				this.report(element, "cannot use <div> elements");
+				this.report({
+					node: element,
+					message: "cannot use <div> elements",
+				});
 			}
 		});
 	}

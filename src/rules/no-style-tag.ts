@@ -39,7 +39,10 @@ export default class NoStyleTag extends Rule<void, RuleOptions> {
 					return;
 				}
 
-				this.report(node, "Use external stylesheet with <link> instead of <style> tag");
+				this.report({
+					node,
+					message: "Use external stylesheet with <link> instead of <style> tag",
+				});
 			}
 		});
 	}

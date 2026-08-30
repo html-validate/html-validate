@@ -200,7 +200,12 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 			const end = begin + detected.length;
 			const location = sliceLocation(node.location, begin, end);
 			const context: RuleContext = entry;
-			this.report(anchor, message, location, context);
+			this.report({
+				node: anchor,
+				message,
+				location,
+				context,
+			});
 		}
 	}
 }

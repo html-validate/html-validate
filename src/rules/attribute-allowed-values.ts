@@ -80,7 +80,12 @@ export default class AttributeAllowedValues extends Rule<RuleContext> {
 					};
 					const message = this.getMessage(attr);
 					const location = this.getLocation(attr);
-					this.report(node, message, location, context);
+					this.report({
+						node,
+						message,
+						location,
+						context,
+					});
 				}
 			});
 		});

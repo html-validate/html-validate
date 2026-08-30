@@ -69,7 +69,11 @@ export default class AttributeEmptyStyle extends Rule<void, RuleOptions> {
 					}
 
 					/* report error */
-					this.report(node, reportMessage(attr, this.options.style), attr.keyLocation);
+					this.report({
+						node,
+						message: reportMessage(attr, this.options.style),
+						location: attr.keyLocation,
+					});
 				}
 			});
 		});

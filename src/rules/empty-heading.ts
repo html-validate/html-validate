@@ -48,7 +48,10 @@ export default class EmptyHeading extends Rule {
 				break;
 			case TextClassification.EMPTY_TEXT:
 				/* no content or whitespace only */
-				this.report(heading, `<${heading.tagName}> cannot be empty, must have text content`);
+				this.report({
+					node: heading,
+					message: `<${heading.tagName}> cannot be empty, must have text content`,
+				});
 				break;
 		}
 	}

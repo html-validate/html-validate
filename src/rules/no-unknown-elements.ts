@@ -63,7 +63,12 @@ export default class NoUnknownElements extends Rule<RuleContext, RuleOptions> {
 			if (this.isKeywordIgnored(node.tagName, keywordPatternMatcher)) {
 				return;
 			}
-			this.report(node, `Unknown element <${node.tagName}>`, null, node.tagName);
+			this.report({
+				node,
+				message: `Unknown element <${node.tagName}>`,
+				location: null,
+				context: node.tagName,
+			});
 		});
 	}
 }

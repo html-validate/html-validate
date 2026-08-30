@@ -28,11 +28,11 @@ export default class NoDeprecatedAttr extends Rule {
 
 			const deprecated = metaAttribute.deprecated;
 			if (deprecated) {
-				this.report(
+				this.report({
 					node,
-					`Attribute "${event.key}" is deprecated on <${node.tagName}> element`,
-					event.keyLocation,
-				);
+					message: `Attribute "${event.key}" is deprecated on <${node.tagName}> element`,
+					location: event.keyLocation,
+				});
 			}
 		});
 	}

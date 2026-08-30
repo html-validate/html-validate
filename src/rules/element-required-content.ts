@@ -44,7 +44,12 @@ export default class ElementRequiredContent extends Rule<Context> {
 					};
 					const tag = isCategory(missing) ? `${missing.slice(1)} element` : `<${missing}>`;
 					const message = `${node.annotatedName} element must have ${tag} as content`;
-					this.report(node, message, null, context);
+					this.report({
+						node,
+						message,
+						location: null,
+						context,
+					});
 				}
 			});
 		});

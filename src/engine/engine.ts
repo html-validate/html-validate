@@ -503,7 +503,10 @@ export class Engine<T extends Parser = Parser> {
 		return new (class MissingRule extends Rule {
 			public setup(): void {
 				this.on("dom:load", () => {
-					this.report(null, `Definition for rule '${name}' was not found`);
+					this.report({
+						node: null,
+						message: `Definition for rule '${name}' was not found`,
+					});
 				});
 			}
 		})();

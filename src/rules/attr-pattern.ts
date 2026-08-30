@@ -95,7 +95,12 @@ export default class AttrPattern extends Rule<RuleContext, RuleOptions> {
 				attr: event.key,
 				pattern: this.options.pattern,
 			};
-			this.report(event.target, message, event.keyLocation, context);
+			this.report({
+				node: event.target,
+				message,
+				location: event.keyLocation,
+				context,
+			});
 		});
 	}
 

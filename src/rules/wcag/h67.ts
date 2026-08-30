@@ -31,7 +31,11 @@ export default class H67 extends Rule {
 				return;
 			}
 
-			this.report(node, "<img> with empty alt text cannot have title attribute", title.keyLocation);
+			this.report({
+				node,
+				message: "<img> with empty alt text cannot have title attribute",
+				location: title.keyLocation,
+			});
 		});
 	}
 }

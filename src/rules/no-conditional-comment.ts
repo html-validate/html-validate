@@ -12,7 +12,11 @@ export default class NoConditionalComment extends Rule {
 
 	public setup(): void {
 		this.on("conditional", (event: ConditionalEvent) => {
-			this.report(event.parent, "Use of conditional comments are deprecated", event.location);
+			this.report({
+				node: event.parent,
+				message: "Use of conditional comments are deprecated",
+				location: event.location,
+			});
 		});
 	}
 }

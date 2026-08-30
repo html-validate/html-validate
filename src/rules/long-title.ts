@@ -40,7 +40,10 @@ export default class LongTitle extends Rule<void, RuleOptions> {
 
 			const text = node.textContent;
 			if (text.length > this.maxlength) {
-				this.report(node, `title text cannot be longer than ${String(this.maxlength)} characters`);
+				this.report({
+					node,
+					message: `title text cannot be longer than ${String(this.maxlength)} characters`,
+				});
 			}
 		});
 	}

@@ -38,36 +38,36 @@ Omitted end tags can be ambigious for humans to read and many editors have troub
 			const sameTag = closed.tagName === by.tagName; /* <p>foo<p>bar */
 
 			if (by.isRootElement()) {
-				this.report(
-					closed,
-					`Element <${closed.tagName}> is implicitly closed by document ending`,
-					closed.location,
-				);
+				this.report({
+					node: closed,
+					message: `Element <${closed.tagName}> is implicitly closed by document ending`,
+					location: closed.location,
+				});
 			} else if (closedByEndTag && closedByParent) {
-				this.report(
-					closed,
-					`Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
-					closed.location,
-				);
+				this.report({
+					node: closed,
+					message: `Element <${closed.tagName}> is implicitly closed by parent </${by.tagName}>`,
+					location: closed.location,
+				});
 			} else if (closedByEndTag) {
 				/* <table><tbody><tr><td>x</table> closes <td> and <tr> as well */
-				this.report(
-					closed,
-					`Element <${closed.tagName}> is implicitly closed by ancestor </${by.tagName}>`,
-					closed.location,
-				);
+				this.report({
+					node: closed,
+					message: `Element <${closed.tagName}> is implicitly closed by ancestor </${by.tagName}>`,
+					location: closed.location,
+				});
 			} else if (sameTag) {
-				this.report(
-					closed,
-					`Element <${closed.tagName}> is implicitly closed by sibling`,
-					closed.location,
-				);
+				this.report({
+					node: closed,
+					message: `Element <${closed.tagName}> is implicitly closed by sibling`,
+					location: closed.location,
+				});
 			} else {
-				this.report(
-					closed,
-					`Element <${closed.tagName}> is implicitly closed by adjacent <${by.tagName}>`,
-					closed.location,
-				);
+				this.report({
+					node: closed,
+					message: `Element <${closed.tagName}> is implicitly closed by adjacent <${by.tagName}>`,
+					location: closed.location,
+				});
 			}
 		});
 	}

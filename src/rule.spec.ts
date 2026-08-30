@@ -71,7 +71,10 @@ describe("rule base class", () => {
 		it('should not add message with severity "disabled"', () => {
 			expect.assertions(1);
 			rule.setServerity(Severity.DISABLED);
-			rule.report(null, "foo");
+			rule.report({
+				node: null,
+				message: "foo",
+			});
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
@@ -79,7 +82,10 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			rule.setServerity(Severity.WARN);
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -95,7 +101,10 @@ describe("rule base class", () => {
 		it('should add message with severity "error"', () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -111,7 +120,10 @@ describe("rule base class", () => {
 		it("should not add message when disabled", () => {
 			expect.assertions(1);
 			rule.setEnabled(false);
-			rule.report(null, "foo");
+			rule.report({
+				node: null,
+				message: "foo",
+			});
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
@@ -119,7 +131,10 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const blocker = createBlocker();
 			rule.block(blocker);
-			rule.report(null, "foo");
+			rule.report({
+				node: null,
+				message: "foo",
+			});
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
@@ -128,14 +143,21 @@ describe("rule base class", () => {
 			const blocker = createBlocker();
 			rule.block(blocker);
 			rule.unblock(blocker);
-			rule.report(null, "foo");
+			rule.report({
+				node: null,
+				message: "foo",
+			});
 			expect(reporter.add).toHaveBeenCalled();
 		});
 
 		it("should use explicit location if provided", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
-			rule.report(node, "foo", mockLocation);
+			rule.report({
+				node,
+				message: "foo",
+				location: mockLocation,
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -154,7 +176,10 @@ describe("rule base class", () => {
 			rule.on("*", () => null);
 			const callback = parserOn.mock.calls[0][1];
 			callback("event", mockEvent);
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -170,7 +195,10 @@ describe("rule base class", () => {
 		it("should use node location if no node location", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", mockLocation);
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -187,7 +215,12 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const context = { foo: "bar" };
 			const node = HtmlElement.createElement("foo", location);
-			rule.report(node, "foo", null, context);
+			rule.report({
+				node,
+				message: "foo",
+				location: null,
+				context,
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo",
@@ -205,7 +238,10 @@ describe("rule base class", () => {
 			const node = HtmlElement.createElement("foo", location);
 			node.disableRule("mock-rule");
 			rule.setServerity(Severity.ERROR);
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(reporter.add).not.toHaveBeenCalled();
 		});
 
@@ -213,7 +249,12 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			const context: RuleContext = { foo: "bar" };
-			rule.report(node, "foo {{ foo }}", mockLocation, context);
+			rule.report({
+				node,
+				message: "foo {{ foo }}",
+				location: mockLocation,
+				context,
+			});
 			expect(reporter.add).toHaveBeenCalledWith({
 				rule,
 				message: "foo bar",
@@ -230,7 +271,10 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
 			const trigger = jest.spyOn(parser, "trigger");
-			rule.report(node, "foo");
+			rule.report({
+				node,
+				message: "foo",
+			});
 			expect(trigger).toHaveBeenCalledWith("rule:error", {
 				ruleId: "mock-rule",
 				enabled: true,

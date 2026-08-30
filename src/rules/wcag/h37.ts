@@ -88,9 +88,17 @@ export default class H37 extends Rule<void, RuleOptions> {
 			/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- we just verified presence with hasAttribute */
 			const attr = node.getAttribute("alt")!;
 			/* istanbul ignore next */
-			this.report(node, `${tag} cannot have empty "alt" attribute`, attr.keyLocation);
+			this.report({
+				node,
+				message: `${tag} cannot have empty "alt" attribute`,
+				location: attr.keyLocation,
+			});
 		} else {
-			this.report(node, `${tag} is missing required "alt" attribute`, node.location);
+			this.report({
+				node,
+				message: `${tag} is missing required "alt" attribute`,
+				location: node.location,
+			});
 		}
 	}
 }
