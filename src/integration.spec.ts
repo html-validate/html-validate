@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { beforeAll, describe, expect, it } from "@jest/globals";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import "./jest";
 import { StaticConfigLoader } from "./browser";
 import { type ConfigData, type Resolver, type RuleConfig, staticResolver } from "./config";
@@ -12,6 +12,16 @@ import { HtmlValidate } from "./htmlvalidate";
 import { type Plugin } from "./plugin";
 import { Rule } from "./rule";
 import { TRANSFORMER_API } from "./transform";
+
+/* mock import from flat config, the `?mtime` cache busting does not work with jest */
+jest.mock("./flat-config/load-flat-config-file.nodejs", () => {
+	return {
+		async loadFlatConfigFile(filePath: string) {
+			const { default: config } = (await import(filePath)) as { default: unknown };
+			return config;
+		},
+	};
+});
 
 expect.addSnapshotSerializer({
 	serialize(value: string): string {
