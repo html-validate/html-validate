@@ -51,7 +51,7 @@ export default defineFlatConfig([
 In this example, the optional `defineFlatConfig()` helper is used to construct a configuration array with just one object.
 The configuration object matches any `.html` file and enables the rule {@link rule:element-permitted-content}.
 
-::: info TypeScript
+::: tip TypeScript
 
 If you use a TypeScript configuration file you need to use NodeJS v22.18 or later which supports [running TypeScript natively](https://nodejs.org/learn/typescript/run-natively), or use the `--experimental-strip-types` flag.
 

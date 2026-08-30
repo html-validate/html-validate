@@ -18,7 +18,7 @@ alternatively:
 `ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is arguments to the action.
 Comment is optional but encouraged.
 
-::: info Optional brackets
+::: tip Optional brackets
 Versions earlier than 10.7.0 required brackets around the directive:
 
     <!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
