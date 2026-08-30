@@ -14,14 +14,14 @@ const location: Location = {
 it("should return true if element has aria-label with text", () => {
 	expect.assertions(1);
 	const node = HtmlElement.createElement("img", location);
-	node.setAttribute("aria-label", "foobar", location, location);
+	node.setAttribute("aria-label", "foobar", location, location, location);
 	expect(hasAriaLabel(node)).toBeTruthy();
 });
 
 it("should return true if element has dynamic aria-label", () => {
 	expect.assertions(1);
 	const node = HtmlElement.createElement("img", location);
-	node.setAttribute("aria-label", new DynamicValue("expr"), location, location);
+	node.setAttribute("aria-label", new DynamicValue("expr"), location, location, location);
 	expect(hasAriaLabel(node)).toBeTruthy();
 });
 
@@ -34,13 +34,13 @@ it("should return false if element does not have aria-label", () => {
 it("should return false if element has empty aria-label text", () => {
 	expect.assertions(1);
 	const node = HtmlElement.createElement("img", location);
-	node.setAttribute("aria-label", "", location, location);
+	node.setAttribute("aria-label", "", location, location, location);
 	expect(hasAriaLabel(node)).toBeFalsy();
 });
 
 it("should return false if element has boolean aria-label attribute", () => {
 	expect.assertions(1);
 	const node = HtmlElement.createElement("img", location);
-	node.setAttribute("aria-label", null, location, location);
+	node.setAttribute("aria-label", null, location, location, location);
 	expect(hasAriaLabel(node)).toBeFalsy();
 });

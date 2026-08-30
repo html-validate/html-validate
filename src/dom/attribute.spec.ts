@@ -3,6 +3,14 @@ import { type Location } from "../location";
 import { Attribute, isDynamicAttribute, isStaticAttribute } from "./attribute";
 import { DynamicValue } from "./dynamic-value";
 
+const location: Location = {
+	filename: "file",
+	offset: 1,
+	line: 1,
+	column: 2,
+	size: 7,
+};
+
 const keyLocation: Location = {
 	filename: "file",
 	offset: 1,
@@ -25,15 +33,15 @@ let nullAttr: Attribute;
 
 beforeEach(() => {
 	const dynamic = new DynamicValue("dynamic");
-	staticAttr = new Attribute("foo", "static", keyLocation, valueLocation);
-	dynamicAttr = new Attribute("bar", dynamic, keyLocation, valueLocation);
-	nullAttr = new Attribute("foo", null, keyLocation, valueLocation);
+	staticAttr = new Attribute("foo", "static", location, keyLocation, valueLocation);
+	dynamicAttr = new Attribute("bar", dynamic, location, keyLocation, valueLocation);
+	nullAttr = new Attribute("foo", null, location, keyLocation, valueLocation);
 });
 
 describe("Attribute", () => {
 	it("should set fields", () => {
 		expect.assertions(4);
-		const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
+		const attr = new Attribute("foo", "bar", location, keyLocation, valueLocation);
 		expect(attr.key).toBe("foo");
 		expect(attr.value).toBe("bar");
 		expect(attr.keyLocation).toEqual(keyLocation);
@@ -42,9 +50,9 @@ describe("Attribute", () => {
 
 	it("should force value to null if passing undefined", () => {
 		expect.assertions(3);
-		const a = new Attribute("foo", undefined, keyLocation, null);
-		const b = new Attribute("foo", null, keyLocation, null);
-		const c = new Attribute("foo", "", keyLocation, valueLocation);
+		const a = new Attribute("foo", undefined, location, keyLocation, null);
+		const b = new Attribute("foo", null, location, keyLocation, null);
+		const c = new Attribute("foo", "", location, keyLocation, valueLocation);
 		expect(a.value).toBeNull();
 		expect(b.value).toBeNull();
 		expect(c.value).toBe("");
@@ -53,21 +61,21 @@ describe("Attribute", () => {
 	describe("valueMatches()", () => {
 		it("should match string", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
+			const attr = new Attribute("foo", "bar", location, keyLocation, valueLocation);
 			expect(attr.valueMatches("bar")).toBeTruthy();
 			expect(attr.valueMatches("ar")).toBeFalsy();
 		});
 
 		it("should match list of string", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
+			const attr = new Attribute("foo", "bar", location, keyLocation, valueLocation);
 			expect(attr.valueMatches(["aar", "bar", "car"])).toBeTruthy();
 			expect(attr.valueMatches(["ar", "br", "cr"])).toBeFalsy();
 		});
 
 		it("should match regexp", () => {
 			expect.assertions(3);
-			const attr = new Attribute("foo", "bar", keyLocation, valueLocation);
+			const attr = new Attribute("foo", "bar", location, keyLocation, valueLocation);
 			expect(attr.valueMatches(/bar/)).toBeTruthy();
 			expect(attr.valueMatches(/ar$/)).toBeTruthy();
 			expect(attr.valueMatches(/foo/)).toBeFalsy();
@@ -75,21 +83,33 @@ describe("Attribute", () => {
 
 		it("should return false for boolean attributes", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", null, keyLocation, valueLocation);
+			const attr = new Attribute("foo", null, location, keyLocation, valueLocation);
 			expect(attr.valueMatches("true")).toBeFalsy();
 			expect(attr.valueMatches(/any/)).toBeFalsy();
 		});
 
 		it("should match DynamicValue", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, valueLocation);
+			const attr = new Attribute(
+				"foo",
+				new DynamicValue("bar"),
+				location,
+				keyLocation,
+				valueLocation,
+			);
 			expect(attr.valueMatches("foo")).toBeTruthy();
 			expect(attr.valueMatches(/foo/)).toBeTruthy();
 		});
 
 		it("should match ignore DynamicValue", () => {
 			expect.assertions(2);
-			const attr = new Attribute("foo", new DynamicValue("bar"), keyLocation, valueLocation);
+			const attr = new Attribute(
+				"foo",
+				new DynamicValue("bar"),
+				location,
+				keyLocation,
+				valueLocation,
+			);
 			expect(attr.valueMatches("bar", false)).toBeFalsy();
 			expect(attr.valueMatches(/bar/, false)).toBeFalsy();
 		});

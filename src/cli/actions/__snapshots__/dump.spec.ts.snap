@@ -26,6 +26,7 @@ tag:start: {
         {
           "key": "id",
           "value": "foo",
+          "location": "<rootDir>/test-files/parser/simple.html:1:4",
           "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
           "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
@@ -46,6 +47,7 @@ attr: {
         {
           "key": "id",
           "value": "foo",
+          "location": "<rootDir>/test-files/parser/simple.html:1:4",
           "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
           "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
@@ -72,6 +74,7 @@ tag:ready: {
         {
           "key": "id",
           "value": "foo",
+          "location": "<rootDir>/test-files/parser/simple.html:1:4",
           "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
           "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
@@ -100,6 +103,7 @@ tag:end: {
         {
           "key": "id",
           "value": "foo",
+          "location": "<rootDir>/test-files/parser/simple.html:1:4",
           "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
           "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }
@@ -120,6 +124,7 @@ element:ready: {
         {
           "key": "id",
           "value": "foo",
+          "location": "<rootDir>/test-files/parser/simple.html:1:4",
           "keyLocation": "<rootDir>/test-files/parser/simple.html:1:4",
           "valueLocation": "<rootDir>/test-files/parser/simple.html:1:8"
         }

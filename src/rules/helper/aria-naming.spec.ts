@@ -69,7 +69,7 @@ it("should return allowed if element with role allows naming", () => {
 	expect.assertions(1);
 	const meta = table.getMetaFor("allowed");
 	const element = HtmlElement.createElement("allowed", mockLocation, { meta });
-	element.setAttribute("role", "button", mockLocation, mockLocation);
+	element.setAttribute("role", "button", mockLocation, mockLocation, mockLocation);
 	expect(ariaNaming(element)).toBe("allowed");
 });
 
@@ -77,7 +77,7 @@ it("should return prohibited if element with role does not allow naming", () => 
 	expect.assertions(1);
 	const meta = table.getMetaFor("allowed");
 	const element = HtmlElement.createElement("allowed", mockLocation, { meta });
-	element.setAttribute("role", "generic", mockLocation, mockLocation);
+	element.setAttribute("role", "generic", mockLocation, mockLocation, mockLocation);
 	expect(ariaNaming(element)).toBe("prohibited");
 });
 
@@ -85,6 +85,6 @@ it("should return allowed if element have dynamic role", () => {
 	expect.assertions(1);
 	const meta = table.getMetaFor("allowed");
 	const element = HtmlElement.createElement("allowed", mockLocation, { meta });
-	element.setAttribute("role", new DynamicValue("expr"), mockLocation, mockLocation);
+	element.setAttribute("role", new DynamicValue("expr"), mockLocation, mockLocation, mockLocation);
 	expect(ariaNaming(element)).toBe("allowed");
 });

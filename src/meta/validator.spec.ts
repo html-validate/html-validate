@@ -560,7 +560,7 @@ describe("Meta validator", () => {
 		it("should match if no rule is present", () => {
 			expect.assertions(1);
 			const rules: Record<string, MetaAttribute> = {};
-			const attr = new Attribute("foo", "bar", location, location);
+			const attr = new Attribute("foo", "bar", location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
@@ -572,7 +572,7 @@ describe("Meta validator", () => {
 		`("should match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
 			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex] } };
-			const attr = new Attribute("foo", value as string | null, location, location);
+			const attr = new Attribute("foo", value as string | null, location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
@@ -584,7 +584,7 @@ describe("Meta validator", () => {
 		`("should not match regexp $regex vs $value", ({ regex, value }) => {
 			expect.assertions(1);
 			const rules: Record<string, MetaAttribute> = { foo: { enum: [regex as RegExp] } };
-			const attr = new Attribute("foo", value as string | null, location, location);
+			const attr = new Attribute("foo", value as string | null, location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
@@ -597,7 +597,7 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: [{ name, pattern } as MetaAttributeNamedRegex] },
 			};
-			const attr = new Attribute("foo", value as string, location, location);
+			const attr = new Attribute("foo", value as string, location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeTruthy();
 		});
 
@@ -610,7 +610,7 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: [{ name, pattern } as MetaAttributeNamedRegex] },
 			};
-			const attr = new Attribute("foo", value as string | null, location, location);
+			const attr = new Attribute("foo", value as string | null, location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
@@ -619,7 +619,7 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: [{ name: "foo", pattern: "/bar/" }] },
 			};
-			const attr = new Attribute("foo", "value", location, location);
+			const attr = new Attribute("foo", "value", location, location, location);
 			expect(() => Validator.validateAttribute(attr, rules)).toThrow(
 				"RegExp was not precompiled when it should have been",
 			);
@@ -630,8 +630,8 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: ["bar"] },
 			};
-			const bar = new Attribute("foo", "bar", location, location);
-			const car = new Attribute("foo", "car", location, location);
+			const bar = new Attribute("foo", "bar", location, location, location);
+			const car = new Attribute("foo", "car", location, location, location);
 			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(car, rules)).toBeFalsy();
 		});
@@ -641,8 +641,8 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: ["bar"] },
 			};
-			const bar = new Attribute("foo", "bar", location, location);
-			const car = new Attribute("foo", "BAR", location, location);
+			const bar = new Attribute("foo", "bar", location, location, location);
+			const car = new Attribute("foo", "BAR", location, location, location);
 			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(car, rules)).toBeTruthy();
 		});
@@ -654,8 +654,8 @@ describe("Meta validator", () => {
 				bar: { boolean: true },
 			};
 			const dynamic = new DynamicValue("any");
-			const foo = new Attribute("foo", dynamic, location, location);
-			const bar = new Attribute("bar", dynamic, location, location);
+			const foo = new Attribute("foo", dynamic, location, location, location);
+			const bar = new Attribute("bar", dynamic, location, location, location);
 			expect(Validator.validateAttribute(foo, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(bar, rules)).toBeTruthy();
 		});
@@ -665,8 +665,8 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: ["fred", "barney", "wilma"] },
 			};
-			const barney = new Attribute("foo", "barney", location, location);
-			const pebble = new Attribute("foo", "pebble", location, location);
+			const barney = new Attribute("foo", "barney", location, location, location);
+			const pebble = new Attribute("foo", "pebble", location, location, location);
 			expect(Validator.validateAttribute(barney, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(pebble, rules)).toBeFalsy();
 		});
@@ -676,9 +676,9 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: [] },
 			};
-			const a = new Attribute("foo", "barney", location, location);
-			const b = new Attribute("foo", "pebble", location, location);
-			const c = new Attribute("foo", "barney", location, location);
+			const a = new Attribute("foo", "barney", location, location, location);
+			const b = new Attribute("foo", "pebble", location, location, location);
+			const c = new Attribute("foo", "barney", location, location, location);
 			expect(Validator.validateAttribute(a, rules)).toBeFalsy();
 			expect(Validator.validateAttribute(b, rules)).toBeFalsy();
 			expect(Validator.validateAttribute(c, rules)).toBeFalsy();
@@ -689,9 +689,9 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: {},
 			};
-			const omitted = new Attribute("foo", null, location, null);
-			const empty = new Attribute("foo", "", location, null);
-			const value = new Attribute("foo", "foo", location, location);
+			const omitted = new Attribute("foo", null, location, location, null);
+			const empty = new Attribute("foo", "", location, location, null);
+			const value = new Attribute("foo", "foo", location, location, location);
 			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(value, rules)).toBeTruthy();
@@ -702,7 +702,7 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: ["foo", "/bar/"] },
 			};
-			const attr = new Attribute("foo", null, location, null);
+			const attr = new Attribute("foo", null, location, location, null);
 			expect(Validator.validateAttribute(attr, rules)).toBeFalsy();
 		});
 
@@ -711,10 +711,10 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { boolean: true },
 			};
-			const omitted = new Attribute("foo", null, location, null);
-			const empty = new Attribute("foo", "", location, null);
-			const self = new Attribute("foo", "foo", location, location);
-			const other = new Attribute("foo", "other", location, location);
+			const omitted = new Attribute("foo", null, location, location, null);
+			const empty = new Attribute("foo", "", location, location, null);
+			const self = new Attribute("foo", "foo", location, location, location);
+			const other = new Attribute("foo", "other", location, location, location);
 			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(self, rules)).toBeTruthy();
@@ -726,8 +726,8 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { omit: true },
 			};
-			const omitted = new Attribute("foo", null, location, null);
-			const empty = new Attribute("foo", "", location, null);
+			const omitted = new Attribute("foo", null, location, location, null);
+			const empty = new Attribute("foo", "", location, location, null);
 			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 		});
@@ -737,9 +737,9 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { enum: [""] },
 			};
-			const omitted = new Attribute("foo", null, location, null);
-			const empty = new Attribute("foo", "", location, null);
-			const value = new Attribute("foo", "foo", location, location);
+			const omitted = new Attribute("foo", null, location, location, null);
+			const empty = new Attribute("foo", "", location, location, null);
+			const value = new Attribute("foo", "foo", location, location, location);
 			expect(Validator.validateAttribute(omitted, rules)).toBeFalsy();
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(value, rules)).toBeFalsy();
@@ -763,7 +763,7 @@ describe("Meta validator", () => {
 				const rules: Record<string, MetaAttribute> = {
 					foo: options,
 				};
-				const attr = new Attribute("foo", value as string | null, location, location);
+				const attr = new Attribute("foo", value as string | null, location, location, location);
 				expect(Validator.validateAttribute(attr, rules)).toEqual(expected);
 			});
 		});
@@ -773,10 +773,10 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { boolean: true },
 			};
-			const omitted = new Attribute("foo", null, location, null);
-			const empty = new Attribute("foo", "", location, null);
-			const self = new Attribute("foo", "foo", location, location);
-			const other = new Attribute("foo", "bar", location, location);
+			const omitted = new Attribute("foo", null, location, location, null);
+			const empty = new Attribute("foo", "", location, location, null);
+			const self = new Attribute("foo", "foo", location, location, location);
+			const other = new Attribute("foo", "bar", location, location, location);
 			expect(Validator.validateAttribute(omitted, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(empty, rules)).toBeTruthy();
 			expect(Validator.validateAttribute(self, rules)).toBeTruthy();
@@ -797,7 +797,7 @@ describe("Meta validator", () => {
 			const rules: Record<string, MetaAttribute> = {
 				foo: { list: true, enum: ["foo", "bar"] },
 			};
-			const attr = new Attribute("foo", value as string | null, location, location);
+			const attr = new Attribute("foo", value as string | null, location, location, location);
 			expect(Validator.validateAttribute(attr, rules)).toBe(expected);
 		});
 	});
