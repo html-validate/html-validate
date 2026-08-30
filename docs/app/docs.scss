@@ -13,17 +13,12 @@ $fa-font-path: "fonts";
 @import "bootstrap/variables";
 @import "bootstrap/mixins/background-variant";
 @import "bootstrap/mixins/clearfix";
-@import "bootstrap/mixins/forms";
-@import "bootstrap/mixins/grid";
 @import "bootstrap/mixins/nav-vertical-align";
-@import "bootstrap/mixins/tab-focus";
 @import "bootstrap/mixins/text-emphasis";
 @import "bootstrap/mixins/text-overflow";
-@import "bootstrap/mixins/vendor-prefixes";
 @import "bootstrap/normalize";
 @import "bootstrap/type";
 @import "bootstrap/code";
-@import "bootstrap/forms";
 
 // Highlight.js
 @import "github";
