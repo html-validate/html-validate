@@ -9,6 +9,8 @@ export default class CloseAttr extends Rule {
 		};
 	}
 
+	public static override readonly fixable = true;
+
 	public setup(): void {
 		this.on("tag:end", (event: TagEndEvent) => {
 			/* handle unclosed tags */
@@ -28,6 +30,11 @@ export default class CloseAttr extends Rule {
 					node: null,
 					message: "Close tags cannot have attributes",
 					location: first.keyLocation,
+					fix(fixer) {
+						for (const attr of node.attributes) {
+							fixer.replaceText(attr.location, "");
+						}
+					},
 				});
 			}
 		});
