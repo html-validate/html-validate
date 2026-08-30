@@ -29,10 +29,10 @@ export default class ElementPermittedOccurrences extends Rule {
 					node.childElements,
 					rules,
 					(child: HtmlElement, category: string) => {
-						this.report(
-							child,
-							`Element <${category}> can only appear once under ${node.annotatedName}`,
-						);
+						this.report({
+							node: child,
+							message: `Element <${category}> can only appear once under ${node.annotatedName}`,
+						});
 					},
 				);
 			});

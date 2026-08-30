@@ -29,7 +29,10 @@ export default class H71 extends Rule {
 	}
 
 	private reportNode(node: HtmlElement): void {
-		super.report(node, `${node.annotatedName} must have a <legend> as the first child`);
+		super.report({
+			node,
+			message: `${node.annotatedName} must have a <legend> as the first child`,
+		});
 	}
 
 	private get selector(): string {

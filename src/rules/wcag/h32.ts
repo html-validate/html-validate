@@ -36,7 +36,10 @@ export default class H32 extends Rule {
 					continue;
 				}
 
-				this.report(form, `<${form.tagName}> element must have a submit button`);
+				this.report({
+					node: form,
+					message: `<${form.tagName}> element must have a submit button`,
+				});
 			}
 		});
 	}

@@ -130,7 +130,11 @@ export default class H63 extends Rule<void, RuleOptions> {
 
 			const message = `<th> element must have a valid scope attribute: ${joinedScopes}`;
 			const location = scope?.valueLocation ?? scope?.keyLocation ?? th.location;
-			this.report(th, message, location);
+			this.report({
+				node: th,
+				message,
+				location,
+			});
 		}
 	}
 }

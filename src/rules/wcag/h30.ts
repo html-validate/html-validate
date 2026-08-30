@@ -45,7 +45,10 @@ export default class H30 extends Rule {
 					continue;
 				}
 
-				this.report(link, "Anchor link must have a text describing its purpose");
+				this.report({
+					node: link,
+					message: "Anchor link must have a text describing its purpose",
+				});
 			}
 		});
 	}

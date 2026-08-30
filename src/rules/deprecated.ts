@@ -111,20 +111,35 @@ export default class Deprecated extends Rule<RuleContext, RuleOptions> {
 	private reportString(deprecated: string, node: HtmlElement, location: Location): void {
 		const context: RuleContext = { tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated: ${deprecated}`;
-		this.report(node, message, location, context);
+		this.report({
+			node,
+			message,
+			location,
+			context,
+		});
 	}
 
 	private reportBoolean(node: HtmlElement, location: Location): void {
 		const context: RuleContext = { tagName: node.tagName };
 		const message = `<${node.tagName}> is deprecated`;
-		this.report(node, message, location, context);
+		this.report({
+			node,
+			message,
+			location,
+			context,
+		});
 	}
 
 	private reportObject(deprecated: DeprecatedElement, node: HtmlElement, location: Location): void {
 		const context: RuleContext = { ...deprecated, tagName: node.tagName };
 		const notice = deprecated.message ? `: ${deprecated.message}` : "";
 		const message = `<${node.tagName}> is deprecated${notice}`;
-		this.report(node, message, location, context);
+		this.report({
+			node,
+			message,
+			location,
+			context,
+		});
 	}
 }
 

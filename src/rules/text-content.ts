@@ -194,9 +194,14 @@ export default class TextContent extends Rule<RuleContext> {
 	}
 
 	private reportError(node: HtmlElement, meta: MetaElement, message: string): void {
-		this.report(node, message, null, {
-			tagName: node.tagName,
-			textContent: meta.textContent,
+		this.report({
+			node,
+			message,
+			location: null,
+			context: {
+				tagName: node.tagName,
+				textContent: meta.textContent,
+			},
 		});
 	}
 }

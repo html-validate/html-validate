@@ -103,7 +103,12 @@ export default class ElementPermittedParent extends Rule<RuleContext> {
 					child: node.annotatedName,
 					rules,
 				};
-				this.report(node, message, null, context);
+				this.report({
+					node,
+					message,
+					location: null,
+					context,
+				});
 			});
 		});
 	}

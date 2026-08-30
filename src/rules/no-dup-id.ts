@@ -94,7 +94,11 @@ export default class NoDupID extends Rule<void, RuleOptions> {
 				const existing = useRootExisting ? rootExisting : getExisting(el, document.root);
 
 				if (existing.has(id)) {
-					this.report(el, `Duplicate ID "${id}"`, attr.valueLocation);
+					this.report({
+						node: el,
+						message: `Duplicate ID "${id}"`,
+						location: attr.valueLocation,
+					});
 					continue;
 				}
 

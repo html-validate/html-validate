@@ -118,12 +118,12 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 			/* report error */
 			const context: RuleContext = { role, replacement };
 			const location = this.getLocation(event);
-			this.report(
-				event.target,
-				`Prefer to use the native <${replacement}> element`,
+			this.report({
+				node: event.target,
+				message: `Prefer to use the native <${replacement}> element`,
 				location,
 				context,
-			);
+			});
 		});
 	}
 

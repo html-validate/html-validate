@@ -21,7 +21,10 @@ export default class NoMultipleMain extends Rule {
 
 			/* report all other occurrences */
 			for (const elem of main) {
-				this.report(elem, "Multiple <main> elements present in document");
+				this.report({
+					node: elem,
+					message: "Multiple <main> elements present in document",
+				});
 			}
 		});
 	}

@@ -63,7 +63,11 @@ export default class RequireCSPNonce extends Rule<void, RuleOptions> {
 			}
 
 			const message = `required CSP nonce is missing`;
-			this.report(node, message, node.location);
+			this.report({
+				node,
+				message,
+				location: node.location,
+			});
 		});
 	}
 }

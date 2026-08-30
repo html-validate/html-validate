@@ -124,7 +124,12 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 						error: "unquoted",
 						attr: event.key,
 					};
-					this.report(event.target, message, null, context);
+					this.report({
+						node: event.target,
+						message,
+						location: null,
+						context,
+					});
 				}
 				return;
 			}
@@ -146,7 +151,12 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 					actual: event.quote,
 					expected,
 				};
-				this.report(event.target, message, null, context);
+				this.report({
+					node: event.target,
+					message,
+					location: null,
+					context,
+				});
 			}
 		});
 	}

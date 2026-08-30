@@ -103,11 +103,11 @@ export default class RequireSri extends Rule<void, RuleOptions> {
 				return;
 			}
 
-			this.report(
+			this.report({
 				node,
-				`SRI "integrity" attribute is required on <${node.tagName}> element`,
-				node.location,
-			);
+				message: `SRI "integrity" attribute is required on <${node.tagName}> element`,
+				location: node.location,
+			});
 		});
 	}
 

@@ -83,7 +83,12 @@ export default class NoMissingReferences extends Rule<Context> {
 			return;
 		}
 		const context: Context = { key: attr.key, value: id };
-		this.report(node, `Element references missing id "${id}"`, attr.valueLocation, context);
+		this.report({
+			node,
+			message: `Element references missing id "${id}"`,
+			location: attr.valueLocation,
+			context,
+		});
 	}
 
 	protected validateList(
@@ -97,7 +102,12 @@ export default class NoMissingReferences extends Rule<Context> {
 			const id = entry.item;
 			if (idMissing(document, id)) {
 				const context: Context = { key: attr.key, value: id };
-				this.report(node, `Element references missing id "${id}"`, entry.location, context);
+				this.report({
+					node,
+					message: `Element references missing id "${id}"`,
+					location: entry.location,
+					context,
+				});
 			}
 		}
 	}

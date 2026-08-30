@@ -70,14 +70,20 @@ export default class InputMissingLabel extends Rule {
 		}
 
 		if (elem.hasAttribute("aria-label")) {
-			this.report(elem, `<${elem.tagName}> element has aria-label but label has no text`);
+			this.report({
+				node: elem,
+				message: `<${elem.tagName}> element has aria-label but label has no text`,
+			});
 		} else if (elem.hasAttribute("aria-labelledby")) {
-			this.report(
-				elem,
-				`<${elem.tagName}> element has aria-labelledby but referenced element has no text`,
-			);
+			this.report({
+				node: elem,
+				message: `<${elem.tagName}> element has aria-labelledby but referenced element has no text`,
+			});
 		} else {
-			this.report(elem, `<${elem.tagName}> element does not have a <label>`);
+			this.report({
+				node: elem,
+				message: `<${elem.tagName}> element does not have a <label>`,
+			});
 		}
 	}
 
@@ -87,11 +93,17 @@ export default class InputMissingLabel extends Rule {
 	private validateLabel(root: DOMTree, elem: HtmlElement, labels: HtmlElement[]): void {
 		const visible = labels.filter(inAccessibilityTree);
 		if (visible.length === 0) {
-			this.report(elem, `<${elem.tagName}> element has <label> but <label> element is hidden`);
+			this.report({
+				node: elem,
+				message: `<${elem.tagName}> element has <label> but <label> element is hidden`,
+			});
 			return;
 		}
 		if (labels.every((label) => !hasAccessibleName(root, label))) {
-			this.report(elem, `<${elem.tagName}> element has <label> but <label> has no text`);
+			this.report({
+				node: elem,
+				message: `<${elem.tagName}> element has <label> but <label> has no text`,
+			});
 		}
 	}
 }

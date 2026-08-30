@@ -67,7 +67,11 @@ export default class CloseOrder extends Rule {
 				if (ancestor.isRootElement() || reported.has(ancestor.unique)) {
 					continue;
 				}
-				this.report(ancestor, `Unclosed element '<${ancestor.tagName}>'`, ancestor.location);
+				this.report({
+					node: ancestor,
+					message: `Unclosed element '<${ancestor.tagName}>'`,
+					location: ancestor.location,
+				});
 				reported.add(ancestor.unique);
 			}
 		});
@@ -105,7 +109,11 @@ export default class CloseOrder extends Rule {
 					offset: current.location.offset,
 					size: current.tagName.length + 1,
 				};
-				this.report(null, `Stray end tag '</${current.tagName}>'`, location);
+				this.report({
+					node: null,
+					message: `Stray end tag '</${current.tagName}>'`,
+					location,
+				});
 				return;
 			}
 
@@ -123,17 +131,25 @@ export default class CloseOrder extends Rule {
 					if (reported.has(element.unique)) {
 						continue;
 					}
-					this.report(element, `Unclosed element '<${element.tagName}>'`, element.location);
+					this.report({
+						node: element,
+						message: `Unclosed element '<${element.tagName}>'`,
+						location: element.location,
+					});
 					reported.add(element.unique);
 				}
-				this.report(
-					null,
-					`End tag '</${current.tagName}>' seen but there were open elements`,
-					current.location,
-				);
+				this.report({
+					node: null,
+					message: `End tag '</${current.tagName}>' seen but there were open elements`,
+					location: current.location,
+				});
 				reported.add(ancestor.unique);
 			} else {
-				this.report(null, `Stray end tag '</${current.tagName}>'`, current.location);
+				this.report({
+					node: null,
+					message: `Stray end tag '</${current.tagName}>'`,
+					location: current.location,
+				});
 			}
 		});
 	}

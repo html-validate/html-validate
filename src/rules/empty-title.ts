@@ -32,7 +32,11 @@ export default class EmptyTitle extends Rule {
 				case TextClassification.EMPTY_TEXT: {
 					/* no content or whitespace only */
 					const message = `<${node.tagName}> cannot be empty, must have text content`;
-					this.report(node, message, node.location);
+					this.report({
+						node,
+						message,
+						location: node.location,
+					});
 					break;
 				}
 			}

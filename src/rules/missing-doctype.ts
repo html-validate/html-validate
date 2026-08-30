@@ -13,7 +13,10 @@ export default class MissingDoctype extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const dom = event.document;
 			if (!dom.doctype) {
-				this.report(dom.root, "Document is missing doctype");
+				this.report({
+					node: dom.root,
+					message: "Document is missing doctype",
+				});
 			}
 		});
 	}

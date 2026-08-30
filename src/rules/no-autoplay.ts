@@ -84,12 +84,12 @@ export default class NoAutoplay extends Rule<RuleContext, RuleOptions> {
 			/* report error */
 			const context: RuleContext = { tagName };
 			const location = event.location;
-			this.report(
-				event.target,
-				`The autoplay attribute is not allowed on <${tagName}>`,
+			this.report({
+				node: event.target,
+				message: `The autoplay attribute is not allowed on <${tagName}>`,
 				location,
 				context,
-			);
+			});
 		});
 	}
 }

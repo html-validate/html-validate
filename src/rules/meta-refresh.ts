@@ -45,7 +45,11 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 			const location = content.valueLocation;
 			const value = parseContent(content.value.toString());
 			if (!value) {
-				this.report(target, "Malformed meta refresh directive", location);
+				this.report({
+					node: target,
+					message: "Malformed meta refresh directive",
+					location,
+				});
 				return;
 			}
 
@@ -69,7 +73,11 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 
 		/* if refresh is instant a URL must be provided or it will be an infinite refresh loop */
 		if (!url && delay === 0) {
-			this.report(target, "Don't use instant meta refresh to reload the page", location);
+			this.report({
+				node: target,
+				message: "Don't use instant meta refresh to reload the page",
+				location,
+			});
 			return;
 		}
 
@@ -78,7 +86,11 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 			const message = allowLongDelay
 				? "Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay)"
 				: "Meta refresh must be instant (0 second delay)";
-			this.report(target, message, location);
+			this.report({
+				node: target,
+				message,
+				location,
+			});
 		}
 	}
 }

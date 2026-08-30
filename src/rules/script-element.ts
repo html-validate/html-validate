@@ -20,7 +20,10 @@ export default class ScriptElement extends Rule {
 			}
 
 			if (node.closed !== Node.CLOSED_END_TAG) {
-				this.report(node, `End tag for <${node.tagName}> must not be omitted`);
+				this.report({
+					node,
+					message: `End tag for <${node.tagName}> must not be omitted`,
+				});
 			}
 		});
 	}

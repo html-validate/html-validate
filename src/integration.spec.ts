@@ -55,7 +55,10 @@ it("should compute correct line, column and offset when using transformed source
 		public setup(): void {
 			this.on("dom:ready", (event: DOMReadyEvent) => {
 				const root = event.document.root;
-				this.report(root, "mock error");
+				this.report({
+					node: root,
+					message: "mock error",
+				});
 			});
 		}
 	}

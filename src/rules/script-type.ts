@@ -36,11 +36,11 @@ export default class ScriptType extends Rule {
 				return;
 			}
 
-			this.report(
+			this.report({
 				node,
-				'"type" attribute is unnecessary for javascript resources',
-				attr.keyLocation,
-			);
+				message: '"type" attribute is unnecessary for javascript resources',
+				location: attr.keyLocation,
+			});
 		});
 	}
 

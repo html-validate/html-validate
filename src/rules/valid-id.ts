@@ -76,13 +76,23 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 
 			if (value === "") {
 				const context: RuleContext = { kind: ErrorKind.EMPTY, id: value };
-				this.report(event.target, this.messages[context.kind], event.location, context);
+				this.report({
+					node: event.target,
+					message: this.messages[context.kind],
+					location: event.location,
+					context,
+				});
 				return;
 			}
 
 			if (/\s/.test(value)) {
 				const context: RuleContext = { kind: ErrorKind.WHITESPACE, id: value };
-				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
+				this.report({
+					node: event.target,
+					message: this.messages[context.kind],
+					location: event.valueLocation,
+					context,
+				});
 				return;
 			}
 
@@ -93,13 +103,23 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 
 			if (/^\P{L}/u.test(value)) {
 				const context: RuleContext = { kind: ErrorKind.LEADING_CHARACTER, id: value };
-				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
+				this.report({
+					node: event.target,
+					message: this.messages[context.kind],
+					location: event.valueLocation,
+					context,
+				});
 				return;
 			}
 
 			if (/[^\p{L}\p{N}_-]/u.test(value)) {
 				const context: RuleContext = { kind: ErrorKind.DISALLOWED_CHARACTER, id: value };
-				this.report(event.target, this.messages[context.kind], event.valueLocation, context);
+				this.report({
+					node: event.target,
+					message: this.messages[context.kind],
+					location: event.valueLocation,
+					context,
+				});
 			}
 		});
 	}

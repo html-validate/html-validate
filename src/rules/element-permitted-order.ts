@@ -29,10 +29,10 @@ export default class ElementPermittedOrder extends Rule {
 					node.childElements,
 					rules,
 					(child: HtmlElement, prev: HtmlElement) => {
-						this.report(
-							child,
-							`Element <${child.tagName}> must be used before <${prev.tagName}> in this context`,
-						);
+						this.report({
+							node: child,
+							message: `Element <${child.tagName}> must be used before <${prev.tagName}> in this context`,
+						});
 					},
 				);
 			});

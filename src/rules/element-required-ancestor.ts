@@ -65,6 +65,11 @@ export default class ElementRequiredAncestor extends Rule<RuleContext> {
 			ancestor,
 			child,
 		};
-		this.report(node, message, null, context);
+		this.report({
+			node,
+			message,
+			location: null,
+			context,
+		});
 	}
 }

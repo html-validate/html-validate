@@ -103,7 +103,12 @@ export default class VoidStyle extends Rule<RuleContext, RuleOptions> {
 			style: this.style,
 			tagName: node.tagName,
 		};
-		super.report(node, message, null, context);
+		super.report({
+			node,
+			message,
+			location: null,
+			context,
+		});
 	}
 }
 

@@ -129,7 +129,11 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 				const charLocation = sliceLocation(location, match.index, match.index + 1);
 
 				/* report as error */
-				this.report(node, `Raw "${char}" must be encoded as "${replacement}"`, charLocation);
+				this.report({
+					node,
+					message: `Raw "${char}" must be encoded as "${replacement}"`,
+					location: charLocation,
+				});
 			}
 		} while (match);
 	}
