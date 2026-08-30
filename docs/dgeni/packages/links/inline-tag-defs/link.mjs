@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/comment-content -- false positive */
-
 const INLINE_LINK = /(\S+)(?:\s+([\s\S]+))?/;
 
 /**
