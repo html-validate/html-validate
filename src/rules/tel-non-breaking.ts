@@ -72,6 +72,8 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		this.regex = constructRegex(this.options.characters);
 	}
 
+	public static override readonly fixable = true;
+
 	public static override schema(): SchemaObject {
 		return {
 			characters: {
@@ -205,6 +207,9 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 				message,
 				location,
 				context,
+				fix(fixer) {
+					fixer.replaceText(location, entry.replacement);
+				},
 			});
 		}
 	}
