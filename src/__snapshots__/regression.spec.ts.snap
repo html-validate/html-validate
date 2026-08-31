@@ -82,6 +82,16 @@ exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
         "selector": "label",
         "severity": 2,
         "size": 3,
+        "suggestions": [
+          {
+            "fix": [Function],
+            "message": "Remove "for" attribute",
+          },
+          {
+            "fix": [Function],
+            "message": "Remove both "for" and "id" attribute",
+          },
+        ],
       },
       {
         "column": 13,
