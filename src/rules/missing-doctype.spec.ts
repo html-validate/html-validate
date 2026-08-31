@@ -59,6 +59,18 @@ describe("rule missing-doctype", () => {
 		`);
 	});
 
+	it("should autofix by adding doctype", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <html></html> `;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		expect(result).toMatchInlineSnapshot(`
+			"<!doctype html>
+			 <html></html> "
+		`);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

@@ -2,6 +2,8 @@ import { type DOMReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class MissingDoctype extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description: "Requires that the document contains a doctype.",
@@ -16,6 +18,9 @@ export default class MissingDoctype extends Rule {
 				this.report({
 					node: dom.root,
 					message: "Document is missing doctype",
+					fix(fixer) {
+						fixer.replaceText(dom.root.location, "<!doctype html>\n");
+					},
 				});
 			}
 		});
