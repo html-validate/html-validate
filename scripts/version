@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in $(git ls-files 'docs/**/*.md' 'src/**/*.ts'); do
+while IFS= read -r -d $'\0' file; do
 	sed "s/%version%/${npm_new_version}/g" -i "${file}"
 	git add "${file}"
-done
+done < <(git ls-files -z '*.md' '*.ts')
