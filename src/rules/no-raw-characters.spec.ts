@@ -262,6 +262,19 @@ describe("rule no-raw-characters", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should autofix by replacing with encoded character", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "no-raw-characters": "error" },
+		});
+		const markup = /* HTML */ ` <p>foo & bar</p> `;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		expect(result).toBe(` <p>foo &amp; bar</p> `);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({
