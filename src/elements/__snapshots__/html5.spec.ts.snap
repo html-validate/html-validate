@@ -16261,6 +16261,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
+        "fix": [Function],
         "line": 5,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 132,
@@ -16272,6 +16273,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
+        "fix": [Function],
         "line": 6,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 158,
