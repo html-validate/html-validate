@@ -10,6 +10,8 @@ const javascript = new Set([
 ]);
 
 export default class ScriptType extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description:
@@ -40,6 +42,11 @@ export default class ScriptType extends Rule {
 				node,
 				message: '"type" attribute is unnecessary for javascript resources',
 				location: attr.keyLocation,
+				fix(fixer) {
+					fixer.removeText(attr.location, {
+						trimStart: true,
+					});
+				},
 			});
 		});
 	}

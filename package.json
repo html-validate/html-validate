@@ -262,6 +262,7 @@
     "@typescript/native": "npm:typescript@7.0.2",
     "babar": "0.2.3",
     "cli-table": "0.3.11",
+    "dedent": "1.7.2",
     "esbuild": "0.28.2",
     "expect": "30.5.0",
     "husky": "9.1.7",

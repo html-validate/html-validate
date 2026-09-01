@@ -35,6 +35,8 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 		this.relaxed = this.options.relaxed;
 	}
 
+	public static override readonly fixable = true;
+
 	public static override schema(): SchemaObject {
 		return {
 			relaxed: {
@@ -133,6 +135,9 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 					node,
 					message: `Raw "${char}" must be encoded as "${replacement}"`,
 					location: charLocation,
+					fix(fixer) {
+						fixer.replaceText(charLocation, replacement);
+					},
 				});
 			}
 		} while (match);

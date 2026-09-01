@@ -18,6 +18,16 @@ exports[`docs/rules/no-redundant-for.md inline validation: incorrect 1`] = `
         "selector": "label",
         "severity": 2,
         "size": 3,
+        "suggestions": [
+          {
+            "fix": [Function],
+            "message": "Remove "for" attribute",
+          },
+          {
+            "fix": [Function],
+            "message": "Remove both "for" and "id" attribute",
+          },
+        ],
       },
     ],
     "source": "<label for="foo">

@@ -41,6 +41,29 @@ export default class NoRedundantFor extends Rule {
 				node: target,
 				message: 'Redundant "for" attribute',
 				location: attr.keyLocation,
+				suggestions: [
+					{
+						message: 'Remove "for" attribute',
+						fix(fixer) {
+							fixer.removeText(attr.location, {
+								trimStart: true,
+							});
+						},
+					},
+					{
+						message: 'Remove both "for" and "id" attribute',
+						fix(fixer) {
+							/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- must have id attribute */
+							const idAttr = control.getAttribute("id")!;
+							fixer.removeText(attr.location, {
+								trimStart: true,
+							});
+							fixer.removeText(idAttr.location, {
+								trimStart: true,
+							});
+						},
+					},
+				],
 			});
 		});
 	}

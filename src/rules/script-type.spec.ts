@@ -97,6 +97,15 @@ describe("rule script-type", () => {
 		`);
 	});
 
+	it("should autofix by removing type attribute", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		expect(result).toMatchInlineSnapshot(`" <script></script> "`);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

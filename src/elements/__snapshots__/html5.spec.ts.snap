@@ -16261,6 +16261,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
+        "fix": [Function],
         "line": 5,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 132,
@@ -16272,6 +16273,7 @@ exports[`HTML elements <script> invalid markup 1`] = `
       },
       {
         "column": 9,
+        "fix": [Function],
         "line": 6,
         "message": ""type" attribute is unnecessary for javascript resources",
         "offset": 158,
@@ -18086,6 +18088,7 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
     "messages": [
       {
         "column": 13,
+        "fix": [Function],
         "line": 2,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 45,
@@ -19170,6 +19173,7 @@ exports[`HTML elements <title> valid markup 1`] = `
     "messages": [
       {
         "column": 12,
+        "fix": [Function],
         "line": 8,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 178,
@@ -19181,6 +19185,7 @@ exports[`HTML elements <title> valid markup 1`] = `
       },
       {
         "column": 21,
+        "fix": [Function],
         "line": 8,
         "message": "Raw "<" must be encoded as "&lt;"",
         "offset": 187,

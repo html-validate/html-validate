@@ -10,6 +10,7 @@ exports[`docs/rules/missing-doctype.md inline validation: incorrect 1`] = `
     "messages": [
       {
         "column": 1,
+        "fix": [Function],
         "line": 1,
         "message": "Document is missing doctype",
         "offset": 0,

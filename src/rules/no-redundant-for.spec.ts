@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
+import dedent from "dedent";
 import { HtmlValidate } from "../htmlvalidate";
 import "html-validate/jest";
 
@@ -106,6 +107,40 @@ describe("rule no-redundant-for", () => {
 			  4 | 			</label>
 			  5 |
 			Selector: label"
+		`);
+	});
+
+	it("should suggest to remove for-attribute", async () => {
+		expect.assertions(1);
+		const markup = dedent(/* HTML */ `
+			<label for="foo">
+				<input id="foo" />
+			</label>
+		`);
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.suggestions![0].fix);
+		expect(result).toMatchInlineSnapshot(`
+			"<label>
+				<input id="foo" />
+			</label>"
+		`);
+	});
+
+	it("should suggest to remove both for- and id-attributes", async () => {
+		expect.assertions(1);
+		const markup = dedent(/* HTML */ `
+			<label for="foo">
+				<input id="foo" />
+			</label>
+		`);
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofixString("inline", markup, message.suggestions![1].fix);
+		expect(result).toMatchInlineSnapshot(`
+			"<label>
+				<input />
+			</label>"
 		`);
 	});
 
