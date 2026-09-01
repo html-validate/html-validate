@@ -67,3 +67,55 @@ describe("collectTextEdits()", () => {
 		expect(second).toEqual([{ kind: TextEditKind.Replace, location, replacement: "foo" }]);
 	});
 });
+
+describe("removeText()", () => {
+	it("should collect removeText without options", async () => {
+		expect.assertions(1);
+		const text = "lorem ipsum";
+		const loc: Location = {
+			filename: "test.html",
+			offset: text.indexOf("lorem"),
+			line: 1,
+			column: 1,
+			size: "lorem".length,
+		};
+		const edits = await collectTextEdits((fixer) => {
+			fixer.removeText(loc);
+		}, text);
+		expect(edits).toEqual([
+			{
+				kind: TextEditKind.Remove,
+				location: {
+					filename: "test.html",
+					offset: loc.offset,
+					size: loc.size,
+				},
+			},
+		]);
+	});
+
+	it("should expand the location to include adjacent whitespace", async () => {
+		expect.assertions(1);
+		const text = "lorem   ipsum dolor";
+		const loc: Location = {
+			filename: "test.html",
+			offset: text.indexOf("ipsum"),
+			line: 1,
+			column: text.indexOf("ipsum") + 1,
+			size: "ipsum".length,
+		};
+		const edits = await collectTextEdits((fixer) => {
+			fixer.removeText(loc, { trimStart: true });
+		}, text);
+		expect(edits).toEqual([
+			{
+				kind: TextEditKind.Remove,
+				location: {
+					filename: "test.html",
+					offset: "lorem".length,
+					size: "ipsum".length + 3 /* spaces */,
+				},
+			},
+		]);
+	});
+});

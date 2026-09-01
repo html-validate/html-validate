@@ -499,6 +499,10 @@ export interface ErrorDescriptor<ContextType> {
 
 // @public
 export interface ErrorFixer {
+    removeText(location: Location_2, options?: {
+        trimStart?: boolean;
+        trimEnd?: boolean;
+    }): void;
     replaceText(location: Location_2, replacement: string): void;
 }
 

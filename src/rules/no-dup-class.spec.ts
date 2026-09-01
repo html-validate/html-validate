@@ -66,7 +66,7 @@ describe("rule no-dup-class", () => {
 		const report = await htmlvalidate.validateString(markup);
 		const [message] = report.results[0].messages;
 		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
-		expect(result).toBe(` <div class="foo bar "></div> `);
+		expect(result).toMatchInlineSnapshot(`" <div class="foo bar"></div> "`);
 	});
 
 	it("should contain documentation", async () => {

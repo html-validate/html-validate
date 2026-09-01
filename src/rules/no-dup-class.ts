@@ -28,7 +28,9 @@ export default class NoDupClass extends Rule {
 						message: `Class "${item}" duplicated`,
 						location,
 						fix(fixer) {
-							fixer.replaceText(location, "");
+							fixer.removeText(location, {
+								trimStart: true,
+							});
 						},
 					});
 				}

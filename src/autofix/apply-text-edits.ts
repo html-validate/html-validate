@@ -37,6 +37,11 @@ function applyTextEdit(text: string, edit: TextEdit): string {
 			const { offset, size } = location;
 			return text.slice(0, offset) + replacement + text.slice(offset + size);
 		}
+		case TextEditKind.Remove: {
+			const { location } = edit;
+			const { offset, size } = location;
+			return text.slice(0, offset) + text.slice(offset + size);
+		}
 	}
 }
 
