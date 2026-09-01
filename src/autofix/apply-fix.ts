@@ -23,6 +23,6 @@ export async function applyFix(
 	source: string,
 	fix: (fixer: ErrorFixer) => void | Promise<void>,
 ): Promise<string> {
-	const edits = await collectTextEdits(fix);
+	const edits = await collectTextEdits(fix, source);
 	return applyTextEdits(filename, source, edits);
 }
