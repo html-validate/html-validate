@@ -1,5 +1,5 @@
 import { type ErrorFixer } from "../error-fixer";
-import { type Location, assertValidLocation } from "../location";
+import { assertValidLocation } from "../location";
 import { type TextEdit, TextEditKind } from "./text-edit";
 
 /**
@@ -13,12 +13,13 @@ import { type TextEdit, TextEditKind } from "./text-edit";
  */
 export async function collectTextEdits(
 	fix: (fixer: ErrorFixer) => void | Promise<void>,
+	text: string,
 ): Promise<TextEdit[]> {
 	const edits: TextEdit[] = [];
 
 	await fix({
-		replaceText(location: Location, replacement: string): void {
-			assertValidLocation(location);
+		replaceText(location, replacement): void {
+			assertValidLocation(location, text.length);
 			edits.push({ kind: TextEditKind.Replace, location, replacement });
 		},
 	});
