@@ -1,5 +1,21 @@
 # html-validate changelog
 
+## 11.12.0 (2026-09-01)
+
+### Features
+
+- **api:** add new `removeText()` method to `ErrorFixer` ([3484ed3](https://gitlab.com/html-validate/html-validate/commit/3484ed345737486d947a473aa856089f2bfab8c7))
+- **rules:** add suggestions to `no-redundant-for` ([6798b9c](https://gitlab.com/html-validate/html-validate/commit/6798b9caa08f684b3932b502e3fe0e921886cfa7))
+- **rules:** make `missing-doctype` autofixable ([2c4c2e7](https://gitlab.com/html-validate/html-validate/commit/2c4c2e79c45387ab6bfd093ec62b7d1dd60fdecb))
+- **rules:** make `no-raw-characters` autofixable ([b7e28aa](https://gitlab.com/html-validate/html-validate/commit/b7e28aaadd608a36ad19b6eb9de46f8e9baf3a7b))
+- **rules:** make `script-type` autofixable ([e15cb1a](https://gitlab.com/html-validate/html-validate/commit/e15cb1a3dc2c713b6c222e29bfa23e1f52cb9aa8))
+- **rules:** make `tel-non-breaking` autofixable ([d91bc8c](https://gitlab.com/html-validate/html-validate/commit/d91bc8c74628455cd244da503ecad14192ae2422))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.7 ([77151ba](https://gitlab.com/html-validate/html-validate/commit/77151ba1bc574b9686094299ce9d96475ce75c68))
+- **deps:** update dependency ignore to v7.0.8 ([17b64af](https://gitlab.com/html-validate/html-validate/commit/17b64af0900c77a6d7a0eaadbbbd5a01a71463c0))
+
 ## 11.11.0 (2026-08-30)
 
 ### Features

@@ -15,7 +15,7 @@ export interface ErrorDescriptor<ContextType> {
 	 * A callback for autofixing this error.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 */
 	fix?: ((fixer: ErrorFixer) => void | Promise<void>) | null | undefined;
 
@@ -23,7 +23,7 @@ export interface ErrorDescriptor<ContextType> {
 	 * A list of callbacks with suggestions for fixing this error.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 */
 	suggestions?:
 		| Array<{

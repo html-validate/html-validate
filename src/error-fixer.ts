@@ -4,14 +4,14 @@ import { type Location } from "./location";
  * Methods to modify the original source to fix errors.
  *
  * @public
- * @since %version%
+ * @since 11.12.0
  */
 export interface ErrorFixer {
 	/**
 	 * Replaces the text at location.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param location - The location of text to replace.
 	 * @param replacement - The text to replace current text with.
 	 */
@@ -45,7 +45,7 @@ export interface ErrorFixer {
 	 * Resulting in `<div>` instead of `<div >`
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param location - The location of text to remove.
 	 * @param options - Options
 	 */

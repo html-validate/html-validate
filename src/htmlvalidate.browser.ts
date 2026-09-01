@@ -289,7 +289,7 @@ export class HtmlValidate {
 	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param filePath - Filename the source belongs to, used to sanity-check
 	 * that the fix does not target a different file.
 	 * @param source - Source text to apply the fix to.
@@ -311,7 +311,7 @@ export class HtmlValidate {
 	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param source - Source to apply the fix to.
 	 * @param fix - Fix (or suggestion) callback to apply.
 	 * @returns The patched original (untransformed) source text.
@@ -347,7 +347,7 @@ export class HtmlValidate {
 	 * {@link HtmlValidate.canValidate|canValidate()} for a way to test if the configuration supports validating the filename at all.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param filename - Filename to test if it is ignored.
 	 * @returns A promise resolving to `true` if the given filename is ignored.
 	 */
@@ -795,7 +795,7 @@ export class HtmlValidate {
 	 * Get current configuration loader.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @returns Current configuration loader.
 	 */
 	/* istanbul ignore next -- not testing setters/getters */
@@ -807,7 +807,7 @@ export class HtmlValidate {
 	 * Set configuration loader.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.12.0
 	 * @param loader - New configuration loader to use.
 	 */
 	/* istanbul ignore next -- not testing setters/getters */
