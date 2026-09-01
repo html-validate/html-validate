@@ -1,13 +1,10 @@
 import { type ErrorFixer } from "../error-fixer";
 import { assertValidLocation } from "../location";
 import { type TextEdit, TextEditKind } from "./text-edit";
+import { trimText } from "./trim-text";
 
 /**
  * Invoke a fix (or suggestion) callback and collect all edits it requests.
- *
- * The callback is given a fresh {@link ErrorFixer} so calls to
- * `replaceText()` always refer to the original, unmodified source, even if
- * multiple calls are made.
  *
  * @internal
  */
@@ -20,7 +17,24 @@ export async function collectTextEdits(
 	await fix({
 		replaceText(location, replacement): void {
 			assertValidLocation(location, text.length);
-			edits.push({ kind: TextEditKind.Replace, location, replacement });
+			edits.push({
+				kind: TextEditKind.Replace,
+				location,
+				replacement,
+			});
+		},
+		removeText(location, options = {}): void {
+			assertValidLocation(location, text.length);
+			const { trimStart = false, trimEnd = false } = options;
+			const trimmed = trimText(location, text, { trimStart, trimEnd });
+			edits.push({
+				kind: TextEditKind.Remove,
+				location: {
+					filename: location.filename,
+					offset: trimmed.offset,
+					size: trimmed.size,
+				},
+			});
 		},
 	});
 

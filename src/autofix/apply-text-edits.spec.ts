@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { type Location } from "../location";
 import { applyTextEdits } from "./apply-text-edits";
-import { type TextEditReplace, TextEditKind } from "./text-edit";
+import { type TextEditRemove, type TextEditReplace, TextEditKind } from "./text-edit";
 
 function loc(offset: number, size: number, filename = "test.html"): Location {
 	return { filename, offset, line: 1, column: offset + 1, size };
@@ -11,11 +11,23 @@ function replaceText(location: Location, replacement: string): TextEditReplace {
 	return { kind: TextEditKind.Replace, location, replacement };
 }
 
+function removeText(location: Location): TextEditRemove {
+	return { kind: TextEditKind.Remove, location };
+}
+
 describe("applyTextEdits()", () => {
 	it("should return source unchanged when there are no edits", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
 		expect(applyTextEdits("test.html", text, [])).toBe(text);
+	});
+
+	it("should detect overlapping edits regardless of kind", () => {
+		expect.assertions(1);
+		const text = "lorem ipsum dolor sit amet";
+		expect(() => {
+			applyTextEdits("test.html", text, [removeText(loc(0, 11)), replaceText(loc(5, 3), "x")]);
+		}).toThrow(/Overlapping edits/);
 	});
 });
 
@@ -124,5 +136,15 @@ describe("replaceText()", () => {
 			replaceText(loc(8, 1), "b"),
 		]);
 		expect(result).toBe('<div ab"bar"></div>');
+	});
+});
+
+describe("removeText()", () => {
+	it("should remove text", () => {
+		expect.assertions(1);
+		const text = "lorem ipsum dolor sit amet";
+		const location = loc(text.indexOf("ipsum"), "ipsum".length);
+		const result = applyTextEdits("test.html", text, [removeText(location)]);
+		expect(result).toBe("lorem  dolor sit amet");
 	});
 });

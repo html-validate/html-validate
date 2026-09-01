@@ -1,6 +1,7 @@
 import { type Location } from "../location";
 
 const Replace = Symbol("text-edit-replace");
+const Remove = Symbol("text-edit-remove");
 
 /**
  * Discriminators identifying the different kinds of {@link TextEdit}.
@@ -9,6 +10,7 @@ const Replace = Symbol("text-edit-replace");
  */
 export const TextEditKind = {
 	Replace,
+	Remove,
 } as const;
 
 /**
@@ -28,11 +30,21 @@ export interface TextEditReplace {
 }
 
 /**
- * A single edit collected from an {@link ErrorFixer} callback.
- *
- * Currently the only kind of edit is {@link TextEditReplace} but this is a
- * union to allow other kinds of edits to be added in the future.
+ * A single text removal collected from an {@link ErrorFixer} callback.
  *
  * @internal
  */
-export type TextEdit = TextEditReplace;
+export interface TextEditRemove {
+	/** Discriminator identifying this as a remove edit. */
+	kind: typeof TextEditKind.Remove;
+
+	/** Location of the text being removed. */
+	location: Pick<Location, "filename" | "offset" | "size">;
+}
+
+/**
+ * A single edit collected from an {@link ErrorFixer} callback.
+ *
+ * @internal
+ */
+export type TextEdit = TextEditReplace | TextEditRemove;
