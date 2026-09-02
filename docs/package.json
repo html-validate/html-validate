@@ -10,7 +10,7 @@
     "bootstrap-sass": "3.4.3",
     "canonical-path": "1.0.0",
     "connect": "3.7.0",
-    "cssnano": "9.0.1",
+    "cssnano": "9.0.2",
     "dgeni": "0.4.14",
     "dgeni-front-matter": "6.0.0",
     "esbuild": "0.28.2",
