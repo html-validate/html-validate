@@ -68,6 +68,9 @@ export interface AttrValueToken extends BaseToken {
     type: TokenType.ATTR_VALUE;
 }
 
+// @public
+export function autofixCollectEdits(fix: (fixer: ErrorFixer) => void | Promise<void>, text: string): Promise<TextEdit[]>;
+
 // @internal (undocumented)
 export interface BaseToken {
     // (undocumented)
@@ -628,7 +631,7 @@ export class HtmlValidate {
     constructor(config?: ConfigData);
     constructor(configLoader: ConfigLoader);
     autofixSource(source: Source, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
-    autofixString(filePath: string, source: string, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
+    autofixString(_filePath: string, source: string, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
     canValidate(filename: string): Promise<boolean>;
     canValidateSync(filename: string): boolean;
     // (undocumented)
@@ -1514,6 +1517,30 @@ export enum TextContent {
     NONE = "none",
     // (undocumented)
     REQUIRED = "required"
+}
+
+// @public
+export type TextEdit = TextEditReplace | TextEditRemove;
+
+// @public
+export class TextEditKind {
+    // (undocumented)
+    static readonly Remove: unique symbol;
+    // (undocumented)
+    static readonly Replace: unique symbol;
+}
+
+// @public
+export interface TextEditRemove {
+    readonly kind: typeof TextEditKind.Remove;
+    readonly location: Pick<Location_2, "offset" | "size">;
+}
+
+// @public
+export interface TextEditReplace {
+    readonly kind: typeof TextEditKind.Replace;
+    readonly location: Pick<Location_2, "offset" | "size">;
+    readonly replacement: string;
 }
 
 // @public

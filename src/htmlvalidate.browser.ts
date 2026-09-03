@@ -290,18 +290,17 @@ export class HtmlValidate {
 	 *
 	 * @public
 	 * @since 11.12.0
-	 * @param filePath - Filename the source belongs to, used to sanity-check
-	 * that the fix does not target a different file.
+	 * @param _filePath - Filename the source belongs to.
 	 * @param source - Source text to apply the fix to.
 	 * @param fix - Fix (or suggestion) callback to apply.
 	 * @returns The patched source text.
 	 */
 	public async autofixString(
-		filePath: string,
+		_filePath: string,
 		source: string,
 		fix: (fixer: ErrorFixer) => void | Promise<void>,
 	): Promise<string> {
-		return applyFixEdits(filePath, source, fix);
+		return applyFixEdits(source, fix);
 	}
 
 	/**
@@ -321,7 +320,7 @@ export class HtmlValidate {
 		fix: (fixer: ErrorFixer) => void | Promise<void>,
 	): Promise<string> {
 		const original = source.originalData ?? source.data;
-		return await applyFixEdits(source.filename, original, fix);
+		return await applyFixEdits(original, fix);
 	}
 
 	/**

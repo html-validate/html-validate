@@ -1,50 +1,52 @@
 import { type Location } from "../location";
 
-const Replace = Symbol("text-edit-replace");
-const Remove = Symbol("text-edit-remove");
-
 /**
  * Discriminators identifying the different kinds of {@link TextEdit}.
  *
- * @internal
+ * @public
+ * @since %version%
  */
-export const TextEditKind = {
-	Replace,
-	Remove,
-} as const;
+/* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- unique symbols are only allowed on "const" and "static readonly" properties */
+export class TextEditKind {
+	public static readonly Replace: unique symbol = Symbol("text-edit-replace");
+	public static readonly Remove: unique symbol = Symbol("text-edit-remove");
+}
 
 /**
- * A single text replacement collected from an {@link ErrorFixer} callback.
+ * An autofix text edit replacing text at location.
  *
- * @internal
+ * @public
+ * @since %version%
  */
 export interface TextEditReplace {
 	/** Discriminator identifying this as a replace edit. */
-	kind: typeof TextEditKind.Replace;
+	readonly kind: typeof TextEditKind.Replace;
 
 	/** Location of the text being replaced. */
-	location: Pick<Location, "filename" | "offset" | "size">;
+	readonly location: Pick<Location, "offset" | "size">;
 
 	/** Text to replace the current text with. */
-	replacement: string;
+	readonly replacement: string;
 }
 
 /**
- * A single text removal collected from an {@link ErrorFixer} callback.
+ * An autofix text edit removing text at location.
  *
- * @internal
+ * @public
+ * @since %version%
  */
 export interface TextEditRemove {
 	/** Discriminator identifying this as a remove edit. */
-	kind: typeof TextEditKind.Remove;
+	readonly kind: typeof TextEditKind.Remove;
 
 	/** Location of the text being removed. */
-	location: Pick<Location, "filename" | "offset" | "size">;
+	readonly location: Pick<Location, "offset" | "size">;
 }
 
 /**
- * A single edit collected from an {@link ErrorFixer} callback.
+ * An autofix text edit.
  *
- * @internal
+ * @public
+ * @since %version%
  */
 export type TextEdit = TextEditReplace | TextEditRemove;

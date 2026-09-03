@@ -1,5 +1,12 @@
 /* used when calling require('htmlvalidate'); */
 
+export {
+	type TextEdit,
+	type TextEditRemove,
+	type TextEditReplace,
+	TextEditKind,
+	autofixCollectEdits,
+} from "./autofix";
 export { type AttributeData } from "./parser";
 export {
 	type AriaVersion,

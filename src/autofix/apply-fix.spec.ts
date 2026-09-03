@@ -10,7 +10,7 @@ describe("applyFix()", () => {
 	it("should collect and apply edits from a fix callback", async () => {
 		expect.assertions(1);
 		const source = '<div foo="bar"></div>';
-		const result = await applyFix("test.html", source, (fixer) => {
+		const result = await applyFix(source, (fixer) => {
 			fixer.replaceText(loc(5, 3), "lorem");
 			fixer.replaceText(loc(10, 3), "ipsum");
 		});
@@ -20,7 +20,7 @@ describe("applyFix()", () => {
 	it("should return source unchanged when fix requests no edits", async () => {
 		expect.assertions(1);
 		const source = '<div foo="bar"></div>';
-		const result = await applyFix("test.html", source, () => {
+		const result = await applyFix(source, () => {
 			/* do nothing */
 		});
 		expect(result).toBe(source);
@@ -29,7 +29,7 @@ describe("applyFix()", () => {
 	it("should support asynchronous fix callbacks", async () => {
 		expect.assertions(1);
 		const source = '<div foo="bar"></div>';
-		const result = await applyFix("test.html", source, async (fixer) => {
+		const result = await applyFix(source, async (fixer) => {
 			await Promise.resolve();
 			fixer.replaceText(loc(5, 3), "lorem");
 		});
