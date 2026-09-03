@@ -85,6 +85,15 @@ export default {
 					{ title: "File issue", href: pkg.bugs.url },
 				],
 			},
+			{
+				title: "API reference",
+				children: [
+					{ title: "ErrorFixer", target: "api:ErrorFixer" },
+					{ title: "MetadataHelper", target: "api:MetadataHelper" },
+					{ title: "Source", target: "api:Source" },
+					{ title: "autofixCollectEdits", target: "api:autofixCollectEdits" },
+				],
+			},
 		],
 	},
 

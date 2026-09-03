@@ -3,7 +3,7 @@ docType: content
 title: API - ErrorFixer interface
 id: api:ErrorFixer
 name: ErrorFixer
-nav: false
+nav: devguide
 ---
 
 # `ErrorFixer` interface
