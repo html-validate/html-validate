@@ -1,4 +1,9 @@
-export { type TextEdit } from "./text-edit";
 export { applyTextEdits } from "./apply-text-edits";
 export { applyFix } from "./apply-fix";
-export { collectTextEdits } from "./collect-text-edits";
+export { autofixCollectEdits } from "./autofix-collect-edits";
+export {
+	type TextEdit,
+	type TextEditRemove,
+	type TextEditReplace,
+	TextEditKind,
+} from "./text-edit";

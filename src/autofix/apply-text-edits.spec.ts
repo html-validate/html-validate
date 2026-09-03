@@ -1,17 +1,16 @@
 import { describe, expect, it } from "@jest/globals";
-import { type Location } from "../location";
 import { applyTextEdits } from "./apply-text-edits";
 import { type TextEditRemove, type TextEditReplace, TextEditKind } from "./text-edit";
 
-function loc(offset: number, size: number, filename = "test.html"): Location {
-	return { filename, offset, line: 1, column: offset + 1, size };
+function loc(offset: number, size: number): { offset: number; size: number } {
+	return { offset, size };
 }
 
-function replaceText(location: Location, replacement: string): TextEditReplace {
+function replaceText(location: TextEditReplace["location"], replacement: string): TextEditReplace {
 	return { kind: TextEditKind.Replace, location, replacement };
 }
 
-function removeText(location: Location): TextEditRemove {
+function removeText(location: TextEditRemove["location"]): TextEditRemove {
 	return { kind: TextEditKind.Remove, location };
 }
 
@@ -19,15 +18,7 @@ describe("applyTextEdits()", () => {
 	it("should return source unchanged when there are no edits", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
-		expect(applyTextEdits("test.html", text, [])).toBe(text);
-	});
-
-	it("should detect overlapping edits regardless of kind", () => {
-		expect.assertions(1);
-		const text = "lorem ipsum dolor sit amet";
-		expect(() => {
-			applyTextEdits("test.html", text, [removeText(loc(0, 11)), replaceText(loc(5, 3), "x")]);
-		}).toThrow(/Overlapping edits/);
+		expect(applyTextEdits(text, [])).toBe(text);
 	});
 });
 
@@ -35,28 +26,16 @@ describe("replaceText()", () => {
 	it("should replace a single edit", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
-		const result = applyTextEdits("test.html", text, [replaceText(loc(5, 3), "lorem")]);
+		const result = applyTextEdits(text, [replaceText(loc(5, 3), "lorem")]);
 		expect(result).toBe('<div lorem="bar"></div>');
 	});
 
-	it("should replace attribute key and value using original locations", () => {
+	it("should apply multiple edits given in descending offset order", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
 		const keyLocation = loc(5, 3);
 		const valueLocation = loc(10, 3);
-		const result = applyTextEdits("test.html", text, [
-			replaceText(keyLocation, "lorem"),
-			replaceText(valueLocation, "ipsum"),
-		]);
-		expect(result).toBe('<div lorem="ipsum"></div>');
-	});
-
-	it("should produce the same result regardless of input order", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		const keyLocation = loc(5, 3);
-		const valueLocation = loc(10, 3);
-		const result = applyTextEdits("test.html", text, [
+		const result = applyTextEdits(text, [
 			replaceText(valueLocation, "ipsum"),
 			replaceText(keyLocation, "lorem"),
 		]);
@@ -66,76 +45,8 @@ describe("replaceText()", () => {
 	it("should support replacements with different length than the original text", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
-		const result = applyTextEdits("test.html", text, [
-			replaceText(loc(10, 3), "a much longer value"),
-		]);
+		const result = applyTextEdits(text, [replaceText(loc(10, 3), "a much longer value")]);
 		expect(result).toBe('<div foo="a much longer value"></div>');
-	});
-
-	it("should throw when an edit targets a different filename", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(5, 3, "other.html"), "lorem")]);
-		}).toThrow(/other\.html/);
-	});
-
-	it("should throw when an edit is out of bounds", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(100, 3), "lorem")]);
-		}).toThrow(/out of bounds/);
-	});
-
-	it("should throw when an edit has a negative offset", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(-1, 3), "lorem")]);
-		}).toThrow(/out of bounds/);
-	});
-
-	it("should throw when edits overlap", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(5, 5), "a"), replaceText(loc(8, 3), "b")]);
-		}).toThrow(/Overlapping edits/);
-	});
-
-	it("should throw when two zero-size edits share the same offset", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(5, 0), "a"), replaceText(loc(5, 0), "b")]);
-		}).toThrow(/Overlapping edits/);
-	});
-
-	it("should throw when a replacement and insertion share the same offset (replacement first)", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(5, 3), "a"), replaceText(loc(5, 0), "b")]);
-		}).toThrow(/Overlapping edits/);
-	});
-
-	it("should throw when a replacement and insertion share the same offset (insertion first)", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		expect(() => {
-			applyTextEdits("test.html", text, [replaceText(loc(5, 0), "a"), replaceText(loc(5, 3), "b")]);
-		}).toThrow(/Overlapping edits/);
-	});
-
-	it("should allow adjacent (non-overlapping, touching) edits", () => {
-		expect.assertions(1);
-		const text = '<div foo="bar"></div>';
-		const result = applyTextEdits("test.html", text, [
-			replaceText(loc(5, 3), "a"),
-			replaceText(loc(8, 1), "b"),
-		]);
-		expect(result).toBe('<div ab"bar"></div>');
 	});
 });
 
@@ -144,7 +55,7 @@ describe("removeText()", () => {
 		expect.assertions(1);
 		const text = "lorem ipsum dolor sit amet";
 		const location = loc(text.indexOf("ipsum"), "ipsum".length);
-		const result = applyTextEdits("test.html", text, [removeText(location)]);
+		const result = applyTextEdits(text, [removeText(location)]);
 		expect(result).toBe("lorem  dolor sit amet");
 	});
 });

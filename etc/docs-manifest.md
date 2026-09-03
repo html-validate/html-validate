@@ -9,6 +9,7 @@ about/ai-policy.html
 about/index.html
 about/roadmap.html
 about/sponsoring.html
+api/autofix-collect-edits.html
 api/error-fixer.html
 api/metadata-helper.html
 api/source.html
