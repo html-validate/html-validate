@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.13.0 (2026-09-03)
+
+### Features
+
+- **api:** expose `autofixCollectEdits` for integrations to support autofix ([b7de9fa](https://gitlab.com/html-validate/html-validate/commit/b7de9faa1ae4e385637f858b01618909cefc8b0d))
+
 ## 11.12.0 (2026-09-01)
 
 ### Features

@@ -4,7 +4,7 @@ import { type Location } from "../location";
  * Discriminators identifying the different kinds of {@link TextEdit}.
  *
  * @public
- * @since %version%
+ * @since 11.13.0
  */
 /* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- unique symbols are only allowed on "const" and "static readonly" properties */
 export class TextEditKind {
@@ -16,7 +16,7 @@ export class TextEditKind {
  * An autofix text edit replacing text at location.
  *
  * @public
- * @since %version%
+ * @since 11.13.0
  */
 export interface TextEditReplace {
 	/** Discriminator identifying this as a replace edit. */
@@ -33,7 +33,7 @@ export interface TextEditReplace {
  * An autofix text edit removing text at location.
  *
  * @public
- * @since %version%
+ * @since 11.13.0
  */
 export interface TextEditRemove {
 	/** Discriminator identifying this as a remove edit. */
@@ -47,6 +47,6 @@ export interface TextEditRemove {
  * An autofix text edit.
  *
  * @public
- * @since %version%
+ * @since 11.13.0
  */
 export type TextEdit = TextEditReplace | TextEditRemove;

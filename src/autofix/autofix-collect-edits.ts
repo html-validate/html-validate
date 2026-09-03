@@ -23,7 +23,7 @@ function assertNoOverlap(current: TextEdit, previous: TextEdit): void {
  * they were requested in by the callback.
  *
  * @public
- * @since %version%
+ * @since 11.13.0
  * @see https://html-validate.org/api/autofix-collect-edits.html
  * @param fix - An autofix callback.
  * @param text - The original text to operate on.
