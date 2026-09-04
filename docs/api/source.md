@@ -3,7 +3,7 @@ docType: content
 title: API - Source
 id: api:Source
 name: Source
-nav: false
+nav: devguide
 ---
 
 # `Source`

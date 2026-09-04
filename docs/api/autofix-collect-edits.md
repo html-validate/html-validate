@@ -3,7 +3,7 @@ docType: content
 title: "API - autofixCollectEdits function"
 id: api:autofixCollectEdits
 name: autofixCollectEdits
-nav: false
+nav: devguide
 ---
 
 # `autofixCollectEdits` function

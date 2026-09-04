@@ -3,7 +3,7 @@ docType: content
 title: API - MetadataHelper
 id: api:MetadataHelper
 name: MetadataHelper
-nav: false
+nav: devguide
 ---
 
 # `MetadataHelper`

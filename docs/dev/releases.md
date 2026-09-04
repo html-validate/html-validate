@@ -30,7 +30,7 @@ Older major versions is generally supported for two year after the succeeding ve
       <td>10.x</td>
       <td>Maintenance</td>
       <td>2025-08-09</td>
-      <td>-</td>
+      <td>2028-05-31</td>
     </tr>
     <tr class="release-maintenance">
       <td>9.x</td>
@@ -96,17 +96,17 @@ Some exceptions occur, refer to the following table:
   <tbody>
     <tr>
       <td>Jest</td>
-      <td><code>v29.x || v30.x</code></td>
+      <td><code>29.x || 30.x</code></td>
       <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Cypress</td>
-      <td><code>v13.x || v14.x || v15.x</code></td>
+      <td><code>14.x || 15.x || 16.x</code></td>
       <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
       <td>Vitest</td>
-      <td><code>v3.x || v4.x</code></td>
+      <td><code>3.x || 4.x || 5.x</code></td>
       <td>Last majors updated within the last two years.</td>
     </tr>
     <tr>
