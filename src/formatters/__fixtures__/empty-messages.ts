@@ -5,6 +5,8 @@ const results: Result[] = [
 		filePath: "empty.html",
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: null,
 		messages: [],
 	},

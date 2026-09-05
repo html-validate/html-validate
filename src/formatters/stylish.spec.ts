@@ -4,6 +4,7 @@ import {
 	edgeCases,
 	emptyMessages,
 	emptyResult,
+	fixable,
 	missingSource,
 	missingUrl,
 	regular,
@@ -38,6 +39,11 @@ describe("stylish formatter", () => {
 	it("should generate output", () => {
 		expect.assertions(1);
 		expect(stylish(regular)).toMatchSnapshot();
+	});
+
+	it("should handle fixable errors and warnings", () => {
+		expect.assertions(1);
+		expect(stylish(fixable)).toMatchSnapshot();
 	});
 
 	it("should handle missing rule url", () => {

@@ -9,6 +9,8 @@ exports[`docs/rules/area-alt.md inline validation: enabled-a11y 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 27,
@@ -38,6 +40,8 @@ exports[`docs/rules/area-alt.md inline validation: incorrect 1`] = `
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,

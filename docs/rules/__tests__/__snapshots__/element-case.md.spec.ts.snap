@@ -7,6 +7,8 @@ exports[`docs/rules/element-case.md inline validation: incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -32,6 +34,8 @@ exports[`docs/rules/element-case.md inline validation: matching 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 13,
@@ -57,6 +61,8 @@ exports[`docs/rules/element-case.md inline validation: multiple 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

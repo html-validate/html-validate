@@ -555,6 +555,19 @@ describe("HtmlValidate", () => {
 	});
 
 	describe("validateMultipleFiles()", () => {
+		const fixableWarning: Message = {
+			ruleId: "mock-warning",
+			message: "mock warning message",
+			severity: Severity.WARN,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+			selector: null,
+			fix() {
+				/* do nothing */
+			},
+		};
 		const warning: Message = {
 			ruleId: "mock-warning",
 			message: "mock warning message",
@@ -584,6 +597,8 @@ describe("HtmlValidate", () => {
 				results: [],
 				errorCount: 0,
 				warningCount: 0,
+				fixableErrorCount: 0,
+				fixableWarningCount: 0,
 			});
 			await htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
@@ -601,14 +616,18 @@ describe("HtmlValidate", () => {
 					results: [
 						{
 							filePath: "foo.html",
-							messages: [warning],
+							messages: [warning, fixableWarning],
 							errorCount: 0,
-							warningCount: 1,
+							warningCount: 2,
+							fixableErrorCount: 0,
+							fixableWarningCount: 1,
 							source: null,
 						},
 					],
 					errorCount: 0,
-					warningCount: 1,
+					warningCount: 2,
+					fixableErrorCount: 0,
+					fixableWarningCount: 1,
 				})
 				.mockResolvedValueOnce({
 					valid: false,
@@ -618,20 +637,29 @@ describe("HtmlValidate", () => {
 							messages: [error],
 							errorCount: 1,
 							warningCount: 0,
+							fixableErrorCount: 0,
+							fixableWarningCount: 0,
 							source: null,
 						},
 					],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				});
 			const report = await htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
+			/* eslint-disable-next-line jest/no-large-snapshots -- technical debt */
 			expect(report).toMatchInlineSnapshot(`
 			{
 			  "errorCount": 1,
+			  "fixableErrorCount": 0,
+			  "fixableWarningCount": 1,
 			  "results": [
 			    {
 			      "errorCount": 0,
 			      "filePath": "foo.html",
+			      "fixableErrorCount": 0,
+			      "fixableWarningCount": 1,
 			      "messages": [
 			        {
 			          "column": 1,
@@ -643,13 +671,26 @@ describe("HtmlValidate", () => {
 			          "severity": 1,
 			          "size": 1,
 			        },
+			        {
+			          "column": 1,
+			          "fix": [Function],
+			          "line": 1,
+			          "message": "mock warning message",
+			          "offset": 0,
+			          "ruleId": "mock-warning",
+			          "selector": null,
+			          "severity": 1,
+			          "size": 1,
+			        },
 			      ],
 			      "source": null,
-			      "warningCount": 1,
+			      "warningCount": 2,
 			    },
 			    {
 			      "errorCount": 1,
 			      "filePath": "bar.html",
+			      "fixableErrorCount": 0,
+			      "fixableWarningCount": 0,
 			      "messages": [
 			        {
 			          "column": 1,
@@ -667,13 +708,26 @@ describe("HtmlValidate", () => {
 			    },
 			  ],
 			  "valid": false,
-			  "warningCount": 1,
+			  "warningCount": 2,
 			}
 		`);
 		});
 	});
 
 	describe("validateMultipleFilesSync()", () => {
+		const fixableWarning: Message = {
+			ruleId: "mock-warning",
+			message: "mock warning message",
+			severity: Severity.WARN,
+			line: 1,
+			column: 1,
+			offset: 0,
+			size: 1,
+			selector: null,
+			fix() {
+				/* do nothing */
+			},
+		};
 		const warning: Message = {
 			ruleId: "mock-warning",
 			message: "mock warning message",
@@ -703,6 +757,8 @@ describe("HtmlValidate", () => {
 				results: [],
 				errorCount: 0,
 				warningCount: 0,
+				fixableErrorCount: 0,
+				fixableWarningCount: 0,
 			});
 			htmlvalidate.validateMultipleFilesSync(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
@@ -720,14 +776,18 @@ describe("HtmlValidate", () => {
 					results: [
 						{
 							filePath: "foo.html",
-							messages: [warning],
+							messages: [warning, fixableWarning],
 							errorCount: 0,
-							warningCount: 1,
+							warningCount: 2,
+							fixableErrorCount: 0,
+							fixableWarningCount: 1,
 							source: null,
 						},
 					],
 					errorCount: 0,
 					warningCount: 1,
+					fixableErrorCount: 0,
+					fixableWarningCount: 1,
 				})
 				.mockReturnValueOnce({
 					valid: false,
@@ -737,20 +797,29 @@ describe("HtmlValidate", () => {
 							messages: [error],
 							errorCount: 1,
 							warningCount: 0,
+							fixableErrorCount: 0,
+							fixableWarningCount: 0,
 							source: null,
 						},
 					],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				});
 			const report = htmlvalidate.validateMultipleFilesSync(["foo.html", "bar.html"]);
+			/* eslint-disable-next-line jest/no-large-snapshots -- technical debt */
 			expect(report).toMatchInlineSnapshot(`
 			{
 			  "errorCount": 1,
+			  "fixableErrorCount": 0,
+			  "fixableWarningCount": 1,
 			  "results": [
 			    {
 			      "errorCount": 0,
 			      "filePath": "foo.html",
+			      "fixableErrorCount": 0,
+			      "fixableWarningCount": 1,
 			      "messages": [
 			        {
 			          "column": 1,
@@ -762,13 +831,26 @@ describe("HtmlValidate", () => {
 			          "severity": 1,
 			          "size": 1,
 			        },
+			        {
+			          "column": 1,
+			          "fix": [Function],
+			          "line": 1,
+			          "message": "mock warning message",
+			          "offset": 0,
+			          "ruleId": "mock-warning",
+			          "selector": null,
+			          "severity": 1,
+			          "size": 1,
+			        },
 			      ],
 			      "source": null,
-			      "warningCount": 1,
+			      "warningCount": 2,
 			    },
 			    {
 			      "errorCount": 1,
 			      "filePath": "bar.html",
+			      "fixableErrorCount": 0,
+			      "fixableWarningCount": 0,
 			      "messages": [
 			        {
 			          "column": 1,
@@ -786,7 +868,7 @@ describe("HtmlValidate", () => {
 			    },
 			  ],
 			  "valid": false,
-			  "warningCount": 1,
+			  "warningCount": 2,
 			}
 		`);
 		});

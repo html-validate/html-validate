@@ -37,6 +37,8 @@ exports[`configuration smoketest test-files/config/directive/disable.html: resul
   {
     "errorCount": 2,
     "filePath": "test-files/config/directive/disable.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -97,6 +99,8 @@ exports[`configuration smoketest test-files/config/directive/disable-block.html:
   {
     "errorCount": 4,
     "filePath": "test-files/config/directive/disable-block.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -192,6 +196,8 @@ exports[`configuration smoketest test-files/config/directive/disable-multiple.ht
   {
     "errorCount": 2,
     "filePath": "test-files/config/directive/disable-multiple.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -254,6 +260,8 @@ exports[`configuration smoketest test-files/config/directive/disable-next.html: 
   {
     "errorCount": 2,
     "filePath": "test-files/config/directive/disable-next.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -315,6 +323,8 @@ exports[`configuration smoketest test-files/config/elements/file.html: results 1
   {
     "errorCount": 2,
     "filePath": "test-files/config/elements/file.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -382,6 +392,8 @@ exports[`configuration smoketest test-files/config/extend-order/foo.html: result
   {
     "errorCount": 1,
     "filePath": "test-files/config/extend-order/foo.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -437,6 +449,8 @@ exports[`configuration smoketest test-files/config/extend-order/nested/foo.html:
   {
     "errorCount": 2,
     "filePath": "test-files/config/extend-order/nested/foo.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -507,6 +521,8 @@ exports[`configuration smoketest test-files/config/file.html: results 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/config/file.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -597,6 +613,8 @@ exports[`configuration smoketest test-files/config/off/error/file.html: results 
   {
     "errorCount": 1,
     "filePath": "test-files/config/off/error/file.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -656,6 +674,8 @@ exports[`configuration smoketest test-files/config/warn/file.html: results 1`] =
   {
     "errorCount": 0,
     "filePath": "test-files/config/warn/file.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -683,6 +703,8 @@ exports[`configuration smoketest test-files/flat-config/basic/file.html: results
   {
     "errorCount": 1,
     "filePath": "test-files/flat-config/basic/file.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -709,6 +731,8 @@ exports[`configuration smoketest test-files/flat-config/files-glob/src/matched.h
   {
     "errorCount": 1,
     "filePath": "test-files/flat-config/files-glob/src/matched.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -739,6 +763,8 @@ exports[`configuration smoketest test-files/flat-config/global-ignores/src/index
   {
     "errorCount": 1,
     "filePath": "test-files/flat-config/global-ignores/src/index.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,

@@ -7,6 +7,8 @@ exports[`docs/rules/attr-case.md inline validation: incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -32,6 +34,8 @@ exports[`docs/rules/attr-case.md inline validation: multiple 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,

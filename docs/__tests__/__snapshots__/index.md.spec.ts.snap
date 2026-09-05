@@ -5,6 +5,8 @@ exports[`docs/index.md inline validation: frontpage-a11y 1`] = `
   {
     "errorCount": 3,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -57,6 +59,8 @@ exports[`docs/index.md inline validation: frontpage-components 1`] = `
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -103,6 +107,8 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
   {
     "errorCount": 3,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,

@@ -5,6 +5,8 @@ exports[`docs/rules/no-implicit-close.md inline validation: adjacent 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -35,6 +37,8 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
   {
     "errorCount": 3,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -85,6 +89,8 @@ exports[`docs/rules/no-implicit-close.md inline validation: siblings 1`] = `
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

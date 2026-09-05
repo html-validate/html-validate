@@ -7,6 +7,8 @@ exports[`docs/rules/no-self-closing.md inline validation: foreign 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -32,6 +34,8 @@ exports[`docs/rules/no-self-closing.md inline validation: incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -57,6 +61,8 @@ exports[`docs/rules/no-self-closing.md inline validation: xml 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 12,

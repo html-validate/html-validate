@@ -5,6 +5,8 @@ exports[`HTML elements <a> invalid markup 1`] = `
   {
     "errorCount": 30,
     "filePath": "test-files/elements/a-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 11,
@@ -546,6 +548,8 @@ exports[`HTML elements <abbr> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/abbr-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -577,6 +581,8 @@ exports[`HTML elements <acronym> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/acronym-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -609,6 +615,8 @@ exports[`HTML elements <address> invalid markup 1`] = `
   {
     "errorCount": 5,
     "filePath": "test-files/elements/address-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 11,
@@ -704,6 +712,8 @@ exports[`HTML elements <applet> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/applet-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -734,6 +744,8 @@ exports[`HTML elements <area> invalid markup 1`] = `
   {
     "errorCount": 43,
     "filePath": "test-files/elements/area-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -1493,6 +1505,8 @@ exports[`HTML elements <article> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/article-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -1524,6 +1538,8 @@ exports[`HTML elements <aside> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/aside-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -1555,6 +1571,8 @@ exports[`HTML elements <audio> invalid markup 1`] = `
   {
     "errorCount": 12,
     "filePath": "test-files/elements/audio-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -1777,6 +1795,8 @@ exports[`HTML elements <b> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/b-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -1808,6 +1828,8 @@ exports[`HTML elements <base> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/base-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -1869,6 +1891,8 @@ exports[`HTML elements <basefont> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/basefont-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -1901,6 +1925,8 @@ exports[`HTML elements <bdi> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/bdi-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -1932,6 +1958,8 @@ exports[`HTML elements <bdo> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/bdo-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -1963,6 +1991,8 @@ exports[`HTML elements <bgsound> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/bgsound-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -1995,6 +2025,8 @@ exports[`HTML elements <big> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/big-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -2027,6 +2059,8 @@ exports[`HTML elements <blink> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/blink-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -2058,6 +2092,8 @@ exports[`HTML elements <blockquote> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/blockquote-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -2089,6 +2125,8 @@ exports[`HTML elements <body> invalid markup 1`] = `
   {
     "errorCount": 6,
     "filePath": "test-files/elements/body-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -2204,6 +2242,8 @@ exports[`HTML elements <br> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/br-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -2231,6 +2271,8 @@ exports[`HTML elements <button> invalid markup 1`] = `
   {
     "errorCount": 20,
     "filePath": "test-files/elements/button-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 24,
@@ -2625,6 +2667,8 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/canvas-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 16,
@@ -2656,6 +2700,8 @@ exports[`HTML elements <caption> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/caption-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -2703,6 +2749,8 @@ exports[`HTML elements <center> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/center-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -2735,6 +2783,8 @@ exports[`HTML elements <cite> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/cite-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -2766,6 +2816,8 @@ exports[`HTML elements <code> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/code-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -2797,6 +2849,8 @@ exports[`HTML elements <col> invalid markup 1`] = `
   {
     "errorCount": 6,
     "filePath": "test-files/elements/col-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -2936,6 +2990,8 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
   {
     "errorCount": 8,
     "filePath": "test-files/elements/colgroup-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3101,6 +3157,8 @@ exports[`HTML elements <data> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/data-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -3132,6 +3190,8 @@ exports[`HTML elements <datalist> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/datalist-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 12,
@@ -3163,6 +3223,8 @@ exports[`HTML elements <dd> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/dd-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3234,6 +3296,8 @@ exports[`HTML elements <del> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/del-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 13,
@@ -3265,6 +3329,8 @@ exports[`HTML elements <details> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/details-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3325,6 +3391,8 @@ exports[`HTML elements <dfn> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/dfn-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -3372,6 +3440,8 @@ exports[`HTML elements <dialog> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/dialog-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3403,6 +3473,8 @@ exports[`HTML elements <dir> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/dir-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -3438,6 +3510,8 @@ exports[`HTML elements <dl> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/dl-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3485,6 +3559,8 @@ exports[`HTML elements <dt> invalid markup 1`] = `
   {
     "errorCount": 7,
     "filePath": "test-files/elements/dt-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -3620,6 +3696,8 @@ exports[`HTML elements <em> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/em-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -3651,6 +3729,8 @@ exports[`HTML elements <embed> invalid markup 1`] = `
   {
     "errorCount": 12,
     "filePath": "test-files/elements/embed-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 45,
@@ -3924,6 +4004,8 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
   {
     "errorCount": 4,
     "filePath": "test-files/elements/fieldset-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -4009,6 +4091,8 @@ exports[`HTML elements <figcaption> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/figcaption-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4040,6 +4124,8 @@ exports[`HTML elements <figure> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/figure-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4066,6 +4152,8 @@ exports[`HTML elements <font> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/font-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -4098,6 +4186,8 @@ exports[`HTML elements <footer> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/footer-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4161,6 +4251,8 @@ exports[`HTML elements <form> invalid markup 1`] = `
   {
     "errorCount": 26,
     "filePath": "test-files/elements/form-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4643,6 +4735,8 @@ exports[`HTML elements <frame> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/frame-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -4689,6 +4783,8 @@ exports[`HTML elements <frameset> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/frameset-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -4720,6 +4816,8 @@ exports[`HTML elements <h1> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h1-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4773,6 +4871,8 @@ exports[`HTML elements <h2> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h2-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4826,6 +4926,8 @@ exports[`HTML elements <h3> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h3-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4879,6 +4981,8 @@ exports[`HTML elements <h4> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h4-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4932,6 +5036,8 @@ exports[`HTML elements <h5> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h5-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -4985,6 +5091,8 @@ exports[`HTML elements <h6> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/h6-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -5038,6 +5146,8 @@ exports[`HTML elements <head> invalid markup 1`] = `
   {
     "errorCount": 7,
     "filePath": "test-files/elements/head-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -5151,6 +5261,8 @@ exports[`HTML elements <header> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/header-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -5214,6 +5326,8 @@ exports[`HTML elements <hgroup> invalid markup 1`] = `
   {
     "errorCount": 7,
     "filePath": "test-files/elements/hgroup-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 61,
@@ -5324,6 +5438,8 @@ exports[`HTML elements <hr> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/hr-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -5367,6 +5483,8 @@ exports[`HTML elements <html> invalid markup 1`] = `
   {
     "errorCount": 6,
     "filePath": "test-files/elements/html-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -5460,6 +5578,8 @@ exports[`HTML elements <i> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/i-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -5491,6 +5611,8 @@ exports[`HTML elements <iframe> invalid markup 1`] = `
   {
     "errorCount": 12,
     "filePath": "test-files/elements/iframe-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -5795,6 +5917,8 @@ exports[`HTML elements <img> invalid markup 1`] = `
   {
     "errorCount": 17,
     "filePath": "test-files/elements/img-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -6196,6 +6320,8 @@ exports[`HTML elements <input> invalid markup 1`] = `
   {
     "errorCount": 437,
     "filePath": "test-files/elements/input-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 21,
@@ -12930,6 +13056,8 @@ exports[`HTML elements <ins> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/ins-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 13,
@@ -12961,6 +13089,8 @@ exports[`HTML elements <isindex> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/isindex-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -12991,6 +13121,8 @@ exports[`HTML elements <kbd> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/kbd-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -13022,6 +13154,8 @@ exports[`HTML elements <keygen> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/keygen-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -13063,6 +13197,8 @@ exports[`HTML elements <label> invalid markup 1`] = `
   {
     "errorCount": 10,
     "filePath": "test-files/elements/label-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -13211,6 +13347,8 @@ exports[`HTML elements <legend> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/legend-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -13258,6 +13396,8 @@ exports[`HTML elements <li> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/li-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -13310,6 +13450,8 @@ exports[`HTML elements <link> invalid markup 1`] = `
   {
     "errorCount": 37,
     "filePath": "test-files/elements/link-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 25,
@@ -13995,6 +14137,8 @@ exports[`HTML elements <listing> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/listing-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -14029,6 +14173,8 @@ exports[`HTML elements <map> invalid markup 1`] = `
   {
     "errorCount": 4,
     "filePath": "test-files/elements/map-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -14118,6 +14264,8 @@ exports[`HTML elements <mark> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/mark-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -14149,6 +14297,8 @@ exports[`HTML elements <marquee> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/marquee-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -14180,6 +14330,8 @@ exports[`HTML elements <math> invalid markup 1`] = `
   {
     "errorCount": 6,
     "filePath": "test-files/elements/math-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -14333,6 +14485,8 @@ exports[`HTML elements <menu> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/menu-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -14364,6 +14518,8 @@ exports[`HTML elements <meta> invalid markup 1`] = `
   {
     "errorCount": 10,
     "filePath": "test-files/elements/meta-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -14540,6 +14696,8 @@ exports[`HTML elements <meter> invalid markup 1`] = `
   {
     "errorCount": 20,
     "filePath": "test-files/elements/meter-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15019,6 +15177,8 @@ exports[`HTML elements <multicol> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/multicol-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15051,6 +15211,8 @@ exports[`HTML elements <nav> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/nav-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15082,6 +15244,8 @@ exports[`HTML elements <nextid> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/nextid-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15112,6 +15276,8 @@ exports[`HTML elements <nobr> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/nobr-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15144,6 +15310,8 @@ exports[`HTML elements <noembed> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/noembed-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15174,6 +15342,8 @@ exports[`HTML elements <noframes> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/noframes-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15204,6 +15374,8 @@ exports[`HTML elements <noscript> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/noscript-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15235,6 +15407,8 @@ exports[`HTML elements <object> invalid markup 1`] = `
   {
     "errorCount": 13,
     "filePath": "test-files/elements/object-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -15524,6 +15698,8 @@ exports[`HTML elements <ol> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/ol-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15555,6 +15731,8 @@ exports[`HTML elements <optgroup> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/optgroup-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -15586,6 +15764,8 @@ exports[`HTML elements <option> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/option-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15617,6 +15797,8 @@ exports[`HTML elements <output> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/output-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15696,6 +15878,8 @@ exports[`HTML elements <p> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/p-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15727,6 +15911,8 @@ exports[`HTML elements <param> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/param-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 9,
@@ -15770,6 +15956,8 @@ exports[`HTML elements <picture> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/picture-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -15812,6 +16000,8 @@ exports[`HTML elements <plaintext> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/plaintext-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -15844,6 +16034,8 @@ exports[`HTML elements <pre> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/pre-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15875,6 +16067,8 @@ exports[`HTML elements <progress> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/progress-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -15922,6 +16116,8 @@ exports[`HTML elements <q> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/q-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -15953,6 +16149,8 @@ exports[`HTML elements <rb> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/rb-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16000,6 +16198,8 @@ exports[`HTML elements <rp> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/rp-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16047,6 +16247,8 @@ exports[`HTML elements <rt> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/rt-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16094,6 +16296,8 @@ exports[`HTML elements <rtc> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/rtc-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16141,6 +16345,8 @@ exports[`HTML elements <ruby> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/ruby-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -16172,6 +16378,8 @@ exports[`HTML elements <s> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/s-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -16203,6 +16411,8 @@ exports[`HTML elements <samp> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/samp-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -16234,6 +16444,8 @@ exports[`HTML elements <script> invalid markup 1`] = `
   {
     "errorCount": 13,
     "filePath": "test-files/elements/script-invalid.html",
+    "fixableErrorCount": 2,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 9,
@@ -16497,6 +16709,8 @@ exports[`HTML elements <search> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/search-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16532,6 +16746,8 @@ exports[`HTML elements <select> invalid markup 1`] = `
   {
     "errorCount": 15,
     "filePath": "test-files/elements/select-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16820,6 +17036,8 @@ exports[`HTML elements <selectedcontent> invalid markup 1`] = `
   {
     "errorCount": 5,
     "filePath": "test-files/elements/selectedcontent-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -16918,6 +17136,8 @@ exports[`HTML elements <slot> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/slot-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -16949,6 +17169,8 @@ exports[`HTML elements <small> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/small-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 9,
@@ -16980,6 +17202,8 @@ exports[`HTML elements <source> invalid markup 1`] = `
   {
     "errorCount": 19,
     "filePath": "test-files/elements/source-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 11,
@@ -17359,6 +17583,8 @@ exports[`HTML elements <spacer> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/spacer-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -17391,6 +17617,8 @@ exports[`HTML elements <span> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/span-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -17422,6 +17650,8 @@ exports[`HTML elements <strike> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/strike-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -17454,6 +17684,8 @@ exports[`HTML elements <strong> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/strong-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -17489,6 +17721,8 @@ exports[`HTML elements <sub> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/sub-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -17520,6 +17754,8 @@ exports[`HTML elements <summary> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/summary-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -17567,6 +17803,8 @@ exports[`HTML elements <sup> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/sup-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -17606,6 +17844,8 @@ exports[`HTML elements <svg> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/svg-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -17632,6 +17872,8 @@ exports[`HTML elements <table> invalid markup 1`] = `
   {
     "errorCount": 9,
     "filePath": "test-files/elements/table-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -17756,6 +17998,8 @@ exports[`HTML elements <tbody> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/tbody-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -17819,6 +18063,8 @@ exports[`HTML elements <td> invalid markup 1`] = `
   {
     "errorCount": 8,
     "filePath": "test-files/elements/td-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 17,
@@ -18026,6 +18272,8 @@ exports[`HTML elements <template> invalid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/template-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 27,
@@ -18085,6 +18333,8 @@ exports[`HTML elements <textarea> invalid markup 1`] = `
   {
     "errorCount": 22,
     "filePath": "test-files/elements/textarea-invalid.html",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 13,
@@ -18614,6 +18864,8 @@ exports[`HTML elements <tfoot> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/tfoot-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -18677,6 +18929,8 @@ exports[`HTML elements <th> invalid markup 1`] = `
   {
     "errorCount": 14,
     "filePath": "test-files/elements/th-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,
@@ -18996,6 +19250,8 @@ exports[`HTML elements <thead> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/thead-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -19059,6 +19315,8 @@ exports[`HTML elements <time> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/time-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -19090,6 +19348,8 @@ exports[`HTML elements <title> invalid markup 1`] = `
   {
     "errorCount": 5,
     "filePath": "test-files/elements/title-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -19170,6 +19430,8 @@ exports[`HTML elements <title> valid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/title-valid.html",
+    "fixableErrorCount": 2,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 12,
@@ -19207,6 +19469,8 @@ exports[`HTML elements <tr> invalid markup 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/elements/tr-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -19265,6 +19529,8 @@ exports[`HTML elements <track> invalid markup 1`] = `
   {
     "errorCount": 5,
     "filePath": "test-files/elements/track-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 26,
@@ -19380,6 +19646,8 @@ exports[`HTML elements <tt> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/tt-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -19411,6 +19679,8 @@ exports[`HTML elements <u> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/u-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 5,
@@ -19442,6 +19712,8 @@ exports[`HTML elements <ul> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/ul-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -19473,6 +19745,8 @@ exports[`HTML elements <var> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/var-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -19504,6 +19778,8 @@ exports[`HTML elements <video> invalid markup 1`] = `
   {
     "errorCount": 22,
     "filePath": "test-files/elements/video-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -19975,6 +20251,8 @@ exports[`HTML elements <wbr> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/wbr-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -20002,6 +20280,8 @@ exports[`HTML elements <xmp> invalid markup 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/elements/xmp-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -20033,6 +20313,8 @@ exports[`HTML elements global attributes invalid markup 1`] = `
   {
     "errorCount": 29,
     "filePath": "test-files/elements/global-attributes-invalid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 21,
@@ -20748,6 +21030,8 @@ exports[`HTML elements global attributes valid markup 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/elements/global-attributes-valid.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,

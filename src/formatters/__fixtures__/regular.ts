@@ -12,6 +12,8 @@ const results: Result[] = [
 		filePath: "first.html",
 		errorCount: 1,
 		warningCount: 1,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: firstHtml,
 		messages: [
 			{
@@ -42,6 +44,8 @@ const results: Result[] = [
 		filePath: "second.html",
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: secondHtml,
 		messages: [
 			{

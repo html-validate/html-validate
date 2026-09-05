@@ -11,6 +11,8 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
   {
     "errorCount": 3,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,

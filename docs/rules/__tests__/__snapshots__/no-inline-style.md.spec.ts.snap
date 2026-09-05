@@ -11,6 +11,8 @@ exports[`docs/rules/no-inline-style.md inline validation: disallow-variables 1`]
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -35,6 +37,8 @@ exports[`docs/rules/no-inline-style.md inline validation: incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,

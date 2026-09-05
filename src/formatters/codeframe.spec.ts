@@ -5,6 +5,7 @@ import {
 	edgeCases,
 	emptyMessages,
 	emptyResult,
+	fixable,
 	missingSelector,
 	missingSource,
 	missingUrl,
@@ -33,6 +34,11 @@ describe("codeframe formatter", () => {
 	it("should generate output", () => {
 		expect.assertions(1);
 		expect(codeframe(regular)).toMatchSnapshot();
+	});
+
+	it("should handle fixable errors and warnings", () => {
+		expect.assertions(1);
+		expect(codeframe(fixable)).toMatchSnapshot();
 	});
 
 	it("should handle multiline error", () => {
@@ -240,6 +246,8 @@ function createError(
 			filePath: "mock-file.html",
 			errorCount: 1,
 			warningCount: 1,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 			source: markup,
 			messages: messages.map((it) => {
 				return {

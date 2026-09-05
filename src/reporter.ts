@@ -35,6 +35,21 @@ export interface Result {
 	filePath: string;
 	errorCount: number;
 	warningCount: number;
+
+	/**
+	 * Number of errors which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableErrorCount: number;
+
+	/**
+	 * Number of warnings which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableWarningCount: number;
+
 	source: string | null;
 }
 
@@ -55,6 +70,20 @@ export interface Report {
 
 	/** Total warnings of errors across all sources */
 	warningCount: number;
+
+	/**
+	 * Number of errors which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableErrorCount: number;
+
+	/**
+	 * Number of warnings which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableWarningCount: number;
 }
 
 /**
@@ -118,6 +147,8 @@ export class Reporter {
 			/* recalculate error- and warning-count */
 			result.errorCount = countErrors(result.messages);
 			result.warningCount = countWarnings(result.messages);
+			result.fixableErrorCount = countFixableErrors(result.messages);
+			result.fixableWarningCount = countFixableWarnings(result.messages);
 			return result;
 		});
 		return {
@@ -125,6 +156,8 @@ export class Reporter {
 			results,
 			errorCount: sumErrors(results),
 			warningCount: sumWarnings(results),
+			fixableErrorCount: sumFixableErrors(results),
+			fixableWarningCount: sumFixableWarnings(results),
 		};
 	}
 
@@ -202,14 +235,20 @@ export class Reporter {
 					messages,
 					errorCount: countErrors(messages),
 					warningCount: countWarnings(messages),
+					fixableErrorCount: countFixableErrors(messages),
+					fixableWarningCount: countFixableWarnings(messages),
 					source: source ? (source.originalData ?? source.data) : null,
 				};
 			}),
 			errorCount: 0,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		};
 		report.errorCount = sumErrors(report.results);
 		report.warningCount = sumWarnings(report.results);
+		report.fixableErrorCount = sumFixableErrors(report.results);
+		report.fixableWarningCount = sumFixableWarnings(report.results);
 		return report;
 	}
 
@@ -229,9 +268,19 @@ function countErrors(messages: Array<Message | DeferredMessage>): number {
 	return messages.filter((m) => m.severity === Number(Severity.ERROR)).length;
 }
 
+function countFixableErrors(messages: Array<Message | DeferredMessage>): number {
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
+	return messages.filter((m) => m.fix && m.severity === Number(Severity.ERROR)).length;
+}
+
 function countWarnings(messages: Array<Message | DeferredMessage>): number {
 	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
 	return messages.filter((m) => m.severity === Number(Severity.WARN)).length;
+}
+
+function countFixableWarnings(messages: Array<Message | DeferredMessage>): number {
+	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
+	return messages.filter((m) => m.fix && m.severity === Number(Severity.WARN)).length;
 }
 
 function sumErrors(results: Result[]): number {
@@ -240,9 +289,21 @@ function sumErrors(results: Result[]): number {
 	}, 0);
 }
 
+function sumFixableErrors(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.fixableErrorCount;
+	}, 0);
+}
+
 function sumWarnings(results: Result[]): number {
 	return results.reduce((sum: number, result: Result) => {
 		return sum + result.warningCount;
+	}, 0);
+}
+
+function sumFixableWarnings(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.fixableWarningCount;
 	}, 0);
 }
 

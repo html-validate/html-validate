@@ -7,6 +7,8 @@ exports[`docs/rules/form-dup-name.md inline validation: array-incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,
@@ -40,6 +42,8 @@ exports[`docs/rules/form-dup-name.md inline validation: checkbox-incorrect 1`] =
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,
@@ -75,6 +79,8 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,
@@ -106,6 +112,8 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect-radio 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,
@@ -139,6 +147,8 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-incorrect 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,
@@ -170,6 +180,8 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-mix 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 18,

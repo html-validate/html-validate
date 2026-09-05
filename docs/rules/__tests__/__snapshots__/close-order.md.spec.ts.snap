@@ -9,6 +9,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-incorrect-implic
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -35,6 +37,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-missing-endtag 1
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -73,6 +77,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-out-of-order 1`]
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,
@@ -114,6 +120,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-stray-endtag 1`]
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 3,
@@ -141,6 +149,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-wrong-endtag 1`]
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

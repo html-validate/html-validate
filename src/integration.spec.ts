@@ -116,6 +116,8 @@ it("should compute correct line, column and offset when using transformed source
 		{
 		  "errorCount": 3,
 		  "filePath": "inline",
+		  "fixableErrorCount": 0,
+		  "fixableWarningCount": 0,
 		  "messages": [
 		    {
 		      "column": 1,
@@ -172,6 +174,8 @@ it("should handle source missing properties", async () => {
 		{
 		  "errorCount": 1,
 		  "filePath": "",
+		  "fixableErrorCount": 0,
+		  "fixableWarningCount": 0,
 		  "messages": [
 		    {
 		      "column": 2,
@@ -202,6 +206,8 @@ it("should report parser-error when last tag is left unopened", async () => {
 		{
 		  "errorCount": 1,
 		  "filePath": "inline",
+		  "fixableErrorCount": 0,
+		  "fixableWarningCount": 0,
 		  "messages": [
 		    {
 		      "column": 1,

@@ -9,6 +9,8 @@ const results: Result[] = [
 		filePath: "line-bounds.html",
 		errorCount: 1,
 		warningCount: 1,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: markup,
 		messages: [
 			{
@@ -40,6 +42,8 @@ const results: Result[] = [
 		filePath: "file-bounds.html",
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: markup,
 		messages: [
 			{

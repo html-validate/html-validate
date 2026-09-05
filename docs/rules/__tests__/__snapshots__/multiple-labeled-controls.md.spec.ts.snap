@@ -7,6 +7,8 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-bo
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -34,6 +36,8 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-mu
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

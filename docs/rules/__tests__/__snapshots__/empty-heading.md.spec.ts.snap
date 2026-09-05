@@ -7,6 +7,8 @@ exports[`docs/rules/empty-heading.md inline validation: hidden-invalid 1`] = `
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -49,6 +51,8 @@ exports[`docs/rules/empty-heading.md inline validation: incorrect 1`] = `
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -85,6 +89,8 @@ exports[`docs/rules/empty-heading.md inline validation: whitespace 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

@@ -5,6 +5,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 15,
@@ -49,6 +51,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: deprecate
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 15,
@@ -74,6 +78,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: enum 1`] 
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 21,
@@ -113,6 +119,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: regexp 1`
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 22,
@@ -151,6 +159,8 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: required 
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

@@ -117,6 +117,8 @@ exports[`should match results: test-files/config/cjs-config/file.html config 1`]
 exports[`should match results: test-files/config/cjs-config/file.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [],
   "valid": true,
   "warningCount": 0,
@@ -240,10 +242,14 @@ exports[`should match results: test-files/config/directive/disable.html config 1
 exports[`should match results: test-files/config/directive/disable.html result 1`] = `
 {
   "errorCount": 2,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -404,10 +410,14 @@ exports[`should match results: test-files/config/directive/disable-block.html co
 exports[`should match results: test-files/config/directive/disable-block.html result 1`] = `
 {
   "errorCount": 4,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 4,
       "filePath": "test-files/config/directive/disable-block.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -603,10 +613,14 @@ exports[`should match results: test-files/config/directive/disable-multiple.html
 exports[`should match results: test-files/config/directive/disable-multiple.html result 1`] = `
 {
   "errorCount": 2,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-multiple.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 2,
@@ -769,10 +783,14 @@ exports[`should match results: test-files/config/directive/disable-next.html con
 exports[`should match results: test-files/config/directive/disable-next.html result 1`] = `
 {
   "errorCount": 2,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-next.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -934,10 +952,14 @@ exports[`should match results: test-files/config/elements/file.html config 1`] =
 exports[`should match results: test-files/config/elements/file.html result 1`] = `
 {
   "errorCount": 2,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 2,
       "filePath": "test-files/config/elements/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1006,10 +1028,14 @@ exports[`should match results: test-files/config/extend-order/foo.html config 1`
 exports[`should match results: test-files/config/extend-order/foo.html result 1`] = `
 {
   "errorCount": 1,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 1,
       "filePath": "test-files/config/extend-order/foo.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1066,10 +1092,14 @@ exports[`should match results: test-files/config/extend-order/nested/foo.html co
 exports[`should match results: test-files/config/extend-order/nested/foo.html result 1`] = `
 {
   "errorCount": 2,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 2,
       "filePath": "test-files/config/extend-order/nested/foo.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1240,10 +1270,14 @@ exports[`should match results: test-files/config/file.html config 1`] = `
 exports[`should match results: test-files/config/file.html result 1`] = `
 {
   "errorCount": 1,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 1,
       "filePath": "test-files/config/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,
@@ -1386,6 +1420,8 @@ exports[`should match results: test-files/config/js-config/file.html config 1`] 
 exports[`should match results: test-files/config/js-config/file.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [],
   "valid": true,
   "warningCount": 0,
@@ -1407,6 +1443,8 @@ exports[`should match results: test-files/config/missing-transformer/test.html c
 exports[`should match results: test-files/config/missing-transformer/test.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [],
   "valid": true,
   "warningCount": 0,
@@ -1530,6 +1568,8 @@ exports[`should match results: test-files/config/mjs-config/file.html config 1`]
 exports[`should match results: test-files/config/mjs-config/file.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [],
   "valid": true,
   "warningCount": 0,
@@ -1653,10 +1693,14 @@ exports[`should match results: test-files/config/off/error/file.html config 1`] 
 exports[`should match results: test-files/config/off/error/file.html result 1`] = `
 {
   "errorCount": 1,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 1,
       "filePath": "test-files/config/off/error/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,
@@ -1799,6 +1843,8 @@ exports[`should match results: test-files/config/off/file.html config 1`] = `
 exports[`should match results: test-files/config/off/file.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [],
   "valid": true,
   "warningCount": 0,
@@ -1922,10 +1968,14 @@ exports[`should match results: test-files/config/warn/file.html config 1`] = `
 exports[`should match results: test-files/config/warn/file.html result 1`] = `
 {
   "errorCount": 0,
+  "fixableErrorCount": 0,
+  "fixableWarningCount": 0,
   "results": [
     {
       "errorCount": 0,
       "filePath": "test-files/config/warn/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,
