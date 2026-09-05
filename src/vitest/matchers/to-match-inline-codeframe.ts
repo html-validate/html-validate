@@ -1,5 +1,6 @@
-import { type AsyncExpectationResult, type MatcherState } from "@vitest/expect";
+import { type AsyncExpectationResult } from "@vitest/expect";
 import * as vitest from "vitest";
+import { type MatcherState } from "vitest";
 import { FileSystemConfigLoader } from "../../config/loaders/file-system";
 import { HtmlValidate } from "../../htmlvalidate";
 import { type Report } from "../../reporter";
