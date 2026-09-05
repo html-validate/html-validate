@@ -5,8 +5,8 @@ import { type Message } from "../message";
 import "vitest";
 
 declare module "vitest" {
-	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- to match upstream */
-	interface Assertion<T = any> {
+	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- to match upstream */
+	interface Assertion<R extends void | Promise<void> = void, T = unknown> {
 		/**
 		 * @since 8.5.0
 		 */
@@ -69,8 +69,8 @@ declare module "vitest" {
 		toMatchInlineCodeframe(snapshot?: string): Promise<void>;
 	}
 
-	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- to match upstream */
-	interface Matchers<T = any> {
+	/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- to match upstream */
+	interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> {
 		/**
 		 * @since 8.5.0
 		 */
