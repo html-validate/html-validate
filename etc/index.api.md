@@ -1239,6 +1239,8 @@ export interface ProcessElementContext {
 // @public
 interface Report_2 {
     errorCount: number;
+    fixableErrorCount: number;
+    fixableWarningCount: number;
     results: Result[];
     valid: boolean;
     warningCount: number;

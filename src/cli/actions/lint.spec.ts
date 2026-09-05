@@ -62,6 +62,8 @@ it("should return successful if there where no errors", async () => {
 		results: [],
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	});
 	const files = ["foo.html", "bar.html"];
 	const success = await lint(htmlvalidate, stdout, stderr, files, defaultOptions);
@@ -88,6 +90,8 @@ it("should return success if there where only warnings", async () => {
 			],
 			errorCount: 0,
 			warningCount: 1,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["foo.html", "bar.html"];
@@ -119,6 +123,8 @@ it("should return failure if there where any errors", async () => {
 			],
 			errorCount: 1,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["foo.html", "bar.html"];
@@ -150,6 +156,8 @@ it("should return failure if there are too many warnings", async () => {
 			],
 			errorCount: 0,
 			warningCount: 1,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["foo.html", "bar.html"];
@@ -186,6 +194,8 @@ it("should retain /dev/stdin when stdinFilename is not given", async () => {
 			],
 			errorCount: 1,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["/dev/stdin"];
@@ -218,6 +228,8 @@ it("should rename stdin if stdinFilename is given", async () => {
 			],
 			errorCount: 1,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["/dev/stdin"];
@@ -251,6 +263,8 @@ it("should not rename other files when stdinFilename is given", async () => {
 			],
 			errorCount: 1,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		}),
 	);
 	const files = ["foo.html"];
@@ -299,6 +313,8 @@ it("should output performance data when enabled", async () => {
 		results: [],
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	});
 	const files = ["foo.html"];
 	await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, performance: true });
@@ -342,6 +358,8 @@ it("should not call startPerformance/stopPerformance when not enabled", async ()
 		results: [],
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	});
 	const files = ["foo.html"];
 	await lint(htmlvalidate, stdout, stderr, files, defaultOptions);
@@ -365,6 +383,8 @@ it("should output performance data with zero total time", async () => {
 		results: [],
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	});
 	const files = ["foo.html"];
 	await lint(htmlvalidate, stdout, stderr, files, { ...defaultOptions, performance: true });
@@ -425,6 +445,8 @@ it("should apply autofix and write the patched file when fix option is enabled",
 		],
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 1,
+		fixableWarningCount: 0,
 	};
 	const finalReport = {
 		valid: true,
@@ -441,6 +463,8 @@ it("should apply autofix and write the patched file when fix option is enabled",
 		],
 		errorCount: 0,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	};
 	jest
 		.spyOn(htmlvalidate, "validateFile")
@@ -476,6 +500,8 @@ it("should not write the file when fix option is enabled but no fix is available
 		],
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 	};
 	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue(report);
 	const autofixFile = jest.spyOn(htmlvalidate, "autofixFile");
@@ -521,6 +547,8 @@ it("should not write the file when a fix produces no change to the source", asyn
 		],
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 1,
+		fixableWarningCount: 0,
 	};
 	jest.spyOn(htmlvalidate, "validateFile").mockResolvedValue(report);
 	/* both the baseline read and the applied fix resolve to the same
@@ -565,6 +593,8 @@ it("should stop fixing once the iteration limit is reached", async () => {
 		],
 		errorCount: 1,
 		warningCount: 0,
+		fixableErrorCount: 1,
+		fixableWarningCount: 0,
 	};
 	const validateFile = jest
 		.spyOn(htmlvalidate, "validateFile")

@@ -40,6 +40,8 @@ const report: Report = {
 	],
 	errorCount: 1,
 	warningCount: 0,
+	fixableErrorCount: 0,
+	fixableWarningCount: 0,
 };
 
 let cli: CLI;

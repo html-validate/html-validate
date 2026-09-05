@@ -127,16 +127,58 @@ describe("Reporter", () => {
 		it("should set valid only if all reports are valid", () => {
 			expect.assertions(3);
 			const none = Reporter.merge([
-				{ valid: false, results: [], errorCount: 1, warningCount: 2 },
-				{ valid: false, results: [], errorCount: 3, warningCount: 4 },
+				{
+					valid: false,
+					results: [],
+					errorCount: 1,
+					warningCount: 2,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
+				{
+					valid: false,
+					results: [],
+					errorCount: 3,
+					warningCount: 4,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
 			]);
 			const one = Reporter.merge([
-				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
-				{ valid: false, results: [], errorCount: 1, warningCount: 0 },
+				{
+					valid: true,
+					results: [],
+					errorCount: 0,
+					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
+				{
+					valid: false,
+					results: [],
+					errorCount: 1,
+					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
 			]);
 			const all = Reporter.merge([
-				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
-				{ valid: true, results: [], errorCount: 0, warningCount: 0 },
+				{
+					valid: true,
+					results: [],
+					errorCount: 0,
+					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
+				{
+					valid: true,
+					results: [],
+					errorCount: 0,
+					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
+				},
 			]);
 			expect(none.valid).toBeFalsy();
 			expect(one.valid).toBeFalsy();
@@ -144,30 +186,38 @@ describe("Reporter", () => {
 		});
 
 		it("should merge and group messages by filename", () => {
-			expect.assertions(9);
+			expect.assertions(13);
 			const merged = Reporter.merge([
 				{
 					valid: false,
 					results: [createResult("foo", ["fred", "barney"]), createResult("bar", ["spam"])],
 					errorCount: 3,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				},
 				{
 					valid: false,
 					results: [createResult("foo", ["wilma"])],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				},
 			]);
 			expect(merged.results).toHaveLength(2);
 			expect(merged.results[0].filePath).toBe("foo");
 			expect(merged.results[0].messages.map((x) => x.message)).toEqual(["fred", "barney", "wilma"]);
 			expect(merged.results[0].errorCount).toBe(3);
+			expect(merged.results[0].fixableErrorCount).toBe(3);
 			expect(merged.results[1].filePath).toBe("bar");
 			expect(merged.results[1].messages.map((x) => x.message)).toEqual(["spam"]);
 			expect(merged.results[1].errorCount).toBe(1);
+			expect(merged.results[1].fixableErrorCount).toBe(1);
 			expect(merged.errorCount).toBe(4);
+			expect(merged.fixableErrorCount).toBe(4);
 			expect(merged.warningCount).toBe(0);
+			expect(merged.fixableWarningCount).toBe(0);
 		});
 
 		it("should handle promise with results", async () => {
@@ -179,12 +229,16 @@ describe("Reporter", () => {
 						results: [createResult("foo", ["fred", "barney"])],
 						errorCount: 1,
 						warningCount: 0,
+						fixableErrorCount: 0,
+						fixableWarningCount: 0,
 					},
 					{
 						valid: true,
 						results: [createResult("bar", ["wilma"])],
 						errorCount: 0,
 						warningCount: 1,
+						fixableErrorCount: 0,
+						fixableWarningCount: 0,
 					},
 				]),
 			);
@@ -201,12 +255,16 @@ describe("Reporter", () => {
 					results: [createResult("foo", ["fred", "barney"])],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				}),
 				Promise.resolve({
 					valid: true,
 					results: [createResult("bar", ["wilma"])],
 					errorCount: 0,
 					warningCount: 1,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				}),
 			]);
 			expect(merged.valid).toBeFalsy();
@@ -426,11 +484,14 @@ function createResult(filename: string, messages: string[]): Result {
 			return {
 				...msg,
 				selector: msg.selector(),
+				fix() {
+					/* do nothing */
+				},
 			};
 		}),
 		errorCount: messages.length,
 		warningCount: 0,
-		fixableErrorCount: 0,
+		fixableErrorCount: messages.length,
 		fixableWarningCount: 0,
 		source: null,
 	};

@@ -70,6 +70,20 @@ export interface Report {
 
 	/** Total warnings of errors across all sources */
 	warningCount: number;
+
+	/**
+	 * Number of errors which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableErrorCount: number;
+
+	/**
+	 * Number of warnings which can be automatically fixed.
+	 *
+	 * @since %version%
+	 */
+	fixableWarningCount: number;
 }
 
 /**
@@ -142,6 +156,8 @@ export class Reporter {
 			results,
 			errorCount: sumErrors(results),
 			warningCount: sumWarnings(results),
+			fixableErrorCount: sumFixableErrors(results),
+			fixableWarningCount: sumFixableWarnings(results),
 		};
 	}
 
@@ -226,9 +242,13 @@ export class Reporter {
 			}),
 			errorCount: 0,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		};
 		report.errorCount = sumErrors(report.results);
 		report.warningCount = sumWarnings(report.results);
+		report.fixableErrorCount = sumFixableErrors(report.results);
+		report.fixableWarningCount = sumFixableWarnings(report.results);
 		return report;
 	}
 
@@ -269,9 +289,21 @@ function sumErrors(results: Result[]): number {
 	}, 0);
 }
 
+function sumFixableErrors(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.fixableErrorCount;
+	}, 0);
+}
+
 function sumWarnings(results: Result[]): number {
 	return results.reduce((sum: number, result: Result) => {
 		return sum + result.warningCount;
+	}, 0);
+}
+
+function sumFixableWarnings(results: Result[]): number {
+	return results.reduce((sum: number, result: Result) => {
+		return sum + result.fixableWarningCount;
 	}, 0);
 }
 

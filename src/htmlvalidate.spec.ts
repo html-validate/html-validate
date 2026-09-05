@@ -597,6 +597,8 @@ describe("HtmlValidate", () => {
 				results: [],
 				errorCount: 0,
 				warningCount: 0,
+				fixableErrorCount: 0,
+				fixableWarningCount: 0,
 			});
 			await htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
@@ -623,7 +625,9 @@ describe("HtmlValidate", () => {
 						},
 					],
 					errorCount: 0,
-					warningCount: 1,
+					warningCount: 2,
+					fixableErrorCount: 0,
+					fixableWarningCount: 1,
 				})
 				.mockResolvedValueOnce({
 					valid: false,
@@ -640,12 +644,16 @@ describe("HtmlValidate", () => {
 					],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				});
 			const report = await htmlvalidate.validateMultipleFiles(["foo.html", "bar.html"]);
 			/* eslint-disable-next-line jest/no-large-snapshots -- technical debt */
 			expect(report).toMatchInlineSnapshot(`
 			{
 			  "errorCount": 1,
+			  "fixableErrorCount": 0,
+			  "fixableWarningCount": 1,
 			  "results": [
 			    {
 			      "errorCount": 0,
@@ -749,6 +757,8 @@ describe("HtmlValidate", () => {
 				results: [],
 				errorCount: 0,
 				warningCount: 0,
+				fixableErrorCount: 0,
+				fixableWarningCount: 0,
 			});
 			htmlvalidate.validateMultipleFilesSync(["foo.html", "bar.html"]);
 			expect(spy).toHaveBeenCalledTimes(2);
@@ -776,6 +786,8 @@ describe("HtmlValidate", () => {
 					],
 					errorCount: 0,
 					warningCount: 1,
+					fixableErrorCount: 0,
+					fixableWarningCount: 1,
 				})
 				.mockReturnValueOnce({
 					valid: false,
@@ -792,12 +804,16 @@ describe("HtmlValidate", () => {
 					],
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 				});
 			const report = htmlvalidate.validateMultipleFilesSync(["foo.html", "bar.html"]);
 			/* eslint-disable-next-line jest/no-large-snapshots -- technical debt */
 			expect(report).toMatchInlineSnapshot(`
 			{
 			  "errorCount": 1,
+			  "fixableErrorCount": 0,
+			  "fixableWarningCount": 1,
 			  "results": [
 			    {
 			      "errorCount": 0,
