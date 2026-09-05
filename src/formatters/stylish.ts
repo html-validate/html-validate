@@ -23,8 +23,6 @@ export function stylish(results: Result[]): string {
 	const errors = stylishImpl(
 		results.map((it) => ({
 			...it,
-			fixableErrorCount: 0,
-			fixableWarningCount: 0,
 		})),
 	);
 	const links = linkSummary(results);

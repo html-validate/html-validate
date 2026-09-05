@@ -5,6 +5,7 @@ import {
 	edgeCases,
 	emptyMessages,
 	emptyResult,
+	fixable,
 	missingSelector,
 	missingSource,
 	missingUrl,
@@ -33,6 +34,11 @@ describe("codeframe formatter", () => {
 	it("should generate output", () => {
 		expect.assertions(1);
 		expect(codeframe(regular)).toMatchSnapshot();
+	});
+
+	it("should handle fixable errors and warnings", () => {
+		expect.assertions(1);
+		expect(codeframe(fixable)).toMatchSnapshot();
 	});
 
 	it("should handle multiline error", () => {

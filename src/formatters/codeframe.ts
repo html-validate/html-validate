@@ -93,9 +93,16 @@ function formatMessage(message: Message, parentResult: Result, options: Codefram
  * @param warnings - The number of warnings.
  * @returns The formatted output summary.
  */
-function formatSummary(errors: number, warnings: number): string {
-	const summaryColor = errors > 0 ? "red" : "yellow";
+function formatSummary(options: {
+	errors: number;
+	warnings: number;
+	fixableErrors: number;
+	fixableWarnings: number;
+}): string {
+	const { errors, warnings, fixableErrors, fixableWarnings } = options;
+	const color = errors > 0 ? "red" : "yellow";
 	const summary = [];
+	const fixable = [];
 
 	if (errors > 0) {
 		summary.push(`${String(errors)} ${pluralize("error", errors)}`);
@@ -105,7 +112,27 @@ function formatSummary(errors: number, warnings: number): string {
 		summary.push(`${String(warnings)} ${pluralize("warning", warnings)}`);
 	}
 
-	return kleur[summaryColor]().bold(`${summary.join(" and ")} found.`);
+	if (fixableErrors > 0) {
+		fixable.push(`${String(fixableErrors)} ${pluralize("error", fixableErrors)}`);
+	}
+
+	if (fixableWarnings > 0) {
+		fixable.push(`${String(fixableWarnings)} ${pluralize("warning", fixableWarnings)}`);
+	}
+
+	const summaryText = kleur[color]().bold(`${summary.join(" and ")} found.`);
+	const fixableText =
+		fixable.length > 0
+			? kleur[color]().bold(
+					`${fixable.join(" and ")} potentially fixable with the \`--fix\` option.`,
+				)
+			: null;
+
+	if (fixableText) {
+		return ["\n", summaryText, "\n", fixableText, "\n"].join("");
+	}
+
+	return ["\n", summaryText, "\n"].join("");
 }
 
 export function codeframe(results: Result[], options?: Partial<CodeframeOptions>): string {
@@ -113,6 +140,8 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 
 	let errors = 0;
 	let warnings = 0;
+	let fixableErrors = 0;
+	let fixableWarnings = 0;
 
 	const resultsWithMessages = results.filter((result) => result.messages.length > 0);
 
@@ -124,15 +153,15 @@ export function codeframe(results: Result[], options?: Partial<CodeframeOptions>
 
 			errors += result.errorCount;
 			warnings += result.warningCount;
+			fixableErrors += result.fixableErrorCount;
+			fixableWarnings += result.fixableWarningCount;
 
 			return resultsOutput.concat(messages);
 		}, [])
 		.join("\n");
 
 	if (merged.showSummary) {
-		output += "\n";
-		output += formatSummary(errors, warnings);
-		output += "\n";
+		output += formatSummary({ errors, warnings, fixableErrors, fixableWarnings });
 	}
 
 	return errors + warnings > 0 ? output : "";

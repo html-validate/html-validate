@@ -13,7 +13,7 @@ const results: Result[] = [
 		errorCount: 1,
 		warningCount: 1,
 		fixableErrorCount: 0,
-		fixableWarningCount: 1,
+		fixableWarningCount: 0,
 		source: firstHtml,
 		messages: [
 			{

@@ -33,6 +33,24 @@ exports[`stylish formatter should handle empty messages 1`] = `""`;
 
 exports[`stylish formatter should handle empty result 1`] = `""`;
 
+exports[`stylish formatter should handle fixable errors and warnings 1`] = `
+"</>
+<underline>fixable.html</underline>
+  <dim>1:6</intensity>  <red>error</color>    An error           <dim>foo</intensity>
+  <dim>1:6</intensity>  <red>error</color>    A fixable error    <dim>foo</intensity>
+  <dim>2:5</intensity>  <yellow>warning</color>  A warning          <dim>bar</intensity>
+  <dim>2:5</intensity>  <yellow>warning</color>  A fixable warning  <dim>bar</intensity>
+
+<red><bold>✖ 4 problems (2 errors, 2 warnings)
+</intensity></color><red><bold>  1 error and 1 warning potentially fixable with the \`--fix\` option.
+</intensity></color></>
+<bold>More information</intensity>:
+  https://example.net/rule/foo.html
+  https://example.net/rule/bar.html
+
+"
+`;
+
 exports[`stylish formatter should handle missing rule url 1`] = `
 "</>
 <underline>missing-url.html</underline>

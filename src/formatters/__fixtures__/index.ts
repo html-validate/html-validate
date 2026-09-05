@@ -1,3 +1,4 @@
+export { default as fixable } from "./fixable";
 export { default as outOfBounds } from "./out-of-bounds";
 export { default as edgeCases } from "./edge-cases";
 export { default as emptyMessages } from "./empty-messages";
