@@ -1,5 +1,14 @@
 # html-validate changelog
 
+## 11.14.0 (2026-09-05)
+
+### Features
+
+- **api:** add `fixableErrorCount` and `fixableWarningCount` to `Report` object ([5bad2dd](https://gitlab.com/html-validate/html-validate/commit/5bad2dd6e13613e949d1ab9e071ace45000c9e18))
+- **api:** add `fixableErrorCount` and `fixableWarningCount` to `Result` object ([edc169f](https://gitlab.com/html-validate/html-validate/commit/edc169f071ceb6b228b66d7bce121b59b6d730fc))
+- **cli:** `stylish` and `codeframe` formatters output number of fixable errors and warnings ([6f230fc](https://gitlab.com/html-validate/html-validate/commit/6f230fc455120f648ae91251d41cf9a2bde1f05a))
+- **deps:** support vitest v5 ([9bc1709](https://gitlab.com/html-validate/html-validate/commit/9bc170932b093db311f5de7ed8405f53a020ec11))
+
 ## 11.13.0 (2026-09-03)
 
 ### Features

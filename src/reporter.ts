@@ -39,14 +39,14 @@ export interface Result {
 	/**
 	 * Number of errors which can be automatically fixed.
 	 *
-	 * @since %version%
+	 * @since 11.14.0
 	 */
 	fixableErrorCount: number;
 
 	/**
 	 * Number of warnings which can be automatically fixed.
 	 *
-	 * @since %version%
+	 * @since 11.14.0
 	 */
 	fixableWarningCount: number;
 
@@ -74,14 +74,14 @@ export interface Report {
 	/**
 	 * Number of errors which can be automatically fixed.
 	 *
-	 * @since %version%
+	 * @since 11.14.0
 	 */
 	fixableErrorCount: number;
 
 	/**
 	 * Number of warnings which can be automatically fixed.
 	 *
-	 * @since %version%
+	 * @since 11.14.0
 	 */
 	fixableWarningCount: number;
 }
