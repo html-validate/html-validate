@@ -5,6 +5,8 @@ const results: Result[] = [
 		filePath: "missing-source.html",
 		errorCount: 2,
 		warningCount: 0,
+		fixableErrorCount: 1,
+		fixableWarningCount: 0,
 		source: null,
 		messages: [
 			{

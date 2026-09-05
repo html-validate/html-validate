@@ -5,6 +5,8 @@ exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] =
   {
     "errorCount": 4,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 1,

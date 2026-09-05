@@ -7,6 +7,8 @@ exports[`docs/rules/valid-id.md inline validation: incorrect 1`] = `
   {
     "errorCount": 3,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 4,

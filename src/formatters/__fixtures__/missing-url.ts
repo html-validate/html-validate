@@ -10,6 +10,8 @@ const results: Result[] = [
 		filePath: "missing-url.html",
 		errorCount: 2,
 		warningCount: 0,
+		fixableErrorCount: 1,
+		fixableWarningCount: 0,
 		source,
 		messages: [
 			{

@@ -11,6 +11,8 @@ exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,
@@ -36,6 +38,8 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
   {
     "errorCount": 4,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 6,

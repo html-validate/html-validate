@@ -253,6 +253,8 @@ describe("Reporter", () => {
 					filePath: "foo.html",
 					errorCount: 1,
 					warningCount: 1,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 					messages: [
 						{
 							offset: 0,
@@ -281,6 +283,8 @@ describe("Reporter", () => {
 					filePath: "bar.html",
 					errorCount: 1,
 					warningCount: 0,
+					fixableErrorCount: 0,
+					fixableWarningCount: 0,
 					messages: [
 						{
 							offset: 0,
@@ -426,6 +430,8 @@ function createResult(filename: string, messages: string[]): Result {
 		}),
 		errorCount: messages.length,
 		warningCount: 0,
+		fixableErrorCount: 0,
+		fixableWarningCount: 0,
 		source: null,
 	};
 }

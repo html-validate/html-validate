@@ -33,6 +33,8 @@ const report: Report = {
 			filePath: "mock-file.html",
 			errorCount: 1,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 			source: null,
 		},
 	],
@@ -67,7 +69,7 @@ describe("cli/formatters", () => {
 		expect(output).toMatchInlineSnapshot(`
 			"mock-file.html:1:2: error [foo] lorem ipsum
 
-			[{"messages":[{"ruleId":"foo","severity":2,"message":"lorem ipsum","offset":1,"line":1,"column":2,"size":1,"selector":null}],"filePath":"mock-file.html","errorCount":1,"warningCount":0,"source":null}]"
+			[{"messages":[{"ruleId":"foo","severity":2,"message":"lorem ipsum","offset":1,"line":1,"column":2,"size":1,"selector":null}],"filePath":"mock-file.html","errorCount":1,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"source":null}]"
 		`);
 	});
 

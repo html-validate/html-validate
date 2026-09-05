@@ -240,6 +240,8 @@ function createError(
 			filePath: "mock-file.html",
 			errorCount: 1,
 			warningCount: 1,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 			source: markup,
 			messages: messages.map((it) => {
 				return {

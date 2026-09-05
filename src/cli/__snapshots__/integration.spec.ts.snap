@@ -244,6 +244,8 @@ exports[`should match results: test-files/config/directive/disable.html result 1
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -408,6 +410,8 @@ exports[`should match results: test-files/config/directive/disable-block.html re
     {
       "errorCount": 4,
       "filePath": "test-files/config/directive/disable-block.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -607,6 +611,8 @@ exports[`should match results: test-files/config/directive/disable-multiple.html
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-multiple.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 2,
@@ -773,6 +779,8 @@ exports[`should match results: test-files/config/directive/disable-next.html res
     {
       "errorCount": 2,
       "filePath": "test-files/config/directive/disable-next.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -938,6 +946,8 @@ exports[`should match results: test-files/config/elements/file.html result 1`] =
     {
       "errorCount": 2,
       "filePath": "test-files/config/elements/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1010,6 +1020,8 @@ exports[`should match results: test-files/config/extend-order/foo.html result 1`
     {
       "errorCount": 1,
       "filePath": "test-files/config/extend-order/foo.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1070,6 +1082,8 @@ exports[`should match results: test-files/config/extend-order/nested/foo.html re
     {
       "errorCount": 2,
       "filePath": "test-files/config/extend-order/nested/foo.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 3,
@@ -1244,6 +1258,8 @@ exports[`should match results: test-files/config/file.html result 1`] = `
     {
       "errorCount": 1,
       "filePath": "test-files/config/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,
@@ -1657,6 +1673,8 @@ exports[`should match results: test-files/config/off/error/file.html result 1`] 
     {
       "errorCount": 1,
       "filePath": "test-files/config/off/error/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,
@@ -1926,6 +1944,8 @@ exports[`should match results: test-files/config/warn/file.html result 1`] = `
     {
       "errorCount": 0,
       "filePath": "test-files/config/warn/file.html",
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
       "messages": [
         {
           "column": 6,

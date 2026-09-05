@@ -7,6 +7,8 @@ exports[`docs/usage/index.md inline validation: disable-block-button-type 1`] = 
   {
     "errorCount": 2,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 17,
@@ -72,6 +74,8 @@ exports[`docs/usage/index.md inline validation: disable-next-deprecated 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 2,

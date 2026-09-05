@@ -5,6 +5,8 @@ exports[`docs/rules/allowed-links.md inline validation: absolute-invalid 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -32,6 +34,8 @@ exports[`docs/rules/allowed-links.md inline validation: base-invalid 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -59,6 +63,8 @@ exports[`docs/rules/allowed-links.md inline validation: external-include 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -88,6 +94,8 @@ exports[`docs/rules/allowed-links.md inline validation: external-invalid 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -115,6 +123,8 @@ exports[`docs/rules/allowed-links.md inline validation: relative-invalid 1`] = `
   {
     "errorCount": 1,
     "filePath": "inline",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,

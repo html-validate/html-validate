@@ -1335,6 +1335,8 @@ export interface Result {
     errorCount: number;
     // (undocumented)
     filePath: string;
+    fixableErrorCount: number;
+    fixableWarningCount: number;
     // (undocumented)
     messages: Message[];
     // (undocumented)

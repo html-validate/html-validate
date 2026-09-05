@@ -10,6 +10,8 @@ const results: Result[] = [
 		filePath: "first.html",
 		errorCount: 1,
 		warningCount: 1,
+		fixableErrorCount: 0,
+		fixableWarningCount: 1,
 		source: firstHtml,
 		messages: [
 			{

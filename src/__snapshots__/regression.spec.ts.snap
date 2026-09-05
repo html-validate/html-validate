@@ -11,6 +11,8 @@ exports[`regression tests test-files/issues/issue-299/aria.html 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/issues/issue-299/aria.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -42,6 +44,8 @@ exports[`regression tests test-files/issues/issue-299/id.html 1`] = `
   {
     "errorCount": 1,
     "filePath": "test-files/issues/issue-299/id.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 10,
@@ -71,6 +75,8 @@ exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
   {
     "errorCount": 2,
     "filePath": "test-files/issues/issue-299/input-label.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 8,
@@ -125,6 +131,8 @@ exports[`regression tests test-files/issues/issue-335-invalid-directives.html 1`
   {
     "errorCount": 2,
     "filePath": "test-files/issues/issue-335-invalid-directives.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 7,
@@ -166,6 +174,8 @@ exports[`regression tests test-files/issues/issue51-cond-comment.html 1`] = `
   {
     "errorCount": 8,
     "filePath": "test-files/issues/issue51-cond-comment.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 1,
@@ -281,6 +291,8 @@ exports[`regression tests test-files/issues/issue128-id-whitespace.html 1`] = `
   {
     "errorCount": 3,
     "filePath": "test-files/issues/issue128-id-whitespace.html",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": [
       {
         "column": 13,

@@ -119,6 +119,8 @@ describe("Engine", () => {
 				{
 				  "errorCount": 1,
 				  "filePath": "inline",
+				  "fixableErrorCount": 0,
+				  "fixableWarningCount": 0,
 				  "messages": [
 				    {
 				      "column": 1,
@@ -147,6 +149,8 @@ describe("Engine", () => {
 				{
 				  "errorCount": 1,
 				  "filePath": "inline",
+				  "fixableErrorCount": 0,
+				  "fixableWarningCount": 0,
 				  "messages": [
 				    {
 				      "column": 1,
