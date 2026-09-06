@@ -1,0 +1,12 @@
+{
+  "name": "jest-compat-testbed",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "pretest": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1"
+  }
+}
