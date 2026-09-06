@@ -24,6 +24,9 @@
 		{% endif %}
 	</head>
 	<body>
+		<div id="skiplink">
+			<a href="#content">Skip to main content</a>
+		</div>
 		<header>
 			<nav class="navbar navbar-default" aria-label="Primary">
 				<div id="topnav">
@@ -76,7 +79,7 @@
 				</div>
 			</nav>
 			{% endif %}
-			<div id="content">
+			<div id="content" tabindex="-1">
 				{%- block content %}
 				{%- endblock %}
 			</div>

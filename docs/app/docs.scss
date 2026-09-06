@@ -3,6 +3,8 @@ $icon-font-path: "fonts/";
 @use "sass:math";
 @use "bootstrap/variables" as bootstrap;
 
+@use "skiplink";
+
 // Font Awesome
 $fa-font-path: "fonts";
 @import "fontawesome";

@@ -1,0 +1,15 @@
+#skiplink a {
+	position: absolute;
+	padding: 2rem;
+	clip-path: inset(50%);
+	text-align: center;
+	font-size: 2rem;
+	width: 100%;
+	background: #eee;
+	z-index: 1;
+	outline-offset: -5px;
+
+	&:focus {
+		clip-path: none;
+	}
+}
