@@ -1,0 +1,15 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node16",
+    "lib": ["es2022", "dom"],
+    "types": [],
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true
+  },
+  "include": ["**/*.ts"]
+}
