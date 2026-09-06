@@ -22,7 +22,19 @@ describe("applyTextEdits()", () => {
 	});
 });
 
-describe("replaceText()", () => {
+describe("TextEditKind.Insert", () => {
+	it("should insert text", () => {
+		expect.assertions(1);
+		const text = "lorem ipsum sit amet";
+		const offset = text.indexOf("ipsum") + "ipsum".length;
+		const result = applyTextEdits(text, [
+			{ kind: TextEditKind.Insert, location: { offset, size: 0 }, insert: " dolor" },
+		]);
+		expect(result).toBe("lorem ipsum dolor sit amet");
+	});
+});
+
+describe("TextEditKind.Replace", () => {
 	it("should replace a single edit", () => {
 		expect.assertions(1);
 		const text = '<div foo="bar"></div>';
@@ -50,7 +62,7 @@ describe("replaceText()", () => {
 	});
 });
 
-describe("removeText()", () => {
+describe("TextEditKind.Remove", () => {
 	it("should remove text", () => {
 		expect.assertions(1);
 		const text = "lorem ipsum dolor sit amet";

@@ -98,6 +98,36 @@ describe("autofixCollectEdits()", () => {
 	});
 });
 
+describe("insertTextBefore()", () => {
+	it("should insert at start of location", async () => {
+		expect.assertions(1);
+		const text = "lorem ipsum dolor sit amet";
+		const location = makeLocation(text.indexOf("ipsum"), "ipsum".length);
+		const fix = (fixer: ErrorFixer): void => {
+			fixer.insertTextBefore(location, "before");
+		};
+		const result = await autofixCollectEdits(fix, text);
+		expect(result).toEqual([
+			{ kind: TextEditKind.Insert, location: { offset: 6, size: 0 }, insert: "before" },
+		]);
+	});
+});
+
+describe("insertTextAfter()", () => {
+	it("should insert at end of location", async () => {
+		expect.assertions(1);
+		const text = "lorem ipsum dolor sit amet";
+		const location = makeLocation(text.indexOf("ipsum"), "ipsum".length);
+		const fix = (fixer: ErrorFixer): void => {
+			fixer.insertTextAfter(location, "after");
+		};
+		const result = await autofixCollectEdits(fix, text);
+		expect(result).toEqual([
+			{ kind: TextEditKind.Insert, location: { offset: 11, size: 0 }, insert: "after" },
+		]);
+	});
+});
+
 describe("removeText()", () => {
 	it("should collect removeText without options", async () => {
 		expect.assertions(1);

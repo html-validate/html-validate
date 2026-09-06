@@ -8,8 +8,26 @@ import { type Location } from "../location";
  */
 /* eslint-disable-next-line @typescript-eslint/no-extraneous-class -- unique symbols are only allowed on "const" and "static readonly" properties */
 export class TextEditKind {
+	public static readonly Insert: unique symbol = Symbol("text-edit-insert");
 	public static readonly Replace: unique symbol = Symbol("text-edit-replace");
 	public static readonly Remove: unique symbol = Symbol("text-edit-remove");
+}
+
+/**
+ * An autofix text edit inserting text at location.
+ *
+ * @public
+ * @since %version%
+ */
+export interface TextEditInsert {
+	/** Discriminator identifying this as an insertion edit. */
+	readonly kind: typeof TextEditKind.Insert;
+
+	/** Location of the text being inserted. */
+	readonly location: Pick<Location, "offset"> & { size: 0 };
+
+	/** Text to insert at location. */
+	readonly insert: string;
 }
 
 /**
@@ -49,4 +67,4 @@ export interface TextEditRemove {
  * @public
  * @since 11.13.0
  */
-export type TextEdit = TextEditReplace | TextEditRemove;
+export type TextEdit = TextEditInsert | TextEditReplace | TextEditRemove;

@@ -37,7 +37,29 @@ export async function autofixCollectEdits(
 	const edits: TextEdit[] = [];
 
 	await fix({
-		replaceText(location, replacement): void {
+		insertTextBefore(location, insert) {
+			assertValidLocation(location, text.length);
+			edits.push({
+				kind: TextEditKind.Insert,
+				location: {
+					offset: location.offset,
+					size: 0,
+				},
+				insert,
+			});
+		},
+		insertTextAfter(location, insert) {
+			assertValidLocation(location, text.length);
+			edits.push({
+				kind: TextEditKind.Insert,
+				location: {
+					offset: location.offset + location.size,
+					size: 0,
+				},
+				insert,
+			});
+		},
+		replaceText(location, replacement) {
 			assertValidLocation(location, text.length);
 			edits.push({
 				kind: TextEditKind.Replace,
@@ -48,7 +70,7 @@ export async function autofixCollectEdits(
 				replacement,
 			});
 		},
-		removeText(location, options = {}): void {
+		removeText(location, options = {}) {
 			assertValidLocation(location, text.length);
 			const { trimStart = false, trimEnd = false } = options;
 			const trimmed = trimText(location, text, { trimStart, trimEnd });

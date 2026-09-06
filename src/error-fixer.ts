@@ -8,10 +8,45 @@ import { type Location } from "./location";
  */
 export interface ErrorFixer {
 	/**
+	 * Inserts text at just before location.
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * fixer.insertTextBefore(location, "text");
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @see https://html-validate.org/api/error-fixer.html#inserttextbefore-method
+	 * @param location - The location where text will be inserted at.
+	 * @param insert - The text to insert.
+	 */
+	insertTextBefore(location: Location, insert: string): void;
+
+	/**
+	 * Inserts text at just after location.
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * fixer.insertTextAfter(location, "text");
+	 * ```
+	 *
+	 * @public
+	 * @since %version%
+	 * @see https://html-validate.org/api/error-fixer.html#inserttextafter-method
+	 * @param location - The location where text will be inserted at.
+	 * @param insert - The text to insert.
+	 */
+	insertTextAfter(location: Location, insert: string): void;
+
+	/**
 	 * Replaces the text at location.
 	 *
 	 * @public
 	 * @since 11.12.0
+	 * @see https://html-validate.org/api/error-fixer.html#replacetext-method
 	 * @param location - The location of text to replace.
 	 * @param replacement - The text to replace current text with.
 	 */
@@ -46,6 +81,7 @@ export interface ErrorFixer {
 	 *
 	 * @public
 	 * @since 11.12.0
+	 * @see https://html-validate.org/api/error-fixer.html#removetext-method
 	 * @param location - The location of text to remove.
 	 * @param options - Options
 	 */

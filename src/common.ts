@@ -2,6 +2,7 @@
 
 export {
 	type TextEdit,
+	type TextEditInsert,
 	type TextEditRemove,
 	type TextEditReplace,
 	TextEditKind,
