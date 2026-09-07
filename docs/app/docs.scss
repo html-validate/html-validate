@@ -15,11 +15,11 @@ $fa-font-path: "fonts";
 @import "bootstrap/variables";
 @import "bootstrap/mixins/clearfix";
 @import "bootstrap/mixins/nav-vertical-align";
-@import "bootstrap/normalize";
 
 // Highlight.js
 @import "github";
 
+@import "normalize";
 @import "reset";
 @import "type";
 @import "code";
