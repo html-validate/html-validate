@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.15.0 (2026-09-07)
+
+### Features
+
+- **api:** add new `insertTextBefore()` and `insertTextAfter() methods to `ErrorFixer` ([ac6ca62](https://gitlab.com/html-validate/html-validate/commit/ac6ca62ca65d758a03ae2e786cae753dcc350551))
+
 ## 11.14.0 (2026-09-05)
 
 ### Features

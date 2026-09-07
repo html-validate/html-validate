@@ -17,7 +17,7 @@ export interface ErrorFixer {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.15.0
 	 * @see https://html-validate.org/api/error-fixer.html#inserttextbefore-method
 	 * @param location - The location where text will be inserted at.
 	 * @param insert - The text to insert.
@@ -34,7 +34,7 @@ export interface ErrorFixer {
 	 * ```
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.15.0
 	 * @see https://html-validate.org/api/error-fixer.html#inserttextafter-method
 	 * @param location - The location where text will be inserted at.
 	 * @param insert - The text to insert.

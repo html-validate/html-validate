@@ -17,7 +17,7 @@ export class TextEditKind {
  * An autofix text edit inserting text at location.
  *
  * @public
- * @since %version%
+ * @since 11.15.0
  */
 export interface TextEditInsert {
 	/** Discriminator identifying this as an insertion edit. */
