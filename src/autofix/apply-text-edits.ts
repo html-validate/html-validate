@@ -2,6 +2,11 @@ import { type TextEdit, TextEditKind } from "./text-edit";
 
 function applyTextEdit(text: string, edit: TextEdit): string {
 	switch (edit.kind) {
+		case TextEditKind.Insert: {
+			const { location, insert } = edit;
+			const { offset } = location;
+			return text.slice(0, offset) + insert + text.slice(offset);
+		}
 		case TextEditKind.Replace: {
 			const { location, replacement } = edit;
 			const { offset, size } = location;

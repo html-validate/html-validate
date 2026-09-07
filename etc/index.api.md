@@ -502,6 +502,8 @@ export interface ErrorDescriptor<ContextType> {
 
 // @public
 export interface ErrorFixer {
+    insertTextAfter(location: Location_2, insert: string): void;
+    insertTextBefore(location: Location_2, insert: string): void;
     removeText(location: Location_2, options?: {
         trimStart?: boolean;
         trimEnd?: boolean;
@@ -1637,10 +1639,21 @@ export enum TextContent {
 }
 
 // @public
-export type TextEdit = TextEditReplace | TextEditRemove;
+export type TextEdit = TextEditInsert | TextEditReplace | TextEditRemove;
+
+// @public
+export interface TextEditInsert {
+    readonly insert: string;
+    readonly kind: typeof TextEditKind.Insert;
+    readonly location: Pick<Location_2, "offset"> & {
+        size: 0;
+    };
+}
 
 // @public
 export class TextEditKind {
+    // (undocumented)
+    static readonly Insert: unique symbol;
     // (undocumented)
     static readonly Remove: unique symbol;
     // (undocumented)

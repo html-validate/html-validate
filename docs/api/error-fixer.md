@@ -10,6 +10,86 @@ nav: devguide
 
 Methods to modify the original source to fix errors.
 
+## `insertTextBefore` method
+
+Inserts text at just before location.
+
+**Syntax**
+
+```ts nocompile nolint
+insertTextBefore(location, insert);
+```
+
+**Return value**
+
+This method has no return value.
+
+**Parameters**
+
+- `location: Location`: The location where text will be inserted at.
+- `insert: string`: The text to insert.
+
+**Example**
+
+```ts
+import { type ErrorFixer, type Location } from "html-validate";
+
+declare const fixer: ErrorFixer;
+declare const location: Location;
+
+/* --- */
+
+/* inserts "before" to just before given location */
+fixer.insertTextBefore(location, "before");
+```
+
+If `location` refers to the word "ipsum", the following change would be applied:
+
+```diff
+-lorem ipsum dolor sit amet
++lorem beforeipsum dolor sit amet
+```
+
+## `insertTextAfter` method
+
+Inserts text at just after location.
+
+**Syntax**
+
+```ts nocompile nolint
+insertTextAfter(location, insert);
+```
+
+**Return value**
+
+This method has no return value.
+
+**Parameters**
+
+- `location: Location`: The location where text will be inserted at.
+- `insert: string`: The text to insert.
+
+**Example**
+
+```ts
+import { type ErrorFixer, type Location } from "html-validate";
+
+declare const fixer: ErrorFixer;
+declare const location: Location;
+
+/* --- */
+
+/* inserts "after" to just after given location */
+fixer.insertTextAfter(location, "after");
+```
+
+If `location` refers to the word "ipsum", the following change would be applied:
+
+```diff
+-lorem ipsum dolor sit amet
++lorem ipsumafter dolor sit amet
+```
+
 ## `replaceText` method
 
 Replaces the text at location.
