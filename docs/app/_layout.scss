@@ -112,7 +112,7 @@ footer {
 }
 
 .navbar-brand__version {
-	@media screen and (width >= $screen-md-min) {
+	@media screen and (width >= bootstrap.$screen-md-min) {
 		display: none;
 	}
 }
@@ -121,7 +121,7 @@ footer {
 .navbar-links {
 	display: none;
 
-	@media screen and (width >= $screen-md-min) {
+	@media screen and (width >= bootstrap.$screen-md-min) {
 		display: initial;
 	}
 }

@@ -20,7 +20,7 @@
 	h1 {
 		color: bootstrap.$jumbotron-heading-color;
 
-		@media screen and (min-width: $screen-sm-min) {
+		@media screen and (min-width: bootstrap.$screen-sm-min) {
 			font-size: bootstrap.$jumbotron-heading-font-size;
 		}
 	}
