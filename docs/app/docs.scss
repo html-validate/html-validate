@@ -20,7 +20,6 @@ $fa-font-path: "fonts";
 @import "bootstrap/mixins/text-overflow";
 @import "bootstrap/normalize";
 @import "bootstrap/type";
-@import "bootstrap/code";
 
 // Highlight.js
 @import "github";
@@ -29,6 +28,7 @@ $fa-font-path: "fonts";
 @import "layout";
 @import "anchorlink";
 @import "button";
+@import "code";
 @import "config-tabs";
 @import "container";
 @import "jumbotron";
