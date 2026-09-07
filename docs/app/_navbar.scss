@@ -136,6 +136,10 @@
 		margin-top: 4px;
 	}
 
+	@media print {
+		display: none;
+	}
+
 	@media (min-width: $grid-float-breakpoint) {
 		display: none;
 	}
@@ -162,6 +166,10 @@
 			}
 		}
 	}
+
+	@media print {
+		display: none;
+	}
 }
 
 @media (min-width: $grid-float-breakpoint) {
@@ -187,7 +195,11 @@
 
 .navbar-default {
 	background-color: $navbar-default-bg;
-	border-color: $navbar-default-border;
+	border-color: transparent;
+
+	@media screen {
+		border-color: $navbar-default-border;
+	}
 
 	.navbar-brand {
 		color: $navbar-default-brand-color;

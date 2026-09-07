@@ -53,7 +53,11 @@
 		font-weight: 700;
 
 		&:hover {
-			background-color: #ddd;
+			background-color: bootstrap.$navbar-default-toggle-hover-bg;
+		}
+
+		&:has(+ :focus-visible) {
+			background-color: bootstrap.$navbar-default-toggle-hover-bg;
 		}
 
 		@media (width > bootstrap.$screen-sm-min) {
@@ -81,10 +85,16 @@
 
 	&--toggle {
 		grid-area: sidenav--toggle;
-		display: none;
+		clip: rect(0 0 0 0);
+		appearance: none;
+		outline: 0;
 
 		&:checked + ol.navigation {
 			display: block;
+		}
+
+		@media (width > bootstrap.$screen-sm-min) {
+			display: none;
 		}
 	}
 
