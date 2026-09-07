@@ -13,22 +13,20 @@ $fa-font-path: "fonts";
 
 // Bootstrap
 @import "bootstrap/variables";
-@import "bootstrap/mixins/background-variant";
 @import "bootstrap/mixins/clearfix";
 @import "bootstrap/mixins/nav-vertical-align";
-@import "bootstrap/mixins/text-emphasis";
-@import "bootstrap/mixins/text-overflow";
 @import "bootstrap/normalize";
-@import "bootstrap/type";
 
 // Highlight.js
 @import "github";
 
 @import "reset";
+@import "type";
+@import "code";
+
 @import "layout";
 @import "anchorlink";
 @import "button";
-@import "code";
 @import "config-tabs";
 @import "container";
 @import "jumbotron";
