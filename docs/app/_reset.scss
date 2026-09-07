@@ -1,4 +1,5 @@
 @use "bootstrap/mixins/tab-focus";
+@use "bootstrap/variables" as bootstrap;
 
 *,
 *:before,
@@ -12,11 +13,11 @@ html {
 }
 
 body {
-	font-family: $font-family-base;
-	font-size: $font-size-base;
-	line-height: $line-height-base;
-	color: $text-color;
-	background-color: $body-bg;
+	font-family: bootstrap.$font-family-base;
+	font-size: bootstrap.$font-size-base;
+	line-height: bootstrap.$line-height-base;
+	color: bootstrap.$text-color;
+	background-color: bootstrap.$body-bg;
 }
 
 input,
@@ -29,13 +30,13 @@ textarea {
 }
 
 a {
-	color: $link-color;
+	color: bootstrap.$link-color;
 	text-decoration: none;
 
 	&:hover,
 	&:focus {
-		color: $link-hover-color;
-		text-decoration: $link-hover-decoration;
+		color: bootstrap.$link-hover-color;
+		text-decoration: bootstrap.$link-hover-decoration;
 	}
 
 	&:focus {
@@ -48,10 +49,10 @@ img {
 }
 
 hr {
-	margin-top: $line-height-computed;
-	margin-bottom: $line-height-computed;
+	margin-top: bootstrap.$line-height-computed;
+	margin-bottom: bootstrap.$line-height-computed;
 	border: 0;
-	border-top: 1px solid $hr-border;
+	border-top: 1px solid bootstrap.$hr-border;
 }
 
 .sr-only {

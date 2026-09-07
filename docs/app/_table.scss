@@ -1,13 +1,13 @@
 @use "bootstrap/variables" as bootstrap;
 
 table {
-	background-color: $table-bg;
+	background-color: bootstrap.$table-bg;
 }
 
 caption {
-	padding-top: $table-cell-padding;
-	padding-bottom: $table-cell-padding;
-	color: $text-muted;
+	padding-top: bootstrap.$table-cell-padding;
+	padding-bottom: bootstrap.$table-cell-padding;
+	color: bootstrap.$text-muted;
 	text-align: left;
 }
 
@@ -18,7 +18,7 @@ th {
 .table {
 	width: 100%;
 	max-width: 100%;
-	margin-bottom: $line-height-computed;
+	margin-bottom: bootstrap.$line-height-computed;
 
 	> thead,
 	> tbody,
@@ -26,17 +26,17 @@ th {
 		> tr {
 			> th,
 			> td {
-				padding: $table-cell-padding;
-				line-height: $line-height-base;
+				padding: bootstrap.$table-cell-padding;
+				line-height: bootstrap.$line-height-base;
 				vertical-align: top;
-				border-top: 1px solid $table-border-color;
+				border-top: 1px solid bootstrap.$table-border-color;
 			}
 		}
 	}
 
 	> thead > tr > th {
 		vertical-align: bottom;
-		border-bottom: 2px solid $table-border-color;
+		border-bottom: 2px solid bootstrap.$table-border-color;
 	}
 
 	> caption + thead,
@@ -51,7 +51,7 @@ th {
 	}
 
 	> tbody + tbody {
-		border-top: 2px solid $table-border-color;
+		border-top: 2px solid bootstrap.$table-border-color;
 	}
 
 	&-condensed {
@@ -61,7 +61,7 @@ th {
 			> tr {
 				> th,
 				> td {
-					padding: $table-condensed-cell-padding;
+					padding: bootstrap.$table-condensed-cell-padding;
 				}
 			}
 		}
@@ -69,7 +69,7 @@ th {
 
 	&-striped {
 		> tbody > tr:nth-of-type(odd) {
-			background-color: $table-bg-accent;
+			background-color: bootstrap.$table-bg-accent;
 		}
 	}
 

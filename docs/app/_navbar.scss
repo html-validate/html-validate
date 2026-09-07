@@ -1,5 +1,6 @@
 @use "sass:math";
 @use "bootstrap/mixins/clearfix";
+@use "bootstrap/variables" as bootstrap;
 
 .nav {
 	padding-left: 0;
@@ -15,22 +16,22 @@
 		> a {
 			position: relative;
 			display: block;
-			padding: $nav-link-padding;
+			padding: bootstrap.$nav-link-padding;
 			&:hover,
 			&:focus {
 				text-decoration: none;
-				background-color: $nav-link-hover-bg;
+				background-color: bootstrap.$nav-link-hover-bg;
 			}
 		}
 
 		&.disabled > a {
-			color: $nav-disabled-link-color;
+			color: bootstrap.$nav-disabled-link-color;
 
 			&:hover,
 			&:focus {
-				color: $nav-disabled-link-hover-color;
+				color: bootstrap.$nav-disabled-link-hover-color;
 				text-decoration: none;
-				cursor: $cursor-disabled;
+				cursor: bootstrap.$cursor-disabled;
 				background-color: transparent;
 			}
 		}
@@ -43,28 +44,28 @@
 
 .navbar {
 	position: relative;
-	min-height: $navbar-height;
-	margin-bottom: $navbar-margin-bottom;
+	min-height: bootstrap.$navbar-height;
+	margin-bottom: bootstrap.$navbar-margin-bottom;
 	border: 1px solid transparent;
 
 	@include clearfix.clearfix;
 
-	@media (min-width: $grid-float-breakpoint) {
-		border-radius: $navbar-border-radius;
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
+		border-radius: bootstrap.$navbar-border-radius;
 	}
 }
 
 .navbar-header {
 	@include clearfix.clearfix;
 
-	@media (min-width: $grid-float-breakpoint) {
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
 		float: left;
 	}
 }
 
 .navbar-collapse {
-	padding-right: $navbar-padding-horizontal;
-	padding-left: $navbar-padding-horizontal;
+	padding-right: bootstrap.$navbar-padding-horizontal;
+	padding-left: bootstrap.$navbar-padding-horizontal;
 	overflow-x: visible;
 	border-top: 1px solid transparent;
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -76,7 +77,7 @@
 		overflow-y: auto;
 	}
 
-	@media (min-width: $grid-float-breakpoint) {
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
 		width: auto;
 		border-top: 0;
 		box-shadow: none;
@@ -96,10 +97,10 @@
 
 .navbar-brand {
 	float: left;
-	height: $navbar-height;
-	padding: $navbar-padding-vertical $navbar-padding-horizontal;
-	font-size: $font-size-large;
-	line-height: $line-height-computed;
+	height: bootstrap.$navbar-height;
+	padding: bootstrap.$navbar-padding-vertical bootstrap.$navbar-padding-horizontal;
+	font-size: bootstrap.$font-size-large;
+	line-height: bootstrap.$line-height-computed;
 
 	&:hover,
 	&:focus {
@@ -115,13 +116,13 @@
 	position: relative;
 	float: right;
 	padding: 9px 10px;
-	margin-right: $navbar-padding-horizontal;
-	margin-top: math.div(($navbar-height - 34px), 2);
-	margin-bottom: math.div(($navbar-height - 34px), 2);
+	margin-right: bootstrap.$navbar-padding-horizontal;
+	margin-top: math.div((bootstrap.$navbar-height - 34px), 2);
+	margin-bottom: math.div((bootstrap.$navbar-height - 34px), 2);
 	background-color: transparent;
 	background-image: none;
 	border: 1px solid transparent;
-	border-radius: $border-radius-base;
+	border-radius: bootstrap.$border-radius-base;
 
 	&:focus {
 		outline: 0;
@@ -142,29 +143,29 @@
 		display: none;
 	}
 
-	@media (min-width: $grid-float-breakpoint) {
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
 		display: none;
 	}
 }
 
 .navbar-nav {
-	margin: math.div($navbar-padding-vertical, 2) (-$navbar-padding-horizontal);
+	margin: math.div(bootstrap.$navbar-padding-vertical, 2) (-(bootstrap.$navbar-padding-horizontal));
 
 	> li > a {
 		padding-top: 10px;
 		padding-bottom: 10px;
-		line-height: $line-height-computed;
+		line-height: bootstrap.$line-height-computed;
 	}
 
-	@media (min-width: $grid-float-breakpoint) {
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
 		float: left;
 		margin: 0;
 
 		> li {
 			float: left;
 			> a {
-				padding-top: $navbar-padding-vertical;
-				padding-bottom: $navbar-padding-vertical;
+				padding-top: bootstrap.$navbar-padding-vertical;
+				padding-bottom: bootstrap.$navbar-padding-vertical;
 			}
 		}
 	}
@@ -174,10 +175,10 @@
 	}
 }
 
-@media (min-width: $grid-float-breakpoint) {
+@media (min-width: bootstrap.$grid-float-breakpoint) {
 	.navbar-right {
 		float: right !important;
-		margin-right: -$navbar-padding-horizontal;
+		margin-right: -(bootstrap.$navbar-padding-horizontal);
 
 		~ .navbar-right {
 			margin-right: 0;
@@ -186,84 +187,84 @@
 }
 
 .navbar-text {
-	margin-top: math.div(($navbar-height - $line-height-computed), 2);
-	margin-bottom: math.div(($navbar-height - $line-height-computed), 2);
+	margin-top: math.div((bootstrap.$navbar-height - bootstrap.$line-height-computed), 2);
+	margin-bottom: math.div((bootstrap.$navbar-height - bootstrap.$line-height-computed), 2);
 
-	@media (min-width: $grid-float-breakpoint) {
+	@media (min-width: bootstrap.$grid-float-breakpoint) {
 		float: left;
-		margin-right: $navbar-padding-horizontal;
-		margin-left: $navbar-padding-horizontal;
+		margin-right: bootstrap.$navbar-padding-horizontal;
+		margin-left: bootstrap.$navbar-padding-horizontal;
 	}
 }
 
 .navbar-default {
-	background-color: $navbar-default-bg;
+	background-color: bootstrap.$navbar-default-bg;
 	border-color: transparent;
 
 	@media screen {
-		border-color: $navbar-default-border;
+		border-color: bootstrap.$navbar-default-border;
 	}
 
 	.navbar-brand {
-		color: $navbar-default-brand-color;
+		color: bootstrap.$navbar-default-brand-color;
 		&:hover,
 		&:focus {
-			color: $navbar-default-brand-hover-color;
-			background-color: $navbar-default-brand-hover-bg;
+			color: bootstrap.$navbar-default-brand-hover-color;
+			background-color: bootstrap.$navbar-default-brand-hover-bg;
 		}
 	}
 
 	.navbar-text {
-		color: $navbar-default-color;
+		color: bootstrap.$navbar-default-color;
 	}
 
 	.navbar-nav {
 		> li > a {
-			color: $navbar-default-link-color;
+			color: bootstrap.$navbar-default-link-color;
 
 			&:hover,
 			&:focus {
-				color: $navbar-default-link-hover-color;
-				background-color: $navbar-default-link-hover-bg;
+				color: bootstrap.$navbar-default-link-hover-color;
+				background-color: bootstrap.$navbar-default-link-hover-bg;
 			}
 		}
 		> .active > a {
 			&,
 			&:hover,
 			&:focus {
-				color: $navbar-default-link-active-color;
-				background-color: $navbar-default-link-active-bg;
+				color: bootstrap.$navbar-default-link-active-color;
+				background-color: bootstrap.$navbar-default-link-active-bg;
 			}
 		}
 		> .disabled > a {
 			&,
 			&:hover,
 			&:focus {
-				color: $navbar-default-link-disabled-color;
-				background-color: $navbar-default-link-disabled-bg;
+				color: bootstrap.$navbar-default-link-disabled-color;
+				background-color: bootstrap.$navbar-default-link-disabled-bg;
 			}
 		}
 	}
 
 	.navbar-toggle {
-		border-color: $navbar-default-toggle-border-color;
+		border-color: bootstrap.$navbar-default-toggle-border-color;
 		&:hover,
 		&:focus {
-			background-color: $navbar-default-toggle-hover-bg;
+			background-color: bootstrap.$navbar-default-toggle-hover-bg;
 		}
 		.icon-bar {
-			background-color: $navbar-default-toggle-icon-bar-bg;
+			background-color: bootstrap.$navbar-default-toggle-icon-bar-bg;
 		}
 	}
 
 	.navbar-collapse {
-		border-color: $navbar-default-border;
+		border-color: bootstrap.$navbar-default-border;
 	}
 
 	.navbar-link {
-		color: $navbar-default-link-color;
+		color: bootstrap.$navbar-default-link-color;
 		&:hover {
-			color: $navbar-default-link-hover-color;
+			color: bootstrap.$navbar-default-link-hover-color;
 		}
 	}
 }
