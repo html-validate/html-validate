@@ -8,6 +8,7 @@ interface RuleOptions {
 	allowMultipleH1: boolean;
 	minInitialRank: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "any" | false;
 	sectioningRoots: string[];
+	minSectioningRootInitialRank: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "auto";
 }
 
 interface SectioningRoot {
@@ -20,6 +21,7 @@ const defaults: RuleOptions = {
 	allowMultipleH1: false,
 	minInitialRank: "h1",
 	sectioningRoots: ["dialog", '[role="dialog"]', '[role="alertdialog"]'],
+	minSectioningRootInitialRank: "auto",
 };
 
 function isRelevant(event: TagStartEvent): boolean {
@@ -50,11 +52,16 @@ function parseMaxInitial(value: string | false): number {
 export default class HeadingLevel extends Rule<void, RuleOptions> {
 	private minInitialRank: number;
 	private sectionRoots: Compound[];
+	private minSectioningRootInitialRank: number | "auto";
 	private stack: SectioningRoot[] = [];
 
 	public constructor(options: Partial<RuleOptions>) {
 		super({ ...defaults, ...options });
 		this.minInitialRank = parseMaxInitial(this.options.minInitialRank);
+		this.minSectioningRootInitialRank =
+			this.options.minSectioningRootInitialRank === "auto"
+				? "auto"
+				: parseMaxInitial(this.options.minSectioningRootInitialRank);
 		this.sectionRoots = this.options.sectioningRoots.map((it) => new Compound(it));
 
 		/* add a global sectioning root used by default */
@@ -78,6 +85,9 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 					type: "string",
 				},
 				type: "array",
+			},
+			minSectioningRootInitialRank: {
+				enum: ["h1", "h2", "h3", "h4", "h5", "h6", "auto"],
 			},
 		};
 	}
@@ -181,7 +191,12 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 				location,
 			});
 		} else {
-			this.checkInitialLevel(event, location, level, expected);
+			this.checkInitialLevel(
+				event,
+				location,
+				level,
+				this.minSectioningRootInitialRank === "auto" ? expected : this.minSectioningRootInitialRank,
+			);
 		}
 	}
 
@@ -205,7 +220,8 @@ export default class HeadingLevel extends Rule<void, RuleOptions> {
 			});
 		} else {
 			const prevRoot = this.getPrevRoot();
-			const prevRootExpected = prevRoot.current + 1;
+			const prevRootExpected =
+				this.minSectioningRootInitialRank === "auto" ? prevRoot.current + 1 : expected;
 
 			if (level > prevRootExpected) {
 				if (expected === prevRootExpected) {
