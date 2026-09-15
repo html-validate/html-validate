@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 11.16.0 (2026-09-15)
+
+### Features
+
+- **api:** unified `HtmlValidate.autofix()` and deprecate all other variants ([40c67f0](https://gitlab.com/html-validate/html-validate/commit/40c67f0265f37c4bdabf74bbb94d39234b45314b))
+- **rules:** add `minSectioningRootInitialRank` option to `heading-level` ([7b9629f](https://gitlab.com/html-validate/html-validate/commit/7b9629f82c4e5a8b293d08ec80fea4ad34fc6251))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.9 ([0337345](https://gitlab.com/html-validate/html-validate/commit/033734590c08a18aeff88b0af8c06daaf0d2c47a))
+
 ## 11.15.0 (2026-09-07)
 
 ### Features

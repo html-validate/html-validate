@@ -99,6 +99,6 @@ Sets the allowed initial heading levels for sectioning roots. Setting this to `"
 
 ## Version history
 
-- %version% - `minSectioningRootInitialRank` option added.
+- 11.16.0 - `minSectioningRootInitialRank` option added.
 - 7.14.0 - `[role="alertdialog"]` added as default sectioning root.
 - 5.5.0 - `minInitialRank` option added.

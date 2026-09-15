@@ -5,7 +5,7 @@ import { autofixSymbol } from "./autofix-symbol";
  * Returns true if value is an `Autofix` instance.
  *
  * @public
- * @since %version%
+ * @since 11.16.0
  */
 export function isAutofix(value: unknown): value is Autofix {
 	if (!value) {

@@ -20,7 +20,7 @@ import { bindAutofix } from "./bind-autofix";
  * ```
  *
  * @public
- * @since %version%
+ * @since 11.16.0
  * @param text - The source text the callback operates on.
  * @param fix - The autofix or suggestion callback to bind.
  * @returns An {@link Autofix} instance.

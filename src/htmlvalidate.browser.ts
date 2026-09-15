@@ -288,7 +288,7 @@ export class HtmlValidate {
 	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.16.0
 	 * @param fix - Fix (or suggestion) callback to apply.
 	 * @returns The patched source text.
 	 */
@@ -304,7 +304,7 @@ export class HtmlValidate {
 	 *
 	 * @public
 	 * @since 11.12.0
-	 * @deprecated Deprecated since %version%, use {@link HtmlValidate.autofix} instead.
+	 * @deprecated Deprecated since 11.16.0, use {@link HtmlValidate.autofix} instead.
 	 * @param _filePath - Ignored.
 	 * @param _source - Ignored.
 	 * @param fix - Autofix instance to apply.
@@ -322,7 +322,7 @@ export class HtmlValidate {
 	 *
 	 * @public
 	 * @since 11.12.0
-	 * @deprecated Deprecated since %version%, use {@link HtmlValidate.autofix} instead.
+	 * @deprecated Deprecated since 11.16.0, use {@link HtmlValidate.autofix} instead.
 	 * @param _source - Ignored.
 	 * @param fix - Autofix instance to apply.
 	 * @returns The patched original (untransformed) source text.

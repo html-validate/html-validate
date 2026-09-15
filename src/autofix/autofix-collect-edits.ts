@@ -24,7 +24,7 @@ function assertNoOverlap(current: TextEdit, previous: TextEdit): void {
  * they were requested in by the callback.
  *
  * @public
- * @since %version%
+ * @since 11.16.0
  * @see https://html-validate.org/api/autofix-collect-edits.html
  * @param fix - An autofix callback bound to its source text using {@link createAutofix}.
  * @throws Error If an edit has an invalid or out-of-bounds location, or if
