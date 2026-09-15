@@ -46,7 +46,7 @@ describe("rule no-utf8-bom", () => {
 			const markup = "\u{FEFF}<p>lorem ipsum</p>";
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<p>lorem ipsum</p>");
 		});
 	});

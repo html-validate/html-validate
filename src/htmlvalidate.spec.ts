@@ -1,10 +1,10 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { createAutofix } from "./autofix";
 import { type ConfigData, type ResolvedConfig, Config, ConfigLoader, Severity } from "./config";
 import { StaticConfigLoader } from "./config/loaders/static";
 import { cjsResolver } from "./config/resolver/nodejs";
 import { type Source, type SourceHooks } from "./context";
 import { UserError } from "./error";
-import { type ErrorFixer } from "./error-fixer";
 import { HtmlValidate } from "./htmlvalidate";
 import { type Message } from "./message";
 import { Parser } from "./parser";
@@ -564,9 +564,9 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
-			fix() {
+			fix: createAutofix("", () => {
 				/* do nothing */
-			},
+			}),
 		};
 		const warning: Message = {
 			ruleId: "mock-warning",
@@ -724,9 +724,9 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
-			fix() {
+			fix: createAutofix("", () => {
 				/* do nothing */
-			},
+			}),
 		};
 		const warning: Message = {
 			ruleId: "mock-warning",
@@ -874,11 +874,12 @@ describe("HtmlValidate", () => {
 		});
 	});
 
-	describe("autofixString()", () => {
-		it("should apply a fix and return the patched source", async () => {
+	describe("autofix()", () => {
+		it("should apply a fix bound to text and return the patched source", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
-			const fix = (fixer: ErrorFixer): void => {
+			const source = '<div foo="bar"></div>';
+			const fix = createAutofix(source, (fixer): void => {
 				fixer.replaceText(
 					{ filename: "test.html", offset: 5, line: 1, column: 6, size: 3 },
 					"lorem",
@@ -887,8 +888,8 @@ describe("HtmlValidate", () => {
 					{ filename: "test.html", offset: 10, line: 1, column: 11, size: 3 },
 					"ipsum",
 				);
-			};
-			const result = await htmlvalidate.autofixString("test.html", '<div foo="bar"></div>', fix);
+			});
+			const result = await htmlvalidate.autofix(fix);
 			expect(result).toBe('<div lorem="ipsum"></div>');
 		});
 
@@ -896,71 +897,63 @@ describe("HtmlValidate", () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
 			const validateString = jest.spyOn(htmlvalidate, "validateString");
-			const fix = (): void => {
+			const fix = createAutofix("<div></div>", (): void => {
 				/* no-op fix */
-			};
-			await htmlvalidate.autofixString("test.html", "<div></div>", fix);
+			});
+			await htmlvalidate.autofix(fix);
 			expect(validateString).not.toHaveBeenCalled();
 		});
 	});
 
-	describe("autofixSource()", () => {
-		it("should apply a fix to a Source and return the patched data", async () => {
+	describe("autofixString()", () => {
+		it("should ignore filePath and source and apply the bound fix", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
-			const source: Source = {
-				data: '<div foo="bar"></div>',
-				filename: "test.html",
-				line: 1,
-				column: 1,
-				offset: 0,
-			};
-			const fix = (fixer: ErrorFixer): void => {
+			const source = '<div foo="bar"></div>';
+			const fix = createAutofix(source, (fixer): void => {
 				fixer.replaceText(
 					{ filename: "test.html", offset: 5, line: 1, column: 6, size: 3 },
 					"lorem",
 				);
-			};
-			const result = await htmlvalidate.autofixSource(source, fix);
+			});
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
+			const result = await htmlvalidate.autofixString(
+				"ignored.html",
+				"ignored unrelated source",
+				fix,
+			);
 			expect(result).toBe('<div lorem="bar"></div>');
 		});
+	});
 
-		it("should apply a fix to originalData when set instead of data", async () => {
+	describe("autofixSource()", () => {
+		it("should ignore the source argument and apply the bound fix", async () => {
 			expect.assertions(1);
 			const htmlvalidate = new HtmlValidate();
 			const source: Source = {
-				data: "<div>fragment</div>",
-				originalData: '<div foo="bar"></div>',
+				data: "ignored unrelated data",
 				filename: "test.html",
 				line: 1,
 				column: 1,
 				offset: 0,
 			};
-			const fix = (fixer: ErrorFixer): void => {
-				const location = { filename: "test.html", offset: 5, line: 1, column: 6, size: 3 };
-				fixer.replaceText(location, "lorem");
-			};
+			const fix = createAutofix('<div foo="bar"></div>', (fixer): void => {
+				fixer.replaceText(
+					{ filename: "test.html", offset: 5, line: 1, column: 6, size: 3 },
+					"lorem",
+				);
+			});
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
 			const result = await htmlvalidate.autofixSource(source, fix);
 			expect(result).toBe('<div lorem="bar"></div>');
 		});
 	});
 
 	describe("autofixFile()", () => {
-		it("should apply a fix to originalData and return the patched result", async () => {
-			expect.assertions(1);
+		it("should ignore filename, configOverride and fs and apply the bound fix", async () => {
+			expect.assertions(2);
 			const htmlvalidate = new HtmlValidate();
-			jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-			transformFilename.mockResolvedValueOnce([
-				{
-					data: "<div>fragment</div>",
-					originalData: '<div foo="bar"></div>',
-					filename: "test.html",
-					line: 1,
-					column: 1,
-					offset: 0,
-				},
-			]);
-			const fix = (fixer: ErrorFixer): void => {
+			const fix = createAutofix('<div foo="bar"></div>', (fixer): void => {
 				fixer.replaceText(
 					{ filename: "test.html", offset: 5, line: 1, column: 6, size: 3 },
 					"ipsum",
@@ -969,91 +962,12 @@ describe("HtmlValidate", () => {
 					{ filename: "test.html", offset: 10, line: 1, column: 11, size: 3 },
 					"lorem",
 				);
-			};
-			const result = await htmlvalidate.autofixFile("test.html", fix);
-			expect(result).toBe('<div ipsum="lorem"></div>');
-		});
-
-		it("should fall back to data when originalData is not set", async () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-			transformFilename.mockResolvedValueOnce([
-				{
-					data: '<div foo="bar"></div>',
-					filename: "test.html",
-					line: 1,
-					column: 1,
-					offset: 0,
-				},
-			]);
-			const fix = (fixer: ErrorFixer): void => {
-				fixer.replaceText(
-					{ filename: "test.html", offset: 5, line: 1, column: 6, size: 3 },
-					"ipsum",
-				);
-			};
-			const result = await htmlvalidate.autofixFile("test.html", fix);
-			expect(result).toBe('<div ipsum="bar"></div>');
-		});
-
-		it("should apply a fix using the shared originalData when transformed into multiple sources", async () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-			const originalData = '<div foo="bar"></div><div baz="qux"></div>';
-			transformFilename.mockResolvedValueOnce([
-				{
-					data: '<div foo="bar"></div>',
-					originalData,
-					filename: "test.html",
-					line: 1,
-					column: 1,
-					offset: 0,
-				},
-				{
-					data: '<div baz="qux"></div>',
-					originalData,
-					filename: "test.html",
-					line: 1,
-					column: 22,
-					offset: 21,
-				},
-			]);
-			const fix = (fixer: ErrorFixer): void => {
-				fixer.replaceText(
-					{ filename: "test.html", offset: 26, line: 1, column: 27, size: 3 },
-					"lorem",
-				);
-			};
-			const result = await htmlvalidate.autofixFile("test.html", fix);
-			expect(result).toBe('<div foo="bar"></div><div lorem="qux"></div>');
-		});
-
-		it("should forward configOverride when resolving configuration for the file", async () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			const getConfigFor = jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-			transformFilename.mockResolvedValueOnce([
-				{ data: "<div></div>", filename: "test.html", line: 1, column: 1, offset: 0 },
-			]);
+			});
 			const configOverride: ConfigData = { rules: { "no-inline-style": "off" } };
-			const fix = (): void => {
-				/* no-op fix */
-			};
-			await htmlvalidate.autofixFile("test.html", fix, configOverride);
-			expect(getConfigFor).toHaveBeenCalledWith("test.html", configOverride);
-		});
-
-		it("should throw if the file did not produce any source", async () => {
-			expect.assertions(1);
-			const htmlvalidate = new HtmlValidate();
-			jest.spyOn(htmlvalidate, "getConfigFor").mockImplementation(mockConfig);
-			transformFilename.mockResolvedValueOnce([]);
-			const fix = (): void => {
-				/* no-op fix */
-			};
-			await expect(htmlvalidate.autofixFile("test.html", fix)).rejects.toThrow(UserError);
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- expected to still work until fully removed */
+			const result = await htmlvalidate.autofixFile("ignored.html", fix, configOverride);
+			expect(result).toBe('<div ipsum="lorem"></div>');
+			expect(transformFilename).not.toHaveBeenCalled();
 		});
 	});
 

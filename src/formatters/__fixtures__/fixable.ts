@@ -1,3 +1,4 @@
+import { createAutofix } from "../../autofix";
 import { type Result } from "../../reporter";
 
 const html = `<div id="foo"
@@ -35,9 +36,9 @@ const results: Result[] = [
 				column: 6,
 				size: 2,
 				selector: "div",
-				fix() {
+				fix: createAutofix(html, () => {
 					/* do nothing */
-				},
+				}),
 			},
 			{
 				ruleId: "bar",
@@ -60,9 +61,9 @@ const results: Result[] = [
 				column: 5,
 				size: 5,
 				selector: "div",
-				fix() {
+				fix: createAutofix(html, () => {
 					/* do nothing */
-				},
+				}),
 			},
 		],
 	},

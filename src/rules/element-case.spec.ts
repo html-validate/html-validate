@@ -273,7 +273,7 @@ describe("rule element-case", () => {
 			const markup = /* RAW */ `<FOO></FOO>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<foo></FOO>");
 		});
 
@@ -286,7 +286,7 @@ describe("rule element-case", () => {
 			const markup = /* RAW */ `<foo></foo>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<FOO></foo>");
 		});
 
@@ -311,7 +311,7 @@ describe("rule element-case", () => {
 			const markup = /* RAW */ `<foo-Bar></foo-bar>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<foo-Bar></foo-Bar>");
 		});
 	});

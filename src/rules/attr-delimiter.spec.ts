@@ -97,7 +97,7 @@ describe("rule attr-delimiter", () => {
 			const markup = '<i foo = "1"></i>';
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe('<i foo="1"></i>');
 		});
 	});

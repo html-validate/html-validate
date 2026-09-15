@@ -167,7 +167,7 @@ describe("rule tel-non-breaking", () => {
 		const markup = /* HTML */ ` <a href="tel:">foo bar</a> `;
 		const report = await htmlvalidate.validateString(markup);
 		const [message] = report.results[0].messages;
-		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		const result = await htmlvalidate.autofix(message.fix!);
 		expect(result).toMatchInlineSnapshot(`" <a href="tel:">foo&nbsp;bar</a> "`);
 	});
 

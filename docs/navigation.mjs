@@ -92,6 +92,8 @@ export default {
 					{ title: "MetadataHelper", target: "api:MetadataHelper" },
 					{ title: "Source", target: "api:Source" },
 					{ title: "autofixCollectEdits", target: "api:autofixCollectEdits" },
+					{ title: "isAutofix", target: "api:isAutofix" },
+					{ title: "createAutofix", target: "api:createAutofix" },
 				],
 			},
 		],

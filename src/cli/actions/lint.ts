@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import kleur from "kleur";
-import { type ErrorFixer, type HtmlValidate, type Report, type Result, Reporter } from "../..";
+import { type HtmlValidate, type Report, type Result, Reporter } from "../..";
+import { type Autofix, getBoundSourceText } from "../../autofix";
 import { type PerformanceResult } from "../../performance";
 import { type WritableStreamLike } from "../writable-stream-like";
 
@@ -19,7 +20,7 @@ export interface LintOptions {
  */
 export const MAX_FIX_ITERATIONS = 1000;
 
-function findFirstAutofix(report: Report): ((fixer: ErrorFixer) => void | Promise<void>) | null {
+function findFirstAutofix(report: Report): Autofix | null {
 	for (const result of report.results) {
 		for (const message of result.messages) {
 			if (message.fix) {
@@ -44,14 +45,12 @@ async function fixFile(htmlvalidate: HtmlValidate, filename: string): Promise<Re
 
 	/* baseline used to detect whether a fix made any progress, i.e. actually
 	 * changed the content of the file */
-	const baseline = await htmlvalidate.autofixFile(filename, () => {
-		/* no-op */
-	});
+	const baseline = getBoundSourceText(fix);
 	const seen = new Set([baseline]);
 
 	let iterations = 0;
 	while (fix && iterations < MAX_FIX_ITERATIONS) {
-		const patched = await htmlvalidate.autofixFile(filename, fix);
+		const patched = await htmlvalidate.autofix(fix);
 		if (seen.has(patched)) {
 			break;
 		}

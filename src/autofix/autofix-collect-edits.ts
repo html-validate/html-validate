@@ -1,5 +1,6 @@
-import { type ErrorFixer } from "../error-fixer";
 import { assertValidLocation } from "../location";
+import { type Autofix } from "./autofix";
+import { getBoundSourceText } from "./bind-autofix";
 import { type TextEdit, TextEditKind } from "./text-edit";
 import { trimText } from "./trim-text";
 
@@ -23,17 +24,31 @@ function assertNoOverlap(current: TextEdit, previous: TextEdit): void {
  * they were requested in by the callback.
  *
  * @public
- * @since 11.13.0
+ * @since %version%
  * @see https://html-validate.org/api/autofix-collect-edits.html
- * @param fix - An autofix callback.
- * @param text - The original text to operate on.
+ * @param fix - An autofix callback bound to its source text using {@link createAutofix}.
  * @throws Error If an edit has an invalid or out-of-bounds location, or if
  * two edits overlap.
  */
-export async function autofixCollectEdits(
-	fix: (fixer: ErrorFixer) => void | Promise<void>,
-	text: string,
-): Promise<TextEdit[]> {
+export async function autofixCollectEdits(fix: Autofix): Promise<TextEdit[]>;
+
+/**
+ * Collect all edits from a autofix callback.
+ *
+ * @public
+ * @since 11.13.0
+ * @deprecated Since 11.16.0, `text` is ignored, remove this parameter.
+ * @see https://html-validate.org/api/autofix-collect-edits.html
+ * @param fix - An autofix callback bound to its source text using {@link createAutofix}.
+ * @param text - Ignored.
+ * @throws Error If an edit has an invalid or out-of-bounds location, or if
+ * two edits overlap.
+ */
+/* eslint-disable-next-line @typescript-eslint/unified-signatures -- this signature is deprecated, the other is not */
+export async function autofixCollectEdits(fix: Autofix, text: string): Promise<TextEdit[]>;
+
+export async function autofixCollectEdits(fix: Autofix): Promise<TextEdit[]> {
+	const text = getBoundSourceText(fix);
 	const edits: TextEdit[] = [];
 
 	await fix({

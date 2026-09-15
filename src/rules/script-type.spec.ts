@@ -102,7 +102,7 @@ describe("rule script-type", () => {
 		const markup = /* HTML */ ` <script type="text/javascript"></script> `;
 		const report = await htmlvalidate.validateString(markup);
 		const [message] = report.results[0].messages;
-		const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+		const result = await htmlvalidate.autofix(message.fix!);
 		expect(result).toMatchInlineSnapshot(`" <script></script> "`);
 	});
 

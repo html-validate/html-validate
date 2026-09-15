@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { applyFix } from "../../autofix";
+import { applyFix, createAutofix } from "../../autofix";
 import { type CaseStyleName, CaseStyle } from "./case-style";
 
 it.each`
@@ -86,7 +86,8 @@ describe("createFixer()", () => {
 		expect.assertions(1);
 		const style = new CaseStyle("lowercase", "mock-rule");
 		const fixer = style.createFixer(location, input)!;
-		const result = await applyFix(input, fixer);
+		const fix = createAutofix(input, fixer);
+		const result = await applyFix(fix);
 		expect(result).toBe("foobar");
 	});
 
@@ -95,7 +96,8 @@ describe("createFixer()", () => {
 		const style = new CaseStyle("uppercase", "mock-rule");
 		const source = "FooBar";
 		const fixer = style.createFixer(location, source)!;
-		const result = await applyFix(source, fixer);
+		const fix = createAutofix(source, fixer);
+		const result = await applyFix(fix);
 		expect(result).toBe("FOOBAR");
 	});
 

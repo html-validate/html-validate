@@ -1,6 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { applyFix, createAutofix } from "./autofix";
 import { Severity } from "./config";
 import { type Source } from "./context";
+import { type ErrorFixer } from "./error-fixer";
 import { type DeferredMessage, type Result, Reporter } from "./reporter";
 
 describe("Reporter", () => {
@@ -31,7 +33,7 @@ describe("Reporter", () => {
 			});
 			const report = reporter.save();
 			const message = report.results[0].messages[0];
-			expect(message.fix).toBe(fix);
+			expect(message.fix).toBeInstanceOf(Function);
 		});
 
 		it("should keep suggestion callbacks if present", () => {
@@ -65,7 +67,7 @@ describe("Reporter", () => {
 			});
 			const report = reporter.save();
 			const message = report.results[0].messages[0];
-			expect(message.suggestions?.[0].fix).toBe(fix);
+			expect(message.suggestions?.[0].fix).toBeInstanceOf(Function);
 		});
 
 		it("should handle omitted fix", () => {
@@ -439,6 +441,78 @@ describe("Reporter", () => {
 			]);
 		});
 
+		it("should bind fix callback to the matched source text", async () => {
+			expect.assertions(1);
+			const report = new Reporter();
+			const sources: Source[] = [
+				{
+					filename: "foo.html",
+					data: "<foo bar></foo>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+			];
+			const fix = (fixer: ErrorFixer): void => {
+				fixer.replaceText({ filename: "foo.html", offset: 5, line: 1, column: 6, size: 3 }, "baz");
+			};
+			report.addManual("foo.html", { ...createMessage("error", 2), fix });
+			const message = report.save(sources).results[0].messages[0];
+			const patched = await applyFix(message.fix!);
+			expect(patched).toBe("<foo baz></foo>");
+		});
+
+		it("should bind fix callback to originalData when transformed", async () => {
+			expect.assertions(1);
+			const report = new Reporter();
+			const sources: Source[] = [
+				{
+					filename: "bar.html",
+					data: "transformed",
+					originalData: "<bar baz></bar>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+			];
+			const fix = (fixer: ErrorFixer): void => {
+				fixer.replaceText({ filename: "bar.html", offset: 5, line: 1, column: 6, size: 3 }, "qux");
+			};
+			report.addManual("bar.html", { ...createMessage("error", 2), fix });
+			const message = report.save(sources).results[0].messages[0];
+			const patched = await applyFix(message.fix!);
+			expect(patched).toBe("<bar qux></bar>");
+		});
+
+		it("should bind suggestion callbacks to the matched source text", async () => {
+			expect.assertions(1);
+			const report = new Reporter();
+			const sources: Source[] = [
+				{
+					filename: "foo.html",
+					data: "<foo bar></foo>",
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+			];
+			const suggestions = [
+				{
+					message: "use baz instead",
+					fix: (fixer: ErrorFixer): void => {
+						fixer.replaceText(
+							{ filename: "foo.html", offset: 5, line: 1, column: 6, size: 3 },
+							"baz",
+						);
+					},
+				},
+			];
+			report.addManual("foo.html", { ...createMessage("error", 2), suggestions });
+			const message = report.save(sources).results[0].messages[0];
+			const patched = await applyFix(message.suggestions![0].fix);
+			expect(patched).toBe("<foo baz></foo>");
+		});
+
 		it("should preserve fix callback through freeze", () => {
 			expect.assertions(1);
 			const report = new Reporter();
@@ -446,11 +520,9 @@ describe("Reporter", () => {
 				/* do nothing */
 			};
 			report.addManual("foo.html", { ...createMessage("error", 2), fix });
-			expect(report.save().results).toEqual([
-				expect.objectContaining({
-					filePath: "foo.html",
-					messages: [expect.objectContaining({ message: "error", fix })],
-				}),
+			const { results } = report.save();
+			expect(results[0].messages).toEqual([
+				expect.objectContaining({ message: "error", fix: expect.any(Function) }),
 			]);
 		});
 
@@ -466,10 +538,11 @@ describe("Reporter", () => {
 				},
 			];
 			report.addManual("foo.html", { ...createMessage("error", 2), suggestions });
-			expect(report.save().results).toEqual([
+			const { results } = report.save();
+			expect(results[0].messages).toEqual([
 				expect.objectContaining({
-					filePath: "foo.html",
-					messages: [expect.objectContaining({ message: "error", suggestions })],
+					message: "error",
+					suggestions: [{ message: "use bar instead", fix: expect.any(Function) }],
 				}),
 			]);
 		});
@@ -484,9 +557,10 @@ function createResult(filename: string, messages: string[]): Result {
 			return {
 				...msg,
 				selector: msg.selector(),
-				fix() {
+				suggestions: undefined,
+				fix: createAutofix("", () => {
 					/* do nothing */
-				},
+				}),
 			};
 		}),
 		errorCount: messages.length,
