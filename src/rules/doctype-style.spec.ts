@@ -60,7 +60,7 @@ describe("rule doctype-style", () => {
 			const markup = "<!doctype html>";
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<!DOCTYPE html>");
 		});
 	});
@@ -120,7 +120,7 @@ describe("rule doctype-style", () => {
 			const markup = "<!DOCTYPE html>";
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<!doctype html>");
 		});
 	});

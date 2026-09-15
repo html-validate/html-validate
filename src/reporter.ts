@@ -1,3 +1,4 @@
+import { type AutofixFn, bindAutofix } from "./autofix";
 import { Severity } from "./config";
 import { type Source } from "./context";
 import { type DOMNode } from "./dom";
@@ -9,15 +10,32 @@ import { isThenable } from "./utils/is-thenable";
 /**
  * @public
  */
-export interface DeferredMessage extends Omit<Message, "selector"> {
+export interface DeferredMessage extends Omit<Message, "selector" | "fix" | "suggestions"> {
 	selector: () => string | null;
+
+	/** A callback for autofixing this error, not yet bound to any source text. */
+	fix?: AutofixFn | undefined;
+
+	/** Suggestion callbacks, not yet bound to any source text. */
+	suggestions?: Array<{ message: string; fix: AutofixFn }> | undefined;
 }
 
-function freeze(src: DeferredMessage): Message {
-	return {
-		...src,
+function freeze(src: DeferredMessage, text: string): Message {
+	const { fix, suggestions, ...rest } = src;
+	const message: Message = {
+		...rest,
 		selector: src.selector(),
 	};
+	if (fix) {
+		message.fix = bindAutofix(text, fix);
+	}
+	if (suggestions) {
+		message.suggestions = suggestions.map((suggestion) => ({
+			message: suggestion.message,
+			fix: bindAutofix(text, suggestion.fix),
+		}));
+	}
+	return message;
 }
 
 function isThenableArray<T>(value: T[] | Array<Promise<T>>): value is Array<Promise<T>> {
@@ -174,8 +192,8 @@ export class Reporter {
 		node: DOMNode | null;
 		location: Location;
 		context: ContextType;
-		fix?: Message["fix"] | null | undefined;
-		suggestions?: Message["suggestions"] | null | undefined;
+		fix?: DeferredMessage["fix"] | null | undefined;
+		suggestions?: DeferredMessage["suggestions"] | null | undefined;
 	}): void {
 		const { rule, message, severity, node, location, context, fix, suggestions } = options;
 		assertValidLocation(location);
@@ -228,8 +246,11 @@ export class Reporter {
 			valid: this.isValid(),
 			/* eslint-disable-next-line unicorn/prefer-object-iterable-methods -- technical debt */
 			results: Object.keys(this.result).map((filePath) => {
-				const messages = Array.from(this.result[filePath], freeze).toSorted(messageSort);
 				const source = (sources ?? []).find((source: Source) => filePath === source.filename);
+				const text = source ? (source.originalData ?? source.data) : "";
+				const messages = this.result[filePath]
+					.map((message) => freeze(message, text))
+					.toSorted(messageSort);
 				return {
 					filePath,
 					messages,

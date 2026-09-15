@@ -14,7 +14,7 @@ The result is a list of text edits which the caller can use to modify the text.
 **Syntax**
 
 ```ts nocompile nolint
-autofixCollectEdits(fix, text);
+autofixCollectEdits(fix, [text]);
 ```
 
 **Return value**
@@ -25,8 +25,8 @@ Throws if any edit has an invalid or out-of-bounds location, or if two edits ove
 
 **Parameters**
 
-- `fix: (fixer: ErrorFixer) => void | Promise<void>`: The autofix or suggestion callback, e.g. `message.fix` or `message.suggestions[n].fix`.
-- `text: string`: The original source text the fix operates on.
+- `fix: Autofix`: The autofix or suggestion callback, e.g. `message.fix` or `message.suggestions[n].fix`.
+- `text: string`: Deprecated and unused parameter.
 
 **Example**
 
@@ -37,13 +37,12 @@ Given a `Message` object, e.g. from the result of `htmlvalidate.validateString()
 import { type Message } from "html-validate";
 
 declare const message: Message & Required<Pick<Message, "fix">>;
-declare const text: string;
 
 /* --- */
 
 import { TextEditKind, autofixCollectEdits } from "html-validate";
 
-const edits = await autofixCollectEdits(message.fix, text);
+const edits = await autofixCollectEdits(message.fix);
 
 for (const edit of edits) {
   switch (edit.kind) {

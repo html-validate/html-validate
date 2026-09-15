@@ -1,13 +1,12 @@
 import fs from "node:fs";
 import { type SchemaObject } from "ajv";
-import { applyFix as applyFixEdits } from "./autofix";
+import { type Autofix, applyFix as applyFixEdits } from "./autofix";
 import { type ConfigData, type ResolvedConfig, ConfigLoader } from "./config";
 import { StaticConfigLoader } from "./config/loaders/static";
 import { type Source, normalizeSource } from "./context";
 import { type SourceHooks } from "./context/source";
 import { type EventDump, type TokenDump, Engine } from "./engine";
 import { UserError } from "./error";
-import { type ErrorFixer } from "./error-fixer";
 import { type Message } from "./message";
 import { Parser } from "./parser";
 import { type PerformanceResult, PerformanceTracker } from "./performance";
@@ -291,53 +290,60 @@ export class HtmlValidate {
 	}
 
 	/**
-	 * Apply a single fix (or suggestion) callback to a source string.
+	 * Apply a single autofix.
 	 *
 	 * The callback is typically taken directly from `message.fix` or one of
 	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * @public
-	 * @since 11.12.0
-	 * @param _filePath - Filename the source belongs to.
-	 * @param source - Source text to apply the fix to.
-	 * @param fix - Fix (or suggestion) callback to apply.
+	 * @since %version%
+	 * @param fix - AutoFix instance to apply.
 	 * @returns The patched source text.
 	 */
-	public async autofixString(
-		_filePath: string,
-		source: string,
-		fix: (fixer: ErrorFixer) => void | Promise<void>,
-	): Promise<string> {
-		return applyFixEdits(source, fix);
+	public async autofix(fix: Autofix): Promise<string> {
+		return applyFixEdits(fix);
 	}
 
 	/**
-	 * Apply a single fix (or suggestion) callback to a {@link Source}.
+	 * Apply a single autofix.
 	 *
 	 * The callback is typically taken directly from `message.fix` or one of
 	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * @public
 	 * @since 11.12.0
-	 * @param source - Source to apply the fix to.
-	 * @param fix - Fix (or suggestion) callback to apply.
-	 * @returns The patched original (untransformed) source text.
+	 * @deprecated Deprecated since %version%, use {@link HtmlValidate.autofix} instead.
+	 * @param _filePath - Ignored.
+	 * @param _source - Ignored.
+	 * @param fix - Autofix instance to apply.
+	 * @returns The patched source text.
 	 */
-	public async autofixSource(
-		source: Source,
-		fix: (fixer: ErrorFixer) => void | Promise<void>,
-	): Promise<string> {
-		const original = source.originalData ?? source.data;
-		return await applyFixEdits(original, fix);
+	public async autofixString(_filePath: string, _source: string, fix: Autofix): Promise<string> {
+		return this.autofix(fix);
 	}
 
 	/**
-	 * Apply a single fix (or suggestion) callback to a file and return the
-	 * patched result.
+	 * Apply a single autofix.
 	 *
 	 * The callback is typically taken directly from `message.fix` or one of
-	 * `message.suggestions[].fix` as returned by a previous validation of the
-	 * same file.
+	 * `message.suggestions[].fix` as returned by a previous validation.
+	 *
+	 * @public
+	 * @since 11.12.0
+	 * @deprecated Deprecated since %version%, use {@link HtmlValidate.autofix} instead.
+	 * @param source - Ignored.
+	 * @param fix - Autofix instance to apply.
+	 * @returns The patched original (untransformed) source text.
+	 */
+	public async autofixSource(_source: Source, fix: Autofix): Promise<string> {
+		return this.autofix(fix);
+	}
+
+	/**
+	 * Apply a single autofix.
+	 *
+	 * The callback is typically taken directly from `message.fix` or one of
+	 * `message.suggestions[].fix` as returned by a previous validation.
 	 *
 	 * This does not write the result back to disk, it only returns the
 	 * patched content, since it's up to the caller to decide how (and
@@ -345,24 +351,19 @@ export class HtmlValidate {
 	 *
 	 * @public
 	 * @since 11.12.0
-	 * @param filename - Filename to read, transform and patch.
-	 * @param fix - Fix (or suggestion) callback to apply.
-	 * @param configOverride - Configuration to use when transforming the file.
+	 * @deprecated Deprecated since %version%, use {@link HtmlValidate.autofix} instead.
+	 * @param filename - Ignored.
+	 * @param fix - Autofix instance to apply.
+	 * @param configOverride - Ignored.
 	 * @returns The patched original source text.
 	 */
 	public async autofixFile(
-		filename: string,
-		fix: (fixer: ErrorFixer) => void | Promise<void>,
-		configOverride?: ConfigData,
-		fs: TransformFS = defaultFS,
+		_filename: string,
+		fix: Autofix,
+		_configOverride?: ConfigData,
+		_fs: TransformFS = defaultFS,
 	): Promise<string> {
-		const config = await this.getConfigFor(filename, configOverride);
-		const resolvers = this.configLoader.getResolvers();
-		const sources = await transformFilename(resolvers, config, filename, fs);
-		if (sources.length === 0) {
-			throw new UserError(`Cannot apply fix: "${filename}" did not produce any source to patch`);
-		}
-		return this.autofixSource(sources[0], fix);
+		return this.autofix(fix);
 	}
 
 	/**

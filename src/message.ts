@@ -1,4 +1,4 @@
-import { type ErrorFixer } from "./error-fixer";
+import { type Autofix } from "./autofix";
 
 /**
  * Reported error message.
@@ -43,13 +43,19 @@ export interface Message {
 	/**
 	 * A callback for autofixing this error.
 	 *
+	 * The callback is bound to the source text it was generated for, see
+	 * {@link Autofix}.
+	 *
 	 * @public
 	 * @since 11.12.0
 	 */
-	fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
+	fix?: Autofix | undefined;
 
 	/**
 	 * A list of callbacks with suggestions for fixing this error.
+	 *
+	 * Each callback is bound to the source text it was generated for, see
+	 * {@link Autofix}.
 	 *
 	 * @public
 	 * @since 11.12.0
@@ -57,7 +63,7 @@ export interface Message {
 	suggestions?:
 		| Array<{
 				message: string;
-				fix: (fixer: ErrorFixer) => void | Promise<void>;
+				fix: Autofix;
 		  }>
 		| undefined;
 }

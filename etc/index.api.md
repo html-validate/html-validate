@@ -69,7 +69,21 @@ export interface AttrValueToken extends BaseToken {
 }
 
 // @public
-export function autofixCollectEdits(fix: (fixer: ErrorFixer) => void | Promise<void>, text: string): Promise<TextEdit[]>;
+export interface Autofix {
+    // (undocumented)
+    readonly [autofix]: true;
+    // (undocumented)
+    (fixer: ErrorFixer): void | Promise<void>;
+}
+
+// @public
+export function autofixCollectEdits(fix: Autofix): Promise<TextEdit[]>;
+
+// @public @deprecated
+export function autofixCollectEdits(fix: Autofix, text: string): Promise<TextEdit[]>;
+
+// @public
+export type AutofixFn = (fixer: ErrorFixer) => void | Promise<void>;
 
 // @public (undocumented)
 export interface AvailableFormatters {
@@ -248,14 +262,22 @@ export interface ConfigReadyEvent extends Event_2 {
     rules: Record<string, Rule<unknown, unknown>>;
 }
 
+// @public
+export function createAutofix(text: string, fix: AutofixFn): Autofix;
+
 // @public (undocumented)
 type CSSStyleDeclaration_2 = Record<string, string>;
 export { CSSStyleDeclaration_2 as CSSStyleDeclaration }
 
 // @public (undocumented)
-export interface DeferredMessage extends Omit<Message, "selector"> {
+export interface DeferredMessage extends Omit<Message, "selector" | "fix" | "suggestions"> {
+    fix?: AutofixFn | undefined;
     // (undocumented)
     selector: () => string | null;
+    suggestions?: Array<{
+        message: string;
+        fix: AutofixFn;
+    }> | undefined;
 }
 
 // @public
@@ -738,9 +760,13 @@ export interface HtmlElementLike {
 export class HtmlValidate {
     constructor(config?: ConfigData);
     constructor(configLoader: ConfigLoader);
-    autofixFile(filename: string, fix: (fixer: ErrorFixer) => void | Promise<void>, configOverride?: ConfigData, fs?: TransformFS): Promise<string>;
-    autofixSource(source: Source, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
-    autofixString(_filePath: string, source: string, fix: (fixer: ErrorFixer) => void | Promise<void>): Promise<string>;
+    autofix(fix: Autofix): Promise<string>;
+    // @deprecated
+    autofixFile(_filename: string, fix: Autofix, _configOverride?: ConfigData, _fs?: TransformFS): Promise<string>;
+    // @deprecated
+    autofixSource(_source: Source, fix: Autofix): Promise<string>;
+    // @deprecated
+    autofixString(_filePath: string, _source: string, fix: Autofix): Promise<string>;
     canValidate(filename: string): Promise<boolean>;
     canValidateSync(filename: string): boolean;
     // (undocumented)
@@ -831,6 +857,9 @@ export interface InitResult {
 }
 
 // @public
+export function isAutofix(value: unknown): value is Autofix;
+
+// @public
 export function isUserError(error: unknown): error is UserErrorData;
 
 // @internal (undocumented)
@@ -900,7 +929,7 @@ export { Location_2 as Location }
 export interface Message {
     column: number;
     context?: unknown;
-    fix?: ((fixer: ErrorFixer) => void | Promise<void>) | undefined;
+    fix?: Autofix | undefined;
     line: number;
     message: string;
     offset: number;
@@ -911,7 +940,7 @@ export interface Message {
     size: number;
     suggestions?: Array<{
         message: string;
-        fix: (fixer: ErrorFixer) => void | Promise<void>;
+        fix: Autofix;
     }> | undefined;
 }
 
@@ -1264,8 +1293,8 @@ export class Reporter {
         node: DOMNode | null;
         location: Location_2;
         context: ContextType;
-        fix?: Message["fix"] | null | undefined;
-        suggestions?: Message["suggestions"] | null | undefined;
+        fix?: DeferredMessage["fix"] | null | undefined;
+        suggestions?: DeferredMessage["suggestions"] | null | undefined;
     }): void;
     // @internal (undocumented)
     addManual(filename: string, message: DeferredMessage): void;

@@ -375,7 +375,7 @@ describe("rule attr-case", () => {
 			const markup = /* HTML */ `<div FOO="bar"></div>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe(/* HTML */ `<div foo="bar"></div>`);
 		});
 
@@ -388,7 +388,7 @@ describe("rule attr-case", () => {
 			const markup = /* HTML */ `<div foo="bar"></div>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", markup, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe(/* HTML */ `<div FOO="bar"></div>`);
 		});
 

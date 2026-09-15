@@ -119,7 +119,7 @@ describe("rule no-redundant-for", () => {
 		`);
 		const report = await htmlvalidate.validateString(markup);
 		const [message] = report.results[0].messages;
-		const result = await htmlvalidate.autofixString("inline", markup, message.suggestions![0].fix);
+		const result = await htmlvalidate.autofix(message.suggestions![0].fix);
 		expect(result).toMatchInlineSnapshot(`
 			"<label>
 				<input id="foo" />
@@ -136,7 +136,7 @@ describe("rule no-redundant-for", () => {
 		`);
 		const report = await htmlvalidate.validateString(markup);
 		const [message] = report.results[0].messages;
-		const result = await htmlvalidate.autofixString("inline", markup, message.suggestions![1].fix);
+		const result = await htmlvalidate.autofix(message.suggestions![1].fix);
 		expect(result).toMatchInlineSnapshot(`
 			"<label>
 				<input />

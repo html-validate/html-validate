@@ -69,7 +69,7 @@ describe("rule doctype-html", () => {
 				'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 			const report = await htmlvalidate.validateString(html);
 			const [message] = report.results[0].messages;
-			const result = await htmlvalidate.autofixString("inline", html, message.fix!);
+			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<!DOCTYPE html>");
 		});
 	});

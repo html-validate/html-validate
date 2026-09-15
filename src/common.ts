@@ -1,12 +1,17 @@
 /* used when calling require('htmlvalidate'); */
 
 export {
+	type Autofix,
+	type AutofixFn,
 	type TextEdit,
 	type TextEditInsert,
 	type TextEditRemove,
 	type TextEditReplace,
 	TextEditKind,
+	/* eslint-disable-next-line @typescript-eslint/no-deprecated -- re-exporting, not calling, the deprecated overload */
 	autofixCollectEdits,
+	createAutofix,
+	isAutofix,
 } from "./autofix";
 export { type AttributeData } from "./parser";
 export {

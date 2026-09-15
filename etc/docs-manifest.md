@@ -10,7 +10,9 @@ about/index.html
 about/roadmap.html
 about/sponsoring.html
 api/autofix-collect-edits.html
+api/create-autofix.html
 api/error-fixer.html
+api/is-autofix.html
 api/metadata-helper.html
 api/source.html
 changelog/index.html
