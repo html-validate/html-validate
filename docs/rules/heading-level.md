@@ -63,8 +63,7 @@ By setting this to `h2` the document may start at `<h2>` and later being followe
 
 Setting this to `"any"` or `false` is equivalent to `"h6"`, i.e. effectively disabling the check for the initial heading level as all possible levels are now allowed.
 
-Note: this does not affect sectioning roots.
-Each sectioning root can either continue of the current level or restart at `<h1>`.
+Note: this does not affect sectioning roots, which is configured separately with `sectioningRootInitialRank`
 
 ### `sectioningRoots`
 
@@ -87,9 +86,19 @@ With this option the following is considered valid:
     <h3>Subheading 3</h2>
 </validate>
 
+### `minSectioningRootInitialRank`
+
+- type: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "auto"`
+- default: `"auto"`
+
+Sets the allowed initial heading levels for sectioning roots. Setting this to `"h1"` enforces that all sectioning roots must restart at `<h1>`, but setting it to `"h2"` allows restarting at both `<h1>` or `<h2>`.
+
+`"auto"` means that each sectioning root can either continue of the current level or restart at `<h1>`.
+
 [html5-sectioning-root]: https://html.spec.whatwg.org/multipage/sections.html#sectioning-root
 
 ## Version history
 
+- %version% - `minSectioningRootInitialRank` option added.
 - 7.14.0 - `[role="alertdialog"]` added as default sectioning root.
 - 5.5.0 - `minInitialRank` option added.

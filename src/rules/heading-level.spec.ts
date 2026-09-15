@@ -194,6 +194,82 @@ describe("rule heading-level", () => {
 				Selector: div > h5"
 			`);
 		});
+
+		it("should enforce h1 as initial heading level if minSectioningRootInitialRank is set to h1 via option", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minSectioningRootInitialRank: "h1" }] },
+			});
+			const markup = `
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<h4>modal header</h4>
+				</div>
+				<h3>heading 2</h3>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Initial heading level for sectioning root must be <h1> but got <h4> (heading-level)
+				  4 | 				<h3>heading 2</h3>
+				  5 | 				<div role="dialog">
+				> 6 | 					<h4>modal header</h4>
+				    | 					 ^^
+				  7 | 				</div>
+				  8 | 				<h3>heading 2</h3>
+				  9 |
+				Selector: div > h4"
+			`);
+		});
+
+		it("should enforce h2 as initial heading level if minSectioningRootInitialRank is set to h2 via option", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minSectioningRootInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<h4>modal header</h4>
+				</div>
+				<h3>heading 2</h3>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Initial heading level for sectioning root must be <h2> but got <h4> (heading-level)
+				  4 | 				<h3>heading 2</h3>
+				  5 | 				<div role="dialog">
+				> 6 | 					<h4>modal header</h4>
+				    | 					 ^^
+				  7 | 				</div>
+				  8 | 				<h3>heading 2</h3>
+				  9 |
+				Selector: div > h4"
+			`);
+		});
+
+		it("should allow h1 as initial heading level if minSectioningRootInitialRank is set to h2 via option", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				rules: { "heading-level": ["error", { minSectioningRootInitialRank: "h2" }] },
+			});
+			const markup = `
+				<h1>heading 1</h1>
+				<h2>heading 2</h2>
+				<h3>heading 2</h3>
+				<div role="dialog">
+					<h1>modal header</h1>
+				</div>
+				<h3>heading 2</h3>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
 	});
 
 	describe("minInitialRank", () => {
