@@ -46,7 +46,6 @@ export default function templateFinder(log, createDocMessage) {
 				// Search the template sets for a matching pattern for the given doc
 				/* eslint-disable-next-line unicorn/no-unused-array-method-return -- technical debt */
 				templateSets.some((templateSet) =>
-					/* eslint-disable-next-line sonarjs/no-nested-functions -- technical debt */
 					patternMatchers.some((patternMatcher) => {
 						log.silly("looking for ", patternMatcher(doc));
 						templatePath = templateSet.templates[patternMatcher(doc)];
