@@ -177,10 +177,11 @@ describe("Plugin", () => {
 			config = await Config.fromObject(resolvers, {
 				plugins: ["mock-plugin"],
 			});
-			expect(async () => {
+			await expect(async () => {
 				const metaTable = await config.getMetaTable();
 				return metaTable.getMetaFor("my-element");
-			}).not.toThrow();
+				/* eslint-disable-next-line jest/no-restricted-matchers -- technical debt */
+			}).resolves.not.toThrow();
 		});
 
 		it("should give validation errors when schema isn't extended", async () => {

@@ -56,7 +56,7 @@ export default function readFilesProcessor(log) {
 
 					for (const file of files) {
 						// Load up each file and extract documents using the appropriate fileReader
-						/* eslint-disable-next-line sonarjs/no-nested-functions, unicorn/prefer-await -- inherited technical debt */
+						/* eslint-disable-next-line unicorn/prefer-await -- inherited technical debt */
 						const docsPromise = readFile(file).then((content) => {
 							// Choose a file reader for this file
 							const fileReader = sourceInfo.fileReader
@@ -84,7 +84,7 @@ export default function readFilesProcessor(log) {
 
 						docsPromises.push(docsPromise);
 					}
-					/* eslint-disable-next-line sonarjs/no-nested-functions, unicorn/prefer-await -- inhertited technical debt */
+					/* eslint-disable-next-line unicorn/prefer-await -- inhertited technical debt */
 					return Promise.all(docsPromises).then((results) => results.flat());
 				});
 			});
