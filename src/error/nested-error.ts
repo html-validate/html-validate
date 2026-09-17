@@ -7,9 +7,11 @@ export class NestedError extends Error {
 		super(message);
 		this.name = "NestedError";
 
-		if (nested?.stack) {
-			this.stack ??= "";
-			this.stack += `\nCaused by: ${nested.stack}`;
+		if (!nested?.stack) {
+			return;
 		}
+
+		this.stack ??= "";
+		this.stack += `\nCaused by: ${nested.stack}`;
 	}
 }

@@ -114,15 +114,17 @@ export class HtmlElement extends DOMNode {
 		this.annotation = null;
 		this._adapter = createAdapter(this);
 
-		if (parent) {
-			parent.append(this);
+		if (!parent) {
+			return;
+		}
 
-			/* calculate depth in domtree */
-			let cur: HtmlElement = parent;
-			while (cur.parent) {
-				this.depth++;
-				cur = cur.parent;
-			}
+		parent.append(this);
+
+		/* calculate depth in domtree */
+		let cur: HtmlElement = parent;
+		while (cur.parent) {
+			this.depth++;
+			cur = cur.parent;
 		}
 	}
 

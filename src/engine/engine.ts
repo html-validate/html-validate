@@ -324,13 +324,15 @@ export class Engine<T extends Parser = Parser> {
 			 * element is being closed */
 			const parentClosed = directiveBlock === data.previous.unique;
 
+			if (!(lastNode || parentClosed)) {
+				return;
+			}
+
 			/* remove listeners and restore state */
-			if (lastNode || parentClosed) {
-				unregisterClose();
-				unregisterOpen();
-				for (const rule of rules) {
-					rule.unblock(blocker);
-				}
+			unregisterClose();
+			unregisterOpen();
+			for (const rule of rules) {
+				rule.unblock(blocker);
 			}
 		});
 

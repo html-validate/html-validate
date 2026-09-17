@@ -324,19 +324,20 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			enabled,
 			blockers: this.getBlockers(node),
 		});
-		if (enabled && !blocked) {
-			const interpolated = interpolate(message, context ?? {});
-			this.reporter.add({
-				rule: this,
-				message: interpolated,
-				severity: this.severity,
-				node,
-				location: where,
-				fix,
-				suggestions,
-				context,
-			});
+		if (!enabled || blocked) {
+			return;
 		}
+		const interpolated = interpolate(message, context ?? {});
+		this.reporter.add({
+			rule: this,
+			message: interpolated,
+			severity: this.severity,
+			node,
+			location: where,
+			fix,
+			suggestions,
+			context,
+		});
 	}
 
 	private findLocation(src: {
@@ -469,15 +470,17 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		}
 
 		const isValid = getSchemaValidator(ruleId, schema);
-		if (!isValid(options)) {
-			/* istanbul ignore next: it is always set when validation fails */
-			const errors = isValid.errors ?? [];
-			const mapped = errors.map((error: ErrorObject) => {
-				error.instancePath = `${jsonPath}${error.instancePath}`;
-				return error;
-			});
-			throw new SchemaValidationError(filename, `Rule configuration error`, config, schema, mapped);
+		if (isValid(options)) {
+			return;
 		}
+
+		/* istanbul ignore next: it is always set when validation fails */
+		const errors = isValid.errors ?? [];
+		const mapped = errors.map((error: ErrorObject) => {
+			error.instancePath = `${jsonPath}${error.instancePath}`;
+			return error;
+		});
+		throw new SchemaValidationError(filename, `Rule configuration error`, config, schema, mapped);
 	}
 
 	/**

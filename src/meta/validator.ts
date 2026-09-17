@@ -69,16 +69,20 @@ export class Validator {
 			const [, category, quantifier] = /^(@?.*?)([*?]?)$/.exec(rule)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- will always match
 			const limit = category && quantifier && parseQuantifier(quantifier);
 
-			if (limit) {
-				const siblings = children.filter((cur) => this.validatePermittedCategory(cur, rule, true));
-				if (siblings.length > limit) {
-					// fail only the children above the limit (currently limit can only be 1)
-					for (const child of siblings.slice(limit)) {
-						cb(child, category);
-					}
-					valid = false;
-				}
+			if (!limit) {
+				continue;
 			}
+
+			const siblings = children.filter((cur) => this.validatePermittedCategory(cur, rule, true));
+			if (siblings.length <= limit) {
+				continue;
+			}
+
+			// fail only the children above the limit (currently limit can only be 1)
+			for (const child of siblings.slice(limit)) {
+				cb(child, category);
+			}
+			valid = false;
 		}
 		return valid;
 	}

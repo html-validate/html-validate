@@ -23,17 +23,18 @@ export default class AttrDelimiter extends Rule {
 			}
 			const delimiter = token.data[1];
 			const match = whitespace.exec(delimiter);
-			if (match) {
-				const location = sliceLocation(event.location, 0, delimiter.length);
-				this.report({
-					node: null,
-					message: "Attribute value must not be delimited by whitespace",
-					location,
-					fix(fixer) {
-						fixer.replaceText(location, "=");
-					},
-				});
+			if (!match) {
+				return;
 			}
+			const location = sliceLocation(event.location, 0, delimiter.length);
+			this.report({
+				node: null,
+				message: "Attribute value must not be delimited by whitespace",
+				location,
+				fix(fixer) {
+					fixer.replaceText(location, "=");
+				},
+			});
 		});
 	}
 }

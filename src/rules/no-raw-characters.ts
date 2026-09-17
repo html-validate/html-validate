@@ -116,30 +116,32 @@ export default class NoRawCharacters extends Rule<void, RuleOptions> {
 		let match;
 		do {
 			match = regexp.exec(text);
-			if (match) {
-				const char = match[0] as RawCharacters;
-				/* In relaxed mode & only needs to be encoded if it is ambiguous,
-				 * however this rule will only match either non-ambiguous ampersands or
-				 * ampersands part of a character reference. Whenever it is a valid
-				 * character reference or not not checked by this rule */
-				if (this.relaxed && char === "&") {
-					continue;
-				}
-
-				/* determine replacement character and location */
-				const replacement = replacementTable[char];
-				const charLocation = sliceLocation(location, match.index, match.index + 1);
-
-				/* report as error */
-				this.report({
-					node,
-					message: `Raw "${char}" must be encoded as "${replacement}"`,
-					location: charLocation,
-					fix(fixer) {
-						fixer.replaceText(charLocation, replacement);
-					},
-				});
+			if (!match) {
+				continue;
 			}
+
+			const char = match[0] as RawCharacters;
+			/* In relaxed mode & only needs to be encoded if it is ambiguous,
+			 * however this rule will only match either non-ambiguous ampersands or
+			 * ampersands part of a character reference. Whenever it is a valid
+			 * character reference or not not checked by this rule */
+			if (this.relaxed && char === "&") {
+				continue;
+			}
+
+			/* determine replacement character and location */
+			const replacement = replacementTable[char];
+			const charLocation = sliceLocation(location, match.index, match.index + 1);
+
+			/* report as error */
+			this.report({
+				node,
+				message: `Raw "${char}" must be encoded as "${replacement}"`,
+				location: charLocation,
+				fix(fixer) {
+					fixer.replaceText(charLocation, replacement);
+				},
+			});
 		} while (match);
 	}
 }

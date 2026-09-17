@@ -30,15 +30,17 @@ export default class H36 extends Rule {
 				return;
 			}
 
-			if (!hasAltText(node)) {
-				const message = "image used as submit button must have non-empty alt text";
-				const alt = node.getAttribute("alt");
-				this.report({
-					node,
-					message,
-					location: alt ? alt.keyLocation : node.location,
-				});
+			if (hasAltText(node)) {
+				return;
 			}
+
+			const message = "image used as submit button must have non-empty alt text";
+			const alt = node.getAttribute("alt");
+			this.report({
+				node,
+				message,
+				location: alt ? alt.keyLocation : node.location,
+			});
 		});
 	}
 }

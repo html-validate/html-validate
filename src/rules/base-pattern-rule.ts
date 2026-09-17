@@ -31,6 +31,10 @@ function toArray<T>(value: T | readonly T[]): readonly T[] {
 	return [value] as readonly T[];
 }
 
+function quote(value: string): string {
+	return `"${value}"`;
+}
+
 /**
  * @internal
  */
@@ -40,14 +44,14 @@ export function validateAllowedPatterns(
 	ruleId: string,
 ): void {
 	const extraneous = patterns.filter(isNamedPattern).filter((p) => !allowedPatterns.has(p));
-	if (extraneous.length > 0) {
-		const quote = (it: string): string => `"${it}"`;
-		const disallowed = naturalJoin(extraneous.map(quote), "and");
-		const allowed = naturalJoin(Array.from(allowedPatterns, quote), "and");
-		throw new Error(
-			`Pattern ${disallowed} cannot be used with "${ruleId}". Allowed patterns: ${allowed}`,
-		);
+	if (extraneous.length === 0) {
+		return;
 	}
+	const disallowed = naturalJoin(extraneous.map(quote), "and");
+	const allowed = naturalJoin(Array.from(allowedPatterns, quote), "and");
+	throw new Error(
+		`Pattern ${disallowed} cannot be used with "${ruleId}". Allowed patterns: ${allowed}`,
+	);
 }
 
 /**

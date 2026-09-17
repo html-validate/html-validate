@@ -143,21 +143,23 @@ export default class AttrQuotes extends Rule<RuleContext, RuleOptions> {
 
 			const expected = this.resolveQuotemark(event.value.toString(), this.style);
 
-			if (event.quote !== expected) {
-				const message = `Attribute "${event.key}" used ${event.quote} instead of expected ${expected}`;
-				const context: RuleStyleContext = {
-					error: "style",
-					attr: event.key,
-					actual: event.quote,
-					expected,
-				};
-				this.report({
-					node: event.target,
-					message,
-					location: null,
-					context,
-				});
+			if (event.quote === expected) {
+				return;
 			}
+
+			const message = `Attribute "${event.key}" used ${event.quote} instead of expected ${expected}`;
+			const context: RuleStyleContext = {
+				error: "style",
+				attr: event.key,
+				actual: event.quote,
+				expected,
+			};
+			this.report({
+				node: event.target,
+				message,
+				location: null,
+				context,
+			});
 		});
 	}
 

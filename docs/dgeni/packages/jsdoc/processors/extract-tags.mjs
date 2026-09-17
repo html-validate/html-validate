@@ -128,20 +128,21 @@ export default function extractTagsProcessor(log, parseTagsProcessor, createDocM
 	function applyDefault(doc, docProperty, tagDef) {
 		log.silly(" - tag not found");
 		// Apply the default function if there is one
-		if (tagDef.defaultFn) {
-			log.silly("	 - applying default value function");
-			const defaultValue = tagDef.defaultFn(doc);
-			log.silly("		 - default value: ", defaultValue);
+		if (!tagDef.defaultFn) {
+			return;
+		}
+		log.silly("	 - applying default value function");
+		const defaultValue = tagDef.defaultFn(doc);
+		log.silly("		 - default value: ", defaultValue);
+		if (tagDef.multi) {
+			doc[docProperty] = Array.isArray(doc[docProperty]) ? doc[docProperty] : [];
+		}
+		if (defaultValue !== undefined) {
+			// If the defaultFn returns a value then use this as the document property
 			if (tagDef.multi) {
-				doc[docProperty] = Array.isArray(doc[docProperty]) ? doc[docProperty] : [];
-			}
-			if (defaultValue !== undefined) {
-				// If the defaultFn returns a value then use this as the document property
-				if (tagDef.multi) {
-					doc[docProperty].push(defaultValue);
-				} else {
-					doc[docProperty] = defaultValue;
-				}
+				doc[docProperty].push(defaultValue);
+			} else {
+				doc[docProperty] = defaultValue;
 			}
 		}
 	}

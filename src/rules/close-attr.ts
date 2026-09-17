@@ -24,19 +24,21 @@ export default class CloseAttr extends Rule {
 			}
 
 			const node = event.target;
-			if (Object.keys(node.attributes).length > 0) {
-				const first = node.attributes[0];
-				this.report({
-					node: null,
-					message: "Close tags cannot have attributes",
-					location: first.keyLocation,
-					fix(fixer) {
-						for (const attr of node.attributes) {
-							fixer.replaceText(attr.location, "");
-						}
-					},
-				});
+			if (Object.keys(node.attributes).length === 0) {
+				return;
 			}
+
+			const first = node.attributes[0];
+			this.report({
+				node: null,
+				message: "Close tags cannot have attributes",
+				location: first.keyLocation,
+				fix(fixer) {
+					for (const attr of node.attributes) {
+						fixer.replaceText(attr.location, "");
+					}
+				},
+			});
 		});
 	}
 }

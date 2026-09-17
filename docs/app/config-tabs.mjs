@@ -103,10 +103,12 @@ for (const element of configurations) {
 	tablist.addEventListener("click", (event) => {
 		const { target } = event;
 		const key = target.dataset.key;
-		if (key) {
-			window.localStorage.setItem(SESSION_KEY, key);
-			changeVariant(key);
+		if (!key) {
+			return;
 		}
+
+		window.localStorage.setItem(SESSION_KEY, key);
+		changeVariant(key);
 	});
 
 	element.addEventListener("config:change", (event) => {
@@ -116,10 +118,12 @@ for (const element of configurations) {
 		if (selectedTab) {
 			selectTab(tabs, selectedTab);
 		}
-		if (selectedPanel) {
-			openPanel(panels, selectedPanel);
-			filename.textContent = selectedPanel.dataset.filename;
+		if (!selectedPanel) {
+			return;
 		}
+
+		openPanel(panels, selectedPanel);
+		filename.textContent = selectedPanel.dataset.filename;
 	});
 
 	element.prepend(bar);
