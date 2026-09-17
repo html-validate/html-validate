@@ -100,15 +100,16 @@ export default class NoMissingReferences extends Rule<Context> {
 		const parsed = new DOMTokenList(values, attr.valueLocation);
 		for (const entry of parsed.iterator()) {
 			const id = entry.item;
-			if (idMissing(document, id)) {
-				const context: Context = { key: attr.key, value: id };
-				this.report({
-					node,
-					message: `Element references missing id "${id}"`,
-					location: entry.location,
-					context,
-				});
+			if (!idMissing(document, id)) {
+				continue;
 			}
+			const context: Context = { key: attr.key, value: id };
+			this.report({
+				node,
+				message: `Element references missing id "${id}"`,
+				location: entry.location,
+				context,
+			});
 		}
 	}
 }

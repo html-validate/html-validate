@@ -82,16 +82,18 @@ export default class MetaRefresh extends Rule<void, RuleOptions> {
 		}
 
 		/* ensure delay is exactly 0 seconds */
-		if (delay !== 0) {
-			const message = allowLongDelay
-				? "Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay)"
-				: "Meta refresh must be instant (0 second delay)";
-			this.report({
-				node: target,
-				message,
-				location,
-			});
+		if (delay === 0) {
+			return;
 		}
+
+		const message = allowLongDelay
+			? "Meta refresh must be instant (0 second delay) or greater than 20 hours (72000 second delay)"
+			: "Meta refresh must be instant (0 second delay)";
+		this.report({
+			node: target,
+			message,
+			location,
+		});
 	}
 }
 

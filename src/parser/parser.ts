@@ -558,16 +558,18 @@ export class Parser {
 		/* enable cache on node now that it is fully constructed */
 		node.cacheEnable();
 
-		if (source.hooks?.processElement) {
-			const processElement = source.hooks.processElement;
-			const metaTable = this.metaTable;
-			const context: ProcessElementContext = {
-				getMetaFor(this: void, tagName: string): MetaElement | null {
-					return metaTable.getMetaFor(tagName);
-				},
-			};
-			processElement.call(context, node);
+		if (!source.hooks?.processElement) {
+			return;
 		}
+
+		const processElement = source.hooks.processElement;
+		const metaTable = this.metaTable;
+		const context: ProcessElementContext = {
+			getMetaFor(this: void, tagName: string): MetaElement | null {
+				return metaTable.getMetaFor(tagName);
+			},
+		};
+		processElement.call(context, node);
 	}
 
 	/**

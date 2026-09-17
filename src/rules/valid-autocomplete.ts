@@ -629,19 +629,22 @@ export default class ValidAutocomplete extends Rule<RuleContext> {
 		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- it must be present of it wouldn't be found */
 		const fieldToken = tokens.item(fieldIndex)!;
 		const fieldGroup = fieldNameGroup[fieldToken];
-		if (!controlGroups.includes(fieldGroup)) {
-			const context: RuleContext = {
-				msg: MessageID.InvalidValue,
-				type,
-				value: fieldToken,
-				what: `<input type="${type}">`,
-			};
-			this.report({
-				node,
-				message: getTerminalMessage(context),
-				location: tokens.location(fieldIndex),
-				context,
-			});
+
+		if (controlGroups.includes(fieldGroup)) {
+			return;
 		}
+
+		const context: RuleContext = {
+			msg: MessageID.InvalidValue,
+			type,
+			value: fieldToken,
+			what: `<input type="${type}">`,
+		};
+		this.report({
+			node,
+			message: getTerminalMessage(context),
+			location: tokens.location(fieldIndex),
+			context,
+		});
 	}
 }

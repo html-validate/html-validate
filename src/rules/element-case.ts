@@ -66,15 +66,16 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 
 	private validateCase(target: HtmlElement, targetLocation: Location): void {
 		const letters = target.tagName.replaceAll(/[^a-z]+/gi, "");
-		if (!this.style.match(letters)) {
-			const location = sliceLocation(targetLocation, 1);
-			this.report({
-				node: target,
-				message: `Element "${target.tagName}" should be ${this.style.name}`,
-				location,
-				fix: this.style.createFixer(location, target.tagName),
-			});
+		if (this.style.match(letters)) {
+			return;
 		}
+		const location = sliceLocation(targetLocation, 1);
+		this.report({
+			node: target,
+			message: `Element "${target.tagName}" should be ${this.style.name}`,
+			location,
+			fix: this.style.createFixer(location, target.tagName),
+		});
 	}
 
 	private validateMatchingCase(start: HtmlElement | null, end: HtmlElement | null): void {
@@ -90,17 +91,19 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 			return;
 		}
 
-		if (start.tagName !== end.tagName) {
-			/* end.location includes the leading "/" so strip it to target just the tag name */
-			const location = sliceLocation(end.location, 1);
-			this.report({
-				node: start,
-				message: "Start and end tag must not differ in casing",
-				location: end.location,
-				fix(fixer) {
-					fixer.replaceText(location, start.tagName);
-				},
-			});
+		if (start.tagName === end.tagName) {
+			return;
 		}
+
+		/* end.location includes the leading "/" so strip it to target just the tag name */
+		const location = sliceLocation(end.location, 1);
+		this.report({
+			node: start,
+			message: "Start and end tag must not differ in casing",
+			location: end.location,
+			fix(fixer) {
+				fixer.replaceText(location, start.tagName);
+			},
+		});
 	}
 }

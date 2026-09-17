@@ -229,16 +229,17 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		let match: RegExpMatchArray | null;
 		do {
 			match = regexp.exec(text);
-			if (match) {
-				const terminator = match[1]; // === ";" ? match[1] : "";
-				const terminated = terminator === ";";
-				const needSlice = terminator !== ";" && terminator.length > 0;
-				const entity = needSlice ? match[0].slice(0, -1) : match[0];
-				if (this.options.ignoreCase) {
-					yield { match, entity: entity.toLowerCase(), raw: entity, terminated };
-				} else {
-					yield { match, entity, raw: entity, terminated };
-				}
+			if (!match) {
+				continue;
+			}
+			const terminator = match[1]; // === ";" ? match[1] : "";
+			const terminated = terminator === ";";
+			const needSlice = terminator !== ";" && terminator.length > 0;
+			const entity = needSlice ? match[0].slice(0, -1) : match[0];
+			if (this.options.ignoreCase) {
+				yield { match, entity: entity.toLowerCase(), raw: entity, terminated };
+			} else {
+				yield { match, entity, raw: entity, terminated };
 			}
 		} while (match);
 	}

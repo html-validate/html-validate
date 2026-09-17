@@ -132,34 +132,40 @@ export default class UniqueLandmark extends Rule {
 				.filter((it) => typeof it.role === "string" && roles.includes(it.role));
 			const grouped = groupBy(elements, (it) => it.role as string);
 			for (const nodes of Object.values(grouped)) {
-				/* if the landmark isn't present or at most a single occurrence it is
-				 * considered unique */
-				if (nodes.length <= 1) {
-					continue;
-				}
-
-				const entries = nodes.map((it) => getTextEntryFromElement(document, it));
-
-				/* edge case: unnamed forms are not considered landmarks */
-				const filteredEntries = entries.filter(isExcluded);
-
-				for (const entry of filteredEntries) {
-					if (entry.text instanceof DynamicValue) {
-						/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
-						continue;
-					}
-					const dup = entries.filter((it) => it.text === entry.text).length > 1;
-					if (!entry.text || dup) {
-						const message = `Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby)`;
-						const location = entry.location;
-						this.report({
-							node: entry.node,
-							message,
-							location,
-						});
-					}
-				}
+				this.validateLandmarkGroup(document, nodes);
 			}
 		});
+	}
+
+	private validateLandmarkGroup(document: DOMTree, nodes: HtmlElement[]): void {
+		/* if the landmark isn't present or at most a single occurrence it is
+		 * considered unique */
+		if (nodes.length <= 1) {
+			return;
+		}
+
+		const entries = nodes.map((it) => getTextEntryFromElement(document, it));
+
+		/* edge case: unnamed forms are not considered landmarks */
+		const filteredEntries = entries.filter(isExcluded);
+
+		for (const entry of filteredEntries) {
+			if (entry.text instanceof DynamicValue) {
+				continue;
+			}
+
+			const dup = entries.filter((it) => it.text === entry.text).length > 1;
+			if (entry.text && !dup) {
+				continue;
+			}
+
+			const message = `Landmarks must have a non-empty and unique accessible name (aria-label or aria-labelledby)`;
+			const location = entry.location;
+			this.report({
+				node: entry.node,
+				message,
+				location,
+			});
+		}
 	}
 }

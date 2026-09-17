@@ -33,12 +33,13 @@ export default function aliasMap() {
 		removeDoc(doc) {
 			for (const alias of doc.aliases) {
 				const matchedDocs = map.get(alias);
-				if (matchedDocs) {
-					// We have an array of docs so we need to remove the culprit
-					const index = matchedDocs.indexOf(doc);
-					if (index !== -1) {
-						matchedDocs.splice(index, 1);
-					}
+				if (!matchedDocs) {
+					continue;
+				}
+				// We have an array of docs so we need to remove the culprit
+				const index = matchedDocs.indexOf(doc);
+				if (index !== -1) {
+					matchedDocs.splice(index, 1);
 				}
 			}
 		},

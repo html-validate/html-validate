@@ -34,16 +34,18 @@ export default class NoStyleTag extends Rule<void, RuleOptions> {
 		const { allowTemplate } = this.options;
 		this.on("tag:start", (event: TagStartEvent) => {
 			const node = event.target;
-			if (node.tagName === "style") {
-				if (allowTemplate && node.parent?.is("template")) {
-					return;
-				}
-
-				this.report({
-					node,
-					message: "Use external stylesheet with <link> instead of <style> tag",
-				});
+			if (node.tagName !== "style") {
+				return;
 			}
+
+			if (allowTemplate && node.parent?.is("template")) {
+				return;
+			}
+
+			this.report({
+				node,
+				message: "Use external stylesheet with <link> instead of <style> tag",
+			});
 		});
 	}
 }

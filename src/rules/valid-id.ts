@@ -112,15 +112,17 @@ export default class ValidID extends Rule<RuleContext, RuleOptions> {
 				return;
 			}
 
-			if (/[^\p{L}\p{N}_-]/u.test(value)) {
-				const context: RuleContext = { kind: ErrorKind.DISALLOWED_CHARACTER, id: value };
-				this.report({
-					node: event.target,
-					message: this.messages[context.kind],
-					location: event.valueLocation,
-					context,
-				});
+			if (!/[^\p{L}\p{N}_-]/u.test(value)) {
+				return;
 			}
+
+			const context: RuleContext = { kind: ErrorKind.DISALLOWED_CHARACTER, id: value };
+			this.report({
+				node: event.target,
+				message: this.messages[context.kind],
+				location: event.valueLocation,
+				context,
+			});
 		});
 	}
 

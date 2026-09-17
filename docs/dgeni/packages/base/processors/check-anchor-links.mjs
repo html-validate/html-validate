@@ -89,26 +89,30 @@ function checkAnchorLinksProcessor(log, resolveUrl, extractLinks, createDocMessa
 					}
 				}
 
-				if (unmatchedLinks.length > 0) {
-					unmatchedLinkCount += unmatchedLinks.length;
-					messages.push(
-						`${createDocMessage(" ".repeat(6), linkInfo.doc)}\n${unmatchedLinks
-							.map((link) => `         - ${link}`)
-							.join("\n")}`,
-					);
+				if (unmatchedLinks.length === 0) {
+					continue;
 				}
+
+				unmatchedLinkCount += unmatchedLinks.length;
+				messages.push(
+					`${createDocMessage(" ".repeat(6), linkInfo.doc)}\n${unmatchedLinks
+						.map((link) => `         - ${link}`)
+						.join("\n")}`,
+				);
 			}
 
-			if (unmatchedLinkCount) {
-				const plural = unmatchedLinkCount > 0 ? "s" : "";
-				const errorMessage = `Dangling links: ${unmatchedLinkCount} unmatched link${plural}. The following docs have links to URLs that do not exist\n${messages.join(
-					"\n",
-				)}`;
-				if (this.errorOnUnmatchedLinks) {
-					throw new Error(errorMessage);
-				}
-				log.warn(errorMessage);
+			if (unmatchedLinkCount === 0) {
+				return;
 			}
+
+			const plural = unmatchedLinkCount > 0 ? "s" : "";
+			const errorMessage = `Dangling links: ${unmatchedLinkCount} unmatched link${plural}. The following docs have links to URLs that do not exist\n${messages.join(
+				"\n",
+			)}`;
+			if (this.errorOnUnmatchedLinks) {
+				throw new Error(errorMessage);
+			}
+			log.warn(errorMessage);
 		},
 	};
 }

@@ -50,15 +50,17 @@ export function assertValidLocation(
 		throw new Error(`Location size must be a positive integer but got ${size}`);
 	}
 
-	if (length !== undefined) {
-		if (offset >= length) {
-			throw new Error(`Location offset ${offset} must be smaller than length ${length}`);
-		}
+	if (length === undefined) {
+		return;
+	}
 
-		if (offset + size > length) {
-			throw new Error(
-				`Location offset + size ${offset + size} must be smaller than length ${length}`,
-			);
-		}
+	if (offset >= length) {
+		throw new Error(`Location offset ${offset} must be smaller than length ${length}`);
+	}
+
+	if (offset + size > length) {
+		throw new Error(
+			`Location offset + size ${offset + size} must be smaller than length ${length}`,
+		);
 	}
 }

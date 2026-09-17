@@ -165,13 +165,15 @@ export class Config {
 			);
 		}
 
-		if (configData.rules) {
-			const normalizedRules = this.getRulesObject(configData.rules);
-			for (const [ruleId, [, ruleOptions]] of normalizedRules) {
-				const cls = bundledRules[ruleId];
-				const path = `/rules/${ruleId}/1`;
-				Rule.validateOptions(cls, ruleId, path, ruleOptions, filename, configData);
-			}
+		if (!configData.rules) {
+			return;
+		}
+
+		const normalizedRules = this.getRulesObject(configData.rules);
+		for (const [ruleId, [, ruleOptions]] of normalizedRules) {
+			const cls = bundledRules[ruleId];
+			const path = `/rules/${ruleId}/1`;
+			Rule.validateOptions(cls, ruleId, path, ruleOptions, filename, configData);
 		}
 	}
 
