@@ -24,7 +24,7 @@
     "memfs": "4.78.0",
     "nunjucks": "3.2.4",
     "postcss": "8.5.28",
-    "prettier": "3.9.7",
+    "prettier": "3.9.8",
     "sass": "1.104.1",
     "serve-static": "2.2.1",
     "synckit": "0.11.13"
