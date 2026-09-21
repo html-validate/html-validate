@@ -419,7 +419,6 @@ export class Engine<T extends Parser = Parser> {
 			const entries = Object.entries(plugin.rules ?? {});
 			for (const [name, rule] of entries) {
 				if (!rule) {
-					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;
 				}
 				availableRules[name] = rule;
