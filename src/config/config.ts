@@ -558,7 +558,6 @@ export class Config {
 			const entries = Object.entries(plugin.configs ?? {});
 			for (const [name, config] of entries) {
 				if (!config) {
-					/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
 					continue;
 				}
 
