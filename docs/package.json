@@ -25,7 +25,7 @@
     "nunjucks": "3.2.4",
     "postcss": "8.5.28",
     "prettier": "3.9.8",
-    "sass": "1.104.1",
+    "sass": "1.105.0",
     "serve-static": "2.2.1",
     "synckit": "0.11.13"
   },
