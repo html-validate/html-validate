@@ -39,12 +39,5 @@
 				"no-duplicate-heading": false,
 			},
 		},
-		{
-			"filter": ["**/*.md"],
-			"combine": "merge",
-			"config": {
-				"ul-style": false,
-			},
-		},
 	],
 }

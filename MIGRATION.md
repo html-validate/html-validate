@@ -486,7 +486,9 @@ For instance, when using the `NodeJSResolver` it uses `require(..)` to load new 
 - `StaticResolver` - uses a predefined set of items.
 - `NodeJSResolver` - uses `require(..)`
 
-* `ConfigFactory` removed
+<!-- new list -->
+
+- `ConfigFactory` removed
 
 The `ConfigFactory` parameter to `ConfigLoader` (and its child classes `StaticConfigLoader` and `FileSystemConfigLoader`) has been removed.
 No replacement.
