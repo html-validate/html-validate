@@ -37,14 +37,12 @@
 			"config": {
 				"max-one-sentence-per-line": false,
 				"no-duplicate-heading": false,
-				"no-space-in-code": false,
 			},
 		},
 		{
 			"filter": ["**/*.md"],
 			"combine": "merge",
 			"config": {
-				"no-space-in-code": false,
 				"ul-style": false,
 			},
 		},
