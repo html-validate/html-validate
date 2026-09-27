@@ -301,6 +301,6 @@ export default defineFlatConfig([
 
 See also:
 
-- WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/)
-- WAI-ARIA 1.3 (https://www.w3.org/TR/wai-aria-1.3/)
-- Latest editor's draft from W3C (https://w3c.github.io/aria/)
+- WAI-ARIA 1.2 (<https://www.w3.org/TR/wai-aria-1.2/>)
+- WAI-ARIA 1.3 (<https://www.w3.org/TR/wai-aria-1.3/>)
+- Latest editor's draft from W3C (<https://w3c.github.io/aria/>)

@@ -3382,8 +3382,8 @@ as-is.
 
 ### Features
 
-- move repository to https://gitlab.com/html-validate/html-validate
-- move homepage to https://html-validate.org
+- move repository to <https://gitlab.com/html-validate/html-validate>
+- move homepage to <https://html-validate.org>
 - more element attributes added.
 
 ## 0.15.1 (2018-11-26)
