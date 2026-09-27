@@ -126,6 +126,13 @@ Jest:
   script:
     - npx jest -- --ci src/ tests/
 
+markdownlint:
+  stage: test
+  needs:
+    - NPM
+  script:
+    - npm run markdownlint
+
 Vitest:
   stage: test
   dependencies:
