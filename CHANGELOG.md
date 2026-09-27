@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.16.1 (2026-09-27)
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.10 ([b3540ce](https://gitlab.com/html-validate/html-validate/commit/b3540cefe0cdc526f53864fa498e56d6018e12aa))
+- fix serialization error when jest or vitest worker got an autofixable result ([69b9728](https://gitlab.com/html-validate/html-validate/commit/69b97287ae2cb953b427f8c6d7fd1fc60b473e57)), closes [#372](https://gitlab.com/html-validate/html-validate/issues/372)
+
 ## 11.16.0 (2026-09-15)
 
 ### Features
