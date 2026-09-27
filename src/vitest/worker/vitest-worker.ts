@@ -58,12 +58,31 @@ function runAsWorker<R = unknown, T extends AnyAsyncFn<R> = AnyAsyncFn<R>>(fn: T
 	});
 }
 
-function validateString(markup: string, filename: string, config: ConfigData): Promise<Report> {
+function filterReport(report: Report): void {
+	for (const result of report.results) {
+		for (const message of result.messages) {
+			/* the autofix callbacks cannot be serialized by `structuredClone()` and
+			 * thus cannot be passed back to the main process, but the vitest matches
+			 * does not need those and would not really be able to autofix the result
+			 * anyway. */
+			delete message.fix;
+			delete message.suggestions;
+		}
+	}
+}
+
+async function validateString(
+	markup: string,
+	filename: string,
+	config: ConfigData,
+): Promise<Report> {
 	const loader = new FileSystemConfigLoader({
 		extends: ["html-validate:recommended"],
 	});
 	const htmlvalidate = new HtmlValidate(loader);
-	return htmlvalidate.validateString(markup, filename, config);
+	const report = await htmlvalidate.validateString(markup, filename, config);
+	filterReport(report);
+	return report;
 }
 
 export type ValidateStringFn = typeof validateString;

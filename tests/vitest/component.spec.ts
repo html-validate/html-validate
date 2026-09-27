@@ -63,6 +63,12 @@ it("should validate ok", async () => {
 		`);
 });
 
+it("should validate ok with autofixable rule", async () => {
+	expect.assertions(1);
+	const markup = `<div class="duplicate duplicate"></div>`;
+	await expect(markup).not.toHTMLValidate();
+});
+
 it("should not validate", async () => {
 	expect.assertions(6);
 	const markup = /* HTML */ `<div style="color: hotpink;"></div>`;
