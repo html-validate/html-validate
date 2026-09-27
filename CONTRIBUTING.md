@@ -23,7 +23,8 @@ Next try to collect as much information as possible:
 - The configuration used, either use `--print-config` to show the exact
   configuration or the content of `.htmlvalidate.json`.
 - Version of `html-validate` and any plugins used.
-- Details of expected and actual result. What did you expect and what happened
+- Details of expected and actual result.
+  What did you expect and what happened
   instead?
 
 ## Do you have a feature request or enhancement suggestion?
@@ -42,7 +43,8 @@ When adding a new feature request be verbose and specific:
 
 ## Do you want to submit a merge request?
 
-Great! Much appreciated! :heart:
+Great!
+Much appreciated! :heart:
 
 Some guidelines:
 

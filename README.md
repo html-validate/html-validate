@@ -3,7 +3,8 @@
 [![pipeline status](https://gitlab.com/html-validate/html-validate/badges/master/pipeline.svg)](https://gitlab.com/html-validate/html-validate/commits/master)
 [![coverage report](https://gitlab.com/html-validate/html-validate/badges/master/coverage.svg)](https://gitlab.com/html-validate/html-validate/commits/master)
 
-Offline HTML5 validator. Validates either a full document or a smaller
+Offline HTML5 validator.
+Validates either a full document or a smaller
 (incomplete) template, e.g. from an AngularJS or Vue.js component.
 
 Read the full documentation at https://html-validate.org/
@@ -12,8 +13,8 @@ Read the full documentation at https://html-validate.org/
 
 - Can test fragments of HTML, for instance a component template.
 - Does not upload any data to a remote server, all testing is done locally.
-- Strict and non-forgiving parsing. It will not try to correct any incorrect
-  markup or guess what it should do.
+- Strict and non-forgiving parsing.
+  It will not try to correct any incorrect markup or guess what it should do.
 
 ## Usage
 

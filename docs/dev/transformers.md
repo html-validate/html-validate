@@ -44,7 +44,8 @@ export interface TransformContext {
 
 #### `chain`
 
-Chain transformations. Sometimes multiple transformers must be applied.
+Chain transformations.
+Sometimes multiple transformers must be applied.
 For instance, a Markdown file with JSX in a code-block.
 
 ```ts
@@ -171,11 +172,10 @@ source.hooks = {
 
 ### `processAttribute`
 
-Called before an attribute is set on `HtmlElement` and can be used to modify
-both the key and value. If the attribute is processed with scripting
-(e.g. databinding) the value may be replaced with `DynamicValue`.
+Called before an attribute is set on `HtmlElement` and can be used to modify both the key and value.
+If the attribute is processed with scripting (e.g. databinding) the value may be replaced with `DynamicValue`.
 
 ### `processElement`
 
-Called after element is fully created but before children are parsed. Can be
-used to manipulate elements (e.g. add dynamic text from frameworks).
+Called after element is fully created but before children are parsed.
+Can be used to manipulate elements (e.g. add dynamic text from frameworks).

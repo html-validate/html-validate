@@ -120,8 +120,7 @@ export default defineMetadata({
 
 ### `deprecated`
 
-If truthy the element will trigger the [deprecated](/rules/deprecated.html) rule
-when used.
+If truthy the element will trigger the [deprecated](/rules/deprecated.html) rule when used.
 
 Can be set to `true`, a string or an object.
 
@@ -152,34 +151,27 @@ It can be set to:
 
 ### `foreign`
 
-If true the element is [foreign][whatwg-foreign] and will only be parsed for
-valid tokens. The DOM tree will only contain the foreign element itself but none
-of the children. Unless used in an illegal context no rules will trigger on the
-element or its child nodes.
+If true the element is [foreign][whatwg-foreign] and will only be parsed for valid tokens.
+The DOM tree will only contain the foreign element itself but none of the children.
+Unless used in an illegal context no rules will trigger on the element or its child nodes.
 
-Examples of foreign elements includes `<svg>` and `<math>`. While technically
-XML it has its own set of rules (e.g. SVG uses camelcase attribute which
-triggers the [attr-case](/rules/attr-case.html) rule).
+Examples of foreign elements includes `<svg>` and `<math>`.
+While technically XML it has its own set of rules (e.g. SVG uses camelcase attribute which triggers the [attr-case](/rules/attr-case.html) rule).
 
 [whatwg-foreign]: https://html.spec.whatwg.org/multipage/syntax.html#foreign-elements
 
 ### `void`
 
-If the element is void (self-closing) this should be set to true. This is
-normally not the case for custom elements as they are required to have a close
-tag.
+If the element is void (self-closing) this should be set to true.
+This is normally not the case for custom elements as they are required to have a close tag.
 
 ### `transparent`
 
-Some elements are transparent which means that in addition to itself each of the
-children must also be valid content, just as if this element wasn't used.
+Some elements are transparent which means that in addition to itself each of the children must also be valid content, just as if this element wasn't used.
 
-A typical example would be the `<a>` element, when it is used as a child of a
-`<div>` element (flow) it allows content which is also flow, but if it is used
-as a child of a `<span>` element (phrasing) it only allows new phrasing content.
+A typical example would be the `<a>` element, when it is used as a child of a `<div>` element (flow) it allows content which is also flow, but if it is used as a child of a `<span>` element (phrasing) it only allows new phrasing content.
 
-For custom elements it can be useful to set this if the content category isn't
-flow.
+For custom elements it can be useful to set this if the content category isn't flow.
 
 When set to `true` all children are checked.
 When set to array only the listed tagnames or content categories are checked.
@@ -298,7 +290,9 @@ Many native HTML elements has an implicit ARIA role (defined in [ARIA in HTML](h
 `aria.implicitRole` can either be set to:
 
 - a `string` with an unconditional role.
-- a callback returning a string. The `node` parameter is the element the role is requested for. If the callback returns `null` the element has no corresponding role.
+- a callback returning a string.
+  The `node` parameter is the element the role is requested for.
+  If the callback returns `null` the element has no corresponding role.
 
 ```ts
 import { defineMetadata } from "html-validate";
@@ -629,8 +623,8 @@ See above.
 
 ### `permittedContent`
 
-A list of allowed children (for descendants see `permittedDescendants`) which is
-allowed. Can be either a tagname or a content category:
+A list of allowed children (for descendants see `permittedDescendants`) which is allowed.
+Can be either a tagname or a content category:
 
 - `"@meta"`
 - `"@flow"`
@@ -648,13 +642,11 @@ allowed. Can be either a tagname or a content category:
 }
 ```
 
-This is used by
-[element-permitted-content](/rules/element-permitted-content.html) rule.
+This is used by [element-permitted-content](/rules/element-permitted-content.html) rule.
 
 #### Excluding
 
-This is normally a whitelist of elements but can be switched to a blacklist by
-using `exclude`:
+This is normally a whitelist of elements but can be switched to a blacklist by using `exclude`:
 
 ```json
 {
@@ -693,8 +685,7 @@ Since `<em>` will match `@flow` it will be allowed even if excluded by the next 
 
 #### Limit occurrences
 
-If a child is only allowed once it can be suffixed with `?` to limit to 0 or 1
-number of occurrences.
+If a child is only allowed once it can be suffixed with `?` to limit to 0 or 1 number of occurrences.
 
 ```json
 {
@@ -706,13 +697,12 @@ number of occurrences.
 
 This will disallow `<caption>` from being used more than once under `<table>`.
 
-This is used by
-[element-permitted-occurrences](/rules/element-permitted-occurrences.html) rule.
+This is used by [element-permitted-occurrences](/rules/element-permitted-occurrences.html) rule.
 
 ### `permittedDescendants`
 
-Same as `permittedContent` but checks all descendants and not just intermediate
-children. Both can be used together, e.g `<article>` is defined as:
+Same as `permittedContent` but checks all descendants and not just intermediate children.
+Both can be used together, e.g `<article>` is defined as:
 
 ```json
 {
@@ -725,8 +715,7 @@ children. Both can be used together, e.g `<article>` is defined as:
 
 Thus is allows any flow content but disallows `<main>` as a descendant.
 
-This is used by
-[element-permitted-content](/rules/element-permitted-content.html) rule.
+This is used by [element-permitted-content](/rules/element-permitted-content.html) rule.
 
 ### `permittedOrder`
 
@@ -783,9 +772,8 @@ Some elements has additional restrictions on parent elements, for instance an
 `<area>` element must have a `<map>` element as ancestor but not necessarily as
 a direct parent.
 
-`requiredAncestors` is a list of selectors for which at least one must be true
-for the ancestors. The selector may include the element being checked as the
-final part of the selector.
+`requiredAncestors` is a list of selectors for which at least one must be true for the ancestors.
+The selector may include the element being checked as the final part of the selector.
 
 ```json
 {
@@ -795,22 +783,19 @@ final part of the selector.
 }
 ```
 
-This will require `<dt>` elements to either be a direct descendant to `<dl>` or
-with a single `<div>` element between. In both cases a `<dl>` element must be
-present.
+This will require `<dt>` elements to either be a direct descendant to `<dl>` or with a single `<div>` element between.
+In both cases a `<dl>` element must be present.
 
-This is used by
-[element-permitted-content](/rules/element-permitted-content.html) rule.
+This is used by [element-permitted-content](/rules/element-permitted-content.html) rule.
 
 ### `requiredContent`
 
 Requires certain content in an element.
 
-Some elements has requirements of what content must be present. For instance,
-the `<head>` element requires a `<title>` element.
+Some elements has requirements of what content must be present.
+For instance, the `<head>` element requires a `<title>` element.
 
-`requiredContent` is a list of tagnames which must be present as a direct
-descendant of the element.
+`requiredContent` is a list of tagnames which must be present as a direct descendant of the element.
 
 ```json
 {
@@ -820,8 +805,7 @@ descendant of the element.
 }
 ```
 
-This is used by [element-required-content](/rules/element-required-content.html)
-rule.
+This is used by [element-required-content](/rules/element-required-content.html) rule.
 
 ### `textContent`
 

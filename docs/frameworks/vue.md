@@ -13,9 +13,8 @@ nav: userguide
 vue add html-validate
 ```
 
-Adds the required libraries and preconfigures `.vue` transformations. A
-configuration is dropped in the project root directory with recommended
-configuration for Vue.js.
+Adds the required libraries and preconfigures `.vue` transformations.
+A configuration is dropped in the project root directory with recommended configuration for Vue.js.
 
 Adds a new CLI service command:
 
@@ -23,8 +22,8 @@ Adds a new CLI service command:
 vue-cli-service html-validate
 ```
 
-Validates all `.html` and `.vue` files in the `src` folder. Patterns can be
-overwritten by passing them as positional arguments.
+Validates all `.html` and `.vue` files in the `src` folder.
+Patterns can be overwritten by passing them as positional arguments.
 
 ## Using `nuxt`
 

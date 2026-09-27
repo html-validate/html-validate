@@ -98,7 +98,8 @@ The `esmResolver` will import using dynamic `import(..)`.
 
 The browser version of `esmResolver` will not fail gracefully if the imported module does not exist.
 
-It assumes the module will be resolvable. If you use multiple resolvers the `esmResolver` should be run last as the next resolver will never be tried.
+It assumes the module will be resolvable.
+If you use multiple resolvers the `esmResolver` should be run last as the next resolver will never be tried.
 
 :::
 

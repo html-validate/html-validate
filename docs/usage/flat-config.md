@@ -64,14 +64,21 @@ Any typechecking of the file must be done externally by the user.
 Each configuration object defines the configuration used for a set of files.
 Each configuration object may include these properties:
 
-- `name` - A name of this configuration object. The name is used in error messages and for troubleshooting such as when using the CLI flag `--print-config`.
-- `files` - An array of glob patterns this configuration should apply to. If not specified this object applies to all files matched by one or more other configuration objects.
-- `ignores` - An array of glob patterns this configuration should not apply to. If not specified this object applies to all files matched by one or more `files` pattern. If specified without any other properties, then the patterns provided by `ignores` acts as global ignores and is applied to all other configuration objects.
+- `name` - A name of this configuration object.
+  The name is used in error messages and for troubleshooting such as when using the CLI flag `--print-config`.
+- `files` - An array of glob patterns this configuration should apply to.
+  If not specified this object applies to all files matched by one or more other configuration objects.
+- `ignores` - An array of glob patterns this configuration should not apply to.
+  If not specified this object applies to all files matched by one or more `files` pattern.
+  If specified without any other properties, then the patterns provided by `ignores` acts as global ignores and is applied to all other configuration objects.
 - `elements` - An array of {@link usage/elements element metadata}, typically set to the bundled `html5` metadata.
 - `plugins` - An array of plugins to use.
-- `transform` - An object mapping filename patterns to transformers to use. See [transformers](#transformers) below.
-- `rules` - An object containing the configured rules. When `files` or `ignores` are specified, these rule configurations only applies to the matching files.
-- `aria` - The ARIA specification version to use, one of `"1.2"` (default), `"1.3"` or `"latest"`. When `files` or `ignores` are specified, the aria version only applies to the matching files.
+- `transform` - An object mapping filename patterns to transformers to use.
+  See [transformers](#transformers) below.
+- `rules` - An object containing the configured rules.
+  When `files` or `ignores` are specified, these rule configurations only applies to the matching files.
+- `aria` - The ARIA specification version to use, one of `"1.2"` (default), `"1.3"` or `"latest"`.
+  When `files` or `ignores` are specified, the aria version only applies to the matching files.
 
 ## Specifying `files` and `ignores`
 

@@ -6,7 +6,8 @@ summary: Disallow usage of unknown attributes
 
 # Disallow usage of unknown attributes
 
-> **Experimental**: This rule is still in an early stage. If you encounter false positives or missing attributes, please [file a bug report](https://gitlab.com/html-validate/html-validate/-/issues).
+> **Experimental**: This rule is still in an early stage.
+> If you encounter false positives or missing attributes, please [file a bug report](https://gitlab.com/html-validate/html-validate/-/issues).
 
 This rule requires all attributes used on an element to be valid for that element.
 Global HTML attributes (e.g. `id`, `class`, `style`, `hidden`) are included automatically.

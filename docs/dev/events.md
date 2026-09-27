@@ -247,6 +247,7 @@ export interface ParseErrorEvent {
 
 Emitted when a non-fatal parse error is encountered during parsing.
 
-Unlike fatal parse errors (which throw exceptions and halt parsing), these errors are reported as events allowing parsing to continue. This is used for issues like unknown directives where the parser can safely skip the problematic construct and continue processing the rest of the document.
+Unlike fatal parse errors (which throw exceptions and halt parsing), these errors are reported as events allowing parsing to continue.
+This is used for issues like unknown directives where the parser can safely skip the problematic construct and continue processing the rest of the document.
 
 The error will be reported as a `parser-error` rule violation in the final report.

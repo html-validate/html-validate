@@ -134,7 +134,8 @@ The [Example plugin](https://gitlab.com/html-validate/example-plugin) repository
 
 For publicly published plugins:
 
-- Prefer to build and publish hybrid ESM/CommonJS package. If that is not possible prefer ESM over CommonJS.
+- Prefer to build and publish hybrid ESM/CommonJS package.
+  If that is not possible prefer ESM over CommonJS.
 - Bundle all resources or ensure they are imported with `import`.
 - Avoid using NodeJS modules to ensure browser compatibility.
 
@@ -142,21 +143,16 @@ For publicly published plugins:
 
 ### `init()`
 
-The `init` callback is called once during validation engine initialization and
-can be used to initialize resources required later.
+The `init` callback is called once during validation engine initialization and can be used to initialize resources required later.
 
-Note: when validating multiple files the validation engine is recreated for each
-file (as the configuration might change) thus this callback can still be called
-multiple times. If you need initialization that happens exactly once for any
-scenario you can run it in your plugin file global scope.
+Note: when validating multiple files the validation engine is recreated for each file (as the configuration might change) thus this callback can still be called multiple times.
+If you need initialization that happens exactly once for any scenario you can run it in your plugin file global scope.
 
 ### `setup(source: Source, eventhandler: EventHandler)`
 
-Called once per source and can be used to prepare the plugin for validation,
-e.g. rules that requires initialization.
+Called once per source and can be used to prepare the plugin for validation, e.g. rules that requires initialization.
 
-If needed the callback may setup event listeners for [parser
-events](/dev/events.html) (same as rules).
+If needed the callback may setup event listeners for [parser events](/dev/events.html) (same as rules).
 
 The callback may not manipulate the source object.
 
@@ -231,9 +227,8 @@ This makes the rules accessible as usual when configuring in
 
 ## Transformer
 
-Similar to standalone transformers plugins may also expose them. This can be
-useful to combine transformations, rules and a default set of configuration
-suitable for the filetype/framework.
+Similar to standalone transformers plugins may also expose them.
+This can be useful to combine transformations, rules and a default set of configuration suitable for the filetype/framework.
 
 ```ts fake-require
 import { definePlugin } from "html-validate";
@@ -281,10 +276,8 @@ If you expose a transformer named `default` it will be loaded when using the plu
 
 ## Extend metadata
 
-Plugins can extend the available [element metadata](/usage/elements.html) by
-setting `elementSchema` with an additional [json
-schema](http://json-schema.org/). The schema is merged using [JSON Merge
-Patch](https://tools.ietf.org/html/rfc7396).
+Plugins can extend the available [element metadata](/usage/elements.html) by setting `elementSchema` with an additional [json schema](http://json-schema.org/).
+The schema is merged using [JSON Merge Patch](https://tools.ietf.org/html/rfc7396).
 
 ```ts
 import { definePlugin } from "html-validate";
@@ -313,9 +306,8 @@ export default definePlugin({
 });
 ```
 
-Extended metadata can be entered into metadata for any element and access by any
-rule similar to regular metadata. Given the schema above any element may contain
-the new property `myProperty`:
+Extended metadata can be entered into metadata for any element and access by any rule similar to regular metadata.
+Given the schema above any element may contain the new property `myProperty`:
 
 ```ts
 export default {

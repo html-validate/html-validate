@@ -7,9 +7,8 @@ summary: Require title not to have too long text
 
 # Require title not to have too long text
 
-Search engines truncates titles with too long text, typically only displaying
-the first 60-70 characters. Possibly down-ranking the page in the process as it
-raises the suspicion of keyword stuffing.
+Search engines truncates titles with too long text, typically only displaying the first 60-70 characters.
+Possibly down-ranking the page in the process as it raises the suspicion of keyword stuffing.
 
 See [MDN recommendation][mdn] and [WCAG G88: Providing descriptive
 titles][wcag-g88].

@@ -8,9 +8,8 @@ nav: false
 
 ## HTML Techniques
 
-The validator supports rules which can be validated without understanding the
-textual description of the content. E.g. it cannot suggest to use `<abbr>` or
-`<dl>` where appropriate or similar when to use the `lang` or `dir` attributes.
+The validator supports rules which can be validated without understanding the textual description of the content.
+E.g. it cannot suggest to use `<abbr>` or `<dl>` where appropriate or similar when to use the `lang` or `dir` attributes.
 
 <table class="table table-striped support-table">
 	<thead>

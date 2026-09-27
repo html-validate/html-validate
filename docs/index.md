@@ -8,38 +8,29 @@ docType: frontpage
 
 ### Fragments and components
 
-In addition to validating plain `.html` files HTML-validate can also validate
-sources inside `.js` components (or any other source) by extracting HTML
-fragments (transforming).
+In addition to validating plain `.html` files HTML-validate can also validate sources inside `.js` components (or any other source) by extracting HTML fragments (transforming).
 
-Neither `.html` files or component fragments need to be a complete document
-(e.g. doctype is not required).
+Neither `.html` files or component fragments need to be a complete document (e.g. doctype is not required).
 
-Transformed sources can also be postprocessed to handle data-bindings from
-different frameworks, e.g. `:id` will still be understood the same way `id`
-would.
+Transformed sources can also be postprocessed to handle data-bindings from different frameworks, e.g. `:id` will still be understood the same way `id` would.
 
 **Learn more about [transforming sources](usage/transformers.html).**
 
 ### Offline
 
-Many validators will behind the scene upload the markup to online services such
-as W3C. HTML-validate performs all validation locally, no markup leaves your
-machine, providing a faster and more secure response which can easily be
-integrated with tools and IDEs.
+Many validators will behind the scene upload the markup to online services such as W3C.
+HTML-validate performs all validation locally, no markup leaves your machine, providing a faster and more secure response which can easily be integrated with tools and IDEs.
 
 **This means your source code is safe and is never leaked outside of your
 organization.**
 
 ### Strict parsing
 
-When rendering a document it is useful to try to correct malformed markup but a
-validator should be strict. No corrections, assumptions or guessing is done. If
-the markup is invalid the parser will tell you so.
+When rendering a document it is useful to try to correct malformed markup but a validator should be strict.
+No corrections, assumptions or guessing is done.
+If the markup is invalid the parser will tell you so.
 
-By ensuring the markup is strictly valid it reduces the amount of bugs where
-different browsers autocorrect the markup differently (this is especially true
-for mobile browsers).
+By ensuring the markup is strictly valid it reduces the amount of bugs where different browsers autocorrect the markup differently (this is especially true for mobile browsers).
 
 ### HTML5 content model
 

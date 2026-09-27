@@ -190,8 +190,10 @@ This method has no return value.
 **Parameters**
 
 - `location: Location`: The location of text to remove.
-- `options.trimStart: boolean` (optional): Remove whitespace characters before the specified location, up to and including a single newline if present. Defaults to `false`.
-- `options.trimEnd: boolean` (optional): Remove whitespace characters after the specified location, up to and including a single newline if present. Defaults to `false`.
+- `options.trimStart: boolean` (optional): Remove whitespace characters before the specified location, up to and including a single newline if present.
+  Defaults to `false`.
+- `options.trimEnd: boolean` (optional): Remove whitespace characters after the specified location, up to and including a single newline if present.
+  Defaults to `false`.
 
 **Example**
 

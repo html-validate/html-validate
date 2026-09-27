@@ -11,15 +11,14 @@ standards:
 
 # Require title to have textual content
 
-The `<title>` element is used to describe the document and is shown in the
-browser tab and titlebar. The content cannot be whitespace only.
+The `<title>` element is used to describe the document and is shown in the browser tab and titlebar.
+The content cannot be whitespace only.
 
-WCAG ([H25][wcag-h25]) and SEO requires a descriptive title and preferably
-unique within the site. For SEO a maximum of around 60-70 characters is
-recommended.
+WCAG ([H25][wcag-h25]) and SEO requires a descriptive title and preferably unique within the site.
+For SEO a maximum of around 60-70 characters is recommended.
 
-Each title should make sense on its own and properly describe the
-document. Avoid keyword stuffing.
+Each title should make sense on its own and properly describe the document.
+Avoid keyword stuffing.
 
 See also [WCAG G88: Providing descriptive titles][wcag-g88].
 

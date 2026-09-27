@@ -65,7 +65,8 @@ If we run this, `report` will contain an object like this:
 }
 ```
 
-- `valid` will be `true` if the markup is valid or only has warnings. If any errors are present it will be `false`.
+- `valid` will be `true` if the markup is valid or only has warnings.
+  If any errors are present it will be `false`.
 - `errorCount` and `warningCount` gives a count of how many errors and warnings respectively.
 
 If you are validating multiple sources (e.g. multiple files) this will be a summary of all sources.
@@ -157,7 +158,8 @@ console.log(report.results[0]);
 - `line` and `column` is the line and column (1 indexed, e.g. 1 refers to the first line).
 - `offset` is the number of characters into the string (0 indexed); can be used as an index into the original string.
 - `size` is the number of characters this error refers to.
-- `selector` is a unique CSS selector this error refers to. If no selector is possible it is set to `null`.
+- `selector` is a unique CSS selector this error refers to.
+  If no selector is possible it is set to `null`.
 - `ruleUrl` is a URL to a page describing the error in detail.
 - `context` is a contextual data blob for use with `HtmlValidate.getContextualDocumentation(..)` to give a more accurate error description.
 

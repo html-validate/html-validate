@@ -29,7 +29,6 @@
 			"combine": "merge",
 			"config": {
 				"first-line-heading": false,
-				"max-one-sentence-per-line": false,
 			},
 		},
 		{
@@ -46,7 +45,6 @@
 			"filter": ["**/*.md"],
 			"combine": "merge",
 			"config": {
-				"max-one-sentence-per-line": false,
 				"no-bare-urls": false,
 				"no-emphasis-as-heading": false,
 				"no-hard-tabs": false,

@@ -9,11 +9,10 @@ standards:
 
 # Require elements with optional end tags to be explicitly closed
 
-Some elements in HTML has optional end tags. When an optional tag is omitted a
-browser must handle it as if the end tag was present.
+Some elements in HTML has optional end tags.
+When an optional tag is omitted a browser must handle it as if the end tag was present.
 
-Omitted end tags can be ambiguous for humans to read and many editors have
-trouble formatting the markup.
+Omitted end tags can be ambiguous for humans to read and many editors have trouble formatting the markup.
 
 ## Rule details
 

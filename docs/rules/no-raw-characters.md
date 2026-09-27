@@ -9,15 +9,13 @@ standards:
 
 # Disallow the use of unescaped special characters
 
-Some characters hold special meaning in HTML and must be escaped using character
-references (html entities) to be used as plain text:
+Some characters hold special meaning in HTML and must be escaped using character references (html entities) to be used as plain text:
 
 - `<` (U+003C) must be escaped using `&lt;`
 - `>` (U+003E) must be escaped using `&gt;`
 - `&` (U+0026) must be escaped using `&amp;`
 
-Additionally, unquoted attribute values further restricts the allowed
-characters:
+Additionally, unquoted attribute values further restricts the allowed characters:
 
 - `"` (U+0022) must be escaped using `&quot;`
 - `'` (U+0027) must be escaped using `&apos;`
@@ -49,11 +47,10 @@ Examples of **correct** code for this rule:
 
 ## Parser
 
-Note that documents using unescaped `<` might not parse properly due to the
-strict parsing of HTML-validate. This is intentional.
+Note that documents using unescaped `<` might not parse properly due to the strict parsing of HTML-validate.
+This is intentional.
 
-For instance, in the following case `<3` is misinterpreted as a tag `<3>`
-followed by a boolean attribute `Barney`.
+For instance, in the following case `<3` is misinterpreted as a tag `<3>` followed by a boolean attribute `Barney`.
 
 ```html validate name="malformed" rules="no-raw-characters"
 <p>Fred <3 Barney</p>
@@ -71,12 +68,10 @@ This rule takes an optional object:
 
 ### `relaxed`
 
-HTML5 introduces the concept of [ambiguous ampersands] and relaxes the rules
-slightly. Using this options ampersands (`&`) only needs to be escaped if the
-context is ambiguous (applies to both text nodes and attribute values).
+HTML5 introduces the concept of [ambiguous ampersands] and relaxes the rules slightly.
+Using this options ampersands (`&`) only needs to be escaped if the context is ambiguous (applies to both text nodes and attribute values).
 
-This is disabled by default as explicit encoding is easier for readers than
-implicitly having to figure out if encoding is needed or not.
+This is disabled by default as explicit encoding is easier for readers than implicitly having to figure out if encoding is needed or not.
 
 Examples of **correct** code with this option:
 

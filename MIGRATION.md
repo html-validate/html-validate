@@ -8,8 +8,10 @@ NodeJS v22 or later is now required.
 
 Support for third-party tools has changed:
 
-- Jest v28 support has been removed. Jest v29 or later is now required.
-- Vitest v1 and v2 support has been removed. Vitest v3 or later is now required.
+- Jest v28 support has been removed.
+  Jest v29 or later is now required.
+- Vitest v1 and v2 support has been removed.
+  Vitest v3 or later is now required.
 
 ### Configuration changes {#v11-configuration-changes}
 
@@ -64,7 +66,8 @@ The `NodeClosed` enum has been replaced with named constants on the same `Node` 
 
 #### `nodejsResolver` alias removed {#v11-nodejs-resolver}
 
-The deprecated `nodejsResolver` alias has been removed. Use `cjsResolver` instead.
+The deprecated `nodejsResolver` alias has been removed.
+Use `cjsResolver` instead.
 
 ```diff
 -import { nodejsResolver } from "html-validate";
@@ -73,11 +76,13 @@ The deprecated `nodejsResolver` alias has been removed. Use `cjsResolver` instea
 
 #### `DOMTree.visitDepthFirst()` removed {#v11-domtree-visitdepthfirst}
 
-The deprecated `DOMTree.visitDepthFirst()` method has been removed. Use the `walk.depthFirst()` helper instead.
+The deprecated `DOMTree.visitDepthFirst()` method has been removed.
+Use the `walk.depthFirst()` helper instead.
 
 #### `DOMTree.find()` removed {#v11-domtree-find}
 
-The deprecated `DOMTree.find()` method has been removed. Use `DOMTree.querySelector()` instead.
+The deprecated `DOMTree.find()` method has been removed.
+Use `DOMTree.querySelector()` instead.
 
 #### `HtmlValidate.getRuleDocumentation()` removed {#v11-getrule-documentation}
 
@@ -378,7 +383,8 @@ When using TypeScript the return signature must change:
 ### All users {#v8-all-users}
 
 - The `void` rule has been removed after being deprecated a long time, it is replaced with the separate {@link rule:void-content}, {@link rule:void-style} and {@link rule:no-self-closing} rules.
-- Deprecated severity alias `disabled` removed. If you use this in your configuration you need to update it to `off`.
+- Deprecated severity alias `disabled` removed.
+  If you use this in your configuration you need to update it to `off`.
 
 ```diff
  {

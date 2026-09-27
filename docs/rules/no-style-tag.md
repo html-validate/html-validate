@@ -7,10 +7,8 @@ summary: Disallow usage of <style> tag
 
 # Disallow usage of `<style>` tag
 
-The `<style>` tag can be used to write CSS directly inside the document. When
-using multiple documents it is preferable to put all styling in a single asset
-and use the `<link>` tag to reference it to lower the bandwidth required (by
-preventing duplicated style across all page loads).
+The `<style>` tag can be used to write CSS directly inside the document.
+When using multiple documents it is preferable to put all styling in a single asset and use the `<link>` tag to reference it to lower the bandwidth required (by preventing duplicated style across all page loads).
 
 ## Rule details
 

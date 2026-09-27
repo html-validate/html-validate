@@ -19,8 +19,11 @@ Note: the project must be built (`npm run build`) before validating files in the
 
 ## Configuration
 
-- `html-validate.config.mjs` is the base configuration (HTML5 elements and the `html-validate:recommended` preset for `*.html`). Leave it intact.
-- `html-validate.local.mjs` is your own configuration. It is optional, gitignored, and loaded after the base so it can override it. Export a flat config object or an array of them:
+- `html-validate.config.mjs` is the base configuration (HTML5 elements and the `html-validate:recommended` preset for `*.html`).
+  Leave it intact.
+- `html-validate.local.mjs` is your own configuration.
+  It is optional, gitignored, and loaded after the base so it can override it.
+  Export a flat config object or an array of them:
 
   ```ts
   export default [

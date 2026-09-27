@@ -53,7 +53,8 @@ Comments can be entered using both `--` and `:` as delimiter:
 <!-- html-validate-enable element-permitted-content -->
 ```
 
-Enables a rule. If the severity is set to `off` it will be raised to `error`,
+Enables a rule.
+If the severity is set to `off` it will be raised to `error`,
 i.e a previously disabled warning will remain a warning after enabling it again.
 
 ## `disable`

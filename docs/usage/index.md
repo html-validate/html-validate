@@ -123,10 +123,7 @@ See {@link rules} for a list of all built-in rules and options.
 
 ### `elements`
 
-For proper validation some metadata for each element is required, detailing in
-which context it can be used, allowed/disallowed attributes, etc. If `elements`
-is not specified it defaults to `["html5"]` which is a bundled collection for
-all HTML5 elements.
+For proper validation some metadata for each element is required, detailing in which context it can be used, allowed/disallowed attributes, etc. If `elements` is not specified it defaults to `["html5"]` which is a bundled collection for all HTML5 elements.
 
 ```jsonc config
 {
@@ -138,7 +135,8 @@ Each entry will try to load metadata from (search in following order):
 
 1. Named bundled metadata.
 2. NPM package with the same name.
-3. A local file, json or js, resolvable by `import(..)`. Path is relative to the configuration file.
+3. A local file, json or js, resolvable by `import(..)`.
+   Path is relative to the configuration file.
 
 An object can also be passed with inline metadata but it is highly recommended to write it to a separate file.
 
@@ -229,9 +227,8 @@ By default, configuration is search in the file structure until the root directo
 - `/home/.htmlvalidate.{js,cjs,mjs,json}`
 - `/.htmlvalidate.{js,cjs,mjs,json}`
 
-By setting the `root` property to `true` the search is stopped. This can be used
-to prevent searching from outside the project directory or to use a specific
-configuration for a specific directory without loading project configuration.
+By setting the `root` property to `true` the search is stopped.
+This can be used to prevent searching from outside the project directory or to use a specific configuration for a specific directory without loading project configuration.
 
 For instance, if `/home/project/.htmlvalidate.json` contains:
 
@@ -246,9 +243,7 @@ Only the following files would be searched:
 - `/home/user/project/src/.htmlvalidate.{js,cjs,mjs,json}`
 - `/home/user/project/.htmlvalidate.{js,cjs,mjs,json}`
 
-This also affects CLI `--config` and the API, e.g. when using `--config` with a
-configuration using `"root": true` will prevent any additional files to be
-loaded.
+This also affects CLI `--config` and the API, e.g. when using `--config` with a configuration using `"root": true` will prevent any additional files to be loaded.
 
 ## Inline configuration
 
@@ -267,7 +262,8 @@ Configuration can be changed inline using directives (as HTML comments).
 The `.htmlvalidateignore` file works similar to `.gitignore`, i.e. the file should contain a list of file patterns to ignore.
 
 - Lines beginning with `#` are treated as comments
-- Lines beginning with `!` are negated patterns that re-include a pattern that was ignored by an earlier pattern. It is not possible to re-include a file excluded from a parent directory.
+- Lines beginning with `!` are negated patterns that re-include a pattern that was ignored by an earlier pattern.
+  It is not possible to re-include a file excluded from a parent directory.
 - Paths are relative to the `.htmlvalidateignore` file
 
 Similar to `.gitignore` if a line starts with `/` it matches from the current directory only, e.g `/foo.html` matches only `foo.html` in the current directory but not `src/foo.html`.

@@ -9,14 +9,12 @@ standards:
 
 # Require usage of "html" doctype
 
-HTML5 requires the usage of the `<!DOCTYPE html>` doctype to prevent browsers
-from guessing and/or using "quirks mode".
+HTML5 requires the usage of the `<!DOCTYPE html>` doctype to prevent browsers from guessing and/or using "quirks mode".
 
-HTML5 also supports legacy strings for document generators but this rule
-disallows legacy strings as well.
+HTML5 also supports legacy strings for document generators but this rule disallows legacy strings as well.
 
-This rule only validates the doctype itself not the presence of the
-declaration. Use [missing-doctype](missing-doctype.html) to validate presence.
+This rule only validates the doctype itself not the presence of the declaration.
+Use [missing-doctype](missing-doctype.html) to validate presence.
 
 ## Rule details
 

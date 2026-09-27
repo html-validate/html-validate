@@ -46,7 +46,8 @@ This rule takes an optional object:
 
 ### Pattern
 
-A regular expression for matching valid names. If changed you should ensure it
+A regular expression for matching valid names.
+If changed you should ensure it
 still fulfills the original HTML specification, in particular requiring a `-`.
 
 ### Whitelist
