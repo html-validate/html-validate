@@ -31,7 +31,7 @@ export default myTransform;
 
 ### `TransformContext`
 
-```typescript
+```ts
 import { Source } from "html-validate";
 
 /* --- */
@@ -123,7 +123,7 @@ This is useful when the transformer needs to deal with multiple languages and th
 The validator engine works on a `Source` object.
 A transformer take a source object as argument and returns zero or more new sources.
 
-```typescript
+```ts
 import { SourceHooks } from "html-validate";
 
 /* --- */

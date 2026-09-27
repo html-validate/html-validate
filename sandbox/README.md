@@ -7,7 +7,7 @@ Everything here except this file and `html-validate.config.mjs` is local-only: `
 
 The CLI auto-detects `html-validate.config.mjs` by searching upwards from the current directory, so run it from this folder:
 
-```sh
+```bash
 cd sandbox
 cat > test.html <<'EOF'
 <p>asdf <div>bsdf</div> </p>
@@ -22,7 +22,7 @@ Note: the project must be built (`npm run build`) before validating files in the
 - `html-validate.config.mjs` is the base configuration (HTML5 elements and the `html-validate:recommended` preset for `*.html`). Leave it intact.
 - `html-validate.local.mjs` is your own configuration. It is optional, gitignored, and loaded after the base so it can override it. Export a flat config object or an array of them:
 
-  ```js
+  ```ts
   export default [
     {
       rules: {

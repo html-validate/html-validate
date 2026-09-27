@@ -61,7 +61,7 @@ For `json` the JSON schema `https://html-validate.org/schemas/config.json` can o
 
 For javascript configuration files the `defineConfig(..)` helper can optionally be used to assist the IDE with type-checking and documentation:
 
-```js
+```ts
 import { defineConfig } from "html-validate";
 
 export default defineConfig({
@@ -162,7 +162,7 @@ See {@link writing-plugins writing plugins} for details about creating your own 
 
 Since version 7.17.0, if you are using javascript configuration or API you can also import or define plugins inline:
 
-```js
+```ts
 import { defineConfig } from "html-validate";
 
 export default defineConfig({

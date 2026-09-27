@@ -8,13 +8,13 @@ Each scenario generates a document and then repeatedly calls `querySelector()` f
 
 Build the project first:
 
-```sh
+```bash
 npm run build
 ```
 
 Then run the script:
 
-```sh
+```bash
 node scripts/benchmark-queryselector.mts
 ```
 

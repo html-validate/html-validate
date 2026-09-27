@@ -10,7 +10,7 @@ Looking back at our initial example we saw that the element accepted a `<button>
 If we want to allow only phrasing content (`<span>`, `<strong>`, etc) inside we can use the `permittedContent` property to limit.
 `permittedContent` is a list of allowed tags or content categories.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -77,7 +77,7 @@ Most of the time you should prefer `permittedContent` over `permittedDescendants
 However, it can be used in circumstances where this is not possible.
 The most common case is to prevent nesting of the component or limit usage of certain content categories such as sectioning or headings:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -114,7 +114,7 @@ Other properties to limit content also exits, check the [element metadata refere
 
 (simplified for brevity)
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({

@@ -9,7 +9,7 @@ nav: devguide
 
 A plugin must expose a single object implementing the following interface:
 
-```typescript
+```ts
 import {
   ConfigData,
   EventHandler,
@@ -317,7 +317,7 @@ Extended metadata can be entered into metadata for any element and access by any
 rule similar to regular metadata. Given the schema above any element may contain
 the new property `myProperty`:
 
-```js
+```ts
 export default {
   myElement: {
     myProperty: "foo",
@@ -398,7 +398,7 @@ The resulting metadata will now be:
 
 Plugins can use the `compatibilityCheck` helper to verify the library version is compatible.
 
-```typescript fake-require
+```ts fake-require
 import { compatibilityCheck } from "html-validate";
 import pkg from "./package.json";
 

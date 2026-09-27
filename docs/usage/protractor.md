@@ -14,7 +14,7 @@ npm install --save-dev protractor-html-validate
 
 In `protractor.conf.js`:
 
-```js fake-require
+```ts fake-require
 module.exports = {
   plugins: [
     /* load plugin */

@@ -240,7 +240,7 @@ if (!report.valid) {
 
 Running this displays:
 
-```
+```plaintext
 2 error(s), 0 warning(s)
 
 ────────────────────────────────────────────────────────────

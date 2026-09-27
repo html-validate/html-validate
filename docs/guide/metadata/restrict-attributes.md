@@ -13,7 +13,7 @@ To define what values attribute accept the `attributes` property is used, to def
 
 Assuming our `<my-component>` element has a `duck` attribute which can take the value `huey`, `dewey` or `louie` we can use the `attributes` property to define an enumerated list of allowed values:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -70,7 +70,7 @@ Regular expressions and enumeration can be used at the same time.
 
 To force a boolean value similar to `disabled`, `selected` etc instead set the `boolean` property to `true`.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -98,7 +98,7 @@ This is often combined with `enum` but it should have a default value.
 
 For instance, to allow the `quacks` attribute to be set to either `duck` or `dog` but at the same time not require a value to be set at all `omit` can be used.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -126,7 +126,7 @@ export default defineMetadata({
 
 Required attributes (attributes that must be set on an element) can be specified by setting `required` to `true`:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -154,7 +154,7 @@ export default defineMetadata({
 Attribute keys containing `*` are treated as glob patterns matching one or more characters (case-insensitive).
 For example, `"custom-*"` matches `custom-foo`, `custom-bar`, etc.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -173,7 +173,7 @@ See the {@link usage/elements element metadata reference} for details.
 
 Similar to required attribute we can set `deprecated` to true or a message to mark an attribute as deprecated:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({

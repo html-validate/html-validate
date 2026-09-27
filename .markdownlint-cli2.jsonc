@@ -14,6 +14,9 @@
 		"code-block-style": { "style": "fenced" },
 		"heading-style": { "style": "atx" },
 		"line-length": false,
+		"fenced-code-language": {
+			"allowed_languages": ["bash", "diff", "html", "json", "jsonc", "md", "plaintext", "ts"],
+		},
 		"no-alt-text": false, // many examples uses images without alt text on purpose
 		"no-duplicate-heading": { "siblings_only": true },
 		"no-inline-html": false, // many examples use html markup
@@ -44,7 +47,6 @@
 			"filter": ["**/*.md"],
 			"combine": "merge",
 			"config": {
-				"fenced-code-language": false,
 				"first-line-heading": false,
 				"max-one-sentence-per-line": false,
 				"no-bare-urls": false,

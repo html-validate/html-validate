@@ -26,15 +26,13 @@ html-validate [OPTIONS] [FILENAME..] [DIR..]
 
 Create `.htmlvalidate.json`:
 
-```js
+```json
 {
-  "extends": [
-    "html-validate:recommended"
-  ],
+  "extends": ["html-validate:recommended"],
 
   "rules": {
     "close-order": "error",
-    "void": ["warn", {"style": "omit"}]
+    "void": ["warn", { "style": "omit" }]
   }
 }
 ```
@@ -50,7 +48,7 @@ Create `.htmlvalidate.json`:
 </p>
 ```
 
-```text
+```plaintext
   1:1  error  Element <p> is implicitly closed by adjacent <div>  no-implicit-close
   2:2  error  Button is missing type attribute                    button-type
   6:4  error  Unexpected close-tag, expected opening tag          close-order

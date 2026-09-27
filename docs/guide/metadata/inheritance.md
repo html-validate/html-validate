@@ -13,7 +13,7 @@ A better method is to use inheritance.
 Lets assume our `<my-component>` is actually a wrapper for an input field with a label and the content is what is used as `<label>`.
 Thus by inheriting from `<label>` we automatically get the same rules.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({

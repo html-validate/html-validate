@@ -5,7 +5,7 @@ its content model, if it is deprecated, void element, etc.
 
 Each element will have the following information:
 
-```javascript
+```ts
 {
 	// Content model
 	metadata: boolean,

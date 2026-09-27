@@ -34,7 +34,7 @@ yarn add --dev @nuxtjs/html-validator
 
 Then add the [Nuxt](https://nuxtjs.org/) module to your `nuxt.config.js`:
 
-```js
+```ts
 export default {
   buildModules: ["@nuxtjs/html-validator"],
   htmlValidator: {

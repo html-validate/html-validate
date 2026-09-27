@@ -12,7 +12,7 @@ To configure metadata sources use `elements: [...]`, see [configuring](/usage).
 
 A typical custom element may look like:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -104,7 +104,7 @@ If the element has conditions for which content categories it belongs to one can
 
 For instance, the `<video>` element is interactive only if the `controls` attribute is present:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -125,7 +125,7 @@ when used.
 
 Can be set to `true`, a string or an object.
 
-```typescript
+```ts
 export interface DeprecatedElement {
   message?: string;
   documentation?: string;
@@ -300,7 +300,7 @@ Many native HTML elements has an implicit ARIA role (defined in [ARIA in HTML](h
 - a `string` with an unconditional role.
 - a callback returning a string. The `node` parameter is the element the role is requested for. If the callback returns `null` the element has no corresponding role.
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
