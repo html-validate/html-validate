@@ -44,7 +44,6 @@
 			"filter": ["**/*.md"],
 			"combine": "merge",
 			"config": {
-				"no-hard-tabs": false,
 				"no-space-in-code": false,
 				"ul-style": false,
 			},

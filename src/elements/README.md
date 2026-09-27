@@ -6,18 +6,18 @@ Each element will have the following information:
 
 ```ts
 {
-	// Content model
-	metadata: boolean,
-	flow: boolean,
-	sectioning: boolean,
-	heading: boolean,
-	phrasing: boolean,
-	embedded: boolean,
-	interactive: boolean,
+    // Content model
+    metadata: boolean,
+    flow: boolean,
+    sectioning: boolean,
+    heading: boolean,
+    phrasing: boolean,
+    embedded: boolean,
+    interactive: boolean,
 
-	// Markup related
-	deprecated: boolean;
-	void: boolean;
+    // Markup related
+    deprecated: boolean;
+    void: boolean;
 }
 ```
 

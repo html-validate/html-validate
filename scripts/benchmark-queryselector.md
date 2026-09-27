@@ -42,7 +42,7 @@ defineScenario({
     // Called in a tight loop for the duration of the benchmark.
     // rng() returns a deterministic pseudo-random number in range [0, 1).
     run(context, rng) {
-		const { document } = context;
+        const { document } = context;
         const el = document.querySelector("#target");
         return { pass: el?.id === "target" };
     },

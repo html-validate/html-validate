@@ -73,7 +73,7 @@ When using Javascript you may also define the pattern directly as a regular expr
 
 ```ts nocompile
 {
-	"pattern": [/^[a-z-]+$/],
+    "pattern": [/^[a-z-]+$/],
 }
 ```
 
