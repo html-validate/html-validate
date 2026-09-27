@@ -2,6 +2,8 @@
 docType: frontpage
 ---
 
+<!-- markdownlint-disable first-line-heading -->
+
 @block Features
 
 ### Fragments and components
