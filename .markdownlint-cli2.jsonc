@@ -36,7 +36,6 @@
 			"filter": ["CHANGELOG.md"],
 			"combine": "merge",
 			"config": {
-				"heading-increment": false,
 				"max-one-sentence-per-line": false,
 				"no-bare-urls": false,
 				"no-duplicate-heading": false,
