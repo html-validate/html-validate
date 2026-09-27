@@ -1749,7 +1749,7 @@ plugins to load, etc.
 - add missing metadata for SVG `<title>` and `<desc>` elements ([78ec55f](https://gitlab.com/html-validate/html-validate/commit/78ec55f454b863715383df4042a08dbd5aafce66)), closes [#157](https://gitlab.com/html-validate/html-validate/issues/157)
 - escape additional characters in CSS selectors ([774ba95](https://gitlab.com/html-validate/html-validate/commit/774ba95cafd8e2df471fd15e78ddb7487bf497f1)), closes [#158](https://gitlab.com/html-validate/html-validate/issues/158)
 
-### 7.1.1 (2022-05-22)
+## 7.1.1 (2022-05-22)
 
 ### Bug Fixes
 
@@ -1783,7 +1783,7 @@ See {@link migration migration guide} for details.
 
 - require node 14 ([e294b5e](https://gitlab.com/html-validate/html-validate/commit/e294b5e7e64ecf00bfe007635dd06cd4a100fff7))
 
-### 6.11.1 (2022-05-06)
+## 6.11.1 (2022-05-06)
 
 ### Bug Fixes
 
@@ -1816,7 +1816,7 @@ See {@link migration migration guide} for details.
 
 - improve performance by caching json schema ([6be5c3a](https://gitlab.com/html-validate/html-validate/commit/6be5c3a40e68f6a92fad9927973b2dffdb28ec20))
 
-### 6.9.1 (2022-04-29)
+## 6.9.1 (2022-04-29)
 
 ### Bug Fixes
 
@@ -1848,7 +1848,7 @@ See {@link migration migration guide} for details.
 
 - **deps:** update dependency glob to v8 ([ccb6dd4](https://gitlab.com/html-validate/html-validate/commit/ccb6dd4af97489fffe19c64ffa8c1f900687e649))
 
-### 6.7.1 (2022-04-08)
+## 6.7.1 (2022-04-08)
 
 ### Bug Fixes
 
@@ -1868,7 +1868,7 @@ See {@link migration migration guide} for details.
 - remove unnecessary fields from published package.json ([06528c7](https://gitlab.com/html-validate/html-validate/commit/06528c743cfada2f8fcd0eb593485e9302f88690))
 - **rules:** better error message for `attr-delimiter` ([acf4249](https://gitlab.com/html-validate/html-validate/commit/acf424908d0e556e75a2cab49b1dee18549a81e1))
 
-### 6.6.1 (2022-03-25)
+## 6.6.1 (2022-03-25)
 
 ### Bug Fixes
 
@@ -1908,14 +1908,14 @@ See {@link migration migration guide} for details.
 
 - **rules:** add selector to `no-conditional-comment` ([6391ebf](https://gitlab.com/html-validate/html-validate/commit/6391ebf9b4692b70da81760e0231d45c7da6c7e1)), closes [#142](https://gitlab.com/html-validate/html-validate/issues/142)
 
-### 6.3.2 (2022-02-16)
+## 6.3.2 (2022-02-16)
 
 ### Bug Fixes
 
 - handle reading stdin (`/dev/stdin`) on Windows ([dcf65d1](https://gitlab.com/html-validate/html-validate/commit/dcf65d167ebd44fcfdfee59fe0b9d2461eea1b4c)), closes [#141](https://gitlab.com/html-validate/html-validate/issues/141)
 - replace `\\` in urls generated on Windows ([950b3cf](https://gitlab.com/html-validate/html-validate/commit/950b3cfc53a01906ba9bd437072e17eb44da3af5)), closes [#140](https://gitlab.com/html-validate/html-validate/issues/140)
 
-### 6.3.1 (2022-02-03)
+## 6.3.1 (2022-02-03)
 
 ### Dependency upgrades
 
@@ -1947,7 +1947,7 @@ See {@link migration migration guide} for details.
 
 - **rules:** improve error message for `attribute-allowed-values` ([b3d4d11](https://gitlab.com/html-validate/html-validate/commit/b3d4d119614c6804a782242fd6dd5717306cd0a3))
 
-### 6.1.6 (2022-01-07)
+## 6.1.6 (2022-01-07)
 
 ### Bug Fixes
 
@@ -1957,33 +1957,33 @@ See {@link migration migration guide} for details.
 
 - **deps:** drop json-merge-patch dependency ([5306b2d](https://gitlab.com/html-validate/html-validate/commit/5306b2d6314669e353f0500f3a5b6e6f395ca3cf))
 
-### 6.1.5 (2021-12-28)
+## 6.1.5 (2021-12-28)
 
 ### Bug Fixes
 
 - **config:** dont process extends multiple times ([f014311](https://gitlab.com/html-validate/html-validate/commit/f01431147a74272142dd6ddcfe5d53bf68c80aa9))
 - **config:** elements from extended configs should be loaded first not last ([d19519e](https://gitlab.com/html-validate/html-validate/commit/d19519e5ee97e7b5c375bca80f01dcbaa5eb0373))
 
-### 6.1.4 (2021-12-04)
+## 6.1.4 (2021-12-04)
 
 ### Bug Fixes
 
 - handle multiline `srcset` attribute ([0bb92a7](https://gitlab.com/html-validate/html-validate/commit/0bb92a7c649d44281f530ea105aba55c9f3191ff)), closes [#138](https://gitlab.com/html-validate/html-validate/issues/138)
 
-### 6.1.3 (2021-11-19)
+## 6.1.3 (2021-11-19)
 
 ### Bug Fixes
 
 - parse `<style>` content as text instead of markup ([0ab61e6](https://gitlab.com/html-validate/html-validate/commit/0ab61e6f9c875f76d0b7725f615808eedf1531fd)), closes [#137](https://gitlab.com/html-validate/html-validate/issues/137)
 - **rules:** handle malformed `style` attribute in `no-inline-style` rule ([7e12d50](https://gitlab.com/html-validate/html-validate/commit/7e12d507785eaf4fbbacf9b6ad53c31d5c6aece0))
 
-### 6.1.2 (2021-11-13)
+## 6.1.2 (2021-11-13)
 
 ### Bug Fixes
 
 - fix .d.ts paths in package ([f24c2f4](https://gitlab.com/html-validate/html-validate/commit/f24c2f4752680edc6624d173599032cc5ed9830b))
 
-### 6.1.1 (2021-11-10)
+## 6.1.1 (2021-11-10)
 
 ### Dependency upgrades
 
@@ -1999,13 +1999,13 @@ See {@link migration migration guide} for details.
 
 - handle multiline templating strings ([cddf7d5](https://gitlab.com/html-validate/html-validate/commit/cddf7d5e66ad3ce3f49b32b5dea873b04f9b6f7d)), closes [#134](https://gitlab.com/html-validate/html-validate/issues/134)
 
-### 6.0.2 (2021-09-27)
+## 6.0.2 (2021-09-27)
 
 ### Bug Fixes
 
 - **jest:** jest matcher should use FileSystemConfigLoader ([4d04bdc](https://gitlab.com/html-validate/html-validate/commit/4d04bdcdec2380cf6bc54bba8efd6f92d3c8d7bc))
 
-### 6.0.1 (2021-09-27)
+## 6.0.1 (2021-09-27)
 
 ### Bug Fixes
 
@@ -2047,7 +2047,7 @@ but users should try to migrate as soon as possible.
 
 - **deps:** update dependency espree to v9 ([3e0ea96](https://gitlab.com/html-validate/html-validate/commit/3e0ea96a4f8fd76db7a1113ff6ca8ea29edd62d9))
 
-### 4.14.1 (2021-09-18)
+## 4.14.1 (2021-09-18)
 
 ### Bug Fixes
 
@@ -2066,7 +2066,7 @@ but users should try to migrate as soon as possible.
 - **jest:** synchronous matchers as long as the passed value is synchronous ([0ede9f7](https://gitlab.com/html-validate/html-validate/commit/0ede9f74f073b3d01fafff455cc3674fa1898b40))
 - **rules:** `no-missing-references` handles attributes with reference lists ([2afcd86](https://gitlab.com/html-validate/html-validate/commit/2afcd86c1ead8eec42819310bae9990e45122b0e)), closes [#133](https://gitlab.com/html-validate/html-validate/issues/133)
 
-### 5.4.1 (2021-08-29)
+## 5.4.1 (2021-08-29)
 
 ### Bug Fixes
 
@@ -2092,7 +2092,7 @@ but users should try to migrate as soon as possible.
 
 - **jest:** handle when `jest-diff` default import is object ([7413db9](https://gitlab.com/html-validate/html-validate/commit/7413db9d2b02dde00ba1b32fb58ec6e47e7cc951))
 
-### 5.2.1 (2021-08-09)
+## 5.2.1 (2021-08-09)
 
 ### Bug Fixes
 
@@ -2111,7 +2111,7 @@ but users should try to migrate as soon as possible.
 - **meta:** regex matching attribute allowed values matches entire string ([ffa0d12](https://gitlab.com/html-validate/html-validate/commit/ffa0d122d9941128de4ebd433a1508854ac6b9b8))
 - **rules:** handle id with whitespace in `no-redundant-for` ([a79f266](https://gitlab.com/html-validate/html-validate/commit/a79f2669c88a135bab987ea5c64ddd6f47fd3736)), closes [#128](https://gitlab.com/html-validate/html-validate/issues/128)
 
-### 5.1.1 (2021-07-11)
+## 5.1.1 (2021-07-11)
 
 ### Bug Fixes
 
@@ -2133,13 +2133,13 @@ but users should try to migrate as soon as possible.
 - make prefer-button tag and attribute checks case-insensitive ([95e7748](https://gitlab.com/html-validate/html-validate/commit/95e774863a3df2197fb2cf7879e0e8cd83c3c4bd))
 - only check value of type attribute in prefer-button rule ([2e46586](https://gitlab.com/html-validate/html-validate/commit/2e46586b5d69be6847128e58271d382cb7f46e90))
 
-### 5.0.2 (2021-06-28)
+## 5.0.2 (2021-06-28)
 
 ### Bug Fixes
 
 - handle leading and trailing whitespace in `style` attributes ([a71b947](https://gitlab.com/html-validate/html-validate/commit/a71b94747eda26e8e50ff28b1a0269646ee09818)), closes [#122](https://gitlab.com/html-validate/html-validate/issues/122)
 
-### 5.0.1 (2021-06-27)
+## 5.0.1 (2021-06-27)
 
 ### Bug Fixes
 
@@ -2203,7 +2203,7 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 - new rule `attr-pattern` ([b813aeb](https://gitlab.com/html-validate/html-validate/commit/b813aeb7348d20b1cba2ea3df7c5bd7ac952e324)), closes [#118](https://gitlab.com/html-validate/html-validate/issues/118)
 - new rule `input-attributes` ([23ee19e](https://gitlab.com/html-validate/html-validate/commit/23ee19eab292a97427ddc15db1bb77346489c002)), closes [#119](https://gitlab.com/html-validate/html-validate/issues/119)
 
-### 4.13.1 (2021-05-28)
+## 4.13.1 (2021-05-28)
 
 ### Bug Fixes
 
@@ -2240,7 +2240,7 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 
 - **dom:** throw if `tagName` is invalid ([42d7100](https://gitlab.com/html-validate/html-validate/commit/42d710020eb3c0e4d2e528859ed23a56095feb87))
 
-### 4.10.1 (2021-04-25)
+## 4.10.1 (2021-04-25)
 
 ### Bug Fixes
 
@@ -2280,13 +2280,13 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 
 - support ignoring files with `.htmlvalidateignore` ([77ec9a6](https://gitlab.com/html-validate/html-validate/commit/77ec9a623c5fabcbd743394d0bb58887d44d73c1)), closes [#109](https://gitlab.com/html-validate/html-validate/issues/109)
 
-### 4.7.1 (2021-03-19)
+## 4.7.1 (2021-03-19)
 
 ### Bug Fixes
 
 - add `$schema` to `html5.json` ([9a89d30](https://gitlab.com/html-validate/html-validate/commit/9a89d30c7172d787cd365205345da9a4fc0ad2dd))
 
-### 4.1.1 (2021-03-19)
+## 4.1.1 (2021-03-19)
 
 ### Bug Fixes
 
@@ -2303,7 +2303,7 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 
 - **dom:** `input[type="hidden"]` no longer labelable ([244d37d](https://gitlab.com/html-validate/html-validate/commit/244d37d3195afb50f75eed0b835f66c325d941e3))
 
-### 4.6.1 (2021-03-02)
+## 4.6.1 (2021-03-02)
 
 ### Bug Fixes
 
@@ -2395,13 +2395,13 @@ If your usage includes checking presence of rules use the `ruleExists` helper:
 
 - replace `inquirer` with `prompts` ([82d17eb](https://gitlab.com/html-validate/html-validate/commit/82d17ebce26d0e215fa689095fb2822ae541f2d8))
 
-### 4.0.2 (2020-11-19)
+## 4.0.2 (2020-11-19)
 
 ### Bug Fixes
 
 - **deps:** replace dependency on `eslint` with `@html-validate/stylish` ([2d1bc81](https://gitlab.com/html-validate/html-validate/commit/2d1bc819bd241294db55fc28dd7305ee46d9ad3f))
 
-### 4.0.1 (2020-11-09)
+## 4.0.1 (2020-11-09)
 
 ### Bug Fixes
 

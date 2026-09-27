@@ -36,7 +36,6 @@
 			"combine": "merge",
 			"config": {
 				"max-one-sentence-per-line": false,
-				"no-duplicate-heading": false,
 			},
 		},
 	],
