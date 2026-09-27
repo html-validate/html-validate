@@ -15,22 +15,22 @@ For normal usage the `fix` or `suggestions` properties of the `Message` objects 
 
 It is undefined behavior to reuse the same `fix` parameter, or to reuse it for other purposes.
 
-**Syntax**
+## Syntax
 
 ```ts nocompile nolint
 createAutofix(text, fix);
 ```
 
-**Return value**
+## Return value
 
 An `Autofix` instance.
 
-**Parameters**
+## Parameters
 
 - `text: string`: The source text the callback operates on.
 - `fix: (fixer: ErrorFixer) => void | Promise<void>`: The autofix callback.
 
-**Example**
+## Example
 
 ```ts
 import { createAutofix } from "html-validate";

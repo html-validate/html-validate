@@ -10,21 +10,21 @@ nav: devguide
 
 Tests if a value is an `Autofix` instance.
 
-**Syntax**
+## Syntax
 
 ```ts nocompile nolint
 isAutofix(value);
 ```
 
-**Return value**
+## Return value
 
 `true` if the value is an `Autofix` instance.
 
-**Parameters**
+## Parameters
 
 - `value: unknown`: The value to test.
 
-**Example**
+## Example
 
 ```ts
 import { createAutofix, isAutofix } from "html-validate";
