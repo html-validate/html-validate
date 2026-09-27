@@ -13,7 +13,9 @@ It automatically fetches the active source markup from the browser and validates
 
 ## Installation
 
-    npm install --save-dev html-validate cypress-html-validate
+```bash
+npm install --save-dev html-validate cypress-html-validate
+```
 
 Make sure you install both `html-validate` and the plugin `cypress-html-validate`.
 With NPM 7 or later it will be satisfied by the peer dependency but for a more consistent and deterministic experience it is suggested to include both as dependencies for your project.

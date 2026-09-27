@@ -11,7 +11,7 @@
 		"extends": "markdownlint/style/prettier",
 
 		/* customizations */
-		//"code-block-style": false, // should be fenced but interferes with definition lists
+		"code-block-style": { "style": "fenced" },
 		"heading-style": { "style": "atx" },
 		"line-length": false,
 		"no-alt-text": false, // many examples uses images without alt text on purpose
@@ -44,7 +44,6 @@
 			"filter": ["**/*.md"],
 			"combine": "merge",
 			"config": {
-				"code-block-style": false,
 				"fenced-code-language": false,
 				"first-line-heading": false,
 				"max-one-sentence-per-line": false,

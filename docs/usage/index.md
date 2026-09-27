@@ -13,7 +13,9 @@ HTML-validate is an offline HTML5 validator.
 
 Install using `npm`:
 
-    npm install --save-dev html-validate
+```bash
+npm install --save-dev html-validate
+```
 
 Create a configuration file:
 
@@ -25,7 +27,9 @@ Create a configuration file:
 
 Run with:
 
-    npm exec html-validate yourfile.html
+```bash
+npm exec html-validate yourfile.html
+```
 
 ::: tip
 
@@ -250,7 +254,9 @@ loaded.
 
 Configuration can be changed inline using directives (as HTML comments).
 
-    <!-- html-validate-disable-next RULE -- COMMENT -->
+```html
+<!-- html-validate-disable-next RULE -- COMMENT -->
+```
 
 {@link inline-config Learn more about inline configuration}.
 

@@ -144,7 +144,9 @@ Internally there are many dynamic imports and `fs` access.
 
 You will see warnings such as:
 
-    WARNING in ./node_modules/html-validate/dist/config/config.js 81:25-50
-    Critical dependency: the request of a dependency is an expression
+```plaintext
+WARNING in ./node_modules/html-validate/dist/config/config.js 81:25-50
+Critical dependency: the request of a dependency is an expression
+```
 
 In many cases there is no way to avoid the warning per se but the workaround above are implemented the code paths triggering these issues are not hit.

@@ -6,7 +6,9 @@ nav: userguide
 
 # Grunt task
 
-    npm install --save-dev grunt-html-validate
+```bash
+npm install --save-dev grunt-html-validate
+```
 
 ## Usage
 
@@ -24,4 +26,6 @@ grunt.initConfig({
 
 Run with
 
-    grunt htmlvalidate
+```bash
+grunt htmlvalidate
+```

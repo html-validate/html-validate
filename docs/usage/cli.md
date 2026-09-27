@@ -8,15 +8,21 @@ nav: userguide
 
 The html-validate CLI can be installed with npm:
 
-    npm i -g html-validate
+```bash
+npm install --global html-validate
+```
 
 To run html-validate use:
 
-    html-validate [OPTIONS] [FILE|DIR|GLOB...]
+```bash
+html-validate [OPTIONS] [FILE|DIR|GLOB...]
+```
 
 Since globs will usually be expanded by your shell remember to quote the pattern if you require node `glob` syntax:
 
-    html-validate "src/**/*.html"
+```bash
+html-validate "src/**/*.html"
+```
 
 ## Options
 
@@ -29,13 +35,17 @@ This option is ignored when specifying files or globs.
 Multiple extensions can be set with a comma-separated list: `--ext html,vue`.
 Leading dots are ignored.
 
-    html-validate --ext html,vue src
+```bash
+html-validate --ext html,vue src
+```
 
 ### `--fix`
 
 Automatically fix problems when possible and write the result back to the file.
 
-    html-validate --fix file.html
+```bash
+html-validate --fix file.html
+```
 
 Not all rules support automatic fixes, rules without an automatic fix are still reported as usual.
 Suggestions are never applied automatically.
@@ -59,14 +69,18 @@ Output can be redirected to a file descriptor using `name=/dev/fd/N`: `--formatt
 
 Custom formatters can be used by specifying a package name: `--formatter my-custom-formatter`.
 
-    html-validate --formatter stylish file.html
+```bash
+html-validate --formatter stylish file.html
+```
 
 ### `--max-warnings`
 
 Exits with non-zero status if more when more than given amount of warnings occurs.
 Use `0` to disallow warnings.
 
-    html-validate --max-warnings 0 file.html
+```bash
+html-validate --max-warnings 0 file.html
+```
 
 ### `--preset`
 
@@ -74,17 +88,23 @@ Use a {@link presets configuration preset}.
 Preset names are given without the `html-validate:` prefix, e.g. `recommended` instead of `html-validate:recommended`.
 Multiple presets can be set as a comma-separated list.
 
-    html-validate --preset standard,a11y file.html
+```bash
+html-validate --preset standard,a11y file.html
+```
 
 ### `--rule`
 
 Enable/disable a rule.
 
-    html-validate --rule no-dup-id file.html
+```bash
+html-validate --rule no-dup-id file.html
+```
 
 By default rules are enabled as errors but an optional severity can be specified:
 
-    html-validate --rule no-dup-id:warn file.html
+```bash
+html-validate --rule no-dup-id:warn file.html
+```
 
 The severity can take the following values:
 
@@ -94,12 +114,16 @@ The severity can take the following values:
 
 The `--rule` argument can be given multiple times:
 
-    html-validate --rule no-dup-id:warn --rule heading-level:error file.html
+```bash
+html-validate --rule no-dup-id:warn --rule heading-level:error file.html
+```
 
 Note: by default rule configuration uses {@link presets `html-validate:recommended`} as preset but if `--rule` is specified at least once only the rules specified are enabled.
 If you still want to use the preset explicitly use `--preset recommended` in addition to `--rule`.
 
-    html-validate --preset recommended --rule no-dup-id:warn
+```bash
+html-validate --preset recommended --rule no-dup-id:warn
+```
 
 ### `--stdin`
 
@@ -126,25 +150,33 @@ The options are intended for debugging purposes.
 
 Instead of validating file print the event stream generated.
 
-    html-validate --dump-events file.html
+```bash
+html-validate --dump-events file.html
+```
 
 ### `--dump-tokens`
 
 Instead of validating file print the token stream generated.
 
-    html-validate --dump-token file.html
+```bash
+html-validate --dump-token file.html
+```
 
 ### `--dump-tree`
 
 Instead of validating file print the DOM tree generated.
 
-    html-validate --dump-tree file.html
+```bash
+html-validate --dump-tree file.html
+```
 
 ### `--performance`
 
 Output a performance summary after validation showing time spent in different phases:
 
-    html-validate --performance file.html
+```bash
+html-validate --performance file.html
+```
 
 ## Miscellaneous options
 
@@ -152,7 +184,9 @@ Output a performance summary after validation showing time spent in different ph
 
 Specify a different configuration file.
 
-    html-validate --config myconfig.json file.html
+```bash
+html-validate --config myconfig.json file.html
+```
 
 Note that specifying a separate configuration file changes the default
 configuration but `.htmlvalidate.json` files will still be searched from the
@@ -168,7 +202,9 @@ filesystem. Set the `root` property to `true` to prevent this behavior:
 
 Initialize project with a new configuration.
 
-    html-validate --init
+```bash
+html-validate --init
+```
 
 The new configuration will be written to the current directory (in
 `.htmlvalidate.json`).
@@ -178,7 +214,9 @@ The new configuration will be written to the current directory (in
 Instead of validating a file, print the effective configuration that would be used.
 Requires a single filename.
 
-    html-validate --print-config file.html
+```bash
+html-validate --print-config file.html
+```
 
 ### `-h`, `--help`
 
