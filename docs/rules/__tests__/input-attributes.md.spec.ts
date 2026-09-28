@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input type="text" step="5">`;
-markup["correct"] = `<input type="number" step="5">`;
+markup["incorrect"] = `<input type="text" step="5" />`;
+markup["correct"] = `<input type="number" step="5" />`;
 
 describe("docs/rules/input-attributes.md", () => {
 	it("inline validation: incorrect", async () => {

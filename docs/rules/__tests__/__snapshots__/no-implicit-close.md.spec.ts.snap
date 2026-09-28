@@ -21,7 +21,7 @@ exports[`docs/rules/no-implicit-close.md inline validation: adjacent 1`] = `
       },
     ],
     "source": "<p>
-    <div>lorem ipsum</div>
+  <div>lorem ipsum</div>
 </p>",
     "warningCount": 0,
   },
@@ -41,10 +41,10 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 2,
         "message": "Element <li> is implicitly closed by sibling",
-        "offset": 10,
+        "offset": 8,
         "ruleId": "no-implicit-close",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
         "selector": "ul > li:nth-child(1)",
@@ -52,10 +52,10 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
         "size": 2,
       },
       {
-        "column": 6,
+        "column": 4,
         "line": 3,
         "message": "Element <li> is implicitly closed by sibling",
-        "offset": 22,
+        "offset": 18,
         "ruleId": "no-implicit-close",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
         "selector": "ul > li:nth-child(2)",
@@ -63,10 +63,10 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
         "size": 2,
       },
       {
-        "column": 6,
+        "column": 4,
         "line": 4,
         "message": "Element <li> is implicitly closed by parent </ul>",
-        "offset": 34,
+        "offset": 28,
         "ruleId": "no-implicit-close",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-close.html",
         "selector": "ul > li:nth-child(3)",
@@ -75,9 +75,9 @@ exports[`docs/rules/no-implicit-close.md inline validation: parent 1`] = `
       },
     ],
     "source": "<ul>
-    <li>foo
-    <li>bar
-    <li>baz
+  <li>foo
+  <li>bar
+  <li>baz
 </ul>",
     "warningCount": 0,
   },

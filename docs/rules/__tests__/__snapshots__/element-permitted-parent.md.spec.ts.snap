@@ -11,7 +11,7 @@ exports[`docs/rules/element-permitted-parent.md inline validation: incorrect 1`]
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "context": {
           "child": "<title>",
           "parent": "<div>",
@@ -21,7 +21,7 @@ exports[`docs/rules/element-permitted-parent.md inline validation: incorrect 1`]
         },
         "line": 2,
         "message": "<title> element requires a <head> element as parent",
-        "offset": 11,
+        "offset": 9,
         "ruleId": "element-permitted-parent",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > title",
@@ -30,7 +30,7 @@ exports[`docs/rules/element-permitted-parent.md inline validation: incorrect 1`]
       },
     ],
     "source": "<div>
-    <title>Lorem ipsum</title>
+  <title>Lorem ipsum</title>
 </div>",
     "warningCount": 0,
   },

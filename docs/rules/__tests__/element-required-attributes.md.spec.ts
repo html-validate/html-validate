@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<img>`;
-markup["correct"] = `<img src="cat.gif">`;
+markup["incorrect"] = `<img />`;
+markup["correct"] = `<img src="cat.gif" />`;
 
 describe("docs/rules/element-required-attributes.md", () => {
 	it("inline validation: incorrect", async () => {

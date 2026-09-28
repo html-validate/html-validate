@@ -16,15 +16,16 @@ This rule matches case for letters only, for restricting allowed characters use 
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attr-case">
-    <p ID="foo"></p>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="attr-case"
+<p ID="foo"></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attr-case">
-    <p id="foo"></p>
-</validate>
+```html validate name="correct" rules="attr-case"
+<p id="foo"></p>
+```
 
 ## Options
 
@@ -49,11 +50,11 @@ With multiple styles the attribute must match at least one pattern to be conside
 
 For instance, when configured with `{"style": ["lowercase", "uppercase"]}` attributes can be either lowercase or uppercase:
 
-<validate name="multiple" rules="attr-case" attr-case='{"style": ["lowercase", "uppercase"]}'>
-    <p foobar></p>
-    <p FOOBAR></p>
-    <p fooBar></p>
-</validate>
+```html validate name="multiple" rules="attr-case" attr-case='{"style": ["lowercase", "uppercase"]}'
+<p foobar></p>
+<p FOOBAR></p>
+<p fooBar></p>
+```
 
 ### `ignoreForeign`
 
@@ -63,9 +64,9 @@ specifications uses camelcase for many attributes.
 
 With this option enabled the following is valid despite camelcase attribute:
 
-<validate name="svg-viewbox" rules="attr-case">
-	<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" />
-</validate>
+```html validate name="svg-viewbox" rules="attr-case"
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" />
+```
 
 Disable this option if you want to validate attributes on foreign elements as
 well.

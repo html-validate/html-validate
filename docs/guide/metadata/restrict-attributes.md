@@ -28,10 +28,13 @@ export default defineMetadata({
 });
 ```
 
-<validate name="enum" elements="restrict-attributes-enum.json">
-  <my-component duck="dewey">...</my-component>
-  <my-component duck="flintheart">...</my-component>
-</validate>
+```html validate name="enum" elements="restrict-attributes-enum.json"
+<!-- ok: attribute value is explicitly allowed -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute value is not one of the allowed values -->
+<my-component duck="flintheart"></my-component>
+```
 
 We can also specify regular expressions by surrounding the string with `/` (remember to escape special characters properly):
 
@@ -51,10 +54,13 @@ We can also specify regular expressions by surrounding the string with `/` (reme
  });
 ```
 
-<validate name="regexp" elements="restrict-attributes-regexp.json">
-  <my-component ducks="3">...</my-component>
-  <my-component ducks="huey">...</my-component>
-</validate>
+```html validate name="regexp" elements="restrict-attributes-regexp.json"
+<!-- ok: any numerical value is allowed -->
+<my-component ducks="3"></my-component>
+
+<!-- error: non-numerical values are disallowed -->
+<my-component ducks="huey"></my-component>
+```
 
 ::: tip
 
@@ -79,10 +85,13 @@ export default defineMetadata({
 });
 ```
 
-<validate name="boolean" elements="restrict-attributes-boolean.json">
-  <my-component quacks>...</my-component>
-  <my-component quacks="duck">...</my-component>
-</validate>
+```html validate name="boolean" elements="restrict-attributes-boolean.json"
+<!-- ok: boolean attribute -->
+<my-component quacks></my-component>
+
+<!-- error: boolean attribute cannot take value -->
+<my-component quacks="duck"></my-component>
+```
 
 If the value can be omitted (same as the empty value `""`) set the `omit` property to `true`.
 This is often combined with `enum` but it should have a default value.
@@ -105,10 +114,13 @@ export default defineMetadata({
 });
 ```
 
-<validate name="omit" elements="restrict-attributes-omit.json">
-  <my-component quacks>...</my-component>
-  <my-component quacks="duck">...</my-component>
-</validate>
+```html validate name="omit" elements="restrict-attributes-omit.json"
+<!-- ok: omitting value is allowed -->
+<my-component quacks></my-component>
+
+<!-- ok: value is one of the allowed values -->
+<my-component quacks="duck"></my-component>
+```
 
 ## Required attributes
 
@@ -129,10 +141,13 @@ export default defineMetadata({
 });
 ```
 
-<validate name="required" elements="restrict-attributes-required.json">
-  <my-component duck="dewey">...</my-component>
-  <my-component>...</my-component>
-</validate>
+```html validate name="required" elements="restrict-attributes-required.json"
+<!-- ok: attribute is present -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute is omitted -->
+<my-component></my-component>
+```
 
 ## Pattern attributes
 
@@ -173,7 +188,10 @@ export default defineMetadata({
 });
 ```
 
-<validate name="deprecated" elements="restrict-attributes-deprecated.json">
-  <my-component duck="dewey">...</my-component>
-  <my-component>...</my-component>
-</validate>
+```html validate name="deprecated" elements="restrict-attributes-deprecated.json"
+<!-- error: uses deprecated attribute -->
+<my-component duck="dewey"></my-component>
+
+<!-- ok: omitted deprecated attribute -->
+<my-component></my-component>
+```

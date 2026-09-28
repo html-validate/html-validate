@@ -21,11 +21,11 @@ export default defineMetadata({
 });
 ```
 
-<validate name="tags" elements="restrict-content-tags.json">
-  <my-component>
-    <button type="button">click me!</button>
-  </my-component>
-</validate>
+```html validate name="tags" elements="restrict-content-tags.json"
+<my-component>
+  <button type="button">click me!</button>
+</my-component>
+```
 
 As it quickly get tedious to list all tag names we can refer to content categories directly:
 
@@ -55,13 +55,13 @@ The list can also be turned to a blacklist by using the `exclude` keyword:
  });
 ```
 
-<validate name="exclude" elements="restrict-content-exclude.json">
-  <my-component>
-    <div>allowed</div>
-    <span>also allowed</span>
-    <h1>not allowed</h1>
-  </my-component>
-</validate>
+```html validate name="exclude" elements="restrict-content-exclude.json"
+<my-component>
+  <div>allowed</div>
+  <span>also allowed</span>
+  <h1>not allowed</h1>
+</my-component>
+```
 
 ::: tip
 
@@ -88,21 +88,17 @@ export default defineMetadata({
 });
 ```
 
-<validate name="descendants" elements="restrict-content-descendants.json">
-  <my-component>
+```html validate name="descendants" elements="restrict-content-descendants.json"
+<my-component>
   <!-- the div itself is allowed -->
-    <div>
-      <footer>
-        sectioning element can no longer be used
-      </footer>
-      <my-component>
-        nor can the component be nested
-      </my-component>
-    </div>
-    <span>also allowed</span>
-    <h1>not allowed</h1>
-  </my-component>
-</validate>
+  <div>
+    <footer>sectioning element can no longer be used</footer>
+    <my-component> nor can the component be nested </my-component>
+  </div>
+  <span>also allowed</span>
+  <h1>not allowed</h1>
+</my-component>
+```
 
 ::: tip Rule of thumb
 

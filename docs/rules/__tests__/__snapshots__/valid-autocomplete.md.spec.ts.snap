@@ -34,7 +34,7 @@ exports[`docs/rules/valid-autocomplete.md inline validation: incorrect 1`] = `
         },
         "line": 2,
         "message": ""billing" must appear before "name"",
-        "offset": 77,
+        "offset": 79,
         "ruleId": "valid-autocomplete",
         "ruleUrl": "https://html-validate.org/rules/valid-autocomplete.html",
         "selector": "input:nth-child(2)",
@@ -51,7 +51,7 @@ exports[`docs/rules/valid-autocomplete.md inline validation: incorrect 1`] = `
         },
         "line": 3,
         "message": ""street-address" cannot be used on <input type="text">",
-        "offset": 120,
+        "offset": 124,
         "ruleId": "valid-autocomplete",
         "ruleUrl": "https://html-validate.org/rules/valid-autocomplete.html",
         "selector": "input:nth-child(3)",
@@ -59,9 +59,9 @@ exports[`docs/rules/valid-autocomplete.md inline validation: incorrect 1`] = `
         "size": 14,
       },
     ],
-    "source": "<input type="text" autocomplete="foo">
-<input type="text" autocomplete="name billing">
-<input type="text" autocomplete="street-address">",
+    "source": "<input type="text" autocomplete="foo" />
+<input type="text" autocomplete="name billing" />
+<input type="text" autocomplete="street-address" />",
     "warningCount": 0,
   },
 ]

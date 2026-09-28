@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input type="button">`;
+markup["incorrect"] = `<input type="button" />`;
 markup["correct"] = `<button type="button"></button>`;
 
 describe("docs/rules/prefer-button.md", () => {

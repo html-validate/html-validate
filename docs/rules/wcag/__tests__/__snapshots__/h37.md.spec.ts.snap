@@ -26,7 +26,7 @@ exports[`docs/rules/wcag/h37.md inline validation: incorrect 1`] = `
         "size": 3,
       },
     ],
-    "source": "<img>",
+    "source": "<img />",
     "warningCount": 0,
   },
 ]

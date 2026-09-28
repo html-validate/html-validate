@@ -15,15 +15,15 @@ HTML5 requires that when the `id` attribute is present on a `<map>` element it m
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="map-id-name">
-    <map name="foo" id="bar"></map>
-</validate>
+```html validate name="incorrect" rules="map-id-name"
+<map name="foo" id="bar"></map>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="map-id-name">
-    <map name="foo" id="foo"></map>
-</validate>
+```html validate name="correct" rules="map-id-name"
+<map name="foo" id="foo"></map>
+```
 
 ## Version history
 

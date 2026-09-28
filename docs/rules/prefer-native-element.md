@@ -47,19 +47,19 @@ Table of equivalent elements:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="prefer-native-element">
-	<div role="main">
-	  <p>Lorem ipsum</p>
-	</div>
-</validate>
+```html validate name="incorrect" rules="prefer-native-element"
+<div role="main">
+  <p>Lorem ipsum</p>
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="prefer-native-element">
-	<main>
-	  <p>Lorem ipsum</p>
-	</main>
-</validate>
+```html validate name="correct" rules="prefer-native-element"
+<main>
+  <p>Lorem ipsum</p>
+</main>
+```
 
 ## Options
 

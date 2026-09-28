@@ -27,16 +27,17 @@ This rule does not have an effect on regular attributes with empty values, see {
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attribute-boolean-style">
-    <input required="">
-    <input required="required">
-</validate>
+```html validate name="incorrect" rules="attribute-boolean-style"
+<input required="" />
+
+<input required="required" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attribute-boolean-style">
-    <input required>
-</validate>
+```html validate name="correct" rules="attribute-boolean-style"
+<input required />
+```
 
 ## Options
 

@@ -21,15 +21,15 @@ This rule ignores numerical entities such as `&#8212;` or `&#x2014;`.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="unrecognized-char-ref">
-    <p>&foobar;</p>
-</validate>
+```html validate name="incorrect" rules="unrecognized-char-ref"
+<p>&foobar;</p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="unrecognized-char-ref">
-    <p>&amp;</p>
-</validate>
+```html validate name="correct" rules="unrecognized-char-ref"
+<p>&amp;</p>
+```
 
 ## Options
 
@@ -48,15 +48,15 @@ If set to `true` this rule ignores the casing of the entity.
 
 With this option **disabled** the following is **incorrect**:
 
-<validate name="disabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": false }'>
-    <p>&Amp;</p>
-</validate>
+```html validate name="disabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": false }'
+<p>&Amp;</p>
+```
 
 With this option **enabled** the following is **correct**:
 
-<validate name="enabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": true }'>
-    <p>&Amp;</p>
-</validate>
+```html validate name="enabled-ignore-case" rules="unrecognized-char-ref" unrecognized-char-ref='{ "ignoreCase": true }'
+<p>&Amp;</p>
+```
 
 ### `requireSemicolon`
 
@@ -66,21 +66,21 @@ If set to `false` legacy variants without semicolon are allowed.
 
 With this option **enabled** the following is **incorrect**:
 
-<validate name="enabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": true }'>
-    <p>&copy</p>
-</validate>
+```html validate name="enabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": true }'
+<p>&copy</p>
+```
 
 With this option **disabled** the following is **correct**:
 
-<validate name="disabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": false }'>
-    <p>&copy</p>
-</validate>
+```html validate name="disabled-require-semicolon" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": false }'
+<p>&copy</p>
+```
 
 Attribute values with a `?` is treated as a querystring and unless terminated with a `;` is considered to be a parameter and not a character reference, e.g. the following is always valid even if `&bar` looks like a reference without semicolon to terminate it:
 
-<validate name="querystring" rules="unrecognized-char-ref">
-    <a href="foo.php?foo=1&bar=2">...</a>
-</validate>
+```html validate name="querystring" rules="unrecognized-char-ref"
+<a href="foo.php?foo=1&bar=2">...</a>
+```
 
 ## Version history
 

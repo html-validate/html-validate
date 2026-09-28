@@ -15,17 +15,21 @@ Requires that the document contains a doctype.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="missing-doctype">
-    <html>
-        <body>...</body>
-    </html>
-</validate>
+```html validate name="incorrect" rules="missing-doctype"
+<html>
+  <body>
+    ...
+  </body>
+</html>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="missing-doctype">
-    <!doctype html>
-    <html>
-        <body>...</body>
-    </html>
-</validate>
+```html validate name="correct" rules="missing-doctype"
+<!doctype html>
+<html>
+  <body>
+    ...
+  </body>
+</html>
+```

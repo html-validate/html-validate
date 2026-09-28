@@ -10,7 +10,7 @@ markup["correct"] = `<label for="my-input"></label>
 <div id="another-text"></div>
 <div aria-labelledby="verbose-text"></div>
 <div aria-describedby="verbose-text another-text"></div>
-<input id="my-input">`;
+<input id="my-input" />`;
 
 describe("docs/rules/no-missing-references.md", () => {
 	it("inline validation: incorrect", async () => {

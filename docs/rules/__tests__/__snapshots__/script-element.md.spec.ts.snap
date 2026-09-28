@@ -11,10 +11,10 @@ exports[`docs/rules/script-element.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 26,
+        "column": 27,
         "line": 1,
         "message": "End tag for <script> must not be omitted",
-        "offset": 25,
+        "offset": 26,
         "ruleId": "script-element",
         "ruleUrl": "https://html-validate.org/rules/script-element.html",
         "selector": "script",
@@ -22,7 +22,7 @@ exports[`docs/rules/script-element.md inline validation: incorrect 1`] = `
         "size": 2,
       },
     ],
-    "source": "<script src="myscript.js"/>",
+    "source": "<script src="myscript.js" />",
     "warningCount": 0,
   },
 ]

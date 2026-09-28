@@ -7,14 +7,14 @@ markup["incorrect"] = `<h1>Heading 1</h1>
 markup["correct"] = `<h1>Heading 1</h1>
 <h2>Subheading</h2>`;
 markup["min-initial-rank"] = `<nav>
-    <h2>Navigation</h2>
+  <h2>Navigation</h2>
 </nav>
 <h1>Heading 1</h1>`;
 markup["sectioning-root"] = `<h1>Heading 1</h1>
 <h2>Subheading 2</h2>
 <dialog>
-    <!-- new sectioning root, heading level can restart at h1 -->
-    <h1>Dialog header</h1>
+  <!-- new sectioning root, heading level can restart at h1 -->
+  <h1>Dialog header</h1>
 </dialog>
 <!-- after dialog the level is restored -->
 <h3>Subheading 3</h2>`;

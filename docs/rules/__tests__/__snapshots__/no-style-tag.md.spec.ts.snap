@@ -25,9 +25,9 @@ exports[`docs/rules/no-style-tag.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<style>
-    body {
-        background-color: hotpink;
-    }
+  body {
+    background-color: hotpink;
+  }
 </style>",
     "warningCount": 0,
   },

@@ -18,17 +18,17 @@ can only increase one level at a time.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="heading-level">
-    <h1>Heading 1</h1>
-    <h3>Subheading</h3>
-</validate>
+```html validate name="incorrect" rules="heading-level"
+<h1>Heading 1</h1>
+<h3>Subheading</h3>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="heading-level">
-    <h1>Heading 1</h1>
-    <h2>Subheading</h2>
-</validate>
+```html validate name="correct" rules="heading-level"
+<h1>Heading 1</h1>
+<h2>Subheading</h2>
+```
 
 ## Options
 
@@ -54,12 +54,12 @@ Set `allowMultipleH1` to `true` to allow multiple `<h1>` elements in a document.
 Sets the allowed initial heading levels (inclusive).
 By setting this to `h2` the document may start at `<h2>` and later being followed by `<h1>`:
 
-<validate name="min-initial-rank" rules="heading-level" heading-level='{"minInitialRank": "h2"}'>
-    <nav>
-        <h2>Navigation</h2>
-    </nav>
-    <h1>Heading 1</h1>
-</validate>
+```html validate name="min-initial-rank" rules="heading-level" heading-level='{"minInitialRank": "h2"}'
+<nav>
+  <h2>Navigation</h2>
+</nav>
+<h1>Heading 1</h1>
+```
 
 Setting this to `"any"` or `false` is equivalent to `"h6"`, i.e. effectively disabling the check for the initial heading level as all possible levels are now allowed.
 
@@ -75,16 +75,16 @@ Note that the default value does not include all elements considered by HTML5 to
 
 With this option the following is considered valid:
 
-<validate name="sectioning-root" rules="heading-level">
-    <h1>Heading 1</h1>
-    <h2>Subheading 2</h2>
-    <dialog>
-        <!-- new sectioning root, heading level can restart at h1 -->
-        <h1>Dialog header</h1>
-    </dialog>
-    <!-- after dialog the level is restored -->
-    <h3>Subheading 3</h2>
-</validate>
+```html validate name="sectioning-root" rules="heading-level"
+<h1>Heading 1</h1>
+<h2>Subheading 2</h2>
+<dialog>
+  <!-- new sectioning root, heading level can restart at h1 -->
+  <h1>Dialog header</h1>
+</dialog>
+<!-- after dialog the level is restored -->
+<h3>Subheading 3</h2>
+```
 
 ### `minSectioningRootInitialRank`
 

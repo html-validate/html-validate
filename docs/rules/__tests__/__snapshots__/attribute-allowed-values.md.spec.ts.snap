@@ -67,9 +67,9 @@ exports[`docs/rules/attribute-allowed-values.md inline validation: incorrect 1`]
           "element": "input",
           "value": "foobar",
         },
-        "line": 2,
+        "line": 3,
         "message": "Attribute "type" has invalid value "foobar"",
-        "offset": 29,
+        "offset": 30,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "input",
@@ -78,7 +78,8 @@ exports[`docs/rules/attribute-allowed-values.md inline validation: incorrect 1`]
       },
     ],
     "source": "<a href>...</a>
-<input type="foobar">",
+
+<input type="foobar" />",
     "warningCount": 0,
   },
 ]

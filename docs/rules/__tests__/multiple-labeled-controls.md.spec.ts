@@ -3,15 +3,15 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect-multiple"] = `<label>
-  <input type="text">
-  <input type="text">
+  <input type="text" />
+  <input type="text" />
 </label>`;
 markup["incorrect-both"] = `<label for="bar">
-  <input type="text" id="foo">
+  <input type="text" id="foo" />
 </label>
-<input type="text" id="bar">`;
+<input type="text" id="bar" />`;
 markup["correct"] = `<label>
-  <input type="text">
+  <input type="text" />
 </label>`;
 
 describe("docs/rules/multiple-labeled-controls.md", () => {

@@ -11,10 +11,10 @@ exports[`docs/rules/element-permitted-occurrences.md inline validation: incorrec
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 4,
         "message": "Element <tfoot> can only appear once under <table>",
-        "offset": 77,
+        "offset": 73,
         "ruleId": "element-permitted-occurrences",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
         "selector": "table > tfoot:nth-child(2)",
@@ -24,8 +24,8 @@ exports[`docs/rules/element-permitted-occurrences.md inline validation: incorrec
     ],
     "source": "<!-- table footer can only be used once -->
 <table>
-    <tfoot></tfoot>
-    <tfoot></tfoot>
+  <tfoot></tfoot>
+  <tfoot></tfoot>
 </div>",
     "warningCount": 0,
   },

@@ -2,25 +2,25 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image">
+markup["incorrect"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image" />
 <map name="imagemap">
-	<area href="target1.html">
-	<area alt="Link purpose">
+  <area href="target1.html" />
+  <area alt="Link purpose" />
 </map>`;
-markup["correct"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image">
+markup["correct"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image" />
 <map name="imagemap">
-	<area href="target1.html" alt="Link purpose">
-	<area href="target2.html" alt="Link purpose">
+  <area href="target1.html" alt="Link purpose" />
+  <area href="target2.html" alt="Link purpose" />
 </map>`;
-markup["enabled-a11y"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image">
+markup["enabled-a11y"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image" />
 <map name="imagemap">
-	<area href="target.html" alt="">
-	<area href="target.html" alt="Link purpose">
+  <area href="target.html" alt="" />
+  <area href="target.html" alt="Link purpose" />
 </map>`;
-markup["disabled-a11y"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image">
+markup["disabled-a11y"] = `<img src="image.png" usemap="#imagemap" alt="An awesome image" />
 <map name="imagemap">
-	<area href="target.html" alt="">
-	<area href="target.html" alt="Link purpose">
+  <area href="target.html" alt="" />
+  <area href="target.html" alt="Link purpose" />
 </map>`;
 
 describe("docs/rules/area-alt.md", () => {

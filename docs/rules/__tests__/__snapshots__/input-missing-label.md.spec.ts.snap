@@ -15,10 +15,10 @@ exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 2,
-        "line": 2,
+        "column": 4,
+        "line": 3,
         "message": "<input> element has <label> but <label> element is hidden",
-        "offset": 59,
+        "offset": 69,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "#my-input",
@@ -26,8 +26,10 @@ exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
         "size": 5,
       },
     ],
-    "source": "<label for="my-input" aria-hidden="true">My field</label>
-<input id="my-input" type="text">",
+    "source": "<div>
+  <label for="my-input" aria-hidden="true">My field</label>
+  <input id="my-input" type="text" />
+</div>",
     "warningCount": 0,
   },
 ]
@@ -42,10 +44,10 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 4,
         "message": "<input> element does not have a <label>",
-        "offset": 80,
+        "offset": 76,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "div:nth-child(1) > input",
@@ -53,10 +55,10 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
         "size": 5,
       },
       {
-        "column": 6,
+        "column": 4,
         "line": 6,
         "message": "<textarea> element does not have a <label>",
-        "offset": 105,
+        "offset": 101,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "div:nth-child(1) > textarea",
@@ -64,10 +66,10 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
         "size": 8,
       },
       {
-        "column": 6,
+        "column": 4,
         "line": 8,
         "message": "<select> element does not have a <label>",
-        "offset": 132,
+        "offset": 126,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "div:nth-child(1) > select",
@@ -75,10 +77,10 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
         "size": 6,
       },
       {
-        "column": 6,
+        "column": 4,
         "line": 16,
         "message": "<input> element does not have a <label>",
-        "offset": 267,
+        "offset": 251,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "div:nth-child(2) > input",
@@ -88,20 +90,20 @@ exports[`docs/rules/input-missing-label.md inline validation: incorrect 1`] = `
     ],
     "source": "<!-- no label element at all -->
 <div>
-    <strong>My input field</strong>
-    <input type="text">
+  <strong>My input field</strong>
+  <input type="text" />
 
-    <textarea></textarea>
+  <textarea></textarea>
 
-    <select>
-        <option>Option</option>
-    </select>
+  <select>
+    <option>Option</option>
+  </select>
 </div>
 
 <!-- unassociated label -->
 <div>
-    <label>My input field</label>
-    <input type="text">
+  <label>My input field</label>
+  <input type="text" />
 </div>",
     "warningCount": 0,
   },

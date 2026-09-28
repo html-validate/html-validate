@@ -4,20 +4,18 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<!-- <li> is only allowed with <ul> or <ol> as parent -->
 <div>
-    <li>foo</li>
+  <li>foo</li>
 </div>
 
 <!-- interactive elements cannot be nested -->
 <button>
-    <a href="#">Lorem ipsum</a>
+  <a href="#">Lorem ipsum</a>
 </button>`;
 markup["correct"] = `<ul>
-    <li>foo</li>
+  <li>foo</li>
 </ul>
 
-<button>
-    Lorem ipsum
-</button>`;
+<button>Lorem ipsum</button>`;
 
 describe("docs/rules/element-permitted-content.md", () => {
 	it("inline validation: incorrect", async () => {

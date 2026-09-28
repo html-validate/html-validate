@@ -2,9 +2,9 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input name= "my-field">
-<input name ="my-field">`;
-markup["correct"] = `<input name="my-field">`;
+markup["incorrect"] = `<input name= "my-field" />
+<input name ="my-field" />`;
+markup["correct"] = `<input name="my-field" />`;
 
 describe("docs/rules/attr-delimiter.md", () => {
 	it("inline validation: incorrect", async () => {

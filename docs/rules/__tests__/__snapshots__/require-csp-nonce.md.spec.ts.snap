@@ -23,7 +23,7 @@ exports[`docs/rules/require-csp-nonce.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<script>
-	doFancyStuff();
+  doFancyStuff();
 </script>",
     "warningCount": 0,
   },

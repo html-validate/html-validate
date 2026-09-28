@@ -33,7 +33,7 @@ exports[`docs/rules/no-redundant-for.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<label for="foo">
-  <input type="checkbox" id="foo">
+  <input type="checkbox" id="foo" />
   My fancy checkbox
 </label>",
     "warningCount": 0,

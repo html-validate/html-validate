@@ -3,11 +3,15 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<html>
-    <body>...</body>
+  <body>
+    ...
+  </body>
 </html>`;
 markup["correct"] = `<!doctype html>
 <html>
-    <body>...</body>
+  <body>
+    ...
+  </body>
 </html>`;
 
 describe("docs/rules/missing-doctype.md", () => {

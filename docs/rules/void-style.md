@@ -19,15 +19,16 @@ This rule has no effect on non-void elements, see the related rule {@link no-sel
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="void-style">
-    <input/>
-</validate>
+```html validate name="incorrect" rules="void-style"
+<input />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="void-style">
-    <input>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="correct" rules="void-style"
+<input>
+```
 
 ## Options
 

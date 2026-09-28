@@ -25,7 +25,7 @@ exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `
         "column": 45,
         "line": 5,
         "message": "image used as submit button must have non-empty alt text",
-        "offset": 150,
+        "offset": 152,
         "ruleId": "wcag/h36",
         "ruleUrl": "https://html-validate.org/rules/wcag/h36.html",
         "selector": "input:nth-child(2)",
@@ -34,10 +34,10 @@ exports[`docs/rules/wcag/h36.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<!-- missing alt attribute -->
-<input type="image" src="submit-button.png">
+<input type="image" src="submit-button.png" />
 
 <!-- empty alt attribute -->
-<input type="image" src="submit-button.png" alt="">",
+<input type="image" src="submit-button.png" alt="" />",
     "warningCount": 0,
   },
 ]

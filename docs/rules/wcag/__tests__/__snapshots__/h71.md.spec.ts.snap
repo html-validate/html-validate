@@ -22,9 +22,7 @@ exports[`docs/rules/wcag/h71.md inline validation: incorrect 1`] = `
         "size": 8,
       },
     ],
-    "source": "<fieldset>
-	...
-</fieldset>",
+    "source": "<fieldset></fieldset>",
     "warningCount": 0,
   },
 ]

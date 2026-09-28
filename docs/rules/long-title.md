@@ -21,19 +21,22 @@ titles][wcag-g88].
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="long-title">
-    <head>
-        <title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>
-    </head>
-</validate>
+```html validate name="incorrect" rules="long-title"
+<head>
+  <title>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua.
+  </title>
+</head>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="long-title">
-    <head>
-        <title>Lorem ipsum</title>
-    </head>
-</validate>
+```html validate name="correct" rules="long-title"
+<head>
+  <title>Lorem ipsum</title>
+</head>
+```
 
 ## Options
 

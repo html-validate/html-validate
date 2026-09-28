@@ -2,16 +2,16 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<div/>`;
+markup["incorrect"] = `<div />`;
 markup["correct"] = `<div></div>
 
 <!-- foreign elements are ignored -->
-<svg/>
+<svg />
 
 <!-- elements with XML namespace are ignored -->
-<xi:include/>`;
-markup["foreign"] = `<svg/>`;
-markup["xml"] = `<xi:include/>`;
+<xi:include />`;
+markup["foreign"] = `<svg />`;
+markup["xml"] = `<xi:include />`;
 
 describe("docs/rules/no-self-closing.md", () => {
 	it("inline validation: incorrect", async () => {

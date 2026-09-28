@@ -3,10 +3,10 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<a href="#">
-	<svg></svg>
+  <svg></svg>
 </a>`;
 markup["correct"] = `<a href="#">
-	<svg focusable="false"></svg>
+  <svg focusable="false"></svg>
 </a>`;
 
 describe("docs/rules/svg-focusable.md", () => {

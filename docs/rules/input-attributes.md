@@ -24,15 +24,15 @@ See [HTML5 specification][whatwg] for a table of attributes and types.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="input-attributes">
-    <input type="text" step="5">
-</validate>
+```html validate name="incorrect" rules="input-attributes"
+<input type="text" step="5" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="input-attributes">
-    <input type="number" step="5">
-</validate>
+```html validate name="correct" rules="input-attributes"
+<input type="number" step="5" />
+```
 
 ## Version history
 

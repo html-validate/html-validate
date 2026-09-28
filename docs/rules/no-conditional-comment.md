@@ -17,13 +17,12 @@ Microsoft Internet Explorer previously supported using special HTML comments
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-conditional-comment">
-    <!--[if IE]>
-    <p>You are using Internet Explorer.</p>
-    <![endif]-->
+```html validate name="incorrect" rules="no-conditional-comment"
+<!--[if IE]>
+  <p>You are using Internet Explorer.</p>
+<![endif]-->
 
-    <![if !IE]>
-    <p>You are not using Internet Explorer.</p>
-    <![endif]>
-
-</validate>
+<![if !IE]>
+<p>You are not using Internet Explorer.</p>
+<![endif]>
+```

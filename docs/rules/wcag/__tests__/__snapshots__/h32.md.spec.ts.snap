@@ -25,9 +25,7 @@ exports[`docs/rules/wcag/h32.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<form>
-    <label>
-        Text field: <input type="text">
-    </label>
+  <label> Text field: <input type="text" /> </label>
 </form>",
     "warningCount": 0,
   },

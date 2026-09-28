@@ -15,7 +15,7 @@ exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 14,
+        "column": 12,
         "context": {
           "description": "non-breaking hyphen",
           "pattern": "-",
@@ -24,7 +24,7 @@ exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
         "fix": [Function],
         "line": 2,
         "message": ""-" should be replaced with "&#8209;" (non-breaking hyphen) in telephone number",
-        "offset": 38,
+        "offset": 36,
         "ruleId": "tel-non-breaking",
         "ruleUrl": "https://html-validate.org/rules/tel-non-breaking.html",
         "selector": "a",
@@ -32,7 +32,7 @@ exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
         "size": 1,
       },
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "description": "non-breaking space",
           "pattern": " ",
@@ -41,7 +41,7 @@ exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
         "fix": [Function],
         "line": 2,
         "message": "" " should be replaced with "&nbsp;" (non-breaking space) in telephone number",
-        "offset": 42,
+        "offset": 40,
         "ruleId": "tel-non-breaking",
         "ruleUrl": "https://html-validate.org/rules/tel-non-breaking.html",
         "selector": "a",
@@ -50,7 +50,7 @@ exports[`docs/rules/tel-non-breaking.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<a href="tel:555123456">
-    <span>555-123 456</span>
+  <span>555-123 456</span>
 </a>",
     "warningCount": 0,
   },

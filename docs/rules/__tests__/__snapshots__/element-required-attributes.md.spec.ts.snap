@@ -26,7 +26,7 @@ exports[`docs/rules/element-required-attributes.md inline validation: incorrect 
         "size": 3,
       },
     ],
-    "source": "<img>",
+    "source": "<img />",
     "warningCount": 0,
   },
 ]

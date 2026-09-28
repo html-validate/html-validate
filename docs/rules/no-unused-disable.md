@@ -15,29 +15,29 @@ This is usually a case of refactoring or changing environment.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-unused-disable attribute-allowed-values">
-	<!-- html-validate-disable-next attribute-allowed-values -- no error, disable is invalid -->
-	<button type="submit"></button>
-</validate>
+```html validate name="incorrect" rules="no-unused-disable attribute-allowed-values"
+<!-- html-validate-disable-next attribute-allowed-values -- no error, disable is invalid -->
+<button type="submit"></button>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct-removed" rules="no-unused-disable attribute-allowed-values">
-	<!-- disable removed, no error -->
-	<button type="submit"></button>
-</validate>
+```html validate name="correct-removed" rules="no-unused-disable attribute-allowed-values"
+<!-- disable removed, no error -->
+<button type="submit"></button>
+```
 
-<validate name="correct-error-present" rules="no-unused-disable attribute-allowed-values">
-	<!-- html-validate-disable-next attribute-allowed-values -- element has error, disable is valid -->
-	<button type="foobar"></button>
-</validate>
+```html validate name="correct-error-present" rules="no-unused-disable attribute-allowed-values"
+<!-- html-validate-disable-next attribute-allowed-values -- element has error, disable is valid -->
+<button type="foobar"></button>
+```
 
 This rule can also disable itself:
 
-<validate name="correct-disabled" rules="no-unused-disable attribute-allowed-values">
-	<!-- html-validate-disable-next attribute-allowed-values, no-unused-disable -- no error as no-unused-disable is also disabled -->
-	<button type="submit"></button>
-</validate>
+```html validate name="correct-disabled" rules="no-unused-disable attribute-allowed-values"
+<!-- html-validate-disable-next attribute-allowed-values, no-unused-disable -- no error as no-unused-disable is also disabled -->
+<button type="submit"></button>
+```
 
 ## Version history
 

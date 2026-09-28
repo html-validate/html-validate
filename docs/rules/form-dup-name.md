@@ -21,41 +21,41 @@ Disabled inputs are ignored by this rule.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="form-dup-name">
-    <form>
-        <input name="foo">
-        <input name="foo">
-    </form>
-</validate>
+```html validate name="incorrect" rules="form-dup-name"
+<form>
+  <input name="foo" />
+  <input name="foo" />
+</form>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="form-dup-name">
-    <form>
-        <input name="foo">
-        <input name="bar">
-    </form>
-</validate>
+```html validate name="correct" rules="form-dup-name"
+<form>
+  <input name="foo" />
+  <input name="bar" />
+</form>
+```
 
 ## Radiobuttons
 
 By default, radiobuttons may share the same name:
 
-<validate name="correct-radio-checkbox" rules="form-dup-name">
-    <form>
-        <input name="foo" type="radio">
-        <input name="foo" type="radio">
-    </form>
-</validate>
+```html validate name="correct-radio-checkbox" rules="form-dup-name"
+<form>
+  <input name="foo" type="radio" />
+  <input name="foo" type="radio" />
+</form>
+```
 
 They cannot share the same name as other controls:
 
-<validate name="incorrect-radio" rules="form-dup-name">
-    <form>
-        <input name="foo" type="text">
-        <input name="foo" type="radio">
-    </form>
-</validate>
+```html validate name="incorrect-radio" rules="form-dup-name"
+<form>
+  <input name="foo" type="text" />
+  <input name="foo" type="radio" />
+</form>
+```
 
 See the [`shared`](#shared) option to add this behaviour for other controls.
 
@@ -81,21 +81,21 @@ With this option names ending with `[]` may be shared between controls.
 
 With this option **disabled** the following is **incorrect**:
 
-<validate name="array-incorrect" rules="form-dup-name" form-dup-name='{"allowArrayBrackets": false}'>
-    <form>
-        <input name="foo[]">
-        <input name="foo[]">
-    </form>
-</validate>
+```html validate name="array-incorrect" rules="form-dup-name" form-dup-name='{"allowArrayBrackets": false}'
+<form>
+  <input name="foo[]" />
+  <input name="foo[]" />
+</form>
+```
 
 With this option **enabled** the following is **correct**:
 
-<validate name="array-correct" rules="form-dup-name">
-    <form>
-        <input name="foo[]">
-        <input name="foo[]">
-    </form>
-</validate>
+```html validate name="array-correct" rules="form-dup-name"
+<form>
+  <input name="foo[]" />
+  <input name="foo[]" />
+</form>
+```
 
 ### `allowCheckboxDefault`
 
@@ -107,21 +107,21 @@ A common pattern with server-side frameworks is to include an `<input type="hidd
 
 With this option **disabled** the following is **incorrect**:
 
-<validate name="checkbox-incorrect" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": false}'>
-    <form>
-        <input name="foo" value="0" type="hidden">
-        <input name="foo" value="1" type="checkbox">
-    </form>
-</validate>
+```html validate name="checkbox-incorrect" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": false}'
+<form>
+  <input name="foo" value="0" type="hidden" />
+  <input name="foo" value="1" type="checkbox" />
+</form>
+```
 
 With this option **enabled** the following is **correct**:
 
-<validate name="checkbox-correct" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": true}'>
-    <form>
-        <input name="foo" value="0" type="hidden">
-        <input name="foo" value="1" type="checkbox">
-    </form>
-</validate>
+```html validate name="checkbox-correct" rules="form-dup-name" form-dup-name='{"allowCheckboxDefault": true}'
+<form>
+  <input name="foo" value="0" type="hidden" />
+  <input name="foo" value="1" type="checkbox" />
+</form>
+```
 
 Note that even with this option enabled at most one checkbox may share the same name as a single hidden control.
 Use two or more hidden or two or more checkboxes with the same name is still an error.
@@ -142,30 +142,30 @@ This options lets you specify additional controls that may have a shared common 
 
 With this option set to `["radio"]` the following is **incorrect**:
 
-<validate name="shared-incorrect" rules="form-dup-name" form-dup-name='{"shared": ["radio"]}'>
-    <form>
-        <input name="foo" type="checkbox">
-        <input name="foo" type="checkbox">
-    </form>
-</validate>
+```html validate name="shared-incorrect" rules="form-dup-name" form-dup-name='{"shared": ["radio"]}'
+<form>
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="checkbox" />
+</form>
+```
 
 With this option set to `["radio", "checkbox"]` the following is **correct**:
 
-<validate name="shared-correct" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
-    <form>
-        <input name="foo" type="checkbox">
-        <input name="foo" type="checkbox">
-    </form>
-</validate>
+```html validate name="shared-correct" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'
+<form>
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="checkbox" />
+</form>
+```
 
 The name cannot be shared between different types of controls:
 
-<validate name="shared-mix" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'>
-    <form>
-        <input name="foo" type="checkbox">
-        <input name="foo" type="radio">
-    </form>
-</validate>
+```html validate name="shared-mix" rules="form-dup-name" form-dup-name='{"shared": ["radio", "checkbox"]}'
+<form>
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="radio" />
+</form>
+```
 
 ## Metadata
 

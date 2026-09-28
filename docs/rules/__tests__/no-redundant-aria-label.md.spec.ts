@@ -2,8 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<label for="foo"> lorem ipsum </label>
-<input id="foo" aria-label="lorem ipsum" />`;
+markup["incorrect"] = `<div>
+  <label for="foo"> lorem ipsum </label>
+  <input id="foo" aria-label="lorem ipsum" />
+</div>`;
 markup["correct"] = `<!-- different texts -->
 <label for="foo"> lorem ipsum </label>
 <input id="foo" aria-label="screenreader text" />

@@ -25,7 +25,7 @@ exports[`docs/rules/prefer-button.md inline validation: incorrect 1`] = `
         "size": 6,
       },
     ],
-    "source": "<input type="button">",
+    "source": "<input type="button" />",
     "warningCount": 0,
   },
 ]

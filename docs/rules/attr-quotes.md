@@ -22,15 +22,16 @@ This rule unifies which styles are allowed.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attr-quotes">
-    <p class='foo'></p>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="attr-quotes"
+<p class='foo'></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attr-quotes">
-    <p class="foo"></p>
-</validate>
+```html validate name="correct" rules="attr-quotes"
+<p class="foo"></p>
+```
 
 ## Options
 

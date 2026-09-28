@@ -34,26 +34,18 @@ If the landmark is only present at most once the name does not have to be set.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="unique-landmark">
-	<nav>
-		lorem ipsum
-	</nav>
-	<nav>
-		dolor sit amet
-	</nav>
-</validate>
+```html validate name="incorrect" rules="unique-landmark"
+<nav>lorem ipsum</nav>
+<nav>dolor sit amet</nav>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="unique-landmark">
-	<nav aria-label="Primary">
-		lorem ipsum
-	</nav>
-	<h2 id="secondary-nav-heading">Secondary</h2>
-	<nav aria-labelledby="secondary-nav-heading">
-		dolor sit amet
-	</nav>
-</validate>
+```html validate name="correct" rules="unique-landmark"
+<nav aria-label="Primary">lorem ipsum</nav>
+<h2 id="secondary-nav-heading">Secondary</h2>
+<nav aria-labelledby="secondary-nav-heading">dolor sit amet</nav>
+```
 
 ## Version history
 

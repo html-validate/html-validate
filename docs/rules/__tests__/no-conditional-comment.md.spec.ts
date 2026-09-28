@@ -3,7 +3,7 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<!--[if IE]>
-<p>You are using Internet Explorer.</p>
+  <p>You are using Internet Explorer.</p>
 <![endif]-->
 
 <![if !IE]>

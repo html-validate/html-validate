@@ -24,7 +24,9 @@ exports[`docs/rules/missing-doctype.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<html>
-    <body>...</body>
+  <body>
+    ...
+  </body>
 </html>",
     "warningCount": 0,
   },

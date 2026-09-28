@@ -2,11 +2,11 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect-delay"] = `<meta http-equiv="refresh" content="5;url=target.html">`;
-markup["incorrect-url"] = `<meta http-equiv="refresh" content="0">`;
-markup["correct"] = `<meta http-equiv="refresh" content="0;url=target.html">`;
-markup["long-delay-invalid"] = `<meta http-equiv="refresh" content="72001">`;
-markup["long-delay-valid"] = `<meta http-equiv="refresh" content="72001">`;
+markup["incorrect-delay"] = `<meta http-equiv="refresh" content="5;url=target.html" />`;
+markup["incorrect-url"] = `<meta http-equiv="refresh" content="0" />`;
+markup["correct"] = `<meta http-equiv="refresh" content="0;url=target.html" />`;
+markup["long-delay-invalid"] = `<meta http-equiv="refresh" content="72001" />`;
+markup["long-delay-valid"] = `<meta http-equiv="refresh" content="72001" />`;
 
 describe("docs/rules/meta-refresh.md", () => {
 	it("inline validation: incorrect-delay", async () => {

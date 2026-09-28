@@ -15,12 +15,12 @@ HTML5 deprecated many old attributes.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-deprecated-attr">
-    <body bgcolor="red"></body>
-</validate>
+```html validate name="incorrect" rules="no-deprecated-attr"
+<body bgcolor="red"></body>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-deprecated-attr">
-    <body style="background: red;"></body>
-</validate>
+```html validate name="correct" rules="no-deprecated-attr"
+<body style="background: red;"></body>
+```

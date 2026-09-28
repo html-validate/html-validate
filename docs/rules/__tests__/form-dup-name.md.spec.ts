@@ -3,48 +3,48 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<form>
-    <input name="foo">
-    <input name="foo">
+  <input name="foo" />
+  <input name="foo" />
 </form>`;
 markup["correct"] = `<form>
-    <input name="foo">
-    <input name="bar">
+  <input name="foo" />
+  <input name="bar" />
 </form>`;
 markup["correct-radio-checkbox"] = `<form>
-    <input name="foo" type="radio">
-    <input name="foo" type="radio">
+  <input name="foo" type="radio" />
+  <input name="foo" type="radio" />
 </form>`;
 markup["incorrect-radio"] = `<form>
-    <input name="foo" type="text">
-    <input name="foo" type="radio">
+  <input name="foo" type="text" />
+  <input name="foo" type="radio" />
 </form>`;
 markup["array-incorrect"] = `<form>
-    <input name="foo[]">
-    <input name="foo[]">
+  <input name="foo[]" />
+  <input name="foo[]" />
 </form>`;
 markup["array-correct"] = `<form>
-    <input name="foo[]">
-    <input name="foo[]">
+  <input name="foo[]" />
+  <input name="foo[]" />
 </form>`;
 markup["checkbox-incorrect"] = `<form>
-    <input name="foo" value="0" type="hidden">
-    <input name="foo" value="1" type="checkbox">
+  <input name="foo" value="0" type="hidden" />
+  <input name="foo" value="1" type="checkbox" />
 </form>`;
 markup["checkbox-correct"] = `<form>
-    <input name="foo" value="0" type="hidden">
-    <input name="foo" value="1" type="checkbox">
+  <input name="foo" value="0" type="hidden" />
+  <input name="foo" value="1" type="checkbox" />
 </form>`;
 markup["shared-incorrect"] = `<form>
-    <input name="foo" type="checkbox">
-    <input name="foo" type="checkbox">
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="checkbox" />
 </form>`;
 markup["shared-correct"] = `<form>
-    <input name="foo" type="checkbox">
-    <input name="foo" type="checkbox">
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="checkbox" />
 </form>`;
 markup["shared-mix"] = `<form>
-    <input name="foo" type="checkbox">
-    <input name="foo" type="radio">
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="radio" />
 </form>`;
 
 describe("docs/rules/form-dup-name.md", () => {

@@ -4,11 +4,11 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<!-- table footer can only be used once -->
 <table>
-    <tfoot></tfoot>
-    <tfoot></tfoot>
+  <tfoot></tfoot>
+  <tfoot></tfoot>
 </div>`;
 markup["correct"] = `<table>
-    <tfoot></tfoot>
+  <tfoot></tfoot>
 </table>`;
 
 describe("docs/rules/element-permitted-occurrences.md", () => {

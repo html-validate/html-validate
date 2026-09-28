@@ -26,7 +26,7 @@ exports[`docs/rules/input-attributes.md inline validation: incorrect 1`] = `
         "size": 4,
       },
     ],
-    "source": "<input type="text" step="5">",
+    "source": "<input type="text" step="5" />",
     "warningCount": 0,
   },
 ]

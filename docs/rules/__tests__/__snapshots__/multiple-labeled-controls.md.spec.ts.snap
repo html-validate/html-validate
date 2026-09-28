@@ -23,9 +23,9 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-bo
       },
     ],
     "source": "<label for="bar">
-  <input type="text" id="foo">
+  <input type="text" id="foo" />
 </label>
-<input type="text" id="bar">",
+<input type="text" id="bar" />",
     "warningCount": 0,
   },
 ]
@@ -52,8 +52,8 @@ exports[`docs/rules/multiple-labeled-controls.md inline validation: incorrect-mu
       },
     ],
     "source": "<label>
-  <input type="text">
-  <input type="text">
+  <input type="text" />
+  <input type="text" />
 </label>",
     "warningCount": 0,
   },

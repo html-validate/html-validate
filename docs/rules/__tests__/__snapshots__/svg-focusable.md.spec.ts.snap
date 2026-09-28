@@ -11,10 +11,10 @@ exports[`docs/rules/svg-focusable.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 3,
+        "column": 4,
         "line": 2,
         "message": "<svg> is missing required "focusable" attribute",
-        "offset": 15,
+        "offset": 16,
         "ruleId": "svg-focusable",
         "ruleUrl": "https://html-validate.org/rules/svg-focusable.html",
         "selector": "a > svg",
@@ -23,7 +23,7 @@ exports[`docs/rules/svg-focusable.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<a href="#">
-	<svg></svg>
+  <svg></svg>
 </a>",
     "warningCount": 0,
   },

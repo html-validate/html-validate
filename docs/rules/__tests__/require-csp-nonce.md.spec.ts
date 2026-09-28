@@ -3,10 +3,10 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<script>
-	doFancyStuff();
+  doFancyStuff();
 </script>`;
 markup["correct"] = `<script nonce="r4nd0m">
-	doFancyStuff();
+  doFancyStuff();
 </script>`;
 
 describe("docs/rules/require-csp-nonce.md", () => {

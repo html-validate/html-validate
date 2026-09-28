@@ -30,19 +30,19 @@ This rule prevents non-zero time intervals and using the directive to refresh th
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect-delay" rules="meta-refresh">
-	<meta http-equiv="refresh" content="5;url=target.html">
-</validate>
+```html validate name="incorrect-delay" rules="meta-refresh"
+<meta http-equiv="refresh" content="5;url=target.html" />
+```
 
-<validate name="incorrect-url" rules="meta-refresh">
-	<meta http-equiv="refresh" content="0">
-</validate>
+```html validate name="incorrect-url" rules="meta-refresh"
+<meta http-equiv="refresh" content="0" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="meta-refresh">
-	<meta http-equiv="refresh" content="0;url=target.html">
-</validate>
+```html validate name="correct" rules="meta-refresh"
+<meta http-equiv="refresh" content="0;url=target.html" />
+```
 
 ## Options
 
@@ -64,15 +64,15 @@ By enabling this option the refresh delay can be set to a value greater than `72
 
 With this option **disabled**:
 
-<validate name="long-delay-invalid" rules="meta-refresh" meta-refresh='{"allowLongDelay": false}'>
-	<meta http-equiv="refresh" content="72001">
-</validate>
+```html validate name="long-delay-invalid" rules="meta-refresh" meta-refresh='{"allowLongDelay": false}'
+<meta http-equiv="refresh" content="72001" />
+```
 
 With this option **enabled**:
 
-<validate name="long-delay-valid" rules="meta-refresh" meta-refresh='{"allowLongDelay": true}'>
-	<meta http-equiv="refresh" content="72001">
-</validate>
+```html validate name="long-delay-valid" rules="meta-refresh" meta-refresh='{"allowLongDelay": true}'
+<meta http-equiv="refresh" content="72001" />
+```
 
 ## References
 

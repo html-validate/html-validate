@@ -3,8 +3,12 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<map name="foo"></map>
+
+<!-- uses same name -->
 <map name="foo"></map>`;
 markup["correct"] = `<map name="foo"></map>
+
+<!-- uses different name -->
 <map name="bar"></map>`;
 
 describe("docs/rules/map-dup-name.md", () => {

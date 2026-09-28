@@ -34,52 +34,52 @@ This rule ignores:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="input-missing-label">
-    <!-- no label element at all -->
-    <div>
-        <strong>My input field</strong>
-        <input type="text">
+```html validate name="incorrect" rules="input-missing-label"
+<!-- no label element at all -->
+<div>
+  <strong>My input field</strong>
+  <input type="text" />
 
-        <textarea></textarea>
+  <textarea></textarea>
 
-        <select>
-            <option>Option</option>
-        </select>
-    </div>
+  <select>
+    <option>Option</option>
+  </select>
+</div>
 
-    <!-- unassociated label -->
-    <div>
-        <label>My input field</label>
-        <input type="text">
-    </div>
-
-</validate>
+<!-- unassociated label -->
+<div>
+  <label>My input field</label>
+  <input type="text" />
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="input-missing-label">
-    <!-- label with descendant -->
-    <div>
-        <label>My field <input type="text"></label>
-    </div>
+```html validate name="correct" rules="input-missing-label"
+<!-- label with descendant -->
+<div>
+  <label>My field <input type="text" /></label>
+</div>
 
-    <!-- associated label -->
-    <div>
-        <label for="my-field">My field</label>
-        <input id="my-field" type="text">
-    </div>
-
-</validate>
+<!-- associated label -->
+<div>
+  <label for="my-field">My field</label>
+  <input id="my-field" type="text" />
+</div>
+```
 
 ### Hidden labels
 
 This rule requires labels to be accessible, i.e. the label must not be `hidden`, `inert`, `aria-hidden` or hidden with CSS.
 If multiple labels are associated at least one of them must be accessible.
 
-<validate name="hidden" rules="input-missing-label">
-    <label for="my-input" aria-hidden="true">My field</label>
-    <input id="my-input" type="text">
-</validate>
+```html validate name="hidden" rules="input-missing-label"
+<div>
+  <label for="my-input" aria-hidden="true">My field</label>
+  <input id="my-input" type="text" />
+</div>
+```
 
 ### Using `aria-label` or `aria-labelledby`
 
@@ -87,19 +87,19 @@ A accessible name can be provided using `aria-label` or `aria-labelledby`.
 
 If a visual indication is already provided elsewhere (such as an icon) you can use `aria-label` to convey the same information to screen readers:
 
-<validate name="aria-label" rules="input-missing-label">
-    <div>
-        <input id="my-input" type="text" aria-label="My field">
-        <svg><use xlink:href="#search-icon"></svg>
-    </div>
-</validate>
+```html validate name="aria-label" rules="input-missing-label"
+<div>
+  <input id="my-input" type="text" aria-label="My field">
+  <svg><use xlink:href="#search-icon"></svg>
+</div>
+```
 
 If the label is provided by another element elsewhere `aria-labelledby` can be used to reference the element:
 
-<validate name="aria-labelledby" rules="input-missing-label">
-    <h2 id="my-heading">Enter your name</h2>
-    <input type="text" aria-labelledby="my-heading">
-</validate>
+```html validate name="aria-labelledby" rules="input-missing-label"
+<h2 id="my-heading">Enter your name</h2>
+<input type="text" aria-labelledby="my-heading" />
+```
 
 ## Version history
 

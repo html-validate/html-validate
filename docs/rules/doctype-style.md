@@ -16,15 +16,15 @@ Mixed case it not supported.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="doctype-style">
-    <!Doctype html>
-</validate>
+```html validate name="incorrect" rules="doctype-style"
+<!Doctype html>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="doctype-style">
-	<!DOCTYPE html>
-</validate>
+```html validate name="correct" rules="doctype-style"
+<!DOCTYPE html>
+```
 
 ## Options
 

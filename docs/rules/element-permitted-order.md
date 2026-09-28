@@ -15,19 +15,19 @@ Some elements has a specific order the children must use.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-permitted-order">
-    <!-- table caption must be used before thead -->
-    <table>
-        <thead></thead>
-        <caption></caption>
-    </div>
-</validate>
+```html validate name="incorrect" rules="element-permitted-order"
+<!-- table caption must be used before thead -->
+<table>
+  <thead></thead>
+  <caption></caption>
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-permitted-order">
-    <table>
-        <caption></caption>
-        <thead></thead>
-    </table>
-</validate>
+```html validate name="correct" rules="element-permitted-order"
+<table>
+  <caption></caption>
+  <thead></thead>
+</table>
+```

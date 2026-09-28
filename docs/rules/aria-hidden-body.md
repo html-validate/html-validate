@@ -17,15 +17,15 @@ Requires `aria-hidden` is not used on the `<body>` element.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="aria-hidden-body">
-    <body aria-hidden="true"></body>
-</validate>
+```html validate name="incorrect" rules="aria-hidden-body"
+<body aria-hidden="true"></body>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="aria-hidden-body">
-    <body></body>
-</validate>
+```html validate name="correct" rules="aria-hidden-body"
+<body></body>
+```
 
 ## Options
 

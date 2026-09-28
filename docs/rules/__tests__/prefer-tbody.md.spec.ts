@@ -3,12 +3,16 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<table>
-	<tr><td>...</td></tr>
+  <tr>
+    <td>...</td>
+  </tr>
 </table>`;
 markup["correct"] = `<table>
-	<tbody>
-		<tr><td>...</td></tr>
-	</tbody>
+  <tbody>
+    <tr>
+      <td>...</td>
+    </tr>
+  </tbody>
 </table>`;
 
 describe("docs/rules/prefer-tbody.md", () => {

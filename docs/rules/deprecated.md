@@ -15,16 +15,16 @@ HTML5 deprecated many old elements.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="deprecated">
-    <center>...</center>
-    <big>...</big>
-</validate>
+```html validate name="incorrect" rules="deprecated"
+<center>...</center>
+<big>...</big>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="deprecated">
-    <main>...</main>
-</validate>
+```html validate name="correct" rules="deprecated"
+<main>...</main>
+```
 
 ## Elements
 
@@ -42,9 +42,9 @@ export default defineMetadata({
 
 The message will be shown alongside the regular message:
 
-<validate name="custom-message" rules="deprecated" elements="deprecated.json">
-    <my-element>...</my-element>
-</validate>
+```html validate name="custom-message" rules="deprecated" elements="deprecated.json"
+<my-element>...</my-element>
+```
 
 ## Options
 

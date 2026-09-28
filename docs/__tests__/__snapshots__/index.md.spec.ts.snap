@@ -23,7 +23,7 @@ exports[`docs/index.md inline validation: frontpage-a11y 1`] = `
         "column": 2,
         "line": 2,
         "message": "<button> is missing recommended "type" attribute",
-        "offset": 22,
+        "offset": 24,
         "ruleId": "no-implicit-button-type",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-button-type.html",
         "selector": "button",
@@ -34,7 +34,7 @@ exports[`docs/index.md inline validation: frontpage-a11y 1`] = `
         "column": 4,
         "line": 6,
         "message": "<input> element does not have a <label>",
-        "offset": 130,
+        "offset": 132,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
         "selector": "div > input",
@@ -42,12 +42,12 @@ exports[`docs/index.md inline validation: frontpage-a11y 1`] = `
         "size": 5,
       },
     ],
-    "source": "<img src="logo.png">
+    "source": "<img src="logo.png" />
 <button onclick="myFunction();">Click me!</button>
 
 <div class="field-wrapper">
   <strong>Name: </strong>
-  <input type="text" name="name">
+  <input type="text" name="name" />
 </div>",
     "warningCount": 0,
   },
@@ -163,7 +163,6 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
   <main>
     <blink>(c) 2018 Initech</blink>
   </main>
-
 </footer>",
     "warningCount": 0,
   },

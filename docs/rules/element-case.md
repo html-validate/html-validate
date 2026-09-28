@@ -13,23 +13,24 @@ Requires a specific case for element names.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-case">
-    <DIV>...</DIV>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="element-case"
+<DIV>...</DIV>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-case">
-    <div>...</div>
-</validate>
+```html validate name="correct" rules="element-case"
+<div>...</div>
+```
 
 ### Matching case
 
 When using styles such as `pascalcase` the start and end tag must have matching case:
 
-<validate name="matching" rules="element-case" element-case='{"style": "pascalcase"}'>
-    <FooBar>...</Foobar>
-</validate>
+```html validate name="matching" rules="element-case" element-case='{"style": "pascalcase"}'
+<FooBar>...</Foobar>
+```
 
 ## Options
 
@@ -53,8 +54,8 @@ With multiple styles the element name must match at least one pattern to be cons
 
 For instance, when configured with `{"style": ["lowercase", "pascalcase"]}` element names can be either lowercase or PascalCase:
 
-<validate name="multiple" rules="element-case" element-case='{"style": ["lowercase", "pascalcase"]}'>
-    <foo-bar></foo-bar>
-    <FooBar></FooBar>
-    <fooBar></fooBar>
-</validate>
+```html validate name="multiple" rules="element-case" element-case='{"style": ["lowercase", "pascalcase"]}'
+<foo-bar></foo-bar>
+<FooBar></FooBar>
+<fooBar></fooBar>
+```

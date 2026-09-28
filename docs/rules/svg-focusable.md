@@ -18,16 +18,16 @@ Otherwise this rule can safely be disabled.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="svg-focusable">
-	<a href="#">
-		<svg></svg>
-	</a>
-</validate>
+```html validate name="incorrect" rules="svg-focusable"
+<a href="#">
+  <svg></svg>
+</a>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="svg-focusable">
-	<a href="#">
-		<svg focusable="false"></svg>
-	</a>
-</validate>
+```html validate name="correct" rules="svg-focusable"
+<a href="#">
+  <svg focusable="false"></svg>
+</a>
+```

@@ -13,21 +13,21 @@ Requires all names on form controls to match a given pattern.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="name-pattern">
-    <input name="foo-bar">
-</validate>
+```html validate name="incorrect" rules="name-pattern"
+<input name="foo-bar" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="name-pattern">
-    <input name="fooBar">
-</validate>
+```html validate name="correct" rules="name-pattern"
+<input name="fooBar" />
+```
 
 Array brackets are ignored by this rule:
 
-<validate name="array-brackets" rules="name-pattern">
-    <input name="fooBar[]">
-</validate>
+```html validate name="array-brackets" rules="name-pattern"
+<input name="fooBar[]" />
+```
 
 ## Options
 

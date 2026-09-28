@@ -1,15 +1,15 @@
 # Inline HTML-validate results
 
-Processes the markup inside the tag and runs HTML-Validate on it.
+Processes the markup inside a fenced `html` code block with the `validate` tag and runs HTML-Validate on it.
 If there are any errors they will be printed using `codeframe` formatter.
 
 Jest snapshot tests will also be generated for each validation to ensure changes to documentation validations will be consistent with intended changes.
 
-```html
-<validate name="document-unique-name">
-  <!-- my markup -->
-</validate>
+````md
+```html validate name="document-unique-name"
+<!-- my markup -->
 ```
+````
 
 ## Usage
 

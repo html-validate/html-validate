@@ -19,21 +19,21 @@ This rule disallows using the `role` attribute to set the role to same as the im
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-redundant-role">
-  <main role="main">
-    <ul>
-      <li role="listitem">Lorem ipsum</li>
-    </ul>
-  </main>
-</validate>
+```html validate name="incorrect" rules="no-redundant-role"
+<main role="main">
+  <ul>
+    <li role="listitem">Lorem ipsum</li>
+  </ul>
+</main>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-redundant-role">
-  <ul>
-    <li role="presentation">Lorem ipsum</li>
-  </ul>
-</validate>
+```html validate name="correct" rules="no-redundant-role"
+<ul>
+  <li role="presentation">Lorem ipsum</li>
+</ul>
+```
 
 ## Options
 

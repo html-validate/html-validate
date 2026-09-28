@@ -11,14 +11,14 @@ exports[`docs/rules/form-dup-name.md inline validation: array-incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo[]",
         },
         "line": 3,
         "message": "Duplicate form control name "foo[]"",
-        "offset": 49,
+        "offset": 47,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -27,8 +27,8 @@ exports[`docs/rules/form-dup-name.md inline validation: array-incorrect 1`] = `
       },
     ],
     "source": "<form>
-    <input name="foo[]">
-    <input name="foo[]">
+  <input name="foo[]" />
+  <input name="foo[]" />
 </form>",
     "warningCount": 0,
   },
@@ -46,14 +46,14 @@ exports[`docs/rules/form-dup-name.md inline validation: checkbox-incorrect 1`] =
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo",
         },
         "line": 3,
         "message": "Duplicate form control name "foo"",
-        "offset": 71,
+        "offset": 69,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -62,8 +62,8 @@ exports[`docs/rules/form-dup-name.md inline validation: checkbox-incorrect 1`] =
       },
     ],
     "source": "<form>
-    <input name="foo" value="0" type="hidden">
-    <input name="foo" value="1" type="checkbox">
+  <input name="foo" value="0" type="hidden" />
+  <input name="foo" value="1" type="checkbox" />
 </form>",
     "warningCount": 0,
   },
@@ -83,14 +83,14 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo",
         },
         "line": 3,
         "message": "Duplicate form control name "foo"",
-        "offset": 47,
+        "offset": 45,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -99,8 +99,8 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<form>
-    <input name="foo">
-    <input name="foo">
+  <input name="foo" />
+  <input name="foo" />
 </form>",
     "warningCount": 0,
   },
@@ -116,14 +116,14 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect-radio 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo",
         },
         "line": 3,
         "message": "Duplicate form control name "foo"",
-        "offset": 59,
+        "offset": 57,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -132,8 +132,8 @@ exports[`docs/rules/form-dup-name.md inline validation: incorrect-radio 1`] = `
       },
     ],
     "source": "<form>
-    <input name="foo" type="text">
-    <input name="foo" type="radio">
+  <input name="foo" type="text" />
+  <input name="foo" type="radio" />
 </form>",
     "warningCount": 0,
   },
@@ -151,14 +151,14 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo",
         },
         "line": 3,
         "message": "Duplicate form control name "foo"",
-        "offset": 63,
+        "offset": 61,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -167,8 +167,8 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-incorrect 1`] = `
       },
     ],
     "source": "<form>
-    <input name="foo" type="checkbox">
-    <input name="foo" type="checkbox">
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="checkbox" />
 </form>",
     "warningCount": 0,
   },
@@ -184,14 +184,14 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-mix 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 18,
+        "column": 16,
         "context": {
           "kind": "duplicate",
           "name": "foo",
         },
         "line": 3,
         "message": "Duplicate form control name "foo"",
-        "offset": 63,
+        "offset": 61,
         "ruleId": "form-dup-name",
         "ruleUrl": "https://html-validate.org/rules/form-dup-name.html",
         "selector": "form > input:nth-child(2)",
@@ -200,8 +200,8 @@ exports[`docs/rules/form-dup-name.md inline validation: shared-mix 1`] = `
       },
     ],
     "source": "<form>
-    <input name="foo" type="checkbox">
-    <input name="foo" type="radio">
+  <input name="foo" type="checkbox" />
+  <input name="foo" type="radio" />
 </form>",
     "warningCount": 0,
   },

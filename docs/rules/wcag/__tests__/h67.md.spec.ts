@@ -2,12 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<img title="Lorem ipsum">`;
+markup["incorrect"] = `<img title="Lorem ipsum" />`;
 markup["correct"] = `<!-- empty alt text and no title is interpreted as purely decorative -->
-<img alt="">
+<img alt="" />
 
 <!-- alt text is used together with title, the image carries meaning and will not be ignored by AT -->
-<img alt="Lorem ipsum" title="Lorem ipsum">`;
+<img alt="Lorem ipsum" title="Lorem ipsum" />`;
 
 describe("docs/rules/wcag/h67.md", () => {
 	it("inline validation: incorrect", async () => {

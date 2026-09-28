@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
-const VALIDATE_REGEX = /<validate([^>]*)>([\s\S]+?)<\/validate>/g;
+const VALIDATE_REGEX = /^`{3,} *html[ \t]+validate([^\n]*)\n([\s\S]*?)\r?\n`{3,} *$/gm;
 
 /* eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation -- technical debt */
 const ATTRIBUTE_REGEX = /\s*([^=]+)\s*=\s*(?:"([^"]+)"|'([^']+)')/g;

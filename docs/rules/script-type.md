@@ -17,17 +17,17 @@ The [HTML5 standard encourages][spec] omitting the `type` attribute when the scr
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="script-type">
+```html validate name="incorrect" rules="script-type"
 <script type=""></script>
 <script type="text/javascript"></script>
 <script type="application/javascript"></script>
-</validate>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="script-type">
-    <script></script>
-    <script type="module"></script>
-    <script type="text/plain"></script>
-    <script type="text/x-custom"></script>
-</validate>
+```html validate name="correct" rules="script-type"
+<script></script>
+<script type="module"></script>
+<script type="text/plain"></script>
+<script type="text/x-custom"></script>
+```

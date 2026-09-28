@@ -21,7 +21,7 @@ exports[`docs/rules/allowed-links.md inline validation: absolute-invalid 1`] = `
         "size": 4,
       },
     ],
-    "source": "<a href="/foo">",
+    "source": "<a href="/foo"></a>",
     "warningCount": 0,
   },
 ]
@@ -50,7 +50,7 @@ exports[`docs/rules/allowed-links.md inline validation: base-invalid 1`] = `
         "size": 3,
       },
     ],
-    "source": "<a href="foo">",
+    "source": "<a href="foo"></a>",
     "warningCount": 0,
   },
 ]
@@ -71,19 +71,19 @@ exports[`docs/rules/allowed-links.md inline validation: external-include 1`] = `
         "context": "external",
         "line": 5,
         "message": "External link to this destination is not allowed by current configuration",
-        "offset": 77,
+        "offset": 81,
         "ruleId": "allowed-links",
         "ruleUrl": "https://html-validate.org/rules/allowed-links.html",
-        "selector": "a > a",
+        "selector": "a:nth-child(2)",
         "severity": 2,
         "size": 17,
       },
     ],
     "source": "<!-- allowed -->
-<a href="//foo.example.net">
+<a href="//foo.example.net"></a>
 
 <!-- not allowed -->
-<a href="//bar.example.net">",
+<a href="//bar.example.net"></a>",
     "warningCount": 0,
   },
 ]
@@ -110,7 +110,7 @@ exports[`docs/rules/allowed-links.md inline validation: external-invalid 1`] = `
         "size": 22,
       },
     ],
-    "source": "<a href="http://example.net/foo">",
+    "source": "<a href="http://example.net/foo"></a>",
     "warningCount": 0,
   },
 ]
@@ -139,7 +139,7 @@ exports[`docs/rules/allowed-links.md inline validation: relative-invalid 1`] = `
         "size": 6,
       },
     ],
-    "source": "<a href="../foo">",
+    "source": "<a href="../foo"></a>",
     "warningCount": 0,
   },
 ]
