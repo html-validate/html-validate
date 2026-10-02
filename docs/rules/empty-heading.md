@@ -25,55 +25,56 @@ See also [WCAG G130: Providing descriptive headings](https://www.w3.org/WAI/WCAG
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="empty-heading">
-    <h1></h1>
-    <h2><span></span></h2>
-</validate>
+```html validate name="incorrect" rules="empty-heading"
+<h1></h1>
+<h2><span></span></h2>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="empty-heading">
-    <h1>Lorem ipsum</h1>
-    <h2><span>Dolor sit amet</span></h2>
-</validate>
+```html validate name="correct" rules="empty-heading"
+<h1>Lorem ipsum</h1>
+<h2><span>Dolor sit amet</span></h2>
+```
 
 ### Whitespace
 
 Text with only whitespace is also considered empty.
 
-<validate name="whitespace" rules="empty-heading">
-    <h1> </h1>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="whitespace" rules="empty-heading"
+<h1> </h1>
+```
 
 ### Images
 
 Images can be used if they have alternative text:
 
-<validate name="img-alt" rules="empty-heading">
-    <h1>
-        <img src="awesome-logo.png" alt="Our awesome logo!">
-    </h1>
-</validate>
+```html validate name="img-alt" rules="empty-heading"
+<h1>
+  <img src="awesome-logo.png" alt="Our awesome logo!" />
+</h1>
+```
 
 ### Hidden
 
 Even if the heading or one of its parents are `hidden` this rule tests if the heading is empty.
 
-<validate name="hidden-invalid" rules="empty-heading">
-    <h1 hidden></h1>
-    <div hidden>
-        <h2></h1>
-    </div>
-</validate>
+```html validate name="hidden-invalid" rules="empty-heading"
+<h1 hidden></h1>
+<div hidden>
+  <h2></h1>
+</div>
+```
 
 Non-empty headings are valid:
 
-<validate name="hidden-valid" rules="empty-heading">
-    <h1 hidden>Lorem ipsum</h1>
-    <div hidden>
-        <h2>dolor sit amet</h2>
-    </div>
-</validate>
+```html validate name="hidden-valid" rules="empty-heading"
+<h1 hidden>Lorem ipsum</h1>
+<div hidden>
+  <h2>dolor sit amet</h2>
+</div>
+```
 
 ## Version history
 

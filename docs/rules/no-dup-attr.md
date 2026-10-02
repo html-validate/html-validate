@@ -18,12 +18,12 @@ Browsers handles duplication differently and thus this is a source for bugs.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-dup-attr">
-    <div class="foo" class="bar"></div>
-</validate>
+```html validate name="incorrect" rules="no-dup-attr"
+<div class="foo" class="bar"></div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-dup-attr">
-    <div class="foo bar"></div>
-</validate>
+```html validate name="correct" rules="no-dup-attr"
+<div class="foo bar"></div>
+```

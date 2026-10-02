@@ -2,19 +2,19 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["external-invalid"] = `<a href="http://example.net/foo">`;
-markup["external-valid"] = `<a href="./foo">`;
-markup["relative-invalid"] = `<a href="../foo">`;
-markup["relative-valid"] = `<a href="/foo">`;
-markup["absolute-invalid"] = `<a href="/foo">`;
-markup["absolute-valid"] = `<a href="../foo">`;
-markup["base-invalid"] = `<a href="foo">`;
-markup["base-valid"] = `<a href="./foo">`;
+markup["external-invalid"] = `<a href="http://example.net/foo"></a>`;
+markup["external-valid"] = `<a href="./foo"></a>`;
+markup["relative-invalid"] = `<a href="../foo"></a>`;
+markup["relative-valid"] = `<a href="/foo"></a>`;
+markup["absolute-invalid"] = `<a href="/foo"></a>`;
+markup["absolute-valid"] = `<a href="../foo"></a>`;
+markup["base-invalid"] = `<a href="foo"></a>`;
+markup["base-valid"] = `<a href="./foo"></a>`;
 markup["external-include"] = `<!-- allowed -->
-<a href="//foo.example.net">
+<a href="//foo.example.net"></a>
 
 <!-- not allowed -->
-<a href="//bar.example.net">`;
+<a href="//bar.example.net"></a>`;
 
 describe("docs/rules/allowed-links.md", () => {
 	it("inline validation: external-invalid", async () => {

@@ -15,31 +15,27 @@ HTML defines what content is allowed under each type of element.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-permitted-content">
-    <!-- <li> is only allowed with <ul> or <ol> as parent -->
-    <div>
-        <li>foo</li>
-    </div>
+```html validate name="incorrect" rules="element-permitted-content"
+<!-- <li> is only allowed with <ul> or <ol> as parent -->
+<div>
+  <li>foo</li>
+</div>
 
-    <!-- interactive elements cannot be nested -->
-    <button>
-        <a href="#">Lorem ipsum</a>
-    </button>
-
-</validate>
+<!-- interactive elements cannot be nested -->
+<button>
+  <a href="#">Lorem ipsum</a>
+</button>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-permitted-content">
-    <ul>
-        <li>foo</li>
-    </ul>
+```html validate name="correct" rules="element-permitted-content"
+<ul>
+  <li>foo</li>
+</ul>
 
-    <button>
-        Lorem ipsum
-    </button>
-
-</validate>
+<button>Lorem ipsum</button>
+```
 
 ## Version history
 

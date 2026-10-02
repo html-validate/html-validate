@@ -2,9 +2,9 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<area>`;
+markup["incorrect"] = `<area />`;
 markup["correct"] = `<map>
-    <area>
+  <area />
 </map>`;
 
 describe("docs/rules/element-required-ancestor.md", () => {

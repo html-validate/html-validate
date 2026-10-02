@@ -11,10 +11,10 @@ exports[`docs/rules/prefer-tbody.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 3,
+        "column": 4,
         "line": 2,
         "message": "Prefer to wrap <tr> elements in <tbody>",
-        "offset": 10,
+        "offset": 11,
         "ruleId": "prefer-tbody",
         "ruleUrl": "https://html-validate.org/rules/prefer-tbody.html",
         "selector": "table > tr",
@@ -23,7 +23,9 @@ exports[`docs/rules/prefer-tbody.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<table>
-	<tr><td>...</td></tr>
+  <tr>
+    <td>...</td>
+  </tr>
 </table>",
     "warningCount": 0,
   },

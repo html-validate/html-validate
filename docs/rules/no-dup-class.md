@@ -13,12 +13,12 @@ Prevents unnecessary duplication of class names.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-dup-class">
-    <div class="foo bar foo"></div>
-</validate>
+```html validate name="incorrect" rules="no-dup-class"
+<div class="foo bar foo"></div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-dup-class">
-    <div class="foo bar"></div>
-</validate>
+```html validate name="correct" rules="no-dup-class"
+<div class="foo bar"></div>
+```

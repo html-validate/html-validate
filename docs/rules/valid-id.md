@@ -21,17 +21,17 @@ See also the related {@link rules/id-pattern} rule which can be used for applyin
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="valid-id">
-    <p id=""></p>
-    <p id="foo bar"></p>
-    <p id="123"></p>
-</validate>
+```html validate name="incorrect" rules="valid-id"
+<p id=""></p>
+<p id="foo bar"></p>
+<p id="123"></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="valid-id">
-    <p id="foo-123"></p>
-</validate>
+```html validate name="correct" rules="valid-id"
+<p id="foo-123"></p>
+```
 
 ## Options
 
@@ -47,10 +47,10 @@ This rule takes an optional object:
 
 When set to `true` this rule only validates the ID is non-empty and contains no whitespace.
 
-<validate name="relaxed" rules="valid-id" valid-id='{"relaxed": true}'>
-    <p id="123"></p>
-    <p id="#foo[bar]"></p>
-</validate>
+```html validate name="relaxed" rules="valid-id" valid-id='{"relaxed": true}'
+<p id="123"></p>
+<p id="#foo[bar]"></p>
+```
 
 ## Version history
 

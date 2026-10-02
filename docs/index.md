@@ -80,37 +80,36 @@ First-class support for:
 
 ### Content model
 
-<validate name="frontpage-contentmodel">
-  <footer>
-    <fieldset>
-      <p>Lorem ipsum dolor sit amet</p>
-      <legend>Consectetur adipiscing elit</legend>
-    </fieldset>
+```html validate name="frontpage-contentmodel"
+<footer>
+  <fieldset>
+    <p>Lorem ipsum dolor sit amet</p>
+    <legend>Consectetur adipiscing elit</legend>
+  </fieldset>
 
-    <main>
-      <blink>(c) 2018 Initech</blink>
-    </main>
-
-  </footer>
-</validate>
+  <main>
+    <blink>(c) 2018 Initech</blink>
+  </main>
+</footer>
+```
 
 ### Accessibility
 
-<validate name="frontpage-a11y" rules="wcag/h37 no-implicit-button-type input-missing-label">
-  <img src="logo.png">
-  <button onclick="myFunction();">Click me!</button>
+```html validate name="frontpage-a11y" rules="wcag/h37 no-implicit-button-type input-missing-label"
+<img src="logo.png" />
+<button onclick="myFunction();">Click me!</button>
 
-  <div class="field-wrapper">
-    <strong>Name: </strong>
-    <input type="text" name="name">
-  </div>
-</validate>
+<div class="field-wrapper">
+  <strong>Name: </strong>
+  <input type="text" name="name" />
+</div>
+```
 
 ### Custom components
 
-<validate name="frontpage-components" elements="frontpage.json">
-  <my-inline>
-    <my-block></my-block>
-    <my-deprecated></my-deprecated>
-  </my-inline>
-</validate>
+```html validate name="frontpage-components" elements="frontpage.json"
+<my-inline>
+  <my-block></my-block>
+  <my-deprecated></my-deprecated>
+</my-inline>
+```

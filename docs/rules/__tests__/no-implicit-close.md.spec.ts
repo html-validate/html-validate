@@ -3,19 +3,19 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["parent"] = `<ul>
-    <li>foo
-    <li>bar
-    <li>baz
+  <li>foo
+  <li>bar
+  <li>baz
 </ul>`;
 markup["siblings"] = `<p>lorem ipsum
 <p>dolor sit amet`;
 markup["adjacent"] = `<p>
-    <div>lorem ipsum</div>
+  <div>lorem ipsum</div>
 </p>`;
 markup["correct-list"] = `<ul>
-     <li>foo</li>
-     <li>bar</li>
-     <li>baz</li>
+  <li>foo</li>
+  <li>bar</li>
+  <li>baz</li>
 </ul>`;
 markup["correct-paragraph"] = `<p>lorem ipsum</p>
 <p>dolor sit amet</p>`;

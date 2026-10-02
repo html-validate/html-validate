@@ -26,14 +26,14 @@ exports[`docs/rules/element-required-content.md inline validation: incorrect 1`]
         "size": 4,
       },
       {
-        "column": 6,
+        "column": 4,
         "context": {
           "element": "<head>",
           "missing": "<title>",
         },
         "line": 2,
         "message": "<head> element must have <title> as content",
-        "offset": 12,
+        "offset": 10,
         "ruleId": "element-required-content",
         "ruleUrl": "https://html-validate.org/rules/element-required-content.html",
         "selector": "html > head",
@@ -42,8 +42,7 @@ exports[`docs/rules/element-required-content.md inline validation: incorrect 1`]
       },
     ],
     "source": "<html>
-    <head>
-    </head>
+  <head></head>
 </html>",
     "warningCount": 0,
   },

@@ -3,19 +3,13 @@ import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<form>
-    <label>
-        Text field: <input type="text">
-    </label>
+  <label> Text field: <input type="text" /> </label>
 </form>`;
 markup["correct"] = `<form>
-    <label>
-        Text field: <input type="text">
-    </label>
-    <button type="submit">Submit</button>
+  <label> Text field: <input type="text" /> </label>
+  <button type="submit">Submit</button>
 </form>`;
-markup["associated"] = `<form id="my-form">
-    ...
-</form>
+markup["associated"] = `<form id="my-form"></form>
 <button form="my-form" type="submit">Submit</button>`;
 
 describe("docs/rules/wcag/h32.md", () => {

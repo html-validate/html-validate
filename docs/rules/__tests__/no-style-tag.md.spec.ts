@@ -3,17 +3,17 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<style>
-    body {
-        background-color: hotpink;
-    }
+  body {
+    background-color: hotpink;
+  }
 </style>`;
-markup["correct"] = `<link rel="stylesheet" src="my-style.css">`;
+markup["correct"] = `<link rel="stylesheet" src="my-style.css" />`;
 markup["allow-template"] = `<template>
-    <style>
-        :host {
-            display: block;
-        }
-    </style>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
 </template>`;
 
 describe("docs/rules/no-style-tag.md", () => {

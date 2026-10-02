@@ -16,13 +16,15 @@ cannot have any content and must not have an end tag.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="void-content">
-    <img></img>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="void-content"
+<img></img>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="void-content">
-    <img>
-    <img/>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="correct" rules="void-content"
+<img>
+<img/>
+```

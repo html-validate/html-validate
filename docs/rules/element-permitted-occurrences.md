@@ -15,18 +15,18 @@ Some elements may only be used a fixed amount of times in given context.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-permitted-occurrences">
-    <!-- table footer can only be used once -->
-    <table>
-        <tfoot></tfoot>
-        <tfoot></tfoot>
-    </div>
-</validate>
+```html validate name="incorrect" rules="element-permitted-occurrences"
+<!-- table footer can only be used once -->
+<table>
+  <tfoot></tfoot>
+  <tfoot></tfoot>
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-permitted-occurrences">
-    <table>
-        <tfoot></tfoot>
-    </table>
-</validate>
+```html validate name="correct" rules="element-permitted-occurrences"
+<table>
+  <tfoot></tfoot>
+</table>
+```

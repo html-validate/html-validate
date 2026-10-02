@@ -8,15 +8,15 @@ markup["correct"] = `<h1>Lorem ipsum</h1>
 <h2><span>Dolor sit amet</span></h2>`;
 markup["whitespace"] = `<h1> </h1>`;
 markup["img-alt"] = `<h1>
-    <img src="awesome-logo.png" alt="Our awesome logo!">
+  <img src="awesome-logo.png" alt="Our awesome logo!" />
 </h1>`;
 markup["hidden-invalid"] = `<h1 hidden></h1>
 <div hidden>
-    <h2></h1>
+  <h2></h1>
 </div>`;
 markup["hidden-valid"] = `<h1 hidden>Lorem ipsum</h1>
 <div hidden>
-    <h2>dolor sit amet</h2>
+  <h2>dolor sit amet</h2>
 </div>`;
 
 describe("docs/rules/empty-heading.md", () => {

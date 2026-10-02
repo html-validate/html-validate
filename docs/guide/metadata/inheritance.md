@@ -23,14 +23,14 @@ export default defineMetadata({
 });
 ```
 
-<validate name="inheritance" elements="inheritance.json">
-  <my-component>
-    <span>lorem ipsum</span>
-  </my-component>
-  <my-component>
-    <div>lorem ipsum</div>
-  </my-component>
-</validate>
+```html validate name="inheritance" elements="inheritance.json"
+<my-component>
+  <span>lorem ipsum</span>
+</my-component>
+<my-component>
+  <div>lorem ipsum</div>
+</my-component>
+```
 
 When inheriting you can still override any properties from the inherited element.
 

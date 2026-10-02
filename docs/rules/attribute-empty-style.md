@@ -21,15 +21,15 @@ This rule does not have an effect on boolean attributes, see {@link attribute-bo
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attribute-empty-style">
-    <a download=""></a>
-</validate>
+```html validate name="incorrect" rules="attribute-empty-style"
+<a download=""></a>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attribute-empty-style">
-    <a download></a>
-</validate>
+```html validate name="correct" rules="attribute-empty-style"
+<a download></a>
+```
 
 ## Options
 

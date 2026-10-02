@@ -22,45 +22,45 @@ Lets assume we have a custom element called `<my-component>`.
 If this element has no metadata anything goes for this element and the validator cannot help much.
 Lets start off with some examples:
 
-<validate name="no-metadata-1" results="true">
-  <!-- this is probably legal? -->
-  <div>
-    <my-component>lorem ipsum</my-component>
-  </div>
+```html validate name="no-metadata-1" results="true"
+<!-- this is probably legal? -->
+<div>
+  <my-component>lorem ipsum</my-component>
+</div>
 
-  <!-- but should it work inside a span? -->
-  <span>
-    <my-component>lorem ipsum</my-component>
-  </span>
-</validate>
+<!-- but should it work inside a span? -->
+<span>
+  <my-component>lorem ipsum</my-component>
+</span>
+```
 
 Depending on what the element consists of it might not be appropriate to use inside a `<span>` but there is not yet any metadata available to tell if `<my-component>` is allowed to be used in that context.
 
-<validate name="no-metadata-2" results="true">
-  <!-- can it contain an interactive button? who knows? -->
-  <my-component>
-    <button type="button">click me!</button>
-  </my-component>
+```html validate name="no-metadata-2" results="true"
+<!-- can it contain an interactive button? who knows? -->
+<my-component>
+  <button type="button">click me!</button>
+</my-component>
 
-  <!-- or is it allowed inside a button? -->
-  <button type="button">
-    <my-component>click me!</my-component>
-  </button>
-</validate>
+<!-- or is it allowed inside a button? -->
+<button type="button">
+  <my-component>click me!</my-component>
+</button>
+```
 
 Similarly there is not yet a way to tell if a button is allowed inside the component or if it may be used inside one.
 Consider what would happen if `<my-component>` wraps the content in an `<a>`.
 
-<validate name="no-metadata-3" results="true">
-  <!-- lets nest the component for fun and profit! -->
+```html validate name="no-metadata-3" results="true"
+<!-- lets nest the component for fun and profit! -->
+<my-component>
   <my-component>
     <my-component>
-      <my-component>
-        Sup dawg I heard you like components so I put components inside your components.
-      </my-component>
+      Sup dawg I heard you like components so I put components inside your components.
     </my-component>
   </my-component>
-</validate>
+</my-component>
+```
 
 Most of the time it would make little sense to nest components but sometimes it isn't as obvious when it happens.
 Perhaps the nesting isn't direct but happens way down in the DOM tree.
@@ -89,11 +89,11 @@ Configure with:
 
 Rerunning the validation will now have the complete opposite effect, the element will not be allowed anywhere:
 
-<validate name="basic-metadata" elements="simple-component-basic.json">
-  <div>
-    <my-component>lorem ipsum</my-component>
-  </div>
-</validate>
+```html validate name="basic-metadata" elements="simple-component-basic.json"
+<div>
+  <my-component>lorem ipsum</my-component>
+</div>
+```
 
 This happens because we have not yet told the validator what kind of element it is, we only provided it with empty metadata.
 Most properties default to `false` or `[]`.
@@ -126,19 +126,19 @@ For instance, if our `<my-component>` element were to work similar to a `<div>` 
 
 The element will now be accepted inside another `<div>` as flow elements can be nested inside each other.
 
-<validate name="flow-metadata-1" elements="simple-component-flow.json" results="true">
-  <div>
-    <my-component>lorem ipsum</my-component>
-  </div>
-</validate>
+```html validate name="flow-metadata-1" elements="simple-component-flow.json" results="true"
+<div>
+  <my-component>lorem ipsum</my-component>
+</div>
+```
 
 It can not be nested inside a `<span>` as a `<span>` does not accept flow content (only other phrasing elements):
 
-<validate name="flow--metadata-2" elements="simple-component-flow.json" results="true">
-  <span>
-    <my-component>lorem ipsum</my-component>
-  </span>
-</validate>
+```html validate name="flow--metadata-2" elements="simple-component-flow.json" results="true"
+<span>
+  <my-component>lorem ipsum</my-component>
+</span>
+```
 
 If we set the `phrasing` property as well the element will be allowed inside a `<span>` too:
 
@@ -153,11 +153,11 @@ If we set the `phrasing` property as well the element will be allowed inside a `
  });
 ```
 
-<validate name="phrasing-metadata" elements="simple-component-phrasing.json" results="true">
-  <span>
-    <my-component>lorem ipsum</my-component>
-  </span>
-</validate>
+```html validate name="phrasing-metadata" elements="simple-component-phrasing.json" results="true"
+<span>
+  <my-component>lorem ipsum</my-component>
+</span>
+```
 
 Some elements might want only one or the other and some want both.
 Most of the time a phrasing elements belongs to both the flow and phrasing categories but the opposite is not true.

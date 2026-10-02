@@ -2,19 +2,19 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input type="hidden" aria-label="foobar">`;
-markup["correct"] = `<input type="text" aria-label="foobar">`;
+markup["incorrect"] = `<input type="hidden" aria-label="foobar" />`;
+markup["correct"] = `<input type="text" aria-label="foobar" />`;
 markup["any-namable"] = `<h1 aria-label="Lorem ipsum">dolor sit amet</h1>`;
 markup["elements-include"] = `<!-- div is validated and will report an error -->
 <div aria-label="Lorem ipsum">dolor sit amet</div>
 
-   <!-- p is ignored, no error despite normally not being allowed -->
-   <p aria-label="Lorem ipsum">dolor sit amet</p>`;
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>`;
 markup["elements-exclude"] = `<!-- div is validated and will report an error -->
 <div aria-label="Lorem ipsum">dolor sit amet</div>
 
-   <!-- p is ignored, no error despite normally not being allowed -->
-   <p aria-label="Lorem ipsum">dolor sit amet</p>`;
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>`;
 
 describe("docs/rules/aria-label-misuse.md", () => {
 	it("inline validation: incorrect", async () => {

@@ -11,10 +11,10 @@ exports[`docs/rules/empty-title.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 12,
+        "offset": 10,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "head > title",
@@ -23,7 +23,7 @@ exports[`docs/rules/empty-title.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<head>
-    <title></title>
+  <title></title>
 </head>",
     "warningCount": 0,
   },
@@ -39,10 +39,10 @@ exports[`docs/rules/empty-title.md inline validation: whitespace 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 2,
         "message": "<title> cannot be empty, must have text content",
-        "offset": 12,
+        "offset": 10,
         "ruleId": "empty-title",
         "ruleUrl": "https://html-validate.org/rules/empty-title.html",
         "selector": "head > title",
@@ -51,7 +51,7 @@ exports[`docs/rules/empty-title.md inline validation: whitespace 1`] = `
       },
     ],
     "source": "<head>
-    <title> </title>
+  <title> </title>
 </head>",
     "warningCount": 0,
   },

@@ -3,17 +3,15 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<a href="tel:555123456">
-    <span>555-123 456</span>
+  <span>555-123 456</span>
 </a>`;
 markup["correct"] = `<a href="tel:555123456">
-    <span>555&#8209;123&nbsp;456</span>
+  <span>555&#8209;123&nbsp;456</span>
 </a>`;
 markup["ignored"] = `<a class="nobreak" href="tel:555123456">
-    <span>555-123 456</span>
+  <span>555-123 456</span>
 </a>`;
-markup["ignore-style"] = `<a style="white-space: nowrap" href="tel:555123456">
-    555-123 456
-</a>`;
+markup["ignore-style"] = `<a style="white-space: nowrap" href="tel:555123456"> 555-123 456 </a>`;
 
 describe("docs/rules/tel-non-breaking.md", () => {
 	it("inline validation: incorrect", async () => {

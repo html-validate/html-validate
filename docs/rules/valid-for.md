@@ -25,17 +25,21 @@ According to the HTML specification, the `for` attribute should reference elemen
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="valid-for">
+```html validate name="incorrect" rules="valid-for"
+<div>
   <label for="foo">Lorem ipsum</label>
   <p id="foo">dolor sit amet</p>
-</validate>
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="valid-for">
+```html validate name="correct" rules="valid-for"
+<div>
   <label for="foo">Lorem ipsum</label>
-  <input type="text" id="foo">
-</validate>
+  <input type="text" id="foo" />
+</div>
+```
 
 ## Version history
 

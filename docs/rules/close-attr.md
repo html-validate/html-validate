@@ -15,12 +15,12 @@ HTML disallows end tags to have attributes.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="close-attr">
-    <div></div id="foo">
-</validate>
+```html validate name="incorrect" rules="close-attr"
+<div></div id="foo">
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="close-attr">
-    <div id="foo"></div>
-</validate>
+```html validate name="correct" rules="close-attr"
+<div id="foo"></div>
+```

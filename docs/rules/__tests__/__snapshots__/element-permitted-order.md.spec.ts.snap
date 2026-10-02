@@ -11,10 +11,10 @@ exports[`docs/rules/element-permitted-order.md inline validation: incorrect 1`] 
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 6,
+        "column": 4,
         "line": 4,
         "message": "Element <caption> must be used before <thead> in this context",
-        "offset": 82,
+        "offset": 78,
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table > caption",
@@ -24,8 +24,8 @@ exports[`docs/rules/element-permitted-order.md inline validation: incorrect 1`] 
     ],
     "source": "<!-- table caption must be used before thead -->
 <table>
-    <thead></thead>
-    <caption></caption>
+  <thead></thead>
+  <caption></caption>
 </div>",
     "warningCount": 0,
   },

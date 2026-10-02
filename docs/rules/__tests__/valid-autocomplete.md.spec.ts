@@ -2,11 +2,11 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input type="text" autocomplete="foo">
-<input type="text" autocomplete="name billing">
-<input type="text" autocomplete="street-address">`;
-markup["correct"] = `<input type="text" autocomplete="name">
-<input type="text" autocomplete="billing name">
+markup["incorrect"] = `<input type="text" autocomplete="foo" />
+<input type="text" autocomplete="name billing" />
+<input type="text" autocomplete="street-address" />`;
+markup["correct"] = `<input type="text" autocomplete="name" />
+<input type="text" autocomplete="billing name" />
 <textarea autocomplete="street-address"></textarea>`;
 
 describe("docs/rules/valid-autocomplete.md", () => {

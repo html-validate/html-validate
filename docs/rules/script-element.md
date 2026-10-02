@@ -15,12 +15,12 @@ For legacy reasons the `<script>` element must include a `</script>` end tag eve
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="script-element">
-    <script src="myscript.js"/>
-</validate>
+```html validate name="incorrect" rules="script-element"
+<script src="myscript.js" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="script-element">
-    <script src="myscript.js"></script>
-</validate>
+```html validate name="correct" rules="script-element"
+<script src="myscript.js"></script>
+```

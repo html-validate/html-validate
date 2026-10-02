@@ -23,9 +23,7 @@ exports[`docs/rules/hidden-focusable.md inline validation: incorrect 1`] = `
         "size": 11,
       },
     ],
-    "source": "<a href="#" aria-hidden="true">
-	lorem ipsum
-</a>",
+    "source": "<a href="#" aria-hidden="true"> lorem ipsum </a>",
     "warningCount": 0,
   },
 ]

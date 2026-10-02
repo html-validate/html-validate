@@ -11,11 +11,11 @@ exports[`docs/rules/no-self-closing.md inline validation: foreign 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 5,
+        "column": 6,
         "context": "svg",
         "line": 1,
         "message": "<svg> must not be self-closed",
-        "offset": 4,
+        "offset": 5,
         "ruleId": "no-self-closing",
         "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
         "selector": "svg",
@@ -23,7 +23,7 @@ exports[`docs/rules/no-self-closing.md inline validation: foreign 1`] = `
         "size": 2,
       },
     ],
-    "source": "<svg/>",
+    "source": "<svg />",
     "warningCount": 0,
   },
 ]
@@ -38,11 +38,11 @@ exports[`docs/rules/no-self-closing.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 5,
+        "column": 6,
         "context": "div",
         "line": 1,
         "message": "<div> must not be self-closed",
-        "offset": 4,
+        "offset": 5,
         "ruleId": "no-self-closing",
         "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
         "selector": "div",
@@ -50,7 +50,7 @@ exports[`docs/rules/no-self-closing.md inline validation: incorrect 1`] = `
         "size": 2,
       },
     ],
-    "source": "<div/>",
+    "source": "<div />",
     "warningCount": 0,
   },
 ]
@@ -65,11 +65,11 @@ exports[`docs/rules/no-self-closing.md inline validation: xml 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 12,
+        "column": 13,
         "context": "xi:include",
         "line": 1,
         "message": "<xi:include> must not be self-closed",
-        "offset": 11,
+        "offset": 12,
         "ruleId": "no-self-closing",
         "ruleUrl": "https://html-validate.org/rules/no-self-closing.html",
         "selector": "xi:include",
@@ -77,7 +77,7 @@ exports[`docs/rules/no-self-closing.md inline validation: xml 1`] = `
         "size": 2,
       },
     ],
-    "source": "<xi:include/>",
+    "source": "<xi:include />",
     "warningCount": 0,
   },
 ]

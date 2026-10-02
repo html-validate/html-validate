@@ -13,23 +13,24 @@ Reports error when an input element (`<input>`, `<textarea>` and `<select>`) con
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-redundant-aria-label">
-    <label for="foo"> lorem ipsum </label>
-    <input id="foo" aria-label="lorem ipsum" />
-</validate>
+```html validate name="incorrect" rules="no-redundant-aria-label"
+<div>
+  <label for="foo"> lorem ipsum </label>
+  <input id="foo" aria-label="lorem ipsum" />
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-redundant-aria-label">
-    <!-- different texts -->
-    <label for="foo"> lorem ipsum </label>
-    <input id="foo" aria-label="screenreader text" />
+```html validate name="correct" rules="no-redundant-aria-label"
+<!-- different texts -->
+<label for="foo"> lorem ipsum </label>
+<input id="foo" aria-label="screenreader text" />
 
-    <!-- only label -->
-    <label for="foo"> lorem ipsum </label>
-    <input id="foo" />
-
-</validate>
+<!-- only label -->
+<label for="foo"> lorem ipsum </label>
+<input id="foo" />
+```
 
 ## Version history
 

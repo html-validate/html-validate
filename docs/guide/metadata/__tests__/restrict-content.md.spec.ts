@@ -11,14 +11,10 @@ markup["exclude"] = `<my-component>
   <h1>not allowed</h1>
 </my-component>`;
 markup["descendants"] = `<my-component>
-<!-- the div itself is allowed -->
+  <!-- the div itself is allowed -->
   <div>
-    <footer>
-      sectioning element can no longer be used
-    </footer>
-    <my-component>
-      nor can the component be nested
-    </my-component>
+    <footer>sectioning element can no longer be used</footer>
+    <my-component> nor can the component be nested </my-component>
   </div>
   <span>also allowed</span>
   <h1>not allowed</h1>

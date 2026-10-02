@@ -2,12 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<a href="#" aria-hidden="true">
-	lorem ipsum
-</a>`;
-markup["correct"] = `<a href="#">
-	lorem ipsum
-</a>`;
+markup["incorrect"] = `<a href="#" aria-hidden="true"> lorem ipsum </a>`;
+markup["correct"] = `<a href="#"> lorem ipsum </a>`;
 
 describe("docs/rules/hidden-focusable.md", () => {
 	it("inline validation: incorrect", async () => {

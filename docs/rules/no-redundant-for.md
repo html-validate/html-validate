@@ -16,25 +16,23 @@ Doing both is redundant as the label already references the control.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-redundant-for">
-  <label for="foo">
-    <input type="checkbox" id="foo">
-    My fancy checkbox
-  </label>
-</validate>
+```html validate name="incorrect" rules="no-redundant-for"
+<label for="foo">
+  <input type="checkbox" id="foo" />
+  My fancy checkbox
+</label>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-redundant-for">
-  <!-- without for attribute -->
-  <label>
-    <input type="checkbox">
-    My fancy checkbox
-  </label>
+```html validate name="correct" rules="no-redundant-for"
+<!-- without for attribute -->
+<label>
+  <input type="checkbox" />
+  My fancy checkbox
+</label>
 
-  <!-- without wrapping -->
-  <input type="checkbox" id="foo">
-  <label for="foo">
-    My fancy checkbox
-  </label>
-</validate>
+<!-- without wrapping -->
+<input type="checkbox" id="foo" />
+<label for="foo"> My fancy checkbox </label>
+```

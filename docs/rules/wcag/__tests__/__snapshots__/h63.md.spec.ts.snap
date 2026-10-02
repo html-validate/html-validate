@@ -15,10 +15,10 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 10,
+        "column": 6,
         "line": 3,
         "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 26,
+        "offset": 20,
         "ruleId": "wcag/h63",
         "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
         "selector": "table > tr:nth-child(1) > th:nth-child(1)",
@@ -26,10 +26,10 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
         "size": 2,
       },
       {
-        "column": 10,
+        "column": 6,
         "line": 4,
         "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 52,
+        "offset": 42,
         "ruleId": "wcag/h63",
         "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
         "selector": "table > tr:nth-child(1) > th:nth-child(2)",
@@ -37,10 +37,10 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
         "size": 2,
       },
       {
-        "column": 10,
+        "column": 6,
         "line": 8,
         "message": "<th> element must have a valid scope attribute: row, col, rowgroup or colgroup",
-        "offset": 161,
+        "offset": 139,
         "ruleId": "wcag/h63",
         "ruleUrl": "https://html-validate.org/rules/wcag/h63.html",
         "selector": "table > tr:nth-child(2) > th",
@@ -49,15 +49,15 @@ exports[`docs/rules/wcag/h63.md inline validation: incorrect-missing 1`] = `
       },
     ],
     "source": "<table>
-    <tr>
-        <th>Column A</th>
-        <th>Column B</th>
-    </tr>
-    <tr>
-        <!-- complex table with both column and row headers -->
-        <th>Row 1</th>
-        <td>Row 1</td>
-    </tr>
+  <tr>
+    <th>Column A</th>
+    <th>Column B</th>
+  </tr>
+  <tr>
+    <!-- complex table with both column and row headers -->
+    <th>Row 1</th>
+    <td>Row 1</td>
+  </tr>
 </table>",
     "warningCount": 0,
   },

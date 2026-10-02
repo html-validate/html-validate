@@ -4,39 +4,41 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<!-- no label element at all -->
 <div>
-    <strong>My input field</strong>
-    <input type="text">
+  <strong>My input field</strong>
+  <input type="text" />
 
-    <textarea></textarea>
+  <textarea></textarea>
 
-    <select>
-        <option>Option</option>
-    </select>
+  <select>
+    <option>Option</option>
+  </select>
 </div>
 
 <!-- unassociated label -->
 <div>
-    <label>My input field</label>
-    <input type="text">
+  <label>My input field</label>
+  <input type="text" />
 </div>`;
 markup["correct"] = `<!-- label with descendant -->
 <div>
-    <label>My field <input type="text"></label>
+  <label>My field <input type="text" /></label>
 </div>
 
 <!-- associated label -->
 <div>
-    <label for="my-field">My field</label>
-    <input id="my-field" type="text">
+  <label for="my-field">My field</label>
+  <input id="my-field" type="text" />
 </div>`;
-markup["hidden"] = `<label for="my-input" aria-hidden="true">My field</label>
-<input id="my-input" type="text">`;
+markup["hidden"] = `<div>
+  <label for="my-input" aria-hidden="true">My field</label>
+  <input id="my-input" type="text" />
+</div>`;
 markup["aria-label"] = `<div>
-    <input id="my-input" type="text" aria-label="My field">
-    <svg><use xlink:href="#search-icon"></svg>
+  <input id="my-input" type="text" aria-label="My field">
+  <svg><use xlink:href="#search-icon"></svg>
 </div>`;
 markup["aria-labelledby"] = `<h2 id="my-heading">Enter your name</h2>
-<input type="text" aria-labelledby="my-heading">`;
+<input type="text" aria-labelledby="my-heading" />`;
 
 describe("docs/rules/input-missing-label.md", () => {
 	it("inline validation: incorrect", async () => {

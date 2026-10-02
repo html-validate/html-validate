@@ -14,7 +14,7 @@ exports[`docs/rules/require-sri.md inline validation: crossorigin 1`] = `
         "column": 2,
         "line": 5,
         "message": "SRI "integrity" attribute is required on <link> element",
-        "offset": 102,
+        "offset": 104,
         "ruleId": "require-sri",
         "ruleUrl": "https://html-validate.org/rules/require-sri.html",
         "selector": "link:nth-child(2)",
@@ -23,10 +23,10 @@ exports[`docs/rules/require-sri.md inline validation: crossorigin 1`] = `
       },
     ],
     "source": "<!--- local resource -->
-<link rel="stylesheet" href="local.css">
+<link rel="stylesheet" href="local.css" />
 
 <!-- resource loaded over CDN -->
-<link rel="stylesheet" href="//cdn.example.net/remote.css">",
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />",
     "warningCount": 0,
   },
 ]
@@ -44,7 +44,7 @@ exports[`docs/rules/require-sri.md inline validation: exclude-option 1`] = `
         "column": 2,
         "line": 4,
         "message": "SRI "integrity" attribute is required on <link> element",
-        "offset": 159,
+        "offset": 161,
         "ruleId": "require-sri",
         "ruleUrl": "https://html-validate.org/rules/require-sri.html",
         "selector": "link:nth-child(2)",
@@ -53,9 +53,9 @@ exports[`docs/rules/require-sri.md inline validation: exclude-option 1`] = `
       },
     ],
     "source": "<!-- doesn't match excluded pattern, yields error -->
-<link rel="stylesheet" href="//cdn.example.net/remote.css">
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />
 <!-- matches excluded pattern, no error -->
-<link rel="stylesheet" href="//static-assets.example.org/remote.css">",
+<link rel="stylesheet" href="//static-assets.example.org/remote.css" />",
     "warningCount": 0,
   },
 ]

@@ -15,12 +15,13 @@ In HTML attributes must be separated by whitespace (commonly a regular space).
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attr-spacing">
-    <input type="submit"class="foo">
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="attr-spacing"
+<input type="submit"class="foo" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attr-spacing">
-    <input type="submit" class="foo">
-</validate>
+```html validate name="correct" rules="attr-spacing"
+<input type="submit" class="foo" />
+```

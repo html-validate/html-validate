@@ -2,9 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input required="">
-<input required="required">`;
-markup["correct"] = `<input required>`;
+markup["incorrect"] = `<input required="" />
+
+<input required="required" />`;
+markup["correct"] = `<input required />`;
 
 describe("docs/rules/attribute-boolean-style.md", () => {
 	it("inline validation: incorrect", async () => {

@@ -3,9 +3,11 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<a href>...</a>
-<input type="foobar">`;
+
+<input type="foobar" />`;
 markup["correct"] = `<a href="page.html">...</a>
-<input type="text">`;
+
+<input type="text" />`;
 
 describe("docs/rules/attribute-allowed-values.md", () => {
 	it("inline validation: incorrect", async () => {

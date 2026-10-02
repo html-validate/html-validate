@@ -17,16 +17,16 @@ Elements without metadata (e.g. custom elements) are ignored.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-unknown-attributes">
-	<div unknown="value"></div>
-</validate>
+```html validate name="incorrect" rules="no-unknown-attributes"
+<div unknown="value"></div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-unknown-attributes">
-	<div id="foo" class="bar" hidden></div>
-	<input type="text" name="username" />
-</validate>
+```html validate name="correct" rules="no-unknown-attributes"
+<div id="foo" class="bar" hidden></div>
+<input type="text" name="username" />
+```
 
 ## Exceptions
 

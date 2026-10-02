@@ -33,15 +33,15 @@ See the section on [custom components](#custom-components) below.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="aria-label-misuse">
-    <input type="hidden" aria-label="foobar">
-</validate>
+```html validate name="incorrect" rules="aria-label-misuse"
+<input type="hidden" aria-label="foobar" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="aria-label-misuse">
-    <input type="text" aria-label="foobar">
-</validate>
+```html validate name="correct" rules="aria-label-misuse"
+<input type="text" aria-label="foobar" />
+```
 
 ## Other namable elements
 
@@ -98,9 +98,9 @@ By default this rule disallows `aria-label` or `aria-labelledby` on elements tha
 
 With this option enabled, the following is valid despite not being recommended:
 
-<validate name="any-namable" rules="aria-label-misuse" aria-label-misuse='{"allowAnyNamable": true}'>
-	<h1 aria-label="Lorem ipsum">dolor sit amet</h1>
-</validate>
+```html validate name="any-namable" rules="aria-label-misuse" aria-label-misuse='{"allowAnyNamable": true}'
+<h1 aria-label="Lorem ipsum">dolor sit amet</h1>
+```
 
 This option is disabled by default and `html-validate:recommended` but enabled by `html-validate:standard`.
 
@@ -128,14 +128,13 @@ With this option set to `["div"]`, only `<div>` elements are validated:
 }
 ```
 
-<validate name="elements-include" rules="aria-label-misuse" aria-label-misuse='{"elements": {"include": ["div"]}}'>
-	<!-- div is validated and will report an error -->
-	<div aria-label="Lorem ipsum">dolor sit amet</div>
+```html validate name="elements-include" rules="aria-label-misuse" aria-label-misuse='{"elements": {"include": ["div"]}}'
+<!-- div is validated and will report an error -->
+<div aria-label="Lorem ipsum">dolor sit amet</div>
 
-    <!-- p is ignored, no error despite normally not being allowed -->
-    <p aria-label="Lorem ipsum">dolor sit amet</p>
-
-</validate>
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>
+```
 
 ### `elements.exclude`
 
@@ -161,14 +160,13 @@ With this option set to `["p"]`, `<p>` elements are ignored:
 }
 ```
 
-<validate name="elements-exclude" rules="aria-label-misuse" aria-label-misuse='{"elements": {"exclude": ["p"]}}'>
-	<!-- div is validated and will report an error -->
-	<div aria-label="Lorem ipsum">dolor sit amet</div>
+```html validate name="elements-exclude" rules="aria-label-misuse" aria-label-misuse='{"elements": {"exclude": ["p"]}}'
+<!-- div is validated and will report an error -->
+<div aria-label="Lorem ipsum">dolor sit amet</div>
 
-    <!-- p is ignored, no error despite normally not being allowed -->
-    <p aria-label="Lorem ipsum">dolor sit amet</p>
-
-</validate>
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>
+```
 
 ## Version history
 

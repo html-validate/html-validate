@@ -14,15 +14,15 @@ Being explicit about the intended type better conveys the purpose of the input f
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-implicit-input-type">
-	<input>
-</validate>
+```html validate name="incorrect" rules="no-implicit-input-type"
+<input />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-implicit-input-type">
-	<input type="text">
-</validate>
+```html validate name="correct" rules="no-implicit-input-type"
+<input type="text" />
+```
 
 ## Version history
 

@@ -22,19 +22,19 @@ When written on a single line it is quickly recognizable and readable but when t
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="tel-non-breaking">
-    <a href="tel:555123456">
-        <span>555-123 456</span>
-    </a>
-</validate>
+```html validate name="incorrect" rules="tel-non-breaking"
+<a href="tel:555123456">
+  <span>555-123 456</span>
+</a>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="tel-non-breaking">
-    <a href="tel:555123456">
-        <span>555&#8209;123&nbsp;456</span>
-    </a>
-</validate>
+```html validate name="correct" rules="tel-non-breaking"
+<a href="tel:555123456">
+  <span>555&#8209;123&nbsp;456</span>
+</a>
+```
 
 ## Options
 
@@ -62,11 +62,11 @@ Use when applying styling to prevent line breaks.
 
 For instance, when configured with `["nobreak"]` the following is valid:
 
-<validate name="ignored" rules="tel-non-breaking" tel-non-breaking='{"ignoreClasses": ["nobreak"]}'>
-    <a class="nobreak" href="tel:555123456">
-        <span>555-123 456</span>
-    </a>
-</validate>
+```html validate name="ignored" rules="tel-non-breaking" tel-non-breaking='{"ignoreClasses": ["nobreak"]}'
+<a class="nobreak" href="tel:555123456">
+  <span>555-123 456</span>
+</a>
+```
 
 ### `ignoreStyle`
 
@@ -79,11 +79,9 @@ Currently the following styles is checked:
 
 With this option the following is valid:
 
-<validate name="ignore-style" rules="tel-non-breaking">
-    <a style="white-space: nowrap" href="tel:555123456">
-        555-123 456
-    </a>
-</validate>
+```html validate name="ignore-style" rules="tel-non-breaking"
+<a style="white-space: nowrap" href="tel:555123456"> 555-123 456 </a>
+```
 
 ## Version history
 

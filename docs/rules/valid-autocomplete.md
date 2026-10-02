@@ -46,19 +46,19 @@ Again, refer to the Autofill section in the standard for a full table of allowed
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="valid-autocomplete">
-    <input type="text" autocomplete="foo">
-    <input type="text" autocomplete="name billing">
-    <input type="text" autocomplete="street-address">
-</validate>
+```html validate name="incorrect" rules="valid-autocomplete"
+<input type="text" autocomplete="foo" />
+<input type="text" autocomplete="name billing" />
+<input type="text" autocomplete="street-address" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="valid-autocomplete">
-    <input type="text" autocomplete="name">
-    <input type="text" autocomplete="billing name">
-    <textarea autocomplete="street-address"></textarea>
-</validate>
+```html validate name="correct" rules="valid-autocomplete"
+<input type="text" autocomplete="name" />
+<input type="text" autocomplete="billing name" />
+<textarea autocomplete="street-address"></textarea>
+```
 
 ## References
 

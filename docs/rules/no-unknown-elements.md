@@ -21,15 +21,15 @@ For custom elements (and framework components) you need supply your [own metadat
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-unknown-elements">
-    <custom-element></custom-element>
-</validate>
+```html validate name="incorrect" rules="no-unknown-elements"
+<custom-element></custom-element>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-unknown-elements">
-    <div></div>
-</validate>
+```html validate name="correct" rules="no-unknown-elements"
+<div></div>
+```
 
 ## Options
 

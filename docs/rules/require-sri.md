@@ -21,15 +21,15 @@ cryptographic hash for SRI to function.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="require-sri">
-    <script src="//cdn.example.net/jquery.min.js"></script>
-</validate>
+```html validate name="incorrect" rules="require-sri"
+<script src="//cdn.example.net/jquery.min.js"></script>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="require-sri">
-    <script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>
-</validate>
+```html validate name="correct" rules="require-sri"
+<script src="//cdn.example.net/jquery.min.js" integrity="sha384-..."></script>
+```
 
 ## Options
 
@@ -53,14 +53,13 @@ that the logic for determining crossdomain is a bit naïve, resources with a ful
 url (`protocol://`) or implicit protocol (`//`) counts as crossorigin even if it
 technically would point to the same origin.
 
-<validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossorigin"}'>
-    <!--- local resource -->
-    <link rel="stylesheet" href="local.css">
+```html validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossorigin"}'
+<!--- local resource -->
+<link rel="stylesheet" href="local.css" />
 
-    <!-- resource loaded over CDN -->
-    <link rel="stylesheet" href="//cdn.example.net/remote.css">
-
-</validate>
+<!-- resource loaded over CDN -->
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />
+```
 
 ### `include`
 
@@ -77,12 +76,12 @@ For instance, with the following configuration only the first URL yields an erro
 }
 ```
 
-<validate name="include-option" rules="require-sri" require-sri='{"include": ["//cdn.example.net/"]}'>
-    <!-- matches included pattern, yields error -->
-    <link rel="stylesheet" href="//cdn.example.net/remote.css" />
-    <!-- doesn't match, no error -->
-    <link rel="stylesheet" href="//static-assets.example.org/remote.css" />
-</validate>
+```html validate name="include-option" rules="require-sri" require-sri='{"include": ["//cdn.example.net/"]}'
+<!-- matches included pattern, yields error -->
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />
+<!-- doesn't match, no error -->
+<link rel="stylesheet" href="//static-assets.example.org/remote.css" />
+```
 
 ### `exclude`
 
@@ -99,12 +98,12 @@ For instance, with the following configuration only the second URL yields an err
 }
 ```
 
-<validate name="exclude-option" rules="require-sri" require-sri='{"exclude": ["//cdn.example.net/"]}'>
-    <!-- doesn't match excluded pattern, yields error -->
-    <link rel="stylesheet" href="//cdn.example.net/remote.css">
-    <!-- matches excluded pattern, no error -->
-    <link rel="stylesheet" href="//static-assets.example.org/remote.css">
-</validate>
+```html validate name="exclude-option" rules="require-sri" require-sri='{"exclude": ["//cdn.example.net/"]}'
+<!-- doesn't match excluded pattern, yields error -->
+<link rel="stylesheet" href="//cdn.example.net/remote.css" />
+<!-- matches excluded pattern, no error -->
+<link rel="stylesheet" href="//static-assets.example.org/remote.css" />
+```
 
 ## Version history
 

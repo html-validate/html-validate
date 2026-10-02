@@ -2,11 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input type="password">
-<input type="password" autocomplete="off">`;
-markup["correct"] = `<input type="password" autocomplete="new-password">`;
-markup["incorrect-preferred"] = `<input type="password" autocomplete="current-password">`;
-markup["correct-preferred"] = `<input type="password" autocomplete="new-password">`;
+markup["incorrect"] = `<input type="password" />
+
+<input type="password" autocomplete="off" />`;
+markup["correct"] = `<input type="password" autocomplete="new-password" />`;
+markup["incorrect-preferred"] = `<input type="password" autocomplete="current-password" />`;
+markup["correct-preferred"] = `<input type="password" autocomplete="new-password" />`;
 
 describe("docs/rules/autocomplete-password.md", () => {
 	it("inline validation: incorrect", async () => {

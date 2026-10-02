@@ -27,7 +27,7 @@ exports[`docs/rules/attr-delimiter.md inline validation: incorrect 1`] = `
         "fix": [Function],
         "line": 2,
         "message": "Attribute value must not be delimited by whitespace",
-        "offset": 36,
+        "offset": 38,
         "ruleId": "attr-delimiter",
         "ruleUrl": "https://html-validate.org/rules/attr-delimiter.html",
         "selector": null,
@@ -35,8 +35,8 @@ exports[`docs/rules/attr-delimiter.md inline validation: incorrect 1`] = `
         "size": 2,
       },
     ],
-    "source": "<input name= "my-field">
-<input name ="my-field">",
+    "source": "<input name= "my-field" />
+<input name ="my-field" />",
     "warningCount": 0,
   },
 ]

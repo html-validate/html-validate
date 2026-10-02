@@ -30,26 +30,26 @@ See also [WCAG G88: Providing descriptive titles][wcag-g88].
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="empty-title">
-    <head>
-        <title></title>
-    </head>
-</validate>
+```html validate name="incorrect" rules="empty-title"
+<head>
+  <title></title>
+</head>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="empty-title">
-    <head>
-        <title>Lorem ipsum</title>
-    </head>
-</validate>
+```html validate name="correct" rules="empty-title"
+<head>
+  <title>Lorem ipsum</title>
+</head>
+```
 
 ## Whitespace
 
 Text with only whitespace is also considered empty.
 
-<validate name="whitespace" rules="empty-title">
-    <head>
-        <title> </title>
-    </head>
-</validate>
+```html validate name="whitespace" rules="empty-title"
+<head>
+  <title> </title>
+</head>
+```

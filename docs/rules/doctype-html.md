@@ -22,16 +22,17 @@ declaration. Use [missing-doctype](missing-doctype.html) to validate presence.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="doctype-html">
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="doctype-html"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+```
 
-<validate name="legacy" rules="doctype-html">
-    <!DOCTYPE html SYSTEM "about:legacy-compat">
-</validate>
+```html validate name="legacy" rules="doctype-html"
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="doctype-html">
-    <!DOCTYPE html>
-</validate>
+```html validate name="correct" rules="doctype-html"
+<!DOCTYPE html>
+```

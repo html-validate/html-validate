@@ -20,23 +20,23 @@ It is used both by the browser when the `<img>` source is missing but most of al
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="area-alt">
-	<img src="image.png" usemap="#imagemap" alt="An awesome image">
-	<map name="imagemap">
-		<area href="target1.html">
-		<area alt="Link purpose">
-	</map>
-</validate>
+```html validate name="incorrect" rules="area-alt"
+<img src="image.png" usemap="#imagemap" alt="An awesome image" />
+<map name="imagemap">
+  <area href="target1.html" />
+  <area alt="Link purpose" />
+</map>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="area-alt">
-	<img src="image.png" usemap="#imagemap" alt="An awesome image">
-	<map name="imagemap">
-		<area href="target1.html" alt="Link purpose">
-		<area href="target2.html" alt="Link purpose">
-	</map>
-</validate>
+```html validate name="correct" rules="area-alt"
+<img src="image.png" usemap="#imagemap" alt="An awesome image" />
+<map name="imagemap">
+  <area href="target1.html" alt="Link purpose" />
+  <area href="target2.html" alt="Link purpose" />
+</map>
+```
 
 ## Options
 
@@ -59,23 +59,23 @@ This option is enabled by default by the `html-validate:recommended` and `html-v
 
 With this option **enabled** the following is **incorrect**:
 
-<validate name="enabled-a11y" rules="area-alt" area-alt='{ "accessible": true }'>
-	<img src="image.png" usemap="#imagemap" alt="An awesome image">
-	<map name="imagemap">
-		<area href="target.html" alt="">
-		<area href="target.html" alt="Link purpose">
-	</map>
-</validate>
+```html validate name="enabled-a11y" rules="area-alt" area-alt='{ "accessible": true }'
+<img src="image.png" usemap="#imagemap" alt="An awesome image" />
+<map name="imagemap">
+  <area href="target.html" alt="" />
+  <area href="target.html" alt="Link purpose" />
+</map>
+```
 
 With this option **disabled** the following is **correct**:
 
-<validate name="disabled-a11y" rules="area-alt" area-alt='{ "accessible": false }'>
-	<img src="image.png" usemap="#imagemap" alt="An awesome image">
-	<map name="imagemap">
-		<area href="target.html" alt="">
-		<area href="target.html" alt="Link purpose">
-	</map>
-</validate>
+```html validate name="disabled-a11y" rules="area-alt" area-alt='{ "accessible": false }'
+<img src="image.png" usemap="#imagemap" alt="An awesome image" />
+<map name="imagemap">
+  <area href="target.html" alt="" />
+  <area href="target.html" alt="Link purpose" />
+</map>
+```
 
 ## Version history
 

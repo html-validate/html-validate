@@ -25,20 +25,19 @@ The requirements comes from the [element metadata](/usage/elements.html):
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-required-content">
-    <html>
-        <head>
-        </head>
-    </html>
-</validate>
+```html validate name="incorrect" rules="element-required-content"
+<html>
+  <head></head>
+</html>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-required-content">
-    <html>
-        <head>
-            <title>foo</title>
-        </head>
-        <body></body>
-    </html>
-</validate>
+```html validate name="correct" rules="element-required-content"
+<html>
+  <head>
+    <title>foo</title>
+  </head>
+  <body></body>
+</html>
+```

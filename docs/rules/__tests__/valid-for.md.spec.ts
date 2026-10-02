@@ -2,10 +2,14 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<label for="foo">Lorem ipsum</label>
-<p id="foo">dolor sit amet</p>`;
-markup["correct"] = `<label for="foo">Lorem ipsum</label>
-<input type="text" id="foo">`;
+markup["incorrect"] = `<div>
+  <label for="foo">Lorem ipsum</label>
+  <p id="foo">dolor sit amet</p>
+</div>`;
+markup["correct"] = `<div>
+  <label for="foo">Lorem ipsum</label>
+  <input type="text" id="foo" />
+</div>`;
 
 describe("docs/rules/valid-for.md", () => {
 	it("inline validation: incorrect", async () => {

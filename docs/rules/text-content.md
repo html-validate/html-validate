@@ -30,18 +30,18 @@ By default this rules validates:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="text-content">
-	<button type="button"></button>
-</validate>
+```html validate name="incorrect" rules="text-content"
+<button type="button"></button>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="text-content">
-  <!-- regular static text -->
-  <button type="button">Add item</button>
+```html validate name="correct" rules="text-content"
+<!-- regular static text -->
+<button type="button">Add item</button>
 
-  <!-- text from aria-label -->
-  <button type="button" aria-label="Add item">
-    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-  </button>
-</validate>
+<!-- text from aria-label -->
+<button type="button" aria-label="Add item">
+  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+</button>
+```

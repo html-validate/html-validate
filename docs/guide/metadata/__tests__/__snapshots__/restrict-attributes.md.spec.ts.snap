@@ -10,9 +10,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1
     "messages": [
       {
         "column": 15,
-        "line": 2,
+        "line": 5,
         "message": "Attribute "quacks" should omit value",
-        "offset": 54,
+        "offset": 135,
         "ruleId": "attribute-boolean-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-boolean-style.html",
         "selector": "my-component:nth-child(2)",
@@ -29,9 +29,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1
           "element": "my-component",
           "value": "duck",
         },
-        "line": 2,
+        "line": 5,
         "message": "Attribute "quacks" has invalid value "duck"",
-        "offset": 62,
+        "offset": 143,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "my-component:nth-child(2)",
@@ -39,8 +39,11 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: boolean 1
         "size": 4,
       },
     ],
-    "source": "<my-component quacks>...</my-component>
-<my-component quacks="duck">...</my-component>",
+    "source": "<!-- ok: boolean attribute -->
+<my-component quacks></my-component>
+
+<!-- error: boolean attribute cannot take value -->
+<my-component quacks="duck"></my-component>",
     "warningCount": 0,
   },
 ]
@@ -56,9 +59,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: deprecate
     "messages": [
       {
         "column": 15,
-        "line": 1,
+        "line": 2,
         "message": "Attribute "duck" is deprecated on <my-component> element",
-        "offset": 14,
+        "offset": 56,
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
         "selector": "my-component:nth-child(1)",
@@ -66,8 +69,11 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: deprecate
         "size": 4,
       },
     ],
-    "source": "<my-component duck="dewey">...</my-component>
-<my-component>...</my-component>",
+    "source": "<!-- error: uses deprecated attribute -->
+<my-component duck="dewey"></my-component>
+
+<!-- ok: omitted deprecated attribute -->
+<my-component></my-component>",
     "warningCount": 0,
   },
 ]
@@ -95,9 +101,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: enum 1`] 
           "element": "my-component",
           "value": "flintheart",
         },
-        "line": 2,
+        "line": 5,
         "message": "Attribute "duck" has invalid value "flintheart"",
-        "offset": 66,
+        "offset": 180,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "my-component:nth-child(2)",
@@ -105,8 +111,11 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: enum 1`] 
         "size": 10,
       },
     ],
-    "source": "<my-component duck="dewey">...</my-component>
-<my-component duck="flintheart">...</my-component>",
+    "source": "<!-- ok: attribute value is explicitly allowed -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute value is not one of the allowed values -->
+<my-component duck="flintheart"></my-component>",
     "warningCount": 0,
   },
 ]
@@ -137,9 +146,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: regexp 1`
           "element": "my-component",
           "value": "huey",
         },
-        "line": 2,
+        "line": 5,
         "message": "Attribute "ducks" has invalid value "huey"",
-        "offset": 64,
+        "offset": 158,
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "my-component:nth-child(2)",
@@ -147,8 +156,11 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: regexp 1`
         "size": 4,
       },
     ],
-    "source": "<my-component ducks="3">...</my-component>
-<my-component ducks="huey">...</my-component>",
+    "source": "<!-- ok: any numerical value is allowed -->
+<my-component ducks="3"></my-component>
+
+<!-- error: non-numerical values are disallowed -->
+<my-component ducks="huey"></my-component>",
     "warningCount": 0,
   },
 ]
@@ -168,9 +180,9 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: required 
           "attr": "duck",
           "tagName": "<my-component>",
         },
-        "line": 2,
+        "line": 5,
         "message": "<my-component> is missing required "duck" attribute",
-        "offset": 47,
+        "offset": 116,
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
         "selector": "my-component:nth-child(2)",
@@ -178,8 +190,11 @@ exports[`docs/guide/metadata/restrict-attributes.md inline validation: required 
         "size": 12,
       },
     ],
-    "source": "<my-component duck="dewey">...</my-component>
-<my-component>...</my-component>",
+    "source": "<!-- ok: attribute is present -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute is omitted -->
+<my-component></my-component>",
     "warningCount": 0,
   },
 ]

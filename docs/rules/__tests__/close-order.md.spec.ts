@@ -3,27 +3,27 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect-stray-endtag"] = `<main>
-		<label>Lorem ipsum</label>
-	</div> <!-- div closed but never opened -->
+    <label>Lorem ipsum</label>
+  </div> <!-- div closed but never opened -->
 </main>`;
 markup["incorrect-missing-endtag"] = `<main>
-	<h1> <!-- h1 opened but not closed -->
-		Lorem ipsum <small>dolor sit amet</small>
+  <h1> <!-- h1 opened but not closed -->
+    Lorem ipsum <small>dolor sit amet</small>
 </main>`;
 markup["incorrect-wrong-endtag"] = `<main>
-	<h1>
-		Lorem ipsum <small>dolor sit amet</small>
-	</h1>
+  <h1>
+    Lorem ipsum <small>dolor sit amet</small>
+  </h1>
 </div> <!-- opened as main but closed as div -->`;
 markup["incorrect-out-of-order"] = `<div>
-	<!-- closed in wrong order -->
-	<p>
-		<strong>
-	</p>
-		</strong>
+  <!-- closed in wrong order -->
+  <p>
+    <strong>
+  </p>
+    </strong>
 </div>`;
 markup["incorrect-incorrect-implicit"] = `<p>
-	<address></address>
+  <address></address>
 </p> <!-- p is already implicitly closed by address tag -->`;
 markup["correct-1"] = `<p><strong></strong></p>`;
 markup["correct-2"] = `<div></div>`;

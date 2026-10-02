@@ -20,15 +20,15 @@ As this may or may not be inteded this rule enforces that the `type` attribute b
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-implicit-button-type">
-	<button>My Awesome Button</button>
-</validate>
+```html validate name="incorrect" rules="no-implicit-button-type"
+<button>My Awesome Button</button>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-implicit-button-type">
-	<button type="button">My Awesome Button</button>
-</validate>
+```html validate name="correct" rules="no-implicit-button-type"
+<button type="button">My Awesome Button</button>
+```
 
 ## Version history
 

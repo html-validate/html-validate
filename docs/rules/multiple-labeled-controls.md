@@ -20,27 +20,27 @@ It should either wrap a single [labelable][] control or use the `for` attribute 
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect-multiple" rules="multiple-labeled-controls">
-  <label>
-    <input type="text">
-    <input type="text">
-  </label>
-</validate>
+```html validate name="incorrect-multiple" rules="multiple-labeled-controls"
+<label>
+  <input type="text" />
+  <input type="text" />
+</label>
+```
 
-<validate name="incorrect-both" rules="multiple-labeled-controls">
-  <label for="bar">
-    <input type="text" id="foo">
-  </label>
-  <input type="text" id="bar">
-</validate>
+```html validate name="incorrect-both" rules="multiple-labeled-controls"
+<label for="bar">
+  <input type="text" id="foo" />
+</label>
+<input type="text" id="bar" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="multiple-labeled-controls">
-  <label>
-    <input type="text">
-  </label>
-</validate>
+```html validate name="correct" rules="multiple-labeled-controls"
+<label>
+  <input type="text" />
+</label>
+```
 
 ## Version history
 

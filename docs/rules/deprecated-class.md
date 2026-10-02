@@ -15,17 +15,17 @@ By default, the list of deprecated classes is empty and must be configured by th
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="deprecated-class" deprecated-class='{ "classes": [{ "class": "old-btn" }, { "class": "legacy-grid" }] }'>
-	<button class="old-btn">Click me</button>
-	<div class="legacy-grid">Content</div>
-</validate>
+```html validate name="incorrect" rules="deprecated-class" deprecated-class='{ "classes": [{ "class": "old-btn" }, { "class": "legacy-grid" }] }'
+<button class="old-btn">Click me</button>
+<div class="legacy-grid">Content</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="deprecated-class" deprecated-class='{ "classes": [{ "class": "old-btn" }] }'>
-	<button class="new-btn">Click me</button>
-	<div class="modern-layout">Content</div>
-</validate>
+```html validate name="correct" rules="deprecated-class" deprecated-class='{ "classes": [{ "class": "old-btn" }] }'
+<button class="new-btn">Click me</button>
+<div class="modern-layout">Content</div>
+```
 
 ## Options
 

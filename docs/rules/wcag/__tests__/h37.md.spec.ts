@@ -2,10 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<img>`;
-markup["correct"] = `<img alt="...">`;
-markup["allow-empty"] = `<span>The task was successfully completed! <img src="thumbsup.png" alt=""></span>`;
-markup["alias"] = `<img data-alt="...">`;
+markup["incorrect"] = `<img />`;
+markup["correct"] = `<img alt="..." />`;
+markup["allow-empty"] = `<span>The task was successfully completed! <img src="thumbsup.png" alt="" /></span>`;
+markup["alias"] = `<img data-alt="..." />`;
 
 describe("docs/rules/wcag/h37.md", () => {
 	it("inline validation: incorrect", async () => {

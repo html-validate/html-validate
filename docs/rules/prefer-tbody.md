@@ -16,18 +16,22 @@ Where applicable it should also be combined with `<thead>` and `<tfoot>`.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="prefer-tbody">
-	<table>
-		<tr><td>...</td></tr>
-	</table>
-</validate>
+```html validate name="incorrect" rules="prefer-tbody"
+<table>
+  <tr>
+    <td>...</td>
+  </tr>
+</table>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="prefer-tbody">
-	<table>
-		<tbody>
-			<tr><td>...</td></tr>
-		</tbody>
-	</table>
-</validate>
+```html validate name="correct" rules="prefer-tbody"
+<table>
+  <tbody>
+    <tr>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+```

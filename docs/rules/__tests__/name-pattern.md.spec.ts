@@ -2,9 +2,9 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input name="foo-bar">`;
-markup["correct"] = `<input name="fooBar">`;
-markup["array-brackets"] = `<input name="fooBar[]">`;
+markup["incorrect"] = `<input name="foo-bar" />`;
+markup["correct"] = `<input name="fooBar" />`;
+markup["array-brackets"] = `<input name="fooBar[]" />`;
 
 describe("docs/rules/name-pattern.md", () => {
 	it("inline validation: incorrect", async () => {

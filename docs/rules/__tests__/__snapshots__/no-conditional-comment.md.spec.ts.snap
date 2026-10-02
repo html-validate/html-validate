@@ -23,7 +23,7 @@ exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] =
         "column": 1,
         "line": 3,
         "message": "Use of conditional comments are deprecated",
-        "offset": 53,
+        "offset": 55,
         "ruleId": "no-conditional-comment",
         "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
         "selector": null,
@@ -34,7 +34,7 @@ exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] =
         "column": 1,
         "line": 5,
         "message": "Use of conditional comments are deprecated",
-        "offset": 67,
+        "offset": 69,
         "ruleId": "no-conditional-comment",
         "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
         "selector": null,
@@ -45,7 +45,7 @@ exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] =
         "column": 1,
         "line": 7,
         "message": "Use of conditional comments are deprecated",
-        "offset": 123,
+        "offset": 125,
         "ruleId": "no-conditional-comment",
         "ruleUrl": "https://html-validate.org/rules/no-conditional-comment.html",
         "selector": null,
@@ -54,7 +54,7 @@ exports[`docs/rules/no-conditional-comment.md inline validation: incorrect 1`] =
       },
     ],
     "source": "<!--[if IE]>
-<p>You are using Internet Explorer.</p>
+  <p>You are using Internet Explorer.</p>
 <![endif]-->
 
 <![if !IE]>

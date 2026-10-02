@@ -14,15 +14,15 @@ Use class or ID with a separate stylesheet.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-inline-style">
-    <p style="color: red"></p>
-</validate>
+```html validate name="incorrect" rules="no-inline-style"
+<p style="color: red"></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-inline-style">
-    <p class="error"></p>
-</validate>
+```html validate name="correct" rules="no-inline-style"
+<p class="error"></p>
+```
 
 ## Options
 
@@ -61,24 +61,24 @@ If the `style` attribute contains only the properties listed no error will be yi
 
 By default `display` is allowed.
 
-<validate name="allowed-properties" rules="no-inline-style">
-    <p style="display: none"></p>
-</validate>
+```html validate name="allowed-properties" rules="no-inline-style"
+<p style="display: none"></p>
+```
 
 ### `allowVariables`
 
 When `true` (default), CSS custom properties (variables) are allowed in the `style` attribute.
 CSS variables are properties whose names start with `--`.
 
-<validate name="allow-variables" rules="no-inline-style">
-    <p style="--my-color: red"></p>
-</validate>
+```html validate name="allow-variables" rules="no-inline-style"
+<p style="--my-color: red"></p>
+```
 
 Setting this option to `false` disallows CSS variables as well:
 
-<validate name="disallow-variables" rules="no-inline-style" no-inline-style='{"allowVariables": false}'>
-    <p style="--my-color: red"></p>
-</validate>
+```html validate name="disallow-variables" rules="no-inline-style" no-inline-style='{"allowVariables": false}'
+<p style="--my-color: red"></p>
+```
 
 ## Version history
 

@@ -45,39 +45,39 @@ This rule takes an optional object:
 By setting `allowExternal` to `false` any link to a external resource will be disallowed.
 This can also be set to an object (see below regarding `include` and `exclude` lists).
 
-<validate name="external-invalid" rules="allowed-links" allowed-links='{"allowExternal": false}'>
-  <a href="http://example.net/foo">
-</validate>
+```html validate name="external-invalid" rules="allowed-links" allowed-links='{"allowExternal": false}'
+<a href="http://example.net/foo"></a>
+```
 
-<validate name="external-valid" rules="allowed-links" allowed-links='{"allowExternal": false}'>
-  <a href="./foo">
-</validate>
+```html validate name="external-valid" rules="allowed-links" allowed-links='{"allowExternal": false}'
+<a href="./foo"></a>
+```
 
 ### `allowRelative`
 
 By setting `allowRelative` to `false` any link with a relative url will be disallowed.
 This can also be set to an object (see below regarding `include` and `exclude` lists).
 
-<validate name="relative-invalid" rules="allowed-links" allowed-links='{"allowRelative": false}'>
-  <a href="../foo">
-</validate>
+```html validate name="relative-invalid" rules="allowed-links" allowed-links='{"allowRelative": false}'
+<a href="../foo"></a>
+```
 
-<validate name="relative-valid" rules="allowed-links" allowed-links='{"allowRelative": false}'>
-  <a href="/foo">
-</validate>
+```html validate name="relative-valid" rules="allowed-links" allowed-links='{"allowRelative": false}'
+<a href="/foo"></a>
+```
 
 ### `allowAbsolute`
 
 By setting `allowAbsolute` to `false` any link with a absolute url will be disallowed.
 This can also be set to an object (see below regarding `include` and `exclude` lists).
 
-<validate name="absolute-invalid" rules="allowed-links" allowed-links='{"allowAbsolute": false}'>
-  <a href="/foo">
-</validate>
+```html validate name="absolute-invalid" rules="allowed-links" allowed-links='{"allowAbsolute": false}'
+<a href="/foo"></a>
+```
 
-<validate name="absolute-valid" rules="allowed-links" allowed-links='{"allowAbsolute": false}'>
-  <a href="../foo">
-</validate>
+```html validate name="absolute-valid" rules="allowed-links" allowed-links='{"allowAbsolute": false}'
+<a href="../foo"></a>
+```
 
 ### `allowBase`
 
@@ -86,13 +86,13 @@ This is useful when wanting to use relative urls but not rely on `<base href="..
 
 Effectively this also means that links to files in the same folder must use `./target` even if `target` is valid.
 
-<validate name="base-invalid" rules="allowed-links" allowed-links='{"allowBase": false}'>
-  <a href="foo">
-</validate>
+```html validate name="base-invalid" rules="allowed-links" allowed-links='{"allowBase": false}'
+<a href="foo"></a>
+```
 
-<validate name="base-valid" rules="allowed-links" allowed-links='{"allowBase": false}'>
-  <a href="./foo">
-</validate>
+```html validate name="base-valid" rules="allowed-links" allowed-links='{"allowBase": false}'
+<a href="./foo"></a>
+```
 
 ### Using `include` and `exclude`
 
@@ -114,13 +114,13 @@ In this case external links to `foo.example.net` is valid but any other would yi
 }
 ```
 
-<validate name="external-include" rules="allowed-links" allowed-links='{"allowExternal": {"include": ["^//foo.example.net"]}}'>
-  <!-- allowed -->
-  <a href="//foo.example.net">
+```html validate name="external-include" rules="allowed-links" allowed-links='{"allowExternal": {"include": ["^//foo.example.net"]}}'
+<!-- allowed -->
+<a href="//foo.example.net"></a>
 
-  <!-- not allowed -->
-  <a href="//bar.example.net">
-</validate>
+<!-- not allowed -->
+<a href="//bar.example.net"></a>
+```
 
 ## Version history
 

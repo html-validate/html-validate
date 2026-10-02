@@ -26,15 +26,15 @@ There are also issues where some browsers use heuristics to prevent autoplaying 
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-autoplay">
-	<video autoplay></video>
-</validate>
+```html validate name="incorrect" rules="no-autoplay"
+<video autoplay></video>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-autoplay">
-	<video></video>
-</validate>
+```html validate name="correct" rules="no-autoplay"
+<video></video>
+```
 
 ## Options
 

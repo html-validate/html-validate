@@ -16,17 +16,17 @@ When `<template>` is used the `id` within the template must be unique but can ot
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-dup-id">
-    <div id="foo"></div>
-    <div id="foo"></div>
-</validate>
+```html validate name="incorrect" rules="no-dup-id"
+<div id="foo"></div>
+<div id="foo"></div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-dup-id">
-    <div id="foo"></div>
-    <div id="bar"></div>
-</validate>
+```html validate name="correct" rules="no-dup-id"
+<div id="foo"></div>
+<div id="bar"></div>
+```
 
 ## Options
 

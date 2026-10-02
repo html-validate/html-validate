@@ -18,14 +18,14 @@ Multiple `<main>` can be present but at most one can be visible and the others m
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-multiple-main">
-	<main>foo</main>
-	<main>bar</main>
-</validate>
+```html validate name="incorrect" rules="no-multiple-main"
+<main>foo</main>
+<main>bar</main>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-multiple-main">
-	<main>foo</main>
-	<main hidden>bar</main>
-</validate>
+```html validate name="correct" rules="no-multiple-main"
+<main>foo</main>
+<main hidden>bar</main>
+```

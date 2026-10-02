@@ -25,19 +25,19 @@ Given the above header all inline `<script>` elements must contain the `nonce="r
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="require-csp-nonce">
-	<script>
-		doFancyStuff();
-	</script>
-</validate>
+```html validate name="incorrect" rules="require-csp-nonce"
+<script>
+  doFancyStuff();
+</script>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="require-csp-nonce">
-	<script nonce="r4nd0m">
-		doFancyStuff();
-	</script>
-</validate>
+```html validate name="correct" rules="require-csp-nonce"
+<script nonce="r4nd0m">
+  doFancyStuff();
+</script>
+```
 
 ## When to use
 

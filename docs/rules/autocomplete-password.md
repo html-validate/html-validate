@@ -26,16 +26,17 @@ See [HTML specification][html-autocomplete] for more information about autocompl
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="autocomplete-password">
-	<input type="password">
-	<input type="password" autocomplete="off">
-</validate>
+```html validate name="incorrect" rules="autocomplete-password"
+<input type="password" />
+
+<input type="password" autocomplete="off" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="autocomplete-password">
-	<input type="password" autocomplete="new-password">
-</validate>
+```html validate name="correct" rules="autocomplete-password"
+<input type="password" autocomplete="new-password" />
+```
 
 ## Options
 
@@ -53,15 +54,15 @@ When set, this option requires all password inputs to use a specific autocomplet
 
 Examples of **incorrect** code with `{ "preferred": "new-password" }`:
 
-<validate name="incorrect-preferred" rules="autocomplete-password" autocomplete-password='{"preferred": "new-password"}'>
-	<input type="password" autocomplete="current-password">
-</validate>
+```html validate name="incorrect-preferred" rules="autocomplete-password" autocomplete-password='{"preferred": "new-password"}'
+<input type="password" autocomplete="current-password" />
+```
 
 Examples of **correct** code with `{ "preferred": "new-password" }`:
 
-<validate name="correct-preferred" rules="autocomplete-password" autocomplete-password='{"preferred": "new-password"}'>
-	<input type="password" autocomplete="new-password">
-</validate>
+```html validate name="correct-preferred" rules="autocomplete-password" autocomplete-password='{"preferred": "new-password"}'
+<input type="password" autocomplete="new-password" />
+```
 
 ## Version history
 

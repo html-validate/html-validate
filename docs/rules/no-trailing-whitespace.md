@@ -14,14 +14,15 @@ and usually serve no special purpose in HTML.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-trailing-whitespace">
-    <p>lorem ipsum</p>  
-    <p>dolor sit amet</p>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="incorrect" rules="no-trailing-whitespace"
+<p>lorem ipsum</p>  
+<p>dolor sit amet</p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-trailing-whitespace">
-    <p>lorem ipsum</p>
-    <p>dolor sit amet</p>
-</validate>
+```html validate name="correct" rules="no-trailing-whitespace"
+<p>lorem ipsum</p>
+<p>dolor sit amet</p>
+```

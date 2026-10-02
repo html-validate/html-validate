@@ -16,7 +16,7 @@ exports[`docs/rules/close-order.md inline validation: incorrect-incorrect-implic
         "column": 2,
         "line": 3,
         "message": "Stray end tag '</p>'",
-        "offset": 26,
+        "offset": 27,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -25,7 +25,7 @@ exports[`docs/rules/close-order.md inline validation: incorrect-incorrect-implic
       },
     ],
     "source": "<p>
-	<address></address>
+  <address></address>
 </p> <!-- p is already implicitly closed by address tag -->",
     "warningCount": 0,
   },
@@ -41,10 +41,10 @@ exports[`docs/rules/close-order.md inline validation: incorrect-missing-endtag 1
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 3,
+        "column": 4,
         "line": 2,
         "message": "Unclosed element '<h1>'",
-        "offset": 9,
+        "offset": 10,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": "main > h1",
@@ -55,7 +55,7 @@ exports[`docs/rules/close-order.md inline validation: incorrect-missing-endtag 1
         "column": 2,
         "line": 4,
         "message": "End tag '</main>' seen but there were open elements",
-        "offset": 92,
+        "offset": 95,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -64,8 +64,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-missing-endtag 1
       },
     ],
     "source": "<main>
-	<h1> <!-- h1 opened but not closed -->
-		Lorem ipsum <small>dolor sit amet</small>
+  <h1> <!-- h1 opened but not closed -->
+    Lorem ipsum <small>dolor sit amet</small>
 </main>",
     "warningCount": 0,
   },
@@ -81,10 +81,10 @@ exports[`docs/rules/close-order.md inline validation: incorrect-out-of-order 1`]
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 4,
+        "column": 6,
         "line": 4,
         "message": "Unclosed element '<strong>'",
-        "offset": 46,
+        "offset": 50,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": "div > p > strong",
@@ -92,10 +92,10 @@ exports[`docs/rules/close-order.md inline validation: incorrect-out-of-order 1`]
         "size": 6,
       },
       {
-        "column": 3,
+        "column": 4,
         "line": 5,
         "message": "End tag '</p>' seen but there were open elements",
-        "offset": 56,
+        "offset": 61,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -104,11 +104,11 @@ exports[`docs/rules/close-order.md inline validation: incorrect-out-of-order 1`]
       },
     ],
     "source": "<div>
-	<!-- closed in wrong order -->
-	<p>
-		<strong>
-	</p>
-		</strong>
+  <!-- closed in wrong order -->
+  <p>
+    <strong>
+  </p>
+    </strong>
 </div>",
     "warningCount": 0,
   },
@@ -124,10 +124,10 @@ exports[`docs/rules/close-order.md inline validation: incorrect-stray-endtag 1`]
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 3,
+        "column": 4,
         "line": 3,
         "message": "Stray end tag '</div>'",
-        "offset": 38,
+        "offset": 41,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -136,8 +136,8 @@ exports[`docs/rules/close-order.md inline validation: incorrect-stray-endtag 1`]
       },
     ],
     "source": "<main>
-		<label>Lorem ipsum</label>
-	</div> <!-- div closed but never opened -->
+    <label>Lorem ipsum</label>
+  </div> <!-- div closed but never opened -->
 </main>",
     "warningCount": 0,
   },
@@ -167,7 +167,7 @@ exports[`docs/rules/close-order.md inline validation: incorrect-wrong-endtag 1`]
         "column": 2,
         "line": 5,
         "message": "Stray end tag '</div>'",
-        "offset": 65,
+        "offset": 69,
         "ruleId": "close-order",
         "ruleUrl": "https://html-validate.org/rules/close-order.html",
         "selector": null,
@@ -176,9 +176,9 @@ exports[`docs/rules/close-order.md inline validation: incorrect-wrong-endtag 1`]
       },
     ],
     "source": "<main>
-	<h1>
-		Lorem ipsum <small>dolor sit amet</small>
-	</h1>
+  <h1>
+    Lorem ipsum <small>dolor sit amet</small>
+  </h1>
 </div> <!-- opened as main but closed as div -->",
     "warningCount": 0,
   },

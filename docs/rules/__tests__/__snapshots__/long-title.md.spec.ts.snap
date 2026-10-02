@@ -11,10 +11,10 @@ exports[`docs/rules/long-title.md inline validation: incorrect 1`] = `
     "fixableWarningCount": 0,
     "messages": [
       {
-        "column": 142,
-        "line": 2,
+        "column": 10,
+        "line": 5,
         "message": "title text cannot be longer than 70 characters",
-        "offset": 148,
+        "offset": 158,
         "ruleId": "long-title",
         "ruleUrl": "https://html-validate.org/rules/long-title.html",
         "selector": "head > title",
@@ -23,7 +23,10 @@ exports[`docs/rules/long-title.md inline validation: incorrect 1`] = `
       },
     ],
     "source": "<head>
-    <title>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</title>
+  <title>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua.
+  </title>
 </head>",
     "warningCount": 0,
   },

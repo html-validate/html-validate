@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<input/>`;
+markup["incorrect"] = `<input />`;
 markup["correct"] = `<input>`;
 
 describe("docs/rules/void-style.md", () => {

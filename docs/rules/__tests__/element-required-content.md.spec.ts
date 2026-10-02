@@ -3,14 +3,13 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<html>
-    <head>
-    </head>
+  <head></head>
 </html>`;
 markup["correct"] = `<html>
-    <head>
-        <title>foo</title>
-    </head>
-    <body></body>
+  <head>
+    <title>foo</title>
+  </head>
+  <body></body>
 </html>`;
 
 describe("docs/rules/element-required-content.md", () => {

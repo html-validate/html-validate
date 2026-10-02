@@ -14,15 +14,15 @@ This rule is case-insensitive, for matching case use {@link rules/attr-case}.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="attr-pattern">
-    <p foo_bar="baz"></p>
-</validate>
+```html validate name="incorrect" rules="attr-pattern"
+<p foo_bar="baz"></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="attr-pattern">
-    <p foo-bar="baz"></p>
-</validate>
+```html validate name="correct" rules="attr-pattern"
+<p foo-bar="baz"></p>
+```
 
 ## Options
 
@@ -47,10 +47,10 @@ With multiple patterns the attribute must match at least one pattern to be consi
 
 For instance, when configured with `{"pattern": ["[a-z0-9-]+", "myprefix-.+"]}` attributes can be either letters and digits or anything with the `myprefix-` prefix:
 
-<validate name="multiple" rules="attr-pattern" attr-pattern='{"pattern": ["[a-z0-9-]+", "myprefix-.+"]}'>
-    <p foo-bar-123></p>
-    <p myprefix-foo_123!></p>
-</validate>
+```html validate name="multiple" rules="attr-pattern" attr-pattern='{"pattern": ["[a-z0-9-]+", "myprefix-.+"]}'
+<p foo-bar-123></p>
+<p myprefix-foo_123!></p>
+```
 
 ### `ignoreForeign`
 

@@ -18,19 +18,19 @@ This rule does not validate the document root element, e.g. while the `<body>` e
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-permitted-parent">
-    <div>
-        <title>Lorem ipsum</title>
-    </div>
-</validate>
+```html validate name="incorrect" rules="element-permitted-parent"
+<div>
+  <title>Lorem ipsum</title>
+</div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-permitted-parent">
-    <head>
-        <title>Lorem ipsum</title>
-    </head>
-</validate>
+```html validate name="correct" rules="element-permitted-parent"
+<head>
+  <title>Lorem ipsum</title>
+</head>
+```
 
 ## Version history
 

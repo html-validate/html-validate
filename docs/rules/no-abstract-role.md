@@ -30,15 +30,15 @@ Typically one of the role subclasses should be used instead.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-abstract-role">
-    <div role="landmark"></div>
-</validate>
+```html validate name="incorrect" rules="no-abstract-role"
+<div role="landmark"></div>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-abstract-role">
-    <div role="navigation"></div>
-</validate>
+```html validate name="correct" rules="no-abstract-role"
+<div role="navigation"></div>
+```
 
 ## Version history
 

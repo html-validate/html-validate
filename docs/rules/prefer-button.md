@@ -26,15 +26,15 @@ This rule will target the following input types:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="prefer-button">
-	<input type="button">
-</validate>
+```html validate name="incorrect" rules="prefer-button"
+<input type="button" />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="prefer-button">
-	<button type="button"></button>
-</validate>
+```html validate name="correct" rules="prefer-button"
+<button type="button"></button>
+```
 
 ## Options
 

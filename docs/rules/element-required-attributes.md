@@ -30,12 +30,12 @@ The requirements comes from the {@link usage/elements element metadata}:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-required-attributes">
-    <img>
-</validate>
+```html validate name="incorrect" rules="element-required-attributes"
+<img />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-required-attributes">
-    <img src="cat.gif">
-</validate>
+```html validate name="correct" rules="element-required-attributes"
+<img src="cat.gif" />
+```

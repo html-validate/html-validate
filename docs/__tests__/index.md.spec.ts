@@ -11,14 +11,13 @@ markup["frontpage-contentmodel"] = `<footer>
   <main>
     <blink>(c) 2018 Initech</blink>
   </main>
-
 </footer>`;
-markup["frontpage-a11y"] = `<img src="logo.png">
+markup["frontpage-a11y"] = `<img src="logo.png" />
 <button onclick="myFunction();">Click me!</button>
 
 <div class="field-wrapper">
   <strong>Name: </strong>
-  <input type="text" name="name">
+  <input type="text" name="name" />
 </div>`;
 markup["frontpage-components"] = `<my-inline>
   <my-block></my-block>

@@ -2,12 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["incorrect"] = `<fieldset>
-	...
-</fieldset>`;
+markup["incorrect"] = `<fieldset></fieldset>`;
 markup["correct"] = `<fieldset>
-	<legend>Lorem ipsum</legend>
-		...
+  <legend>Lorem ipsum</legend>
+  ...
 </fieldset>`;
 
 describe("docs/rules/wcag/h71.md", () => {

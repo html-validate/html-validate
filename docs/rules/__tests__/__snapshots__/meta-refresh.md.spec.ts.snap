@@ -22,7 +22,7 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-delay 1`] = `
         "size": 17,
       },
     ],
-    "source": "<meta http-equiv="refresh" content="5;url=target.html">",
+    "source": "<meta http-equiv="refresh" content="5;url=target.html" />",
     "warningCount": 0,
   },
 ]
@@ -48,7 +48,7 @@ exports[`docs/rules/meta-refresh.md inline validation: incorrect-url 1`] = `
         "size": 1,
       },
     ],
-    "source": "<meta http-equiv="refresh" content="0">",
+    "source": "<meta http-equiv="refresh" content="0" />",
     "warningCount": 0,
   },
 ]
@@ -74,7 +74,7 @@ exports[`docs/rules/meta-refresh.md inline validation: long-delay-invalid 1`] = 
         "size": 5,
       },
     ],
-    "source": "<meta http-equiv="refresh" content="72001">",
+    "source": "<meta http-equiv="refresh" content="72001" />",
     "warningCount": 0,
   },
 ]

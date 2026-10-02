@@ -3,10 +3,10 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<div>
-    <title>Lorem ipsum</title>
+  <title>Lorem ipsum</title>
 </div>`;
 markup["correct"] = `<head>
-    <title>Lorem ipsum</title>
+  <title>Lorem ipsum</title>
 </head>`;
 
 describe("docs/rules/element-permitted-parent.md", () => {

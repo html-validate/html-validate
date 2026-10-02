@@ -15,17 +15,17 @@ HTML defines requirements for required ancestors on certain elements.
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="element-required-ancestor">
-    <area>
-</validate>
+```html validate name="incorrect" rules="element-required-ancestor"
+<area />
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="element-required-ancestor">
-    <map>
-        <area>
-    </map>
-</validate>
+```html validate name="correct" rules="element-required-ancestor"
+<map>
+  <area />
+</map>
+```
 
 ## Version history
 

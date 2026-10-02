@@ -4,12 +4,12 @@ import { HtmlValidate } from "../../../src/htmlvalidate";
 const markup: Record<string, string> = {};
 markup["incorrect"] = `<!-- table caption must be used before thead -->
 <table>
-    <thead></thead>
-    <caption></caption>
+  <thead></thead>
+  <caption></caption>
 </div>`;
 markup["correct"] = `<table>
-    <caption></caption>
-    <thead></thead>
+  <caption></caption>
+  <thead></thead>
 </table>`;
 
 describe("docs/rules/element-permitted-order.md", () => {

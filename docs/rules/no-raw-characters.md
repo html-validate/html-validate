@@ -33,18 +33,19 @@ Quotes attributes must escape only the following characters:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="no-raw-characters">
-    <p>Fred & Barney</p>
-    <p class=foo's></p>
-</validate>
+```html validate name="incorrect" rules="no-raw-characters"
+<p>Fred & Barney</p>
+<p class=foo's></p>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="no-raw-characters">
-    <p>Fred &amp; Barney</p>
-    <p class=foo&apos;s></p>
-    <p class="'foo'"></p>
-</validate>
+<!-- prettier-ignore -->
+```html validate name="correct" rules="no-raw-characters"
+<p>Fred &amp; Barney</p>
+<p class=foo&apos;s></p>
+<p class="'foo'"></p>
+```
 
 ## Parser
 
@@ -54,9 +55,9 @@ strict parsing of HTML-validate. This is intentional.
 For instance, in the following case `<3` is misinterpreted as a tag `<3>`
 followed by a boolean attribute `Barney`.
 
-<validate name="malformed" rules="no-raw-characters">
-    <p>Fred <3 Barney</p>
-</validate>
+```html validate name="malformed" rules="no-raw-characters"
+<p>Fred <3 Barney</p>
+```
 
 ## Options
 
@@ -79,19 +80,18 @@ implicitly having to figure out if encoding is needed or not.
 
 Examples of **correct** code with this option:
 
-<validate name="relaxed" rules="no-raw-characters" no-raw-characters='{"relaxed": true}'>
-    <!-- Not ambiguous: & is followed by whitespace -->
-    <p>Fred & Barney</p>
+```html validate name="relaxed" rules="no-raw-characters" no-raw-characters='{"relaxed": true}'
+<!-- Not ambiguous: & is followed by whitespace -->
+<p>Fred & Barney</p>
 
-    <!-- Not ambiguous: &Barney is not terminated by ; -->
-    <p>Fred&Barney</p>
+<!-- Not ambiguous: &Barney is not terminated by ; -->
+<p>Fred&Barney</p>
 
-    <!-- Not ambiguous: = and " both stops the character reference -->
-    <a href="?foo&bar=1&baz"></p>
+<!-- Not ambiguous: = and " both stops the character reference -->
+<a href="?foo&bar=1&baz"></p>
 
-    <!-- Not ambiguous: even unquoted & is understood to be stopped by > -->
-    <a href=?foo&bar></p>
-
-</validate>
+<!-- Not ambiguous: even unquoted & is understood to be stopped by > -->
+<a href=?foo&bar></p>
+```
 
 [ambiguous ampersands]: https://html.spec.whatwg.org/multipage/syntax.html#syntax-ambiguous-ampersand

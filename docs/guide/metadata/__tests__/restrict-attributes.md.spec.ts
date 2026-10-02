@@ -2,18 +2,36 @@ import { describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../../../../src/htmlvalidate";
 
 const markup: Record<string, string> = {};
-markup["enum"] = `<my-component duck="dewey">...</my-component>
-<my-component duck="flintheart">...</my-component>`;
-markup["regexp"] = `<my-component ducks="3">...</my-component>
-<my-component ducks="huey">...</my-component>`;
-markup["boolean"] = `<my-component quacks>...</my-component>
-<my-component quacks="duck">...</my-component>`;
-markup["omit"] = `<my-component quacks>...</my-component>
-<my-component quacks="duck">...</my-component>`;
-markup["required"] = `<my-component duck="dewey">...</my-component>
-<my-component>...</my-component>`;
-markup["deprecated"] = `<my-component duck="dewey">...</my-component>
-<my-component>...</my-component>`;
+markup["enum"] = `<!-- ok: attribute value is explicitly allowed -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute value is not one of the allowed values -->
+<my-component duck="flintheart"></my-component>`;
+markup["regexp"] = `<!-- ok: any numerical value is allowed -->
+<my-component ducks="3"></my-component>
+
+<!-- error: non-numerical values are disallowed -->
+<my-component ducks="huey"></my-component>`;
+markup["boolean"] = `<!-- ok: boolean attribute -->
+<my-component quacks></my-component>
+
+<!-- error: boolean attribute cannot take value -->
+<my-component quacks="duck"></my-component>`;
+markup["omit"] = `<!-- ok: omitting value is allowed -->
+<my-component quacks></my-component>
+
+<!-- ok: value is one of the allowed values -->
+<my-component quacks="duck"></my-component>`;
+markup["required"] = `<!-- ok: attribute is present -->
+<my-component duck="dewey"></my-component>
+
+<!-- error: attribute is omitted -->
+<my-component></my-component>`;
+markup["deprecated"] = `<!-- error: uses deprecated attribute -->
+<my-component duck="dewey"></my-component>
+
+<!-- ok: omitted deprecated attribute -->
+<my-component></my-component>`;
 
 describe("docs/guide/metadata/restrict-attributes.md", () => {
 	it("inline validation: enum", async () => {

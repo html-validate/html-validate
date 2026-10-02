@@ -27,19 +27,15 @@ To fix this either:
 
 Examples of **incorrect** code for this rule:
 
-<validate name="incorrect" rules="hidden-focusable">
-	<a href="#" aria-hidden="true">
-		lorem ipsum
-	</a>
-</validate>
+```html validate name="incorrect" rules="hidden-focusable"
+<a href="#" aria-hidden="true"> lorem ipsum </a>
+```
 
 Examples of **correct** code for this rule:
 
-<validate name="correct" rules="hidden-focusable">
-	<a href="#">
-		lorem ipsum
-	</a>
-</validate>
+```html validate name="correct" rules="hidden-focusable"
+<a href="#"> lorem ipsum </a>
+```
 
 ## Version history
 

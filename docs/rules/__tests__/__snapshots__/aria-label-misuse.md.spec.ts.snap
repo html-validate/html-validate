@@ -31,8 +31,8 @@ exports[`docs/rules/aria-label-misuse.md inline validation: elements-exclude 1`]
     "source": "<!-- div is validated and will report an error -->
 <div aria-label="Lorem ipsum">dolor sit amet</div>
 
-   <!-- p is ignored, no error despite normally not being allowed -->
-   <p aria-label="Lorem ipsum">dolor sit amet</p>",
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>",
     "warningCount": 0,
   },
 ]
@@ -65,8 +65,8 @@ exports[`docs/rules/aria-label-misuse.md inline validation: elements-include 1`]
     "source": "<!-- div is validated and will report an error -->
 <div aria-label="Lorem ipsum">dolor sit amet</div>
 
-   <!-- p is ignored, no error despite normally not being allowed -->
-   <p aria-label="Lorem ipsum">dolor sit amet</p>",
+<!-- p is ignored, no error despite normally not being allowed -->
+<p aria-label="Lorem ipsum">dolor sit amet</p>",
     "warningCount": 0,
   },
 ]
@@ -96,7 +96,7 @@ exports[`docs/rules/aria-label-misuse.md inline validation: incorrect 1`] = `
         "size": 10,
       },
     ],
-    "source": "<input type="hidden" aria-label="foobar">",
+    "source": "<input type="hidden" aria-label="foobar" />",
     "warningCount": 0,
   },
 ]
