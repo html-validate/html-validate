@@ -13,10 +13,11 @@ const validate: Validate = (): boolean => {
 	return validate.errors.length === 0;
 };
 validate.errors = [] as unknown[];
+const compile = jest.fn((): Validate => validate);
 jest.mock("ajv", () => {
 	class MockAjv {
 		public compile(): () => boolean {
-			return validate;
+			return compile();
 		}
 		public addMetaSchema(): void {
 			/* do nothing */
@@ -727,6 +728,33 @@ describe("MetaTable", () => {
 			expect.assertions(1);
 			const table = new MetaTable();
 			expect(table.getTagsDerivedFrom("missing")).toEqual([]);
+		});
+	});
+
+	describe("schema validator", () => {
+		it("should reuse compiled validator for identical schema", () => {
+			expect.assertions(1);
+			const patch = { definitions: { reuse: { type: "boolean" } } };
+			const a = new MetaTable();
+			a.extendValidationSchema(patch);
+			a.loadFromObject({});
+			compile.mockClear();
+			const b = new MetaTable();
+			b.extendValidationSchema(patch);
+			b.loadFromObject({});
+			expect(compile).not.toHaveBeenCalled();
+		});
+
+		it("should compile new validator when schema differs", () => {
+			expect.assertions(1);
+			const a = new MetaTable();
+			a.extendValidationSchema({ definitions: { differs1: { type: "boolean" } } });
+			a.loadFromObject({});
+			compile.mockClear();
+			const b = new MetaTable();
+			b.extendValidationSchema({ definitions: { differs2: { type: "boolean" } } });
+			b.loadFromObject({});
+			expect(compile).toHaveBeenCalledTimes(1);
 		});
 	});
 

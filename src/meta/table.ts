@@ -6,7 +6,6 @@ import { InheritError, SchemaValidationError, UserError, ensureError } from "../
 import { type SchemaValidationPatch } from "../plugin";
 import schema from "../schema/elements.json";
 import { ajvFunctionKeyword, ajvRegexpKeyword } from "../schema/keywords";
-import { computeHash } from "../utils/compute-hash";
 import {
 	type InternalAttributeFlags,
 	type InternalPatternAttributeFlags,
@@ -32,7 +31,8 @@ const dynamicKeys = [
 	"submitButton",
 ] satisfies Array<keyof MetaElement>;
 
-const schemaCache = new Map<number, ValidateFunction<MetaDataTable>>();
+/* keyed by serialized schema as hashing it is slower than native string keys */
+const schemaCache = new Map<string, ValidateFunction<MetaDataTable>>();
 
 function clone<T>(value: T): T {
 	/* jsdom (e.g. jest) does not have this function */
@@ -191,8 +191,8 @@ export class MetaTable {
 	 * Construct a new AJV schema validator.
 	 */
 	private getSchemaValidator(): ValidateFunction<MetaDataTable> {
-		const hash = computeHash(JSON.stringify(this.schema));
-		const cached = schemaCache.get(hash);
+		const key = JSON.stringify(this.schema);
+		const cached = schemaCache.get(key);
 		if (cached) {
 			return cached;
 		}
@@ -202,7 +202,7 @@ export class MetaTable {
 		ajv.addKeyword(ajvRegexpKeyword);
 		ajv.addKeyword({ keyword: "copyable" });
 		const validate = ajv.compile<MetaDataTable>(this.schema);
-		schemaCache.set(hash, validate);
+		schemaCache.set(key, validate);
 		return validate;
 	}
 
