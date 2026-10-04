@@ -1,5 +1,13 @@
 # html-validate changelog
 
+## 11.16.2 (2026-10-04)
+
+### Bug Fixes
+
+- **cli:** handle writing formatter output directly to file descriptors ([8014966](https://gitlab.com/html-validate/html-validate/commit/8014966f93e5a3a07292f21c83f07bb989da128f))
+- **deps:** update dependency ignore to v7.0.11 ([c227d47](https://gitlab.com/html-validate/html-validate/commit/c227d4794f13e0e129ceca179a6f9fa82636378e))
+- **deps:** update dependency ignore to v7.0.12 ([b1f84d7](https://gitlab.com/html-validate/html-validate/commit/b1f84d769e9b5c36715d50572f862313692cb934))
+
 ## 11.16.1 (2026-09-27)
 
 ### Bug Fixes
