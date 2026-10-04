@@ -55,6 +55,7 @@ Possible formats are:
 
 Multiples formatters can be set with a comma-separated list: `--formatter stylish,checkstyle`.
 Output can be redirected to a file using `name=path`: `--formatter checkstyle=result.xml`.
+Output can be redirected to a file descriptor using `name=/dev/fd/N`: `--formatter checkstyle=/dev/fd/3`.
 
 Custom formatters can be used by specifying a package name: `--formatter my-custom-formatter`.
 
