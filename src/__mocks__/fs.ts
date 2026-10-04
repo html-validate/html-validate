@@ -5,6 +5,7 @@ const fs = {
 	existsSync: memfs.existsSync.bind(memfs),
 	lstatSync: memfs.lstatSync.bind(memfs),
 	mkdirSync: memfs.mkdirSync.bind(memfs),
+	openSync: memfs.openSync.bind(memfs),
 	readFileSync: memfs.readFileSync.bind(memfs),
 	readdir: memfs.readdir.bind(memfs),
 	readdirSync: memfs.readdirSync.bind(memfs),
@@ -14,6 +15,7 @@ const fs = {
 	statSync: memfs.statSync.bind(memfs),
 	writeFile: memfs.writeFile.bind(memfs),
 	writeFileSync: memfs.writeFileSync.bind(memfs),
+	writeSync: memfs.writeSync.bind(memfs),
 };
 
 const proxy = new Proxy(fs, {

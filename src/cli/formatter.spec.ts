@@ -103,6 +103,19 @@ describe("cli/formatters", () => {
 		`);
 	});
 
+	it("should redirect output to a file descriptor", async () => {
+		expect.assertions(2);
+		fs.writeFileSync("fd-output.txt", "");
+		const fd = fs.openSync("fd-output.txt", "w");
+		const wrapped = await cli.getFormatter(`text=/dev/fd/${fd}`);
+		const output = wrapped(report);
+		expect(output).toMatchInlineSnapshot(`""`);
+		expect(fs.readFileSync("fd-output.txt", "utf-8")).toMatchInlineSnapshot(`
+			"mock-file.html:1:2: error [foo] lorem ipsum
+			"
+		`);
+	});
+
 	it("should throw error when formatter is missing", () => {
 		expect.assertions(1);
 		expect(() => cli.getFormatter("missing")).toThrow('No formatter named "missing"');
