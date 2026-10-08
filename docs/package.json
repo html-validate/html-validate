@@ -27,7 +27,7 @@
     "prettier": "3.9.9",
     "sass": "1.105.1",
     "serve-static": "2.2.1",
-    "synckit": "0.12.0"
+    "synckit": "0.12.1"
   },
   "engines": {
     "node": "^22.20.0 || >= 24.0.0"
