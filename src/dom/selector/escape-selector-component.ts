@@ -2,9 +2,9 @@ import { type DynamicValue } from "../dynamic-value";
 
 /* some characters requires extra care: https://drafts.csswg.org/cssom/#escape-a-character-as-code-point */
 const codepoints: Record<string, string> = {
-	"\t": "\\\u{39} ",
-	"\n": "\\\u{61} ",
-	"\r": "\\\u{64} ",
+	"\t": "\\9 ",
+	"\n": "\\a ",
+	"\r": "\\d ",
 };
 
 /**

@@ -421,6 +421,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	public init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void {
 		this.parser = parser;
 		this.reporter = reporter;
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 		this.severity = severity;
 		this.meta = meta;
 	}

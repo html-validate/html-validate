@@ -21,6 +21,7 @@ function linkSummary(results: Result[]): string {
 
 export function stylish(results: Result[]): string {
 	const errors = stylishImpl(
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 		results.map((it) => ({
 			...it,
 		})),

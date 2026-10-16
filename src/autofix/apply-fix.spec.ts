@@ -3,6 +3,7 @@ import { type Location } from "../location";
 import { applyFix } from "./apply-fix";
 import { createAutofix } from "./create-autofix";
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- future-proofing when other values are needed */
 function loc(offset: number, size: number, filename = "test.html"): Location {
 	return { filename, offset, line: 1, column: offset + 1, size };
 }

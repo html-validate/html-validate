@@ -536,8 +536,8 @@ export class HtmlValidate {
 	 * handled by html-validate but the path will be used when resolving
 	 * configuration. As a rule-of-thumb, set it to the elements JSON file.
 	 */
-	public async getElementsSchema(filename?: string): Promise<SchemaObject> {
-		const config = await this.getConfigFor(filename ?? "inline");
+	public async getElementsSchema(filename = "inline"): Promise<SchemaObject> {
+		const config = await this.getConfigFor(filename);
 		const metaTable = config.getMetaTable();
 		return metaTable.getJSONSchema();
 	}
@@ -550,8 +550,8 @@ export class HtmlValidate {
 	 * handled by html-validate but the path will be used when resolving
 	 * configuration. As a rule-of-thumb, set it to the elements JSON file.
 	 */
-	public getElementsSchemaSync(filename?: string): SchemaObject {
-		const config = this.getConfigForSync(filename ?? "inline");
+	public getElementsSchemaSync(filename = "inline"): SchemaObject {
+		const config = this.getConfigForSync(filename);
 		const metaTable = config.getMetaTable();
 		return metaTable.getJSONSchema();
 	}

@@ -144,12 +144,10 @@ export async function apiExtractor(patterns) {
 	for (const filename of filenames) {
 		console.log("Running", filename);
 		const config = ExtractorConfig.loadFileAndPrepare(filename);
-		const result = Extractor.invoke(config, {
+		const { succeeded, errorCount, warningCount } = Extractor.invoke(config, {
 			localBuild: !isCI,
 			showVerboseMessages: true,
 		});
-
-		const { succeeded, errorCount, warningCount } = result;
 		if (succeeded) {
 			console.log(`API Extractor completed successfully`);
 		} else {

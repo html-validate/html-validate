@@ -43,8 +43,8 @@ export default function example() {
 	const examples = new Map();
 
 	return {
-		compile(code, infostring) {
-			const [declaredLang, ...tags] = (infostring || "").split(/\s+/);
+		compile(code, infostring = "") {
+			const [declaredLang, ...tags] = infostring.split(/\s+/);
 			if (tags.includes("nocompile")) {
 				return;
 			}

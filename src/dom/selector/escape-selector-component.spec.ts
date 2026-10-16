@@ -14,9 +14,9 @@ describe("escapeSelectorComponent", () => {
 		 * ```
 		 */
 		const oracle = [
-			["\t", "foo\\\u{39} bar"],
-			["\n", "foo\\\u{61} bar"],
-			["\r", "foo\\\u{64} bar"],
+			["\t", "foo\\9 bar"],
+			["\n", "foo\\a bar"],
+			["\r", "foo\\d bar"],
 			[" ", "foo\\ bar"],
 			["!", "foo\\!bar"],
 			['"', 'foo\\"bar'],

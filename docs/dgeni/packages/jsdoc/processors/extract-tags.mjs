@@ -4,7 +4,7 @@
  *         The transformation to apply to the tag
  * @return {function(doc, tag, value)} A single function that will do the transformation
  */
-function getTransformationFn(transforms, tagDefName) {
+function getTransformationFn(transforms) {
 	if (typeof transforms === "function") {
 		// transform is a single function so just use that
 		return transforms;
@@ -25,11 +25,6 @@ function getTransformationFn(transforms, tagDefName) {
 		return (doc, tag, value) => value;
 	}
 
-	if (tagDefName) {
-		throw new Error(
-			`Invalid transformFn in tag definition, ${tagDefName} - you must provide a function or an array of functions.`,
-		);
-	}
 	throw new Error(
 		"Invalid default transformFn - you must provide a function or an array of functions.",
 	);

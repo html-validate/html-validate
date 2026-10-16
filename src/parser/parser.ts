@@ -783,7 +783,7 @@ export class Parser {
 			return;
 		}
 
-		const [, data, separator2, comment] = match;
+		const [, data, separator2 = "", comment] = match;
 
 		/* <!-- [html-validate-action options -- comment] -->
 		 *       ^             ^      ^          ^--------------- comment offset
@@ -793,7 +793,7 @@ export class Parser {
 		 */
 		const actionOffset = preamble.length + prefix.length;
 		const optionsOffset = actionOffset + action.length + separator1.length;
-		const commentOffset = optionsOffset + data.length + (separator2 || "").length;
+		const commentOffset = optionsOffset + data.length + separator2.length;
 
 		const location = sliceLocation(token.location, preamble.length - 1, -postamble.length + 1);
 		const actionLocation = sliceLocation(

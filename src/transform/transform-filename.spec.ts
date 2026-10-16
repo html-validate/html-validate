@@ -5,7 +5,7 @@ import { type ResolvedConfigData, ResolvedConfig } from "../config";
 import { MetaTable } from "../meta";
 import { transformFilename, transformFilenameSync } from "./transform-filename";
 
-function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {
+function createMockConfig(): ResolvedConfig {
 	const metaTable = new MetaTable();
 	const defaults: ResolvedConfigData = {
 		metaTable,
@@ -14,7 +14,7 @@ function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedCon
 		transformers: [],
 		ariaVersion: "1.2",
 	};
-	return new ResolvedConfig({ ...defaults, ...config }, {});
+	return new ResolvedConfig({ ...defaults }, {});
 }
 
 beforeEach(() => {

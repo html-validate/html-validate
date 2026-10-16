@@ -13,6 +13,7 @@ const { Package } = Dgeni;
  * @dgPackage jsdoc
  * @description Tag parsing and extracting for JSDoc-based documentation
  */
+/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default new Package("jsdoc", [basePackage])
 
 	// Add in extra pseudo marker processors

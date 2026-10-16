@@ -561,6 +561,7 @@ describe("isEnabled()", () => {
 		expect.assertions(1);
 		const rule = new MockRule();
 		rule.setEnabled(Boolean(enabled));
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 		rule.setServerity(severity as number);
 		expect(rule.isEnabled()).toEqual(result);
 	});

@@ -19,7 +19,7 @@ beforeAll(async () => {
 	parser = new Parser(config);
 });
 
-function parse(markup: string, selector: string = "div"): HtmlElement {
+function parse(markup: string): HtmlElement {
 	const source: Source = {
 		data: markup,
 		filename: "inline",
@@ -31,7 +31,7 @@ function parse(markup: string, selector: string = "div"): HtmlElement {
 		},
 	};
 	const doc = parser.parseHtml(source);
-	const root = doc.querySelector(selector);
+	const root = doc.querySelector("div");
 	if (!root) {
 		throw new Error("Root element not found");
 	}

@@ -10,6 +10,7 @@ import { type LintOptions, MAX_FIX_ITERATIONS, lint } from "./lint";
 
 kleur.enabled = true;
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- future-proofing when other testse need other parameters */
 function mockError(ruleId: string, message: string): Message {
 	return {
 		ruleId,
@@ -23,6 +24,7 @@ function mockError(ruleId: string, message: string): Message {
 	};
 }
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- future-proofing when other testse need other parameters */
 function mockWarning(ruleId: string, message: string): Message {
 	return {
 		ruleId,
