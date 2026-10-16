@@ -8,13 +8,13 @@ import { splitSelectorElements } from "./split-selector-elements";
  */
 function unescapeCodepoint(value: string): string {
 	const replacement = {
-		"\\\u{39} ": "\t",
-		"\\\u{61} ": "\n",
-		"\\\u{64} ": "\r",
+		"\\9 ": "\t",
+		"\\a ": "\n",
+		"\\d ": "\r",
 	};
 	return value.replaceAll(
 		/(\\[9ad] )/g,
-		(_, codepoint: "\\\u{39} " | "\\\u{61} " | "\\\u{64} ") => replacement[codepoint],
+		(_, codepoint: "\\9 " | "\\a " | "\\d ") => replacement[codepoint],
 	);
 }
 

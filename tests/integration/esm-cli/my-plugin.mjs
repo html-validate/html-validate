@@ -8,6 +8,7 @@ function customTransformer(source) {
 
 customTransformer.api = 1;
 
+/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default definePlugin({
 	name: "my-plugin",
 	configs: {

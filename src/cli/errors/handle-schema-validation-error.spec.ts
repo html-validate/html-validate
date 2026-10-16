@@ -19,6 +19,7 @@ beforeEach(() => {
 	console = new Console(stdout, stderr);
 });
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- future-proofing when there are more fixtures */
 function loadFixture(filename: string): { data: unknown; filePath: string } {
 	const filePath = path.join(__dirname, "__fixtures__", filename);
 	return { data: JSON.parse(fs.readFileSync(filePath, "utf-8")), filePath };

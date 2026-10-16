@@ -4,7 +4,7 @@ const enum State {
 	WHITESPACE,
 }
 
-const escapedCodepoints = new Set(["\u{39}", "\u{61}", "\u{64}"]);
+const escapedCodepoints = new Set(["9", "a", "d"]);
 
 /**
  * @internal

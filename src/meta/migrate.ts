@@ -138,6 +138,7 @@ export function migrateElement(src: MetaData): Omit<MetaElement, "tagName"> {
 		formAssociated: undefined as FormAssociated | undefined,
 		attributes: migrateAttributes(src),
 		patternAttributes: migratePatternAttributes(src),
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 		textContent: src.textContent as TextContent | undefined,
 		focusable: src.focusable ?? false,
 		implicitRole,

@@ -152,7 +152,8 @@ export class Reporter {
 		const valid = reports.every((report) => report.valid);
 		const merged: Record<string, Result> = {};
 		for (const report of reports) {
-			for (const result of report.results) {
+			const { results } = report;
+			for (const result of results) {
 				const key = result.filePath;
 				if (Object.hasOwn(merged, key)) {
 					merged[key].messages = [...merged[key].messages, ...result.messages];

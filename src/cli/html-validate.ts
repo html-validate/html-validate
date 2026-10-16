@@ -14,6 +14,7 @@ import { ImportResolveMissingError, handleSchemaValidationError } from "./errors
 import { haveImportMetaResolve } from "./have-import-meta-resolve";
 import { Mode, modeToFlag } from "./mode";
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- technically true but we don't want to read it from global scope */
 function getMode(argv: Record<string, unknown>): Mode {
 	if (argv["init"]) {
 		return Mode.INIT;

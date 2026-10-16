@@ -1,5 +1,6 @@
 import pkg from "../package.json" with { type: "json" };
 
+/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default {
 	userguide: {
 		title: "User guide",
