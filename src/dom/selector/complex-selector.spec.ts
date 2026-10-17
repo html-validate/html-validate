@@ -254,6 +254,19 @@ describe("Selector", () => {
 		]);
 	});
 
+	it('should match empty attribute value ([foo=""])', async () => {
+		expect.assertions(1);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		doc = parser.parseHtml(/* HTML */ `
+			<p id="a" foo=""></p>
+			<p id="b" foo="x"></p>
+			<p id="c"></p>
+		`);
+		const selector = ComplexSelector.fromString('[foo=""]');
+		expect(Array.from(selector.match(doc))).toEqual([expect.objectContaining({ id: "a" })]);
+	});
+
 	it('should match attribute value with special characters ([lorem-123-ipsum="dolor-sit-amet"])', () => {
 		expect.assertions(1);
 		const selector = ComplexSelector.fromString('[lorem-123-ipsum="dolor-sit-amet"]');
