@@ -12,3 +12,7 @@ dist/
 docs/dgeni/**/cache/
 public/
 temp/
+
+# local sandbox for reproducing issues
+sandbox/**/*.html
+sandbox/html-validate.local.mjs

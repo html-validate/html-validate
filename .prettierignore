@@ -24,3 +24,4 @@ tests/**/*.html
 # local test files
 sites
 test.html
+sandbox/**/*.html
