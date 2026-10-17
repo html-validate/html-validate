@@ -76,6 +76,15 @@ With this option **disabled** the following is **correct**:
 <p>&copy</p>
 ```
 
+In text content browsers also decode a legacy reference followed by more characters, e.g. `&section` is rendered as `§ion`.
+With this option **enabled** the legacy reference must be terminated by a semicolon, or the ampersand escaped as `&amp;`:
+
+```html validate name="legacy-prefix" rules="unrecognized-char-ref" unrecognized-char-ref='{ "requireSemicolon": true }'
+<p>&section</p>
+```
+
+This does not apply to attribute values where such references are left as-is.
+
 Attribute values with a `?` is treated as a querystring and unless terminated with a `;` is considered to be a parameter and not a character reference, e.g. the following is always valid even if `&bar` looks like a reference without semicolon to terminate it:
 
 ```html validate name="querystring" rules="unrecognized-char-ref"
@@ -84,4 +93,5 @@ Attribute values with a `?` is treated as a querystring and unless terminated wi
 
 ## Version history
 
+- %version% - Legacy character references without semicolon followed by text (e.g. `&section`) in text content are now reported when `requireSemicolon` is enabled.
 - 7.9.0 - Rule was made case sensitive and the `ignoreCase` and `requireSemicolon` options was added.

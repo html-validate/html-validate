@@ -346,6 +346,97 @@ describe("rule unrecognized-char-ref", () => {
 		});
 	});
 
+	describe("legacy character reference followed by text", () => {
+		it("should report the legacy prefix in text content", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p>&section</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Character reference "&sect" must be terminated by a semicolon (unrecognized-char-ref)
+				> 1 |  <p>&section</p>
+				    |     ^^^^^
+				Selector: p"
+			`);
+		});
+
+		it("should report the longest legacy prefix", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p>&notice</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toHaveError(
+				"unrecognized-char-ref",
+				'Character reference "&not" must be terminated by a semicolon',
+			);
+		});
+
+		it("should prefer the legacy prefix over a longer semicolon-only name", async () => {
+			expect.assertions(1);
+			/* `&notin;` exists but without semicolon browsers parse `&not` followed by "in" */
+			const markup = /* HTML */ ` <p>&notin</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Character reference "&not" must be terminated by a semicolon (unrecognized-char-ref)
+				> 1 |  <p>&notin</p>
+				    |     ^^^^
+				Selector: p"
+			`);
+		});
+
+		it("should not report when terminated with a semicolon after the legacy name", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p>&sect;ion</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report text that merely starts like an entity", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <p>Q&A &c. R&D AT&T</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report in quoted attribute values", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <a href="foo&section" title="?foo&section"></a> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report in unquoted attribute values", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <a href="foo&section"></a> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should not report when requireSemicolon is disabled", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { requireSemicolon: false }] },
+			});
+			const markup = /* HTML */ ` <p>&section</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should respect case sensitivity", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <p>&SECTION</p> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+
+			htmlvalidate = new HtmlValidate({
+				rules: { "unrecognized-char-ref": ["error", { ignoreCase: true }] },
+			});
+			const ignoreCaseReport = await htmlvalidate.validateString(markup);
+			expect(ignoreCaseReport).toHaveError(
+				"unrecognized-char-ref",
+				'Character reference "&SECT" must be terminated by a semicolon',
+			);
+		});
+	});
+
 	it("should contain documentation (terminated)", async () => {
 		expect.assertions(1);
 		const context: RuleContext = {
