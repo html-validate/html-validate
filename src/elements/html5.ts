@@ -2192,6 +2192,7 @@ export default {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
 				enum: [validNonEmptyString],
 			},
+			media: {},
 			methods: {
 				deprecated: true,
 			},
