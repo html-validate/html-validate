@@ -5,6 +5,7 @@ import { type MetaDataTable } from "./element";
  *
  * @public
  */
+/* @__NO_SIDE_EFFECTS__ */
 export function defineMetadata(metatable: MetaDataTable): MetaDataTable {
 	return metatable;
 }

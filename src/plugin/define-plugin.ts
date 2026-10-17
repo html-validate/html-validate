@@ -5,6 +5,7 @@ import { type Plugin } from "./plugin";
  *
  * @public
  */
+/* @__NO_SIDE_EFFECTS__ */
 export function definePlugin(plugin: Plugin): Plugin {
 	return plugin;
 }

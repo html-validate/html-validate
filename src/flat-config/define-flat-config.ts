@@ -21,6 +21,7 @@ import { type FlatConfig } from "./flat-config";
  * @public
  * @since 11.5.0
  */
+/* @__NO_SIDE_EFFECTS__ */
 export function defineFlatConfig(config: FlatConfig): FlatConfig {
 	return config;
 }

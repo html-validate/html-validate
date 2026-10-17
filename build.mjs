@@ -4,6 +4,7 @@ import { styleText } from "node:util";
 import { rollup } from "rollup";
 import { getRollupConfig } from "./rollup.config.mjs";
 import { apiExtractor } from "./scripts/api-extractor.mjs";
+import { validateSideEffectAnnotations } from "./scripts/validate-side-effects.mjs";
 
 /**
  * @typedef {import("rollup").OutputChunk} OutputChunk
@@ -270,6 +271,7 @@ async function build() {
 	await bundle("es");
 	await bundle("cjs");
 	await validateBrowserBuild();
+	await validateSideEffectAnnotations();
 	await apiExtractor(["entrypoints/api-extractor-*.json"]);
 	await writeFile("dist/types/html5.d.ts", html5dts.join(""));
 	await writeFile("dist/types/presets.d.ts", presetsDts.join(""));

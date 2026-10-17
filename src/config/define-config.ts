@@ -6,6 +6,7 @@ import { type ConfigData } from "./config-data";
  * @public
  * @since
  */
+/* @__NO_SIDE_EFFECTS__ */
 export function defineConfig(config: ConfigData): ConfigData {
 	return config;
 }
