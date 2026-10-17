@@ -2233,6 +2233,7 @@ export default {
 			target: {
 				deprecated: true,
 			},
+			type: {},
 			urn: {
 				deprecated: true,
 			},
