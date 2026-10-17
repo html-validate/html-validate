@@ -542,6 +542,57 @@ describe("FlatConfigLoader", () => {
 		expect(mockLoadFlatConfigFile).toHaveBeenCalledTimes(1);
 	});
 
+	it("should respect different aria configOverride for the same filename", async () => {
+		expect.assertions(2);
+		vol.fromJSON({
+			["/project/html-validate.config.js"]: serializeFlatConfig([{ rules: {} }]),
+		});
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		const first = await loader.getConfigFor("/project/file.html", { aria: "1.2" });
+		const second = await loader.getConfigFor("/project/file.html", { aria: "1.3" });
+		expect(first.getAriaVersion()).toBe("1.2");
+		expect(second.getAriaVersion()).toBe("1.3");
+	});
+
+	it("should respect different rules configOverride for the same filename", async () => {
+		expect.assertions(2);
+		vol.fromJSON({
+			["/project/html-validate.config.js"]: serializeFlatConfig([{ rules: {} }]),
+		});
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		const first = await loader.getConfigFor("/project/file.html", {
+			rules: { "no-self-closing": "off" },
+		});
+		const second = await loader.getConfigFor("/project/file.html", {
+			rules: { "no-self-closing": "error" },
+		});
+		expect(first.getRules().get("no-self-closing")?.[0]).toBe(0);
+		expect(second.getRules().get("no-self-closing")?.[0]).toBe(2);
+	});
+
+	it("should not let configOverride pollute the cache for calls without override", async () => {
+		expect.assertions(2);
+		vol.fromJSON({
+			["/project/html-validate.config.js"]: serializeFlatConfig([{ aria: "1.2" }]),
+		});
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		const withOverride = await loader.getConfigFor("/project/file.html", { aria: "1.3" });
+		const plain = await loader.getConfigFor("/project/file.html");
+		expect(withOverride.getAriaVersion()).toBe("1.3");
+		expect(plain.getAriaVersion()).toBe("1.2");
+	});
+
+	it("should not return the cached config when configOverride is given", async () => {
+		expect.assertions(1);
+		vol.fromJSON({
+			["/project/html-validate.config.js"]: serializeFlatConfig([{ aria: "1.2" }]),
+		});
+		const loader = new FlatConfigLoader("/project/html-validate.config.js");
+		await loader.getConfigFor("/project/file.html");
+		const config = await loader.getConfigFor("/project/file.html", { aria: "1.3" });
+		expect(config.getAriaVersion()).toBe("1.3");
+	});
+
 	describe("isIgnored()", () => {
 		it("should return true for a file matched by global ignores", async () => {
 			expect.assertions(1);

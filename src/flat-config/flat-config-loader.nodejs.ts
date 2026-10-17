@@ -155,8 +155,8 @@ export class FlatConfigLoader extends ConfigLoader {
 	/**
 	 * Get configuration for the given filename.
 	 *
-	 * Do note that if `configOverride` is changed between calls the cache must be
-	 * flushed in-between. This loader caches the final merged result.
+	 * The final merged result is cached by filename, but only when no
+	 * `configOverride` is given. Calls with an override are never cached.
 	 *
 	 * @param filename - Absolute or relative path to the file being validated.
 	 * @param configOverride - Optional configuration to merge into the result.
@@ -165,7 +165,7 @@ export class FlatConfigLoader extends ConfigLoader {
 		filename: string,
 		configOverride?: ConfigData,
 	): Promise<ResolvedConfig> {
-		const cached = this.fileCache.get(filename);
+		const cached = configOverride ? undefined : this.fileCache.get(filename);
 		if (cached) {
 			return cached;
 		}
@@ -190,7 +190,9 @@ export class FlatConfigLoader extends ConfigLoader {
 
 		/* resolve and cache result */
 		const resolved = buildResolvedConfig(merged, blocks);
-		this.fileCache.set(filename, resolved);
+		if (!configOverride) {
+			this.fileCache.set(filename, resolved);
+		}
 		return resolved;
 	}
 
