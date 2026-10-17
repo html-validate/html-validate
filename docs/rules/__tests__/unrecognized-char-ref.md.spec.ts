@@ -8,6 +8,7 @@ markup["disabled-ignore-case"] = `<p>&Amp;</p>`;
 markup["enabled-ignore-case"] = `<p>&Amp;</p>`;
 markup["enabled-require-semicolon"] = `<p>&copy</p>`;
 markup["disabled-require-semicolon"] = `<p>&copy</p>`;
+markup["legacy-prefix"] = `<p>&section</p>`;
 markup["querystring"] = `<a href="foo.php?foo=1&bar=2">...</a>`;
 
 describe("docs/rules/unrecognized-char-ref.md", () => {
@@ -50,6 +51,13 @@ describe("docs/rules/unrecognized-char-ref.md", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({"rules":{"unrecognized-char-ref":["error",{"requireSemicolon":false}]}});
 		const report = await htmlvalidate.validateString(markup["disabled-require-semicolon"]);
+		expect(report.results).toMatchSnapshot();
+	});
+
+	it("inline validation: legacy-prefix", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({"rules":{"unrecognized-char-ref":["error",{"requireSemicolon":true}]}});
+		const report = await htmlvalidate.validateString(markup["legacy-prefix"]);
 		expect(report.results).toMatchSnapshot();
 	});
 

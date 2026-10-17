@@ -33,6 +33,14 @@ const defaults: RuleOptions = {
 const regexp = /&(?:[\da-z]+|#x?[\da-f]+)([^\da-z]|$)/gi;
 const lowercaseEntities = entities.map((it) => it.toLowerCase());
 
+/* longest first so the longest matching prefix wins, same as browsers */
+function getLegacyEntities(list: string[]): string[] {
+	return list.filter((it) => !it.endsWith(";")).toSorted((a, b) => b.length - a.length);
+}
+
+const legacyEntities = getLegacyEntities(entities);
+const lowercaseLegacyEntities = getLegacyEntities(lowercaseEntities);
+
 function isNumerical(entity: string): boolean {
 	return entity.startsWith("&#");
 }
@@ -157,6 +165,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			const allowUnterminated = isAttribute && isAfterQueryOrFragment(delimiter, match);
 			this.validateCharacterReference(node, location, match, {
 				allowUnterminated,
+				isAttribute,
 			});
 		}
 	}
@@ -165,7 +174,7 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 		node: HtmlElement,
 		location: Location | null,
 		entityMatch: EntityMatch,
-		{ allowUnterminated }: { allowUnterminated: boolean },
+		{ allowUnterminated, isAttribute }: { allowUnterminated: boolean; isAttribute: boolean },
 	): void {
 		const { requireSemicolon } = this.options;
 		const { match, entity, raw, terminated } = entityMatch;
@@ -193,12 +202,12 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			/* flag if the entity name is known (found in the list, or valid with a
 			 * semicolon)—otherwise it is plain text with an ampersand (e.g. “Q&A”,
 			 * “&c.”) rather than an attempted character reference */
-			const isKnownName = found || this.entities.includes(`${entity};`);
-			if (isKnownName) {
-				const entityLocation = getLocation(location, entity, match);
+			const name = this.findUnterminatedName(entity, { found, isAttribute });
+			if (name) {
+				const entityLocation = getLocation(location, name, match);
 				const message = `Character reference "{{ entity }}" must be terminated by a semicolon`;
 				const context: RuleContext = {
-					entity: raw,
+					entity: raw.slice(0, name.length),
 					terminated: false,
 				};
 				this.report({
@@ -223,6 +232,28 @@ export default class UnknownCharReference extends Rule<RuleContext, RuleOptions>
 			location: entityLocation,
 			context,
 		});
+	}
+
+	private findUnterminatedName(
+		entity: string,
+		{ found, isAttribute }: { found: boolean; isAttribute: boolean },
+	): string | undefined {
+		/* in text browsers decode the longest legacy reference prefix even when
+		 * followed by more characters (`&section` is rendered as `§ion` and
+		 * `&notin` as `¬in`) but in attributes it is left as-is if followed by
+		 * alphanumerics */
+		if (!isAttribute && this.options.requireSemicolon) {
+			const list = this.options.ignoreCase ? lowercaseLegacyEntities : legacyEntities;
+			const legacy = list.find((it) => entity.startsWith(it));
+			if (legacy) {
+				return legacy;
+			}
+		}
+
+		if (found || this.entities.includes(`${entity};`)) {
+			return entity;
+		}
+		return undefined;
 	}
 
 	private *getMatches(text: string): IterableIterator<EntityMatch> {
