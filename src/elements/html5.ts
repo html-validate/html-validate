@@ -2121,6 +2121,7 @@ export default {
 			charset: {
 				deprecated: true,
 			},
+			color: {},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
@@ -2128,6 +2129,9 @@ export default {
 			disabled: {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet"]),
 				boolean: true,
+			},
+			fetchpriority: {
+				enum: ["high", "low", "auto"],
 			},
 			href: {
 				required(node) {
@@ -2141,6 +2145,7 @@ export default {
 				},
 				enum: [validNonEmptyString],
 			},
+			hreflang: {},
 			imagesrcset: {
 				allowed(node) {
 					/* "The imagesrcset and imagesizes attributes must only be specified
@@ -2192,6 +2197,7 @@ export default {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet", "preload", "modulepreload"]),
 				enum: [validNonEmptyString],
 			},
+			media: {},
 			methods: {
 				deprecated: true,
 			},
@@ -2230,9 +2236,11 @@ export default {
 				list: true,
 				enum: [validNonEmptyString],
 			},
+			sizes: {},
 			target: {
 				deprecated: true,
 			},
+			type: {},
 			urn: {
 				deprecated: true,
 			},

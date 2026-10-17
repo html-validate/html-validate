@@ -59,6 +59,26 @@
 		<link href="my-url" referrerpolicy="strict-origin-when-cross-origin">
 		<link href="my-url" referrerpolicy="unsafe-url">
 
+		<!-- should allow type attribute -->
+		<link href="my-url" rel="icon" type="image/x-icon">
+
+		<!-- should allow media attribute -->
+		<link href="my-url" rel="stylesheet" media="print">
+
+		<!-- should allow hreflang attribute -->
+		<link href="my-url" rel="alternate" hreflang="en">
+
+		<!-- should allow sizes attribute -->
+		<link href="my-url" rel="icon" sizes="16x16 32x32">
+
+		<!-- should allow color attribute -->
+		<link href="my-url" rel="mask-icon" color="#ff0000">
+
+		<!-- should allow fetchpriority attribute -->
+		<link href="my-url" rel="preload" fetchpriority="high">
+		<link href="my-url" rel="preload" fetchpriority="low">
+		<link href="my-url" rel="preload" fetchpriority="auto">
+
 		<!-- always allowed under head -->
 		<link href="my-url" itemprop>
 
