@@ -2232,6 +2232,7 @@ export default {
 				list: true,
 				enum: [validNonEmptyString],
 			},
+			sizes: {},
 			target: {
 				deprecated: true,
 			},
