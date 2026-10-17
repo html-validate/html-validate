@@ -2130,6 +2130,9 @@ export default {
 				allowed: allowedIfAttributeHasValue("rel", ["stylesheet"]),
 				boolean: true,
 			},
+			fetchpriority: {
+				enum: ["high", "low", "auto"],
+			},
 			href: {
 				required(node) {
 					/* "One or both of the href or imagesrcset attributes must be

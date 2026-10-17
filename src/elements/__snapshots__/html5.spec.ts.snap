@@ -13448,7 +13448,7 @@ exports[`HTML elements <li> valid markup 1`] = `[]`;
 exports[`HTML elements <link> invalid markup 1`] = `
 [
   {
-    "errorCount": 37,
+    "errorCount": 38,
     "filePath": "test-files/elements/link-invalid.html",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
@@ -14092,15 +14092,38 @@ exports[`HTML elements <link> invalid markup 1`] = `
         "size": 10,
       },
       {
+        "column": 38,
+        "context": {
+          "allowed": {
+            "enum": [
+              "high",
+              "low",
+              "auto",
+            ],
+          },
+          "attribute": "fetchpriority",
+          "element": "link",
+          "value": "invalid",
+        },
+        "line": 68,
+        "message": "Attribute "fetchpriority" has invalid value "invalid"",
+        "offset": 2623,
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "html > head > link:nth-child(34)",
+        "severity": 2,
+        "size": 7,
+      },
+      {
         "column": 4,
         "context": {
           "child": "<link>",
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 70,
+        "line": 73,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2631,
+        "offset": 2729,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(1)",
@@ -14114,9 +14137,9 @@ exports[`HTML elements <link> invalid markup 1`] = `
           "kind": "content",
           "parent": "<body>",
         },
-        "line": 71,
+        "line": 74,
         "message": "<link> element is not permitted as content under <body>",
-        "offset": 2654,
+        "offset": 2752,
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "html > body > link:nth-child(2)",
