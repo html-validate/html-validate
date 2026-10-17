@@ -1,5 +1,17 @@
 # html-validate changelog
 
+## 11.16.3 (2026-10-17)
+
+### Bug Fixes
+
+- add `@__NO_SIDE_EFFECTS__` annotation to `define*` helpers for better treeshaking ([f44b9b3](https://gitlab.com/html-validate/html-validate/commit/f44b9b34418047beb61b53b4bebdf4eb7583ec87))
+- **html5:** allow `color` attribute on `<link>` ([b0ab7f9](https://gitlab.com/html-validate/html-validate/commit/b0ab7f915b8ed09aa4b0d40b22c40283877e4634))
+- **html5:** allow `fetchpriority` attribute on `<link>` ([d04875f](https://gitlab.com/html-validate/html-validate/commit/d04875fe1a381c4f87754c1716f31ab5c73c5e04))
+- **html5:** allow `hreflang` attribute on `<link>` ([13f73c0](https://gitlab.com/html-validate/html-validate/commit/13f73c08d344e055720ccac4b2c9e689437c5b91))
+- **html5:** allow `media` attribute on `<link>` ([3b22eb0](https://gitlab.com/html-validate/html-validate/commit/3b22eb04695af791cdcaf59a39f7dfa59117f7da))
+- **html5:** allow `sizes` attribute on `<link>` ([3a99da7](https://gitlab.com/html-validate/html-validate/commit/3a99da7beba52c492114d33a135f943c7d7ebdc3))
+- **html5:** allow `type` attribute on `<link>` ([0b298e7](https://gitlab.com/html-validate/html-validate/commit/0b298e71b6e607bc4bb01006ed50087e41fcd422)), closes [#371](https://gitlab.com/html-validate/html-validate/issues/371)
+
 ## 11.16.2 (2026-10-04)
 
 ### Bug Fixes
