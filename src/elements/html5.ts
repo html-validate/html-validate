@@ -2141,6 +2141,7 @@ export default {
 				},
 				enum: [validNonEmptyString],
 			},
+			hreflang: {},
 			imagesrcset: {
 				allowed(node) {
 					/* "The imagesrcset and imagesizes attributes must only be specified
