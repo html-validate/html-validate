@@ -2121,6 +2121,7 @@ export default {
 			charset: {
 				deprecated: true,
 			},
+			color: {},
 			crossorigin: {
 				omit: true,
 				enum: ["anonymous", "use-credentials"],
