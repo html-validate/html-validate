@@ -16,12 +16,12 @@ exports[`docs/rules/input-missing-label.md inline validation: hidden 1`] = `
     "messages": [
       {
         "column": 4,
-        "line": 3,
+        "line": 2,
         "message": "<input> element has <label> but <label> element is hidden",
-        "offset": 69,
+        "offset": 9,
         "ruleId": "input-missing-label",
         "ruleUrl": "https://html-validate.org/rules/input-missing-label.html",
-        "selector": "#my-input",
+        "selector": "div > label",
         "severity": 2,
         "size": 5,
       },

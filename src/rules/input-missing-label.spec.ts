@@ -208,11 +208,32 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo"></label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo"></label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
+		`);
+	});
+
+	it("should report on first label when <input> has multiple empty labels", async () => {
+		expect.assertions(2);
+		const markup = /* HTML */ `
+			<label for="foo"></label>
+			<label for="foo"></label>
+			<input id="foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: <input> element has <label> but <label> has no text (input-missing-label)
+			  1 |
+			> 2 | 			<label for="foo"></label>
+			    | 			 ^^^^^
+			  3 | 			<label for="foo"></label>
+			  4 | 			<input id="foo" />
+			  5 |
+			Selector: label:nth-child(1)"
 		`);
 	});
 
@@ -260,12 +281,12 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label)
 			  1 |
-			  2 | 			<label aria-label="">
-			> 3 | 				<input />
-			    | 				 ^^^^^
+			> 2 | 			<label aria-label="">
+			    | 			 ^^^^^
+			  3 | 				<input />
 			  4 | 			</label>
 			  5 |
-			Selector: label > input"
+			Selector: label"
 		`);
 	});
 
@@ -281,13 +302,14 @@ describe("rule input-missing-label", () => {
 		expect(report).toBeInvalid();
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> has no text (input-missing-label)
+			  1 |
 			  2 | 			<p id="foo"></p>
-			  3 | 			<label aria-labelledby="foo">
-			> 4 | 				<input />
-			    | 				 ^^^^^
+			> 3 | 			<label aria-labelledby="foo">
+			    | 			 ^^^^^
+			  4 | 				<input />
 			  5 | 			</label>
 			  6 |
-			Selector: label > input"
+			Selector: label"
 		`);
 	});
 
@@ -337,11 +359,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo" hidden> lorem ipsum </label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo" hidden> lorem ipsum </label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
 		`);
 	});
 
@@ -356,11 +378,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo" inert> lorem ipsum </label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo" inert> lorem ipsum </label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
 		`);
 	});
 
@@ -375,11 +397,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo" aria-hidden="true"> lorem ipsum </label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo" aria-hidden="true"> lorem ipsum </label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
 		`);
 	});
 
@@ -394,11 +416,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo" style="display: none"> lorem ipsum </label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo" style="display: none"> lorem ipsum </label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
 		`);
 	});
 
@@ -413,11 +435,11 @@ describe("rule input-missing-label", () => {
 		expect(report).toMatchInlineCodeframe(`
 			"error: <input> element has <label> but <label> element is hidden (input-missing-label)
 			  1 |
-			  2 | 			<label for="foo" style="visibility: hidden"> lorem ipsum </label>
-			> 3 | 			<input id="foo" />
+			> 2 | 			<label for="foo" style="visibility: hidden"> lorem ipsum </label>
 			    | 			 ^^^^^
+			  3 | 			<input id="foo" />
 			  4 |
-			Selector: #foo"
+			Selector: label"
 		`);
 	});
 
