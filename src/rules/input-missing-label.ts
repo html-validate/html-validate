@@ -94,14 +94,14 @@ export default class InputMissingLabel extends Rule {
 		const visible = labels.filter(inAccessibilityTree);
 		if (visible.length === 0) {
 			this.report({
-				node: elem,
+				node: labels[0],
 				message: `<${elem.tagName}> element has <label> but <label> element is hidden`,
 			});
 			return;
 		}
 		if (labels.every((label) => !hasAccessibleName(root, label))) {
 			this.report({
-				node: elem,
+				node: labels[0],
 				message: `<${elem.tagName}> element has <label> but <label> has no text`,
 			});
 		}
