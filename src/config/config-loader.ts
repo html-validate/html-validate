@@ -90,9 +90,11 @@ export abstract class ConfigLoader {
 	 *
 	 * If [[configOverride]] is set it is merged with the final result.
 	 *
-	 * Do note that if `configOverride` is changed between calls the cache must be
-	 * flushed in-between or the final results may vary. Loaders may cache the
-	 * merged result.
+	 * Loaders may cache the merged result. For loaders that do, the cache must be
+	 * flushed in-between calls if `configOverride` is changed or the final
+	 * results may vary. Loaders that do not cache results dependent on
+	 * `configOverride` (such as `FlatConfigLoader`, which bypasses its cache when
+	 * an override is given) do not need this.
 	 *
 	 * @param handle - Unique handle to get configuration for.
 	 * @param configOverride - Optional configuration to merge final results with.
