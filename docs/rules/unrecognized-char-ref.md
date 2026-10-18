@@ -93,5 +93,5 @@ Attribute values with a `?` is treated as a querystring and unless terminated wi
 
 ## Version history
 
-- %version% - Legacy character references without semicolon followed by text (e.g. `&section`) in text content are now reported when `requireSemicolon` is enabled.
+- 11.16.4 - Legacy character references without semicolon followed by text (e.g. `&section`) in text content are now reported when `requireSemicolon` is enabled.
 - 7.9.0 - Rule was made case sensitive and the `ignoreCase` and `requireSemicolon` options was added.

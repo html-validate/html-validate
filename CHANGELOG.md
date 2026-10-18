@@ -1,5 +1,14 @@
 # html-validate changelog
 
+## 11.16.4 (2026-10-18)
+
+### Bug Fixes
+
+- **config:** disable cache in FlatConfigLoader when configOverride is given ([28da344](https://gitlab.com/html-validate/html-validate/commit/28da3446a75fb39dad3187b9cab7212f408c4749)), closes [#369](https://gitlab.com/html-validate/html-validate/issues/369)
+- **dom:** handle empty attribute selector ([8a467b9](https://gitlab.com/html-validate/html-validate/commit/8a467b9f7ea15a5dcd75bc3bb68f4dddcb879464)), closes [#356](https://gitlab.com/html-validate/html-validate/issues/356)
+- **rules:** `unrecognized-char-ref` flags legacy references without semicolon ([b467b84](https://gitlab.com/html-validate/html-validate/commit/b467b84fb443919b13bae88048ebada1532d360b)), closes [#312](https://gitlab.com/html-validate/html-validate/issues/312)
+- **rules:** report error on `<label>` when empty or hidden instead of on `<input>` ([8e70f82](https://gitlab.com/html-validate/html-validate/commit/8e70f82d77a072fca499c6db170d41d3fd615e32)), closes [#290](https://gitlab.com/html-validate/html-validate/issues/290)
+
 ## 11.16.3 (2026-10-17)
 
 ### Bug Fixes
