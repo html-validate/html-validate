@@ -1,73 +1,104 @@
-const enum State {
-	INITIAL,
-	ESCAPED,
-	WHITESPACE,
-}
-
+const whitespace = new Set([" ", "\t", "\n", "\r", "\f"]);
+const combinators = new Set(["+", ">", "~"]);
 const escapedCodepoints = new Set(["9", "a", "d"]);
 
 /**
+ * Split a complex selector into compounds. Whitespace separates compounds
+ * except inside quoted strings, brackets and parentheses. Whitespace around
+ * combinators is dropped and the combinator is kept as a prefix of the compound
+ * it precedes, e.g. `ul > li` yields `ul` and `>li`.
+ *
  * @internal
  */
 export function* splitSelectorElements(selector: string): Generator<string, void> {
+	const { length } = selector;
 	let begin = 0;
-	let end = 0;
+	let p = 0;
+	let depth = 0;
+	let quote: string | null = null;
+	let prefix = "";
 
-	function initialState(ch: string, p: number): State {
-		if (ch === "\\") {
-			return State.ESCAPED;
+	function skipWhitespace(): void {
+		while (p < length && whitespace.has(selector[p])) {
+			p++;
 		}
-		if (ch === " ") {
-			end = p;
-			return State.WHITESPACE;
-		}
-		return State.INITIAL;
 	}
 
-	function escapedState(ch: string): State {
-		if (escapedCodepoints.has(ch)) {
-			return State.ESCAPED;
+	/* escaped codepoints such as `\9 ` include the trailing space */
+	function consumeEscape(ch: string): boolean {
+		if (ch !== "\\") {
+			return false;
 		}
-		return State.INITIAL;
+		p += escapedCodepoints.has(selector[p + 1]) ? 3 : 2;
+		return true;
 	}
 
-	function* whitespaceState(ch: string, p: number): Generator<string, State> {
-		if (ch === " ") {
-			return State.WHITESPACE;
+	/* consumes quoted strings and bracketed content, returns true if the
+	 * character at the current position was consumed */
+	function consumeLiteral(ch: string): boolean {
+		if (quote) {
+			if (ch === quote) {
+				quote = null;
+			}
+			p++;
+			return true;
 		}
-		yield selector.slice(begin, end);
-		begin = p;
-		end = p;
-		return State.INITIAL;
+
+		switch (ch) {
+			case '"':
+			case "'":
+				quote = ch;
+				break;
+			case "[":
+			case "(":
+				depth++;
+				break;
+			case "]":
+			case ")":
+				depth = Math.max(0, depth - 1);
+				break;
+			default:
+				if (depth === 0) {
+					return false;
+				}
+		}
+
+		p++;
+		return true;
 	}
 
-	let state = State.INITIAL;
-
-	/* eslint-disable-next-line unicorn/no-for-loop -- while it could be
-	 * replaced with for..of using `.split("").entries()` it doesn't really
-	 * seem more efficient or readable, and this is well covered by testcases
-	 * for off-by-one errors */
-	for (let p = 0; p < selector.length; p++) {
+	while (p < length) {
 		const ch = selector[p];
-		switch (state) {
-			case State.INITIAL:
-				state = initialState(ch, p);
-				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
-				break;
 
-			case State.ESCAPED:
-				state = escapedState(ch);
-				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
-				break;
-
-			case State.WHITESPACE:
-				state = yield* whitespaceState(ch, p);
-				/* eslint-disable-next-line unicorn/no-break-in-nested-loop -- technical debt */
-				break;
+		if (consumeEscape(ch) || consumeLiteral(ch)) {
+			continue;
 		}
+
+		if (whitespace.has(ch)) {
+			if (p > begin) {
+				yield prefix + selector.slice(begin, p);
+				prefix = "";
+			}
+			skipWhitespace();
+			begin = p;
+			continue;
+		}
+
+		if (combinators.has(ch)) {
+			if (p > begin) {
+				yield prefix + selector.slice(begin, p);
+			}
+			prefix = ch;
+			p++;
+			skipWhitespace();
+			begin = p;
+			continue;
+		}
+
+		p++;
 	}
 
-	if (begin !== selector.length) {
-		yield selector.slice(begin);
+	if (begin < length || prefix) {
+		yield prefix + selector.slice(begin);
 	}
 }

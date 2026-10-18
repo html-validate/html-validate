@@ -208,6 +208,34 @@ describe("Selector", () => {
 		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "div" })]);
 	});
 
+	it("should match attribute value containing combinator characters", async () => {
+		expect.assertions(2);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		const document = parser.parseHtml(`<p title="a > b"></p><p title="a>b"></p>`);
+		const titles = (selector: ComplexSelector): Array<string | null> =>
+			Array.from(selector.match(document), (it) => it.getAttributeValue("title"));
+		expect(titles(ComplexSelector.fromString('[title="a > b"]'))).toEqual(["a > b"]);
+		expect(titles(ComplexSelector.fromString('[title="a>b"]'))).toEqual(["a>b"]);
+	});
+
+	it("should match attribute value containing whitespace", async () => {
+		expect.assertions(1);
+		const resolvedConfig = await Config.empty().resolve();
+		const parser = new Parser(resolvedConfig);
+		const document = parser.parseHtml(`<p title="a b"></p>`);
+		const selector = ComplexSelector.fromString('[title="a b"]');
+		expect(fetch(selector.match(document))).toEqual([expect.objectContaining({ tagName: "p" })]);
+	});
+
+	it("should match child combinator with extra whitespace", () => {
+		expect.assertions(1);
+		const selector = ComplexSelector.fromString("bar \t  >\n  foo");
+		expect(fetch(selector.match(doc))).toEqual([
+			expect.objectContaining({ tagName: "foo", testId: "foo-4" }),
+		]);
+	});
+
 	it("should match having attribute ([wilma])", () => {
 		expect.assertions(1);
 		const selector = ComplexSelector.fromString("[wilma]");

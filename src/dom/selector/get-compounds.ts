@@ -22,11 +22,6 @@ function unescapeCodepoint(value: string): string {
  * @internal
  */
 export function getCompounds(selector: string): Compound[] {
-	/* strip whitespace before combinators, "ul > li" becomes "ul >li", for
-	 * easier parsing */
-	selector = selector.replaceAll(/([+>~]) /g, "$1");
-
-	/* split string on whitespace (excluding escaped `\ `) */
 	return Array.from(splitSelectorElements(selector), (element) => {
 		return new Compound(unescapeCodepoint(element));
 	});
