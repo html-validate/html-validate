@@ -13,7 +13,9 @@ exports[`docs/rules/prefer-native-element.md inline validation: incorrect 1`] = 
       {
         "column": 6,
         "context": {
-          "replacement": "main",
+          "replacement": [
+            "main",
+          ],
           "role": "main",
         },
         "line": 1,

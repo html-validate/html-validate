@@ -60,12 +60,22 @@ describe("rule prefer-native-element", () => {
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeInvalid();
 			expect(report).toMatchInlineCodeframe(`
-				"error: Prefer to use the native <ul> element (prefer-native-element)
+				"error: Prefer to use the native <ul>, <ol> or <menu> element (prefer-native-element)
 				> 1 |  <div role="list"></div>
 				    |       ^^^^^^^^^^^
 				Selector: div"
 			`);
 		});
+
+		it.each(["h1", "h2", "h3", "h4", "h5", "h6"])(
+			"should not report error when <%s> has role heading",
+			async (tagName) => {
+				expect.assertions(1);
+				const markup = /* HTML */ ` <${tagName} role="heading">a</${tagName}> `;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			},
+		);
 
 		it("should handle implicit role depending on attributes after role", async () => {
 			expect.assertions(1);
@@ -107,6 +117,24 @@ describe("rule prefer-native-element", () => {
 		});
 	});
 
+	it("should accept array of replacement elements in mapping", async () => {
+		expect.assertions(3);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: {
+				"prefer-native-element": ["error", { mapping: { group: ["fieldset", "details"] } }],
+			},
+		});
+		const valid = await htmlvalidate.validateString('<details role="group"></details>');
+		const invalid = await htmlvalidate.validateString('<div role="group"></div>');
+		expect(valid).toBeValid();
+		expect(invalid).toBeInvalid();
+		expect(invalid).toHaveError(
+			"prefer-native-element",
+			"Prefer to use the native <fieldset> or <details> element",
+		);
+	});
+
 	it("should not report error when role is excluded", async () => {
 		expect.assertions(2);
 		const htmlvalidate = new HtmlValidate({
@@ -139,7 +167,7 @@ describe("rule prefer-native-element", () => {
 		});
 		const context = {
 			role: "the-role",
-			replacement: "the-replacement",
+			replacement: ["ul", "ol", "menu"],
 		};
 		const docs = await htmlvalidate.getContextualDocumentation({
 			ruleId: "prefer-native-element",
@@ -147,7 +175,7 @@ describe("rule prefer-native-element", () => {
 		});
 		expect(docs).toMatchInlineSnapshot(`
 			{
-			  "description": "Instead of using the WAI-ARIA role "the-role" prefer to use the native <the-replacement> element.",
+			  "description": "Instead of using the WAI-ARIA role "the-role" prefer to use the native \`<ul>\`, \`<ol>\` or \`<menu>\` element.",
 			  "url": "https://html-validate.org/rules/prefer-native-element.html",
 			}
 		`);

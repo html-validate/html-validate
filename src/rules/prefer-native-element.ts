@@ -1,14 +1,15 @@
 import { type HtmlElement, DynamicValue } from "../dom";
 import { type TagReadyEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { naturalJoin } from "../utils/natural-join";
 
 interface RuleContext {
 	role: string;
-	replacement: string;
+	replacement: string[];
 }
 
 interface RuleOptions {
-	mapping: Record<string, string>;
+	mapping: Record<string, string | string[]>;
 	include: string[] | null;
 	exclude: string[] | null;
 }
@@ -24,10 +25,10 @@ const defaults: RuleOptions = {
 		contentinfo: "footer",
 		figure: "figure",
 		form: "form",
-		heading: "hN",
+		heading: ["h1", "h2", "h3", "h4", "h5", "h6"],
 		input: "input",
 		link: "a",
-		list: "ul",
+		list: ["ul", "ol", "menu"],
 		listbox: "select",
 		listitem: "li",
 		main: "main",
@@ -86,8 +87,9 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 	}
 
 	public override documentation(context: RuleContext): RuleDocumentation {
+		const replacement = naturalJoin(context.replacement.map((it) => `\`<${it}>\``));
 		return {
-			description: `Instead of using the WAI-ARIA role "${context.role}" prefer to use the native <${context.replacement}> element.`,
+			description: `Instead of using the WAI-ARIA role "${context.role}" prefer to use the native ${replacement} element.`,
 			url: ruleDocumentationUrl(__filename),
 		};
 	}
@@ -111,8 +113,8 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 
 			/* dont report when the element is already of the right type but has a
 			 * redundant role, such as <main role="main"> */
-			const replacement = mapping[role];
-			if (target.is(replacement)) {
+			const replacements = [mapping[role]].flat();
+			if (replacements.some((it) => target.is(it))) {
 				return;
 			}
 
@@ -122,11 +124,12 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 			}
 
 			/* report error */
-			const context: RuleContext = { role, replacement };
+			const replacement = naturalJoin(replacements.map((it) => `<${it}>`));
+			const context: RuleContext = { role, replacement: replacements };
 			const { location } = attr;
 			this.report({
 				node: target,
-				message: `Prefer to use the native <${replacement}> element`,
+				message: `Prefer to use the native ${replacement} element`,
 				location,
 				context,
 			});
@@ -138,7 +141,7 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 
 		/* ignore roles not mapped to native elements */
 		const replacement = mapping[role];
-		if (!replacement) {
+		if (!replacement || replacement.length === 0) {
 			return true;
 		}
 
