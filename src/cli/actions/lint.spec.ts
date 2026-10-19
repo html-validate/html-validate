@@ -21,6 +21,7 @@ function mockError(ruleId: string, message: string): Message {
 		column: 1,
 		size: 1,
 		selector: null,
+		related: [],
 	};
 }
 
@@ -35,6 +36,7 @@ function mockWarning(ruleId: string, message: string): Message {
 		column: 1,
 		size: 1,
 		selector: null,
+		related: [],
 	};
 }
 
@@ -435,6 +437,7 @@ it("should apply autofix and write the patched file when fix option is enabled",
 						column: 6,
 						size: 3,
 						selector: null,
+						related: [],
 						fix: createAutofix('<div foo="bar"></div>', (fixer): void => {
 							fixer.replaceText(
 								{ filename: "foo.html", offset: 5, line: 1, column: 6, size: 3 },
@@ -536,6 +539,7 @@ it("should not write the file when a fix produces no change to the source", asyn
 						column: 1,
 						size: 1,
 						selector: null,
+						related: [],
 						fix: createAutofix("abc", (fixer): void => {
 							fixer.replaceText(
 								{ filename: "foo.html", offset: 0, line: 1, column: 1, size: 1 },
@@ -585,6 +589,7 @@ it("should stop fixing once the iteration limit is reached", async () => {
 						column: 1,
 						size: 0,
 						selector: null,
+						related: [],
 						fix: createAutofix("baseline", (): void => {
 							/* not used since autofix() is mocked */
 						}),

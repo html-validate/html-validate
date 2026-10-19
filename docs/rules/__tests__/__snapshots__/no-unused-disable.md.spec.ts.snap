@@ -22,6 +22,7 @@ exports[`docs/rules/no-unused-disable.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": ""attribute-allowed-values" rule is disabled but no error was reported",
         "offset": 32,
+        "related": [],
         "ruleId": "no-unused-disable",
         "ruleUrl": "https://html-validate.org/rules/no-unused-disable.html",
         "selector": null,

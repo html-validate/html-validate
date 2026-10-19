@@ -20,6 +20,7 @@ exports[`docs/rules/name-pattern.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "name "foo-bar" does not match the configured pattern "camelcase"",
         "offset": 13,
+        "related": [],
         "ruleId": "name-pattern",
         "ruleUrl": "https://html-validate.org/rules/name-pattern.html",
         "selector": "input",

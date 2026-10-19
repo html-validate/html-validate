@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { applyFix, createAutofix } from "./autofix";
 import { Severity } from "./config";
 import { type Source } from "./context";
+import { HtmlElement } from "./dom";
 import { type ErrorFixer } from "./error-fixer";
 import { type DeferredMessage, type Result, Reporter } from "./reporter";
 
@@ -122,6 +123,143 @@ describe("Reporter", () => {
 			const report = reporter.save();
 			const message = report.results[0].messages[0];
 			expect(message.suggestions).toBeUndefined();
+		});
+	});
+
+	describe("related", () => {
+		const rule = {
+			name: "mock-rule",
+			documentation() {
+				return null;
+			},
+		};
+		const location = {
+			filename: "mock-file.html",
+			line: 1,
+			column: 1,
+			size: 1,
+			offset: 0,
+		};
+
+		function createNode(selector: string | null): HtmlElement {
+			const node = HtmlElement.createElement("div", location);
+			jest.spyOn(node, "generateSelector").mockReturnValue(selector);
+			return node;
+		}
+
+		it("should default to empty array if omitted from add()", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule,
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location,
+			});
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([]);
+		});
+
+		it("should default to empty array if null in add()", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule,
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location,
+				related: null,
+			});
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([]);
+		});
+
+		it("should default to empty array if omitted from addManual()", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.addManual("foo.html", createMessage("error"));
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([]);
+		});
+
+		it("should resolve selectors from related nodes in order", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule,
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location,
+				related: [
+					{ kind: "element", node: createNode("#foo") },
+					{ kind: "element", node: createNode("div > p") },
+				],
+			});
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([
+				{ kind: "element", selector: "#foo" },
+				{ kind: "element", selector: "div > p" },
+			]);
+		});
+
+		it("should use null selector for null node or when no selector is possible", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.add<undefined>({
+				rule,
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location,
+				related: [
+					{ kind: "element", node: null },
+					{ kind: "element", node: createNode(null) },
+				],
+			});
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([
+				{ kind: "element", selector: null },
+				{ kind: "element", selector: null },
+			]);
+		});
+
+		it("should defer selector generation until save()", () => {
+			expect.assertions(3);
+			const reporter = new Reporter();
+			const node = createNode("#foo");
+			reporter.add<undefined>({
+				rule,
+				node: null,
+				message: "lorem ipsum",
+				severity: Severity.ERROR,
+				context: undefined,
+				location,
+				related: [{ kind: "element", node }],
+			});
+			expect(node.generateSelector).not.toHaveBeenCalled();
+			reporter.save();
+			expect(node.generateSelector).toHaveBeenCalledTimes(1);
+			expect(reporter.save().results[0].messages[0].related).toEqual([
+				{ kind: "element", selector: "#foo" },
+			]);
+		});
+
+		it("should resolve deferred selectors from addManual()", () => {
+			expect.assertions(1);
+			const reporter = new Reporter();
+			reporter.addManual("foo.html", {
+				...createMessage("error"),
+				related: [{ kind: "element", selector: () => "#bar" }],
+			});
+			const message = reporter.save().results[0].messages[0];
+			expect(message.related).toEqual([{ kind: "element", selector: "#bar" }]);
 		});
 	});
 
@@ -325,6 +463,7 @@ describe("Reporter", () => {
 							severity: 2,
 							message: "error",
 							selector: null,
+							related: [],
 						},
 						{
 							offset: 0,
@@ -335,6 +474,7 @@ describe("Reporter", () => {
 							severity: 1,
 							message: "warning",
 							selector: null,
+							related: [],
 						},
 					],
 					source: null,
@@ -355,6 +495,7 @@ describe("Reporter", () => {
 							severity: 2,
 							message: "another error",
 							selector: null,
+							related: [],
 						},
 					],
 					source: null,
@@ -557,6 +698,7 @@ function createResult(filename: string, messages: string[]): Result {
 			return {
 				...msg,
 				selector: msg.selector(),
+				related: [],
 				suggestions: undefined,
 				fix: createAutofix("", () => {
 					/* do nothing */

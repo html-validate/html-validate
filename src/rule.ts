@@ -308,7 +308,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			| [DOMNode | null, string, (Location | null | undefined)?]
 			| [DOMNode | null, string, Location | null | undefined, ContextType]
 	): void {
-		const { node, message, location, context, fix, suggestions } = unpackErrorDescriptor(args);
+		const { node, message, location, context, related, fix, suggestions } =
+			unpackErrorDescriptor(args);
 		const ctor = this.constructor as RuleConstructor<ContextType, OptionsType>;
 		if (fix && !ctor.fixable) {
 			throw new Error(
@@ -334,6 +335,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 			severity: this.severity,
 			node,
 			location: where,
+			related,
 			fix,
 			suggestions,
 			context,

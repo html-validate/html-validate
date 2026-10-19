@@ -16,6 +16,7 @@ exports[`docs/rules/close-attr.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Close tags cannot have attributes",
         "offset": 11,
+        "related": [],
         "ruleId": "close-attr",
         "ruleUrl": "https://html-validate.org/rules/close-attr.html",
         "selector": null,

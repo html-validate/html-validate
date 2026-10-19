@@ -564,6 +564,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 			fix: createAutofix("", () => {
 				/* do nothing */
 			}),
@@ -577,6 +578,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 		};
 		const error: Message = {
 			ruleId: "mock-error",
@@ -587,6 +589,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 		};
 
 		it("should call validateFile for each file", async () => {
@@ -666,6 +669,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock warning message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-warning",
 			          "selector": null,
 			          "severity": 1,
@@ -677,6 +681,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock warning message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-warning",
 			          "selector": null,
 			          "severity": 1,
@@ -697,6 +702,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock error message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-error",
 			          "selector": null,
 			          "severity": 2,
@@ -724,6 +730,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 			fix: createAutofix("", () => {
 				/* do nothing */
 			}),
@@ -737,6 +744,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 		};
 		const error: Message = {
 			ruleId: "mock-error",
@@ -747,6 +755,7 @@ describe("HtmlValidate", () => {
 			offset: 0,
 			size: 1,
 			selector: null,
+			related: [],
 		};
 
 		it("should call validateFileSync for each file", () => {
@@ -826,6 +835,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock warning message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-warning",
 			          "selector": null,
 			          "severity": 1,
@@ -837,6 +847,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock warning message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-warning",
 			          "selector": null,
 			          "severity": 1,
@@ -857,6 +868,7 @@ describe("HtmlValidate", () => {
 			          "line": 1,
 			          "message": "mock error message",
 			          "offset": 0,
+			          "related": [],
 			          "ruleId": "mock-error",
 			          "selector": null,
 			          "severity": 2,

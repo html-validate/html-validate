@@ -15,6 +15,7 @@ exports[`docs/rules/attribute-empty-style.md inline validation: incorrect 1`] = 
         "line": 1,
         "message": "Attribute "download" should omit value",
         "offset": 3,
+        "related": [],
         "ruleId": "attribute-empty-style",
         "ruleUrl": "https://html-validate.org/rules/attribute-empty-style.html",
         "selector": "a",

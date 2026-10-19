@@ -15,6 +15,7 @@ exports[`docs/rules/map-id-name.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": ""id" and "name" attribute must be the same on <map> elements",
         "offset": 20,
+        "related": [],
         "ruleId": "map-id-name",
         "ruleUrl": "https://html-validate.org/rules/map-id-name.html",
         "selector": "#bar",

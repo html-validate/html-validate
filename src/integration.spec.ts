@@ -124,6 +124,7 @@ it("should compute correct line, column and offset when using transformed source
 		      "line": 1,
 		      "message": "mock error",
 		      "offset": 0,
+		      "related": [],
 		      "ruleId": "mock-rule",
 		      "selector": null,
 		      "severity": 2,
@@ -134,6 +135,7 @@ it("should compute correct line, column and offset when using transformed source
 		      "line": 2,
 		      "message": "mock error",
 		      "offset": 14,
+		      "related": [],
 		      "ruleId": "mock-rule",
 		      "selector": null,
 		      "severity": 2,
@@ -144,6 +146,7 @@ it("should compute correct line, column and offset when using transformed source
 		      "line": 3,
 		      "message": "mock error",
 		      "offset": 28,
+		      "related": [],
 		      "ruleId": "mock-rule",
 		      "selector": null,
 		      "severity": 2,
@@ -157,6 +160,46 @@ it("should compute correct line, column and offset when using transformed source
 		  "warningCount": 0,
 		}
 	`);
+});
+
+it("should include selectors of related elements", async () => {
+	expect.assertions(3);
+
+	class MockRule extends Rule {
+		public setup(): void {
+			this.on("dom:ready", (event: DOMReadyEvent) => {
+				const [first, second] = event.document.querySelectorAll("p");
+				this.report({
+					node: second,
+					message: "mock error",
+					related: [{ kind: "element", node: first }],
+				});
+				this.report({
+					node: first,
+					message: "no related",
+				});
+			});
+		}
+	}
+
+	const plugin: Plugin = { rules: { "mock-rule": MockRule } };
+	const loader = new StaticConfigLoader([staticResolver({ plugins: { plugin } })], {
+		root: true,
+		plugins: ["plugin"],
+		rules: { "mock-rule": "error" },
+	});
+	const htmlvalidate = new HtmlValidate(loader);
+
+	const report = await htmlvalidate.validateString('<p id="a">foo</p><p id="b">bar</p>');
+	const messages = report.results[0].messages;
+	expect(messages).toHaveLength(2);
+	expect(messages.find((it) => it.message === "mock error")).toEqual(
+		expect.objectContaining({
+			selector: "#b",
+			related: [{ kind: "element", selector: "#a" }],
+		}),
+	);
+	expect(messages.find((it) => it.message === "no related")?.related).toEqual([]);
 });
 
 it("should handle source missing properties", async () => {
@@ -182,6 +225,7 @@ it("should handle source missing properties", async () => {
 		      "line": 1,
 		      "message": "Unclosed element '<div>'",
 		      "offset": 1,
+		      "related": [],
 		      "ruleId": "close-order",
 		      "ruleUrl": "https://html-validate.org/rules/close-order.html",
 		      "selector": "div",
@@ -214,6 +258,7 @@ it("should report parser-error when last tag is left unopened", async () => {
 		      "line": 1,
 		      "message": "stream ended before TAG_CLOSE token was found",
 		      "offset": 0,
+		      "related": [],
 		      "ruleId": "parser-error",
 		      "selector": null,
 		      "severity": 2,

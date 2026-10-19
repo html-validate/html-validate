@@ -15,6 +15,7 @@ exports[`docs/rules/no-redundant-aria-label.md inline validation: incorrect 1`] 
         "line": 3,
         "message": "aria-label is redundant when label containing same text exists",
         "offset": 65,
+        "related": [],
         "ruleId": "no-redundant-aria-label",
         "ruleUrl": "https://html-validate.org/rules/no-redundant-aria-label.html",
         "selector": "#foo",

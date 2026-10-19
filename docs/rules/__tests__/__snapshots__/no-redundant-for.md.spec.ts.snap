@@ -15,6 +15,7 @@ exports[`docs/rules/no-redundant-for.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Redundant "for" attribute",
         "offset": 7,
+        "related": [],
         "ruleId": "no-redundant-for",
         "ruleUrl": "https://html-validate.org/rules/no-redundant-for.html",
         "selector": "label",

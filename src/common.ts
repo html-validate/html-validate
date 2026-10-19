@@ -89,7 +89,7 @@ export {
 	type UnicodeBOMToken,
 	type WhitespaceToken,
 } from "./lexer";
-export { type Message } from "./message";
+export { type Message, type MessageRelated, type MessageRelatedElement } from "./message";
 export {
 	type CategoryOrTag,
 	type DeprecatedElement,

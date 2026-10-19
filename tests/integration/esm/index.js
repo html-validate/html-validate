@@ -21,6 +21,7 @@ async function run() {
 		column: 2,
 		size: 3,
 		selector: "div",
+		related: [],
 	});
 }
 

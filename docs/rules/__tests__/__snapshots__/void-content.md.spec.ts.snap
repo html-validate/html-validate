@@ -16,6 +16,7 @@ exports[`docs/rules/void-content.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "End tag for <img> must be omitted",
         "offset": 6,
+        "related": [],
         "ruleId": "void-content",
         "ruleUrl": "https://html-validate.org/rules/void-content.html",
         "selector": null,

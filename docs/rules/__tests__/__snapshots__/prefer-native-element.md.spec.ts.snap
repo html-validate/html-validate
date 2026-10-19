@@ -21,6 +21,7 @@ exports[`docs/rules/prefer-native-element.md inline validation: incorrect 1`] = 
         "line": 1,
         "message": "Prefer to use the native <main> element",
         "offset": 5,
+        "related": [],
         "ruleId": "prefer-native-element",
         "ruleUrl": "https://html-validate.org/rules/prefer-native-element.html",
         "selector": "div",

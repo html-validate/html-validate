@@ -17,6 +17,7 @@ exports[`docs/rules/wcag/h32.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "<form> element must have a submit button",
         "offset": 1,
+        "related": [],
         "ruleId": "wcag/h32",
         "ruleUrl": "https://html-validate.org/rules/wcag/h32.html",
         "selector": "form",

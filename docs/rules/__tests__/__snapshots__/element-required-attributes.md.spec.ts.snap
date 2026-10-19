@@ -19,6 +19,7 @@ exports[`docs/rules/element-required-attributes.md inline validation: incorrect 
         "line": 1,
         "message": "<img> is missing required "src" attribute",
         "offset": 1,
+        "related": [],
         "ruleId": "element-required-attributes",
         "ruleUrl": "https://html-validate.org/rules/element-required-attributes.html",
         "selector": "img",

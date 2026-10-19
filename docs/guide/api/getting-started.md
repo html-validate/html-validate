@@ -127,6 +127,7 @@ console.log(report.results[0]);
           "column": 13,
           "size": 1,
           "selector": "h1",
+          "related": [],
           "ruleUrl": "https://html-validate.org/rules/no-raw-characters.html",
         },
         {
@@ -138,6 +139,7 @@ console.log(report.results[0]);
           "column": 23,
           "size": 6,
           "selector": null,
+          "related": [],
           "ruleUrl": "https://html-validate.org/rules/void-content.html",
           "context": "input",
         },
@@ -160,6 +162,9 @@ console.log(report.results[0]);
 - `size` is the number of characters this error refers to.
 - `selector` is a unique CSS selector this error refers to.
   If no selector is possible it is set to `null`.
+- `related` is a list of secondary information related to the error, e.g. the other elements involved.
+  Each item has a `kind` (currently always `"element"`) and a `selector` (a CSS selector or `null`).
+  Empty if the rule did not report any related information.
 - `ruleUrl` is a URL to a page describing the error in detail.
 - `context` is a contextual data blob for use with `HtmlValidate.getContextualDocumentation(..)` to give a more accurate error description.
 

@@ -19,6 +19,7 @@ exports[`docs/rules/no-unknown-attributes.md inline validation: incorrect 1`] = 
         "line": 1,
         "message": "Attribute "unknown" is not allowed on <div> element",
         "offset": 5,
+        "related": [],
         "ruleId": "no-unknown-attributes",
         "ruleUrl": "https://html-validate.org/rules/no-unknown-attributes.html",
         "selector": "div",

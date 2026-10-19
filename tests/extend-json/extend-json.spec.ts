@@ -15,6 +15,7 @@ it("should handle extending json file", async () => {
 		    "line": 1,
 		    "message": "Unclosed element '<div>'",
 		    "offset": 1,
+		    "related": [],
 		    "ruleId": "close-order",
 		    "ruleUrl": "https://html-validate.org/rules/close-order.html",
 		    "selector": "div",

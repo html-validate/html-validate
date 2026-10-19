@@ -18,6 +18,7 @@ exports[`docs/rules/no-abstract-role.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Role "landmark" is abstract and must not be used",
         "offset": 11,
+        "related": [],
         "ruleId": "no-abstract-role",
         "ruleUrl": "https://html-validate.org/rules/no-abstract-role.html",
         "selector": "div",

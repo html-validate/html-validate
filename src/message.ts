@@ -1,6 +1,28 @@
 import { type Autofix } from "./autofix";
 
 /**
+ * An element related to a reported message.
+ *
+ * @public
+ * @since %version%
+ */
+export interface MessageRelatedElement {
+	/** Discriminator */
+	readonly kind: "element";
+
+	/** DOM selector of the related element */
+	readonly selector: string | null;
+}
+
+/**
+ * Secondary information related to a reported message.
+ *
+ * @public
+ * @since %version%
+ */
+export type MessageRelated = MessageRelatedElement;
+
+/**
  * Reported error message.
  *
  * @public
@@ -32,6 +54,15 @@ export interface Message {
 
 	/** DOM selector */
 	selector: string | null;
+
+	/**
+	 * Secondary information related to this message. Empty if the rule did not
+	 * report any.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	readonly related: readonly MessageRelated[];
 
 	/**
 	 * Optional error context used to provide context-aware documentation.

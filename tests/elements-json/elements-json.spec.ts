@@ -19,6 +19,7 @@ it("should handle elements json file", async () => {
 		    "line": 1,
 		    "message": "<my-element> is deprecated",
 		    "offset": 1,
+		    "related": [],
 		    "ruleId": "deprecated",
 		    "ruleUrl": "https://html-validate.org/rules/deprecated.html",
 		    "selector": "my-element",

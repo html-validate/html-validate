@@ -146,6 +146,35 @@ export class MyRule extends Rule<RuleContext> {
 }
 ```
 
+## Related elements
+
+When an error involves other elements than the one reported they can be passed as `related`.
+The related elements are available on the message as a list of `{ kind: "element", selector }` objects, for instance to let an IDE highlight them.
+If omitted, `related` is an empty array.
+
+```ts
+import { HtmlElement } from "html-validate";
+
+declare const node: HtmlElement;
+declare const others: HtmlElement[];
+
+/* --- */
+
+import { Rule } from "html-validate";
+
+export class MyRule extends Rule {
+  public setup(): void {
+    /* actual setup code left out for brevity */
+
+    this.report({
+      node,
+      message: "Some error message",
+      related: others.map((other) => ({ kind: "element", node: other })),
+    });
+  }
+}
+```
+
 ## Autofix
 
 Rules declaring `static fixable = true` can provide an automatic fix for the error by passing a `fix` callback to `report()`.
@@ -381,6 +410,7 @@ Report a new error.
 - `message: string` - Error message.
 - `location?: Location` - If set it is the precise location of the error. (Default: node location).
 - `context?: unknown` - If set it will be passed to `documentation()` later to allow retrieving contextual documentation.
+- `related?: Array<{ kind: "element", node: DOMNode | null }>` - Optional list of other elements related to this error, see [related elements](#related-elements) above.
 - `fix: (fixer: ErrorFixer) => void | Promise<void>` - Optional callback receiving an {@link api:ErrorFixer}, used to automatically fix this error, see {@link dev/writing-rules#autofix autofix} above.
 - `suggestions: Array<{ message: string, fix: (fixer: ErrorFixer) => void | Promise<void>}>` - Optional list of suggestions the user can choose from to fix this error, see {@link dev/writing-rules#autofix autofix} above.
 

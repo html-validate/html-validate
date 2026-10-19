@@ -19,6 +19,7 @@ exports[`docs/rules/doctype-style.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "DOCTYPE should be uppercase",
         "offset": 0,
+        "related": [],
         "ruleId": "doctype-style",
         "ruleUrl": "https://html-validate.org/rules/doctype-style.html",
         "selector": null,

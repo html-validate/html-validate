@@ -20,6 +20,7 @@ exports[`docs/rules/element-name.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "<foobar> is not a valid element name",
         "offset": 1,
+        "related": [],
         "ruleId": "element-name",
         "ruleUrl": "https://html-validate.org/rules/element-name.html",
         "selector": "foobar",

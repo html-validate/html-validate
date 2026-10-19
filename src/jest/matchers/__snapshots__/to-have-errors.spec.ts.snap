@@ -6,7 +6,7 @@ exports[`toHaveErrors() should fail if error any missing 1`] = `
 Expected error to equal:
   [ObjectContaining {"message": "mock message", "ruleId": "my-rule"}, ObjectContaining {"message": "spam", "ruleId": "spam"}]
 Received:
-  [{"column": 15, "context": {"foo": "bar"}, "line": 2, "message": "mock message", "offset": 43, "ruleId": "my-rule", "selector": null, "severity": 2, "size": 12}, {"column": 15, "line": 2, "message": "another message", "offset": 43, "ruleId": "another-rule", "selector": null, "severity": 2, "size": 12}]
+  [{"column": 15, "context": {"foo": "bar"}, "line": 2, "message": "mock message", "offset": 43, "related": [], "ruleId": "my-rule", "selector": null, "severity": 2, "size": 12}, {"column": 15, "line": 2, "message": "another message", "offset": 43, "related": [], "ruleId": "another-rule", "selector": null, "severity": 2, "size": 12}]
 
 Difference:
 
@@ -23,6 +23,7 @@ Difference:
 +     "line": 2,
       "message": "mock message",
 +     "offset": 43,
++     "related": Array [],
       "ruleId": "my-rule",
 +     "selector": null,
 +     "severity": 2,
@@ -36,6 +37,7 @@ Difference:
 +     "line": 2,
 +     "message": "another message",
 +     "offset": 43,
++     "related": Array [],
 +     "ruleId": "another-rule",
 +     "selector": null,
 +     "severity": 2,

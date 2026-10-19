@@ -19,6 +19,7 @@ exports[`docs/rules/attr-pattern.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Attribute "foo_bar" should match /[a-z0-9-:]+/",
         "offset": 3,
+        "related": [],
         "ruleId": "attr-pattern",
         "ruleUrl": "https://html-validate.org/rules/attr-pattern.html",
         "selector": "p",

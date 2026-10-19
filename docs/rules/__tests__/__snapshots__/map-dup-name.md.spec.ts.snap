@@ -15,6 +15,7 @@ exports[`docs/rules/map-dup-name.md inline validation: incorrect 1`] = `
         "line": 4,
         "message": "<map> name must be unique",
         "offset": 53,
+        "related": [],
         "ruleId": "map-dup-name",
         "ruleUrl": "https://html-validate.org/rules/map-dup-name.html",
         "selector": "map:nth-child(2)",
