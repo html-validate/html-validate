@@ -134,6 +134,36 @@ describe("parser", () => {
 	});
 
 	describe("should parse elements", () => {
+		it.each(["<DIV></div><p>a</p>", "<div></DIV><p>a</p>"])(
+			"end tag differing in case should close element (%s)",
+			(markup) => {
+				expect.assertions(3);
+				const document = parser.parseHtml(markup);
+				expect(document.childElements.map((it) => it.tagName.toLowerCase())).toEqual(["div", "p"]);
+				expect(document.childElements[1].parent?.isRootElement()).toBeTruthy();
+				expect(
+					events.map((it: { event: string; target: string }) =>
+						`${it.event}:${it.target}`.toLowerCase(),
+					),
+				).toEqual([
+					"tag:start:div",
+					"tag:ready:div",
+					"tag:end:div",
+					"element:ready:div",
+					"tag:start:p",
+					"tag:ready:p",
+					"tag:end:p",
+					"element:ready:p",
+				]);
+			},
+		);
+
+		it("mismatched end tag should not close element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div></span><p>a</p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["div"]);
+		});
+
 		it("simple element", () => {
 			expect.assertions(5);
 			parser.parseHtml("<div></div>");
@@ -1937,6 +1967,34 @@ describe("parser", () => {
 			});
 		});
 
+		it.each(["<DIV></div>", "<div></DIV>"])(
+			"endTagLocation should be set when end tag differs in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				const document = parser.parseHtml(markup);
+				expect(pick(document.childElements[0].endTagLocation)).toEqual({
+					offset: 7,
+					line: 1,
+					column: 8,
+					size: 3,
+				});
+			},
+		);
+
+		it.each(["<SVG><circle/></svg>", "<svg><circle/></SVG>"])(
+			"endTagLocation should be set for foreign element when end tag differs in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				const document = parser.parseHtml(markup);
+				expect(pick(document.childElements[0].endTagLocation)).toEqual({
+					offset: 16,
+					line: 1,
+					column: 17,
+					size: 3,
+				});
+			},
+		);
+
 		it("implicit should be set for implicitly opened elements only", () => {
 			expect.assertions(3);
 			const document = parser.parseHtml("<html><p>content</p></html>");
@@ -2091,6 +2149,32 @@ describe("parser", () => {
 				target: "svg",
 			});
 			expect(events.shift()).toBeUndefined();
+		});
+
+		it.each(["<SVG><g></g></svg>", "<svg><g></g></SVG>"])(
+			"foreign elements with end tag differing in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				parser.parseHtml(markup);
+				expect(events.map((it: { event: string }) => it.event)).toEqual([
+					"tag:start",
+					"tag:ready",
+					"tag:end",
+					"element:ready",
+				]);
+			},
+		);
+
+		it("nested foreign elements with end tags differing in case", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<SVG><svg></SVG><svg/></svg>");
+			expect(document.childElements).toHaveLength(1);
+			expect(events.map((it: { event: string }) => it.event)).toEqual([
+				"tag:start",
+				"tag:ready",
+				"tag:end",
+				"element:ready",
+			]);
 		});
 
 		it("self-closed foreign elements", () => {
