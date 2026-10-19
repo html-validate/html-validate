@@ -2382,6 +2382,15 @@ describe("parser", () => {
 			expect(events.at(5)).toEqual({ event: "element:ready", target: "svg:desc" });
 		});
 
+		it("svg with title end tag differing in case", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<svg><title>foo</TITLE></svg><p></p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg", "p"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:title",
+			]);
+		});
+
 		it("svg with nested desc end tags differing in case", () => {
 			expect.assertions(2);
 			const document = parser.parseHtml("<svg><desc><desc></DESC></Desc></svg><p></p>");

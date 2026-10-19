@@ -885,6 +885,22 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<title><ul>lorem</TITLE>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN, data: ["<title", "", "title"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</TITLE", "/", "TITLE"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("with self-closing syntax", () => {
 				expect.assertions(4);
 				const markup = `<title/>`;
