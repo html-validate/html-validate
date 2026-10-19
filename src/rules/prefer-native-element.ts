@@ -1,6 +1,5 @@
-import { DynamicValue } from "../dom";
-import { type AttributeEvent } from "../event";
-import { type Location } from "../location";
+import { type HtmlElement, DynamicValue } from "../dom";
+import { type TagReadyEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
 
 interface RuleContext {
@@ -42,6 +41,10 @@ const defaults: RuleOptions = {
 	include: null,
 	exclude: null,
 };
+
+function hasImplicitRole(element: HtmlElement, role: string): boolean {
+	return element.meta?.aria.implicitRole(element._adapter) === role;
+}
 
 export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> {
 	public constructor(options: Partial<RuleOptions>) {
@@ -91,19 +94,17 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 
 	public setup(): void {
 		const { mapping } = this.options;
-		this.on("attr", (event: AttributeEvent) => {
-			/* ignore non-role attributes */
-			if (event.key.toLowerCase() !== "role") {
-				return;
-			}
+		this.on("tag:ready", (event: TagReadyEvent) => {
+			const { target } = event;
+			const attr = target.getAttribute("role");
 
 			/* ignore missing and dynamic values */
-			if (!event.value || event.value instanceof DynamicValue) {
+			if (!attr?.value || attr.value instanceof DynamicValue) {
 				return;
 			}
 
 			/* ignore roles configured to be ignored */
-			const role = event.value.toLowerCase();
+			const role = attr.value.toLowerCase();
 			if (this.isIgnored(role)) {
 				return;
 			}
@@ -111,15 +112,20 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 			/* dont report when the element is already of the right type but has a
 			 * redundant role, such as <main role="main"> */
 			const replacement = mapping[role];
-			if (event.target.is(replacement)) {
+			if (target.is(replacement)) {
+				return;
+			}
+
+			/* dont report when the element natively has the role, such as <ol role="list"> */
+			if (hasImplicitRole(target, role)) {
 				return;
 			}
 
 			/* report error */
 			const context: RuleContext = { role, replacement };
-			const location = this.getLocation(event);
+			const { location } = attr;
 			this.report({
-				node: event.target,
+				node: target,
 				message: `Prefer to use the native <${replacement}> element`,
 				location,
 				context,
@@ -137,19 +143,5 @@ export default class PreferNativeElement extends Rule<RuleContext, RuleOptions> 
 		}
 
 		return this.isKeywordIgnored(role);
-	}
-
-	private getLocation(event: AttributeEvent): Location | null {
-		const begin = event.location;
-		const end = event.valueLocation!; // eslint-disable-line @typescript-eslint/no-non-null-assertion -- technical debt, valueLocation will always be set when a value is provided
-		const quote = event.quote ? 1 : 0;
-		const size = end.offset + end.size - begin.offset + quote;
-		return {
-			filename: begin.filename,
-			line: begin.line,
-			column: begin.column,
-			offset: begin.offset,
-			size,
-		};
 	}
 }

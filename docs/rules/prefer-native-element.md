@@ -43,6 +43,9 @@ Table of equivalent elements:
 | table         | table                  |
 | textbox       | textarea               |
 
+This rule ignores elements where the role matches the implicit role of the element, such as `<ol role="list">`.
+Use {@link rule:no-redundant-role `no-redundant-role`} to report such usage.
+
 ## Rule details
 
 Examples of **incorrect** code for this rule:

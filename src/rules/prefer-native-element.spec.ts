@@ -44,6 +44,36 @@ describe("rule prefer-native-element", () => {
 			expect(report).toBeValid();
 		});
 
+		it.each(["ul", "ol", "menu"])(
+			"should not report error when <%s> has the implicit role list",
+			async (tagName) => {
+				expect.assertions(1);
+				const markup = /* HTML */ ` <${tagName} role="list"><li>a</li></${tagName}> `;
+				const report = await htmlvalidate.validateString(markup);
+				expect(report).toBeValid();
+			},
+		);
+
+		it("should report error when using role list on non-list element", async () => {
+			expect.assertions(2);
+			const markup = /* HTML */ ` <div role="list"></div> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+			expect(report).toMatchInlineCodeframe(`
+				"error: Prefer to use the native <ul> element (prefer-native-element)
+				> 1 |  <div role="list"></div>
+				    |       ^^^^^^^^^^^
+				Selector: div"
+			`);
+		});
+
+		it("should handle implicit role depending on attributes after role", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <area role="link" href="#" alt="foo" /> `;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should report error when using role with native equivalent element", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <div role="main"></div> `;
