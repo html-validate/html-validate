@@ -77,6 +77,8 @@ export class HtmlElement extends DOMNode {
 	private metaElement: MetaElement | null;
 	private annotation: string | null;
 	private _parent: HtmlElement | null;
+	private _endTagLocation: Location | null;
+	private _implicit: boolean;
 
 	/** @internal */
 	public readonly _adapter: HtmlElementLike;
@@ -112,6 +114,8 @@ export class HtmlElement extends DOMNode {
 		this.voidElement = meta ? Boolean(meta.void) : false;
 		this.depth = 0;
 		this.annotation = null;
+		this._endTagLocation = null;
+		this._implicit = false;
 		this._adapter = createAdapter(this);
 
 		if (!parent) {
@@ -203,6 +207,55 @@ export class HtmlElement extends DOMNode {
 			meta,
 			location,
 		});
+	}
+
+	/**
+	 * Location of the tag name in the start tag, e.g. `div` in `<div>`.
+	 *
+	 * Alias of {@link DOMNode.location}.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public get startTagLocation(): Location {
+		return this.location;
+	}
+
+	/**
+	 * Location of the tag name in the end tag, e.g. `div` in `</div>`.
+	 *
+	 * Is `null` if the element has no end tag in the source, e.g. void elements,
+	 * self-closed elements and elements closed implicitly.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public get endTagLocation(): Location | null {
+		return this._endTagLocation;
+	}
+
+	/**
+	 * @internal
+	 */
+	public _setEndTagLocation(location: Location | null): void {
+		this._endTagLocation = location;
+	}
+
+	/**
+	 * True for elements opened by the parser without a start tag in the source,
+	 * their `location` refers to the tag that triggered the implicit open.
+	 *
+	 * @internal
+	 */
+	public get implicit(): boolean {
+		return this._implicit;
+	}
+
+	/**
+	 * @internal
+	 */
+	public _setImplicit(implicit: boolean): void {
+		this._implicit = implicit;
 	}
 
 	/**

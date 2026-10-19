@@ -32,7 +32,8 @@ tag:start: {
         }
       ]
     },
-    "metaElement": "[truncated]"
+    "metaElement": "[truncated]",
+    "_endTagLocation": "<rootDir>/test-files/parser/simple.html:1:26"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:1"
 }
@@ -53,7 +54,8 @@ attr: {
         }
       ]
     },
-    "metaElement": "[truncated]"
+    "metaElement": "[truncated]",
+    "_endTagLocation": "<rootDir>/test-files/parser/simple.html:1:26"
   },
   "key": "id",
   "value": "foo",
@@ -80,7 +82,8 @@ tag:ready: {
         }
       ]
     },
-    "metaElement": "[truncated]"
+    "metaElement": "[truncated]",
+    "_endTagLocation": "<rootDir>/test-files/parser/simple.html:1:26"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:12"
 }
@@ -109,7 +112,8 @@ tag:end: {
         }
       ]
     },
-    "metaElement": "[truncated]"
+    "metaElement": "[truncated]",
+    "_endTagLocation": "<rootDir>/test-files/parser/simple.html:1:26"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:27"
 }
@@ -130,7 +134,8 @@ element:ready: {
         }
       ]
     },
-    "metaElement": "[truncated]"
+    "metaElement": "[truncated]",
+    "_endTagLocation": "<rootDir>/test-files/parser/simple.html:1:26"
   },
   "location": "<rootDir>/test-files/parser/simple.html:1:2"
 }

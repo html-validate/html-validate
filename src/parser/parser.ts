@@ -326,11 +326,13 @@ export class Parser {
 
 			if (matches) {
 				const intermediaryMeta = this.metaTable.getMetaFor(entry.open);
-				return HtmlElement.createElement(entry.open, token.location, {
+				const element = HtmlElement.createElement(entry.open, token.location, {
 					closed: Node.CLOSED_OPEN,
 					meta: intermediaryMeta,
 					parent,
 				});
+				element._setImplicit(true);
+				return element;
 			}
 		}
 
@@ -500,8 +502,6 @@ export class Parser {
 				node.closed = Node.CLOSED_END_TAG;
 			}
 
-			this.closeElement(source, node, active, endToken.location);
-
 			const mismatched = node.tagName !== active.tagName;
 
 			/* if this element is closed with an end tag but is would it will not be
@@ -509,6 +509,14 @@ export class Parser {
 			 * void). Closing again will have side-effects as it will close the parent
 			 * and cause a mess later. */
 			const voidClosed = !isStartTag && node.voidElement;
+
+			/* set before closeElement() so tag:end listeners can see it; location
+			 * covers the tag name only, skipping "</" */
+			if (!isStartTag && !mismatched && !voidClosed) {
+				active._setEndTagLocation(sliceLocation(startToken.location, 2));
+			}
+
+			this.closeElement(source, node, active, endToken.location);
 
 			if (!voidClosed && !mismatched) {
 				this.dom.popActive();
@@ -634,6 +642,7 @@ export class Parser {
 		const active = this.dom.getActive();
 		const node = HtmlElement.fromTokens(startToken, endToken, active, this.metaTable);
 
+		active._setEndTagLocation(sliceLocation(startToken.location, 2));
 		this.closeElement(source, node, active, endToken.location);
 		this.dom.popActive();
 	}
