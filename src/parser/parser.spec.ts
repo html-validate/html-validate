@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Config } from "../config";
-import { type ProcessElementContext, type Source } from "../context";
+import { type ProcessAttributeCallback, type ProcessElementContext, type Source } from "../context";
 import { DOMTree, HtmlElement, TextNode } from "../dom";
 import { type EventCallback, type TriggerEventMap, type WhitespaceEvent } from "../event";
 import { HtmlValidate } from "../htmlvalidate";
@@ -134,6 +134,36 @@ describe("parser", () => {
 	});
 
 	describe("should parse elements", () => {
+		it.each(["<DIV></div><p>a</p>", "<div></DIV><p>a</p>"])(
+			"end tag differing in case should close element (%s)",
+			(markup) => {
+				expect.assertions(3);
+				const document = parser.parseHtml(markup);
+				expect(document.childElements.map((it) => it.tagName.toLowerCase())).toEqual(["div", "p"]);
+				expect(document.childElements[1].parent?.isRootElement()).toBeTruthy();
+				expect(
+					events.map((it: { event: string; target: string }) =>
+						`${it.event}:${it.target}`.toLowerCase(),
+					),
+				).toEqual([
+					"tag:start:div",
+					"tag:ready:div",
+					"tag:end:div",
+					"element:ready:div",
+					"tag:start:p",
+					"tag:ready:p",
+					"tag:end:p",
+					"element:ready:p",
+				]);
+			},
+		);
+
+		it("mismatched end tag should not close element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div></span><p>a</p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["div"]);
+		});
+
 		it("simple element", () => {
 			expect.assertions(5);
 			parser.parseHtml("<div></div>");
@@ -1690,9 +1720,109 @@ describe("parser", () => {
 			        └── option
 		`);
 		});
+
+		it("start tag should not implicitly close unknown element", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<x-unknown><p>foo</p></x-unknown>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["x-unknown"]);
+			expect(document.querySelector("p")?.parent?.tagName).toBe("x-unknown");
+		});
+
+		it("end tag should not implicitly close through unknown element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div><x-unknown><li>foo</div>");
+			expect(document.querySelector("li")?.parent?.tagName).toBe("x-unknown");
+		});
+
+		it("end tag should not implicitly close through element with required end tag", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<ul><div><li>foo</ul>");
+			const li = document.querySelector("li");
+			expect(li?.parent?.tagName).toBe("div");
+			expect(li?.parent?.parent?.tagName).toBe("ul");
+		});
+
+		it("end tag should not implicitly close when no ancestor matches", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<li>foo</div>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["li"]);
+			expect(document.querySelector("li")?.endTagLocation).toBeNull();
+		});
+	});
+
+	describe("should handle implicitClosed with content categories", () => {
+		const categories: Array<[string, string]> = [
+			["@meta", "x-metadata"],
+			["@flow", "x-flow"],
+			["@flow-not-meta", "x-flow"],
+			["@sectioning", "x-sectioning"],
+			["@heading", "x-heading"],
+			["@phrasing", "x-phrasing"],
+			["@embedded", "x-embedded"],
+			["@interactive", "x-interactive"],
+		];
+
+		async function createParser(category: string): Promise<ExposedParser> {
+			const resolved = await Config.empty().resolve();
+			resolved.getMetaTable().loadFromObject({
+				"x-closable": { implicitClosed: [category] },
+				"x-metadata": { metadata: true },
+				"x-flow": { flow: true },
+				"x-sectioning": { sectioning: true },
+				"x-heading": { heading: true },
+				"x-phrasing": { phrasing: true },
+				"x-embedded": { embedded: true },
+				"x-interactive": { interactive: true },
+				"x-none": {},
+			});
+			return new ExposedParser(resolved);
+		}
+
+		it.each(categories)(
+			"%s should close element when incoming element matches (<%s>)",
+			async (category, tagName) => {
+				expect.assertions(1);
+				const custom = await createParser(category);
+				const document = custom.parseHtml(`<x-closable><${tagName}></${tagName}>`);
+				expect(document.childElements.map((it) => it.tagName)).toEqual(["x-closable", tagName]);
+			},
+		);
+
+		it.each(["x-none", "x-unknown"])(
+			"should not close element when incoming element is <%s>",
+			async (tagName) => {
+				expect.assertions(1);
+				const custom = await createParser("@flow");
+				const document = custom.parseHtml(`<x-closable><${tagName}></${tagName}></x-closable>`);
+				expect(document.childElements.map((it) => it.tagName)).toEqual(["x-closable"]);
+			},
+		);
+
+		it("should not close element for unknown category", async () => {
+			expect.assertions(1);
+			const custom = await createParser("@unknown");
+			const document = custom.parseHtml("<x-closable><x-flow></x-flow></x-closable>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["x-closable"]);
+		});
+
+		it("should not close <head> when incoming element is unknown", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<head><x-unknown></x-unknown></head>");
+			expect(document.querySelector("head")?.childElements.map((it) => it.tagName)).toEqual([
+				"x-unknown",
+			]);
+		});
 	});
 
 	describe("should handle optional start tags", () => {
+		it("should not implicitly open element for unknown element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<html><x-unknown></x-unknown></html>");
+			expect(document.querySelector("html")?.childElements.map((it) => it.tagName)).toEqual([
+				"x-unknown",
+			]);
+		});
+
 		it("should implicitly open <colgroup> when <col> appears directly under <table>", () => {
 			expect.assertions(1);
 			const document = parser.parseHtml(
@@ -1937,6 +2067,34 @@ describe("parser", () => {
 			});
 		});
 
+		it.each(["<DIV></div>", "<div></DIV>"])(
+			"endTagLocation should be set when end tag differs in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				const document = parser.parseHtml(markup);
+				expect(pick(document.childElements[0].endTagLocation)).toEqual({
+					offset: 7,
+					line: 1,
+					column: 8,
+					size: 3,
+				});
+			},
+		);
+
+		it.each(["<SVG><circle/></svg>", "<svg><circle/></SVG>"])(
+			"endTagLocation should be set for foreign element when end tag differs in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				const document = parser.parseHtml(markup);
+				expect(pick(document.childElements[0].endTagLocation)).toEqual({
+					offset: 16,
+					line: 1,
+					column: 17,
+					size: 3,
+				});
+			},
+		);
+
 		it("implicit should be set for implicitly opened elements only", () => {
 			expect.assertions(3);
 			const document = parser.parseHtml("<html><p>content</p></html>");
@@ -2093,6 +2251,32 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it.each(["<SVG><g></g></svg>", "<svg><g></g></SVG>"])(
+			"foreign elements with end tag differing in case (%s)",
+			(markup) => {
+				expect.assertions(1);
+				parser.parseHtml(markup);
+				expect(events.map((it: { event: string }) => it.event)).toEqual([
+					"tag:start",
+					"tag:ready",
+					"tag:end",
+					"element:ready",
+				]);
+			},
+		);
+
+		it("nested foreign elements with end tags differing in case", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<SVG><svg></SVG><svg/></svg>");
+			expect(document.childElements).toHaveLength(1);
+			expect(events.map((it: { event: string }) => it.event)).toEqual([
+				"tag:start",
+				"tag:ready",
+				"tag:end",
+				"element:ready",
+			]);
+		});
+
 		it("self-closed foreign elements", () => {
 			expect.assertions(5);
 			parser.parseHtml("<svg/>");
@@ -2151,6 +2335,15 @@ describe("parser", () => {
 				target: "svg",
 			});
 			expect(events.shift()).toBeUndefined();
+		});
+
+		it("svg with nested desc", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<svg><desc><desc></desc></desc></svg>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:desc",
+			]);
 		});
 
 		it("svg with nested title", () => {
@@ -2343,6 +2536,28 @@ describe("parser", () => {
 				target: "input",
 			});
 			expect(events.shift()).toBeUndefined();
+		});
+
+		it("attribute with legacy callback returning single attribute", () => {
+			expect.assertions(2);
+			const processAttribute = jest.fn(function (attr: AttributeData) {
+				attr.key = "fred";
+				return attr;
+			}) as unknown as ProcessAttributeCallback;
+			const source: Source = {
+				data: '<input id="foo">',
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				hooks: {
+					processAttribute,
+				},
+			};
+			const document = parser.parseHtml(source);
+			const input = document.querySelector("input");
+			expect(input?.hasAttribute("fred")).toBeTruthy();
+			expect(input?.hasAttribute("id")).toBeFalsy();
 		});
 
 		describe("elements", () => {

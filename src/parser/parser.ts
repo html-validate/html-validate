@@ -502,7 +502,7 @@ export class Parser {
 				node.closed = Node.CLOSED_END_TAG;
 			}
 
-			const mismatched = node.tagName !== active.tagName;
+			const mismatched = !active.is(node.tagName);
 
 			/* if this element is closed with an end tag but is would it will not be
 			 * closed again (it is already closed automatically since it is
@@ -548,7 +548,7 @@ export class Parser {
 		};
 		this.trigger("tag:end", event);
 
-		if (node && node.tagName !== active.tagName && active.closed !== Node.CLOSED_IMPLICIT_CLOSED) {
+		if (node && !active.is(node.tagName) && active.closed !== Node.CLOSED_IMPLICIT_CLOSED) {
 			return;
 		}
 
@@ -612,7 +612,7 @@ export class Parser {
 			}
 
 			/* keep going unless the new tag matches the foreign root element */
-			if (tagName !== foreignTagName) {
+			if (tagName.toLowerCase() !== foreignTagName.toLowerCase()) {
 				continue;
 			}
 

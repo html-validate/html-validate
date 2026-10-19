@@ -181,6 +181,15 @@ describe("renameTag()", () => {
 		expect(result).toBe("<div><tr><td>foo</div>");
 	});
 
+	it.each([
+		["<DIV></div>", "<span></span>"],
+		["<div></DIV>", "<span></span>"],
+	])("should rename both tags when end tag differs in case (%s)", async (markup, expected) => {
+		expect.assertions(1);
+		const result = await rename(markup, (root) => root.querySelectorAll("div"), "span");
+		expect(result).toBe(expected);
+	});
+
 	it("should rename foreign element", async () => {
 		expect.assertions(1);
 		const result = await rename(
