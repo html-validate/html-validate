@@ -15,6 +15,7 @@ exports[`docs/rules/prefer-tbody.md inline validation: incorrect 1`] = `
         "line": 2,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 11,
+        "related": [],
         "ruleId": "prefer-tbody",
         "ruleUrl": "https://html-validate.org/rules/prefer-tbody.html",
         "selector": "table > tr",

@@ -18,6 +18,7 @@ exports[`docs/rules/class-pattern.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "class "fooBar" does not match the configured pattern "kebabcase"",
         "offset": 12,
+        "related": [],
         "ruleId": "class-pattern",
         "ruleUrl": "https://html-validate.org/rules/class-pattern.html",
         "selector": "div",

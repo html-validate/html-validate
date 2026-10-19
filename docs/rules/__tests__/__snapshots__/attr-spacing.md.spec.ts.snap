@@ -15,6 +15,7 @@ exports[`docs/rules/attr-spacing.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "No space between attributes",
         "offset": 20,
+        "related": [],
         "ruleId": "attr-spacing",
         "ruleUrl": "https://html-validate.org/rules/attr-spacing.html",
         "selector": null,

@@ -15,6 +15,7 @@ exports[`docs/rules/aria-hidden-body.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "aria-hidden must not be used on <body>",
         "offset": 6,
+        "related": [],
         "ruleId": "aria-hidden-body",
         "ruleUrl": "https://html-validate.org/rules/aria-hidden-body.html",
         "selector": "body",

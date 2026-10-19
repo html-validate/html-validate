@@ -15,6 +15,7 @@ exports[`docs/rules/element-permitted-occurrences.md inline validation: incorrec
         "line": 4,
         "message": "Element <tfoot> can only appear once under <table>",
         "offset": 73,
+        "related": [],
         "ruleId": "element-permitted-occurrences",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-occurrences.html",
         "selector": "table > tfoot:nth-child(2)",

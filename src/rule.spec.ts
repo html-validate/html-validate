@@ -360,6 +360,26 @@ describe("rule base class", () => {
 			});
 		});
 
+		it("should forward related elements from descriptor object", () => {
+			expect.assertions(1);
+			const node = HtmlElement.createElement("foo", location);
+			const other = HtmlElement.createElement("bar", location);
+			const related = [{ kind: "element" as const, node: other }];
+			rule.report({
+				node,
+				message: "foo",
+				related,
+			});
+			expect(reporter.add).toHaveBeenCalledWith(expect.objectContaining({ related }));
+		});
+
+		it("should not set related if omitted", () => {
+			expect.assertions(1);
+			const node = HtmlElement.createElement("foo", location);
+			rule.report({ node, message: "foo" });
+			expect(jest.mocked(reporter.add).mock.calls[0][0].related).toBeUndefined();
+		});
+
 		it("should throw when reporting a fix but rule is not fixable", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);

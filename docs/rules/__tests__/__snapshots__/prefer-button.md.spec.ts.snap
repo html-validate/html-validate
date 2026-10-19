@@ -18,6 +18,7 @@ exports[`docs/rules/prefer-button.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Prefer to use <button> instead of <input type="button"> when adding buttons",
         "offset": 13,
+        "related": [],
         "ruleId": "prefer-button",
         "ruleUrl": "https://html-validate.org/rules/prefer-button.html",
         "selector": "input",

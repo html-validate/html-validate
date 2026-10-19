@@ -23,6 +23,7 @@ const results: Result[] = [
 				column: 4,
 				size: "lorem ipsum".length,
 				selector: "p",
+				related: [],
 			},
 		],
 	},

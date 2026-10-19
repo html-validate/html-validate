@@ -15,6 +15,7 @@ exports[`docs/rules/no-implicit-input-type.md inline validation: incorrect 1`] =
         "line": 1,
         "message": "<input> is missing recommended "type" attribute",
         "offset": 1,
+        "related": [],
         "ruleId": "no-implicit-input-type",
         "ruleUrl": "https://html-validate.org/rules/no-implicit-input-type.html",
         "selector": "input",

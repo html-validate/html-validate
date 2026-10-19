@@ -17,6 +17,7 @@ exports[`docs/rules/no-style-tag.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Use external stylesheet with <link> instead of <style> tag",
         "offset": 0,
+        "related": [],
         "ruleId": "no-style-tag",
         "ruleUrl": "https://html-validate.org/rules/no-style-tag.html",
         "selector": "style",

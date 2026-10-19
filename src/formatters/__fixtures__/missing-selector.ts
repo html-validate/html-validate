@@ -24,6 +24,7 @@ const results: Result[] = [
 				column: 6,
 				size: 2,
 				selector: null,
+				related: [],
 			},
 		],
 	},

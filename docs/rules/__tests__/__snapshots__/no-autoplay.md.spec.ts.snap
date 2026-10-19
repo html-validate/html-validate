@@ -18,6 +18,7 @@ exports[`docs/rules/no-autoplay.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "The autoplay attribute is not allowed on <video>",
         "offset": 7,
+        "related": [],
         "ruleId": "no-autoplay",
         "ruleUrl": "https://html-validate.org/rules/no-autoplay.html",
         "selector": "video",

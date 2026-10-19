@@ -257,6 +257,7 @@ function createError(
 					message: "Mock error",
 					offset: 0,
 					selector: null,
+					related: [],
 					...it,
 				};
 			}),

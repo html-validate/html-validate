@@ -16,6 +16,7 @@ exports[`docs/rules/no-trailing-whitespace.md inline validation: incorrect 1`] =
         "line": 1,
         "message": "Trailing whitespace",
         "offset": 18,
+        "related": [],
         "ruleId": "no-trailing-whitespace",
         "ruleUrl": "https://html-validate.org/rules/no-trailing-whitespace.html",
         "selector": null,

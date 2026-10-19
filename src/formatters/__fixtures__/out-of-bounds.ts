@@ -23,6 +23,7 @@ const results: Result[] = [
 				column: 1,
 				size: 1,
 				selector: null,
+				related: [],
 			},
 			{
 				ruleId,
@@ -34,6 +35,7 @@ const results: Result[] = [
 				column: 1,
 				size: 1,
 				selector: null,
+				related: [],
 			},
 		],
 	},
@@ -56,6 +58,7 @@ const results: Result[] = [
 				column: 2,
 				size: 1,
 				selector: null,
+				related: [],
 			},
 		],
 	},

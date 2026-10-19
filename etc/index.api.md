@@ -270,8 +270,12 @@ type CSSStyleDeclaration_2 = Record<string, string>;
 export { CSSStyleDeclaration_2 as CSSStyleDeclaration }
 
 // @public (undocumented)
-export interface DeferredMessage extends Omit<Message, "selector" | "fix" | "suggestions"> {
+export interface DeferredMessage extends Omit<Message, "selector" | "related" | "fix" | "suggestions"> {
     fix?: AutofixFn | undefined;
+    readonly related?: ReadonlyArray<{
+        readonly kind: "element";
+        readonly selector: () => string | null;
+    }> | undefined;
     // (undocumented)
     selector: () => string | null;
     suggestions?: Array<{
@@ -516,6 +520,10 @@ export interface ErrorDescriptor<ContextType> {
     message: string;
     // (undocumented)
     node: DOMNode | null;
+    readonly related?: ReadonlyArray<{
+        readonly kind: "element";
+        readonly node: DOMNode | null;
+    }> | null | undefined;
     suggestions?: Array<{
         message: string;
         fix: (fixer: ErrorFixer) => void | Promise<void>;
@@ -942,6 +950,7 @@ export interface Message {
     line: number;
     message: string;
     offset: number;
+    readonly related: readonly MessageRelated[];
     ruleId: string;
     ruleUrl?: string;
     selector: string | null;
@@ -951,6 +960,15 @@ export interface Message {
         message: string;
         fix: Autofix;
     }> | undefined;
+}
+
+// @public
+export type MessageRelated = MessageRelatedElement;
+
+// @public
+export interface MessageRelatedElement {
+    readonly kind: "element";
+    readonly selector: string | null;
 }
 
 // @public
@@ -1302,6 +1320,7 @@ export class Reporter {
         node: DOMNode | null;
         location: Location_2;
         context: ContextType;
+        related?: ErrorDescriptor<ContextType>["related"];
         fix?: DeferredMessage["fix"] | null | undefined;
         suggestions?: DeferredMessage["suggestions"] | null | undefined;
     }): void;

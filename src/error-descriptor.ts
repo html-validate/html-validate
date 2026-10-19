@@ -12,6 +12,15 @@ export interface ErrorDescriptor<ContextType> {
 	context?: ContextType;
 
 	/**
+	 * Secondary elements related to this error.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	readonly related?:
+		ReadonlyArray<{ readonly kind: "element"; readonly node: DOMNode | null }> | null | undefined;
+
+	/**
 	 * A callback for autofixing this error.
 	 *
 	 * @public

@@ -18,6 +18,7 @@ exports[`docs/rules/id-pattern.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "id "fooBar" does not match the configured pattern "kebabcase"",
         "offset": 9,
+        "related": [],
         "ruleId": "id-pattern",
         "ruleUrl": "https://html-validate.org/rules/id-pattern.html",
         "selector": "#fooBar",

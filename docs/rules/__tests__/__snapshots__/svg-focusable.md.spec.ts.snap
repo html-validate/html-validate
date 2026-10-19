@@ -15,6 +15,7 @@ exports[`docs/rules/svg-focusable.md inline validation: incorrect 1`] = `
         "line": 2,
         "message": "<svg> is missing required "focusable" attribute",
         "offset": 16,
+        "related": [],
         "ruleId": "svg-focusable",
         "ruleUrl": "https://html-validate.org/rules/svg-focusable.html",
         "selector": "a > svg",

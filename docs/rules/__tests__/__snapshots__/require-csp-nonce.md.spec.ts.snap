@@ -15,6 +15,7 @@ exports[`docs/rules/require-csp-nonce.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "required CSP nonce is missing",
         "offset": 1,
+        "related": [],
         "ruleId": "require-csp-nonce",
         "ruleUrl": "https://html-validate.org/rules/require-csp-nonce.html",
         "selector": "script",

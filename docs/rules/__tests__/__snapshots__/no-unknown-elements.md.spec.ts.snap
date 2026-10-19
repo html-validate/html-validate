@@ -16,6 +16,7 @@ exports[`docs/rules/no-unknown-elements.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Unknown element <custom-element>",
         "offset": 0,
+        "related": [],
         "ruleId": "no-unknown-elements",
         "ruleUrl": "https://html-validate.org/rules/no-unknown-elements.html",
         "selector": "custom-element",

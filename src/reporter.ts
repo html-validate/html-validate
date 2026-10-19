@@ -2,6 +2,7 @@ import { type AutofixFn, bindAutofix } from "./autofix";
 import { Severity } from "./config";
 import { type Source } from "./context";
 import { type DOMNode } from "./dom";
+import { type ErrorDescriptor } from "./error-descriptor";
 import { type Location, assertValidLocation } from "./location";
 import { type Message } from "./message";
 import { type RuleDocumentation } from "./rule";
@@ -10,8 +11,15 @@ import { isThenable } from "./utils/is-thenable";
 /**
  * @public
  */
-export interface DeferredMessage extends Omit<Message, "selector" | "fix" | "suggestions"> {
+export interface DeferredMessage extends Omit<
+	Message,
+	"selector" | "related" | "fix" | "suggestions"
+> {
 	selector: () => string | null;
+
+	/** Related elements with deferred selectors, normalized to an empty array when frozen. */
+	readonly related?:
+		ReadonlyArray<{ readonly kind: "element"; readonly selector: () => string | null }> | undefined;
 
 	/** A callback for autofixing this error, not yet bound to any source text. */
 	fix?: AutofixFn | undefined;
@@ -21,10 +29,11 @@ export interface DeferredMessage extends Omit<Message, "selector" | "fix" | "sug
 }
 
 function freeze(src: DeferredMessage, text: string): Message {
-	const { fix, suggestions, ...rest } = src;
+	const { fix, suggestions, related = [], ...rest } = src;
 	const message: Message = {
 		...rest,
 		selector: src.selector(),
+		related: related.map((it) => ({ kind: it.kind, selector: it.selector() })),
 	};
 	if (fix) {
 		message.fix = bindAutofix(text, fix);
@@ -193,10 +202,11 @@ export class Reporter {
 		node: DOMNode | null;
 		location: Location;
 		context: ContextType;
+		related?: ErrorDescriptor<ContextType>["related"];
 		fix?: DeferredMessage["fix"] | null | undefined;
 		suggestions?: DeferredMessage["suggestions"] | null | undefined;
 	}): void {
-		const { rule, message, severity, node, location, context, fix, suggestions } = options;
+		const { rule, message, severity, node, location, context, related, fix, suggestions } = options;
 		assertValidLocation(location);
 		if (!Object.hasOwn(this.result, location.filename)) {
 			this.result[location.filename] = [];
@@ -213,6 +223,10 @@ export class Reporter {
 			selector() {
 				return node ? node.generateSelector() : null;
 			},
+			related: related?.map((it) => ({
+				kind: it.kind,
+				selector: () => (it.node ? it.node.generateSelector() : null),
+			})),
 		};
 		if (ruleUrl) {
 			entry.ruleUrl = ruleUrl;

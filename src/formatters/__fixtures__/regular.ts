@@ -26,6 +26,7 @@ const results: Result[] = [
 				column: 6,
 				size: 2,
 				selector: "div",
+				related: [],
 			},
 			{
 				ruleId: "bar",
@@ -37,6 +38,7 @@ const results: Result[] = [
 				column: 5,
 				size: 5,
 				selector: "div",
+				related: [],
 			},
 		],
 	},
@@ -58,6 +60,7 @@ const results: Result[] = [
 				column: 4,
 				size: 11,
 				selector: "p",
+				related: [],
 			},
 		],
 	},

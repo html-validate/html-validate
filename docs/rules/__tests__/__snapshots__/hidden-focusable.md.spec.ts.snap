@@ -16,6 +16,7 @@ exports[`docs/rules/hidden-focusable.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "aria-hidden cannot be used on focusable elements",
         "offset": 12,
+        "related": [],
         "ruleId": "hidden-focusable",
         "ruleUrl": "https://html-validate.org/rules/hidden-focusable.html",
         "selector": "a",

@@ -15,6 +15,7 @@ exports[`docs/rules/no-deprecated-attr.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Attribute "bgcolor" is deprecated on <body> element",
         "offset": 6,
+        "related": [],
         "ruleId": "no-deprecated-attr",
         "ruleUrl": "https://html-validate.org/rules/no-deprecated-attr.html",
         "selector": "body",

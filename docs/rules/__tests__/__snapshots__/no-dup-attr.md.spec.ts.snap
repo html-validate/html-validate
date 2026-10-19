@@ -15,6 +15,7 @@ exports[`docs/rules/no-dup-attr.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Attribute "class" duplicated",
         "offset": 17,
+        "related": [],
         "ruleId": "no-dup-attr",
         "ruleUrl": "https://html-validate.org/rules/no-dup-attr.html",
         "selector": "div",

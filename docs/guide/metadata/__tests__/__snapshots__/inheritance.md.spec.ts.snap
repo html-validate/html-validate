@@ -18,6 +18,7 @@ exports[`docs/guide/metadata/inheritance.md inline validation: inheritance 1`] =
         "line": 5,
         "message": "<div> element is not permitted as content under <my-component>",
         "offset": 76,
+        "related": [],
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "my-component:nth-child(2) > div",

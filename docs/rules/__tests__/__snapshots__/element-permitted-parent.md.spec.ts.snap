@@ -22,6 +22,7 @@ exports[`docs/rules/element-permitted-parent.md inline validation: incorrect 1`]
         "line": 2,
         "message": "<title> element requires a <head> element as parent",
         "offset": 9,
+        "related": [],
         "ruleId": "element-permitted-parent",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-parent.html",
         "selector": "div > title",

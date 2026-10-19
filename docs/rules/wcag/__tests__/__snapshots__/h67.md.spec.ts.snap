@@ -15,6 +15,7 @@ exports[`docs/rules/wcag/h67.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "<img> with empty alt text cannot have title attribute",
         "offset": 5,
+        "related": [],
         "ruleId": "wcag/h67",
         "ruleUrl": "https://html-validate.org/rules/wcag/h67.html",
         "selector": "img",

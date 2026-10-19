@@ -21,6 +21,7 @@ exports[`docs/rules/attr-quotes.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Attribute "class" used ' instead of expected "",
         "offset": 3,
+        "related": [],
         "ruleId": "attr-quotes",
         "ruleUrl": "https://html-validate.org/rules/attr-quotes.html",
         "selector": "p",

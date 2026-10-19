@@ -20,6 +20,7 @@ const results: Result[] = [
 				column: 1,
 				size: 1,
 				selector: null,
+				related: [],
 			},
 			{
 				ruleId: "special-characters",
@@ -30,6 +31,7 @@ const results: Result[] = [
 				column: 2,
 				size: 1,
 				selector: null,
+				related: [],
 			},
 		],
 	},

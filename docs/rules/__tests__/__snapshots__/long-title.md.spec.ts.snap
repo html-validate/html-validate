@@ -15,6 +15,7 @@ exports[`docs/rules/long-title.md inline validation: incorrect 1`] = `
         "line": 5,
         "message": "title text cannot be longer than 70 characters",
         "offset": 158,
+        "related": [],
         "ruleId": "long-title",
         "ruleUrl": "https://html-validate.org/rules/long-title.html",
         "selector": "head > title",

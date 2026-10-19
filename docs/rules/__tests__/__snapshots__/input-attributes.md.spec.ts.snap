@@ -19,6 +19,7 @@ exports[`docs/rules/input-attributes.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Attribute "step" is not allowed on <input type="text">",
         "offset": 19,
+        "related": [],
         "ruleId": "input-attributes",
         "ruleUrl": "https://html-validate.org/rules/input-attributes.html",
         "selector": "input",

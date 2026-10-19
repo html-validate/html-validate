@@ -22,6 +22,7 @@ exports[`docs/rules/element-required-ancestor.md inline validation: incorrect 1`
         "line": 1,
         "message": "<area> element requires a <map> or <template> ancestor",
         "offset": 1,
+        "related": [],
         "ruleId": "element-required-ancestor",
         "ruleUrl": "https://html-validate.org/rules/element-required-ancestor.html",
         "selector": "area",

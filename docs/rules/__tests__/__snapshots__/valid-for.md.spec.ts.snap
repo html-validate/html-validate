@@ -15,6 +15,7 @@ exports[`docs/rules/valid-for.md inline validation: incorrect 1`] = `
         "line": 2,
         "message": "<label> "for" attribute must reference a labelable form control",
         "offset": 20,
+        "related": [],
         "ruleId": "valid-for",
         "ruleUrl": "https://html-validate.org/rules/valid-for.html",
         "selector": "div > label",

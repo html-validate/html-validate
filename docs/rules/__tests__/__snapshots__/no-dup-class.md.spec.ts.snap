@@ -16,6 +16,7 @@ exports[`docs/rules/no-dup-class.md inline validation: incorrect 1`] = `
         "line": 1,
         "message": "Class "foo" duplicated",
         "offset": 20,
+        "related": [],
         "ruleId": "no-dup-class",
         "ruleUrl": "https://html-validate.org/rules/no-dup-class.html",
         "selector": "div",

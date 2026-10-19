@@ -25,6 +25,7 @@ const results: Result[] = [
 				column: 6,
 				size: 2,
 				selector: "div",
+				related: [],
 			},
 			{
 				ruleId: "foo",
@@ -36,6 +37,7 @@ const results: Result[] = [
 				column: 6,
 				size: 2,
 				selector: "div",
+				related: [],
 				fix: createAutofix(html, () => {
 					/* do nothing */
 				}),
@@ -50,6 +52,7 @@ const results: Result[] = [
 				column: 5,
 				size: 5,
 				selector: "div",
+				related: [],
 			},
 			{
 				ruleId: "bar",
@@ -61,6 +64,7 @@ const results: Result[] = [
 				column: 5,
 				size: 5,
 				selector: "div",
+				related: [],
 				fix: createAutofix(html, () => {
 					/* do nothing */
 				}),
