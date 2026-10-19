@@ -691,6 +691,21 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<script>foo</SCRIPT>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["foo"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</SCRIPT", "/", "SCRIPT"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("multiple script tags", () => {
 				expect.assertions(13);
 				const token = lexer.tokenize(inlineSource("<script>foo</script>bar<script>baz</script>"));
