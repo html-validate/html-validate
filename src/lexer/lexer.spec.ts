@@ -861,6 +861,22 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<textarea><ul>lorem</TEXTAREA>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</TEXTAREA", "/", "TEXTAREA"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("with malformed markup as text content", () => {
 				expect.assertions(7);
 				const markup = `<textarea><ul><li</textarea>`;
