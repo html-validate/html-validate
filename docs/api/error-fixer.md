@@ -123,6 +123,56 @@ declare const location: Location;
 fixer.replaceText(location, "lorem ipsum");
 ```
 
+## `renameTag` method
+
+Renames the tag of an element, updating both the start tag and the end tag (if present).
+Attributes are left untouched even if they are not valid on the renamed element.
+
+Elements without an end tag (void elements, elements with optional end tags, etc) only get the start tag renamed.
+Elements implicitly opened by the parser (such as an omitted `<body>`) are not present in the source and are ignored.
+
+**Syntax**
+
+```ts nocompile nolint
+renameTag(element, newName);
+```
+
+**Return value**
+
+This method has no return value.
+
+**Parameters**
+
+- `element: HtmlElement`: The element to rename.
+- `newName: string`: The new tag name.
+
+**Example**
+
+Given the following markup:
+
+```html
+<div class="foo"></div>
+```
+
+To rename the element:
+
+```ts
+import { type ErrorFixer, type HtmlElement } from "html-validate";
+
+declare const fixer: ErrorFixer;
+declare const element: HtmlElement;
+
+/* --- */
+
+fixer.renameTag(element, "span");
+```
+
+Resulting in:
+
+```html
+<span class="foo"></span>
+```
+
 ## `removeText` method
 
 Removes the text at location, optionally trimming whitespace before or after.

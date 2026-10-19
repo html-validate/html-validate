@@ -1,3 +1,4 @@
+import { type HtmlElement } from "./dom";
 import { type Location } from "./location";
 
 /**
@@ -51,6 +52,34 @@ export interface ErrorFixer {
 	 * @param replacement - The text to replace current text with.
 	 */
 	replaceText(location: Location, replacement: string): void;
+
+	/**
+	 * Renames the tag of an element, updating both the start tag and the end tag
+	 * (if present). Attributes are left untouched even if they are not valid on
+	 * the renamed element.
+	 *
+	 * Elements without an end tag (void elements, elements with optional end
+	 * tags, etc) only get the start tag renamed. Elements implicitly opened by
+	 * the parser (such as an omitted `<body>`) are not present in the source and
+	 * are ignored.
+	 *
+	 * @example
+	 *
+	 * Given `<div></div>`:
+	 *
+	 * ```ts
+	 * fixer.renameTag(element, "span");
+	 * ```
+	 *
+	 * Results in `<span></span>`.
+	 *
+	 * @public
+	 * @since %version%
+	 * @see https://html-validate.org/api/error-fixer.html#renametag-method
+	 * @param element - The element to rename.
+	 * @param newName - The new tag name.
+	 */
+	renameTag(element: HtmlElement, newName: string): void;
 
 	/**
 	 * Removes the text at location, optionally trimming whitespace before or

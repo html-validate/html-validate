@@ -530,6 +530,7 @@ export interface ErrorFixer {
         trimStart?: boolean;
         trimEnd?: boolean;
     }): void;
+    renameTag(element: HtmlElement, newName: string): void;
     replaceText(location: Location_2, replacement: string): void;
 }
 
