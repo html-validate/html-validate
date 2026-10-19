@@ -797,6 +797,21 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<style>foo</STYLE>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["foo"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</STYLE", "/", "STYLE"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("multiple style tags", () => {
 				expect.assertions(13);
 				const token = lexer.tokenize(inlineSource("<style>foo</style>bar<style>baz</style>"));
