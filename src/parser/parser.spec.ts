@@ -1800,6 +1800,152 @@ describe("parser", () => {
 		});
 	});
 
+	describe("tag locations", () => {
+		function pick(
+			location: Location | null,
+		): Pick<Location, "offset" | "line" | "column" | "size"> | null {
+			if (!location) {
+				return null;
+			}
+			const { offset, line, column, size } = location;
+			return { offset, line, column, size };
+		}
+
+		it("startTagLocation should be alias of location", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<div></div>");
+			const div = document.querySelector("div");
+			expect(div?.startTagLocation).toBe(div?.location);
+			expect(pick(div?.startTagLocation ?? null)).toEqual({
+				offset: 1,
+				line: 1,
+				column: 2,
+				size: 3,
+			});
+		});
+
+		it("endTagLocation should be set for element with end tag", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div></div>");
+			const div = document.querySelector("div");
+			expect(pick(div?.endTagLocation ?? null)).toEqual({
+				offset: 7,
+				line: 1,
+				column: 8,
+				size: 3,
+			});
+		});
+
+		it("endTagLocation should handle end tag on another line", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div>\n</div>");
+			const div = document.querySelector("div");
+			expect(pick(div?.endTagLocation ?? null)).toEqual({
+				offset: 8,
+				line: 2,
+				column: 3,
+				size: 3,
+			});
+		});
+
+		it("endTagLocation should be set for each nested element", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<div><span></span></div>");
+			const div = document.querySelector("div");
+			const span = document.querySelector("span");
+			expect(pick(div?.endTagLocation ?? null)).toEqual({
+				offset: 20,
+				line: 1,
+				column: 21,
+				size: 3,
+			});
+			expect(pick(span?.endTagLocation ?? null)).toEqual({
+				offset: 13,
+				line: 1,
+				column: 14,
+				size: 4,
+			});
+		});
+
+		it("endTagLocation should be set for same-named siblings", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<b></b><b></b>");
+			const [first, second] = document.querySelectorAll("b");
+			expect(pick(first.endTagLocation)).toEqual({ offset: 5, line: 1, column: 6, size: 1 });
+			expect(pick(second.endTagLocation)).toEqual({ offset: 12, line: 1, column: 13, size: 1 });
+		});
+
+		it("endTagLocation should be null for void element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<input>");
+			expect(document.querySelector("input")?.endTagLocation).toBeNull();
+		});
+
+		it("endTagLocation should be null for self-closed element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<input/>");
+			expect(document.querySelector("input")?.endTagLocation).toBeNull();
+		});
+
+		it("endTagLocation should be null for element with optional end tag", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<ul><li>foo<li>bar</ul>");
+			const [first, second] = document.querySelectorAll("li");
+			expect(first.endTagLocation).toBeNull();
+			expect(second.endTagLocation).toBeNull();
+		});
+
+		it("endTagLocation should be null for element left open at end of file", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<div>");
+			expect(document.querySelector("div")?.endTagLocation).toBeNull();
+		});
+
+		it("endTagLocation should only be set on the element with end tag when others are implicitly closed", () => {
+			expect.assertions(3);
+			const document = parser.parseHtml("<table><tr><td>foo</table>");
+			expect(document.querySelector("td")?.endTagLocation).toBeNull();
+			expect(document.querySelector("tr")?.endTagLocation).toBeNull();
+			expect(pick(document.querySelector("table")?.endTagLocation ?? null)).toEqual({
+				offset: 20,
+				line: 1,
+				column: 21,
+				size: 5,
+			});
+		});
+
+		it("endTagLocation should be set for foreign element", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<svg><circle/></svg>");
+			expect(pick(document.querySelector("svg")?.endTagLocation ?? null)).toEqual({
+				offset: 16,
+				line: 1,
+				column: 17,
+				size: 3,
+			});
+		});
+
+		it("endTagLocation should be set for retained svg elements", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<svg><title>foo</title></svg>");
+			const [title] = document.querySelector("svg")?.childElements ?? [];
+			expect(pick(title.endTagLocation)).toEqual({
+				offset: 17,
+				line: 1,
+				column: 18,
+				size: 5,
+			});
+		});
+
+		it("implicit should be set for implicitly opened elements only", () => {
+			expect.assertions(3);
+			const document = parser.parseHtml("<html><p>content</p></html>");
+			expect(document.querySelector("html")?.implicit).toBeFalsy();
+			expect(document.querySelector("body")?.implicit).toBeTruthy();
+			expect(document.querySelector("p")?.implicit).toBeFalsy();
+		});
+	});
+
 	describe("dom:ready", () => {
 		let callback: EventCallback;
 		let document: DOMTree;

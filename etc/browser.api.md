@@ -480,6 +480,7 @@ export interface ErrorFixer {
         trimStart?: boolean;
         trimEnd?: boolean;
     }): void;
+    renameTag(element: HtmlElement, newName: string): void;
     replaceText(location: Location_2, replacement: string): void;
 }
 
@@ -581,6 +582,7 @@ export class HtmlElement extends DOMNode {
     }): HtmlElement;
     // (undocumented)
     readonly depth: number;
+    get endTagLocation(): Location_2 | null;
     // @internal
     everyChildren(callback: (node: HtmlElement) => boolean): boolean;
     // @internal
@@ -598,6 +600,8 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     hasAttribute(key: string): boolean;
     get id(): string | null;
+    // @internal
+    get implicit(): boolean;
     // (undocumented)
     insertBefore(node: DOMNode, reference: DOMNode | null): void;
     is(tagName: string): boolean;
@@ -624,11 +628,16 @@ export class HtmlElement extends DOMNode {
     setAnnotation(text: string): void;
     setAttribute(key: string, value: string | DynamicValue | null, location: Location_2, keyLocation: Location_2, valueLocation: Location_2 | null, originalAttribute?: string): void;
     // @internal (undocumented)
+    _setEndTagLocation(location: Location_2 | null): void;
+    // @internal (undocumented)
+    _setImplicit(implicit: boolean): void;
+    // @internal (undocumented)
     _setParent(node: DOMNode | null): DOMNode | null;
     // (undocumented)
     get siblings(): HtmlElement[];
     // @internal
     someChildren(callback: (node: HtmlElement) => boolean): boolean;
+    get startTagLocation(): Location_2;
     // (undocumented)
     get style(): CSSStyleDeclaration_2;
     get tabIndex(): number | null;

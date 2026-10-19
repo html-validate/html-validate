@@ -1,4 +1,4 @@
-import { assertValidLocation } from "../location";
+import { type Location, assertValidLocation } from "../location";
 import { type Autofix } from "./autofix";
 import { getBoundSourceText } from "./bind-autofix";
 import { type TextEdit, TextEditKind } from "./text-edit";
@@ -51,6 +51,18 @@ export async function autofixCollectEdits(fix: Autofix): Promise<TextEdit[]> {
 	const text = getBoundSourceText(fix);
 	const edits: TextEdit[] = [];
 
+	function replaceText(location: Location, replacement: string): void {
+		assertValidLocation(location, text.length);
+		edits.push({
+			kind: TextEditKind.Replace,
+			location: {
+				offset: location.offset,
+				size: location.size,
+			},
+			replacement,
+		});
+	}
+
 	await fix({
 		insertTextBefore(location, insert) {
 			assertValidLocation(location, text.length);
@@ -74,16 +86,16 @@ export async function autofixCollectEdits(fix: Autofix): Promise<TextEdit[]> {
 				insert,
 			});
 		},
-		replaceText(location, replacement) {
-			assertValidLocation(location, text.length);
-			edits.push({
-				kind: TextEditKind.Replace,
-				location: {
-					offset: location.offset,
-					size: location.size,
-				},
-				replacement,
-			});
+		replaceText,
+		renameTag(element, newName) {
+			/* implicit elements have no tag of their own in the source */
+			if (element.isRootElement() || element.implicit) {
+				return;
+			}
+			replaceText(element.startTagLocation, newName);
+			if (element.endTagLocation) {
+				replaceText(element.endTagLocation, newName);
+			}
 		},
 		removeText(location, options = {}) {
 			assertValidLocation(location, text.length);
