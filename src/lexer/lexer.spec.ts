@@ -691,6 +691,33 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<script>foo</SCRIPT>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["foo"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</SCRIPT", "/", "SCRIPT"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with start tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<SCRIPT>a<b</script>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.SCRIPT, data: ["a<b"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("multiple script tags", () => {
 				expect.assertions(13);
 				const token = lexer.tokenize(inlineSource("<script>foo</script>bar<script>baz</script>"));
@@ -782,6 +809,33 @@ describe("lexer", () => {
 				expect(token.next().done).toBeTruthy();
 			});
 
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<style>foo</STYLE>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["foo"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</STYLE", "/", "STYLE"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with start tag differing in case", () => {
+				expect.assertions(7);
+				const token = lexer.tokenize(inlineSource("<STYLE>a<b</style>"));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.STYLE, data: ["a<b"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
 			it("multiple style tags", () => {
 				expect.assertions(13);
 				const token = lexer.tokenize(inlineSource("<style>foo</style>bar<style>baz</style>"));
@@ -825,6 +879,35 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul><li>foo</li></ul>"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<textarea><ul>lorem</TEXTAREA>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</TEXTAREA", "/", "TEXTAREA"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with start tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<TEXTAREA><ul>lorem</textarea>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });
@@ -879,6 +962,35 @@ describe("lexer", () => {
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul><li"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with end tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<title><ul>lorem</TITLE>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN, data: ["<title", "", "title"] });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
+				expect(token.next()).toBeToken({
+					type: TokenType.TAG_OPEN,
+					data: ["</TITLE", "/", "TITLE"],
+				});
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.EOF });
+				expect(token.next().done).toBeTruthy();
+			});
+
+			it("with start tag differing in case", () => {
+				expect.assertions(7);
+				const markup = `<TITLE><ul>lorem</title>`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
+				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
+				expect(token.next()).toBeToken({ type: TokenType.TEXT, data: ["<ul>lorem"] });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_OPEN });
 				expect(token.next()).toBeToken({ type: TokenType.TAG_CLOSE });
 				expect(token.next()).toBeToken({ type: TokenType.EOF });

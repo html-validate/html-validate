@@ -2067,6 +2067,18 @@ describe("parser", () => {
 			});
 		});
 
+		it("endTagLocation should be set for retained svg elements when end tag differs in case", () => {
+			expect.assertions(1);
+			const document = parser.parseHtml("<svg><desc>foo</DESC></svg>");
+			const [desc] = document.querySelector("svg")?.childElements ?? [];
+			expect(pick(desc.endTagLocation)).toEqual({
+				offset: 16,
+				line: 1,
+				column: 17,
+				size: 4,
+			});
+		});
+
 		it.each(["<DIV></div>", "<div></DIV>"])(
 			"endTagLocation should be set when end tag differs in case (%s)",
 			(markup) => {
@@ -2341,6 +2353,48 @@ describe("parser", () => {
 			expect.assertions(2);
 			const document = parser.parseHtml("<svg><desc><desc></desc></desc></svg>");
 			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:desc",
+			]);
+		});
+
+		it("svg with desc end tag differing in case", () => {
+			expect.assertions(4);
+			const document = parser.parseHtml("<svg><desc></DESC></svg><p></p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg", "p"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:desc",
+			]);
+			expect(events.map((it: { event: string }) => it.event)).toEqual([
+				"tag:start",
+				"tag:ready",
+				"tag:start",
+				"tag:ready",
+				"tag:end",
+				"element:ready",
+				"tag:end",
+				"element:ready",
+				"tag:start",
+				"tag:ready",
+				"tag:end",
+				"element:ready",
+			]);
+			expect(events.at(5)).toEqual({ event: "element:ready", target: "svg:desc" });
+		});
+
+		it("svg with title end tag differing in case", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<svg><title>foo</TITLE></svg><p></p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg", "p"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:title",
+			]);
+		});
+
+		it("svg with nested desc end tags differing in case", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<svg><desc><desc></DESC></Desc></svg><p></p>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg", "p"]);
 			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
 				"svg:desc",
 			]);

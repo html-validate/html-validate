@@ -28,14 +28,14 @@ const MATCH_ATTR_DOUBLE = /^(\s*=\s*)"([^"]*)(")/;
 const MATCH_ATTR_UNQUOTED = /^(\s*=\s*)([^\t\n\f\r "'<>][^\t\n\f\r <>]*)/;
 const MATCH_CDATA_BEGIN = /^<!\[CDATA\[/;
 const MATCH_CDATA_END = /^[\s\S]*?\]\]>/;
-const MATCH_SCRIPT_DATA = /^[\s\S]*?(?=<\/script)/;
-const MATCH_SCRIPT_END = /^<(\/)(script)/;
-const MATCH_STYLE_DATA = /^[\s\S]*?(?=<\/style)/;
-const MATCH_STYLE_END = /^<(\/)(style)/;
-const MATCH_TEXTAREA_DATA = /^[\s\S]*?(?=<\/textarea)/;
-const MATCH_TEXTAREA_END = /^<(\/)(textarea)/;
-const MATCH_TITLE_DATA = /^[\s\S]*?(?=<\/title)/;
-const MATCH_TITLE_END = /^<(\/)(title)/;
+const MATCH_SCRIPT_DATA = /^[\s\S]*?(?=<\/script)/i;
+const MATCH_SCRIPT_END = /^<(\/)(script)/i;
+const MATCH_STYLE_DATA = /^[\s\S]*?(?=<\/style)/i;
+const MATCH_STYLE_END = /^<(\/)(style)/i;
+const MATCH_TEXTAREA_DATA = /^[\s\S]*?(?=<\/textarea)/i;
+const MATCH_TEXTAREA_END = /^<(\/)(textarea)/i;
+const MATCH_TITLE_DATA = /^[\s\S]*?(?=<\/title)/i;
+const MATCH_TITLE_END = /^<(\/)(title)/i;
 const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)(.*?)(\]?\s*-->)/;
 const MATCH_COMMENT = /^<!--([\s\S]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*)\]>/;
@@ -198,7 +198,7 @@ export class Lexer {
 	private enter(context: Context, state: State, data: string[] | null): void {
 		/* script/style tags require a different content model */
 		if (state === State.TAG && data?.[0].startsWith("<")) {
-			switch (data[0]) {
+			switch (data[0].toLowerCase()) {
 				case "<script": {
 					context.contentModel = ContentModel.SCRIPT;
 					break;

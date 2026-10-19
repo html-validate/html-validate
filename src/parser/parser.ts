@@ -922,6 +922,7 @@ export class Parser {
 		tokenStream: TokenStream,
 		searchTag: string,
 	): void {
+		const searchTagLower = searchTag.toLowerCase();
 		let numOpen = 1;
 		let it = this.next(tokenStream);
 		while (!it.done) {
@@ -929,7 +930,7 @@ export class Parser {
 			this.consume(source, token, tokenStream);
 			if (token.type === TokenType.TAG_OPEN) {
 				const [, close, tagName] = token.data;
-				if (tagName === searchTag) {
+				if (tagName.toLowerCase() === searchTagLower) {
 					if (close) {
 						numOpen--;
 					} else {
