@@ -14,22 +14,22 @@ Methods to modify the original source to fix errors.
 
 Inserts text at just before location.
 
-**Syntax**
+### Syntax {#inserttextbefore-syntax}
 
 ```ts nocompile nolint
 insertTextBefore(location, insert);
 ```
 
-**Return value**
+### Return value {#inserttextbefore-return-value}
 
 This method has no return value.
 
-**Parameters**
+### Parameters {#inserttextbefore-parameters}
 
 - `location: Location`: The location where text will be inserted at.
 - `insert: string`: The text to insert.
 
-**Example**
+### Example {#inserttextbefore-example}
 
 ```ts
 import { type ErrorFixer, type Location } from "html-validate";
@@ -54,22 +54,22 @@ If `location` refers to the word "ipsum", the following change would be applied:
 
 Inserts text at just after location.
 
-**Syntax**
+### Syntax {#inserttextafter-syntax}
 
 ```ts nocompile nolint
 insertTextAfter(location, insert);
 ```
 
-**Return value**
+### Return value {#inserttextafter-return-value}
 
 This method has no return value.
 
-**Parameters**
+### Parameters {#inserttextafter-parameters}
 
 - `location: Location`: The location where text will be inserted at.
 - `insert: string`: The text to insert.
 
-**Example**
+### Example {#inserttextafter-example}
 
 ```ts
 import { type ErrorFixer, type Location } from "html-validate";
@@ -94,22 +94,22 @@ If `location` refers to the word "ipsum", the following change would be applied:
 
 Replaces the text at location.
 
-**Syntax**
+### Syntax {#replacetext-syntax}
 
 ```ts nocompile nolint
 replaceText(location, replacement);
 ```
 
-**Return value**
+### Return value {#replacetext-return-value}
 
 This method has no return value.
 
-**Parameters**
+### Parameters {#replacetext-parameters}
 
 - `location: Location`: The location of text to replace.
 - `replacement: string`: The text to replace current text with.
 
-**Example**
+### Example {#replacetext-example}
 
 ```ts
 import { type ErrorFixer, type Location } from "html-validate";
@@ -131,22 +131,22 @@ Attributes are left untouched even if they are not valid on the renamed element.
 Elements without an end tag (void elements, elements with optional end tags, etc) only get the start tag renamed.
 Elements implicitly opened by the parser (such as an omitted `<body>`) are not present in the source and are ignored.
 
-**Syntax**
+### Syntax {#renametag-syntax}
 
 ```ts nocompile nolint
 renameTag(element, newName);
 ```
 
-**Return value**
+### Return value {#renametag-return-value}
 
 This method has no return value.
 
-**Parameters**
+### Parameters {#renametag-parameters}
 
 - `element: HtmlElement`: The element to rename.
 - `newName: string`: The new tag name.
 
-**Example**
+### Example {#renametag-example}
 
 Given the following markup:
 
@@ -177,23 +177,25 @@ Resulting in:
 
 Removes the text at location, optionally trimming whitespace before or after.
 
-**Syntax**
+### Syntax {#removetext-syntax}
 
 ```ts nocompile nolint
 removeText(location, [options]);
 ```
 
-**Return value**
+### Return value {#removetext-return-value}
 
 This method has no return value.
 
-**Parameters**
+### Parameters {#removetext-parameters}
 
 - `location: Location`: The location of text to remove.
-- `options.trimStart: boolean` (optional): Remove whitespace characters before the specified location, up to and including a single newline if present. Defaults to `false`.
-- `options.trimEnd: boolean` (optional): Remove whitespace characters after the specified location, up to and including a single newline if present. Defaults to `false`.
+- `options.trimStart: boolean` (optional): Remove whitespace characters before the specified location, up to and including a single newline if present.
+  Defaults to `false`.
+- `options.trimEnd: boolean` (optional): Remove whitespace characters after the specified location, up to and including a single newline if present.
+  Defaults to `false`.
 
-**Example**
+### Example {#removetext-example}
 
 Given an element with the `foo` attribute:
 

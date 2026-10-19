@@ -11,13 +11,11 @@ standards:
 
 # Require headings to have textual content
 
-Assistive technology such as screen readers require textual content in
-headings. The content cannot be whitespace only.
+Assistive technology such as screen readers require textual content in headings.
+The content cannot be whitespace only.
 
-Each heading should make sense on its own and properly describe the related
-section. Assistive tools may build a list of headings to help the user navigate
-between headings, a feature which can be confusing when headings are empty or
-non-descriptive.
+Each heading should make sense on its own and properly describe the related section.
+Assistive tools may build a list of headings to help the user navigate between headings, a feature which can be confusing when headings are empty or non-descriptive.
 
 See also [WCAG G130: Providing descriptive headings](https://www.w3.org/WAI/WCAG22/Techniques/general/G130).
 

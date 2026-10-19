@@ -1,0 +1,42 @@
+{
+	"gitignore": true,
+	"globs": ["**/*.md"],
+	"ignores": ["**/node_modules/**", "etc/*.api.md", "etc/docs-manifest.md"],
+	"customRules": ["markdownlint-rule-max-one-sentence-per-line"],
+	"config": {
+		/* enable all rules by default */
+		"default": true,
+
+		/* disable rules overlapping with prettier */
+		"extends": "markdownlint/style/prettier",
+
+		/* customizations */
+		"code-block-style": { "style": "fenced" },
+		"heading-style": { "style": "atx" },
+		"line-length": false,
+		"fenced-code-language": {
+			"allowed_languages": ["bash", "diff", "html", "json", "jsonc", "md", "plaintext", "ts"],
+		},
+		"no-alt-text": false, // many examples uses images without alt text on purpose
+		"no-duplicate-heading": { "siblings_only": true },
+		"no-inline-html": false, // many examples use html markup
+		"no-hard-tabs": { "spaces_per_tab": 4 },
+		"single-title": false, // dgeni templates need both title attribute and h1
+	},
+	"overrides": [
+		{
+			"filter": [".gitlab/**/*.md"],
+			"combine": "merge",
+			"config": {
+				"first-line-heading": false,
+			},
+		},
+		{
+			"filter": ["CHANGELOG.md"],
+			"combine": "merge",
+			"config": {
+				"max-one-sentence-per-line": false,
+			},
+		},
+	],
+}

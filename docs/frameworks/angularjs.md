@@ -6,7 +6,9 @@ nav: userguide
 
 # Usage with AngularJS
 
-    npm install html-validate-angular
+```bash
+npm install html-validate-angular
+```
 
 [html-validate-angular](https://www.npmjs.com/package/html-validate-angular) is needed to transform `.html` and `.js` files using AngularJS.
 

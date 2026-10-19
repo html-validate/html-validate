@@ -13,7 +13,7 @@ The use of AI tools (e.g. Copilot, Claude, or similar) is **allowed** when contr
 Contributors must disclose when AI tools were used to generate or assist with a contribution.
 This can be done in the merge request description or a commit message, for example:
 
-    "Parts of this implementation were generated with the assistance of [tool name]."
+> "Parts of this implementation were generated with the assistance of [tool name]."
 
 ## Human responsibility
 

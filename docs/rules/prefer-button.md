@@ -11,7 +11,8 @@ HTML5 introduces the generic `<button>` element which replaces `<input type="but
 
 The `<button>` elements has some advantages:
 
-- It can contain markup as content compared to the `value` attribute of `<input>` which can only hold text. Especially useful to add `<svg>` icons.
+- It can contain markup as content compared to the `value` attribute of `<input>` which can only hold text.
+  Especially useful to add `<svg>` icons.
 - The button text is a regular text node, no need to quote characters in the `value` attribute.
 - Styling is easier, compare the selector `button` to `input[type="submit"], input[type="button"], ...`.
 

@@ -71,9 +71,9 @@ Each keyword (e.g. each class) is matched individually so you do not need to han
 
 When using Javascript you may also define the pattern directly as a regular expression:
 
-```js nocompile
+```ts nocompile
 {
-	"pattern": [/^[a-z-]+$/],
+    "pattern": [/^[a-z-]+$/],
 }
 ```
 

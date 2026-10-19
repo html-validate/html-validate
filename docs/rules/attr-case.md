@@ -58,9 +58,8 @@ For instance, when configured with `{"style": ["lowercase", "uppercase"]}` attri
 
 ### `ignoreForeign`
 
-By default attributes on foreign elements (such as `<svg>` and `<math>`) are
-ignored as they follow their own specifications. For instance, the SVG
-specifications uses camelcase for many attributes.
+By default attributes on foreign elements (such as `<svg>` and `<math>`) are ignored as they follow their own specifications.
+For instance, the SVG specifications uses camelcase for many attributes.
 
 With this option enabled the following is valid despite camelcase attribute:
 
@@ -68,5 +67,4 @@ With this option enabled the following is valid despite camelcase attribute:
 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" />
 ```
 
-Disable this option if you want to validate attributes on foreign elements as
-well.
+Disable this option if you want to validate attributes on foreign elements as well.

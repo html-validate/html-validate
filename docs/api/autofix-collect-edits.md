@@ -11,24 +11,24 @@ nav: devguide
 Collects all text edits requested by a rule autofix callback.
 The result is a list of text edits which the caller can use to modify the text.
 
-**Syntax**
+## Syntax
 
 ```ts nocompile nolint
 autofixCollectEdits(fix, [text]);
 ```
 
-**Return value**
+## Return value
 
 A promise resolving to the list of `TextEdit` objects requested by the callback, sorted in reverse (descending) offset order.
 
 Throws if any edit has an invalid or out-of-bounds location, or if two edits overlap.
 
-**Parameters**
+## Parameters
 
 - `fix: Autofix`: The autofix or suggestion callback, e.g. `message.fix` or `message.suggestions[n].fix`.
 - `text: string`: Deprecated and unused parameter.
 
-**Example**
+## Example
 
 Given a `Message` object, e.g. from the result of `htmlvalidate.validateString()`:
 

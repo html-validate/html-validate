@@ -9,13 +9,11 @@ standards:
 
 # Require SRI for resources
 
-Subresource Integrity (SRI) is a security feature that enables browsers to
-verify that resources they fetch are delivered without unexpected manipulation.
+Subresource Integrity (SRI) is a security feature that enables browsers to verify that resources they fetch are delivered without unexpected manipulation.
 
 Commonly needed when using Content Delivery Networks (CDN).
 
-This rules requires the usage of the `integrity` attribute to provide the
-cryptographic hash for SRI to function.
+This rules requires the usage of the `integrity` attribute to provide the cryptographic hash for SRI to function.
 
 ## Rule details
 
@@ -48,10 +46,8 @@ This rule takes an optional object:
 - `all` require integrity for all resources, even on same origin.
 - `crossorigin` requires integrity for all crossdomain resources.
 
-With `target` set to `crossorigin` only requests to other domains need SRI. Note
-that the logic for determining crossdomain is a bit naïve, resources with a full
-url (`protocol://`) or implicit protocol (`//`) counts as crossorigin even if it
-technically would point to the same origin.
+With `target` set to `crossorigin` only requests to other domains need SRI.
+Note that the logic for determining crossdomain is a bit naïve, resources with a full url (`protocol://`) or implicit protocol (`//`) counts as crossorigin even if it technically would point to the same origin.
 
 ```html validate name="crossorigin" rules="require-sri" require-sri='{"target": "crossorigin"}'
 <!--- local resource -->

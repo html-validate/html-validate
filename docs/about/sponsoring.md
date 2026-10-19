@@ -20,7 +20,7 @@ Some long-time goals that need help, financially or by submitting pull requests:
 
 ## Github Sponsors
 
-https://github.com/sponsors/html-validate
+<https://github.com/sponsors/html-validate>
 
 ## PayPal
 

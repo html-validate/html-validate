@@ -70,7 +70,7 @@ The first step is creating a new file, e.g. `elements.js` and configure the vali
 
 `elements.js`:
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({
@@ -174,7 +174,7 @@ There are other content categories as well, check the [element metadata referenc
 
 ## Case study: `<div>`
 
-```js
+```ts
 import { defineMetadata } from "html-validate";
 
 export default defineMetadata({

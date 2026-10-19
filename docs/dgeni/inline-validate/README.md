@@ -16,8 +16,11 @@ Jest snapshot tests will also be generated for each validation to ensure changes
 The following attributes can be set:
 
 - `name` - a per-document unique name.
-- `rules` - a whitespace-separated list of rules to enable. Default: all rules from recommended list
-- `elements` - path to custom metadata (relative to current file). Default: `html5`
-- `results` - set to `true` to force validation results to show up even if it is 0. Default `auto`.
+- `rules` - a whitespace-separated list of rules to enable.
+  Default: all rules from recommended list
+- `elements` - path to custom metadata (relative to current file).
+  Default: `html5`
+- `results` - set to `true` to force validation results to show up even if it is 0.
+  Default `auto`.
 
 Rule options can be set by using the rule name as attribute and providing a JSON-encoded string with options.

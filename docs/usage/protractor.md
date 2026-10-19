@@ -8,11 +8,13 @@ nav: userguide
 
 To validate browser source from protractor:
 
-    npm install --save-dev protractor-html-validate
+```bash
+npm install --save-dev protractor-html-validate
+```
 
 In `protractor.conf.js`:
 
-```js fake-require
+```ts fake-require
 module.exports = {
   plugins: [
     /* load plugin */

@@ -9,11 +9,15 @@ nav: userguide
 
 Configuration can be changed inline using directives (as HTML comments).
 
-    <!-- html-validate-ACTION OPTIONS -- COMMENT -->
+```html
+<!-- html-validate-ACTION OPTIONS -- COMMENT -->
+```
 
 alternatively:
 
-    <!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
+```html
+<!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
+```
 
 `ACTION` is an action such as `enable`, `disable` etc and `OPTIONS` is arguments to the action.
 Comment is optional but encouraged.
@@ -21,14 +25,18 @@ Comment is optional but encouraged.
 ::: tip Optional brackets
 Versions earlier than 10.7.0 required brackets around the directive:
 
-    <!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
+```html
+<!-- [html-validate-ACTION OPTIONS -- COMMENT] -->
+```
 
 The brackets are now optional, either syntax can be used.
 :::
 
 Multiple rules can be enabled/disabled at once by using a comma-separated list:
 
-    <!-- html-validate-disable-next void-style, deprecated -- disable both rules -->
+```html
+<!-- html-validate-disable-next void-style, deprecated -- disable both rules -->
+```
 
 Comments can be entered using both `--` and `:` as delimiter:
 
@@ -41,20 +49,27 @@ Comments can be entered using both `--` and `:` as delimiter:
 
 ## `enable`
 
-    <!-- html-validate-enable element-permitted-content -->
+```html
+<!-- html-validate-enable element-permitted-content -->
+```
 
-Enables a rule. If the severity is set to `off` it will be raised to `error`,
+Enables a rule.
+If the severity is set to `off` it will be raised to `error`,
 i.e a previously disabled warning will remain a warning after enabling it again.
 
 ## `disable`
 
-    <!-- html-validate-disable deprecated -->
+```html
+<!-- html-validate-disable deprecated -->
+```
 
 Disable a rule for the rest of the file or until re-enabled using `enable` directive.
 
 ## `disable-block`
 
-    <!-- html-validate-disable-block attribute-allowed-values -->
+```html
+<!-- html-validate-disable-block attribute-allowed-values -->
+```
 
 Disables a rule for a block of elements.
 All siblings and descendants following the directive will not trigger any errors.
@@ -71,7 +86,9 @@ All siblings and descendants following the directive will not trigger any errors
 
 ## `disable-next`
 
-    <!-- html-validate-disable-next deprecated -->
+```html
+<!-- html-validate-disable-next deprecated -->
+```
 
 Disables the rule for the next element.
 

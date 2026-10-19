@@ -11,8 +11,8 @@ standards:
 
 # Require headings to start at h1 and increment by one
 
-Validates heading level increments and order. Headings must start at `h1` and
-can only increase one level at a time.
+Validates heading level increments and order.
+Headings must start at `h1` and can only increase one level at a time.
 
 ## Rule details
 
@@ -91,7 +91,8 @@ With this option the following is considered valid:
 - type: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "auto"`
 - default: `"auto"`
 
-Sets the allowed initial heading levels for sectioning roots. Setting this to `"h1"` enforces that all sectioning roots must restart at `<h1>`, but setting it to `"h2"` allows restarting at both `<h1>` or `<h2>`.
+Sets the allowed initial heading levels for sectioning roots.
+Setting this to `"h1"` enforces that all sectioning roots must restart at `<h1>`, but setting it to `"h2"` allows restarting at both `<h1>` or `<h2>`.
 
 `"auto"` means that each sectioning root can either continue of the current level or restart at `<h1>`.
 

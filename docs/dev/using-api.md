@@ -66,10 +66,8 @@ Reads a file and transforms the file according to the configured transformers.
 
 ## Validating strings and other sources
 
-In addition to `validateFile` there is also `validateString` and
-`validateSource`. Unlike `validateFile` no configuration files will be searched
-from the filesystem and the full configuration must be passed to the
-`HtmlValidate` constructor.
+In addition to `validateFile` there is also `validateString` and `validateSource`.
+Unlike `validateFile` no configuration files will be searched from the filesystem and the full configuration must be passed to the `HtmlValidate` constructor.
 
 ```ts
 import { HtmlValidate } from "html-validate";
@@ -123,9 +121,8 @@ Validates the given markup (passed in the `Source` object).
 
 ## Handling multiple files
 
-To validate multiple files you need to call `validateFile` for each one,
-obtaining a report for each one. The reports can then be merged together,
-forming a new `Report` object.
+To validate multiple files you need to call `validateFile` for each one, obtaining a report for each one.
+The reports can then be merged together, forming a new `Report` object.
 
 ```ts
 import { HtmlValidate, Reporter } from "html-validate";
@@ -402,14 +399,10 @@ When using `ESMResolver` in a CommonJS project (i.e. not using `.mjs` or `"type"
 
 ## Configuration cache
 
-`HtmlValidate` is mostly stateless, it only acts on the input source and its
-configuration.
+`HtmlValidate` is mostly stateless, it only acts on the input source and its configuration.
 
-However, for performance configuration is cached (per instance) and must be
-flushed if configuration is changed. Normally this wont matter but when writing
-integrations with tools it might be desirable to keep a single instance of
-`HtmlValidate` around and in that case the cache needs to be flushed if
-configuration changes are detected.
+However, for performance configuration is cached (per instance) and must be flushed if configuration is changed.
+Normally this wont matter but when writing integrations with tools it might be desirable to keep a single instance of `HtmlValidate` around and in that case the cache needs to be flushed if configuration changes are detected.
 
 ```ts
 import { HtmlValidate } from "html-validate";
@@ -427,8 +420,7 @@ htmlvalidate.flushConfigCache("myfile.html");
 
 ## Unit testing
 
-If using jest to write tests there is a couple of helpers to assist writing
-tests:
+If using jest to write tests there is a couple of helpers to assist writing tests:
 
 ```ts nocompile
 import { HtmlValidate, ConfigData } from "html-validate";

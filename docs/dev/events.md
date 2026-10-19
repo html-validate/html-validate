@@ -10,7 +10,7 @@ nav: devguide
 
 ### `config:ready`
 
-```typescript nocompile
+```ts nocompile
 export interface ConfigReadyEvent {
   location: Location | null;
   config: ResolvedConfig;
@@ -22,7 +22,7 @@ Emitted after after configuration is ready but before DOM is initialized.
 
 ### `source:ready`
 
-```typescript nocompile
+```ts nocompile
 export interface SourceReadyEvent {
   location: Location | null;
   source: Source;
@@ -37,7 +37,7 @@ The `hooks` property is always unset.
 
 ### `token`
 
-```typescript nocompile
+```ts nocompile
 export interface TokenEvent {
   location: Location | null;
   token: Token;
@@ -50,7 +50,7 @@ Emitted for each lexer token during parsing.
 
 ### `dom:load`
 
-```typescript nocompile
+```ts nocompile
 export interface DOMLoadEvent {
   location: Location | null;
   source: Source;
@@ -62,7 +62,7 @@ Can be used to initialize state in rules.
 
 ### `dom:ready`
 
-```typescript nocompile
+```ts nocompile
 export interface DOMReadyEvent {
   location: Location | null;
   document: DOMTree;
@@ -74,7 +74,7 @@ Emitted after the parsing has finished loading the DOM tree.
 
 ### `doctype`
 
-```typescript nocompile
+```ts nocompile
 export interface DoctypeEvent {
   location: Location;
   tag: string;
@@ -108,7 +108,7 @@ tag:start         |  tag:ready           tag:start         |  tag:ready
 
 - Deprecated alias: `tag:open`
 
-```typescript nocompile
+```ts nocompile
 export interface TagStartEvent {
   location: Location;
   target: HtmlElement;
@@ -125,7 +125,7 @@ Use `tag:ready` (all attributes parsed) or `element:ready` (all children parsed)
 
 - Deprecated alias: `tag:close`
 
-```typescript nocompile
+```ts nocompile
 export interface TagEndEvent {
   location: Location;
   target: HtmlElement | null;
@@ -140,7 +140,7 @@ It is similar to `element:ready` but will not be emitted for `void` elements.
 
 ### `tag:ready`
 
-```typescript nocompile
+```ts nocompile
 export interface TagReadyEvent {
   location: Location;
   target: HtmlElement;
@@ -154,7 +154,7 @@ The children will not yet be parsed.
 
 ### `element:ready`
 
-```typescript nocompile
+```ts nocompile
 export interface ElementReadyEvent {
   location: Location;
   target: HtmlElement;
@@ -168,7 +168,7 @@ It is similar to `tag:end` but will be emitted for `void` elements as well.
 
 ### `attr`
 
-```typescript nocompile
+```ts nocompile
 export interface AttributeEvent {
   location: Location;
   key: string;
@@ -194,7 +194,7 @@ If the element have metadata for the specific attribute it will be present in th
 
 ### `whitespace`
 
-```typescript nocompile
+```ts nocompile
 export interface WhitespaceEvent {
   location: Location;
   text: string;
@@ -205,7 +205,7 @@ Emitted when inter-element, leading and trailing whitespace is parsed.
 
 ### `conditional`
 
-```typescript nocompile
+```ts nocompile
 export interface ConditionalEvent {
   location: Location;
   condition: string;
@@ -218,7 +218,7 @@ The parser ignores and condition and run all possible branches but raises the ev
 
 ### `directive`
 
-```typescript nocompile
+```ts nocompile
 export interface DirectiveEvent {
   location: Location;
   actionLocation: Location;
@@ -238,7 +238,7 @@ The `actionLocation`, `optionsLocation`, and `commentLocation` properties provid
 
 ### `parse:error`
 
-```typescript nocompile
+```ts nocompile
 export interface ParseErrorEvent {
   location: Location;
   message: string;
@@ -247,6 +247,7 @@ export interface ParseErrorEvent {
 
 Emitted when a non-fatal parse error is encountered during parsing.
 
-Unlike fatal parse errors (which throw exceptions and halt parsing), these errors are reported as events allowing parsing to continue. This is used for issues like unknown directives where the parser can safely skip the problematic construct and continue processing the rest of the document.
+Unlike fatal parse errors (which throw exceptions and halt parsing), these errors are reported as events allowing parsing to continue.
+This is used for issues like unknown directives where the parser can safely skip the problematic construct and continue processing the rest of the document.
 
 The error will be reported as a `parser-error` rule violation in the final report.

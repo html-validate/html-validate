@@ -6,11 +6,13 @@ nav: userguide
 
 # Grunt task
 
-    npm install --save-dev grunt-html-validate
+```bash
+npm install --save-dev grunt-html-validate
+```
 
 ## Usage
 
-```js nocompile
+```ts nocompile
 require("load-grunt-tasks")(grunt);
 
 grunt.initConfig({
@@ -24,4 +26,6 @@ grunt.initConfig({
 
 Run with
 
-    grunt htmlvalidate
+```bash
+grunt htmlvalidate
+```

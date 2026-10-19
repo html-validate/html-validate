@@ -261,7 +261,7 @@ If the rule has options create an interface and pass as the second template argu
 Options can either be accessed in the class constructor or on `this.options`.
 If any option is required be use to include defaults as the use must not be required to enter any options in their configuration.
 
-```typescript
+```ts
 import { HtmlElement } from "html-validate";
 
 const node: HtmlElement = {} as unknown as HtmlElement;
@@ -368,7 +368,8 @@ Default is `void` (i.e. no options)
 
 ### `on(event: string, [filter: (event: Event) => boolean], callback: (event: Event) => void): void`
 
-Listen for events. See [events](/dev/events.html) for a full list of available events and data.
+Listen for events.
+See [events](/dev/events.html) for a full list of available events and data.
 
 If `filter` is passed the callback is only called if the filter function evaluates to true.
 

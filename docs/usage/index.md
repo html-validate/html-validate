@@ -13,7 +13,9 @@ HTML-validate is an offline HTML5 validator.
 
 Install using `npm`:
 
-    npm install --save-dev html-validate
+```bash
+npm install --save-dev html-validate
+```
 
 Create a configuration file:
 
@@ -25,7 +27,9 @@ Create a configuration file:
 
 Run with:
 
-    npm exec html-validate yourfile.html
+```bash
+npm exec html-validate yourfile.html
+```
 
 ::: tip
 
@@ -57,7 +61,7 @@ For `json` the JSON schema `https://html-validate.org/schemas/config.json` can o
 
 For javascript configuration files the `defineConfig(..)` helper can optionally be used to assist the IDE with type-checking and documentation:
 
-```js
+```ts
 import { defineConfig } from "html-validate";
 
 export default defineConfig({
@@ -119,10 +123,7 @@ See {@link rules} for a list of all built-in rules and options.
 
 ### `elements`
 
-For proper validation some metadata for each element is required, detailing in
-which context it can be used, allowed/disallowed attributes, etc. If `elements`
-is not specified it defaults to `["html5"]` which is a bundled collection for
-all HTML5 elements.
+For proper validation some metadata for each element is required, detailing in which context it can be used, allowed/disallowed attributes, etc. If `elements` is not specified it defaults to `["html5"]` which is a bundled collection for all HTML5 elements.
 
 ```jsonc config
 {
@@ -134,7 +135,8 @@ Each entry will try to load metadata from (search in following order):
 
 1. Named bundled metadata.
 2. NPM package with the same name.
-3. A local file, json or js, resolvable by `import(..)`. Path is relative to the configuration file.
+3. A local file, json or js, resolvable by `import(..)`.
+   Path is relative to the configuration file.
 
 An object can also be passed with inline metadata but it is highly recommended to write it to a separate file.
 
@@ -158,7 +160,7 @@ See {@link writing-plugins writing plugins} for details about creating your own 
 
 Since version 7.17.0, if you are using javascript configuration or API you can also import or define plugins inline:
 
-```js
+```ts
 import { defineConfig } from "html-validate";
 
 export default defineConfig({
@@ -211,9 +213,9 @@ Sets the ARIA specification version to use.
 
 See also:
 
-- WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/)
-- WAI-ARIA 1.3 (https://www.w3.org/TR/wai-aria-1.3/)
-- Latest editor's draft from W3C (https://w3c.github.io/aria/)
+- WAI-ARIA 1.2 (<https://www.w3.org/TR/wai-aria-1.2/>)
+- WAI-ARIA 1.3 (<https://www.w3.org/TR/wai-aria-1.3/>)
+- Latest editor's draft from W3C (<https://w3c.github.io/aria/>)
 
 ### `root`
 
@@ -225,9 +227,8 @@ By default, configuration is search in the file structure until the root directo
 - `/home/.htmlvalidate.{js,cjs,mjs,json}`
 - `/.htmlvalidate.{js,cjs,mjs,json}`
 
-By setting the `root` property to `true` the search is stopped. This can be used
-to prevent searching from outside the project directory or to use a specific
-configuration for a specific directory without loading project configuration.
+By setting the `root` property to `true` the search is stopped.
+This can be used to prevent searching from outside the project directory or to use a specific configuration for a specific directory without loading project configuration.
 
 For instance, if `/home/project/.htmlvalidate.json` contains:
 
@@ -242,15 +243,15 @@ Only the following files would be searched:
 - `/home/user/project/src/.htmlvalidate.{js,cjs,mjs,json}`
 - `/home/user/project/.htmlvalidate.{js,cjs,mjs,json}`
 
-This also affects CLI `--config` and the API, e.g. when using `--config` with a
-configuration using `"root": true` will prevent any additional files to be
-loaded.
+This also affects CLI `--config` and the API, e.g. when using `--config` with a configuration using `"root": true` will prevent any additional files to be loaded.
 
 ## Inline configuration
 
 Configuration can be changed inline using directives (as HTML comments).
 
-    <!-- html-validate-disable-next RULE -- COMMENT -->
+```html
+<!-- html-validate-disable-next RULE -- COMMENT -->
+```
 
 {@link inline-config Learn more about inline configuration}.
 
@@ -261,7 +262,8 @@ Configuration can be changed inline using directives (as HTML comments).
 The `.htmlvalidateignore` file works similar to `.gitignore`, i.e. the file should contain a list of file patterns to ignore.
 
 - Lines beginning with `#` are treated as comments
-- Lines beginning with `!` are negated patterns that re-include a pattern that was ignored by an earlier pattern. It is not possible to re-include a file excluded from a parent directory.
+- Lines beginning with `!` are negated patterns that re-include a pattern that was ignored by an earlier pattern.
+  It is not possible to re-include a file excluded from a parent directory.
 - Paths are relative to the `.htmlvalidateignore` file
 
 Similar to `.gitignore` if a line starts with `/` it matches from the current directory only, e.g `/foo.html` matches only `foo.html` in the current directory but not `src/foo.html`.

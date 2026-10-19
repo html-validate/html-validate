@@ -98,7 +98,8 @@ The `esmResolver` will import using dynamic `import(..)`.
 
 The browser version of `esmResolver` will not fail gracefully if the imported module does not exist.
 
-It assumes the module will be resolvable. If you use multiple resolvers the `esmResolver` should be run last as the next resolver will never be tried.
+It assumes the module will be resolvable.
+If you use multiple resolvers the `esmResolver` should be run last as the next resolver will never be tried.
 
 :::
 
@@ -144,7 +145,9 @@ Internally there are many dynamic imports and `fs` access.
 
 You will see warnings such as:
 
-    WARNING in ./node_modules/html-validate/dist/config/config.js 81:25-50
-    Critical dependency: the request of a dependency is an expression
+```plaintext
+WARNING in ./node_modules/html-validate/dist/config/config.js 81:25-50
+Critical dependency: the request of a dependency is an expression
+```
 
 In many cases there is no way to avoid the warning per se but the workaround above are implemented the code paths triggering these issues are not hit.

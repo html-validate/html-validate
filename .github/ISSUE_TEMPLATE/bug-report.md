@@ -41,4 +41,4 @@ What happened instead?
 - `html-validate-angular`:
 - `html-validate-vue`:
 - `html-validate-protractor`:
-  . any other relevant plugin:
+- any other relevant plugin:

@@ -8,7 +8,9 @@ nav: userguide
 
 To get validation directly in VS Code use the [HTML-Validate extension](https://marketplace.visualstudio.com/items?itemName=html-validate.vscode-html-validate):
 
-    ext install html-validate.vscode-html-validate
+```plaintext
+ext install html-validate.vscode-html-validate
+```
 
 The extension is also available on the [Open VSX Registry](https://open-vsx.org): [HTML-Validate](https://open-vsx.org/extension/html-validate/vscode-html-validate)
 
@@ -58,7 +60,9 @@ This can be overrriden with the `html-validate.validate` setting.
 
 To validate HTML in markdown code fences use the [html-validate-markdown][npm:html-validate-markdown] plugin:
 
-    npm install --save-dev html-validate html-validate-markdown
+```bash
+npm install --save-dev html-validate html-validate-markdown
+```
 
 Configure with:
 
@@ -79,7 +83,9 @@ See plugin for additional instructions and configuration.
 
 To validate template in Vue SFC use the [html-validate-vue][npm:html-validate-vue] plugin:
 
-    npm install --save-dev html-validate html-validate-vue
+```bash
+npm install --save-dev html-validate html-validate-vue
+```
 
 Configure with:
 
