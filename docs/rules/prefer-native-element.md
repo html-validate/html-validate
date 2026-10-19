@@ -32,7 +32,7 @@ Table of equivalent elements:
 | heading       | h1, h2, h3, h4, h5, h6 |
 | input         | input                  |
 | link          | a                      |
-| list          | ul, ol                 |
+| list          | ul, ol, menu           |
 | listbox       | select                 |
 | listitem      | li                     |
 | main          | main                   |
@@ -42,6 +42,9 @@ Table of equivalent elements:
 | region        | section                |
 | table         | table                  |
 | textbox       | textarea               |
+
+This rule ignores elements where the role matches the implicit role of the element, such as `<ol role="list">`.
+Use {@link rule:no-redundant-role `no-redundant-role`} to report such usage.
 
 ## Rule details
 
@@ -75,13 +78,24 @@ This rule takes an optional object:
 
 ### `mapping`
 
+- type: `Record<string, string | string[]>`
+
 Object with roles to map to native elements.
 This can be used to provide a custom map with roles and their replacement.
+The replacement is either a single element name or an array of element names, in which case any of them is accepted.
 
 ### `include`
+
+- type: `string[]`
 
 If set only roles listed in this array generates errors.
 
 ### `exclude`
 
+- type: `string[]`
+
 If set roles listed in this array is ignored.
+
+## Version history
+
+- %version% - Elements with a role matching their implicit role are no longer reported.

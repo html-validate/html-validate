@@ -21059,7 +21059,9 @@ exports[`HTML elements global attributes valid markup 1`] = `
       {
         "column": 4,
         "context": {
-          "replacement": "button",
+          "replacement": [
+            "button",
+          ],
           "role": "button",
         },
         "line": 121,

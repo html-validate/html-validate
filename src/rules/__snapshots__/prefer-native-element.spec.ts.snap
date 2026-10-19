@@ -82,7 +82,7 @@ error: Prefer to use the native <form> element (prefer-native-element)
   13 | <div role="input"></div>
   14 | <div role="link"></div>
 Selector: div:nth-child(10)
-error: Prefer to use the native <hN> element (prefer-native-element)
+error: Prefer to use the native <h1>, <h2>, <h3>, <h4>, <h5> or <h6> element (prefer-native-element)
   10 | <div role="figure"></div>
   11 | <div role="form"></div>
 > 12 | <div role="heading"></div>
@@ -109,7 +109,7 @@ error: Prefer to use the native <a> element (prefer-native-element)
   16 | <div role="listbox"></div>
   17 | <div role="listitem"></div>
 Selector: div:nth-child(13)
-error: Prefer to use the native <ul> element (prefer-native-element)
+error: Prefer to use the native <ul>, <ol> or <menu> element (prefer-native-element)
   13 | <div role="input"></div>
   14 | <div role="link"></div>
 > 15 | <div role="list"></div>
