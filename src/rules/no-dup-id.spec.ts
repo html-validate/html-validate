@@ -106,6 +106,20 @@ describe("rule no-dup-id", () => {
 		`);
 	});
 
+	it("should report first element with same id as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<p id="foo"></p>
+			<p id="foo"></p>
+			<p id="foo"></p>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages.map((it) => it.related)).toEqual([
+			[{ kind: "element", selector: "p:nth-child(1)" }],
+			[{ kind: "element", selector: "p:nth-child(1)" }],
+		]);
+	});
+
 	it("smoketest", async () => {
 		expect.assertions(1);
 		const report = await htmlvalidate.validateFile("test-files/rules/no-dup-id.html");

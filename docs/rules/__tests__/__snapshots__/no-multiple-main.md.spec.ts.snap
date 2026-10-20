@@ -15,7 +15,12 @@ exports[`docs/rules/no-multiple-main.md inline validation: incorrect 1`] = `
         "line": 2,
         "message": "Multiple <main> elements present in document",
         "offset": 18,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "main:nth-child(1)",
+          },
+        ],
         "ruleId": "no-multiple-main",
         "ruleUrl": "https://html-validate.org/rules/no-multiple-main.html",
         "selector": "main:nth-child(2)",

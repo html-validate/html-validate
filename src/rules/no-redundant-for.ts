@@ -41,6 +41,7 @@ export default class NoRedundantFor extends Rule {
 				node: target,
 				message: 'Redundant "for" attribute',
 				location: attr.keyLocation,
+				related: [{ kind: "element", node: control }],
 				suggestions: [
 					{
 						message: 'Remove "for" attribute',

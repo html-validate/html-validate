@@ -476,6 +476,13 @@ describe("rule input-missing-label", () => {
 		`);
 	});
 
+	it("should report input as related when label has no text", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<label for="foo"></label><input id="foo" />`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#foo" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

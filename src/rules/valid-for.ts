@@ -47,6 +47,7 @@ export default class ValidFor extends Rule {
 					node,
 					message: '<label> "for" attribute must reference a labelable form control',
 					location: attr.valueLocation,
+					related: [{ kind: "element", node: target }],
 				});
 			}
 		});

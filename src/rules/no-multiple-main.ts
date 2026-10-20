@@ -17,13 +17,14 @@ export default class NoMultipleMain extends Rule {
 		this.on("dom:ready", (event: DOMReadyEvent) => {
 			const { document } = event;
 			const main = document.querySelectorAll("main").filter((cur) => !cur.hasAttribute("hidden"));
-			main.shift(); /* ignore the first occurrence */
+			const first = main.shift(); /* ignore the first occurrence */
 
 			/* report all other occurrences */
 			for (const elem of main) {
 				this.report({
 					node: elem,
 					message: "Multiple <main> elements present in document",
+					related: [{ kind: "element", node: first ?? null }],
 				});
 			}
 		});

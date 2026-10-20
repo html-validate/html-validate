@@ -267,6 +267,14 @@ describe("rule valid-for", () => {
 		`);
 	});
 
+	it("should report referenced element as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<label for="foo"></label>
+			<p id="foo"></p>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#foo" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const context = { id: "foo", tagName: "div" };

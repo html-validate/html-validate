@@ -85,7 +85,12 @@ exports[`regression tests test-files/issues/issue-299/input-label.html 1`] = `
         "line": 1,
         "message": "Redundant "for" attribute",
         "offset": 7,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "#foo\\,-bar",
+          },
+        ],
         "ruleId": "no-redundant-for",
         "ruleUrl": "https://html-validate.org/rules/no-redundant-for.html",
         "selector": "label",

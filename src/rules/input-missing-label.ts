@@ -96,6 +96,7 @@ export default class InputMissingLabel extends Rule {
 			this.report({
 				node: labels[0],
 				message: `<${elem.tagName}> element has <label> but <label> element is hidden`,
+				related: [{ kind: "element", node: elem }],
 			});
 			return;
 		}
@@ -103,6 +104,7 @@ export default class InputMissingLabel extends Rule {
 			this.report({
 				node: labels[0],
 				message: `<${elem.tagName}> element has <label> but <label> has no text`,
+				related: [{ kind: "element", node: elem }],
 			});
 		}
 	}

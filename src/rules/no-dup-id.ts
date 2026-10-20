@@ -7,7 +7,7 @@ const CACHE_KEY = Symbol("no-dup-id");
 
 declare module "../dom/cache" {
 	export interface DOMNodeCache {
-		[CACHE_KEY]: Set<string>;
+		[CACHE_KEY]: Map<string, HtmlElement>;
 	}
 }
 
@@ -93,27 +93,29 @@ export default class NoDupID extends Rule<void, RuleOptions> {
 
 				const existing = useRootExisting ? rootExisting : getExisting(el, document.root);
 
-				if (existing.has(id)) {
+				const first = existing.get(id);
+				if (first) {
 					this.report({
 						node: el,
 						message: `Duplicate ID "${id}"`,
 						location: attr.valueLocation,
+						related: [{ kind: "element", node: first }],
 					});
 					continue;
 				}
 
-				existing.add(id);
+				existing.set(id, el);
 			}
 		});
 	}
 }
 
-function getExisting(element: HtmlElement, root: HtmlElement): Set<string> {
+function getExisting(element: HtmlElement, root: HtmlElement): Map<string, HtmlElement> {
 	const group = element.closest("template") ?? root;
 	const existing = group.cacheGet(CACHE_KEY);
 	if (existing) {
 		return existing;
 	}
-	const value = new Set<string>();
+	const value = new Map<string, HtmlElement>();
 	return group.cacheSet(CACHE_KEY, value);
 }

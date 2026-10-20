@@ -52,6 +52,15 @@ describe("rule prefer-tbody", () => {
 		`);
 	});
 
+	it("should report table as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<table id="tbl">
+			<tr></tr>
+		</table>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#tbl" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

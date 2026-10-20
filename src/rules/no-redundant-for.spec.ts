@@ -144,6 +144,13 @@ describe("rule no-redundant-for", () => {
 		`);
 	});
 
+	it("should report wrapped control as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<label for="foo"><input id="foo" /></label>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#foo" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		const context = undefined;

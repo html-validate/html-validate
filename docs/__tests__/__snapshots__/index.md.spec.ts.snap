@@ -120,7 +120,12 @@ exports[`docs/index.md inline validation: frontpage-contentmodel 1`] = `
         "line": 4,
         "message": "Element <legend> must be used before <p> in this context",
         "offset": 65,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "footer > fieldset > p",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "footer > fieldset > legend",

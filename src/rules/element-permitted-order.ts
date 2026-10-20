@@ -32,6 +32,7 @@ export default class ElementPermittedOrder extends Rule {
 						this.report({
 							node: child,
 							message: `Element <${child.tagName}> must be used before <${prev.tagName}> in this context`,
+							related: [{ kind: "element", node: prev }],
 						});
 					},
 				);
