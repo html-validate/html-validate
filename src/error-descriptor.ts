@@ -15,7 +15,7 @@ export interface ErrorDescriptor<ContextType> {
 	 * Secondary elements related to this error.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.17.0
 	 */
 	readonly related?:
 		ReadonlyArray<{ readonly kind: "element"; readonly node: DOMNode | null }> | null | undefined;

@@ -215,7 +215,7 @@ export class HtmlElement extends DOMNode {
 	 * Alias of {@link DOMNode.location}.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.17.0
 	 */
 	public get startTagLocation(): Location {
 		return this.location;
@@ -228,7 +228,7 @@ export class HtmlElement extends DOMNode {
 	 * self-closed elements and elements closed implicitly.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.17.0
 	 */
 	public get endTagLocation(): Location | null {
 		return this._endTagLocation;

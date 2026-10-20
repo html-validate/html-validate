@@ -74,7 +74,7 @@ export interface ErrorFixer {
 	 * Results in `<span></span>`.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.17.0
 	 * @see https://html-validate.org/api/error-fixer.html#renametag-method
 	 * @param element - The element to rename.
 	 * @param newName - The new tag name.

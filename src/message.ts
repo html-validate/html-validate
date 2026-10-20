@@ -4,7 +4,7 @@ import { type Autofix } from "./autofix";
  * An element related to a reported message.
  *
  * @public
- * @since %version%
+ * @since 11.17.0
  */
 export interface MessageRelatedElement {
 	/** Discriminator */
@@ -18,7 +18,7 @@ export interface MessageRelatedElement {
  * Secondary information related to a reported message.
  *
  * @public
- * @since %version%
+ * @since 11.17.0
  */
 export type MessageRelated = MessageRelatedElement;
 
@@ -60,7 +60,7 @@ export interface Message {
 	 * report any.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.17.0
 	 */
 	readonly related: readonly MessageRelated[];
 

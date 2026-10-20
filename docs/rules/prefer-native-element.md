@@ -98,4 +98,4 @@ If set roles listed in this array is ignored.
 
 ## Version history
 
-- %version% - Elements with a role matching their implicit role are no longer reported.
+- 11.17.0 - Elements with a role matching their implicit role are no longer reported.

@@ -1,5 +1,26 @@
 # html-validate changelog
 
+## 11.17.0 (2026-10-20)
+
+### Features
+
+- **api:** add `ErrorFixer.renameTag()` ([68a3454](https://gitlab.com/html-validate/html-validate/commit/68a3454caa9f0c90262d9e63dc6fb27da119f79a))
+- **api:** add `related` to `Message` for secondary elements ([9d76007](https://gitlab.com/html-validate/html-validate/commit/9d760073aa67424559cb6225c97479ec3915dbee))
+- **dom:** add `HtmlElement.startTagLocation` and `endTagLocation` ([1fae6dc](https://gitlab.com/html-validate/html-validate/commit/1fae6dcf985040eb43708b010150f2bd1c7b18c6))
+- **rules:** suggest multiple elements in prefer-native-element ([829addd](https://gitlab.com/html-validate/html-validate/commit/829addd7740abee3e08ebff2c8a9e809f5ebad13))
+
+### Bug Fixes
+
+- **dom:** handle quoted strings and whitespace in selector combinators ([a23ffa2](https://gitlab.com/html-validate/html-validate/commit/a23ffa22e1c50c1c6dfba834de813ab38c4671d2)), closes [#355](https://gitlab.com/html-validate/html-validate/issues/355)
+- **lexer:** match `</script>` end tag case-insensitively ([6b93d63](https://gitlab.com/html-validate/html-validate/commit/6b93d63a9f7f91065930ad5d72dabf3194842b7c)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **lexer:** match `</style>` end tag case-insensitively ([c6e5ee7](https://gitlab.com/html-validate/html-validate/commit/c6e5ee72b170194e15a5fc58f8631fe4be6b1f69)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **lexer:** match `</textarea>` end tag case-insensitively ([6c75f7a](https://gitlab.com/html-validate/html-validate/commit/6c75f7aca5e4bab051e49b5f4c3fd3f570e72e12)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **lexer:** match `</title>` end tag case-insensitively ([49ef906](https://gitlab.com/html-validate/html-validate/commit/49ef90652b62f2c53b437373ad9fe5b566c03ab7)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **lexer:** match `script`, `style`, `textarea` and `title` start tags case-insensitively ([f4fffd1](https://gitlab.com/html-validate/html-validate/commit/f4fffd12f1cbf5e561d5b865b122f306c0b8ce90)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **parser:** match html end tags case-insensitively ([ededae8](https://gitlab.com/html-validate/html-validate/commit/ededae8b53fc99f940846e13e362aec24a81c0a7)), closes [#374](https://gitlab.com/html-validate/html-validate/issues/374)
+- **parser:** match retained svg `desc` and `title` end tags case-insensitively ([337d006](https://gitlab.com/html-validate/html-validate/commit/337d00619d724c6d7030719215d0431a6a4f4f74)), closes [#375](https://gitlab.com/html-validate/html-validate/issues/375)
+- **rules:** ignore role matching implicit role in `prefer-native-element` ([c7d51af](https://gitlab.com/html-validate/html-validate/commit/c7d51af3c97b2681ee68c9de2b287f29bf692efd)), closes [#373](https://gitlab.com/html-validate/html-validate/issues/373)
+
 ## 11.16.4 (2026-10-18)
 
 ### Bug Fixes
