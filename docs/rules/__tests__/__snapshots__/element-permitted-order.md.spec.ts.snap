@@ -15,7 +15,12 @@ exports[`docs/rules/element-permitted-order.md inline validation: incorrect 1`] 
         "line": 4,
         "message": "Element <caption> must be used before <thead> in this context",
         "offset": 78,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table > thead",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table > caption",

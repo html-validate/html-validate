@@ -15,7 +15,12 @@ exports[`docs/rules/no-dup-id.md inline validation: incorrect 1`] = `
         "line": 2,
         "message": "Duplicate ID "foo"",
         "offset": 30,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "div:nth-child(1)",
+          },
+        ],
         "ruleId": "no-dup-id",
         "ruleUrl": "https://html-validate.org/rules/no-dup-id.html",
         "selector": "div:nth-child(2)",

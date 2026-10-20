@@ -158,6 +158,18 @@ describe("rule element-permitted-order", () => {
 		`);
 	});
 
+	it("should report previous element as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<table>
+				<tbody id="body"></tbody>
+				<thead></thead>
+			</table>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#body" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

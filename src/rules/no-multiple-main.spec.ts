@@ -57,6 +57,16 @@ describe("rule no-multiple-main", () => {
 		`);
 	});
 
+	it("should report first main as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `<main id="first"></main>
+			<main></main>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([
+			{ kind: "element", selector: "#first" },
+		]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */

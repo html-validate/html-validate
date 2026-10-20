@@ -22,6 +22,7 @@ export default class PreferTbody extends Rule {
 					this.report({
 						node: tr[0],
 						message: "Prefer to wrap <tr> elements in <tbody>",
+						related: [{ kind: "element", node: table }],
 					});
 				}
 			}

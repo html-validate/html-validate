@@ -95,6 +95,16 @@ describe("rule no-redundant-aria-label", () => {
 		`);
 	});
 
+	it("should report label as related", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<label for="foo" id="lbl">Foo</label>
+			<input id="foo" aria-label="Foo" />
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report.results[0].messages[0].related).toEqual([{ kind: "element", selector: "#lbl" }]);
+	});
+
 	it("should contain documentation", async () => {
 		expect.assertions(1);
 		htmlvalidate = new HtmlValidate({

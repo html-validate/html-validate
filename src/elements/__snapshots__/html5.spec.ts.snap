@@ -1713,7 +1713,12 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "line": 13,
         "message": "Element <source> must be used before <div> in this context",
         "offset": 259,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "audio:nth-child(3) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "audio:nth-child(3) > source",
@@ -1766,7 +1771,12 @@ exports[`HTML elements <audio> invalid markup 1`] = `
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
         "offset": 309,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "audio:nth-child(4) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "audio:nth-child(4) > track",
@@ -3177,7 +3187,12 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
         "line": 16,
         "message": "Element <caption> must be used before <colgroup> in this context",
         "offset": 290,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(3) > colgroup",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table:nth-child(3) > caption",
@@ -3189,7 +3204,12 @@ exports[`HTML elements <colgroup> invalid markup 1`] = `
         "line": 22,
         "message": "Element <colgroup> must be used before <thead> in this context",
         "offset": 400,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(4) > thead",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table:nth-child(4) > colgroup",
@@ -3496,7 +3516,12 @@ exports[`HTML elements <details> invalid markup 1`] = `
         "line": 4,
         "message": "Element <summary> must be used before <div> in this context",
         "offset": 62,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "details:nth-child(1) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "details:nth-child(1) > summary",
@@ -4212,7 +4237,12 @@ exports[`HTML elements <fieldset> invalid markup 1`] = `
         "line": 8,
         "message": "Element <legend> must be used before <div> in this context",
         "offset": 144,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "fieldset:nth-child(2) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "fieldset:nth-child(2) > legend",
@@ -5827,7 +5857,12 @@ exports[`HTML elements <html> invalid markup 1`] = `
         "line": 36,
         "message": "Element <head> must be used before <body> in this context",
         "offset": 534,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "html:nth-child(5) > body",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "html:nth-child(5) > head",
@@ -13772,7 +13807,12 @@ exports[`HTML elements <input> invalid markup 1`] = `
         "line": 451,
         "message": "<label> "for" attribute must reference a labelable form control",
         "offset": 16557,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "#hidden-field",
+          },
+        ],
         "ruleId": "valid-for",
         "ruleUrl": "https://html-validate.org/rules/valid-for.html",
         "selector": "label",
@@ -16341,7 +16381,12 @@ exports[`HTML elements <object> invalid markup 1`] = `
         "line": 15,
         "message": "Element <param> must be used before <div> in this context",
         "offset": 264,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "object:nth-child(4) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "object:nth-child(4) > param",
@@ -16854,7 +16899,12 @@ exports[`HTML elements <picture> invalid markup 1`] = `
         "line": 4,
         "message": "Element <source> must be used before <img> in this context",
         "offset": 78,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "picture:nth-child(1) > img",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "picture:nth-child(1) > source",
@@ -17822,7 +17872,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "line": 26,
         "message": "Element <button> must be used before <option> in this context",
         "offset": 589,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "select:nth-child(7) > option",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "select:nth-child(7) > button",
@@ -17834,7 +17889,12 @@ exports[`HTML elements <select> invalid markup 1`] = `
         "line": 30,
         "message": "Element <button> must be used before <hr> in this context",
         "offset": 668,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "select:nth-child(8) > hr",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "select:nth-child(8) > button",
@@ -18922,7 +18982,12 @@ exports[`HTML elements <table> invalid markup 1`] = `
         "line": 24,
         "message": "Element <caption> must be used before <thead> in this context",
         "offset": 370,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(5) > thead",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table:nth-child(5) > caption",
@@ -18934,7 +18999,12 @@ exports[`HTML elements <table> invalid markup 1`] = `
         "line": 28,
         "message": "Element <thead> must be used before <tbody> in this context",
         "offset": 428,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(6) > tbody",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table:nth-child(6) > thead",
@@ -18946,7 +19016,12 @@ exports[`HTML elements <table> invalid markup 1`] = `
         "line": 32,
         "message": "Element <tbody> must be used before <tfoot> in this context",
         "offset": 479,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(7) > tfoot",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "table:nth-child(7) > tbody",
@@ -18958,7 +19033,12 @@ exports[`HTML elements <table> invalid markup 1`] = `
         "line": 37,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 561,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(8)",
+          },
+        ],
         "ruleId": "prefer-tbody",
         "ruleUrl": "https://html-validate.org/rules/prefer-tbody.html",
         "selector": "table:nth-child(8) > tr",
@@ -20555,7 +20635,12 @@ exports[`HTML elements <tr> invalid markup 1`] = `
         "line": 13,
         "message": "Prefer to wrap <tr> elements in <tbody>",
         "offset": 184,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "table:nth-child(2)",
+          },
+        ],
         "ruleId": "prefer-tbody",
         "ruleUrl": "https://html-validate.org/rules/prefer-tbody.html",
         "selector": "table:nth-child(2) > tr",
@@ -20893,7 +20978,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "line": 13,
         "message": "Element <source> must be used before <div> in this context",
         "offset": 259,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "video:nth-child(3) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "video:nth-child(3) > source",
@@ -20930,7 +21020,12 @@ exports[`HTML elements <video> invalid markup 1`] = `
         "line": 17,
         "message": "Element <track> must be used before <div> in this context",
         "offset": 309,
-        "related": [],
+        "related": [
+          {
+            "kind": "element",
+            "selector": "video:nth-child(4) > div",
+          },
+        ],
         "ruleId": "element-permitted-order",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-order.html",
         "selector": "video:nth-child(4) > track",
