@@ -2808,7 +2808,7 @@ exports[`HTML elements <button> valid markup 1`] = `[]`;
 exports[`HTML elements <canvas> invalid markup 1`] = `
 [
   {
-    "errorCount": 1,
+    "errorCount": 5,
     "filePath": "test-files/elements/canvas-invalid.html",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
@@ -2827,6 +2827,106 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
         "ruleId": "element-permitted-content",
         "ruleUrl": "https://html-validate.org/rules/element-permitted-content.html",
         "selector": "span > canvas > div",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "height",
+          "element": "canvas",
+          "value": "",
+        },
+        "line": 5,
+        "message": "Attribute "height" has invalid value """,
+        "offset": 126,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(2)",
+        "severity": 2,
+        "size": 6,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "height",
+          "element": "canvas",
+          "value": "foo",
+        },
+        "line": 6,
+        "message": "Attribute "height" has invalid value "foo"",
+        "offset": 162,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(3)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "height",
+          "element": "canvas",
+          "value": "-1",
+        },
+        "line": 7,
+        "message": "Attribute "height" has invalid value "-1"",
+        "offset": 193,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(4)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 17,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "height",
+          "element": "canvas",
+          "value": "1.5",
+        },
+        "line": 8,
+        "message": "Attribute "height" has invalid value "1.5"",
+        "offset": 223,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(5)",
         "severity": 2,
         "size": 3,
       },
