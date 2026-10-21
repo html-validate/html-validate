@@ -2808,7 +2808,7 @@ exports[`HTML elements <button> valid markup 1`] = `[]`;
 exports[`HTML elements <canvas> invalid markup 1`] = `
 [
   {
-    "errorCount": 5,
+    "errorCount": 9,
     "filePath": "test-files/elements/canvas-invalid.html",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
@@ -2927,6 +2927,106 @@ exports[`HTML elements <canvas> invalid markup 1`] = `
         "ruleId": "attribute-allowed-values",
         "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
         "selector": "canvas:nth-child(5)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 9,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "width",
+          "element": "canvas",
+          "value": "",
+        },
+        "line": 11,
+        "message": "Attribute "width" has invalid value """,
+        "offset": 287,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(6)",
+        "severity": 2,
+        "size": 5,
+      },
+      {
+        "column": 16,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "width",
+          "element": "canvas",
+          "value": "foo",
+        },
+        "line": 12,
+        "message": "Attribute "width" has invalid value "foo"",
+        "offset": 321,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(7)",
+        "severity": 2,
+        "size": 3,
+      },
+      {
+        "column": 16,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "width",
+          "element": "canvas",
+          "value": "-1",
+        },
+        "line": 13,
+        "message": "Attribute "width" has invalid value "-1"",
+        "offset": 351,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(8)",
+        "severity": 2,
+        "size": 2,
+      },
+      {
+        "column": 16,
+        "context": {
+          "allowed": {
+            "enum": [
+              {
+                "name": "a positive integer",
+                "pattern": /\\^\\\\d\\+\\$/,
+              },
+            ],
+          },
+          "attribute": "width",
+          "element": "canvas",
+          "value": "1.5",
+        },
+        "line": 14,
+        "message": "Attribute "width" has invalid value "1.5"",
+        "offset": 380,
+        "related": [],
+        "ruleId": "attribute-allowed-values",
+        "ruleUrl": "https://html-validate.org/rules/attribute-allowed-values.html",
+        "selector": "canvas:nth-child(9)",
         "severity": 2,
         "size": 3,
       },

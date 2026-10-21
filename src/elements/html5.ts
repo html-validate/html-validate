@@ -921,6 +921,9 @@ export default {
 			height: {
 				enum: [validPositiveInteger],
 			},
+			width: {
+				enum: [validPositiveInteger],
+			},
 		},
 	},
 
