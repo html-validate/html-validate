@@ -917,6 +917,14 @@ export default {
 		phrasing: true,
 		embedded: true,
 		transparent: true,
+		attributes: {
+			height: {
+				enum: [validPositiveInteger],
+			},
+			width: {
+				enum: [validPositiveInteger],
+			},
+		},
 	},
 
 	/* https://html.spec.whatwg.org/multipage/tables.html#the-caption-element */

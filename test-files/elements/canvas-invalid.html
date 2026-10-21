@@ -1,2 +1,14 @@
 <!-- should be transparent -->
 <span><canvas><div>foo</div></canvas></span>
+
+<!-- should not allow invalid height -->
+<canvas height=""></canvas>
+<canvas height="foo"></canvas>
+<canvas height="-1"></canvas>
+<canvas height="1.5"></canvas>
+
+<!-- should not allow invalid width -->
+<canvas width=""></canvas>
+<canvas width="foo"></canvas>
+<canvas width="-1"></canvas>
+<canvas width="1.5"></canvas>
