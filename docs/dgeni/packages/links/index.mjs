@@ -9,7 +9,6 @@ const { Package } = Dgeni;
 /**
  * @dgPackage links
  */
-/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default new Package("links", [jsdocPackage])
 
 	.factory(linkInlineTagDef)

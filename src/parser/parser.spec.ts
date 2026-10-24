@@ -72,6 +72,7 @@ function mergeEvent(event: string, data: any): any {
 	const merged = { event, ...data };
 
 	/* legacy: not useful for these tests */
+	/* eslint-disable-next-line unicorn/prefer-includes-over-repeated-comparisons -- technical debt */
 	if (event !== "attr" && event !== "directive" && event !== "parse:error") {
 		delete merged.location;
 	}

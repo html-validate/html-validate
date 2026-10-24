@@ -22,7 +22,6 @@ import tagDefs from "./tag-defs/index.mjs";
 const { Package } = Dgeni;
 const packagePath = import.meta.dirname;
 
-/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default new Package("html-validate-docs", [
 	dgeniMatter,
 	examplePackage,

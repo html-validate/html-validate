@@ -300,23 +300,23 @@ export class Reporter {
 }
 
 function countErrors(messages: Array<Message | DeferredMessage>): number {
-	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
-	return messages.filter((m) => m.severity === Number(Severity.ERROR)).length;
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- technical debt */
+	return messages.filter((m) => m.severity === Severity.ERROR).length;
 }
 
 function countFixableErrors(messages: Array<Message | DeferredMessage>): number {
-	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
-	return messages.filter((m) => m.fix && m.severity === Number(Severity.ERROR)).length;
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- technical debt */
+	return messages.filter((m) => m.fix && m.severity === Severity.ERROR).length;
 }
 
 function countWarnings(messages: Array<Message | DeferredMessage>): number {
-	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
-	return messages.filter((m) => m.severity === Number(Severity.WARN)).length;
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- technical debt */
+	return messages.filter((m) => m.severity === Severity.WARN).length;
 }
 
 function countFixableWarnings(messages: Array<Message | DeferredMessage>): number {
-	/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- technical debt */
-	return messages.filter((m) => m.fix && m.severity === Number(Severity.WARN)).length;
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- technical debt */
+	return messages.filter((m) => m.fix && m.severity === Severity.WARN).length;
 }
 
 function sumErrors(results: Result[]): number {
