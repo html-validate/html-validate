@@ -951,7 +951,9 @@ export class Parser {
 			const token = it.value;
 			this.trigger("token", {
 				location: token.location,
+				/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 				type: token.type,
+				/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
 				data: Array.from(token.data),
 				token,
 			});

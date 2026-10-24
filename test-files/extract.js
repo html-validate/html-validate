@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-top-level-side-effects -- to simplify test fixture */
-
 angular.module("foo").component("bar", {
 	template: "<p>foo</i>",
 });

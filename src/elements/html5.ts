@@ -114,7 +114,6 @@ function linkBodyOk(node: HtmlElementLike): boolean {
 	return tokens.some((keyword) => bodyOk.has(keyword));
 }
 
-/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default {
 	/* https://html.spec.whatwg.org/multipage/dom.html#global-attributes */
 	"*": {

@@ -4,8 +4,6 @@ import { type Formatter, type Report, type Result, UserError, formatterFactory }
 import { ensureError } from "../error";
 import { legacyRequire } from "../resolve";
 
-type WrappedFormatter = (results: Result[]) => string;
-
 function getFileDescriptor(filePath: string): number | undefined {
 	const { dir, base } = path.parse(filePath);
 	if (dir !== "/dev/fd") {
@@ -59,6 +57,7 @@ function loadFormatter(name: string): Formatter {
 }
 
 export function getFormatter(formatters: string): (report: Report) => string {
+	type WrappedFormatter = (results: Result[]) => string;
 	const fn: WrappedFormatter[] = formatters.split(",").map((cur) => {
 		const [name, dst] = cur.split("=", 2);
 		const fn = loadFormatter(name);

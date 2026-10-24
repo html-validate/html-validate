@@ -25,7 +25,6 @@ const { Package } = Dgeni;
  * @dgPackage base
  * @description Defines minimal set of processors to get started with Dgeni
  */
-/* eslint-disable-next-line unicorn/no-top-level-side-effects -- false positive */
 export default new Package("base")
 
 	// A set of pseudo processors that act as markers to help position real processors at the right
