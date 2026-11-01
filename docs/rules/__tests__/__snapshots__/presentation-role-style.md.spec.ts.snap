@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`docs/rules/presentation-role-style.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/presentation-role-style.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
+    "messages": [
+      {
+        "column": 12,
+        "context": {
+          "prefer": "none",
+          "used": "presentation",
+        },
+        "fix": [Function],
+        "line": 1,
+        "message": "Prefer to use role="none" instead of role="presentation"",
+        "offset": 11,
+        "related": [],
+        "ruleId": "presentation-role-style",
+        "ruleUrl": "https://html-validate.org/rules/presentation-role-style.html",
+        "selector": "img",
+        "severity": 2,
+        "size": 12,
+      },
+    ],
+    "source": "<img role="presentation" />",
+    "warningCount": 0,
+  },
+]
+`;

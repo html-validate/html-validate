@@ -84,6 +84,12 @@ exports[`should match results: test-files/config/cjs-config/file.html config 1`]
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -209,6 +215,12 @@ exports[`should match results: test-files/config/directive/disable.html config 1
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -379,6 +391,12 @@ exports[`should match results: test-files/config/directive/disable-block.html co
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -586,6 +604,12 @@ exports[`should match results: test-files/config/directive/disable-multiple.html
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -758,6 +782,12 @@ exports[`should match results: test-files/config/directive/disable-next.html con
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -929,6 +959,12 @@ exports[`should match results: test-files/config/elements/file.html config 1`] =
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1252,6 +1288,12 @@ exports[`should match results: test-files/config/file.html config 1`] = `
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1403,6 +1445,12 @@ exports[`should match results: test-files/config/js-config/file.html config 1`] 
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1551,6 +1599,12 @@ exports[`should match results: test-files/config/mjs-config/file.html config 1`]
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1676,6 +1730,12 @@ exports[`should match results: test-files/config/off/error/file.html config 1`] 
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1827,6 +1887,12 @@ exports[`should match results: test-files/config/off/file.html config 1`] = `
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",
@@ -1952,6 +2018,12 @@ exports[`should match results: test-files/config/warn/file.html config 1`] = `
     "prefer-button": "error",
     "prefer-native-element": "error",
     "prefer-tbody": "error",
+    "presentation-role-style": [
+      "error",
+      {
+        "prefer": "none",
+      },
+    ],
     "script-element": "error",
     "script-type": "error",
     "svg-focusable": "off",

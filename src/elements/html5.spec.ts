@@ -47,6 +47,9 @@ const htmlvalidate = new HtmlValidate({
 		 * yield any errors */
 		"prefer-button": "off",
 
+		/* the global attributes fixture uses fallback roles to test the role attribute */
+		"presentation-role-style": "off",
+
 		/* disabled by default, should be included in these tests */
 		"svg-focusable": "error",
 
