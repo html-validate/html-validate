@@ -58,4 +58,4 @@ Sets the prefered role to use.
 
 ## Version history
 
-- %version% - Rule added.
+- 11.18.0 - Rule added.

@@ -1,5 +1,18 @@
 # html-validate changelog
 
+## 11.18.0 (2026-11-01)
+
+### Features
+
+- **rules:** new rule `presentation-role-style` ([7ccb59e](https://gitlab.com/html-validate/html-validate/commit/7ccb59ea882c5ebe0590dabe96532797cd69b28e)), closes [#233](https://gitlab.com/html-validate/html-validate/issues/233)
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.13 ([bfdcf98](https://gitlab.com/html-validate/html-validate/commit/bfdcf98d701afa5dd5bd9207da8c3d23a0fab936))
+- **deps:** update dependency ignore to v7.0.14 ([f5c35f5](https://gitlab.com/html-validate/html-validate/commit/f5c35f5c436464610b507c1f90ab033d84bd33d2))
+- **html5:** validate `height` attribute on `<canvas>` ([79f51ea](https://gitlab.com/html-validate/html-validate/commit/79f51ead3efec4856dd72b7a04701cf86cb46d55)), closes [#336](https://gitlab.com/html-validate/html-validate/issues/336)
+- **html5:** validate `width` attribute on `<canvas>` ([c8d7251](https://gitlab.com/html-validate/html-validate/commit/c8d725113b8a54115bc78ef21a5279397822083f)), closes [#336](https://gitlab.com/html-validate/html-validate/issues/336)
+
 ## 11.17.0 (2026-10-20)
 
 ### Features
