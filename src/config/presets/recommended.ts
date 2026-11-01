@@ -64,6 +64,7 @@ const config = {
 		"prefer-button": "error",
 		"prefer-native-element": "error",
 		"prefer-tbody": "error",
+		"presentation-role-style": ["error", { prefer: "none" }],
 		"script-element": "error",
 		"script-type": "error",
 		"svg-focusable": "off",

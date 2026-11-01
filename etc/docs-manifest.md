@@ -116,6 +116,7 @@ rules/parser-error.html
 rules/prefer-button.html
 rules/prefer-native-element.html
 rules/prefer-tbody.html
+rules/presentation-role-style.html
 rules/presets.html
 rules/require-csp-nonce.html
 rules/require-sri.html
