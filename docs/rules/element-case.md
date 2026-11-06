@@ -32,13 +32,19 @@ When using styles such as `pascalcase` the start and end tag must have matching 
 <FooBar>...</Foobar>
 ```
 
+### Foreign content
+
+By default, the configured style is not checked for foreign elements, such as SVG and MathML, or their descendants.
+Start and end tags must still have matching case.
+
 ## Options
 
 This rule takes an optional object:
 
 ```json
 {
-  "style": "lowercase"
+  "style": "lowercase",
+  "ignoreForeign": true
 }
 ```
 
@@ -59,3 +65,16 @@ For instance, when configured with `{"style": ["lowercase", "pascalcase"]}` elem
 <FooBar></FooBar>
 <fooBar></fooBar>
 ```
+
+### `ignoreForeign`
+
+- type: `boolean`
+- default: `true`
+
+Set to `false` to check the configured style for foreign elements and their descendants.
+Start and end tag casing must match regardless of this option.
+
+## Version history
+
+- %version% - Add `ignoreForeign` option to skip style checks for foreign elements and their descendants by default.
+- 11.10.0 - Rule autofixable
