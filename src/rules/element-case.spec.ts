@@ -110,6 +110,22 @@ describe("rule element-case", () => {
 			expect(report).toBeValid();
 		});
 
+		it("should not report implicitly opened elements", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "uppercase" }] },
+			});
+			const markup = `
+				<HTML>
+					<TITLE></TITLE>
+					<P></P>
+				</HTML>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeValid();
+		});
+
 		it("should report error when element is mixed", async () => {
 			expect.assertions(2);
 			const markup = /* HTML */ ` <fOo></fOo> `;
