@@ -2,6 +2,7 @@ import { type HtmlElement } from "../dom";
 import { type TagEndEvent, type TagStartEvent } from "../event";
 import { type Location, sliceLocation } from "../location";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
+import { isForeign } from "./helper";
 import { type CaseStyleName, CaseStyle } from "./helper/case-style";
 
 interface RuleOptions {
@@ -70,7 +71,7 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	}
 
 	private validateCase(target: HtmlElement, targetLocation: Location): void {
-		if (target.implicit || (this.options.ignoreForeign && this.isForeign(target))) {
+		if (target.implicit || (this.options.ignoreForeign && isForeign(target))) {
 			return;
 		}
 		const location = sliceLocation(targetLocation, 1);
@@ -122,16 +123,5 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 				fixer.replaceText(location, startName);
 			},
 		});
-	}
-
-	private isForeign(node: HtmlElement): boolean {
-		let current: HtmlElement | null = node;
-		while (current) {
-			if (current.meta?.foreign) {
-				return true;
-			}
-			current = current.parent;
-		}
-		return false;
 	}
 }

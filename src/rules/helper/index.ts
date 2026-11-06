@@ -1,5 +1,6 @@
 export { ariaNaming } from "./aria-naming";
 export { findPatternAttribute } from "./find-pattern-attribute";
+export { isForeign } from "./is-foreign";
 export { isInputDisabled } from "./is-input-disabled";
 export {
 	type IncludeExcludeOptions,
