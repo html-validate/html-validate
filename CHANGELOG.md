@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 11.19.0 (2026-11-06)
+
+### Features
+
+- **rules:** improve autofix for `element-case` ([a032674](https://gitlab.com/html-validate/html-validate/commit/a032674909604c580b38ba205ff56b803266c439))
+- **rules:** new option `ignoreForeign` to `element-case` (default true) ([5e3ce87](https://gitlab.com/html-validate/html-validate/commit/5e3ce8725c9aac1c1b86163c354cf35bb335d53f))
+
+### Bug Fixes
+
+- **rules:** do not report `element-case` errors for implicit tags ([a8c730e](https://gitlab.com/html-validate/html-validate/commit/a8c730e7beea74a00b5095ba9f2450f6fce1b7ba))
+
 ## 11.18.0 (2026-11-01)
 
 ### Features

@@ -76,5 +76,5 @@ Start and end tag casing must match regardless of this option.
 
 ## Version history
 
-- %version% - Add `ignoreForeign` option to skip style checks for foreign elements and their descendants by default.
+- 11.19.0 - Add `ignoreForeign` option to skip style checks for foreign elements and their descendants by default.
 - 11.10.0 - Rule autofixable
