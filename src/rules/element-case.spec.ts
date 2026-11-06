@@ -5,6 +5,38 @@ import "html-validate/jest";
 describe("rule element-case", () => {
 	let htmlvalidate: HtmlValidate;
 
+	it("should not report implicitly opened elements", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": ["error", { style: "uppercase" }] },
+		});
+		const markup = `
+				<HTML>
+					<TITLE></TITLE>
+					<P></P>
+				</HTML>
+			`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should ignore foreign elements and their descendants", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": "error" },
+		});
+		const markup = /* HTML */ `
+			<svg>
+				<title>test</title>
+				<desc>text</desc>
+			</svg>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	describe('configured with "lowercase"', () => {
 		beforeAll(() => {
 			htmlvalidate = new HtmlValidate({
@@ -106,22 +138,6 @@ describe("rule element-case", () => {
 		it("should not report error when element is uppercase", async () => {
 			expect.assertions(1);
 			const markup = /* HTML */ ` <FOO></FOO> `;
-			const report = await htmlvalidate.validateString(markup);
-			expect(report).toBeValid();
-		});
-
-		it("should not report implicitly opened elements", async () => {
-			expect.assertions(2);
-			const htmlvalidate = new HtmlValidate({
-				root: true,
-				rules: { "element-case": ["error", { style: "uppercase" }] },
-			});
-			const markup = `
-				<HTML>
-					<TITLE></TITLE>
-					<P></P>
-				</HTML>
-			`;
 			const report = await htmlvalidate.validateString(markup);
 			expect(report).toBeValid();
 		});
@@ -237,7 +253,7 @@ describe("rule element-case", () => {
 		`);
 	});
 
-	it("should throw error if configured with invalid value", () => {
+	it("should throw error if configured with invalid style", () => {
 		expect.assertions(1);
 		const htmlvalidate = new HtmlValidate({
 			root: true,
@@ -248,9 +264,20 @@ describe("rule element-case", () => {
 		);
 	});
 
+	it("should throw error if configured with invalid ignoreForeign", () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": ["error", { ignoreForeign: "yes" }] },
+		});
+		expect(() => htmlvalidate.getConfigForSync("foo")).toThrow(
+			/ignoreForeign: type must be boolean/,
+		);
+	});
+
 	it("should report error if start and close tag have different case", async () => {
 		expect.assertions(2);
-		htmlvalidate = new HtmlValidate({
+		const htmlvalidate = new HtmlValidate({
 			root: true,
 			rules: { "element-case": ["error", { style: "camelcase" }] },
 		});
@@ -262,6 +289,75 @@ describe("rule element-case", () => {
 			> 1 |  <foo-Bar></foo-bar>
 			    |            ^^^^^^^^
 			Selector: foo-bar"
+		`);
+	});
+
+	it("should report differing case in foreign start and end tags", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": "error" },
+		});
+		const markup = /* HTML */ ` <svg></SVG> `;
+		const result = await htmlvalidate.validateString(markup);
+		expect(result).toMatchInlineCodeframe(`
+			"error: Start and end tag must not differ in casing (element-case)
+			> 1 |  <svg></SVG>
+			    |        ^^^^
+			Selector: svg"
+		`);
+	});
+
+	it("should ignore foreign style when ignoreForeign is explicitly true", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": ["error", { style: "uppercase", ignoreForeign: true }] },
+		});
+		const markup = /* HTML */ ` <svg><title>test</title></svg> `;
+		const result = await htmlvalidate.validateString(markup);
+		expect(result).toBeValid();
+	});
+
+	it("should validate foreign elements and descendants when ignoreForeign is false", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			rules: { "element-case": ["error", { style: "uppercase", ignoreForeign: false }] },
+		});
+		const markup = /* HTML */ `
+			<svg>
+				<title></title>
+				<desc></desc>
+			</svg>
+		`;
+		const result = await htmlvalidate.validateString(markup);
+		expect(result).toMatchInlineCodeframe(`
+			"error: Element "svg" should be uppercase (element-case)
+			  1 |
+			> 2 | 			<svg>
+			    | 			 ^^^
+			  3 | 				<title></title>
+			  4 | 				<desc></desc>
+			  5 | 			</svg>
+			Selector: svg
+			error: Element "title" should be uppercase (element-case)
+			  1 |
+			  2 | 			<svg>
+			> 3 | 				<title></title>
+			    | 				 ^^^^^
+			  4 | 				<desc></desc>
+			  5 | 			</svg>
+			  6 |
+			Selector: svg > svg:title
+			error: Element "desc" should be uppercase (element-case)
+			  2 | 			<svg>
+			  3 | 				<title></title>
+			> 4 | 				<desc></desc>
+			    | 				 ^^^^
+			  5 | 			</svg>
+			  6 |
+			Selector: svg > svg:desc"
 		`);
 	});
 
@@ -329,6 +425,66 @@ describe("rule element-case", () => {
 			const [message] = report.results[0].messages;
 			const result = await htmlvalidate.autofix(message.fix!);
 			expect(result).toBe("<foo-Bar></foo-Bar>");
+		});
+
+		it("should fix svg descendant casing", async () => {
+			expect.assertions(2);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "uppercase", ignoreForeign: false }] },
+			});
+			const markup = /* HTML */ `
+				<svg>
+					<title></title>
+					<desc></desc>
+				</svg>
+			`;
+			const report = await htmlvalidate.validateString(markup);
+			const [, title, desc] = report.results[0].messages;
+			expect(await htmlvalidate.autofix(title.fix!)).toMatchInlineSnapshot(`
+				"
+								<svg>
+									<TITLE></title>
+									<desc></desc>
+								</svg>
+							"
+			`);
+			expect(await htmlvalidate.autofix(desc.fix!)).toMatchInlineSnapshot(`
+				"
+								<svg>
+									<title></title>
+									<DESC></desc>
+								</svg>
+							"
+			`);
+		});
+
+		it("should fix svg descendant closing tag case using the source name", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": "error" },
+			});
+			const markup = /* RAW */ ` <svg><title></TITLE></svg> `;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(await htmlvalidate.autofix(message.fix!)).toMatchInlineSnapshot(
+				`" <svg><title></title></svg> "`,
+			);
+		});
+
+		it("should preserve namespace prefixes in diagnostics and fixes", async () => {
+			expect.assertions(1);
+			const htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "uppercase" }] },
+			});
+			const markup = /* HTML */ ` <foo:bar></foo:bar> `;
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(await htmlvalidate.autofix(message.fix!)).toMatchInlineSnapshot(
+				`" <FOO:BAR></foo:bar> "`,
+			);
 		});
 	});
 

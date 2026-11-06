@@ -6,10 +6,12 @@ import { type CaseStyleName, CaseStyle } from "./helper/case-style";
 
 interface RuleOptions {
 	style: CaseStyleName | CaseStyleName[];
+	ignoreForeign: boolean;
 }
 
 const defaults: RuleOptions = {
 	style: "lowercase",
+	ignoreForeign: true,
 };
 
 export default class ElementCase extends Rule<void, RuleOptions> {
@@ -25,6 +27,9 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	public static override schema(): SchemaObject {
 		const styleEnum = ["lowercase", "uppercase", "pascalcase", "camelcase"];
 		return {
+			ignoreForeign: {
+				type: "boolean",
+			},
 			style: {
 				anyOf: [
 					{
@@ -65,19 +70,20 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 	}
 
 	private validateCase(target: HtmlElement, targetLocation: Location): void {
-		if (target.implicit) {
-			return;
-		}
-		const letters = target.tagName.replaceAll(/[^a-z]+/gi, "");
-		if (this.style.match(letters)) {
+		if (target.implicit || (this.options.ignoreForeign && this.isForeign(target))) {
 			return;
 		}
 		const location = sliceLocation(targetLocation, 1);
+		const tagName = target.tagName.slice(-location.size);
+		const letters = tagName.replaceAll(/[^a-z]+/gi, "");
+		if (this.style.match(letters)) {
+			return;
+		}
 		this.report({
 			node: target,
-			message: `Element "${target.tagName}" should be ${this.style.name}`,
+			message: `Element "${tagName}" should be ${this.style.name}`,
 			location,
-			fix: this.style.createFixer(location, target.tagName),
+			fix: this.style.createFixer(location, tagName),
 		});
 	}
 
@@ -90,23 +96,36 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		/* only check case if the names are a lowercase match to each other or it
 		 * will yield false positives when elements are closed in wrong order or
 		 * otherwise mismatched */
-		if (start.tagName.toLowerCase() !== end.tagName.toLowerCase()) {
+		const location = sliceLocation(end.location, 1);
+		const startName = start.tagName.slice(-start.location.size);
+		const endName = end.tagName.slice(-location.size);
+		if (startName.toLowerCase() !== endName.toLowerCase()) {
 			return;
 		}
 
-		if (start.tagName === end.tagName) {
+		if (startName === endName) {
 			return;
 		}
 
 		/* end.location includes the leading "/" so strip it to target just the tag name */
-		const location = sliceLocation(end.location, 1);
 		this.report({
 			node: start,
 			message: "Start and end tag must not differ in casing",
 			location: end.location,
 			fix(fixer) {
-				fixer.replaceText(location, start.tagName);
+				fixer.replaceText(location, startName);
 			},
 		});
+	}
+
+	private isForeign(node: HtmlElement): boolean {
+		let current: HtmlElement | null = node;
+		while (current) {
+			if (current.meta?.foreign) {
+				return true;
+			}
+			current = current.parent;
+		}
+		return false;
 	}
 }
