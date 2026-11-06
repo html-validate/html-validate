@@ -374,22 +374,20 @@ describe("rule element-case", () => {
 	});
 
 	describe("autofix", () => {
-		it("should convert start tag name to lowercase", async () => {
+		it("should convert both tag names to lowercase", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
 				rules: { "element-case": ["error", { style: "lowercase" }] },
 			});
-			/* only the start tag is validated against the configured style, the end
-			 * tag is instead fixed separately once it no longer matches the start tag */
 			const markup = /* RAW */ `<FOO></FOO>`;
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
 			const result = await htmlvalidate.autofix(message.fix!);
-			expect(result).toBe("<foo></FOO>");
+			expect(result).toBe("<foo></foo>");
 		});
 
-		it("should convert start tag name to uppercase", async () => {
+		it("should convert both tag names to uppercase", async () => {
 			expect.assertions(1);
 			htmlvalidate = new HtmlValidate({
 				root: true,
@@ -399,7 +397,40 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
 			const result = await htmlvalidate.autofix(message.fix!);
-			expect(result).toBe("<FOO></foo>");
+			expect(result).toBe("<FOO></FOO>");
+		});
+
+		it.each([
+			['<FOO-Bar data-name="FOO"></foo-bar>', '<foo-bar data-name="FOO"></foo-bar>'],
+			["<FOO><bar></bar></FOO>", "<foo><bar></bar></foo>"],
+			["<INPUT>", "<input>"],
+			["<FOO />", "<foo />"],
+			["<FOO>", "<foo>"],
+			["<FOO></BAR>", "<foo></BAR>"],
+			["<ul><LI>one<li>two</li></ul>", "<ul><li>one<li>two</li></ul>"],
+		])("should fix %s as %s", async (markup, expected) => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: "lowercase" }] },
+			});
+			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(await htmlvalidate.autofix(message.fix!)).toBe(expected);
+		});
+
+		it("should resolve both style and matching case errors with the style fix", async () => {
+			expect.assertions(3);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": "error" },
+			});
+			const report = await htmlvalidate.validateString("<FOO></Foo>");
+			expect(report.errorCount).toBe(2);
+			const [message] = report.results[0].messages;
+			const result = await htmlvalidate.autofix(message.fix!);
+			expect(result).toBe("<foo></foo>");
+			expect(await htmlvalidate.validateString(result)).toBeValid();
 		});
 
 		it("should not provide a fix when style cannot be deterministically converted", async () => {
@@ -410,6 +441,17 @@ describe("rule element-case", () => {
 			});
 			const markup = /* RAW */ `<foobar></foobar>`;
 			const report = await htmlvalidate.validateString(markup);
+			const [message] = report.results[0].messages;
+			expect(message.fix).toBeUndefined();
+		});
+
+		it("should not provide a style fix when multiple styles are configured", async () => {
+			expect.assertions(1);
+			htmlvalidate = new HtmlValidate({
+				root: true,
+				rules: { "element-case": ["error", { style: ["lowercase", "uppercase"] }] },
+			});
+			const report = await htmlvalidate.validateString("<Foo></Foo>");
 			const [message] = report.results[0].messages;
 			expect(message.fix).toBeUndefined();
 		});
@@ -444,7 +486,7 @@ describe("rule element-case", () => {
 			expect(await htmlvalidate.autofix(title.fix!)).toMatchInlineSnapshot(`
 				"
 								<svg>
-									<TITLE></title>
+									<TITLE></TITLE>
 									<desc></desc>
 								</svg>
 							"
@@ -453,7 +495,7 @@ describe("rule element-case", () => {
 				"
 								<svg>
 									<title></title>
-									<DESC></desc>
+									<DESC></DESC>
 								</svg>
 							"
 			`);
@@ -483,7 +525,7 @@ describe("rule element-case", () => {
 			const report = await htmlvalidate.validateString(markup);
 			const [message] = report.results[0].messages;
 			expect(await htmlvalidate.autofix(message.fix!)).toMatchInlineSnapshot(
-				`" <FOO:BAR></foo:bar> "`,
+				`" <FOO:BAR></FOO:BAR> "`,
 			);
 		});
 	});

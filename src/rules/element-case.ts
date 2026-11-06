@@ -79,11 +79,17 @@ export default class ElementCase extends Rule<void, RuleOptions> {
 		if (this.style.match(letters)) {
 			return;
 		}
+		const replacement = this.style.convert(tagName);
 		this.report({
 			node: target,
 			message: `Element "${tagName}" should be ${this.style.name}`,
 			location,
-			fix: this.style.createFixer(location, tagName),
+			fix:
+				replacement === null
+					? null
+					: (fixer) => {
+							fixer.renameTag(target, replacement);
+						},
 		});
 	}
 

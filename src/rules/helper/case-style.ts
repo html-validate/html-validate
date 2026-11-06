@@ -42,19 +42,25 @@ export class CaseStyle {
 	 * Create an autofixer to correct the casing, if possible.
 	 */
 	public createFixer(location: Location, text: string): ((fixer: ErrorFixer) => void) | null {
+		const replacement = this.convert(text);
+		if (replacement === null) {
+			return null;
+		}
+		return (fixer) => {
+			fixer.replaceText(location, replacement);
+		};
+	}
+
+	public convert(text: string): string | null {
 		if (this.styles.length !== 1) {
 			return null;
 		}
 		const [style] = this.styles;
 		switch (style.id) {
 			case "lowercase":
-				return (fixer) => {
-					fixer.replaceText(location, text.toLowerCase());
-				};
+				return text.toLowerCase();
 			case "uppercase":
-				return (fixer) => {
-					fixer.replaceText(location, text.toUpperCase());
-				};
+				return text.toUpperCase();
 			default:
 				return null;
 		}
