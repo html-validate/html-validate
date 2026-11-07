@@ -399,6 +399,7 @@ export class HtmlElement extends DOMNode {
 	 * - void
 	 * - implicitClosed
 	 * - optionalEnd
+	 * - optionalEndExcludedParents
 	 * - scriptSupporting
 	 * - deprecatedAttributes
 	 *

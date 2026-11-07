@@ -926,6 +926,7 @@ export interface MetaData {
     // (undocumented)
     metadata?: boolean | MetaCategoryCallback;
     optionalEnd?: boolean;
+    optionalEndExcludedParents?: string[];
     // (undocumented)
     permittedContent?: Permitted;
     // (undocumented)

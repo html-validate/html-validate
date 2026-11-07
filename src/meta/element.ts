@@ -315,6 +315,13 @@ export interface MetaData {
 	 */
 	optionalEnd?: boolean;
 	/**
+	 * Tag names, `@category` selectors, or `@custom-element` (any autonomous
+	 * custom element) of parents in which this element’s end tag must not be
+	 * omitted when the element is the last child, even though it may be omitted
+	 * elsewhere (e.g. `<p>` inside `<a>`).
+	 */
+	optionalEndExcludedParents?: string[];
+	/**
 	 * Describes elements that should be implicitly opened when a child element
 	 * that would otherwise be inserted directly under this element matches one of
 	 * the given selectors but is not permitted here.
