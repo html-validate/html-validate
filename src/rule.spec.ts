@@ -1,6 +1,7 @@
 import path from "node:path";
+import { getAriaData } from "@html-validate/w3c-data/aria";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { type ConfigData, Config, Severity } from "./config";
+import { type AriaVersion, type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
@@ -35,6 +36,7 @@ const location: Location = {
 };
 
 describe("rule base class", () => {
+	let config: ResolvedConfig;
 	let parser: Parser;
 	let parserOn: jest.SpiedFunction<Parser["on"]>;
 	let reporter: Reporter;
@@ -44,17 +46,18 @@ describe("rule base class", () => {
 	let mockEvent: Event;
 
 	beforeEach(async () => {
-		const config = await Config.empty().resolve();
+		config = await Config.empty().resolve();
 		parser = new Parser(config);
 		parserOn = jest.spyOn(parser, "on");
 		reporter = new Reporter();
 		jest.spyOn(reporter, "add").mockReturnValue(undefined);
 		meta = new MetaTable();
 		meta.loadFromObject(bundledElements.html5);
+		jest.spyOn(config, "getMetaTable").mockReturnValue(meta);
 
 		rule = new MockRule();
 		rule.name = "mock-rule";
-		rule.init(parser, reporter, Severity.ERROR, meta);
+		rule.init(parser, reporter, Severity.ERROR, config);
 		mockLocation = {
 			filename: "mock-file",
 			offset: 1,
@@ -65,6 +68,20 @@ describe("rule base class", () => {
 		mockEvent = {
 			location: mockLocation,
 		};
+	});
+
+	describe("aria", () => {
+		it.each<AriaVersion>(["1.2", "1.3", "latest"])(
+			"should expose the configured ARIA version %s",
+			async (ariaVersion) => {
+				expect.assertions(2);
+				const sourceConfig = await Config.fromObject([], { aria: ariaVersion });
+				const resolved = await sourceConfig.resolve();
+				rule.init(parser, reporter, Severity.ERROR, resolved);
+				expect(rule.aria).toBe(resolved.getAriaData());
+				expect(rule.aria).toBe(getAriaData(ariaVersion));
+			},
+		);
 	});
 
 	describe("report()", () => {
@@ -306,7 +323,7 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const rule = new MockFixableRule();
 			rule.name = "mock-rule";
-			rule.init(parser, reporter, Severity.ERROR, meta);
+			rule.init(parser, reporter, Severity.ERROR, config);
 			const node = HtmlElement.createElement("foo", location);
 			const fix = (): void => {
 				/* do nothing */
@@ -413,7 +430,7 @@ describe("rule base class", () => {
 			expect.assertions(1);
 			const fixableRule = new MockFixableRule();
 			fixableRule.name = "mock-rule";
-			fixableRule.init(parser, reporter, Severity.ERROR, meta);
+			fixableRule.init(parser, reporter, Severity.ERROR, config);
 			const node = HtmlElement.createElement("foo", location);
 			const fix = (): void => {
 				/* do nothing */

@@ -175,6 +175,43 @@ export class MyRule extends Rule {
 }
 ```
 
+## ARIA metadata
+
+Rules can access ARIA metadata through `this.aria`.
+It uses the ARIA specification version selected by the configuration.
+Use `getRoleData()` to inspect a role; it returns `null` when the role is not defined in that version.
+
+For example, a rule can use the role category to identify abstract roles:
+
+```ts
+import { Rule } from "html-validate";
+
+export class NoAbstractRoleRule extends Rule {
+  public setup(): void {
+    this.on("attr", (event) => {
+      if (event.key !== "role" || typeof event.value !== "string") {
+        return;
+      }
+
+      for (const roleName of event.value.trim().split(/\s+/)) {
+        const role = this.aria.getRoleData(roleName);
+        if (role?.category !== "abstract") {
+          continue;
+        }
+
+        this.report({
+          node: event.target,
+          message: `The "${roleName}" role is abstract and must not be used`,
+        });
+      }
+    });
+  }
+}
+```
+
+The returned role data also includes its superclasses, subclasses, accessible-name requirements, and supported properties and states.
+Use `this.aria.isValidRole()` to check a role name before looking up its metadata.
+
 ## Autofix
 
 Rules declaring `static fixable = true` can provide an automatic fix for the error by passing a `fix` callback to `report()`.

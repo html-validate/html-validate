@@ -4,6 +4,7 @@
 
 ```ts
 
+import { AriaModule } from '@html-validate/w3c-data/aria';
 import { ErrorObject } from 'ajv';
 import { SchemaObject } from 'ajv';
 
@@ -1352,6 +1353,7 @@ export class ResolvedConfig {
     canTransform(filename: string): boolean;
     // @internal (undocumented)
     findTransformer(filename: string): TransformerEntry | null;
+    getAriaData(): AriaModule;
     getAriaVersion(): AriaVersion;
     getConfigData(): ConfigData | FlatConfig;
     // (undocumented)
@@ -1410,6 +1412,7 @@ export interface Result {
 // @public (undocumented)
 export abstract class Rule<ContextType = void, OptionsType = void> {
     constructor(options: OptionsType);
+    get aria(): AriaModule;
     // @internal
     block(id: RuleBlocker): void;
     get deprecated(): boolean;
@@ -1424,7 +1427,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     getTagsDerivedFrom(tagName: string): string[];
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal
-    init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void;
+    init(parser: Parser, reporter: Reporter, severity: number, config: ResolvedConfig): void;
     // @internal
     isBlocked(node?: DOMNode | null): boolean;
     // @internal
