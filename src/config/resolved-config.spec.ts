@@ -1,5 +1,7 @@
+import { getAriaData } from "@html-validate/w3c-data/aria";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { MetaTable } from "../meta";
+import { type AriaVersion } from "./aria-version";
 import { type ResolvedConfigData, ResolvedConfig } from "./resolved-config";
 
 function createMockConfig(config: Partial<ResolvedConfigData> = {}): ResolvedConfig {
@@ -44,4 +46,18 @@ describe("getAriaVersion()", () => {
 		const config = createMockConfig({ ariaVersion: "1.3" });
 		expect(config.getAriaVersion()).toBe("1.3");
 	});
+});
+
+describe("getAriaData()", () => {
+	it.each<AriaVersion>(["1.2", "1.3", "latest"])(
+		"should return ARIA data for version %s",
+		(ariaVersion) => {
+			expect.assertions(3);
+			const config = createMockConfig({ ariaVersion });
+			const data = config.getAriaData();
+			expect(data).toBe(getAriaData(ariaVersion));
+			expect(config.getAriaData()).toBe(data);
+			expect(data.getRoleData("alert")).toEqual(expect.objectContaining({ role: "alert" }));
+		},
+	);
 });

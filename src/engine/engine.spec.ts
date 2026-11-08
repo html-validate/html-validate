@@ -1,11 +1,17 @@
+import { getAriaData } from "@html-validate/w3c-data/aria";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { type ResolvedConfig, type RuleOptions, Config, Severity } from "../config";
+import {
+	type AriaVersion,
+	type ResolvedConfig,
+	type RuleOptions,
+	Config,
+	Severity,
+} from "../config";
 import { type Source } from "../context";
 import { type HtmlElement } from "../dom";
 import { type ConfigReadyEvent, type DOMLoadEvent, EventHandler } from "../event";
 import { InvalidTokenError } from "../lexer";
 import "html-validate/jest";
-import { MetaTable } from "../meta";
 import { Parser, ParserError } from "../parser";
 import { type Plugin } from "../plugin";
 import { Reporter } from "../reporter";
@@ -560,15 +566,28 @@ describe("Engine", () => {
 				jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(mockRule);
 				const rule = engine.loadRule("void", resolvedConfig, Severity.ERROR, {}, parser, reporter);
 				expect(rule).toBe(mockRule);
-				expect(rule.init).toHaveBeenCalledWith(
-					parser,
-					reporter,
-					Severity.ERROR,
-					expect.any(MetaTable),
-				);
+				expect(rule.init).toHaveBeenCalledWith(parser, reporter, Severity.ERROR, resolvedConfig);
 				expect(rule.setup).toHaveBeenCalledWith();
 				expect(rule.name).toBe("void");
 			});
+
+			it.each<AriaVersion>(["1.2", "1.3", "latest"])(
+				"should expose ARIA version %s during rule setup",
+				async (ariaVersion) => {
+					expect.assertions(2);
+					class AriaRule extends Rule {
+						public setup(): void {
+							const ariaData = getAriaData(ariaVersion);
+							expect(this.isValidAriaRole("alert")).toBe(ariaData.isValidRole("alert"));
+							expect(this.getAriaRoleData("alert")).toBe(ariaData.getRoleData("alert"));
+						}
+					}
+					const sourceConfig = await Config.fromObject([], { aria: ariaVersion });
+					const resolved = await sourceConfig.resolve();
+					jest.spyOn(engine, "instantiateRule").mockReturnValueOnce(new AriaRule());
+					engine.loadRule("aria", resolved, Severity.ERROR, {}, parser, reporter);
+				},
+			);
 
 			it("should add error if rule cannot be found", async () => {
 				expect.assertions(1);

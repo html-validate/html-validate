@@ -4,7 +4,10 @@
 
 ```ts
 
+import { AriaModule } from '@html-validate/w3c-data/aria';
+import { AriaRole } from '@html-validate/w3c-data/aria';
 import { ErrorObject } from 'ajv';
+import { NormalizedRole } from '@html-validate/w3c-data/aria';
 import { SchemaObject } from 'ajv';
 
 // @public
@@ -1352,6 +1355,7 @@ export class ResolvedConfig {
     canTransform(filename: string): boolean;
     // @internal (undocumented)
     findTransformer(filename: string): TransformerEntry | null;
+    getAriaData(): AriaModule;
     getAriaVersion(): AriaVersion;
     getConfigData(): ConfigData | FlatConfig;
     // (undocumented)
@@ -1416,6 +1420,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     // @virtual
     documentation(_context: ContextType): RuleDocumentation | null;
     static readonly fixable: boolean;
+    getAriaRoleData(role: AriaRole): NormalizedRole;
+    getAriaRoleData(role: string): NormalizedRole | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;
@@ -1424,7 +1430,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     getTagsDerivedFrom(tagName: string): string[];
     getTagsWithProperty(propName: MetaLookupableProperty): string[];
     // @internal
-    init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void;
+    init(parser: Parser, reporter: Reporter, severity: number, config: ResolvedConfig): void;
     // @internal
     isBlocked(node?: DOMNode | null): boolean;
     // @internal
@@ -1432,6 +1438,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     isKeywordIgnored(this: {
         options: IncludeExcludeOptions;
     }, keyword: string, matcher?: (list: string[], it: string) => boolean): boolean;
+    isValidAriaRole(role: string): role is AriaRole;
     name: string;
     on<K extends keyof ListenEventMap>(event: K, callback: (event: ListenEventMap[K]) => void): () => void;
     // (undocumented)

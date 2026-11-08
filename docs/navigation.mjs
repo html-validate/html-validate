@@ -90,6 +90,7 @@ export default {
 				children: [
 					{ title: "ErrorFixer", target: "api:ErrorFixer" },
 					{ title: "MetadataHelper", target: "api:MetadataHelper" },
+					{ title: "Rule", target: "api:Rule" },
 					{ title: "Source", target: "api:Source" },
 					{ title: "autofixCollectEdits", target: "api:autofixCollectEdits" },
 					{ title: "isAutofix", target: "api:isAutofix" },

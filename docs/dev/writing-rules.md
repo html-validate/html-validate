@@ -9,6 +9,8 @@ nav: devguide
 
 Rules are created by extending the `Rule` class and implementing the `setup` method:
 
+For the full list of available methods and properties, see the {@link api:Rule Rule API reference}.
+
 ```ts
 import { DOMReadyEvent, Rule, RuleDocumentation } from "html-validate";
 
@@ -174,6 +176,48 @@ export class MyRule extends Rule {
   }
 }
 ```
+
+## ARIA metadata
+
+Rules can query ARIA metadata through `isValidAriaRole()` and `getAriaRoleData()`.
+Both methods use the ARIA specification version selected by the configuration.
+`isValidAriaRole()` checks whether a role is defined, and `getAriaRoleData()` returns `null` when it is not.
+See the {@link api:Rule Rule API reference} for details about these ARIA methods.
+
+For example, a rule can use the role category to identify abstract roles:
+
+```ts
+import { Rule } from "html-validate";
+
+export class NoAbstractRoleRule extends Rule {
+  public setup(): void {
+    this.on("attr", (event) => {
+      if (event.key !== "role" || typeof event.value !== "string") {
+        return;
+      }
+
+      for (const roleName of event.value.trim().split(/\s+/)) {
+        if (!this.isValidAriaRole(roleName)) {
+          continue;
+        }
+
+        const role = this.getAriaRoleData(roleName);
+        if (role.category !== "abstract") {
+          continue;
+        }
+
+        this.report({
+          node: event.target,
+          message: `The "${roleName}" role is abstract and must not be used`,
+        });
+      }
+    });
+  }
+}
+```
+
+The returned role data also includes its superclasses, subclasses, accessible-name requirements, and supported properties and states.
+Use `isValidAriaRole()` to check a role name before looking up its metadata.
 
 ## Autofix
 
@@ -384,44 +428,3 @@ Schema validation will help both the user and the rule author:
 ## Cache
 
 Expensive operations that will be reused (e.g. required by multiple rules or where the result depends on the ancestors or descendants of an element) on `DOMNode` can be cached using the {@link dev/cache cache API}.
-
-## API
-
-### `options: RuleOptions`
-
-Object with all the options passed from the configuration.
-Options are accessed using `this.options`.
-
-When using typescript: pass the datatype as the second template argument when extending `Rule`.
-Default is `void` (i.e. no options)
-
-### `on(event: string, [filter: (event: Event) => boolean], callback: (event: Event) => void): void`
-
-Listen for events.
-See [events](/dev/events.html) for a full list of available events and data.
-
-If `filter` is passed the callback is only called if the filter function evaluates to true.
-
-### `report(message)`
-
-Report a new error.
-
-- `node: DOMNode` - The node this error belongs to.
-- `message: string` - Error message.
-- `location?: Location` - If set it is the precise location of the error. (Default: node location).
-- `context?: unknown` - If set it will be passed to `documentation()` later to allow retrieving contextual documentation.
-- `related?: Array<{ kind: "element", node: DOMNode | null }>` - Optional list of other elements related to this error, see [related elements](#related-elements) above.
-- `fix: (fixer: ErrorFixer) => void | Promise<void>` - Optional callback receiving an {@link api:ErrorFixer}, used to automatically fix this error, see {@link dev/writing-rules#autofix autofix} above.
-- `suggestions: Array<{ message: string, fix: (fixer: ErrorFixer) => void | Promise<void>}>` - Optional list of suggestions the user can choose from to fix this error, see {@link dev/writing-rules#autofix autofix} above.
-
-### `getMetaFor(tagName: string): MetaElement | null`
-
-Get (static) metadata for given tag.
-
-### `getTagsWithProperty(propName: MetaLookupableProperty): string[]`
-
-Find all tags which has enabled given property.
-
-### `getTagsDerivedFrom(tagName: string): string[]`
-
-Find tag matching tagName or inheriting from it.

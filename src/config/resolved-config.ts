@@ -1,3 +1,4 @@
+import { type AriaModule, getAriaData } from "@html-validate/w3c-data/aria";
 import { type FlatConfig } from "../flat-config";
 import { type MetaTable } from "../meta";
 import { type Plugin } from "../plugin";
@@ -30,6 +31,7 @@ export class ResolvedConfig {
 	private rules: Map<string, [Severity, RuleOptions]>;
 	private transformers: TransformerEntry[];
 	private ariaVersion: AriaVersion;
+	private ariaData: AriaModule;
 
 	/** The original data this resolved configuration was created from */
 	private original: ConfigData | FlatConfig;
@@ -49,6 +51,7 @@ export class ResolvedConfig {
 		this.rules = rules;
 		this.transformers = transformers;
 		this.ariaVersion = ariaVersion;
+		this.ariaData = getAriaData(ariaVersion);
 		this.cache = new Map();
 		this.original = original;
 	}
@@ -81,6 +84,16 @@ export class ResolvedConfig {
 	 */
 	public getAriaVersion(): AriaVersion {
 		return this.ariaVersion;
+	}
+
+	/**
+	 * Returns ARIA data for the configured specification version.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaData(): AriaModule {
+		return this.ariaData;
 	}
 
 	/**

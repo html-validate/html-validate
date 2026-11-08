@@ -1,6 +1,7 @@
+import { type AriaModule, type AriaRole, type NormalizedRole } from "@html-validate/w3c-data/aria";
 import Ajv, { type ErrorObject, type SchemaObject, type ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
-import { type ConfigData } from "./config/config-data";
+import { type ConfigData, type ResolvedConfig } from "./config";
 import { Severity } from "./config/severity";
 import { type DOMNode } from "./dom";
 import { type RuleBlocker } from "./engine/rule-blocker";
@@ -97,6 +98,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	private reporter: Reporter;
 	private parser: Parser;
 	private meta: MetaTable;
+	private ariaData: AriaModule;
 	private enabled: boolean; // rule enabled/disabled, irregardless of severity
 	private blockers: RuleBlocker[];
 	private severity: Severity; // rule severity
@@ -119,6 +121,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		this.reporter = null as unknown as Reporter;
 		this.parser = null as unknown as Parser;
 		this.meta = null as unknown as MetaTable;
+		this.ariaData = null as unknown as AriaModule;
 		this.event = null as unknown as Event;
 
 		this.options = options;
@@ -131,6 +134,45 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 
 	public getSeverity(): Severity {
 		return this.severity;
+	}
+
+	/**
+	 * Check if an ARIA role is defined in the configured specification version.
+	 *
+	 * @param role - Role name to check.
+	 * @returns `true` if the role is defined.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public isValidAriaRole(role: string): role is AriaRole {
+		return this.ariaData.isValidRole(role);
+	}
+
+	/**
+	 * Get ARIA metadata for a role in the configured specification version.
+	 *
+	 * @param role - Role name to look up.
+	 * @returns Role metadata.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaRoleData(role: AriaRole): NormalizedRole;
+
+	/**
+	 * Get ARIA metadata for a role in the configured specification version.
+	 *
+	 * @param role - Role name to look up.
+	 * @returns Role metadata, or `null` if the role is not defined.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaRoleData(role: string): NormalizedRole | null;
+
+	public getAriaRoleData(role: string): NormalizedRole | null {
+		return this.ariaData.getRoleData(role);
 	}
 
 	public setServerity(severity: Severity): void {
@@ -420,12 +462,13 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 *
 	 * @internal
 	 */
-	public init(parser: Parser, reporter: Reporter, severity: number, meta: MetaTable): void {
+	public init(parser: Parser, reporter: Reporter, severity: number, config: ResolvedConfig): void {
 		this.parser = parser;
 		this.reporter = reporter;
 		/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 		this.severity = severity;
-		this.meta = meta;
+		this.meta = config.getMetaTable();
+		this.ariaData = config.getAriaData();
 	}
 
 	/**

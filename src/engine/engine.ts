@@ -475,10 +475,9 @@ export class Engine<T extends Parser = Parser> {
 		parser: Parser,
 		report: Reporter,
 	): Rule<unknown, unknown> {
-		const meta = config.getMetaTable();
 		const rule = this.instantiateRule(ruleId, options);
 		rule.name = ruleId;
-		rule.init(parser, report, severity, meta);
+		rule.init(parser, report, severity, config);
 		rule.setTracker(this.tracker);
 
 		/* call setup callback if present */

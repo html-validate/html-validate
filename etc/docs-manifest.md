@@ -14,6 +14,7 @@ api/create-autofix.html
 api/error-fixer.html
 api/is-autofix.html
 api/metadata-helper.html
+api/rule.html
 api/source.html
 changelog/index.html
 dev/cache.html
