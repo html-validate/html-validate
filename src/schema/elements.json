@@ -120,6 +120,13 @@
           "type": "boolean"
         },
 
+        "optionalEndExcludedParents": {
+          "title": "Parents in which the end tag must not be omitted",
+          "description": "Tag names, @category strings (e.g. \"@flow\"), or \"@custom-element\" (any autonomous custom element) of parents in which the end tag of this element must not be omitted when it is the last child, even though it may be omitted elsewhere (e.g. <p> inside <a>).",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+
         "implicitRole": {
           "title": "Implicit ARIA role for this element",
           "description": "Some elements have implicit ARIA roles.",

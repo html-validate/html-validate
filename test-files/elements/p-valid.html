@@ -29,3 +29,16 @@
 	<dt>baz
 	<dd><p>qux
 </dl>
+
+<!-- end tag should be optional in parents not excluded by the spec, even inside `a` -->
+<a href="#">
+	<div>
+		<p>foo
+	</div>
+</a>
+
+<!-- end tag should be allowed as last child of `a` -->
+<a href="#">
+	<p>foo
+	<p>bar</p>
+</a>

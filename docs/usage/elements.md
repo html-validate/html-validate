@@ -44,6 +44,7 @@ export interface MetaElement {
   transparent?: boolean | string[];
   implicitClosed?: string[];
   optionalEnd?: boolean;
+  optionalEndExcludedParents?: string[];
   implicitOpen?: ImplicitOpenEntry[];
   scriptSupporting?: boolean;
   focusable?: boolean | MetaFocusableCallback;
@@ -204,6 +205,47 @@ An element with an optional end tag is treated as implicitly closed in two situa
 - When the document ends (EOF) with this element still open.
 - When a parent's explicit closing tag is encountered while this element is
   still open (e.g. `</html>` implicitly closes any open `<body>`).
+
+### `optionalEndExcludedParents`
+
+A list of tag names and content categories of parents in which this element's end tag must not be omitted when the element is the last child, even though it may be omitted elsewhere (through `implicitClosed` or `optionalEnd`).
+
+In addition to tag names and content categories, `@custom-element` matches any autonomous custom element (a tag name containing a hyphen).
+
+For instance, the end tag of `<p>` may be omitted when the parent ends, unless the parent is `<a>`, `<audio>`, `<del>`, `<ins>`, `<map>`, `<noscript>`, `<video>`, or an autonomous custom element:
+
+<!-- prettier-ignore -->
+```html
+<!-- valid -->
+<div>
+  <p>foo
+</div>
+
+<!-- invalid -->
+<a href="#">
+  <p>foo
+</a>
+```
+
+The metadata for `<p>` (abbreviated):
+
+```json
+{
+  "p": {
+    "implicitClosed": ["p", "div"],
+    "optionalEndExcludedParents": [
+      "a",
+      "audio",
+      "del",
+      "ins",
+      "map",
+      "noscript",
+      "video",
+      "@custom-element"
+    ]
+  }
+}
+```
 
 ### `implicitOpen`
 

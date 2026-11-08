@@ -2697,6 +2697,16 @@ export default {
 			"table",
 			"ul",
 		],
+		optionalEndExcludedParents: [
+			"a",
+			"audio",
+			"del",
+			"ins",
+			"map",
+			"noscript",
+			"video",
+			"@custom-element",
+		],
 		permittedContent: ["@phrasing"],
 		attributes: {
 			align: {

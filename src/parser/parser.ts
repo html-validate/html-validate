@@ -76,6 +76,22 @@ function matchesContentCategory(meta: MetaElement, category: string): boolean {
 	}
 }
 
+/**
+ * Returns `true` if the parent matches the given tag name, `@category`, or
+ * `@custom-element` selector (see `optionalEndExcludedParents`).
+ */
+function matchesParent(parent: HtmlElement, selector: string): boolean {
+	if (selector === "@custom-element") {
+		/* autonomous custom element names must contain a hyphen; the reserved
+		 * hyphenated names are SVG and MathML elements, which are foreign here */
+		return parent.tagName.includes("-") && !parent.meta?.foreign;
+	}
+	if (!selector.startsWith("@")) {
+		return parent.is(selector);
+	}
+	return parent.meta ? matchesContentCategory(parent.meta, selector) : false;
+}
+
 function isAttrValueToken(token?: Token): token is AttrValueToken {
 	return token?.type === TokenType.ATTR_VALUE;
 }
@@ -255,14 +271,29 @@ export class Parser {
 	/**
 	 * Returns `true` if the element’s end tag may be omitted, either because
 	 * its `implicitClosed` list includes its own tag name (e.g. `<li>`, `<td>`)
-	 * or because `optionalEnd` is set.
+	 * or because `optionalEnd` is set, and the parent isn’t listed in
+	 * `optionalEndExcludedParents` (e.g. `<p>` as last child of `<a>`).
 	 */
 	private canOmitEndTag(element: HtmlElement): boolean {
 		if (!element.meta) {
 			return false;
 		}
 		const { implicitClosed, optionalEnd } = element.meta;
-		return Boolean(implicitClosed?.includes(element.tagName)) || Boolean(optionalEnd);
+		const isOmittable = Boolean(implicitClosed?.includes(element.tagName)) || Boolean(optionalEnd);
+		return isOmittable && !this.hasExcludedParent(element);
+	}
+
+	/**
+	 * Returns `true` if the element’s parent is listed in its
+	 * `optionalEndExcludedParents`, i.e. its end tag must not be omitted.
+	 */
+	private hasExcludedParent(element: HtmlElement): boolean {
+		const excluded = element.meta?.optionalEndExcludedParents;
+		const { parent } = element;
+		if (!excluded || !parent || parent.isRootElement()) {
+			return false;
+		}
+		return excluded.some((entry) => matchesParent(parent, entry));
 	}
 
 	/**
@@ -1042,7 +1073,10 @@ export class Parser {
 		const documentElement = this.dom.root;
 		let active = this.dom.getActive();
 		while (!active.isRootElement()) {
-			if (active.meta?.implicitClosed || active.meta?.optionalEnd) {
+			if (
+				(active.meta?.implicitClosed || active.meta?.optionalEnd) &&
+				!this.hasExcludedParent(active)
+			) {
 				active.closed = Node.CLOSED_IMPLICIT_CLOSED;
 				this.closeElement(source, documentElement, active, location);
 			} else {

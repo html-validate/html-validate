@@ -145,6 +145,101 @@ describe("rule close-order", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report when `</p>` is omitted as last child of a parent not excluded by the spec", async () => {
+		expect.assertions(1);
+		const markup = /* RAW */ `
+			<a href="#">
+				<div>
+					<p>lorem
+				</div>
+			</a>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report when `</p>` is explicit as last child of `<a>`", async () => {
+		expect.assertions(1);
+		const markup = /* RAW */ `
+			<a href="#">
+				<p>lorem
+				<p>ipsum</p>
+			</a>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should report error when `</p>` is omitted as last child of `<a>`", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `
+			<a href="#">
+				<p>lorem
+				<p>ipsum
+			</a>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: Unclosed element '<p>' (close-order)
+		  2 | 			<a href="#">
+		  3 | 				<p>lorem
+		> 4 | 				<p>ipsum
+		    | 				 ^
+		  5 | 			</a>
+		  6 |
+		Selector: a > p:nth-child(2)
+		error: End tag '</a>' seen but there were open elements (close-order)
+		  3 | 				<p>lorem
+		  4 | 				<p>ipsum
+		> 5 | 			</a>
+		    | 			 ^^
+		  6 |
+		Selector: -"
+	`);
+	});
+
+	it.each(["audio", "del", "ins", "map", "noscript", "video"])(
+		"should report error when `</p>` is omitted as last child of `<%s>`",
+		async (tagName) => {
+			expect.assertions(1);
+			const markup = /* RAW */ `<${tagName}><p>lorem</${tagName}>`;
+			const report = await htmlvalidate.validateString(markup);
+			expect(report).toBeInvalid();
+		},
+	);
+
+	it("should not report when `</p>` is omitted at document end in a parent not excluded by the spec", async () => {
+		expect.assertions(1);
+		const markup = /* RAW */ `<div><p>lorem</div><p>ipsum`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should report error when `</p>` is omitted at document end as last child of `<a>`", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<a href="#"><p>lorem`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+		"error: Unclosed element '<a>' (close-order)
+		> 1 | <a href="#"><p>lorem
+		    |  ^
+		Selector: a
+		error: Unclosed element '<p>' (close-order)
+		> 1 | <a href="#"><p>lorem
+		    |              ^
+		Selector: a > p"
+	`);
+	});
+
+	it("should report error when `</p>` is omitted as last child of an autonomous custom element", async () => {
+		expect.assertions(1);
+		const markup = /* RAW */ `<my-element><p>lorem</my-element>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+	});
+
 	it("should report error when element is missing opening tag (root)", async () => {
 		expect.assertions(2);
 		const markup = `
