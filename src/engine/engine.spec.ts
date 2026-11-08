@@ -574,10 +574,12 @@ describe("Engine", () => {
 			it.each<AriaVersion>(["1.2", "1.3", "latest"])(
 				"should expose ARIA version %s during rule setup",
 				async (ariaVersion) => {
-					expect.assertions(1);
+					expect.assertions(2);
 					class AriaRule extends Rule {
 						public setup(): void {
-							expect(this.aria).toBe(getAriaData(ariaVersion));
+							const ariaData = getAriaData(ariaVersion);
+							expect(this.isValidAriaRole("alert")).toBe(ariaData.isValidRole("alert"));
+							expect(this.getAriaRoleData("alert")).toBe(ariaData.getRoleData("alert"));
 						}
 					}
 					const sourceConfig = await Config.fromObject([], { aria: ariaVersion });

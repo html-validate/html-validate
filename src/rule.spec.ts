@@ -1,7 +1,6 @@
 import path from "node:path";
-import { getAriaData } from "@html-validate/w3c-data/aria";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { type AriaVersion, type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
+import { type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
@@ -70,18 +69,20 @@ describe("rule base class", () => {
 		};
 	});
 
-	describe("aria", () => {
-		it.each<AriaVersion>(["1.2", "1.3", "latest"])(
-			"should expose the configured ARIA version %s",
-			async (ariaVersion) => {
-				expect.assertions(2);
-				const sourceConfig = await Config.fromObject([], { aria: ariaVersion });
-				const resolved = await sourceConfig.resolve();
-				rule.init(parser, reporter, Severity.ERROR, resolved);
-				expect(rule.aria).toBe(resolved.getAriaData());
-				expect(rule.aria).toBe(getAriaData(ariaVersion));
-			},
-		);
+	describe("isValidAriaRole()", () => {
+		it("should return whether a role is defined", () => {
+			expect.assertions(2);
+			expect(rule.isValidAriaRole("alert")).toBe(true);
+			expect(rule.isValidAriaRole("not-a-role")).toBe(false);
+		});
+	});
+
+	describe("getAriaRoleData()", () => {
+		it("should return role metadata or null if the role is not defined", () => {
+			expect.assertions(2);
+			expect(rule.getAriaRoleData("alert")).toEqual(expect.objectContaining({ role: "alert" }));
+			expect(rule.getAriaRoleData("not-a-role")).toBeNull();
+		});
 	});
 
 	describe("report()", () => {

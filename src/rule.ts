@@ -1,4 +1,4 @@
-import { type AriaModule } from "@html-validate/w3c-data/aria";
+import { type AriaModule, type AriaRole, type NormalizedRole } from "@html-validate/w3c-data/aria";
 import Ajv, { type ErrorObject, type SchemaObject, type ValidateFunction } from "ajv";
 import ajvSchemaDraft from "ajv/lib/refs/json-schema-draft-06.json";
 import { type ConfigData, type ResolvedConfig } from "./config";
@@ -137,13 +137,42 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	}
 
 	/**
-	 * ARIA data for the configured specification version.
+	 * Check if an ARIA role is defined in the configured specification version.
+	 *
+	 * @param role - Role name to check.
+	 * @returns `true` if the role is defined.
 	 *
 	 * @public
 	 * @since %version%
 	 */
-	public get aria(): AriaModule {
-		return this.ariaData;
+	public isValidAriaRole(role: string): role is AriaRole {
+		return this.ariaData.isValidRole(role);
+	}
+
+	/**
+	 * Get ARIA metadata for a role in the configured specification version.
+	 *
+	 * @param role - Role name to look up.
+	 * @returns Role metadata.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaRoleData(role: AriaRole): NormalizedRole;
+
+	/**
+	 * Get ARIA metadata for a role in the configured specification version.
+	 *
+	 * @param role - Role name to look up.
+	 * @returns Role metadata, or `null` if the role is not defined.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public getAriaRoleData(role: string): NormalizedRole | null;
+
+	public getAriaRoleData(role: string): NormalizedRole | null {
+		return this.ariaData.getRoleData(role);
 	}
 
 	public setServerity(severity: Severity): void {

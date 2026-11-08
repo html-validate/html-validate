@@ -177,9 +177,10 @@ export class MyRule extends Rule {
 
 ## ARIA metadata
 
-Rules can access ARIA metadata through `this.aria`.
-It uses the ARIA specification version selected by the configuration.
-Use `getRoleData()` to inspect a role; it returns `null` when the role is not defined in that version.
+Rules can query ARIA metadata through `isValidAriaRole()` and `getAriaRoleData()`.
+Both methods use the ARIA specification version selected by the configuration.
+`isValidAriaRole()` checks whether a role is defined, and `getAriaRoleData()` returns `null` when it is not.
+See the {@link api:Rule Rule API reference} for method signatures.
 
 For example, a rule can use the role category to identify abstract roles:
 
@@ -194,8 +195,12 @@ export class NoAbstractRoleRule extends Rule {
       }
 
       for (const roleName of event.value.trim().split(/\s+/)) {
-        const role = this.aria.getRoleData(roleName);
-        if (role?.category !== "abstract") {
+        if (!this.isValidAriaRole(roleName)) {
+          continue;
+        }
+
+        const role = this.getAriaRoleData(roleName);
+        if (role.category !== "abstract") {
           continue;
         }
 
@@ -210,7 +215,7 @@ export class NoAbstractRoleRule extends Rule {
 ```
 
 The returned role data also includes its superclasses, subclasses, accessible-name requirements, and supported properties and states.
-Use `this.aria.isValidRole()` to check a role name before looking up its metadata.
+Use `isValidAriaRole()` to check a role name before looking up its metadata.
 
 ## Autofix
 

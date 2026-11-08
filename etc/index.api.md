@@ -5,7 +5,9 @@
 ```ts
 
 import { AriaModule } from '@html-validate/w3c-data/aria';
+import { AriaRole } from '@html-validate/w3c-data/aria';
 import { ErrorObject } from 'ajv';
+import { NormalizedRole } from '@html-validate/w3c-data/aria';
 import { SchemaObject } from 'ajv';
 
 // @public
@@ -1412,13 +1414,14 @@ export interface Result {
 // @public (undocumented)
 export abstract class Rule<ContextType = void, OptionsType = void> {
     constructor(options: OptionsType);
-    get aria(): AriaModule;
     // @internal
     block(id: RuleBlocker): void;
     get deprecated(): boolean;
     // @virtual
     documentation(_context: ContextType): RuleDocumentation | null;
     static readonly fixable: boolean;
+    getAriaRoleData(role: AriaRole): NormalizedRole;
+    getAriaRoleData(role: string): NormalizedRole | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;
@@ -1435,6 +1438,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     isKeywordIgnored(this: {
         options: IncludeExcludeOptions;
     }, keyword: string, matcher?: (list: string[], it: string) => boolean): boolean;
+    isValidAriaRole(role: string): role is AriaRole;
     name: string;
     on<K extends keyof ListenEventMap>(event: K, callback: (event: ListenEventMap[K]) => void): () => void;
     // (undocumented)
