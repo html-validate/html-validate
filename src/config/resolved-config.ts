@@ -90,7 +90,7 @@ export class ResolvedConfig {
 	 * Returns ARIA data for the configured specification version.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.20.0
 	 */
 	public getAriaData(): AriaModule {
 		return this.ariaData;

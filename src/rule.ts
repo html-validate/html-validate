@@ -143,7 +143,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns `true` if the role is defined.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.20.0
 	 */
 	public isValidAriaRole(role: string): role is AriaRole {
 		return this.ariaData.isValidRole(role);
@@ -156,7 +156,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns Role metadata.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.20.0
 	 */
 	public getAriaRoleData(role: AriaRole): NormalizedRole;
 
@@ -167,7 +167,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * @returns Role metadata, or `null` if the role is not defined.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.20.0
 	 */
 	public getAriaRoleData(role: string): NormalizedRole | null;
 

@@ -1,5 +1,16 @@
 # html-validate changelog
 
+## 11.20.0 (2026-11-08)
+
+### Features
+
+- **api:** add `Rule.isValidAriaRole()` and `Rule.getAriaRoleData()` helpers ([14bf2f7](https://gitlab.com/html-validate/html-validate/commit/14bf2f7b4d879711a65414a40ac75965da6f49d7))
+- **config:** load aria data based on configured `aria` configuration property ([8cce6fb](https://gitlab.com/html-validate/html-validate/commit/8cce6fb8b3268c7eaa5438ff0b68ddec809288ab))
+
+### Bug Fixes
+
+- require `</p>` as last child of `<a>` and other excluded parents ([f98b3b8](https://gitlab.com/html-validate/html-validate/commit/f98b3b8ca22537dc21107bb0e81975b296378685)), closes [#377](https://gitlab.com/html-validate/html-validate/issues/377)
+
 ## 11.19.0 (2026-11-06)
 
 ### Features
