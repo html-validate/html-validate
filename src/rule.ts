@@ -142,7 +142,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Get the configured ARIA specification version.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.21.0
 	 * @returns The configured ARIA version, including `latest` when configured.
 	 */
 	public getAriaVersion(): AriaVersion {
@@ -192,7 +192,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * Iterate over ARIA role metadata in the configured specification version.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.21.0
 	 * @param predicate - Optional predicate selecting roles to yield.
 	 * @returns A generator yielding role metadata. The predicate is evaluated lazily.
 	 */

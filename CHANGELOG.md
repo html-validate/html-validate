@@ -1,5 +1,12 @@
 # html-validate changelog
 
+## 11.21.0 (2026-11-09)
+
+### Features
+
+- **api:** add `getAriaRoles()` method to `Rule` class ([b6c3efc](https://gitlab.com/html-validate/html-validate/commit/b6c3efc4c2d7d951a020005cef9f3f5d47287dd3))
+- **api:** add `getAriaVersion()` method to `Rule` class ([721e669](https://gitlab.com/html-validate/html-validate/commit/721e6699dc02957dfdbddc9c883d7321ab6d9ec1))
+
 ## 11.20.1 (2026-11-09)
 
 ### Bug Fixes
