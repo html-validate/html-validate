@@ -153,3 +153,28 @@ Metadata for the role, or `null` if the role is not defined in the configured ve
 ### Parameters {#getariaroledata-parameters}
 
 - `role`: Role name to look up; validate a string with `isValidAriaRole()` first to narrow it to `AriaRole` for the non-null overload.
+
+## `getAriaRoles()` method
+
+### Syntax {#getariaroles-syntax}
+
+```ts nocompile nolint
+getAriaRoles([filter]);
+```
+
+### Return value {#getariaroles-return-value}
+
+A generator yielding metadata for each defined role in the configured ARIA specification version, including abstract roles.
+When a filter is provided, only matching roles are yielded.
+
+### Parameters {#getariaroles-parameters}
+
+- `filter`: Optional callback returning `true` to include the role metadata it receives or `false` to exclude it; if omitted, all defined roles are included.
+
+### Examples {#getariaroles-examples}
+
+```ts nocompile nolint
+for (const role of this.getAriaRoles()) {
+  console.log(role.role, role.category);
+}
+```

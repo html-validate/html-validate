@@ -175,6 +175,28 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 		return this.ariaData.getRoleData(role);
 	}
 
+	/**
+	 * Iterate over ARIA role metadata in the configured specification version.
+	 *
+	 * @public
+	 * @since %version%
+	 * @param predicate - Optional predicate selecting roles to yield.
+	 * @returns A generator yielding role metadata. The predicate is evaluated lazily.
+	 */
+	public *getAriaRoles(
+		predicate: (role: NormalizedRole) => boolean = () => true,
+	): Generator<NormalizedRole, void, unknown> {
+		for (const role of Object.values(this.ariaData.default)) {
+			if (!role) {
+				continue;
+			}
+			if (!predicate(role)) {
+				continue;
+			}
+			yield role;
+		}
+	}
+
 	public setServerity(severity: Severity): void {
 		this.severity = severity;
 	}

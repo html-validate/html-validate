@@ -85,6 +85,39 @@ describe("rule base class", () => {
 		});
 	});
 
+	describe("getAriaRoles()", () => {
+		it("should yield all role metadata exactly once", () => {
+			expect.assertions(1);
+			const roles = Array.from(rule.getAriaRoles());
+			expect(roles).toEqual(Object.values(config.getAriaData().default));
+		});
+
+		it("should yield only roles matching the filter", () => {
+			expect.assertions(1);
+			const roles = Array.from(rule.getAriaRoles((it) => it.category === "abstract"));
+			const sorted = roles.map((it) => it.role).toSorted((a, b) => a.localeCompare(b));
+			expect(sorted).toEqual([
+				"command",
+				"composite",
+				"input",
+				"landmark",
+				"range",
+				"roletype",
+				"section",
+				"sectionhead",
+				"select",
+				"structure",
+				"widget",
+				"window",
+			]);
+		});
+
+		it("should yield no roles when the filter rejects all roles", () => {
+			expect.assertions(1);
+			expect(Array.from(rule.getAriaRoles(() => false))).toEqual([]);
+		});
+	});
+
 	describe("report()", () => {
 		it('should not add message with severity "disabled"', () => {
 			expect.assertions(1);
