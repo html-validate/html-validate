@@ -1489,6 +1489,7 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     getAriaRoleData(role: AriaRole): NormalizedAriaRole;
     getAriaRoleData(role: string): NormalizedAriaRole | null;
     getAriaRoles(predicate?: (role: NormalizedAriaRole) => boolean): Generator<NormalizedAriaRole, void, unknown>;
+    getAriaVersion(): AriaVersion;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;

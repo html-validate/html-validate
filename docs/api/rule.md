@@ -120,6 +120,19 @@ Names of tags matching `tagName` or inheriting from it.
 
 - `tagName`: Tag name to match or inherit from.
 
+## `getAriaVersion()` method
+
+### Syntax {#getariaversion-syntax}
+
+```ts nocompile nolint
+getAriaVersion();
+```
+
+### Return value {#getariaversion-return-value}
+
+The configured ARIA specification version: `"1.2"`, `"1.3"`, or `"latest"`.
+Returns `"1.2"` by default and preserves `"latest"` when configured rather than resolving it to a numbered version.
+
 ## `isValidAriaRole()` method
 
 ### Syntax {#isvalidariarole-syntax}

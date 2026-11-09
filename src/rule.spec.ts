@@ -1,6 +1,6 @@
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
+import { type AriaVersion, type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
@@ -67,6 +67,24 @@ describe("rule base class", () => {
 		mockEvent = {
 			location: mockLocation,
 		};
+	});
+
+	describe("getAriaVersion()", () => {
+		it("should return the default ARIA version", () => {
+			expect.assertions(1);
+			expect(rule.getAriaVersion()).toBe("1.2");
+		});
+
+		it.each<AriaVersion>(["1.2", "1.3", "latest"])(
+			"should return the configured ARIA version %s",
+			async (aria) => {
+				expect.assertions(1);
+				const sourceConfig = await Config.fromObject([], { aria });
+				const versionConfig = await sourceConfig.resolve();
+				rule.init(parser, reporter, Severity.ERROR, versionConfig);
+				expect(rule.getAriaVersion()).toBe(aria);
+			},
+		);
 	});
 
 	describe("isValidAriaRole()", () => {
