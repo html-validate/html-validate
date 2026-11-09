@@ -1,6 +1,6 @@
 import path from "node:path";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
+import { type AriaVersion, type ConfigData, type ResolvedConfig, Config, Severity } from "./config";
 import { HtmlElement } from "./dom";
 import { bundledElements } from "./elements";
 import { createBlocker } from "./engine";
@@ -69,6 +69,24 @@ describe("rule base class", () => {
 		};
 	});
 
+	describe("getAriaVersion()", () => {
+		it("should return the default ARIA version", () => {
+			expect.assertions(1);
+			expect(rule.getAriaVersion()).toBe("1.2");
+		});
+
+		it.each<AriaVersion>(["1.2", "1.3", "latest"])(
+			"should return the configured ARIA version %s",
+			async (aria) => {
+				expect.assertions(1);
+				const sourceConfig = await Config.fromObject([], { aria });
+				const versionConfig = await sourceConfig.resolve();
+				rule.init(parser, reporter, Severity.ERROR, versionConfig);
+				expect(rule.getAriaVersion()).toBe(aria);
+			},
+		);
+	});
+
 	describe("isValidAriaRole()", () => {
 		it("should return whether a role is defined", () => {
 			expect.assertions(2);
@@ -82,6 +100,39 @@ describe("rule base class", () => {
 			expect.assertions(2);
 			expect(rule.getAriaRoleData("alert")).toEqual(expect.objectContaining({ role: "alert" }));
 			expect(rule.getAriaRoleData("not-a-role")).toBeNull();
+		});
+	});
+
+	describe("getAriaRoles()", () => {
+		it("should yield all role metadata exactly once", () => {
+			expect.assertions(1);
+			const roles = Array.from(rule.getAriaRoles());
+			expect(roles).toEqual(Object.values(config.getAriaData().default));
+		});
+
+		it("should yield only roles matching the filter", () => {
+			expect.assertions(1);
+			const roles = Array.from(rule.getAriaRoles((it) => it.category === "abstract"));
+			const sorted = roles.map((it) => it.role).toSorted((a, b) => a.localeCompare(b));
+			expect(sorted).toEqual([
+				"command",
+				"composite",
+				"input",
+				"landmark",
+				"range",
+				"roletype",
+				"section",
+				"sectionhead",
+				"select",
+				"structure",
+				"widget",
+				"window",
+			]);
+		});
+
+		it("should yield no roles when the filter rejects all roles", () => {
+			expect.assertions(1);
+			expect(Array.from(rule.getAriaRoles(() => false))).toEqual([]);
 		});
 	});
 
