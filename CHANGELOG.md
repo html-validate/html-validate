@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.20.1 (2026-11-09)
+
+### Bug Fixes
+
+- **api:** fix missing `@html-validate/w3c-data` types ([741d28a](https://gitlab.com/html-validate/html-validate/commit/741d28ad4fc0d599f385f136402b51bb0df9bc3d))
+
 ## 11.20.0 (2026-11-08)
 
 ### Features
