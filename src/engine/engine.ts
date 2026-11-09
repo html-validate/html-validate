@@ -221,8 +221,9 @@ export class Engine<T extends Parser = Parser> {
 		const rules = this.config.getRules();
 		const ruleData = rules.get(ruleId);
 		if (ruleData) {
-			const [, options] = ruleData;
+			const [severity, options] = ruleData;
 			const rule = this.instantiateRule(ruleId, options);
+			rule.init(this.instantiateParser(), this.report, severity, this.config);
 			return rule.documentation(context);
 		}
 		return null;
