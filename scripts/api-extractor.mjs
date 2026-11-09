@@ -2,7 +2,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
+import { Extractor, ExtractorConfig, ExtractorLogLevel } from "@microsoft/api-extractor";
 import isCI from "is-ci";
 
 /**
@@ -147,6 +147,16 @@ export async function apiExtractor(patterns) {
 		const { succeeded, errorCount, warningCount } = Extractor.invoke(config, {
 			localBuild: !isCI,
 			showVerboseMessages: true,
+			messageCallback(message) {
+				const sourceFilePath = path.normalize(message.sourceFilePath ?? "");
+				const w3cDataPath = `${path.sep}node_modules${path.sep}@html-validate${path.sep}w3c-data${path.sep}`;
+				if (
+					message.messageId === "ae-missing-release-tag" &&
+					sourceFilePath.includes(w3cDataPath)
+				) {
+					message.logLevel = ExtractorLogLevel.None;
+				}
+			},
 		});
 		if (succeeded) {
 			console.log(`API Extractor completed successfully`);
