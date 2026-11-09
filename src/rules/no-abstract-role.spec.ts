@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { type AriaVersion } from "../config";
 import { HtmlValidate } from "../htmlvalidate";
 import { processAttribute } from "../transform/mocks/attribute";
 import "html-validate/jest";
@@ -78,7 +79,7 @@ describe("rule no-abstract-role", () => {
 		expect(docs?.description).toMatchInlineSnapshot(`
 			"Role \`"landmark"\` is abstract and must not be used.
 
-			WAI-ARIA defines a list of [abstract roles](https://www.w3.org/TR/wai-aria-1.2/#abstract_roles) which cannot be used by authors:
+			The configured WAI-ARIA version (1.2) defines a list of [abstract roles](https://www.w3.org/TR/wai-aria-1.2/#abstract_roles) which cannot be used by authors:
 
 			- \`"command"\`
 			- \`"composite"\`
@@ -98,5 +99,24 @@ describe("rule no-abstract-role", () => {
 		expect(docs?.url).toMatchInlineSnapshot(
 			`"https://html-validate.org/rules/no-abstract-role.html"`,
 		);
+	});
+
+	it.each<[AriaVersion, string]>([
+		["1.2", "https://www.w3.org/TR/wai-aria-1.2/#abstract_roles"],
+		["1.3", "https://www.w3.org/TR/wai-aria-1.3/#abstract_roles"],
+		["latest", "https://w3c.github.io/aria/#abstract_roles"],
+	])("should use the configured ARIA version %s in documentation", async (ariaVersion, url) => {
+		expect.assertions(2);
+		const validator = new HtmlValidate({
+			aria: ariaVersion,
+			root: true,
+			rules: { "no-abstract-role": "error" },
+		});
+		const docs = await validator.getContextualDocumentation({
+			ruleId: "no-abstract-role",
+			context: { role: "landmark" },
+		});
+		expect(docs?.description).toContain(`The configured WAI-ARIA version (${ariaVersion})`);
+		expect(docs?.description).toContain(`[abstract roles](${url})`);
 	});
 });

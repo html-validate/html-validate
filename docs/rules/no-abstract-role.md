@@ -9,7 +9,8 @@ standards:
 
 # Disallow usage of abstract WAI-ARIA roles
 
-WAI-ARIA defines a list of [abstract roles](https://www.w3.org/TR/wai-aria-1.2/#abstract_roles) which cannot be used by authors:
+WAI-ARIA defines a list of abstract roles which cannot be used by authors.
+For [WAI-ARIA 1.2](https://www.w3.org/TR/wai-aria-1.2/#abstract_roles) the list of abstract roles are:
 
 - `command`
 - `composite`
@@ -25,6 +26,8 @@ WAI-ARIA defines a list of [abstract roles](https://www.w3.org/TR/wai-aria-1.2/#
 - `window`
 
 Typically one of the role subclasses should be used instead.
+
+By default WAI-ARIA version 1.2 is used but can be configured with the {@link getting-started#aria aria property}.
 
 ## Rule details
 
