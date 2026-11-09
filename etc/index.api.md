@@ -4,14 +4,31 @@
 
 ```ts
 
-import { AriaModule } from '@html-validate/w3c-data/aria';
-import { AriaRole } from '@html-validate/w3c-data/aria';
 import { ErrorObject } from 'ajv';
-import { NormalizedRole } from '@html-validate/w3c-data/aria';
 import { SchemaObject } from 'ajv';
+
+// @public (undocumented)
+export interface AriaModule {
+    	// (undocumented)
+    default: Partial<Record<string, NormalizedAriaRole>>;
+    	// (undocumented)
+    getRoleData(this: void, role: AriaRole): NormalizedAriaRole;
+    	// (undocumented)
+    getRoleData(this: void, role: string): NormalizedAriaRole | null;
+    	// (undocumented)
+    isValidRole(this: void, role: string): role is AriaRole;
+}
 
 // @public
 export function ariaNaming(element: HtmlElement): "allowed" | "prohibited";
+
+// @public (undocumented)
+export type AriaRole = string & {
+    	readonly __ariaRole?: never;
+};
+
+// @public (undocumented)
+export type AriaRoleCategory = "abstract" | "widget" | "structure" | "landmark" | "live" | "window";
 
 // @public
 export type AriaVersion = "1.2" | "1.3" | "latest";
@@ -1181,6 +1198,55 @@ export type NodeClosed = typeof Node_2.CLOSED_OPEN | typeof Node_2.CLOSED_END_TA
 // @public (undocumented)
 export type NodeType = typeof Node_2.ELEMENT_NODE | typeof Node_2.TEXT_NODE | typeof Node_2.DOCUMENT_NODE;
 
+// @public (undocumented)
+export interface NormalizedAriaProperty {
+    	// (undocumented)
+    readonly default: string | undefined;
+    	// (undocumented)
+    readonly deprecated: boolean;
+    	// (undocumented)
+    readonly inherited: boolean;
+    	// (undocumented)
+    readonly required: boolean;
+}
+
+// @public (undocumented)
+export type NormalizedAriaPropertyTable = Readonly<Partial<Record<string, NormalizedAriaProperty>>>;
+
+// @public (undocumented)
+export interface NormalizedAriaRole {
+    	readonly allowedChildren: string[];
+    	readonly category: AriaRoleCategory;
+    	readonly childrenPresentational: boolean;
+    	readonly name: {
+        		readonly fromAuthor: boolean;
+        		readonly fromContents: boolean;
+        		readonly prohibited: boolean;
+        		readonly required: boolean;
+        	};
+    	readonly properties: NormalizedAriaPropertyTable;
+    	readonly requiredParent: string[];
+    	readonly role: string;
+    	readonly states: NormalizedAriaStateTable;
+    	readonly subclasses: string[];
+    	readonly superclasses: string[];
+}
+
+// @public (undocumented)
+export interface NormalizedAriaState {
+    	// (undocumented)
+    readonly default: string | undefined;
+    	// (undocumented)
+    readonly deprecated: boolean;
+    	// (undocumented)
+    readonly inherited: boolean;
+    	// (undocumented)
+    readonly required: boolean;
+}
+
+// @public (undocumented)
+export type NormalizedAriaStateTable = Readonly<Partial<Record<string, NormalizedAriaState>>>;
+
 // @public
 export interface NormalizedMetaAria {
     implicitRole(node: HtmlElementLike): string | null;
@@ -1420,8 +1486,8 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     // @virtual
     documentation(_context: ContextType): RuleDocumentation | null;
     static readonly fixable: boolean;
-    getAriaRoleData(role: AriaRole): NormalizedRole;
-    getAriaRoleData(role: string): NormalizedRole | null;
+    getAriaRoleData(role: AriaRole): NormalizedAriaRole;
+    getAriaRoleData(role: string): NormalizedAriaRole | null;
     // @internal
     getBlockers(node?: DOMNode | null): RuleBlocker[];
     getMetaFor(tagName: string): MetaElement | null;

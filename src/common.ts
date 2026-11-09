@@ -1,6 +1,17 @@
 /* used when calling require('htmlvalidate'); */
 
 export {
+	type AriaModule,
+	type AriaRole,
+	type NormalizedProperty as NormalizedAriaProperty,
+	type NormalizedPropertyTable as NormalizedAriaPropertyTable,
+	type NormalizedRole as NormalizedAriaRole,
+	type NormalizedState as NormalizedAriaState,
+	type NormalizedStateTable as NormalizedAriaStateTable,
+	type RoleCategory as AriaRoleCategory,
+} from "@html-validate/w3c-data/aria";
+
+export {
 	type Autofix,
 	type AutofixFn,
 	type TextEdit,
