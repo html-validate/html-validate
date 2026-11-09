@@ -92,6 +92,36 @@ function matchesParent(parent: HtmlElement, selector: string): boolean {
 	return parent.meta ? matchesContentCategory(parent.meta, selector) : false;
 }
 
+/**
+ * Returns `true` if the element’s parent is listed in its
+ * `optionalEndExcludedParents`, i.e., its end tag must not be omitted.
+ */
+function hasExcludedParent(element: HtmlElement): boolean {
+	const excluded = element.meta?.optionalEndExcludedParents;
+	const { parent } = element;
+	if (!excluded || !parent || parent.isRootElement()) {
+		return false;
+	}
+	return excluded.some((entry) => matchesParent(parent, entry));
+}
+
+/**
+ * Returns `true` if the element’s end tag may be omitted, either because
+ * its `implicitClosed` list includes its own tag name (e.g. `<li>`, `<td>`)
+ * or because `optionalEnd` is set, and the parent isn’t listed in
+ * `optionalEndExcludedParents` (e.g. `<p>` as last child of `<a>`).
+ *
+ * @internal
+ */
+export function canOmitEndTag(element: HtmlElement): boolean {
+	if (!element.meta) {
+		return false;
+	}
+	const { implicitClosed, optionalEnd } = element.meta;
+	const isOmittable = Boolean(implicitClosed?.includes(element.tagName)) || Boolean(optionalEnd);
+	return isOmittable && !hasExcludedParent(element);
+}
+
 function isAttrValueToken(token?: Token): token is AttrValueToken {
 	return token?.type === TokenType.ATTR_VALUE;
 }
@@ -269,34 +299,6 @@ export class Parser {
 	}
 
 	/**
-	 * Returns `true` if the element’s end tag may be omitted, either because
-	 * its `implicitClosed` list includes its own tag name (e.g. `<li>`, `<td>`)
-	 * or because `optionalEnd` is set, and the parent isn’t listed in
-	 * `optionalEndExcludedParents` (e.g. `<p>` as last child of `<a>`).
-	 */
-	private canOmitEndTag(element: HtmlElement): boolean {
-		if (!element.meta) {
-			return false;
-		}
-		const { implicitClosed, optionalEnd } = element.meta;
-		const isOmittable = Boolean(implicitClosed?.includes(element.tagName)) || Boolean(optionalEnd);
-		return isOmittable && !this.hasExcludedParent(element);
-	}
-
-	/**
-	 * Returns `true` if the element’s parent is listed in its
-	 * `optionalEndExcludedParents`, i.e. its end tag must not be omitted.
-	 */
-	private hasExcludedParent(element: HtmlElement): boolean {
-		const excluded = element.meta?.optionalEndExcludedParents;
-		const { parent } = element;
-		if (!excluded || !parent || parent.isRootElement()) {
-			return false;
-		}
-		return excluded.some((entry) => matchesParent(parent, entry));
-	}
-
-	/**
 	 * Check whether the active element can be implicitly closed by an incoming
 	 * end tag. The end tag may close a direct parent or any ancestor, as long as
 	 * every intermediate element can also have its end tag omitted.
@@ -310,7 +312,7 @@ export class Parser {
 			return false;
 		}
 
-		if (!this.canOmitEndTag(active)) {
+		if (!canOmitEndTag(active)) {
 			return false;
 		}
 
@@ -319,7 +321,7 @@ export class Parser {
 			if (ancestor.is(tagName)) {
 				return true;
 			}
-			if (!this.canOmitEndTag(ancestor)) {
+			if (!canOmitEndTag(ancestor)) {
 				return false;
 			}
 			ancestor = ancestor.parent;
@@ -1073,10 +1075,7 @@ export class Parser {
 		const documentElement = this.dom.root;
 		let active = this.dom.getActive();
 		while (!active.isRootElement()) {
-			if (
-				(active.meta?.implicitClosed || active.meta?.optionalEnd) &&
-				!this.hasExcludedParent(active)
-			) {
+			if ((active.meta?.implicitClosed || active.meta?.optionalEnd) && !hasExcludedParent(active)) {
 				active.closed = Node.CLOSED_IMPLICIT_CLOSED;
 				this.closeElement(source, documentElement, active, location);
 			} else {

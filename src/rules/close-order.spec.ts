@@ -345,6 +345,178 @@ describe("rule close-order", () => {
 		`);
 	});
 
+	it("should not report omitted `</html>` and `</body>` after misnested end tag", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `
+			<!DOCTYPE html>
+			<html lang="en">
+			<title>Test</title>
+			<main>
+			<div>
+			</main>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<div>' (close-order)
+			  4 | 			<title>Test</title>
+			  5 | 			<main>
+			> 6 | 			<div>
+			    | 			 ^^^
+			  7 | 			</main>
+			  8 |
+			Selector: html > body > main > div
+			error: End tag '</main>' seen but there were open elements (close-order)
+			  5 | 			<main>
+			  6 | 			<div>
+			> 7 | 			</main>
+			    | 			 ^^^^^
+			  8 |
+			Selector: -"
+		`);
+	});
+
+	it("should not report omitted `</body>` when `</html>` is misnested", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<html><body><div></html>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<div>' (close-order)
+			> 1 | <html><body><div></html>
+			    |              ^^^
+			Selector: html > body > div
+			error: End tag '</html>' seen but there were open elements (close-order)
+			> 1 | <html><body><div></html>
+			    |                   ^^^^^
+			Selector: -"
+		`);
+	});
+
+	it("should not report omitted `</caption>` when `</table>` is misnested", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<table><caption><span></table>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<span>' (close-order)
+			> 1 | <table><caption><span></table>
+			    |                  ^^^^
+			Selector: table > caption > span
+			error: End tag '</table>' seen but there were open elements (close-order)
+			> 1 | <table><caption><span></table>
+			    |                        ^^^^^^
+			Selector: -"
+		`);
+	});
+
+	it("should only report elements with required end tag at document end", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<html><body><main><div>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<main>' (close-order)
+			> 1 | <html><body><main><div>
+			    |              ^^^^
+			Selector: html > body > main
+			error: Unclosed element '<div>' (close-order)
+			> 1 | <html><body><main><div>
+			    |                    ^^^
+			Selector: html > body > main > div"
+		`);
+	});
+
+	it.each([
+		["<ul><li><div></ul>", "div"],
+		["<dl><dt><div></dl>", "div"],
+		["<dl><dd><div></dl>", "div"],
+		["<table><tr><td><span></table>", "span"],
+		["<table><tr><th><span></table>", "span"],
+		["<table><tbody><tr><span></table>", "span"],
+		["<select><optgroup><b></select>", "b"],
+		["<main><p><span></main>", "span"],
+	])(
+		"should not report ancestors with omitted end tag in %s",
+		async (markup: string, unclosed: string) => {
+			expect.assertions(1);
+			const report = await htmlvalidate.validateString(markup);
+			const messages = report.results.flatMap((result) =>
+				result.messages.map((message) => message.message),
+			);
+			expect(messages.filter((message) => message.startsWith("Unclosed"))).toEqual([
+				`Unclosed element '<${unclosed}>'`,
+			]);
+		},
+	);
+
+	it("should not report `<p>` with omitted end tag at document end", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<main><p><span>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<main>' (close-order)
+			> 1 | <main><p><span>
+			    |  ^^^^
+			Selector: main
+			error: Unclosed element '<span>' (close-order)
+			> 1 | <main><p><span>
+			    |           ^^^^
+			Selector: main > p > span"
+		`);
+	});
+
+	it("should report `<p>` when end tag is required by parent", async () => {
+		expect.assertions(2);
+		const markup = /* RAW */ `<a href="#"><p><span></a>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<p>' (close-order)
+			> 1 | <a href="#"><p><span></a>
+			    |              ^
+			Selector: a > p
+			error: Unclosed element '<span>' (close-order)
+			> 1 | <a href="#"><p><span></a>
+			    |                 ^^^^
+			Selector: a > p > span
+			error: End tag '</a>' seen but there were open elements (close-order)
+			> 1 | <a href="#"><p><span></a>
+			    |                       ^^
+			Selector: -"
+		`);
+	});
+
+	it("should report element with optional end tag in excluded parent", async () => {
+		expect.assertions(2);
+		const htmlvalidate = new HtmlValidate({
+			root: true,
+			elements: [
+				"html5",
+				{ "x-foo": { optionalEnd: true, optionalEndExcludedParents: ["x-bar"] } },
+			],
+			rules: { "close-order": "error" },
+		});
+		const markup = /* RAW */ `<x-bar><x-foo><div>`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeInvalid();
+		expect(report).toMatchInlineCodeframe(`
+			"error: Unclosed element '<x-bar>' (close-order)
+			> 1 | <x-bar><x-foo><div>
+			    |  ^^^^^
+			Selector: x-bar
+			error: Unclosed element '<x-foo>' (close-order)
+			> 1 | <x-bar><x-foo><div>
+			    |         ^^^^^
+			Selector: x-bar > x-foo
+			error: Unclosed element '<div>' (close-order)
+			> 1 | <x-bar><x-foo><div>
+			    |                ^^^
+			Selector: x-bar > x-foo > div"
+		`);
+	});
+
 	it("should report error when elements have wrong end tag (root)", async () => {
 		expect.assertions(2);
 		const markup = `

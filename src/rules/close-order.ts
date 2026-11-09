@@ -1,6 +1,7 @@
 import { type DOMInternalID, type HtmlElement, Node } from "../dom";
 import { type TagEndEvent } from "../event";
 import { type Location } from "../location";
+import { canOmitEndTag } from "../parser/parser";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 /**
@@ -64,7 +65,7 @@ export default class CloseOrder extends Rule {
 
 			const active = event.previous; // The current active element (that is, the current element on the stack)
 			for (const ancestor of ancestors(active)) {
-				if (ancestor.isRootElement() || reported.has(ancestor.unique)) {
+				if (ancestor.isRootElement() || reported.has(ancestor.unique) || canOmitEndTag(ancestor)) {
 					continue;
 				}
 				this.report({
@@ -128,7 +129,7 @@ export default class CloseOrder extends Rule {
 					if (ancestor.isSameNode(element)) {
 						break;
 					}
-					if (reported.has(element.unique)) {
+					if (reported.has(element.unique) || canOmitEndTag(element)) {
 						continue;
 					}
 					this.report({
