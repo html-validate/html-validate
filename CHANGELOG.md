@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.21.1 (2026-11-12)
+
+### Bug Fixes
+
+- **rules:** skip omitted end tags ([1f92180](https://gitlab.com/html-validate/html-validate/commit/1f92180bdf6371e0bce6054febfef5b751d29da1))
+
 ## 11.21.0 (2026-11-09)
 
 ### Features
