@@ -286,7 +286,7 @@
     "magic-string": "1.4.5",
     "markdownlint-cli2": "0.24.1",
     "markdownlint-rule-max-one-sentence-per-line": "0.0.2",
-    "memfs": "4.80.0",
+    "memfs": "4.80.1",
     "npm-pkg-lint": "5.4.2",
     "npm-run-all2": "9.0.4",
     "rollup": "4.68.2",
