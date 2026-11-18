@@ -96,6 +96,7 @@ export class Engine<T extends Parser = Parser> {
 
 			/* setup plugins and rules */
 			const { rules } = this.setupPlugins(source, this.config, parser);
+			/* eslint-disable-next-line @typescript-eslint/no-unsafe-class-instance-assignment -- false positive, it is created with new */
 			const noUnusedDisable = rules["no-unused-disable"] as NoUnusedDisable;
 			const directiveContext: DirectiveContext = {
 				rules,
