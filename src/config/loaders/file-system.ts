@@ -92,6 +92,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 * @param config - Global configuration.
 	 * @param configFactory - Optional configuration factory.
 	 */
+	/* eslint-disable-next-line unicorn/prefer-options-parameter -- uses two separate option objects */
 	public constructor(config?: ConfigData, options?: Partial<FileSystemConfigLoaderOptions>);
 
 	/**
@@ -104,6 +105,7 @@ export class FileSystemConfigLoader extends ConfigLoader {
 	 */
 	public constructor(
 		resolvers: Resolver[],
+		/* eslint-disable-next-line unicorn/prefer-options-parameter -- uses two separate option objects */
 		config?: ConfigData,
 		options?: Partial<FileSystemConfigLoaderOptions>,
 	);

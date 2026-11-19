@@ -71,7 +71,7 @@ export default function rulesProcessor(renderDocsProcessor) {
 		/* split heading and other content */
 		for (const doc of ruleDocs) {
 			const description = String(doc.description);
-			const match = description.match(/([\s\S]*^# .*)$([\s\S]*)/m);
+			const match = /([\s\S]*^# .*)$([\s\S]*)/m.exec(description);
 			if (!match) {
 				throw new Error(`Failed to locate header for "${doc.fileInfo.projectRelativePath}"`);
 			}
