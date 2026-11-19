@@ -114,6 +114,7 @@ export class HtmlValidate {
 	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateString(
 		str: string,
+		/* eslint-disable-next-line unicorn/prefer-options-parameter -- uses separate option objects */
 		arg1?: string | SourceHooks | ConfigData,
 		arg2?: SourceHooks | ConfigData,
 		arg3?: SourceHooks,
@@ -157,6 +158,7 @@ export class HtmlValidate {
 	/* eslint-enable @typescript-eslint/unified-signatures */
 	public validateStringSync(
 		str: string,
+		/* eslint-disable-next-line unicorn/prefer-options-parameter -- uses separate option objects */
 		arg1?: string | SourceHooks | ConfigData,
 		arg2?: SourceHooks | ConfigData,
 		arg3?: SourceHooks,

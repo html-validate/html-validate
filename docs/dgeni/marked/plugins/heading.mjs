@@ -31,7 +31,7 @@ function generateId(value) {
  */
 function getHeadingId(text, raw) {
 	const hasId = /(?: +|^)\{#([a-z][\w-]*)\}(?: +|$)/i;
-	const match = text.match(hasId);
+	const match = hasId.exec(text);
 	if (match) {
 		return [text.replace(hasId, ""), match[1]];
 	}
