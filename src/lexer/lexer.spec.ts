@@ -908,6 +908,60 @@ describe("lexer", () => {
 		});
 
 		describe("html-validate directive", () => {
+			it.each(["", "<p></p>"])(
+				"rejects an unterminated directive after %j with brackets",
+				(prefix) => {
+					expect.assertions(1);
+					const markup = `${prefix}<!--[html-validate-action ${"\t".repeat(20_000)}\n]`;
+					expect(() => Array.from(lexer.tokenize(inlineSource(markup)))).toThrow(
+						"failed to tokenize",
+					);
+				},
+			);
+
+			it.each(["", "<p></p>"])(
+				"rejects an unterminated directive after %j without brackets",
+				(prefix) => {
+					expect.assertions(1);
+					const markup = `${prefix}<!--html-validate-action ${"\t".repeat(20_000)}\n`;
+					expect(() => Array.from(lexer.tokenize(inlineSource(markup)))).toThrow(
+						"failed to tokenize",
+					);
+				},
+			);
+
+			it("handles long whitespace with brackets", () => {
+				expect.assertions(1);
+				const whitespace = ` ${"\t".repeat(20_000)}\n`;
+				const markup = `<!--[html-validate-action${whitespace}]-->`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: [markup, `<!--[`, "html-validate-", "action", whitespace, "", `]-->`],
+				});
+			});
+
+			it("handles long whitespace without brackets", () => {
+				expect.assertions(1);
+				const whitespace = ` ${"\t".repeat(20_000)}\n`;
+				const markup = `<!--html-validate-action${whitespace}-->`;
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({
+					type: TokenType.DIRECTIVE,
+					data: [markup, `<!--`, "html-validate-", "action", whitespace, "", `-->`],
+				});
+			});
+
+			it("treats a directive with multiline content as a comment", () => {
+				expect.assertions(1);
+				const markup = "<!--html-validate-action options\nmore options -->";
+				const token = lexer.tokenize(inlineSource(markup));
+				expect(token.next()).toBeToken({
+					type: TokenType.COMMENT,
+					data: [markup, "html-validate-action options\nmore options "],
+				});
+			});
+
 			it("with only action", () => {
 				expect.assertions(5);
 				const markup = ["<!-- [html-validate-disable] -->", "<!-- html-validate-disable -->"];
