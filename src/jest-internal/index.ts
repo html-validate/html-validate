@@ -1,5 +1,5 @@
 import { expect } from "@jest/globals";
-import { toBeToken } from "./matchers";
+import { cdpAccessibleName, toBeToken } from "./matchers";
 import { type TokenMatcher } from "./token-matcher";
 
 declare module "expect" {
@@ -10,5 +10,6 @@ declare module "expect" {
 }
 
 expect.extend({
+	cdpAccessibleName,
 	toBeToken: toBeToken(expect),
 });
