@@ -821,6 +821,36 @@ describe("HtmlElement", () => {
 		});
 	});
 
+	describe("isLabelable", () => {
+		it("should return true when metadata marks the element labelable", () => {
+			expect.assertions(1);
+			const element = HtmlElement.createElement("button", location, {
+				meta: { labelable: true } as MetaElement,
+			});
+			expect(element.isLabelable).toBe(true);
+		});
+
+		it("should evaluate labelable metadata callbacks", () => {
+			expect.assertions(2);
+			const element = HtmlElement.createElement("custom-element", location, {
+				meta: {
+					labelable(node) {
+						return node.hasAttribute("data-labelable");
+					},
+				} as MetaElement,
+			});
+			expect(element.isLabelable).toBe(false);
+			element.setAttribute("data-labelable", null, location, location, null);
+			expect(element.isLabelable).toBe(true);
+		});
+
+		it("should return false when metadata is missing", () => {
+			expect.assertions(1);
+			const element = HtmlElement.createElement("custom-element", location);
+			expect(element.isLabelable).toBe(false);
+		});
+	});
+
 	describe("tabIndex", () => {
 		it("should return null if tabindex attribute is missing", () => {
 			expect.assertions(1);

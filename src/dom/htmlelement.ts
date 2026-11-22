@@ -436,6 +436,20 @@ export class HtmlElement extends DOMNode {
 		return this.metaElement;
 	}
 
+	/**
+	 * Returns true if this element is labelable according to its metadata.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public get isLabelable(): boolean {
+		const labelable = this.metaElement?.labelable;
+		if (typeof labelable === "function") {
+			return labelable(this._adapter);
+		}
+		return Boolean(labelable);
+	}
+
 	public get parent(): HtmlElement | null {
 		return this._parent;
 	}
