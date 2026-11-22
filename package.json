@@ -202,6 +202,7 @@
       "!src/vitest/**"
     ],
     "globalSetup": "<rootDir>/jest.global.cjs",
+    "globalTeardown": "<rootDir>/jest.teardown.cjs",
     "moduleNameMapper": {
       "^@html-validate/w3c-data/aria$": "<rootDir>/node_modules/@html-validate/w3c-data/dist/aria.mjs",
       "^html-validate/browser$": "<rootDir>/src/browser.ts",
@@ -264,6 +265,7 @@
     "@tsconfig/node22": "22.0.7",
     "@tsconfig/strictest": "2.0.9",
     "@types/babar": "0.2.4",
+    "@types/chrome-remote-interface": "0.34.1",
     "@types/cli-table": "0.3.4",
     "@types/node": "22.20.5",
     "@types/prompts": "2.4.9",
@@ -272,6 +274,7 @@
     "@typescript/native": "npm:typescript@7.0.2",
     "@vitest/expect": "5.1.1",
     "babar": "0.2.3",
+    "chrome-remote-interface": "0.34.0",
     "cli-table": "0.3.11",
     "dedent": "1.7.2",
     "esbuild": "0.28.2",
