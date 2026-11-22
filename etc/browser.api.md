@@ -633,6 +633,7 @@ export class HtmlElement extends DOMNode {
     // (undocumented)
     insertBefore(node: DOMNode, reference: DOMNode | null): void;
     is(tagName: string): boolean;
+    get isLabelable(): boolean;
     get lastElementChild(): HtmlElement | null;
     loadMeta(meta: MetaElement): void;
     matches(selectorList: string): boolean;
