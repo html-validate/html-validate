@@ -226,6 +226,93 @@ describe("HtmlElement", () => {
 		expect(node.tagName).toBe("#document");
 	});
 
+	describe("ownerDocument", () => {
+		it("should return the document root for parsed elements", () => {
+			expect.assertions(3);
+			const element = document.querySelector("li");
+			expect(document.ownerDocument).toBeNull();
+			expect(element).not.toBeNull();
+			expect(element?.ownerDocument).toBe(document);
+		});
+
+		it("should return null for a detached element", () => {
+			expect.assertions(1);
+			const element = HtmlElement.createElement("div", location);
+			expect(element.ownerDocument).toBeNull();
+		});
+
+		it("should stay unowned when attached to an ownerless parent", () => {
+			expect.assertions(2);
+			const parent = HtmlElement.createElement("div", location);
+			const child = HtmlElement.createElement("span", location, { parent });
+			expect(child.parent).toBe(parent);
+			expect(child.ownerDocument).toBeNull();
+		});
+
+		it("should assign ownership when an unowned subtree is attached", () => {
+			expect.assertions(2);
+			const root = HtmlElement.rootNode(location);
+			const parent = HtmlElement.createElement("div", location);
+			const child = HtmlElement.createElement("span", location, { parent });
+			root.append(parent);
+			expect(parent.ownerDocument).toBe(root);
+			expect(child.ownerDocument).toBe(root);
+		});
+
+		it("should not reassign ownership to an already-owned descendant", () => {
+			expect.assertions(3);
+			const root = HtmlElement.rootNode(location);
+			const parent = HtmlElement.createElement("div", location, { parent: root });
+			const child = HtmlElement.createElement("span", location, { parent: root });
+			parent.append(child);
+			expect(parent.ownerDocument).toBe(root);
+			expect(child.ownerDocument).toBe(root);
+			expect(child.parent).toBe(parent);
+		});
+
+		it("should throw when attaching an owned node to an ownerless parent", () => {
+			expect.assertions(5);
+			const ownerDocument = HtmlElement.rootNode(location);
+			const parent = HtmlElement.createElement("div", location);
+			const child = HtmlElement.createElement("span", location, { parent: ownerDocument });
+			expect(() => {
+				parent.append(child);
+			}).toThrow("DOMException: cannot reassign ownerDocument");
+			expect(parent.childNodes).toHaveLength(0);
+			expect(child.parent).toBe(ownerDocument);
+			expect(ownerDocument.firstChild).toBe(child);
+			expect(child.ownerDocument).toBe(ownerDocument);
+		});
+
+		it("should throw when appending an owned node into another document", () => {
+			expect.assertions(5);
+			const ownerDocument = HtmlElement.rootNode(location);
+			const destination = HtmlElement.rootNode(location);
+			const element = HtmlElement.createElement("div", location, { parent: ownerDocument });
+			expect(() => {
+				destination.append(element);
+			}).toThrow("DOMException: cannot reassign ownerDocument");
+			expect(destination.childNodes).toHaveLength(0);
+			expect(element.parent).toBe(ownerDocument);
+			expect(ownerDocument.firstChild).toBe(element);
+			expect(element.ownerDocument).toBe(ownerDocument);
+		});
+
+		it("should throw before inserting an owned node into another document", () => {
+			expect.assertions(5);
+			const ownerDocument = HtmlElement.rootNode(location);
+			const destination = HtmlElement.rootNode(location);
+			const element = HtmlElement.createElement("div", location, { parent: ownerDocument });
+			expect(() => {
+				destination.insertBefore(element, null);
+			}).toThrow("DOMException: cannot reassign ownerDocument");
+			expect(destination.childNodes).toHaveLength(0);
+			expect(element.parent).toBe(ownerDocument);
+			expect(ownerDocument.firstChild).toBe(element);
+			expect(element.ownerDocument).toBe(ownerDocument);
+		});
+	});
+
 	it("id property should return element id", () => {
 		expect.assertions(1);
 		const el = HtmlElement.createElement("foo", location);

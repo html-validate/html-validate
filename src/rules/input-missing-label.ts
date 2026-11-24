@@ -49,7 +49,7 @@ export default class InputMissingLabel extends Rule {
 			return;
 		}
 
-		if (hasAccessibleName(root, elem)) {
+		if (hasAccessibleName(elem)) {
 			return;
 		}
 
@@ -58,14 +58,14 @@ export default class InputMissingLabel extends Rule {
 		/* try to find label by id */
 		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 		if ((label = findLabelById(root, elem.id)).length > 0) {
-			this.validateLabel(root, elem, label);
+			this.validateLabel(elem, label);
 			return;
 		}
 
 		/* try to find parent label (input nested in label) */
 		/* eslint-disable-next-line sonarjs/no-nested-assignment -- technical debt */
 		if ((label = findLabelByParent(elem)).length > 0) {
-			this.validateLabel(root, elem, label);
+			this.validateLabel(elem, label);
 			return;
 		}
 
@@ -90,7 +90,7 @@ export default class InputMissingLabel extends Rule {
 	/**
 	 * Reports error if none of the labels are accessible.
 	 */
-	private validateLabel(root: DOMTree, elem: HtmlElement, labels: HtmlElement[]): void {
+	private validateLabel(elem: HtmlElement, labels: HtmlElement[]): void {
 		const visible = labels.filter(inAccessibilityTree);
 		if (visible.length === 0) {
 			this.report({
@@ -100,7 +100,7 @@ export default class InputMissingLabel extends Rule {
 			});
 			return;
 		}
-		if (labels.every((label) => !hasAccessibleName(root, label))) {
+		if (labels.every((label) => !hasAccessibleName(label))) {
 			this.report({
 				node: labels[0],
 				message: `<${elem.tagName}> element has <label> but <label> has no text`,

@@ -1891,6 +1891,19 @@ describe("parser", () => {
 			expect(events.shift()).toEqual({ event: "element:ready", target: "html" });
 		});
 
+		it("should set ownerDocument for implicitly opened elements", () => {
+			expect.assertions(2);
+			const markup = /* HTML */ `
+				<html>
+					<title>test</title>
+				</html>
+			`;
+			const document = parser.parseHtml(markup);
+			const head = document.querySelector("head");
+			expect(head?.implicit).toBe(true);
+			expect(head?.ownerDocument).toBe(document);
+		});
+
 		it("should implicitly open <body> when flow-only content appears directly under <html>", () => {
 			expect.assertions(12);
 			parser.parseHtml(`<html><p>content</p></html>`);

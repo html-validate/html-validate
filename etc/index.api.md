@@ -747,6 +747,7 @@ export class HtmlElement extends DOMNode {
     get meta(): MetaElement | null;
     // (undocumented)
     get nextSibling(): HtmlElement | null;
+    get ownerDocument(): HtmlElement | null;
     // (undocumented)
     get parent(): HtmlElement | null;
     // (undocumented)

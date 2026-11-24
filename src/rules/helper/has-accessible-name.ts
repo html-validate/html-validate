@@ -1,4 +1,4 @@
-import { type DOMTree, type HtmlElement, DynamicValue, generateIdSelector } from "../../dom";
+import { type HtmlElement, DynamicValue, generateIdSelector } from "../../dom";
 import { inAccessibilityTree } from "./a11y";
 import { hasAltText } from "./has-alt-text";
 import { TextClassification, classifyNodeText } from "./text";
@@ -10,7 +10,7 @@ declare module "../../dom/cache" {
 }
 
 interface Context {
-	document: DOMTree | HtmlElement;
+	document: HtmlElement;
 	reference: HtmlElement | null;
 }
 
@@ -130,15 +130,19 @@ function hasAccessibleNameImpl(current: HtmlElement, context: Context): boolean 
  * It does not yet consider if the elements role prohibits naming, e.g. a `<p>`
  * element will still show up as having an accessible name.
  *
- * @public
- * @param document - Document element.
+ * @internal
  * @param current - The element to get accessible name for
  * @returns `true` if the element has an accessible name.
  */
-export function hasAccessibleName(document: DOMTree | HtmlElement, current: HtmlElement): boolean {
+export function hasAccessibleName(current: HtmlElement): boolean {
 	/* istanbul ignore next: we're not testing cache */
 	if (current.cacheExists(HAS_ACCESSIBLE_TEXT_CACHE)) {
 		return Boolean(current.cacheGet(HAS_ACCESSIBLE_TEXT_CACHE));
+	}
+
+	const document = current.ownerDocument;
+	if (!document) {
+		return false;
 	}
 
 	const result = hasAccessibleNameImpl(current, {
