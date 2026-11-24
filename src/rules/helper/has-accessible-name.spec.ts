@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { Config } from "../../config";
 import { type Source } from "../../context";
-import { type HtmlElement } from "../../dom";
+import { HtmlElement } from "../../dom";
 import { Parser } from "../../parser";
 import { processAttribute } from "../../transform/mocks/attribute";
 import { hasAccessibleName } from "./has-accessible-name";
@@ -48,117 +48,129 @@ function parse(
 	return { root, element };
 }
 
+it("should return false for detached element", () => {
+	expect.assertions(1);
+	const node = HtmlElement.createElement("div", {
+		filename: "inline",
+		line: 1,
+		column: 1,
+		offset: 0,
+		size: 5,
+	});
+	expect(hasAccessibleName(node)).toBeFalsy();
+});
+
 describe("self", () => {
 	it("should return false if element has no text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if element has static text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p>lorem ipsum</p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if element has dynamic text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p bind-text="myVar"></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if element has static aria-label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label="lorem ipsum"></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if element has dynamic aria-label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p dynamic-aria-label="myVar"></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if element has empty aria-label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label=""></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if element has whitespace only in aria-label", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-label=" "></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if element is hidden", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p hidden>lorem ipsum</p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if element is aria-hidden", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p aria-hidden="true">lorem ipsum</p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if <img> has static alt text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <img alt="lorem ipsum" /> `;
-		const { root, element } = parse(markup, "img");
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup, "img");
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if <img> has dynamic alt text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <img dynamic-alt="myVar" /> `;
-		const { root, element } = parse(markup, "img");
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup, "img");
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if <img> has empty alt text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <img alt="" /> `;
-		const { root, element } = parse(markup, "img");
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup, "img");
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if <img> is missing alt text", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <img /> `;
-		const { root, element } = parse(markup, "img");
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup, "img");
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if <svg> has non-empty <title>", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <svg><title>lorem ipsum</title></svg> `;
-		const { root, element } = parse(markup, "svg");
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup, "svg");
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if <svg> has empty <title>", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <svg><title></title></svg> `;
-		const { root, element } = parse(markup, "svg");
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup, "svg");
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if <svg> is missing <title>", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <svg></svg> `;
-		const { root, element } = parse(markup, "svg");
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup, "svg");
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 });
 
@@ -169,8 +181,8 @@ describe("aria-labelledby", () => {
 			<div id="ref"></div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if referenced element has static text", () => {
@@ -179,8 +191,8 @@ describe("aria-labelledby", () => {
 			<div id="ref">lorem ipsum</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if referenced element has dynamic text", () => {
@@ -189,8 +201,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" bind-text="foo"></div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if one referenced element has text", () => {
@@ -201,8 +213,8 @@ describe("aria-labelledby", () => {
 			<div id="c"></div>
 			<p aria-labelledby="a b c"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if none of referenced element has text", () => {
@@ -213,15 +225,15 @@ describe("aria-labelledby", () => {
 			<div id="c"></div>
 			<p aria-labelledby="a b c"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if element has dynamic aria-labelledby", () => {
 		expect.assertions(1);
 		const markup = /* HTML */ ` <p dynamic-aria-labelledby="ref"></p> `;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if referenced element has static aria-label", () => {
@@ -230,8 +242,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" aria-label="lorem ipsum"></div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if referenced element has dynamic aria-label", () => {
@@ -240,8 +252,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" dynamic-aria-label="myVar"></div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if referenced element has empty aria-label", () => {
@@ -250,8 +262,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" aria-label=""></div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true even if referenced element is hidden", () => {
@@ -260,8 +272,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" hidden>lorem ipsum</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true even if referenced element is aria-hidden", () => {
@@ -270,8 +282,8 @@ describe("aria-labelledby", () => {
 			<div id="ref" aria-hidden="true">lorem ipsum</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if referenced element children is hidden", () => {
@@ -282,8 +294,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if referenced element children is aria-hidden", () => {
@@ -294,8 +306,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if referenced <img> has static alt text", () => {
@@ -304,8 +316,8 @@ describe("aria-labelledby", () => {
 			<img id="ref" alt="lorem ipsum" />
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if referenced <img> has dynamic alt text", () => {
@@ -314,8 +326,8 @@ describe("aria-labelledby", () => {
 			<img id="ref" dynamic-alt="myVar" />
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if referenced <img> has empty alt text", () => {
@@ -324,8 +336,8 @@ describe("aria-labelledby", () => {
 			<img id="ref" alt="" />
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if referenced <img> is missing alt text", () => {
@@ -334,8 +346,8 @@ describe("aria-labelledby", () => {
 			<img id="ref" />
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return true if nested <img> has static alt text", () => {
@@ -346,8 +358,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return true if nested <img> has dynamic alt text", () => {
@@ -358,8 +370,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeTruthy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeTruthy();
 	});
 
 	it("should return false if nested <img> has empty alt text", () => {
@@ -370,8 +382,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if nested <img> is missing alt text", () => {
@@ -382,8 +394,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should return false if nested <img> with alt text is hidden", () => {
@@ -395,8 +407,8 @@ describe("aria-labelledby", () => {
 			</div>
 			<p aria-labelledby="ref"></p>
 		`;
-		const { root, element } = parse(markup);
-		expect(hasAccessibleName(root, element)).toBeFalsy();
+		const { element } = parse(markup);
+		expect(hasAccessibleName(element)).toBeFalsy();
 	});
 
 	it("should not look up recursive aria-labelledby", () => {
@@ -410,9 +422,9 @@ describe("aria-labelledby", () => {
 		`;
 		const { root } = parse(markup);
 		const elements = root.querySelectorAll("p");
-		expect(hasAccessibleName(root, elements[0])).toBeFalsy();
-		expect(hasAccessibleName(root, elements[1])).toBeFalsy();
-		expect(hasAccessibleName(root, elements[2])).toBeTruthy();
-		expect(hasAccessibleName(root, elements[3])).toBeTruthy();
+		expect(hasAccessibleName(elements[0])).toBeFalsy();
+		expect(hasAccessibleName(elements[1])).toBeFalsy();
+		expect(hasAccessibleName(elements[2])).toBeTruthy();
+		expect(hasAccessibleName(elements[3])).toBeTruthy();
 	});
 });
