@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 11.22.1 (2026-11-24)
+
+### Bug Fixes
+
+- fix catastrophic backtracking when using directives ([679d210](https://gitlab.com/html-validate/html-validate/commit/679d210e9b3036a8938265d7aa2035d6389373b3)), closes [#382](https://gitlab.com/html-validate/html-validate/issues/382)
+
 ## 11.22.0 (2026-11-24)
 
 ### Features
