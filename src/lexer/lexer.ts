@@ -3,7 +3,22 @@ import { type Location } from "../location";
 import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;
-type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
+
+type LexerTest = [
+	RegExp | ((input: string) => string[] | null) | false,
+	State | NextStateCallback,
+	TokenType | false,
+];
+
+type DirectiveMatch = [
+	text: string,
+	begin: string,
+	prefix: string,
+	action: string,
+	delimiter: string,
+	rest: string,
+	end: string,
+];
 
 /**
  * @internal
@@ -36,10 +51,37 @@ const MATCH_TEXTAREA_DATA = /^[\s\S]*?(?=<\/textarea)/i;
 const MATCH_TEXTAREA_END = /^<(\/)(textarea)/i;
 const MATCH_TITLE_DATA = /^[\s\S]*?(?=<\/title)/i;
 const MATCH_TITLE_END = /^<(\/)(title)/i;
-const MATCH_DIRECTIVE = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)(.*?)(\]?\s*-->)/;
+const MATCH_DIRECTIVE_BEGIN = /^(<!--\s*\[?)(html-validate-)([\da-z-]+)(\s*)/;
 const MATCH_COMMENT = /^<!--([\s\S]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*)\]>/;
 /* eslint-enable no-useless-escape, regexp/no-super-linear-backtracking */
+
+function matchDirective(input: string): DirectiveMatch | null {
+	if (!input.startsWith("<!--")) {
+		return null;
+	}
+	const endIndex = input.indexOf("-->", 4);
+	if (endIndex === -1) {
+		return null;
+	}
+	const body = input.slice(0, endIndex);
+	const beginMatch = MATCH_DIRECTIVE_BEGIN.exec(body);
+	if (!beginMatch) {
+		return null;
+	}
+	const [matchedBegin, begin, prefix, action, delimiter] = beginMatch;
+	const remaining = body.slice(matchedBegin.length);
+	let rest = remaining.trimEnd();
+	if (rest.endsWith("]")) {
+		rest = rest.slice(0, -1);
+	}
+	if (/[\r\n\u{2028}\u{2029}]/u.test(rest)) {
+		return null;
+	}
+	const text = input.slice(0, endIndex + 3);
+	const end = `${remaining.slice(rest.length)}-->`;
+	return [text, begin, prefix, action, delimiter, rest, end];
+}
 
 export class InvalidTokenError extends Error {
 	public location: Location;
@@ -172,9 +214,14 @@ export class Lexer {
 	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
-			const [regex, nextState, tokenType] = tests[i];
+			const [test, nextState, tokenType] = tests[i];
 
-			const match: string[] | null = regex ? context.string.match(regex) : [""];
+			let match: string[] | null;
+			if (typeof test === "function") {
+				match = test(context.string);
+			} else {
+				match = test ? context.string.match(test) : [""];
+			}
 			if (match) {
 				let token: Token | null = null;
 				if (tokenType !== false) {
@@ -230,7 +277,7 @@ export class Lexer {
 				[MATCH_XML_TAG, State.INITIAL, false],
 				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
-				[MATCH_DIRECTIVE, State.INITIAL, TokenType.DIRECTIVE],
+				[matchDirective, State.INITIAL, TokenType.DIRECTIVE],
 				[MATCH_CONDITIONAL, State.INITIAL, TokenType.CONDITIONAL],
 				[MATCH_COMMENT, State.INITIAL, TokenType.COMMENT],
 				[false, State.TEXT, false],
@@ -311,7 +358,7 @@ export class Lexer {
 			[
 				[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 				[MATCH_CDATA_BEGIN, State.CDATA, false],
-				[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
+				[matchDirective, State.TEXT, TokenType.DIRECTIVE],
 				[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
 				[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
 				[MATCH_TEMPLATING, State.TEXT, TokenType.TEMPLATING],
