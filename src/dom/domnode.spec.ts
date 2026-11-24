@@ -50,6 +50,17 @@ describe("DOMNode", () => {
 			expect(parent.firstChild.unique).toEqual(child.unique);
 		});
 
+		it("should not append a document root", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const document = HtmlElement.rootNode(location);
+			const child = HtmlElement.createElement("child", location, { parent: document });
+			parent.append(document);
+			expect(parent.childNodes).toHaveLength(0);
+			expect(document.parent).toBeNull();
+			expect(document.firstChild).toBe(child);
+		});
+
 		it("should set parent", () => {
 			expect.assertions(2);
 			const parent = HtmlElement.createElement("parent", location);
@@ -90,6 +101,18 @@ describe("DOMNode", () => {
 	});
 
 	describe("insertBefore", () => {
+		it("should not insert a document root", () => {
+			expect.assertions(3);
+			const parent = HtmlElement.createElement("parent", location);
+			const reference = HtmlElement.createElement("reference", location, { parent });
+			const document = HtmlElement.rootNode(location);
+			const child = HtmlElement.createElement("child", location, { parent: document });
+			parent.insertBefore(document, reference);
+			expect(parent.childElements).toEqual([reference]);
+			expect(document.parent).toBeNull();
+			expect(document.firstChild).toBe(child);
+		});
+
 		it("should insert node before reference node", () => {
 			expect.assertions(5);
 			const parent = HtmlElement.createElement("parent", location);
@@ -227,6 +250,16 @@ describe("DOMNode", () => {
 			root.append(element);
 			const removed = root.removeChild(element);
 			expect(removed.isSameNode(element)).toBeTruthy();
+		});
+
+		it("should retain ownerDocument when removing a child", () => {
+			expect.assertions(2);
+			const root = HtmlElement.rootNode(location);
+			const element = HtmlElement.createElement("element", location);
+			root.append(element);
+			root.removeChild(element);
+			expect(element.parent).toBeNull();
+			expect(element.ownerDocument).toBe(root);
 		});
 
 		it("should throw error if removing element which is not a child", () => {

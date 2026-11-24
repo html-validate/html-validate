@@ -154,6 +154,9 @@ export class DOMNode {
 	}
 
 	public append(node: DOMNode): void {
+		if (node.isRootElement()) {
+			return;
+		}
 		const oldParent = node._setParent(this);
 		if (oldParent && this.isSameNode(oldParent)) {
 			return;
@@ -171,13 +174,16 @@ export class DOMNode {
 	 * @internal
 	 */
 	public insertBefore(node: DOMNode, reference: DOMNode | null): void {
+		if (node.isRootElement()) {
+			return;
+		}
 		const index = reference ? this.childNodes.findIndex((it) => it.isSameNode(reference)) : -1;
+		const oldParent = node._setParent(this);
 		if (index >= 0) {
 			this.childNodes.splice(index, 0, node);
 		} else {
 			this.childNodes.push(node);
 		}
-		const oldParent = node._setParent(this);
 		if (oldParent) {
 			oldParent._removeChild(node);
 		}

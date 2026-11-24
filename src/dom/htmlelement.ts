@@ -77,6 +77,7 @@ export class HtmlElement extends DOMNode {
 	private metaElement: MetaElement | null;
 	private annotation: string | null;
 	private _parent: HtmlElement | null;
+	private _ownerDocument: HtmlElement | null;
 	private _endTagLocation: Location | null;
 	private _implicit: boolean;
 
@@ -114,6 +115,7 @@ export class HtmlElement extends DOMNode {
 		this.voidElement = meta ? Boolean(meta.void) : false;
 		this.depth = 0;
 		this.annotation = null;
+		this._ownerDocument = null;
 		this._endTagLocation = null;
 		this._implicit = false;
 		this._adapter = createAdapter(this);
@@ -695,6 +697,18 @@ export class HtmlElement extends DOMNode {
 		return this.getAttributeValue("id");
 	}
 
+	/**
+	 * The document this element belongs to, or `null` if it has no owner.
+	 *
+	 * The document root itself returns `null`.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	public get ownerDocument(): HtmlElement | null {
+		return this._ownerDocument;
+	}
+
 	public get style(): CSSStyleDeclaration {
 		const attr = this.getAttribute("style");
 		return parseCssDeclaration(attr?.value);
@@ -848,9 +862,30 @@ export class HtmlElement extends DOMNode {
 	 */
 	public override _setParent(node: DOMNode | null): DOMNode | null {
 		const oldParent = this._parent;
+		if (node instanceof HtmlElement) {
+			const ownerDocument = node.isRootElement() ? node : node.ownerDocument;
+			this.setOwnerDocument(ownerDocument);
+		}
 		this._parent = node instanceof HtmlElement ? node : null;
 		oldParent?.cacheRemove(CHILD_ELEMENTS);
 		return oldParent;
+	}
+
+	private setOwnerDocument(ownerDocument: HtmlElement | null): void {
+		if (this._ownerDocument && this._ownerDocument !== ownerDocument) {
+			throw new Error("DOMException: cannot reassign ownerDocument");
+		}
+		if (!ownerDocument || this._ownerDocument === ownerDocument) {
+			return;
+		}
+		this.assignOwnerDocument(ownerDocument);
+	}
+
+	private assignOwnerDocument(ownerDocument: HtmlElement): void {
+		this._ownerDocument ??= ownerDocument;
+		for (const child of this.childElements) {
+			child.assignOwnerDocument(ownerDocument);
+		}
 	}
 }
 

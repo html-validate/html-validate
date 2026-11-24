@@ -89,6 +89,7 @@ export default {
 				title: "API reference",
 				children: [
 					{ title: "ErrorFixer", target: "api:ErrorFixer" },
+					{ title: "HtmlElement", target: "api:HtmlElement" },
 					{ title: "MetadataHelper", target: "api:MetadataHelper" },
 					{ title: "Rule", target: "api:Rule" },
 					{ title: "Source", target: "api:Source" },
