@@ -440,7 +440,7 @@ export class HtmlElement extends DOMNode {
 	 * Returns true if this element is labelable according to its metadata.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.22.0
 	 */
 	public get isLabelable(): boolean {
 		const labelable = this.metaElement?.labelable;

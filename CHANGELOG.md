@@ -1,5 +1,15 @@
 # html-validate changelog
 
+## 11.22.0 (2026-11-24)
+
+### Features
+
+- **api:** add `HtmlElement.isLabelable` readonly property ([37f7701](https://gitlab.com/html-validate/html-validate/commit/37f770189ff663b3fc133b9f99dbb94c8c133e2a))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.16 ([8431c8c](https://gitlab.com/html-validate/html-validate/commit/8431c8cb33d7f6218901596208a1ed3b4fc2dcf3))
+
 ## 11.21.1 (2026-11-12)
 
 ### Bug Fixes
