@@ -91,6 +91,18 @@ function isValidDirective(
 	return validActions.includes(action);
 }
 
+function parseDirectiveData(directive: string): [data: string, separator: string, comment: string] {
+	const separatorIndex = directive.search(/--|:/);
+	if (separatorIndex === -1) {
+		return [directive, "", ""];
+	}
+	const separatorLength = directive.startsWith("--", separatorIndex) ? 2 : 1;
+	const data = directive.slice(0, separatorIndex).trimEnd();
+	const comment = directive.slice(separatorIndex + separatorLength).trimStart();
+	const separator = directive.slice(data.length, directive.length - comment.length);
+	return [data, separator, comment];
+}
+
 /**
  * Parse HTML document into a DOM tree.
  *
@@ -756,13 +768,6 @@ export class Parser {
 			});
 			return;
 		}
-		const match = /^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/.exec(directive);
-
-		/* istanbul ignore next: should not be possible, would be emitted as comment token */
-		if (!match) {
-			throw new Error(`Failed to parse directive "${text}"`);
-		}
-
 		if (!isValidDirective(action)) {
 			const begin = preamble.length;
 			const end = preamble.length + prefix.length + action.length;
@@ -773,7 +778,7 @@ export class Parser {
 			return;
 		}
 
-		const [, data, separator2, comment] = match;
+		const [data, separator2, comment] = parseDirectiveData(directive);
 
 		/* <!-- [html-validate-action options -- comment] -->
 		 *       ^             ^      ^          ^--------------- comment offset

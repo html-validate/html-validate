@@ -1397,6 +1397,21 @@ describe("parser", () => {
 			expect(events.shift()).toBeUndefined();
 		});
 
+		it.each(["", " -- reason", ": reason"])(
+			"handles long whitespace in directive options with suffix %j",
+			(suffix) => {
+				expect.assertions(1);
+				const options = `foo${"\t".repeat(30_000)}bar`;
+				parser.parseHtml(`<!--[html-validate-enable ${options}${suffix}]-->`);
+				expect(events.shift()).toMatchObject({
+					event: "directive",
+					action: "enable",
+					data: options,
+					comment: suffix ? "reason" : "",
+				});
+			},
+		);
+
 		it("with obscure whitespace", () => {
 			expect.assertions(6);
 			const markup = /* HTML */ ` <!--[html-validate-enable 	 foo bar    --    baz]--> `;
