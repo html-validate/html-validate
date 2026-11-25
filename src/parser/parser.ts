@@ -46,6 +46,18 @@ function isValidDirective(
 	return validActions.includes(action);
 }
 
+function parseDirectiveData(directive: string): [data: string, separator: string, comment: string] {
+	const separatorIndex = directive.search(/--|:/);
+	if (separatorIndex === -1) {
+		return [directive, "", ""];
+	}
+	const separatorLength = directive.startsWith("--", separatorIndex) ? 2 : 1;
+	const data = directive.slice(0, separatorIndex).trimEnd();
+	const comment = directive.slice(separatorIndex + separatorLength).trimStart();
+	const separator = directive.slice(data.length, directive.length - comment.length);
+	return [data, separator, comment];
+}
+
 /**
  * Parse HTML document into a DOM tree.
  *
@@ -544,18 +556,11 @@ export class Parser {
 		if (!postamble.startsWith("]")) {
 			throw new ParserError(token.location, `Missing end bracket "]" on directive "${text}"`);
 		}
-		const match = directive.match(/^(.*?)(?:(\s*(?:--|:)\s*)(.*))?$/);
-
-		/* istanbul ignore next: should not be possible, would be emitted as comment token */
-		if (!match) {
-			throw new Error(`Failed to parse directive "${text}"`);
-		}
-
 		if (!isValidDirective(action)) {
 			throw new ParserError(token.location, `Unknown directive "${action}"`);
 		}
 
-		const [, data, separator2, comment] = match;
+		const [data, separator2, comment] = parseDirectiveData(directive);
 		const prefix = "html-validate-";
 
 		/* <!-- [html-validate-action options -- comment] -->
