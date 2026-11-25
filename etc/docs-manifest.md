@@ -46,6 +46,7 @@ pattern.html
 rules/allowed-links.html
 rules/area-alt.html
 rules/aria-hidden-body.html
+rules/aria-hidden-html.html
 rules/aria-label-misuse.html
 rules/attr-case.html
 rules/attr-delimiter.html

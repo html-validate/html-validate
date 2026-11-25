@@ -6,6 +6,7 @@ const config = {
 	rules: {
 		"area-alt": ["error", { accessible: true }],
 		"aria-hidden-body": "error",
+		"aria-hidden-html": "error",
 		"aria-label-misuse": ["error", { allowAnyNamable: false }],
 		"deprecated-rule": "warn",
 		"empty-heading": "error",

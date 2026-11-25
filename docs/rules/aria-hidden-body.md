@@ -33,4 +33,4 @@ This rule takes no options.
 
 ## Version history
 
--- 6.3.0 - Rule added.
+- 6.3.0 - Rule added.

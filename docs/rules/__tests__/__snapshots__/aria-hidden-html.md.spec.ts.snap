@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`docs/rules/aria-hidden-html.md inline validation: correct 1`] = `[]`;
+
+exports[`docs/rules/aria-hidden-html.md inline validation: incorrect 1`] = `
+[
+  {
+    "errorCount": 1,
+    "filePath": "inline",
+    "fixableErrorCount": 1,
+    "fixableWarningCount": 0,
+    "messages": [
+      {
+        "column": 7,
+        "fix": [Function],
+        "line": 1,
+        "message": "aria-hidden must not be used on <html>",
+        "offset": 6,
+        "related": [],
+        "ruleId": "aria-hidden-html",
+        "ruleUrl": "https://html-validate.org/rules/aria-hidden-html.html",
+        "selector": "html",
+        "severity": 2,
+        "size": 11,
+      },
+    ],
+    "source": "<html aria-hidden="true"></html>",
+    "warningCount": 0,
+  },
+]
+`;
