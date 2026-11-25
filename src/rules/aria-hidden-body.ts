@@ -2,6 +2,8 @@ import { type TagReadyEvent } from "../event";
 import { type RuleDocumentation, Rule, ruleDocumentationUrl } from "../rule";
 
 export default class AriaHiddenBody extends Rule {
+	public static override readonly fixable = true;
+
 	public override documentation(): RuleDocumentation {
 		return {
 			description:
@@ -23,6 +25,9 @@ export default class AriaHiddenBody extends Rule {
 				node: target,
 				message: "aria-hidden must not be used on <body>",
 				location: attr.keyLocation,
+				fix(fixer) {
+					fixer.removeText(attr.location);
+				},
 			});
 		});
 	}

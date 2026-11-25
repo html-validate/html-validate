@@ -2,6 +2,7 @@ import { type RuleConstructor } from "../rule";
 import AllowedLinks from "./allowed-links";
 import AreaAlt from "./area-alt";
 import AriaHiddenBody from "./aria-hidden-body";
+import AriaHiddenHtml from "./aria-hidden-html";
 import AriaLabelMisuse from "./aria-label-misuse";
 import AttrCase from "./attr-case";
 import AttrDelimiter from "./attr-delimiter";
@@ -97,6 +98,7 @@ const bundledRules: Record<string, RuleConstructor<any, any>> = {
 	"allowed-links": AllowedLinks,
 	"area-alt": AreaAlt,
 	"aria-hidden-body": AriaHiddenBody,
+	"aria-hidden-html": AriaHiddenHtml,
 	"aria-label-misuse": AriaLabelMisuse,
 	"attr-case": AttrCase,
 	"attr-delimiter": AttrDelimiter,
