@@ -2,7 +2,21 @@ import { type Location, type Source, ContentModel, Context, State } from "../con
 import { type TagCloseToken, type Token, TokenType } from "./token";
 
 type NextStateCallback = (token: Token | null) => State;
-type LexerTest = [RegExp | false, State | NextStateCallback, TokenType | false];
+
+type LexerTest = [
+	RegExp | ((input: string) => string[] | null) | false,
+	State | NextStateCallback,
+	TokenType | false,
+];
+
+type DirectiveMatch = [
+	text: string,
+	preamble: string,
+	action: string,
+	delimiter: string,
+	rest: string,
+	postamble: string,
+];
 
 /**
  * @internal
@@ -31,10 +45,37 @@ const MATCH_SCRIPT_DATA = /^[^]*?(?=<\/script)/;
 const MATCH_SCRIPT_END = /^<(\/)(script)/;
 const MATCH_STYLE_DATA = /^[^]*?(?=<\/style)/;
 const MATCH_STYLE_END = /^<(\/)(style)/;
-const MATCH_DIRECTIVE = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)(.*?)(]?\s*-->)/;
+const MATCH_DIRECTIVE_BEGIN = /^(<!--\s*\[html-validate-)([a-z0-9-]+)(\s*)/;
 const MATCH_COMMENT = /^<!--([^]*?)-->/;
 const MATCH_CONDITIONAL = /^<!\[([^\]]*?)\]>/;
 /* eslint-enable no-useless-escape */
+
+function matchDirective(input: string): DirectiveMatch | null {
+	if (!input.startsWith("<!--")) {
+		return null;
+	}
+	const endIndex = input.indexOf("-->", 4);
+	if (endIndex === -1) {
+		return null;
+	}
+	const body = input.slice(0, endIndex);
+	const beginMatch = MATCH_DIRECTIVE_BEGIN.exec(body);
+	if (!beginMatch) {
+		return null;
+	}
+	const [matchedBegin, preamble, action, delimiter] = beginMatch;
+	const remaining = body.slice(matchedBegin.length);
+	let rest = remaining.trimEnd();
+	if (rest.endsWith("]")) {
+		rest = rest.slice(0, -1);
+	}
+	if (/[\r\n\u{2028}\u{2029}]/u.test(rest)) {
+		return null;
+	}
+	const text = input.slice(0, endIndex + 3);
+	const postamble = `${remaining.slice(rest.length)}-->`;
+	return [text, preamble, action, delimiter, rest, postamble];
+}
 
 export class InvalidTokenError extends Error {
 	public location: Location;
@@ -148,9 +189,14 @@ export class Lexer {
 	private *match(context: Context, tests: LexerTest[], error: string): Iterable<Token> {
 		const n = tests.length;
 		for (let i = 0; i < n; i++) {
-			const [regex, nextState, tokenType] = tests[i];
+			const [test, nextState, tokenType] = tests[i];
 
-			const match: string[] | null = regex ? context.string.match(regex) : [""];
+			let match: string[] | null;
+			if (typeof test === "function") {
+				match = test(context.string);
+			} else {
+				match = test ? context.string.match(test) : [""];
+			}
 			if (match) {
 				let token: Token | null = null;
 				if (tokenType !== false) {
@@ -192,7 +238,7 @@ export class Lexer {
 				[MATCH_XML_TAG, State.INITIAL, false],
 				[MATCH_DOCTYPE_OPEN, State.DOCTYPE, TokenType.DOCTYPE_OPEN],
 				[MATCH_WHITESPACE, State.INITIAL, TokenType.WHITESPACE],
-				[MATCH_DIRECTIVE, State.INITIAL, TokenType.DIRECTIVE],
+				[matchDirective, State.INITIAL, TokenType.DIRECTIVE],
 				[MATCH_CONDITIONAL, State.INITIAL, TokenType.CONDITIONAL],
 				[MATCH_COMMENT, State.INITIAL, TokenType.COMMENT],
 				[false, State.TEXT, false],
@@ -263,7 +309,7 @@ export class Lexer {
 			[
 				[MATCH_WHITESPACE, State.TEXT, TokenType.WHITESPACE],
 				[MATCH_CDATA_BEGIN, State.CDATA, false],
-				[MATCH_DIRECTIVE, State.TEXT, TokenType.DIRECTIVE],
+				[matchDirective, State.TEXT, TokenType.DIRECTIVE],
 				[MATCH_CONDITIONAL, State.TEXT, TokenType.CONDITIONAL],
 				[MATCH_COMMENT, State.TEXT, TokenType.COMMENT],
 				[MATCH_TEMPLATING, State.TEXT, TokenType.TEMPLATING],
