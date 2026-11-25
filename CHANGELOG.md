@@ -1,5 +1,11 @@
 # html-validate changelog
 
+## 8.29.1 (2026-11-25)
+
+### Bug Fixes
+
+- fix catastrophic backtracking when using directives ([019cc5d](https://gitlab.com/html-validate/html-validate/commit/019cc5db5915070020b6ce3115bbfdcf1425127f)), closes [#382](https://gitlab.com/html-validate/html-validate/issues/382)
+
 ## 8.29.0 (2024-12-22)
 
 ### Features
