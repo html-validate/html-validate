@@ -61,6 +61,15 @@ describe("rule aria-hidden-body", () => {
 		`);
 	});
 
+	it("should autofix by removing aria-hidden attribute", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ ` <body aria-hidden="true"></body> `;
+		const report = await htmlvalidate.validateString(markup);
+		const [message] = report.results[0].messages;
+		const result = await htmlvalidate.autofix(message.fix!);
+		expect(result).toBe(` <body ></body> `);
+	});
+
 	it("should report error when body has dynamic aria-hidden value", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <body dynamic-aria-hidden="foo"></body> `;
@@ -78,8 +87,9 @@ describe("rule aria-hidden-body", () => {
 
 	it("should contain documentation", async () => {
 		expect.assertions(1);
-		/* eslint-disable-next-line @typescript-eslint/no-deprecated -- technical debt */
-		const docs = await htmlvalidate.getRuleDocumentation("aria-hidden-body");
-		expect(docs).toMatchSnapshot();
+		const docs = await htmlvalidate.getContextualDocumentation({ ruleId: "aria-hidden-body" });
+		expect(docs?.description).toMatchInlineSnapshot(
+			`"\`aria-hidden\` must not be used on the \`<body>\` element as it makes the page inaccessible to assistive technology such as screenreaders"`,
+		);
 	});
 });
