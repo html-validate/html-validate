@@ -98,7 +98,9 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 		}
 
 		const rules = parent.meta.permittedContent ?? null;
-		return this.validatePermittedContentImpl(cur, parent, rules);
+		/* istanbul ignore next: MetaTable resolves callbacks before DOM ready */
+		const resolved = typeof rules === "function" ? rules(parent._adapter) : rules;
+		return this.validatePermittedContentImpl(cur, parent, resolved);
 	}
 
 	private validatePermittedContentImpl(
@@ -156,7 +158,9 @@ export default class ElementPermittedContent extends Rule<RuleContext> {
 				continue;
 			}
 
-			if (Validator.validatePermitted(node, rules)) {
+			/* istanbul ignore next: MetaTable resolves callbacks before DOM ready */
+			const resolved = typeof rules === "function" ? rules(cur._adapter) : rules;
+			if (Validator.validatePermitted(node, resolved)) {
 				continue;
 			}
 

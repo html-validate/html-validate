@@ -24,10 +24,12 @@ export default class ElementPermittedOccurrences extends Rule {
 				if (!rules) {
 					return;
 				}
+				/* istanbul ignore next: MetaTable resolves callbacks before DOM ready */
+				const resolved = typeof rules === "function" ? rules(node._adapter) : rules;
 
 				Validator.validateOccurrences(
 					node.childElements,
-					rules,
+					resolved,
 					(child: HtmlElement, category: string) => {
 						this.report({
 							node: child,

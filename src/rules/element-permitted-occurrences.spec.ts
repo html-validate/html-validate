@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
+import { type HtmlElementLike } from "../meta";
 import "html-validate/jest";
 
 describe("rule element-permitted-occurrences", () => {
@@ -68,6 +69,55 @@ describe("rule element-permitted-occurrences", () => {
 		const markup = "<a><p></p></a>";
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
+	});
+
+	describe("conditional occurrence limits", () => {
+		const validator = new HtmlValidate({
+			root: true,
+			elements: [
+				"html5",
+				{
+					"my-box": {
+						permittedContent: (node: HtmlElementLike) =>
+							node.hasAttribute("limited") ? ["span?"] : ["span"],
+					},
+				},
+			],
+			rules: { "element-permitted-occurrences": "error" },
+		});
+
+		it("should not report when conditional content returns unrestricted occurrences", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box>
+					<span></span>
+					<span></span>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("should report when conditional content returns restricted occurrences", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box limited>
+					<span></span>
+					<span></span>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: Element <span> can only appear once under <my-box> (element-permitted-occurrences)
+				  2 | 				<my-box limited>
+				  3 | 					<span></span>
+				> 4 | 					<span></span>
+				    | 					 ^^^^
+				  5 | 				</my-box>
+				  6 |
+				Selector: my-box > span:nth-child(2)"
+			`);
+		});
 	});
 
 	it("smoketest", async () => {

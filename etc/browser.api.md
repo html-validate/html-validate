@@ -951,9 +951,9 @@ export interface MetaData {
     optionalEnd?: boolean;
     optionalEndExcludedParents?: string[];
     // (undocumented)
-    permittedContent?: Permitted;
+    permittedContent?: Permitted | MetaPermittedCallback;
     // (undocumented)
-    permittedDescendants?: Permitted;
+    permittedDescendants?: Permitted | MetaPermittedCallback;
     // (undocumented)
     permittedOrder?: PermittedOrder;
     // (undocumented)
@@ -1026,6 +1026,9 @@ export type MetaLabelableCallback = (node: HtmlElementLike) => boolean;
 
 // @public
 export type MetaLookupableProperty = "metadata" | "flow" | "sectioning" | "heading" | "phrasing" | "embedded" | "interactive" | "deprecated" | "foreign" | "void" | "transparent" | "scriptSupporting" | "focusable" | "form" | "formAssociated" | "labelable" | "submitButton";
+
+// @public
+export type MetaPermittedCallback = (node: HtmlElementLike) => Permitted;
 
 // @public
 export type MetaSubmitButtonCallback = (node: HtmlElementLike) => boolean;

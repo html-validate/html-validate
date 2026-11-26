@@ -69,6 +69,33 @@ The list can also be turned to a blacklist by using the `exclude` keyword:
 
 :::
 
+## Conditional content
+
+If the permitted content needs to conditionally vary based on how the element is used the `permittedContent` property can be a callback:
+
+```ts
+import { defineMetadata } from "html-validate";
+
+export default defineMetadata({
+  "my-element": {
+    permittedContent(node) {
+      if (node.hasAttribute("foo")) {
+        return ["awesome-slot"];
+      }
+      return [];
+    },
+  },
+});
+```
+
+With above using `<awesome-slot>` as a child of `<my-element>` is only permitted if it also uses the `foo` attribute:
+
+```html
+<my-element foo>
+  <awesome-slot></awesome-slot>
+</my-element>
+```
+
 ## Descendants
 
 `permittedContent` validates direct children to the element but not deeper descendants.
