@@ -20,7 +20,7 @@ export interface HtmlElementLike {
 	 * Returns whether this element matches the selector list.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.23.0
 	 */
 	matches(selectors: string): boolean;
 }

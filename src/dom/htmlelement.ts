@@ -706,7 +706,7 @@ export class HtmlElement extends DOMNode {
 	 * The document root itself returns `null`.
 	 *
 	 * @public
-	 * @since %version%
+	 * @since 11.23.0
 	 */
 	public get ownerDocument(): HtmlElement | null {
 		return this._ownerDocument;

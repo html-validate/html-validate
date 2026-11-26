@@ -1,5 +1,19 @@
 # html-validate changelog
 
+## 11.23.0 (2026-11-26)
+
+### Features
+
+- **api:** add `HtmlElement.ownerDocument` readonly property ([3cd61c0](https://gitlab.com/html-validate/html-validate/commit/3cd61c01e6a26c07271fa9fc3953c0df518b351c))
+- **meta:** add `matches()` support to element metadata callbacks ([308d741](https://gitlab.com/html-validate/html-validate/commit/308d741c797c2e89b4cc8afb62564ed920fc9183))
+- **meta:** support conditional permitted content via callback ([6d1d65b](https://gitlab.com/html-validate/html-validate/commit/6d1d65b22baa5ed0d0bb002217634565a5d953c8))
+- **rules:** make `aria-hidden-body` autofixable ([108bee5](https://gitlab.com/html-validate/html-validate/commit/108bee5b9dc90721ba2fe4062db5297170bc4cd6))
+- **rules:** new rule `aria-hidden-html` ([df440f8](https://gitlab.com/html-validate/html-validate/commit/df440f8c7788e4e3c7afbdf03602240078062bbe))
+
+### Bug Fixes
+
+- **deps:** update dependency ignore to v7.0.17 ([32f4ad8](https://gitlab.com/html-validate/html-validate/commit/32f4ad8a34eeb230a6ffb20c7570e9f9816c433d))
+
 ## 11.22.1 (2026-11-24)
 
 ### Bug Fixes

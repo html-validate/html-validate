@@ -33,5 +33,5 @@ This rule takes no options.
 
 ## Version history
 
-- %version% - Rule autofixable.
+- 11.23.0 - Rule autofixable.
 - 6.3.0 - Rule added.

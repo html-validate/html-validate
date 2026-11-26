@@ -29,7 +29,7 @@ export type Permitted = PermittedEntry[];
  * Returns the permitted content model for an element.
  *
  * @public
- * @since %version%
+ * @since 11.23.0
  * @param node - The element whose content model is being determined.
  */
 export type MetaPermittedCallback = (node: HtmlElementLike) => Permitted;

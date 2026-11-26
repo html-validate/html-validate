@@ -685,7 +685,7 @@ Can be either a tagname or a content category:
 }
 ```
 
-Since v%version%, when using Javascript to define metadata the property can also be a callback receiving a {@link api:HtmlElementLike} and returns a `Permitted` array:
+Since v11.23.0, when using Javascript to define metadata the property can also be a callback receiving a {@link api:HtmlElementLike} and returns a `Permitted` array:
 
 ```ts
 import { defineMetadata } from "html-validate";

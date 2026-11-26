@@ -33,4 +33,4 @@ This rule takes no options.
 
 ## Version history
 
-- %version% - Rule added.
+- 11.23.0 - Rule added.

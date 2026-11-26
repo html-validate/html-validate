@@ -68,7 +68,7 @@ hasAttribute(name: string): boolean
 
 ## `matches()` method
 
-- since: %version%
+- since: 11.23.0
 
 Tests whether this element matches the selector list, including selectors that describe its context (for example, `section > my-component`).
 
