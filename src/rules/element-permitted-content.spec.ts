@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { HtmlValidate } from "../htmlvalidate";
+import { type HtmlElementLike } from "../meta";
 import "html-validate/jest";
 import {
 	type ContentContext,
@@ -26,6 +27,202 @@ describe("rule element-permitted-content", () => {
 		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
+	});
+
+	describe("conditional content models", () => {
+		const validator = new HtmlValidate({
+			root: true,
+			elements: [
+				"html5",
+				{
+					"my-box": {
+						flow: true,
+						permittedContent: (node: HtmlElementLike) => {
+							return node.matches("section > my-box") ? ["@phrasing"] : ["@flow"];
+						},
+						permittedDescendants: (node: HtmlElementLike) => {
+							return node.hasAttribute("restricted")
+								? [{ exclude: "button" }]
+								: [{ exclude: "input" }];
+						},
+					},
+				},
+			],
+			rules: { "element-permitted-content": "error" },
+		});
+
+		it("allows content selected by the direct parent", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<section>
+					<my-box>
+						<span></span>
+					</my-box>
+					<div>
+						<my-box>
+							<div></div>
+						</my-box>
+					</div>
+				</section>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("rejects content disallowed by the direct parent", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<section>
+					<my-box>
+						<div></div>
+					</my-box>
+				</section>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <div> element is not permitted as content under <my-box> (element-permitted-content)
+				  2 | 				<section>
+				  3 | 					<my-box>
+				> 4 | 						<div></div>
+				    | 						 ^^^
+				  5 | 					</my-box>
+				  6 | 				</section>
+				  7 |
+				Selector: section > my-box > div"
+			`);
+		});
+
+		it("applies the selected model through transparent content", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<section>
+					<my-box>
+						<a>
+							<div></div>
+						</a>
+					</my-box>
+				</section>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <div> element is not permitted as content under <my-box> (element-permitted-content)
+				  3 | 					<my-box>
+				  4 | 						<a>
+				> 5 | 							<div></div>
+				    | 							 ^^^
+				  6 | 						</a>
+				  7 | 					</my-box>
+				  8 | 				</section>
+				Selector: section > my-box > a > div"
+			`);
+		});
+
+		it("allows descendants permitted by the attribute-selected model", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box>
+					<span>
+						<button></button>
+					</span>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("rejects descendants excluded when the attribute is present", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box restricted>
+					<span>
+						<button></button>
+					</span>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <button> element is not permitted as a descendant of <my-box> (element-permitted-content)
+				  2 | 				<my-box restricted>
+				  3 | 					<span>
+				> 4 | 						<button></button>
+				    | 						 ^^^^^^
+				  5 | 					</span>
+				  6 | 				</my-box>
+				  7 |
+				Selector: my-box > span > button"
+			`);
+		});
+
+		it("rejects descendants excluded when the attribute is absent", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box>
+					<span>
+						<input />
+					</span>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <input> element is not permitted as a descendant of <my-box> (element-permitted-content)
+				  2 | 				<my-box>
+				  3 | 					<span>
+				> 4 | 						<input />
+				    | 						 ^^^^^
+				  5 | 					</span>
+				  6 | 				</my-box>
+				  7 |
+				Selector: my-box > span > input"
+			`);
+		});
+
+		it("does not apply descendant restrictions across native templates", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-box restricted>
+					<template>
+						<button></button>
+					</template>
+				</my-box>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toBeValid();
+		});
+	});
+
+	describe("empty content model", () => {
+		const validator = new HtmlValidate({
+			root: true,
+			elements: ["html5", { "my-empty": { permittedContent: () => [] } }],
+			rules: { "element-permitted-content": "error" },
+		});
+
+		it("allows an element with no children", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ ` <my-empty></my-empty> `;
+			const report = await validator.validateString(markup);
+			expect(report).toBeValid();
+		});
+
+		it("rejects child elements", async () => {
+			expect.assertions(1);
+			const markup = /* HTML */ `
+				<my-empty>
+					<span></span>
+				</my-empty>
+			`;
+			const report = await validator.validateString(markup);
+			expect(report).toMatchInlineCodeframe(`
+				"error: <span> element is not permitted as content under <my-empty> (element-permitted-content)
+				  1 |
+				  2 | 				<my-empty>
+				> 3 | 					<span></span>
+				    | 					 ^^^^
+				  4 | 				</my-empty>
+				  5 |
+				Selector: my-empty > span"
+			`);
+		});
 	});
 
 	it("should not report error when `<body>` follows `<head>` without `</head>`", async () => {

@@ -90,6 +90,7 @@ export default {
 				children: [
 					{ title: "ErrorFixer", target: "api:ErrorFixer" },
 					{ title: "HtmlElement", target: "api:HtmlElement" },
+					{ title: "HtmlElementLike", target: "api:HtmlElementLike" },
 					{ title: "MetadataHelper", target: "api:MetadataHelper" },
 					{ title: "Rule", target: "api:Rule" },
 					{ title: "Source", target: "api:Source" },

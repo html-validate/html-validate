@@ -26,6 +26,15 @@ export type PermittedEntry = CategoryOrTag | PermittedGroup | Array<CategoryOrTa
 export type Permitted = PermittedEntry[];
 
 /**
+ * Returns the permitted content model for an element.
+ *
+ * @public
+ * @since %version%
+ * @param node - The element whose content model is being determined.
+ */
+export type MetaPermittedCallback = (node: HtmlElementLike) => Permitted;
+
+/**
  * @public
  */
 export type PermittedOrder = string[];
@@ -361,8 +370,8 @@ export interface MetaData {
 	attributes?: PermittedAttribute;
 
 	/* permitted data */
-	permittedContent?: Permitted;
-	permittedDescendants?: Permitted;
+	permittedContent?: Permitted | MetaPermittedCallback;
+	permittedDescendants?: Permitted | MetaPermittedCallback;
 	permittedOrder?: PermittedOrder;
 	permittedParent?: Permitted;
 	requiredAncestors?: RequiredAncestors;

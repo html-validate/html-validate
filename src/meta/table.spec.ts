@@ -247,6 +247,85 @@ describe("MetaTable", () => {
 		expect(elements[1].meta?.interactive).toBeTruthy();
 	});
 
+	it("should expose matches to metadata callbacks", () => {
+		expect.assertions(2);
+		const metaTable = new MetaTable();
+		metaTable.loadFromObject({
+			foo: mockEntry({
+				interactive(node) {
+					return node.matches("section > foo");
+				},
+			}),
+		});
+		const config = new ResolvedConfig(
+			{ metaTable, plugins: [], rules: new Map(), transformers: [], ariaVersion: "1.2" },
+			{},
+		);
+		const markup = /* HTML */ `
+			<section>
+				<foo></foo>
+				<div><foo></foo></div>
+			</section>
+		`;
+		const dom = new Parser(config).parseHtml(markup);
+		const elements = dom.querySelectorAll("foo");
+		expect(elements[0].meta?.interactive).toBe(true);
+		expect(elements[1].meta?.interactive).toBe(false);
+	});
+
+	it("should resolve permitted models independently for each element", () => {
+		expect.assertions(4);
+		const metaTable = new MetaTable();
+		metaTable.loadFromObject({
+			foo: mockEntry({
+				permittedContent(node) {
+					return node.hasAttribute("condition") ? ["a"] : ["b"];
+				},
+				permittedDescendants(node) {
+					return node.hasAttribute("condition") ? ["c"] : ["d"];
+				},
+			}),
+		});
+		const config = new ResolvedConfig(
+			{ metaTable, plugins: [], rules: new Map(), transformers: [], ariaVersion: "1.2" },
+			{},
+		);
+		const markup = /* HTML */ `
+			<foo></foo>
+			<foo condition></foo>
+		`;
+		const dom = new Parser(config).parseHtml(markup);
+		const elements = dom.querySelectorAll("foo");
+		expect(elements[0].meta?.permittedContent).toEqual(["b"]);
+		expect(elements[1].meta?.permittedContent).toEqual(["a"]);
+		expect(elements[0].meta?.permittedDescendants).toEqual(["d"]);
+		expect(elements[1].meta?.permittedDescendants).toEqual(["c"]);
+	});
+
+	it("should preserve inherited permitted callbacks until each node is resolved", () => {
+		expect.assertions(3);
+		const metaTable = new MetaTable();
+		metaTable.loadFromObject({
+			foo: mockEntry({
+				permittedContent(node) {
+					return node.hasAttribute("condition") ? ["bar"] : [];
+				},
+			}),
+			baz: mockEntry({
+				inherit: "foo",
+			}),
+		});
+		expect(typeof metaTable.getMetaFor("baz")?.permittedContent).toBe("function");
+		const config = new ResolvedConfig(
+			{ metaTable, plugins: [], rules: new Map(), transformers: [], ariaVersion: "1.2" },
+			{},
+		);
+		const dom = new Parser(config).parseHtml("<baz condition></baz><baz></baz>");
+		const elements = dom.querySelectorAll("baz");
+		expect(elements[0].meta?.permittedContent).toEqual(["bar"]);
+		expect(elements[1].meta?.permittedContent).toEqual([]);
+	});
+
 	describe("regexp", () => {
 		it("should expand regular expression from string", () => {
 			expect.assertions(2);

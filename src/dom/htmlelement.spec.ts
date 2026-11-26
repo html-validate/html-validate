@@ -636,6 +636,14 @@ describe("HtmlElement", () => {
 			expect.assertions(1);
 			expect(node.closest(".y")).toBeNull();
 		});
+
+		it("should match the adapter against selectors", () => {
+			expect.assertions(4);
+			expect(node._adapter.matches("div > p")).toBe(true);
+			expect(node._adapter.matches("div > div > p")).toBe(true);
+			expect(node._adapter.matches("span, p.x")).toBe(true);
+			expect(node._adapter.matches("span, div > span")).toBe(false);
+		});
 	});
 
 	describe("generateSelector()", () => {

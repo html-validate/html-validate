@@ -310,6 +310,12 @@ function expandProperties(node: HtmlElement, entry: MetaElement): void {
 	if (typeof entry.focusable === "function") {
 		setMetaProperty(entry, "focusable", entry.focusable(node._adapter));
 	}
+	for (const key of ["permittedContent", "permittedDescendants"] as const) {
+		const property = entry[key];
+		if (typeof property === "function") {
+			setMetaProperty(entry, key, property(node._adapter));
+		}
+	}
 }
 
 /**

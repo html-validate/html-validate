@@ -12,6 +12,7 @@ about/sponsoring.html
 api/autofix-collect-edits.html
 api/create-autofix.html
 api/error-fixer.html
+api/html-element-like.html
 api/html-element.html
 api/is-autofix.html
 api/metadata-helper.html

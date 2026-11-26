@@ -63,8 +63,8 @@ export interface MetaElement {
   attributes?: Record<string, MetaAttribute>;
 
   /* permitted data */
-  permittedContent?: Permitted;
-  permittedDescendants?: Permitted;
+  permittedContent?: Permitted | MetaPermittedCallback;
+  permittedDescendants?: Permitted | MetaPermittedCallback;
   permittedOrder?: PermittedOrder;
   permittedParent?: Permitted;
   requiredAncestors?: string[];
@@ -102,6 +102,7 @@ Each property should either be a boolean (defaults to `false`) or a property exp
 ### Property callbacks
 
 If the element has conditions for which content categories it belongs to one can use callbacks.
+The callback receives an {@link api:HtmlElementLike} node.
 
 For instance, the `<video>` element is interactive only if the `controls` attribute is present:
 
@@ -682,6 +683,25 @@ Can be either a tagname or a content category:
     "permittedContent": ["transclude-slot-1", "transclude-slot-2"]
   }
 }
+```
+
+Since v%version%, when using Javascript to define metadata the property can also be a callback receiving a {@link api:HtmlElementLike} and returns a `Permitted` array:
+
+```ts
+import { defineMetadata } from "html-validate";
+
+/* --- */
+
+export default defineMetadata({
+  "custom-element": {
+    permittedContent(node) {
+      if (node.hasAttribute("foo")) {
+        return ["awesome-slot"];
+      }
+      return [];
+    },
+  },
+});
 ```
 
 This is used by [element-permitted-content](/rules/element-permitted-content.html) rule.

@@ -15,4 +15,12 @@ export interface HtmlElementLike {
 	closest(selectors: string): HtmlElementLike | null | undefined;
 	getAttribute(name: string): string | DynamicValue | null | undefined;
 	hasAttribute(name: string): boolean;
+
+	/**
+	 * Returns whether this element matches the selector list.
+	 *
+	 * @public
+	 * @since %version%
+	 */
+	matches(selectors: string): boolean;
 }

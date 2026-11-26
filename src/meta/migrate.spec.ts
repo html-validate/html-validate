@@ -13,6 +13,9 @@ const mockNode: HtmlElementLike = {
 	hasAttribute() {
 		return false;
 	},
+	matches() {
+		return false;
+	},
 };
 
 it("should not migrate up-to-date data", () => {

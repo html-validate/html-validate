@@ -120,6 +120,7 @@ export {
 	type MetaImplicitRoleCallback,
 	type MetaLabelableCallback,
 	type MetaLookupableProperty,
+	type MetaPermittedCallback,
 	type MetaSubmitButtonCallback,
 	type MetadataHelper,
 	type NormalizedMetaAria,

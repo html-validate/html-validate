@@ -198,12 +198,12 @@
 
         "permittedContent": {
           "title": "List of elements or categories allowed as content in this element",
-          "$ref": "#/definitions/Permitted"
+          "anyOf": [{ "$ref": "#/definitions/Permitted" }, { "function": true }]
         },
 
         "permittedDescendants": {
           "title": "List of elements or categories allowed as descendants in this element",
-          "$ref": "#/definitions/Permitted"
+          "anyOf": [{ "$ref": "#/definitions/Permitted" }, { "function": true }]
         },
 
         "permittedOrder": {
