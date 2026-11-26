@@ -371,13 +371,32 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
 	 * have any effect.
 	 */
 	public report(error: ErrorDescriptor<ContextType>): void;
+
+	/**
+	 * Report a new error.
+	 *
+	 * Rule must be enabled both globally and on the specific node for this to
+	 * have any effect.
+	 *
+	 * @deprecated Pass in an error descriptor object instead
+	 */
 	public report(node: DOMNode | null, message: string, location?: Location | null): void;
+
+	/**
+	 * Report a new error.
+	 *
+	 * Rule must be enabled both globally and on the specific node for this to
+	 * have any effect.
+	 *
+	 * @deprecated Pass in an error descriptor object instead
+	 */
 	public report(
 		node: DOMNode | null,
 		message: string,
 		location: Location | null | undefined,
 		context: ContextType,
 	): void;
+
 	public report(
 		...args:
 			| [ErrorDescriptor<ContextType>]

@@ -302,6 +302,20 @@ describe("rule base class", () => {
 			});
 		});
 
+		it("should support tuple-style arguments", () => {
+			expect.assertions(1);
+			const context: RuleContext = { foo: "bar" };
+			const node = HtmlElement.createElement("foo", location);
+			rule.report(node, "foo {{ foo }}", mockLocation, context);
+			expect(reporter.add).toHaveBeenCalledWith(
+				expect.objectContaining({
+					message: "foo bar",
+					location: mockLocation,
+					context,
+				}),
+			);
+		});
+
 		it("should not add message if node has disabled rule", () => {
 			expect.assertions(1);
 			const node = HtmlElement.createElement("foo", location);
