@@ -272,7 +272,7 @@
     "@types/semver": "7.8.0",
     "@types/stream-buffers": "3.0.8",
     "@typescript/native": "npm:typescript@7.0.2",
-    "@vitest/expect": "5.1.1",
+    "@vitest/expect": "5.1.2",
     "babar": "0.2.3",
     "chrome-remote-interface": "0.34.0",
     "cli-table": "0.3.11",
@@ -298,7 +298,7 @@
     "ts-jest": "29.4.15",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.3.8",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   },
   "peerDependencies": {
     "@jest/globals": "^29.0.3 || ^30.0.0",
