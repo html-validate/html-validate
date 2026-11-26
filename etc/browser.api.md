@@ -687,6 +687,7 @@ export interface HtmlElementLike {
     getAttribute(name: string): string | DynamicValue | null | undefined;
     // (undocumented)
     hasAttribute(name: string): boolean;
+    matches(selectors: string): boolean;
 }
 
 // @public

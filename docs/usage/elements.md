@@ -102,6 +102,7 @@ Each property should either be a boolean (defaults to `false`) or a property exp
 ### Property callbacks
 
 If the element has conditions for which content categories it belongs to one can use callbacks.
+The callback receives an {@link api:HtmlElementLike} node.
 
 For instance, the `<video>` element is interactive only if the `controls` attribute is present:
 

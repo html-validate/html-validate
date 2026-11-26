@@ -62,6 +62,9 @@ function createAdapter(node: HtmlElement): HtmlElementLike {
 		hasAttribute(name) {
 			return node.hasAttribute(name);
 		},
+		matches(selectors) {
+			return node.matches(selectors);
+		},
 	};
 }
 
