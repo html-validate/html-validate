@@ -9,6 +9,7 @@ summary: Disallow usage of unknown elements
 This rule requires all elements to have a corresponding metadata element describing its content model.
 
 All HTML5 elements are bundled and enabled by default.
+Foreign elements, such as SVG and MathML elements, are ignored.
 For custom elements (and framework components) you need supply your [own metadata](../usage/elements.html):
 
 ```json
@@ -54,4 +55,5 @@ Supports wildcard with `*` (e.g. `custom-*`) and regexp with `/../` (e.g. `custo
 
 ## Version history
 
+- %version% - Foreign elements are now ignored.
 - 7.11.0 - Added support for `include` and `exclude`.
