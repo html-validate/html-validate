@@ -1,6 +1,6 @@
 import { type TagStartEvent } from "../event";
 import { type RuleDocumentation, type SchemaObject, Rule, ruleDocumentationUrl } from "../rule";
-import { type IncludeExcludeOptions, keywordPatternMatcher } from "./helper";
+import { type IncludeExcludeOptions, isForeign, keywordPatternMatcher } from "./helper";
 
 type RuleContext = string;
 type RuleOptions = IncludeExcludeOptions;
@@ -57,7 +57,7 @@ export default class NoUnknownElements extends Rule<RuleContext, RuleOptions> {
 	public setup(): void {
 		this.on("tag:start", (event: TagStartEvent) => {
 			const node = event.target;
-			if (node.meta) {
+			if (node.meta || isForeign(node)) {
 				return;
 			}
 			if (this.isKeywordIgnored(node.tagName, keywordPatternMatcher)) {

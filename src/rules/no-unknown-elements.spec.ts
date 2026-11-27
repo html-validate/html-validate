@@ -18,6 +18,45 @@ describe("rule no-unknown-elements", () => {
 		expect(report).toBeValid();
 	});
 
+	it("should not report for SVG descendants of retained elements", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<svg>
+				<title></title>
+				<g>
+					<title></title>
+					<circle />
+					<path />
+					<rect />
+				</g>
+			</svg>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report for foreign elements", async () => {
+		expect.assertions(1);
+		const markup = /* HTML */ `
+			<math>
+				<mi>x</mi>
+			</math>
+		`;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
+	it("should not report for metadata-defined XML namespace elements", async () => {
+		expect.assertions(1);
+		const htmlvalidate = new HtmlValidate({
+			rules: { "no-unknown-elements": "error" },
+			elements: ["html5", { "xmlns:foo": {} }],
+		});
+		const markup = /* HTML */ ` <xmlns:foo></xmlns:foo> `;
+		const report = await htmlvalidate.validateString(markup);
+		expect(report).toBeValid();
+	});
+
 	it("should report error for unknown elements", async () => {
 		expect.assertions(2);
 		const markup = /* HTML */ ` <my-element></my-element> `;
