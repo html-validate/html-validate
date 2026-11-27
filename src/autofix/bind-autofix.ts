@@ -23,5 +23,6 @@ export function bindAutofix(text: string, fix: AutofixFn): Autofix {
  */
 export function getBoundSourceText(fix: Autofix): string {
 	const boundFix = fix as AutofixInternal;
-	return boundFix[autofixSymbol] ?? "";
+	/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- autofix callbacks are always bound to their source text by bindAutofix() */
+	return boundFix[autofixSymbol]!;
 }

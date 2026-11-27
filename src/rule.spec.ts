@@ -110,6 +110,20 @@ describe("rule base class", () => {
 			expect(roles).toEqual(Object.values(config.getAriaData().default));
 		});
 
+		it("should skip missing role metadata", () => {
+			expect.assertions(1);
+			const ariaData = config.getAriaData();
+			jest.spyOn(config, "getAriaData").mockReturnValue({
+				...ariaData,
+				default: {
+					...ariaData.default,
+					missing: undefined,
+				},
+			});
+			rule.init(parser, reporter, Severity.ERROR, config);
+			expect(Array.from(rule.getAriaRoles())).not.toContain(undefined);
+		});
+
 		it("should yield only roles matching the filter", () => {
 			expect.assertions(1);
 			const roles = Array.from(rule.getAriaRoles((it) => it.category === "abstract"));
@@ -300,6 +314,21 @@ describe("rule base class", () => {
 				location: expect.anything(),
 				context: { foo: "bar" },
 			});
+		});
+
+		it("should support positional arguments", () => {
+			expect.assertions(1);
+			const context: RuleContext = { foo: "bar" };
+			const node = HtmlElement.createElement("foo", location);
+			/* eslint-disable-next-line @typescript-eslint/no-deprecated -- deprecated but should continue to work until next major */
+			rule.report(node, "foo {{ foo }}", mockLocation, context);
+			expect(reporter.add).toHaveBeenCalledWith(
+				expect.objectContaining({
+					message: "foo bar",
+					location: mockLocation,
+					context,
+				}),
+			);
 		});
 
 		it("should not add message if node has disabled rule", () => {

@@ -16,11 +16,12 @@ import {
 	TokenType,
 } from "../lexer";
 import { type Location } from "../location";
+import { type MetaElement } from "../meta";
 import "html-validate/jest";
 import { codeFrameColumns } from "../utils/code-frame-columns";
 import { dumpTree } from "../utils/dump-tree";
 import { type AttributeData } from "./attribute-data";
-import { Parser } from "./parser";
+import { Parser, canOmitEndTag } from "./parser";
 
 const codeframePrefix = "codeframe:";
 
@@ -1547,6 +1548,29 @@ describe("parser", () => {
 	});
 
 	describe("should handle optional end tags", () => {
+		it("should not omit end tag when parent matches content category", () => {
+			expect.assertions(1);
+			const location: Location = {
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+				size: 1,
+			};
+			const parent = HtmlElement.createElement("x-parent", location, {
+				meta: { tagName: "x-parent", flow: true } as MetaElement,
+			});
+			const child = HtmlElement.createElement("x-child", location, {
+				meta: {
+					tagName: "x-child",
+					optionalEnd: true,
+					optionalEndExcludedParents: ["@flow"],
+				} as MetaElement,
+				parent,
+			});
+			expect(canOmitEndTag(child)).toBe(false);
+		});
+
 		it("<li>", () => {
 			expect.assertions(29);
 			parser.parseHtml(`

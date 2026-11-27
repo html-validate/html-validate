@@ -283,6 +283,8 @@ export class Parser {
 		let current = this.dom.getActive();
 		while (!current.isRootElement() && this.wouldCloseElement(token, current)) {
 			const { parent } = current;
+			/* istanbul ignore next -- an active element can only lack a parent if the
+			 * DOM stack has been manually corrupted or an element was detached. */
 			if (!parent) {
 				break;
 			}
@@ -459,6 +461,8 @@ export class Parser {
 			let cur = this.dom.getActive();
 			while (!cur.isRootElement() && !cur.is(tagName)) {
 				const { parent } = cur;
+				/* istanbul ignore next -- an active element can only lack a parent if the
+				 * DOM stack has been manually corrupted or an element was detached. */
 				if (!parent) {
 					break;
 				}

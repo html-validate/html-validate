@@ -1519,9 +1519,9 @@ export abstract class Rule<ContextType = void, OptionsType = void> {
     on<K extends keyof ListenEventMap>(event: K, filter: (event: ListenEventMap[K]) => boolean, callback: (event: ListenEventMap[K]) => void): () => void;
     readonly options: OptionsType;
     report(error: ErrorDescriptor<ContextType>): void;
-    // (undocumented)
+    // @deprecated
     report(node: DOMNode | null, message: string, location?: Location_2 | null): void;
-    // (undocumented)
+    // @deprecated
     report(node: DOMNode | null, message: string, location: Location_2 | null | undefined, context: ContextType): void;
     static schema(): SchemaObject | null | undefined;
     // (undocumented)

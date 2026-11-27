@@ -131,15 +131,20 @@ function findTextNodes(node: HtmlElement, options: TextClassificationOptions): T
 	for (const child of node.childNodes) {
 		if (isTextNode(child)) {
 			text.push(child);
-		} else if (isElementNode(child)) {
-			if (isHTMLHidden(child, true).bySelf) {
-				continue;
-			}
-			if (accessible && isAriaHidden(child, true).bySelf) {
-				continue;
-			}
-			text.push(...findTextNodes(child, options));
 		}
+
+		/* istanbul ignore next -- currently there are no other types so this is an exhaustive code path */
+		if (!isElementNode(child)) {
+			continue;
+		}
+
+		if (isHTMLHidden(child, true).bySelf) {
+			continue;
+		}
+		if (accessible && isAriaHidden(child, true).bySelf) {
+			continue;
+		}
+		text.push(...findTextNodes(child, options));
 	}
 	return text;
 }

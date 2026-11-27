@@ -23,7 +23,10 @@ describe("rule no-redundant-aria-label", () => {
 
 	it("should not report when input is missing label", async () => {
 		expect.assertions(1);
-		const markup = /* HTML */ ` <input aria-label="lorem ipsum" /> `;
+		const markup = /* HTML */ `
+			<input aria-label="lorem ipsum" />
+			<input id="foo" aria-label="lorem ipsum" />
+		`;
 		const report = await htmlvalidate.validateString(markup);
 		expect(report).toBeValid();
 	});
