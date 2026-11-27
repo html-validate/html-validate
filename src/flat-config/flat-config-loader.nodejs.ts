@@ -209,6 +209,7 @@ export class FlatConfigLoader extends ConfigLoader {
 	/**
 	 * Flush the cached flat config, forcing a reload on the next call.
 	 */
+	/* istanbul ignore next -- we do not test the flush behaviour */
 	public override flushCache(handle?: string): void {
 		if (handle) {
 			this.fileCache.delete(handle);

@@ -603,6 +603,8 @@ export class Parser {
 
 		/* trigger event for for an element being fully constructed. Special care
 		 * for void elements explicit closed <input></input> */
+		/* istanbul ignore next -- closeElement() only reaches this point for a
+		 * real element; root mismatch cases return before the element-ready event. */
 		if (!active.isRootElement()) {
 			this.trigger("element:ready", {
 				target: active,
