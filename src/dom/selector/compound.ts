@@ -47,9 +47,9 @@ export class Compound {
 				return createAttributeCondition(pattern.slice(1, -1));
 			case ":":
 				return createPseudoClassCondition(pattern.slice(1), this.selector);
+			/* istanbul ignore next: fallback solution, splitCompound() only yields
+			 * delimiter-prefixed conditions, so this branch is unreachable */
 			default:
-				/* istanbul ignore next: fallback solution, the switch cases should cover
-				 * everything and there is no known way to trigger this fallback */
 				throw new Error(`Failed to create selector condition for "${pattern}"`);
 		}
 	}

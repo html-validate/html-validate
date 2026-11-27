@@ -16,7 +16,6 @@ import {
 	TokenType,
 } from "../lexer";
 import { type Location } from "../location";
-import { type MetaElement } from "../meta";
 import "html-validate/jest";
 import { codeFrameColumns } from "../utils/code-frame-columns";
 import { dumpTree } from "../utils/dump-tree";
@@ -1548,27 +1547,42 @@ describe("parser", () => {
 	});
 
 	describe("should handle optional end tags", () => {
-		it("should not omit end tag when parent matches content category", () => {
-			expect.assertions(1);
-			const location: Location = {
-				filename: "inline",
-				line: 1,
-				column: 1,
-				offset: 0,
-				size: 1,
-			};
-			const parent = HtmlElement.createElement("x-parent", location, {
-				meta: { tagName: "x-parent", flow: true } as MetaElement,
-			});
-			const child = HtmlElement.createElement("x-child", location, {
-				meta: {
-					tagName: "x-child",
+		it("should not omit end tag when parent matches content category", async () => {
+			expect.assertions(3);
+			const resolved = await Config.empty().resolve();
+			resolved.getMetaTable().loadFromObject({
+				"x-parent": { flow: true },
+				"x-child": {
 					optionalEnd: true,
 					optionalEndExcludedParents: ["@flow"],
-				} as MetaElement,
-				parent,
+				},
 			});
-			expect(canOmitEndTag(child)).toBe(false);
+			const custom = new Parser(resolved);
+			const markup = /* RAW */ ` <x-parent><x-child>foo</x-parent> `;
+			const document = custom.parseHtml(markup);
+			const parent = document.querySelector("x-parent")!;
+			const child = document.querySelector("x-child")!;
+			expect(canOmitEndTag(child)).toBeFalsy();
+			expect(child.parent).toBe(parent);
+			expect(child.endTagLocation).toBeNull();
+		});
+
+		it("should omit end tag when metadata-less parent does not match content category", async () => {
+			expect.assertions(3);
+			const resolved = await Config.empty().resolve();
+			resolved.getMetaTable().loadFromObject({
+				"x-child": {
+					optionalEnd: true,
+					optionalEndExcludedParents: ["@flow"],
+				},
+			});
+			const parser = new Parser(resolved);
+			const markup = /* RAW */ ` "<x-parent><x-child>foo</x-parent>" `;
+			const document = parser.parseHtml(markup);
+			const child = document.querySelector("x-child")!;
+			expect(canOmitEndTag(child)).toBeTruthy();
+			expect(child.parent?.tagName).toBe("x-parent");
+			expect(child.endTagLocation).toBeNull();
 		});
 
 		it("<li>", () => {
@@ -2411,6 +2425,15 @@ describe("parser", () => {
 			]);
 		});
 
+		it("svg title should consume unmatched nested tags", () => {
+			expect.assertions(2);
+			const document = parser.parseHtml("<svg><title><g></g></title></svg>");
+			expect(document.childElements.map((it) => it.tagName)).toEqual(["svg"]);
+			expect(document.querySelector("svg")?.childElements.map((it) => it.tagName)).toEqual([
+				"svg:title",
+			]);
+		});
+
 		it("svg with desc end tag differing in case", () => {
 			expect.assertions(4);
 			const document = parser.parseHtml("<svg><desc></DESC></svg><p></p>");
@@ -2745,6 +2768,52 @@ describe("parser", () => {
 			expect.assertions(1);
 			const report = await htmlvalidate.validateFile("./test-files/parser/cdata.html");
 			expect(report).toBeValid();
+		});
+	});
+
+	describe("consumeUntilMatchingTag()", () => {
+		it("should distinguish unmatched and matching nested foreign tags", () => {
+			expect.assertions(1);
+			parser.parseHtml("<svg></svg>");
+			const source: Source = {
+				data: "<g></title>",
+				filename: "inline",
+				line: 1,
+				column: 1,
+				offset: 0,
+			};
+			const tokenStream: TokenStream = [
+				{
+					type: TokenType.TAG_OPEN,
+					location: { filename: "inline", offset: 0, line: 1, column: 1, size: 2 },
+					data: ["<g", "", "g"],
+				} as TagOpenToken,
+				{
+					type: TokenType.TAG_CLOSE,
+					location: { filename: "inline", offset: 2, line: 1, column: 3, size: 1 },
+					data: [">"],
+				} as TagCloseToken,
+				{
+					type: TokenType.TAG_OPEN,
+					location: { filename: "inline", offset: 3, line: 1, column: 4, size: 7 },
+					data: ["</title", "/", "title"],
+				} as TagOpenToken,
+				{
+					type: TokenType.TAG_CLOSE,
+					location: { filename: "inline", offset: 10, line: 1, column: 11, size: 1 },
+					data: [">"],
+				} as TagCloseToken,
+			][Symbol.iterator]();
+			const exposed = parser as unknown as {
+				consumeUntilMatchingTag: (
+					source: Source,
+					tokenStream: TokenStream,
+					searchTag: string,
+				) => void;
+			};
+			expect(() => {
+				exposed.consumeUntilMatchingTag.call(parser, source, tokenStream, "title");
+			}).not.toThrow();
 		});
 	});
 
