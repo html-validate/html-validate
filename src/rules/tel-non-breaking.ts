@@ -181,7 +181,9 @@ export default class TelNonBreaking extends Rule<RuleContext, RuleOptions> {
 		for (const child of node.childNodes) {
 			if (isTextNode(child)) {
 				this.detectDisallowed(anchor, child);
-			} else if (isElementNode(child)) {
+			}
+
+			if (isElementNode(child)) {
 				this.walk(anchor, child);
 			}
 		}
