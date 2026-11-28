@@ -290,7 +290,7 @@
     "markdownlint-cli2": "0.24.2",
     "markdownlint-rule-max-one-sentence-per-line": "0.0.2",
     "memfs": "4.80.1",
-    "npm-pkg-lint": "5.5.0",
+    "npm-pkg-lint": "5.5.1",
     "npm-run-all2": "9.1.0",
     "rollup": "4.68.8",
     "rollup-plugin-esbuild": "6.2.1",
